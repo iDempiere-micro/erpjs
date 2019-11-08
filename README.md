@@ -1,5 +1,7 @@
 # @erpjs
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/2bcf52b02cc9ffe4979f/maintainability)](https://codeclimate.com/github/iDempiere-micro/erpjs/maintainability)
+
 ## @erpjs API server
 
 Run `AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET ng serve api` for a dev API server. Navigate to http://localhost:3333/api/hello. The app will automatically reload if you change any of the source files.
