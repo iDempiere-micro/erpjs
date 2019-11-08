@@ -1,0 +1,73 @@
+{
+  "auth0-domain": {
+    "searchPatterns": [
+      "cloudfoundry:erp-auth0-domain",
+      "env:AUTH0_DOMAIN",
+      "file:/auth_config_server.json:$.domain"
+    ]
+  },
+  "auth0-clientId": {
+    "searchPatterns": [
+      "cloudfoundry:erp-auth0-clientId",
+      "env:AUTH0_CLIENT_ID",
+      "file:/auth_config_server.json:$.clientId"
+    ]
+  },
+  "auth0-clientSecret": {
+    "searchPatterns": [
+      "cloudfoundry:erp-auth0-clientSecret",
+      "env:AUTH0_CLIENT_SECRET",
+      "file:/auth_config_server.json:$.clientSecret"
+    ]
+  },
+  "db-host": {
+    "searchPatterns": [
+      "cloudfoundry:erp-db-host",
+      "env:DB_HOST",
+      "file:/auth_config_server.json:$.dbHost"
+    ]
+  },
+  "db-name": {
+    "searchPatterns": [
+      "cloudfoundry:erp-db-name",
+      "env:DB_NAME",
+      "file:/auth_config_server.json:$.dbName"
+    ]
+  },
+  "db-user": {
+    "searchPatterns": [
+      "cloudfoundry:erp-db-user",
+      "env:DB_USER",
+      "file:/auth_config_server.json:$.dbUser"
+    ]
+  },
+  "db-password": {
+    "searchPatterns": [
+      "cloudfoundry:erp-db-password",
+      "env:DB_PASSWORD",
+      "file:/auth_config_server.json:$.dbPassword"
+    ]
+  },
+  "db-ssl": {
+    "searchPatterns": [
+      "cloudfoundry:erp-db-ssl",
+      "env:DB_SSL",
+      "file:/auth_config_server.json:$.dbSsl"
+    ]
+  },
+  "db-port": {
+    "searchPatterns": [
+      "cloudfoundry:erp-db-port",
+      "env:DB_PORT",
+      "file:/auth_config_server.json:$.dbPort"
+    ]
+  },
+  "port": {
+    "searchPatterns": [
+      "cloudfoundry:erp-port",
+      "env:PORT",
+      "env:port",
+      "file:/auth_config_server.json:$.port"
+    ]
+  }
+}

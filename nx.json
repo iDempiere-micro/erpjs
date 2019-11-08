@@ -1,0 +1,36 @@
+{
+  "npmScope": "erp",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "erp-e2e": {
+      "tags": []
+    },
+    "erp": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    },
+    "api-sls": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    },
+    "data": {
+      "tags": []
+    },
+    "model": {
+      "tags": []
+    },
+    "util": {
+      "tags": []
+    }
+  }
+}

@@ -1,0 +1,226 @@
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+        .invoice-box table tr.total td:nth-child(2) {
+            font-weight: bold;
+        }
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="6">
+                <table>
+                    <tr>
+                        <td class="title">
+                        </td>
+                        <td>
+                            <h2>Faktura{{#if vatRegistered}} - daňový doklad{{/if}} {{invoiceNumber}}</h2>
+{{#if vatRegistered}}
+    DUZP: {{transactionDatePrintable}}
+{{/if}}
+                            <br> Vytvořena: {{issuedOnPrintable}}
+                            <br> Splatná: {{dueDatePrintable}}
+                            <br> Variabilní symbol platby: {{invoiceNumber}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="information ">
+            <td colspan="6 ">
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Dodavatel:</strong><br>
+                          {{seller.name}}<br>
+                          {{seller.road}}<br>
+                          {{seller.zipCode}} {{seller.city}}<br>
+                          {{seller.country}}<br>
+{{#if vatRegistered}}
+                            <strong>DIČ: {{seller.vatNumber}}</strong> IČ: {{seller.idNumber}}<br>
+{{/if}}
+                          {{seller.registration}}<br>
+                            <br>
+                            ČR Účet: {{payTo}}<br>
+                            IBAN: {{iban}}<br>
+                            SWIFT: {{swift}}<br>
+                            Kontakt: {{sellerContact}}<br>
+                        </td>
+                        <td>
+                            <strong>Odběratel:</strong><br>
+                          {{buyer.name}}<br>
+                          {{buyer.road}}<br>
+                          {{buyer.zipCode}} {{buyer.city}}<br>
+                          {{buyer.country}}<br>
+{{#if vatRegistered}}
+        <strong>DIČ: {{buyer.vatNumber}}</strong><br>
+{{/if}}
+                          Kontakt: {{buyerEmail}}<br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="heading ">
+            <td>
+                Položka
+            </td>
+            <td>
+              {{currency}}/1
+            </td>
+            <td>
+                Jednotek
+            </td>
+{{#if vatRegistered}}
+        <td>
+                Základ {{currency}}
+            </td>
+            <td>
+                Sazba
+            </td>
+{{/if}}
+            <td>
+                Celkem {{currency}}
+            </td>
+        </tr>
+      {{#each items}}
+          <tr>
+              <td>
+                {{name}}
+              </td>
+              <td>
+                {{itemPrice}}
+              </td>
+              <td>
+                {{items}}
+              </td>
+{{#if ../vatRegistered}}
+                  <td>
+                {{totalLine}}
+              </td>
+              <td>
+                {{vatRatePercent}}
+              </td>
+{{/if}}
+              <td>
+                {{totalLineToBePaid}}
+              </td>
+          </tr>
+          <tr class="item">
+              <td colspan="6">
+                {{description}}
+              </td>
+          </tr>
+      {{/each}}
+        <tr class="total ">
+            <td colspan="2"></td>
+            <td colspan="4">
+                <table>
+                    {{#if printRate}}
+                    <tr>
+                        <td>Kurz
+                        </td>
+                        <td>1 {{currency}} = {{currencyMultiplyingRateToAccountingSchemeCurrency}} {{accountingSchemeCurrency}}
+                        </td>
+                    </tr>
+                    {{/if}}
+{{#if vatRegistered}}
+                      <tr>
+                        <td>Základ daně
+                        </td>
+                        <td>{{totalLinesAccountingSchemeCurrency}} {{accountingSchemeCurrency}} {{#if printRate}}= {{totalLines}} {{currency}}{{/if}}
+                        </td>
+                    </tr>
+{{#each vatReport}}
+                    <tr>
+                        <td>{{vatRatePercent}}% DPH
+                        </td>
+                        <td>{{vatTotalAccountingSchemeCurrency}} {{../accountingSchemeCurrency}}
+                        </td>
+                    </tr>
+{{/each}}
+{{/if}}
+                    <tr>
+                        <td>Celkem k platbě
+                        </td>
+                        <td>{{grandTotal}} {{currency}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<div><small>Děkujeme, že jste si vybrali naši společnost. Uhraďte prosím částku {{grandTotal}} {{currency}} pod variabilním symbolem {{invoiceNumber}} tak, aby byla
+    připsána na náš účet {{#if printRate}}{{iban}}{{/if}} nejpozději dne {{dueDatePrintable}}. {{#if printRate}}Úhradu můžete
+    provést také v {{accountingSchemeCurrency}} ve výši {{grandTotalAccountingSchemeCurrency}} {{accountingSchemeCurrency}} na náš účet {{payTo}},
+    tím přistupujete na dohodu o změně platebních podmínek (platba v
+    Kč, přepočet kursem na faktuře).{{/if}} Věříme, že jste s našimi služby spokojeni a těšíme se na úspěšnou a dlouhodobou spolupráci.
+</small>
+</div>
+</body>
+</html>

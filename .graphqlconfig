@@ -1,0 +1,24 @@
+{
+  "name": "@erp GraphQL Schema",
+  "schemaPath": "schema.gql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://localhost:3333/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5qZzFPRUUwTjBGRVEwRkJOak5HT1RoRVFrTTBRVUk1TUVNMlJrUkNSamMyTlRnd05rWkVRdyJ9.eyJpc3MiOiJodHRwczovL2VycGpzLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGEwM2M1MWU2YjkzZDBlMjA3OTI1MTEiLCJhdWQiOlsiQGVycGpzIiwiaHR0cHM6Ly9lcnBqcy5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTcyNjE4NjY2LCJleHAiOjE1NzI3MDUwNjYsImF6cCI6IjBTTkN6SU9SQjRBVTJQSDl5cmdMNEVHcnV1MFpURW55Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.gFbwH0UXdsYPu-7z9PPWJy4F8Rvg4AsApcZ8xKbFZu5gyMIDGz6Nuw-Jh8wkSvktUFAAIb6_aY_Cxx4jd_KR_iZl6RnWKofUfxb40sZ33EEeJkuCm3i5qHpTxK1VyFALVBKv47IMqQfDnxu7wwdr8nelShZOvzoUYqRmTFcoZoi77UX15mkgCrzFFu3uE5h8QjHE0rZtUi2kOKG5-OnNb7hjatXb_8GwVtBqzJ7qDC8MGgyRa61jLkzZboViC9BU94concbyJSteLqOKJq2aDGVTMLf-PNTMcrXwF4XGgfPCHppIeGfDVupChQH3P9f7BLJp7_d4SXQMJyBbLHT-jw"
+        },
+        "introspect": false
+      },
+      "Docker GraphQL Endpoint": {
+        "url": "http://localhost:3000/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5qZzFPRUUwTjBGRVEwRkJOak5HT1RoRVFrTTBRVUk1TUVNMlJrUkNSamMyTlRnd05rWkVRdyJ9.eyJpc3MiOiJodHRwczovL2VycGpzLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZGEwM2M1MWU2YjkzZDBlMjA3OTI1MTEiLCJhdWQiOlsiQGVycGpzIiwiaHR0cHM6Ly9lcnBqcy5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNTcyNjE4NjY2LCJleHAiOjE1NzI3MDUwNjYsImF6cCI6IjBTTkN6SU9SQjRBVTJQSDl5cmdMNEVHcnV1MFpURW55Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCJ9.gFbwH0UXdsYPu-7z9PPWJy4F8Rvg4AsApcZ8xKbFZu5gyMIDGz6Nuw-Jh8wkSvktUFAAIb6_aY_Cxx4jd_KR_iZl6RnWKofUfxb40sZ33EEeJkuCm3i5qHpTxK1VyFALVBKv47IMqQfDnxu7wwdr8nelShZOvzoUYqRmTFcoZoi77UX15mkgCrzFFu3uE5h8QjHE0rZtUi2kOKG5-OnNb7hjatXb_8GwVtBqzJ7qDC8MGgyRa61jLkzZboViC9BU94concbyJSteLqOKJq2aDGVTMLf-PNTMcrXwF4XGgfPCHppIeGfDVupChQH3P9f7BLJp7_d4SXQMJyBbLHT-jw"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

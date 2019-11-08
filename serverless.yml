@@ -1,0 +1,47 @@
+org: davidpodhola
+app: erpjs
+service: erpjs
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment:
+    AUTH0_DOMAIN: ${env:AUTH0_DOMAIN}
+    AUTH0_CLIENT_ID: ${env:AUTH0_CLIENT_ID}
+    AUTH0_CLIENT_SECRET: ${env:AUTH0_CLIENT_SECRET}
+    DB_HOST: ${env:DB_HOST}
+    DB_NAME: ${env:DB_NAME}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_SSL: ${env:DB_SSL}
+    DB_PORT: ${env:DB_PORT}
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-warmup
+
+package:
+  exclude:
+    - .git/**
+    - src/**
+    - test/**
+    - e2e/**
+    - nodemon.json
+    - README.md
+
+functions:
+  index:
+    handler: ./main.handler
+    events:
+    - http:
+        cors: true
+        path: '/'
+        method: any
+    - http:
+        cors: true
+        path: '{proxy+}'
+        method: any
+
+custom:
+  warmup:
+    enabled: true # Whether to warm up functions by default or not

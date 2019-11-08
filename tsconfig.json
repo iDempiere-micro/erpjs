@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom", "esnext.asynciterable"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "paths": {
+      "@erpjs/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@erpjs/data": ["libs/data/src/index.ts"],
+      "@erpjs/model": ["libs/model/src/index.ts"],
+      "@erpjs/util": ["libs/util/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

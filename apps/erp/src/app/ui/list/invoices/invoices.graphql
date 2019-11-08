@@ -1,0 +1,10 @@
+query salesInvoices {invoices{
+  id updtTs updtOpId isActive isCurrent grandTotalAccountingSchemeCurrency dueDate
+  issuedOn
+  organization {id }
+  currency {id displayName isoCode}
+  isDraft isCalculated documentNo
+  customer {id displayName legalName}
+  grandTotal narration totalLines totalLinesAccountingSchemeCurrency
+  currencyMultiplyingRateToAccountingSchemeCurrency transactionDate printed
+}}
