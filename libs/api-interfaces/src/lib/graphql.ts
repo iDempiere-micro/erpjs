@@ -11,6 +11,7 @@ export interface Scalars {
   Float: number,
   /** Date custom scalar type */
   Date: any,
+  DateTime: any,
 }
 
 
@@ -57,7 +58,7 @@ export interface Address {
 
 export interface AddressSaveArgs {
   city: Scalars['String'],
-  countryId: Scalars['Float'],
+  countryIsoCode: Scalars['String'],
   line1: Scalars['String'],
   zipCode: Scalars['String'],
 }
@@ -74,6 +75,9 @@ export interface AppUser {
   name?: Maybe<Scalars['String']>,
   identities?: Maybe<Array<UserIdentity>>,
   organizations?: Maybe<Array<UserToOrganization>>,
+  owningTasks?: Maybe<Array<Task>>,
+  solvingTasks?: Maybe<Array<Task>>,
+  ownCalendar?: Maybe<Array<CalendarActivity>>,
 }
 
 export interface Bank {
@@ -106,6 +110,21 @@ export interface BankAccount {
 
 export interface BaseSaveArgs {
   id?: Maybe<Scalars['Float']>,
+}
+
+export interface CalendarActivity {
+   __typename?: 'CalendarActivity',
+  id: Scalars['Float'],
+  updtTs: Scalars['Date'],
+  updtOpId: Scalars['Float'],
+  isActive: Scalars['Boolean'],
+  isCurrent: Scalars['Boolean'],
+  customer: Customer,
+  displayName: Scalars['String'],
+  end: Scalars['DateTime'],
+  location?: Maybe<Scalars['String']>,
+  start: Scalars['DateTime'],
+  owner: AppUser,
 }
 
 export interface Country {
@@ -146,6 +165,8 @@ export interface Customer {
   legalName: Scalars['String'],
   vatNumber?: Maybe<Scalars['String']>,
   salesInvoices?: Maybe<Array<SalesInvoice>>,
+  calendarActivities?: Maybe<Array<CalendarActivity>>,
+  tasks?: Maybe<Array<Task>>,
   invoicingEmail: Scalars['String'],
 }
 
@@ -157,6 +178,7 @@ export interface CustomerSaveArgs {
   legalName: Scalars['String'],
   invoicingEmail: Scalars['String'],
 }
+
 
 
 export interface DocumentNumberSequence {
@@ -201,6 +223,7 @@ export interface Mutation {
    __typename?: 'Mutation',
   setIsCurrent: GenericEntityResult,
   customer: Customer,
+  task: Task,
 }
 
 
@@ -211,6 +234,11 @@ export interface MutationSetIsCurrentArgs {
 
 export interface MutationCustomerArgs {
   args: CustomerSaveArgs
+}
+
+
+export interface MutationTaskArgs {
+  args: TaskSaveArgs
 }
 
 export interface Organization {
@@ -250,14 +278,23 @@ export interface Product {
 export interface Query {
    __typename?: 'Query',
   getIsCurrent: Array<GenericEntityResult>,
-  now: Scalars['Date'],
+  now: Scalars['DateTime'],
   customers: Array<Customer>,
+  customerById: Customer,
   invoices: Array<SalesInvoice>,
+  tasks: Array<Task>,
+  calendarActivities: Array<CalendarActivity>,
+  users: Array<AppUser>,
 }
 
 
 export interface QueryGetIsCurrentArgs {
   args: GenericEntityArgs
+}
+
+
+export interface QueryCustomerByIdArgs {
+  id: Scalars['Int']
 }
 
 export interface SalesInvoice {
@@ -304,6 +341,7 @@ export interface SalesInvoiceLine {
   product: Product,
   quantity: Scalars['Float'],
   invoice: SalesInvoice,
+  task: Task,
   narration: Scalars['String'],
 }
 
@@ -320,6 +358,33 @@ export interface SalesInvoiceVat {
   vatTotalRaw: Scalars['Float'],
   vatTotalAccountingSchemeCurrency: Scalars['Float'],
   vatTotal: Scalars['Float'],
+}
+
+export interface Task {
+   __typename?: 'Task',
+  id: Scalars['Float'],
+  updtTs: Scalars['Date'],
+  updtOpId: Scalars['Float'],
+  isActive: Scalars['Boolean'],
+  isCurrent: Scalars['Boolean'],
+  completed: Scalars['Boolean'],
+  customer: Customer,
+  description?: Maybe<Scalars['String']>,
+  displayName: Scalars['String'],
+  dueDate: Scalars['Date'],
+  invoiceLines?: Maybe<Array<SalesInvoiceLine>>,
+  workLogs?: Maybe<Array<WorkLog>>,
+  owner: AppUser,
+  responsible: AppUser,
+}
+
+export interface TaskSaveArgs {
+  id?: Maybe<Scalars['Float']>,
+  customerId: Scalars['Float'],
+  dueDate: Scalars['Date'],
+  ownerId: Scalars['Float'],
+  responsibleId: Scalars['Float'],
+  displayName: Scalars['String'],
 }
 
 export interface Tax {
@@ -371,6 +436,53 @@ export interface VatRegistration {
   end?: Maybe<Scalars['Date']>,
 }
 
+export interface WorkLog {
+   __typename?: 'WorkLog',
+  id: Scalars['Float'],
+  updtTs: Scalars['Date'],
+  updtOpId: Scalars['Float'],
+  isActive: Scalars['Boolean'],
+  isCurrent: Scalars['Boolean'],
+  displayName: Scalars['String'],
+  durationInMinutes: Scalars['Float'],
+  task: Task,
+}
+
+export type CustomerDetailPartsFragment = (
+  { __typename?: 'Customer' }
+  & Pick<Customer, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName' | 'legalName' | 'vatNumber' | 'invoicingEmail'>
+  & { legalAddress: (
+    { __typename?: 'Address' }
+    & Pick<Address, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'line1' | 'city' | 'zipCode'>
+    & { country: (
+      { __typename?: 'Country' }
+      & Pick<Country, 'id' | 'displayName' | 'isoCode'>
+    ) }
+  ), salesInvoices: Maybe<Array<(
+    { __typename?: 'SalesInvoice' }
+    & SalesInvoiceListPartsFragment
+  )>>, calendarActivities: Maybe<Array<(
+    { __typename?: 'CalendarActivity' }
+    & CalendarActivityListPartsFragment
+  )>>, tasks: Maybe<Array<(
+    { __typename?: 'Task' }
+    & TaskListPartsFragment
+  )>> }
+);
+
+export interface CustomerByIdQueryVariables {
+  id: Scalars['Int']
+}
+
+
+export type CustomerByIdQuery = (
+  { __typename?: 'Query' }
+  & { customerById: (
+    { __typename?: 'Customer' }
+    & CustomerDetailPartsFragment
+  ) }
+);
+
 export interface CustomerMutationVariables {
   args: CustomerSaveArgs
 }
@@ -392,6 +504,55 @@ export type CustomerMutation = (
   ) }
 );
 
+export interface TaskMutationVariables {
+  args: TaskSaveArgs
+}
+
+
+export type TaskMutation = (
+  { __typename?: 'Mutation' }
+  & { task: (
+    { __typename?: 'Task' }
+    & TaskListPartsFragment
+  ) }
+);
+
+export type CalendarActivityListPartsFragment = (
+  { __typename?: 'CalendarActivity' }
+  & Pick<CalendarActivity, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName' | 'start' | 'end'>
+  & { owner: (
+    { __typename?: 'AppUser' }
+    & UserListPartsFragment
+  ), customer: (
+    { __typename?: 'Customer' }
+    & CustomerListPartsFragment
+  ) }
+);
+
+export interface CalendarActivitiesQueryVariables {}
+
+
+export type CalendarActivitiesQuery = (
+  { __typename?: 'Query' }
+  & { calendarActivities: Array<(
+    { __typename?: 'CalendarActivity' }
+    & CalendarActivityListPartsFragment
+  )> }
+);
+
+export type CustomerListPartsFragment = (
+  { __typename?: 'Customer' }
+  & Pick<Customer, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName' | 'legalName' | 'vatNumber' | 'invoicingEmail'>
+  & { legalAddress: (
+    { __typename?: 'Address' }
+    & Pick<Address, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'line1' | 'city' | 'zipCode'>
+    & { country: (
+      { __typename?: 'Country' }
+      & Pick<Country, 'id' | 'displayName' | 'isoCode'>
+    ) }
+  ) }
+);
+
 export interface CustomersQueryVariables {}
 
 
@@ -399,16 +560,23 @@ export type CustomersQuery = (
   { __typename?: 'Query' }
   & { customers: Array<(
     { __typename?: 'Customer' }
-    & Pick<Customer, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName' | 'legalName' | 'vatNumber' | 'invoicingEmail'>
-    & { legalAddress: (
-      { __typename?: 'Address' }
-      & Pick<Address, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'line1' | 'city' | 'zipCode'>
-      & { country: (
-        { __typename?: 'Country' }
-        & Pick<Country, 'id' | 'displayName' | 'isoCode'>
-      ) }
-    ) }
+    & CustomerListPartsFragment
   )> }
+);
+
+export type SalesInvoiceListPartsFragment = (
+  { __typename?: 'SalesInvoice' }
+  & Pick<SalesInvoice, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'grandTotalAccountingSchemeCurrency' | 'dueDate' | 'issuedOn' | 'isDraft' | 'isCalculated' | 'documentNo' | 'grandTotal' | 'narration' | 'totalLines' | 'totalLinesAccountingSchemeCurrency' | 'currencyMultiplyingRateToAccountingSchemeCurrency' | 'transactionDate' | 'printed'>
+  & { organization: (
+    { __typename?: 'Organization' }
+    & Pick<Organization, 'id'>
+  ), currency: (
+    { __typename?: 'Currency' }
+    & Pick<Currency, 'id' | 'displayName' | 'isoCode'>
+  ), customer: (
+    { __typename?: 'Customer' }
+    & Pick<Customer, 'id' | 'displayName' | 'legalName'>
+  ) }
 );
 
 export interface SalesInvoicesQueryVariables {}
@@ -418,17 +586,49 @@ export type SalesInvoicesQuery = (
   { __typename?: 'Query' }
   & { invoices: Array<(
     { __typename?: 'SalesInvoice' }
-    & Pick<SalesInvoice, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'grandTotalAccountingSchemeCurrency' | 'dueDate' | 'issuedOn' | 'isDraft' | 'isCalculated' | 'documentNo' | 'grandTotal' | 'narration' | 'totalLines' | 'totalLinesAccountingSchemeCurrency' | 'currencyMultiplyingRateToAccountingSchemeCurrency' | 'transactionDate' | 'printed'>
-    & { organization: (
-      { __typename?: 'Organization' }
-      & Pick<Organization, 'id'>
-    ), currency: (
-      { __typename?: 'Currency' }
-      & Pick<Currency, 'id' | 'displayName' | 'isoCode'>
-    ), customer: (
-      { __typename?: 'Customer' }
-      & Pick<Customer, 'id' | 'displayName' | 'legalName'>
-    ) }
+    & SalesInvoiceListPartsFragment
+  )> }
+);
+
+export type TaskListPartsFragment = (
+  { __typename?: 'Task' }
+  & Pick<Task, 'id' | 'displayName' | 'dueDate'>
+  & { owner: (
+    { __typename?: 'AppUser' }
+    & UserListPartsFragment
+  ), responsible: (
+    { __typename?: 'AppUser' }
+    & UserListPartsFragment
+  ), customer: (
+    { __typename?: 'Customer' }
+    & CustomerListPartsFragment
+  ) }
+);
+
+export interface TasksQueryVariables {}
+
+
+export type TasksQuery = (
+  { __typename?: 'Query' }
+  & { tasks: Array<(
+    { __typename?: 'Task' }
+    & TaskListPartsFragment
+  )> }
+);
+
+export type UserListPartsFragment = (
+  { __typename?: 'AppUser' }
+  & Pick<AppUser, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'email' | 'username' | 'name'>
+);
+
+export interface UsersQueryVariables {}
+
+
+export type UsersQuery = (
+  { __typename?: 'Query' }
+  & { users: Array<(
+    { __typename?: 'AppUser' }
+    & UserListPartsFragment
   )> }
 );
 
@@ -440,7 +640,171 @@ export type GetServerTimeQuery = (
   & Pick<Query, 'now'>
 );
 
+export const SalesInvoiceListPartsFragmentDoc = gql`
+    fragment SalesInvoiceListParts on SalesInvoice {
+  id
+  updtTs
+  updtOpId
+  isActive
+  isCurrent
+  grandTotalAccountingSchemeCurrency
+  dueDate
+  issuedOn
+  organization {
+    id
+  }
+  currency {
+    id
+    displayName
+    isoCode
+  }
+  isDraft
+  isCalculated
+  documentNo
+  customer {
+    id
+    displayName
+    legalName
+  }
+  grandTotal
+  narration
+  totalLines
+  totalLinesAccountingSchemeCurrency
+  currencyMultiplyingRateToAccountingSchemeCurrency
+  transactionDate
+  printed
+}
+    `;
+export const UserListPartsFragmentDoc = gql`
+    fragment UserListParts on AppUser {
+  id
+  updtTs
+  updtOpId
+  isActive
+  isCurrent
+  email
+  username
+  name
+}
+    `;
+export const CustomerListPartsFragmentDoc = gql`
+    fragment CustomerListParts on Customer {
+  id
+  updtTs
+  updtOpId
+  isActive
+  isCurrent
+  displayName
+  legalName
+  vatNumber
+  legalAddress {
+    id
+    updtTs
+    updtOpId
+    isActive
+    isCurrent
+    line1
+    city
+    country {
+      id
+      displayName
+      isoCode
+    }
+    zipCode
+  }
+  invoicingEmail
+}
+    `;
+export const CalendarActivityListPartsFragmentDoc = gql`
+    fragment CalendarActivityListParts on CalendarActivity {
+  id
+  updtTs
+  updtOpId
+  isActive
+  isCurrent
+  displayName
+  start
+  end
+  owner {
+    ...UserListParts
+  }
+  customer {
+    ...CustomerListParts
+  }
+}
+    ${UserListPartsFragmentDoc}
+${CustomerListPartsFragmentDoc}`;
+export const TaskListPartsFragmentDoc = gql`
+    fragment TaskListParts on Task {
+  id
+  displayName
+  dueDate
+  owner {
+    ...UserListParts
+  }
+  responsible {
+    ...UserListParts
+  }
+  customer {
+    ...CustomerListParts
+  }
+}
+    ${UserListPartsFragmentDoc}
+${CustomerListPartsFragmentDoc}`;
+export const CustomerDetailPartsFragmentDoc = gql`
+    fragment CustomerDetailParts on Customer {
+  id
+  updtTs
+  updtOpId
+  isActive
+  isCurrent
+  displayName
+  legalName
+  vatNumber
+  legalAddress {
+    id
+    updtTs
+    updtOpId
+    isActive
+    isCurrent
+    line1
+    city
+    country {
+      id
+      displayName
+      isoCode
+    }
+    zipCode
+  }
+  invoicingEmail
+  salesInvoices {
+    ...SalesInvoiceListParts
+  }
+  calendarActivities {
+    ...CalendarActivityListParts
+  }
+  tasks {
+    ...TaskListParts
+  }
+}
+    ${SalesInvoiceListPartsFragmentDoc}
+${CalendarActivityListPartsFragmentDoc}
+${TaskListPartsFragmentDoc}`;
+export const CustomerByIdDocument = gql`
+    query customerById($id: Int!) {
+  customerById(id: $id) {
+    ...CustomerDetailParts
+  }
+}
+    ${CustomerDetailPartsFragmentDoc}`;
 
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CustomerByIdGQL extends Apollo.Query<CustomerByIdQuery, CustomerByIdQueryVariables> {
+    document = CustomerByIdDocument;
+    
+  }
 export const CustomerDocument = gql`
     mutation customer($args: CustomerSaveArgs!) {
   customer(args: $args) {
@@ -468,36 +832,43 @@ export const CustomerDocument = gql`
     document = CustomerDocument;
     
   }
+export const TaskDocument = gql`
+    mutation task($args: TaskSaveArgs!) {
+  task(args: $args) {
+    ...TaskListParts
+  }
+}
+    ${TaskListPartsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class TaskGQL extends Apollo.Mutation<TaskMutation, TaskMutationVariables> {
+    document = TaskDocument;
+    
+  }
+export const CalendarActivitiesDocument = gql`
+    query calendarActivities {
+  calendarActivities {
+    ...CalendarActivityListParts
+  }
+}
+    ${CalendarActivityListPartsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CalendarActivitiesGQL extends Apollo.Query<CalendarActivitiesQuery, CalendarActivitiesQueryVariables> {
+    document = CalendarActivitiesDocument;
+    
+  }
 export const CustomersDocument = gql`
     query customers {
   customers {
-    id
-    updtTs
-    updtOpId
-    isActive
-    isCurrent
-    displayName
-    legalName
-    vatNumber
-    legalAddress {
-      id
-      updtTs
-      updtOpId
-      isActive
-      isCurrent
-      line1
-      city
-      country {
-        id
-        displayName
-        isoCode
-      }
-      zipCode
-    }
-    invoicingEmail
+    ...CustomerListParts
   }
 }
-    `;
+    ${CustomerListPartsFragmentDoc}`;
 
   @Injectable({
     providedIn: 'root'
@@ -509,46 +880,46 @@ export const CustomersDocument = gql`
 export const SalesInvoicesDocument = gql`
     query salesInvoices {
   invoices {
-    id
-    updtTs
-    updtOpId
-    isActive
-    isCurrent
-    grandTotalAccountingSchemeCurrency
-    dueDate
-    issuedOn
-    organization {
-      id
-    }
-    currency {
-      id
-      displayName
-      isoCode
-    }
-    isDraft
-    isCalculated
-    documentNo
-    customer {
-      id
-      displayName
-      legalName
-    }
-    grandTotal
-    narration
-    totalLines
-    totalLinesAccountingSchemeCurrency
-    currencyMultiplyingRateToAccountingSchemeCurrency
-    transactionDate
-    printed
+    ...SalesInvoiceListParts
   }
 }
-    `;
+    ${SalesInvoiceListPartsFragmentDoc}`;
 
   @Injectable({
     providedIn: 'root'
   })
   export class SalesInvoicesGQL extends Apollo.Query<SalesInvoicesQuery, SalesInvoicesQueryVariables> {
     document = SalesInvoicesDocument;
+    
+  }
+export const TasksDocument = gql`
+    query tasks {
+  tasks {
+    ...TaskListParts
+  }
+}
+    ${TaskListPartsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class TasksGQL extends Apollo.Query<TasksQuery, TasksQueryVariables> {
+    document = TasksDocument;
+    
+  }
+export const UsersDocument = gql`
+    query users {
+  users {
+    ...UserListParts
+  }
+}
+    ${UserListPartsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UsersGQL extends Apollo.Query<UsersQuery, UsersQueryVariables> {
+    document = UsersDocument;
     
   }
 export const GetServerTimeDocument = gql`

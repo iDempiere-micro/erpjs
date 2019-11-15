@@ -1,30 +1,29 @@
-import { BaseService } from './base.service';
-import { BaseEntityService } from './base.entity.service';
-import { VatRegistrationModel, VatRegistrationSaveArgsModel } from '../..';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { VatRegistrationModel } from '../entities/vat.registration.model';
+import { VatRegistrationSaveArgsModel } from '../args/vat.registration.save.args.model';
 
-export abstract class VatRegistrationService extends BaseService
-  implements BaseEntityService<VatRegistrationModel, VatRegistrationSaveArgsModel> {
+export const VatRegistrationServiceKey = 'VatRegistrationService';
 
-  abstract async createEntity(): Promise<VatRegistrationModel>;
-  abstract async loadEntity(id: number): Promise<VatRegistrationModel>;
-
-  async save(args: VatRegistrationSaveArgsModel): Promise<VatRegistrationModel> {
-    const vatRegistration =
-      args.id ? await this.loadEntity(args.id) : await this.createEntity();
+export class VatRegistrationService extends BaseEntityServiceImplementation<VatRegistrationModel, VatRegistrationSaveArgsModel> {
+  protected async doSave(args: VatRegistrationSaveArgsModel, vatRegistration: VatRegistrationModel): Promise<VatRegistrationModel> {
     const organization = await this.getInjector().organizationService.loadEntity(args.registeredForOrganizationId);
     const vatRegistrations = await organization.vatRegistrations;
     // end latest valid VAT registration
     for (const oldVatRegistration of vatRegistrations){
-      if ((await oldVatRegistration.registeredIn).id === args.registeredInCountryId && !oldVatRegistration.end) {
+      if ((await oldVatRegistration.registeredIn).id === args.registeredInCountryIso && !oldVatRegistration.end) {
         oldVatRegistration.end = args.start;
       }
     }
-    vatRegistration.registeredIn = Promise.resolve(await super.loadCountry(args.registeredInCountryId));
+    vatRegistration.registeredIn = Promise.resolve(await super.loadCountryByIsoCode(args.registeredInCountryIso));
     vatRegistration.end = args.end;
     vatRegistration.vatNumber = args.vatNumber;
     vatRegistration.start = args.start;
     vatRegistration.registeredFor = Promise.resolve(organization);
 
     return vatRegistration;
+  }
+
+  typeName(): string {
+    return VatRegistrationServiceKey;
   }
 }

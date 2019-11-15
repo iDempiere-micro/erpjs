@@ -1,19 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CountryModel, CountrySaveArgsModel, CountryService } from '@erpjs/model';
-import { Country } from '../entities/country';
+import { CountryService } from '@erpjs/model';
 import { ModelModule } from '@erpjs/data';
+import { Implement } from './base.service.implementation';
 
 @Injectable()
-export class CountryServiceImplementation extends CountryService {
-  async createEntity(): Promise<Country> {
-    return new Country();
-  }
-
-  async loadEntity(id: number): Promise<Country> {
-    return await ModelModule.getEntityManager().getRepository(Country).findOne(id);
-  }
-
-  async save(args: CountrySaveArgsModel): Promise<CountryModel> {
-    return await ModelModule.getEntityManager().save(await super.save(args));
+export class CountryServiceImplementation extends Implement(CountryService) {
+  constructor() {
+    super();
+    this.getCountry = async(isoCode: string) =>
+      this.implementation.getRepository(ModelModule.getEntityManager()).findOne({where: {isoCode}})
   }
 }

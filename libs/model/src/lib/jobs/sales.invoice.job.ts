@@ -1,4 +1,5 @@
-import { DocumentNumberingServiceModel, SalesInvoiceModel } from '../..';
+import { SalesInvoiceModel } from '../entities/sales.invoice.model';
+import { DocumentNumberingServiceModel } from '../service.interfaces/document.numbering.service.model';
 
 export class SalesInvoiceJob {
   async assignDocumentNumbers(

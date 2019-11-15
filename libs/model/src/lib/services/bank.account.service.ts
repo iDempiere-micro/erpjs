@@ -1,20 +1,21 @@
-import { BaseEntityService } from './base.entity.service';
-import { BankAccountModel, BankAccountSaveArgsModel, BaseService } from '../..';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { BankAccountModel } from '../entities/bank.account.model';
+import { BankAccountSaveArgsModel } from '../args/bank.account.save.args.model';
 
-export abstract class BankAccountService extends BaseService implements BaseEntityService<BankAccountModel, BankAccountSaveArgsModel> {
-  async abstract createEntity(): Promise<BankAccountModel>;
+export const BankAccountServiceKey = 'BankAccountService';
 
-  async abstract loadEntity(id: number): Promise<BankAccountModel>;
-
-  async save(args: BankAccountSaveArgsModel): Promise<BankAccountModel> {
-    const bankAccountModel =
-      args.id ? await this.loadEntity(args.id) : await this.createEntity();
-    bankAccountModel.displayName =  args.displayName;
+export class BankAccountService extends BaseEntityServiceImplementation<BankAccountModel, BankAccountSaveArgsModel> {
+  protected async doSave(args: BankAccountSaveArgsModel, bankAccountModel: BankAccountModel): Promise<BankAccountModel> {
+    bankAccountModel.displayName = args.displayName;
     bankAccountModel.swift = args.swift;
     bankAccountModel.iban = args.iban;
     bankAccountModel.bankAccountCustomerPrintableNumber = args.bankAccountCustomerPrintableNumber;
-    bankAccountModel.bank = this.loadBank(args.bankId);
+    bankAccountModel.bank = Promise.resolve(args.bank? args.bank : await this.loadBank(args.bankId));
     return bankAccountModel;
+  }
+
+  typeName(): string {
+    return BankAccountServiceKey;
   }
 
 }

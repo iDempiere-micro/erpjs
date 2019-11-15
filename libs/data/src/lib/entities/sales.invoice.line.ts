@@ -5,6 +5,7 @@ import { ProductQuantityPriceTaxModel } from '@erpjs/model';
 import { Product } from './product';
 import { SalesInvoice } from './sales.invoice';
 import { Tax } from './tax';
+import { Task } from './task';
 
 @Entity()
 @ObjectType()
@@ -32,6 +33,10 @@ export class SalesInvoiceLine extends EntityBase implements ProductQuantityPrice
   @Field(type => SalesInvoice)
   @ManyToOne(type => SalesInvoice, salesInvoice => salesInvoice.lines, { nullable: false })
   invoice: Promise<SalesInvoice>;
+
+  @Field(type => Task)
+  @ManyToOne(type => Task, task => task.invoiceLines, { nullable: true })
+  task: Promise<Task>;
 
   @Column()
   @Field()

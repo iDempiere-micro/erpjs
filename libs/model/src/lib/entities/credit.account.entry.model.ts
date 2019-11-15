@@ -1,5 +1,6 @@
 import { BaseModel } from './base.model';
-import { HasAccount, HasAmount } from '../..';
+import { HasAmount } from '../helpers/has.amount';
+import { HasAccount } from '../helpers/has.account';
 
 export interface CreditAccountEntryModel extends BaseModel, HasAmount, HasAccount {
 

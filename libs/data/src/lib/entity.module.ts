@@ -24,6 +24,9 @@ import { AppUser } from './entities/app.user';
 import { UserToOrganization } from './entities/user.to.organization';
 import { EverythingSubscriber } from './subscriber/everything.subscriber';
 import { HistoryService } from './services/history.service';
+import { Task } from './entities/task';
+import { CalendarActivity } from './entities/calendar.activity';
+import { WorkLog } from './entities/work.log';
 
 export const entities = [
   Address,
@@ -45,6 +48,9 @@ export const entities = [
   UserIdentity,
   AppUser,
   UserToOrganization,
+  Task,
+  CalendarActivity,
+  WorkLog,
 ];
 
 export const migrations = [

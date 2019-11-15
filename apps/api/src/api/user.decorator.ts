@@ -16,5 +16,5 @@ export const User = createParamDecorator(async (data, [root, args, ctx, info]) =
   const user = ctx.req.user;
   const profile = await authZero.getUser({ id: (user as any).sub });
   const userServiceImplementation = new UserServiceImplementation();
-  return await runJob( getManager(), async () => await userServiceImplementation.handleLogin(profile, getManager()) );
+  return await runJob( getManager(), async () => await userServiceImplementation.handleLogin(profile) );
 } );

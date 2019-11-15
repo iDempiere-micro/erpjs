@@ -1,6 +1,7 @@
 import { BaseModel } from './base.model';
 import { GeneralJournalEntryModel } from './general.journal.entry.model';
-import { HasAccount, HasTransactionDate } from '../..';
+import { HasAccount } from '../helpers/has.account';
+import { HasTransactionDate } from '../helpers/has.transaction.date';
 
 export interface GeneralLedgerEntryModel extends BaseModel, HasAccount, HasTransactionDate {
   amount: number;

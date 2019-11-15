@@ -8,6 +8,28 @@ const possibleMappingFiles = [
   '/assets/mappings.json',
 ];
 
+const localSecurityFile = './auth_config_server.json';
+if (!fs.existsSync(localSecurityFile)) {
+  const AuthConfigServer = {
+    clientId: process.env.AUTH0_CLIENT_ID,
+    domain: process.env.AUTH0_DOMAIN,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    dbHost: process.env.DB_HOST,
+    dbName: process.env.DB_NAME,
+    dbUser: process.env.DB_USER,
+    dbPassword: process.env.DB_PASSWORD,
+    dbSsl: process.env.DB_SSL,
+    dbPort: process.env.DB_PORT,
+  };
+
+  if (process.env.AUTH0_CLIENT_SECRET && process.env.AUTH0_CLIENT_SECRET !== '') {
+// Generate output data
+    const outputServer = JSON.stringify(AuthConfigServer);
+// Write auth file
+    fs.writeFileSync('./auth_config_server.json', outputServer);
+  }
+}
+
 for (const possibleMappingFile of possibleMappingFiles) {
   if (fs.existsSync('.' + possibleMappingFile)) {
     IBMCloudEnv.init(possibleMappingFile);

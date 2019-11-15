@@ -6,7 +6,7 @@ export class AddressSaveArgs implements AddressSaveArgsModel {
   @Field()
   city: string;
   @Field()
-  countryId: number;
+  countryIsoCode: string;
   @Field()
   line1: string;
   @Field()

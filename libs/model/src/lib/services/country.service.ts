@@ -1,18 +1,19 @@
-import { BaseEntityService } from './base.entity.service';
-import { CountryModel, CountrySaveArgsModel } from '../..';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { CountryModel } from '../entities/country.model';
+import { CountrySaveArgsModel } from '../args/country.save.args.model';
 
-export abstract class CountryService
-  implements BaseEntityService<CountryModel, CountrySaveArgsModel>
-{
-  async abstract createEntity(): Promise<CountryModel>;
+export const CountryServiceKey = 'CountryService';
 
-  async abstract loadEntity(id: number): Promise<CountryModel>;
+export class CountryService extends BaseEntityServiceImplementation<CountryModel, CountrySaveArgsModel> {
+  getCountry: (isoCode: string) => Promise<CountryModel>;
 
-  async save(args: CountrySaveArgsModel): Promise<CountryModel> {
-    const country =
-      args.id ? await this.loadEntity(args.id) : await this.createEntity();
-    country.displayName =  args.displayName;
+  protected async doSave(args: CountrySaveArgsModel, country: CountryModel): Promise<CountryModel> {
+    country.displayName = args.displayName;
     country.isoCode = args.isoCode;
     return country;
+  }
+
+  typeName(): string {
+    return CountryServiceKey;
   }
 }

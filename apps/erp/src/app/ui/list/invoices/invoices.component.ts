@@ -1,29 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemListComponent } from '../item.list.component';
 import {
-  Currency,
-  Customer,
-  Organization,
-  SalesInvoice,
+  SalesInvoiceListPartsFragment,
   SalesInvoicesGQL,
   SalesInvoicesQuery,
   SalesInvoicesQueryVariables
 } from '@erpjs/api-interfaces';
 import { BasicStringComparator } from '../basic.string.comparator';
 import { BasicNumberComparator } from '../basic.number.comparator';
-
-type Item =     { __typename?: 'SalesInvoice' }
-  & Pick<SalesInvoice, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'grandTotalAccountingSchemeCurrency' | 'dueDate' | 'issuedOn' | 'isDraft' | 'isCalculated' | 'documentNo' | 'grandTotal' | 'narration' | 'totalLines' | 'totalLinesAccountingSchemeCurrency' | 'currencyMultiplyingRateToAccountingSchemeCurrency' | 'transactionDate' | 'printed'>
-  & { organization: (
-    { __typename?: 'Organization' }
-    & Pick<Organization, 'id'>
-    ), currency: (
-    { __typename?: 'Currency' }
-    & Pick<Currency, 'id' | 'displayName' | 'isoCode'>
-    ), customer: (
-    { __typename?: 'Customer' }
-    & Pick<Customer, 'id' | 'displayName' | 'legalName'>
-    ) };
+import { BasicDateComparator } from '../basic.date.comparator';
 
 @Component({
   selector: 'erp-invoices',
@@ -31,7 +16,7 @@ type Item =     { __typename?: 'SalesInvoice' }
       <clr-datagrid *ngIf="data">
           <clr-dg-column>ID
           </clr-dg-column>
-          <clr-dg-column [clrDgSortBy]="basicStringComparator">DocumentNo
+          <clr-dg-column [clrDgSortBy]="documentNoStringComparator">DocumentNo
               <clr-dg-string-filter [clrDgStringFilter]="filters.documentNo"></clr-dg-string-filter>
           </clr-dg-column>
           <clr-dg-column>Customer
@@ -39,9 +24,9 @@ type Item =     { __typename?: 'SalesInvoice' }
           </clr-dg-column>
           <clr-dg-column>Total Lines
           </clr-dg-column>
-          <clr-dg-column>Due
+          <clr-dg-column [clrDgSortBy]="dueDateComparator">Due
           </clr-dg-column>
-          <clr-dg-column [clrDgSortBy]="basicNumberComparator" >Grand Total (posted)
+          <clr-dg-column [clrDgSortBy]="totalLinesComparator" >Grand Total (posted)
           </clr-dg-column>
 
           <clr-dg-row *clrDgItems="let invoice of data">
@@ -50,20 +35,21 @@ type Item =     { __typename?: 'SalesInvoice' }
               <clr-dg-cell>{{invoice.customer.legalName}}</clr-dg-cell>
               <clr-dg-cell>{{invoice.totalLines}} {{invoice.currency.displayName}}</clr-dg-cell>
               <clr-dg-cell>{{invoice.dueDate | date}}</clr-dg-cell>
-              <clr-dg-cell>{{invoice.grandTotalAccountingSchemeCurrency}}</clr-dg-cell>
+              <clr-dg-cell>{{invoice.grandTotalAccountingSchemeCurrency}} Kč </clr-dg-cell>
           </clr-dg-row>
 
-          <clr-dg-footer>{{data.length}} invoices</clr-dg-footer>
+          <clr-dg-footer>{{data.length}} sales invoices</clr-dg-footer>
       </clr-datagrid>
   `,
   styles: []
 })
 export class InvoicesComponent
-  extends ItemListComponent<SalesInvoice, SalesInvoicesQuery, SalesInvoicesQueryVariables, SalesInvoicesGQL, Item>
+  extends ItemListComponent<SalesInvoiceListPartsFragment, SalesInvoicesQuery, SalesInvoicesQueryVariables, SalesInvoicesGQL>
   implements OnInit {
 
-  private basicStringComparator = new BasicStringComparator('documentNo');
-  private basicNumberComparator = new BasicNumberComparator('totalLines');
+  private documentNoStringComparator = new BasicStringComparator('documentNo');
+  private totalLinesComparator = new BasicNumberComparator('totalLines');
+  private dueDateComparator = new BasicDateComparator('dueDate');
 
   constructor(
     private salesInvoicesGQL: SalesInvoicesGQL
@@ -71,7 +57,7 @@ export class InvoicesComponent
     super();
   }
 
-  extractData(result: SalesInvoicesQuery): Array<Item> {
+  extractData(result: SalesInvoicesQuery): Array<SalesInvoiceListPartsFragment> {
     return result.invoices;
   }
 

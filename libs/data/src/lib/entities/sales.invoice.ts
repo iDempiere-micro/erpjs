@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { SalesInvoiceModel } from '@erpjs/model';
+import { SalesInvoiceModel, SalesInvoiceVatModel } from '@erpjs/model';
 import { Customer } from './customer';
 import { Organization } from './organization';
 import { Currency } from './currency';
@@ -86,7 +86,7 @@ export class SalesInvoice extends EntityBase implements SalesInvoiceModel {
 
   @Field(type => [SalesInvoiceVat], { nullable: true })
   @OneToMany(type => SalesInvoiceVat, salesInvoiceVat => salesInvoiceVat.invoice)
-  vatReport: Promise<Array<SalesInvoiceVat>>;
+  vatReport: Promise<Array<SalesInvoiceVatModel>>;
 
   @Column({nullable: true})
   @Field({nullable: true})

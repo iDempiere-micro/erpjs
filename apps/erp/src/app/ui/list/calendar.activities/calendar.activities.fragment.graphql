@@ -1,0 +1,9 @@
+fragment CalendarActivityListParts on CalendarActivity {
+  id updtTs updtOpId isActive isCurrent
+  displayName start end owner {
+    ...UserListParts
+  }
+  customer {
+    ...CustomerListParts
+  }
+}

@@ -1,6 +1,6 @@
 import { ModelConfiguration } from '../model.configuration';
-import { OrderModel } from '../..';
 import { sum } from '../../util';
+import { OrderModel } from '../entities/order.model';
 
 export class OrderService {
   constructor(private readonly modelConfiguration: ModelConfiguration) {}

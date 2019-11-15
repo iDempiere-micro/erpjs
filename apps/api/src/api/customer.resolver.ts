@@ -1,16 +1,16 @@
 import { Inject } from '@nestjs/common';
 import { Args, Mutation, Query } from '@nestjs/graphql';
 import { User as CurrentUser } from './user.decorator';
-import { Customer } from '@erpjs/data';
+import { CommonGetOneArgs, Customer } from '@erpjs/data';
 import { CustomerSaveArgs } from './args/customer.save.args';
-import { CustomerModel, CustomerService } from '@erpjs/model';
+import { CustomerModel, CustomerService, CustomerServiceKey } from '@erpjs/model';
 import { BaseEntityResolver } from './base.entity.resolver';
 
 export class CustomerResolver
 extends BaseEntityResolver<CustomerModel, CustomerSaveArgs, CustomerService>
 {
   constructor(
-    @Inject('CustomerService') private readonly customerService : CustomerService,
+    @Inject(CustomerServiceKey) private readonly customerService : CustomerService,
   ) { super(); }
 
   getCtor(): { new(...args: any[]): CustomerModel } {
@@ -26,6 +26,13 @@ extends BaseEntityResolver<CustomerModel, CustomerSaveArgs, CustomerService>
     @CurrentUser() user,
   ): Promise<Array<CustomerModel>> {
     return this.find(user);
+  }
+  @Query(returns => Customer)
+  async customerById(
+    @Args() args: CommonGetOneArgs,
+    @CurrentUser() user,
+  ): Promise<CustomerModel> {
+    return this.findById(args.id, user);
   }
 
   @Mutation(returns => Customer)

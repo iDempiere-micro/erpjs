@@ -63,9 +63,7 @@ function generatePackageJson() {
     'reflect-metadata',
     'passport', 'apollo-server-core', 'pg', 'apollo-server-express',
     'serverless-plugin-warmup',
-    '@godaddy/terminus', 'handlebars',
-    'jsreport-core', 'jsreport-handlebars',
-    'puppeteer', 'jsreport-chrome-pdf',
+    '@godaddy/terminus',
   ];
   const dependencies = implicitDeps.reduce((acc, dep) => {
     acc[dep] = packageJson.dependencies[dep];

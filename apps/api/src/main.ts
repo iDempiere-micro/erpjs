@@ -14,4 +14,7 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+// comment on Heroku (production)
+// process.on('unhandledRejection', up => { throw up })
+// then intentionally left empty
+bootstrap().then();

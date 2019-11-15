@@ -1,19 +1,5 @@
-import { AddressModel, AddressSaveArgsModel, AddressService, Injector } from '@erpjs/model';
-import { Address } from '../entities/address';
-import { ModelModule } from '@erpjs/data';
+import { AddressService } from '@erpjs/model';
+import { Implement } from './base.service.implementation';
 
-export class AddressServiceImplementation extends AddressService {
-  async loadEntity(id: number): Promise<AddressModel> {
-    return ModelModule.getEntityManager().getRepository(Address).findOne(id);
-  }
-  getInjector(): Injector {
-    return ModelModule.getInjector();
-  }
-  async createEntity(): Promise<Address> {
-    return new Address();
-  }
-
-  async save(newAddress: AddressSaveArgsModel): Promise<AddressModel> {
-    return await ModelModule.getEntityManager().save(await super.save(newAddress));
-  }
+export class AddressServiceImplementation extends Implement(AddressService) {
 }

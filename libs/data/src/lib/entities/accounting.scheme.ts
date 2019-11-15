@@ -1,7 +1,7 @@
 import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { AccountingSchemeModel } from '@erpjs/model';
+import { AccountingSchemeModel, CurrencyModel } from '@erpjs/model';
 import { Currency } from './currency';
 import { Account } from './account';
 import { Organization } from './organization';
@@ -16,7 +16,7 @@ export class AccountingScheme extends EntityBase implements AccountingSchemeMode
 
   @Field(type => Currency)
   @ManyToOne(type => Currency, currency => currency.accountingSchemas, { nullable: false })
-  currency: Promise<Currency>;
+  currency: Promise<CurrencyModel>;
 
   @Field(type => [Account], { nullable: true })
   @OneToMany(type => Account, account => account.accountingScheme)

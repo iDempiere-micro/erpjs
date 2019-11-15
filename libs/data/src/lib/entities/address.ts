@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { AddressModel } from '@erpjs/model';
+import { AddressModel, CountryModel } from '@erpjs/model';
 import { Country } from './country';
 import { Customer } from './customer';
 import { Organization } from './organization';
@@ -11,7 +11,7 @@ import { Organization } from './organization';
 export class Address extends EntityBase implements AddressModel {
   @Field(type => Country)
   @ManyToOne(type => Country, country => country.addresses, { nullable: false })
-  country: Promise<Country>;
+  country: Promise<CountryModel>;
 
   get displayName(): string {
     return `${this.line1}, ${this.zipCode} ${this.city}`;

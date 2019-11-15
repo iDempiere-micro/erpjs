@@ -107,7 +107,7 @@ export class EditCustomerComponent implements OnInit {
           legalName: this.editForm.value.legalName,
           legalAddress: {
             city: this.editForm.value.legalAddressCity,
-            countryId: 1,
+            countryIsoCode: 'CZ',
             line1: this.editForm.value.legalAddressLine1,
             zipCode: this.editForm.value.legalAddressZip,
           },

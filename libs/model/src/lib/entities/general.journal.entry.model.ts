@@ -1,4 +1,7 @@
-import { BaseModel, CreditAccountEntryModel, DebitAccountEntryModel, TransactionModel } from '../..';
+import { BaseModel } from './base.model';
+import { TransactionModel } from './transaction.model';
+import { CreditAccountEntryModel } from './credit.account.entry.model';
+import { DebitAccountEntryModel } from './debit.account.entry.model';
 
 export interface GeneralJournalEntryModel extends BaseModel {
   transaction: Promise<TransactionModel>;

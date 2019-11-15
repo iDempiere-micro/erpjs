@@ -1,7 +1,9 @@
 /**
  * Service to calculate costs of goods sold using FIFO.
  */
-import { ProductQuantityModel, ReceiptLineModel, WarehouseModel } from '../..';
+import { ReceiptLineModel } from '../entities/receipt.line.model';
+import { ProductQuantityModel } from '../helpers/product.quantity.model';
+import { WarehouseModel } from '../entities/warehouse.model';
 
 export interface FifoCostsOfGoodsSoldCalculationResult {
   costsOfGoodsSold: number;

@@ -12,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
                   <ul class="nav-list">
                       <li><a class="nav-link" href="/customers">Customers</a></li>
                       <li><a class="nav-link" href="/invoices">Invoices</a></li>
+                      <li><a class="nav-link" href="/calendarActivities">Activities</a></li>
+                      <li><a class="nav-link" href="/tasks">Tasks</a></li>
                       <li><a class="nav-link">Projects</a></li>
                       <li><a class="nav-link">Reports</a></li>
                   </ul>
@@ -20,7 +22,7 @@ import { Component, OnInit } from '@angular/core';
                   <input id="tabexample2" type="checkbox">
                   <label for="tabexample2">System</label>
                   <ul class="nav-list">
-                      <li><a class="nav-link">Users</a></li>
+                      <li><a class="nav-link" href="/users">Users</a></li>
                       <li><a class="nav-link">Settings</a></li>
                   </ul>
               </section>

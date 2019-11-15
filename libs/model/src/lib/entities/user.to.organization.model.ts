@@ -1,6 +1,8 @@
-import { OrganizationModel, UserModel } from '@erpjs/model';
+import { UserModel } from './user.model';
+import { OrganizationModel } from './organization.model';
+import { BaseModel } from './base.model';
 
-export interface UserToOrganizationModel {
-    user: Promise<UserModel<any>>;
+export interface UserToOrganizationModel extends BaseModel {
+    user: Promise<UserModel>;
     organization: Promise<OrganizationModel>;
 }

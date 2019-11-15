@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { UserProfileModel, UserProfileModelIdentity, UserService } from '@erpjs/model';
-import { AppUser, Session } from '../..';
+import { LoginHandler, UserModel, UserProfileModel, UserProfileModelIdentity, UserService } from '@erpjs/model';
+import { AppUser, ModelModule, Session } from '../..';
 import { UserIdentity } from '../entities/user.identity';
-import { EntityManager } from 'typeorm';
+import { Implement } from './base.service.implementation';
 
 const SESSION_ID = '##user##';
 
 @Injectable()
-export class UserServiceImplementation extends UserService<AppUser, EntityManager> {
+export class UserServiceImplementation extends Implement(UserService) implements LoginHandler {
   static currentUser(): AppUser {
     return Session.get(SESSION_ID);
   }
@@ -19,25 +19,40 @@ export class UserServiceImplementation extends UserService<AppUser, EntityManage
     Session.set(SESSION_ID, undefined);
   }
 
-  getCurrentUser(): AppUser {
-    return Session.get(SESSION_ID);
+  constructor() {
+    super();
+
+    this.getCurrentUser = () => Session.get(SESSION_ID);
+    this.findUserByEmail = async (email) => this.findUserByEmail1(email);
+    this.findUserIdentity = async (userProfileIdentities) => this.findUserIdentity1(userProfileIdentities);
+    this.findUser = async (userProfileModel) => this.findUser1(userProfileModel);
+    this.convertProfileIdentities
+      = async (user, userProfileIdentities) => this.convertProfileIdentities1(user, userProfileIdentities);
+    this.createNewUser = async (userProfileModel) => this.createNewUser1(userProfileModel);
   }
 
-  async findUserIdentity(userProfileIdentities: Array<UserProfileModelIdentity>, manager: EntityManager): Promise<UserIdentity> {
+  async findUserByEmail1(email: string): Promise<AppUser> {
+    const manager = ModelModule.getEntityManager();
+    if (!email) return null;
+    const found = await manager.getRepository(AppUser).findOne({where: { email }});
+    return found? found : null;
+  }
+
+  async findUserIdentity1(userProfileIdentities: Array<UserProfileModelIdentity>): Promise<UserIdentity> {
+    const manager = ModelModule.getEntityManager();
     const userId = userProfileIdentities[0].user_id;
     const provider = userProfileIdentities[0].provider;
     if (!userId || !provider) return null;
     const found = await manager.getRepository(UserIdentity).findOne({where: { externalUser: userId, provider }});
     return found? found : null;
   }
-  async findUser(userProfileModel: UserProfileModel, manager: EntityManager): Promise<AppUser> {
+  async findUser1(userProfileModel: UserProfileModel): Promise<UserModel> {
     const email = userProfileModel.email;
-    if (!email) return null;
-    const found = await manager.getRepository(AppUser).findOne({where: { email }});
-    return found? found : null;
+    return await this.findUserByEmail(email);
   }
-  async convertProfileIdentities(user: AppUser, userProfileIdentities: Array<UserProfileModelIdentity>, context: EntityManager):
+  async convertProfileIdentities1(user: UserModel, userProfileIdentities: Array<UserProfileModelIdentity>):
     Promise<Array<UserIdentity>> {
+    const manager = ModelModule.getEntityManager();
     const result : Array<UserIdentity> = [];
     for( const userProfileIdentity of userProfileIdentities ) {
       const userIdentity = new UserIdentity();
@@ -45,7 +60,7 @@ export class UserServiceImplementation extends UserService<AppUser, EntityManage
       userIdentity.provider = userProfileIdentity.provider;
       userIdentity.user = Promise.resolve(user);
       try {
-        await context.save(userIdentity);
+        await manager.save(userIdentity);
         result.push(userIdentity);
       } catch (err) {
         console.log('FAILED:', err);
@@ -54,7 +69,8 @@ export class UserServiceImplementation extends UserService<AppUser, EntityManage
     }
     return result;
   }
-  async createNewUser(userProfileModel: UserProfileModel, manager: EntityManager): Promise<AppUser> {
+  async createNewUser1(userProfileModel: UserProfileModel): Promise<AppUser> {
+    const manager = ModelModule.getEntityManager();
     const result = new AppUser();
     result.email = userProfileModel.email;
     result.name = userProfileModel.name;
@@ -67,5 +83,11 @@ export class UserServiceImplementation extends UserService<AppUser, EntityManage
     await manager.save(userIdentity);
     result.identities = Promise.resolve([userIdentity]);
     return result;
+  }
+
+  async handleLogin(
+    login: UserProfileModel,
+  ): Promise<UserModel> {
+    return await super.handleLogin(login);
   }
 }

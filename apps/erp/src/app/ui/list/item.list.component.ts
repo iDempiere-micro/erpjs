@@ -1,11 +1,11 @@
 import * as Apollo from 'apollo-angular';
 import { map } from 'rxjs/operators';
-import { OnInit } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { BasicItemFilter } from './basic.item.filter';
 
-export abstract class ItemListComponent<T, TQ, TV, Q extends Apollo.Query<TQ, TV>, TM>
+export abstract class ItemListComponent<TM, TQ, TV, Q extends Apollo.Query<TQ, TV>>
   implements OnInit {
-  public data: Array<TM>;
+  @Input() public data: Array<TM>;
   public filters: any = {};
 
   public abstract getQuery(): Q;
@@ -18,7 +18,9 @@ export abstract class ItemListComponent<T, TQ, TV, Q extends Apollo.Query<TQ, TV
   }
 
   async ngOnInit() {
-    this.data = await this.getQuery().fetch().pipe(map((result) => this.extractData(result.data))).toPromise();
+    if (!this.data) {
+      this.data = await this.getQuery().fetch().pipe(map((result) => this.extractData(result.data))).toPromise();
+    }
   }
 
 }

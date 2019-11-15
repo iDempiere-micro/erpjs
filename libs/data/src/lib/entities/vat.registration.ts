@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { OrganizationModel, VatRegistrationModel } from '@erpjs/model';
+import { CountryModel, OrganizationModel, VatRegistrationModel } from '@erpjs/model';
 import { Country } from './country';
 import { Organization } from './organization';
 
@@ -14,7 +14,7 @@ export class VatRegistration extends EntityBase implements VatRegistrationModel 
 
   @Field(type => Country)
   @ManyToOne(type => Country, country => country.vatRegistrations, { nullable: false })
-  registeredIn: Promise<Country>;
+  registeredIn: Promise<CountryModel>;
 
   @Field(type => Organization)
   @ManyToOne(type => Organization, organization => organization.vatRegistrations, { nullable: false })

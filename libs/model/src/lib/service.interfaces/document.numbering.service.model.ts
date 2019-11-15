@@ -1,4 +1,5 @@
-import { BaseModel, OrganizationModel } from '@erpjs/model';
+import { BaseModel } from '../entities/base.model';
+import { OrganizationModel } from '../entities/organization.model';
 
 export interface DocumentNumberingServiceModel {
   getNextDocumentNumber<M extends BaseModel>(

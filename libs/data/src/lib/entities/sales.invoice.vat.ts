@@ -31,4 +31,5 @@ export class SalesInvoiceVat extends EntityBase implements SalesInvoiceVatModel 
   @Field()
   vatTotal: number;
 
+  displayName = '';
 }

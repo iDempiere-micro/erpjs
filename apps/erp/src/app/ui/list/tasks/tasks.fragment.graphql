@@ -1,0 +1,8 @@
+fragment TaskListParts on Task {
+  id displayName dueDate
+  owner {...UserListParts}
+  responsible {...UserListParts}
+  customer {
+    ...CustomerListParts
+  }
+}

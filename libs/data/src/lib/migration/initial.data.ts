@@ -1,3 +1,6 @@
+const DataAnonymizer = require('data-anonymizer');
+export const a = new DataAnonymizer({ seed: 'my secret seed 123' });
+
 import {
   BankSaveArgsModel,
   CountrySaveArgsModel,

@@ -1,18 +1,18 @@
-import { BaseEntityService } from './base.entity.service';
-import { CurrencyModel, CurrencySaveArgsModel } from '../..';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { CurrencyModel } from '../entities/currency.model';
+import { CurrencySaveArgsModel } from '../args/currency.save.args.model';
 
-export abstract class CurrencyService
-  implements BaseEntityService<CurrencyModel, CurrencySaveArgsModel>
-{
-  async abstract createEntity(): Promise<CurrencyModel>;
+export const CurrencyServiceKey = 'CurrencyService';
 
-  async abstract loadEntity(id: number): Promise<CurrencyModel>;
+export class CurrencyService extends BaseEntityServiceImplementation<CurrencyModel, CurrencySaveArgsModel> {
+  getCurrency: (isoCode: string) => Promise<CurrencyModel>;
+  protected async doSave(args: CurrencySaveArgsModel, currency: CurrencyModel): Promise<CurrencyModel> {
+    currency.displayName = args.displayName;
+    currency.isoCode = args.isoCode;
+    return currency;
+  }
 
-  async save(args: CurrencySaveArgsModel): Promise<CurrencyModel> {
-    const Currency =
-      args.id ? await this.loadEntity(args.id) : await this.createEntity();
-    Currency.displayName =  args.displayName;
-    Currency.isoCode = args.isoCode;
-    return Currency;
+  typeName(): string {
+    return CurrencyServiceKey;
   }
 }

@@ -19,13 +19,20 @@ import { HelloComponent } from './support/hello/hello.component';
 import { DevelopmentTokenComponent } from './support/development.token/development.token.component';
 import * as config from '../../../../../auth_config.json';
 import { InvoicesComponent } from './list/invoices/invoices.component';
+import { CustomerComponent } from './detail/customer/customer.component';
+import { RouterModule } from '@angular/router';
+import { TasksComponent } from './list/tasks/tasks.component';
+import { CalendarActivitiesComponent } from './list/calendar.activities/calendar.activities.component';
+import { UsersComponent } from './list/users/users.component';
+import { EditTaskComponent } from './edit/task/edit.task.component';
+import { UsersSelectComponent } from './select/users-select.component';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, SidebarComponent, MainComponent, PageNotFoundComponent,
     HomepageComponent, CallbackComponent, CustomersComponent, EditCustomerComponent, ServerTimeComponent,
-    HelloComponent, DevelopmentTokenComponent, InvoicesComponent],
+    HelloComponent, DevelopmentTokenComponent, InvoicesComponent, CustomerComponent, TasksComponent, CalendarActivitiesComponent, UsersComponent, EditTaskComponent, UsersSelectComponent],
   imports: [
-    CommonModule, ClarityModule, ApolloModule, HttpLinkModule, ReactiveFormsModule, FormsModule
+    CommonModule, ClarityModule, ApolloModule, HttpLinkModule, ReactiveFormsModule, FormsModule, RouterModule
   ],
   providers:
   [

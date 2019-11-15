@@ -1,18 +1,18 @@
-import { BaseEntityService } from './base.entity.service';
-import { BankModel, BankSaveArgsModel } from '../..';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { BankModel } from '../entities/bank.model';
+import { BankSaveArgsModel } from '../args/bank.save.args.model';
 
-export abstract class BankService implements BaseEntityService<BankModel, BankSaveArgsModel>
-{
-  async abstract createEntity(): Promise<BankModel>;
+export const BankServiceKey = 'BankService';
 
-  async abstract loadEntity(id: number): Promise<BankModel>;
+export class BankService extends BaseEntityServiceImplementation<BankModel, BankSaveArgsModel> {
+  protected async doSave(args: BankSaveArgsModel, bank: BankModel): Promise<BankModel> {
+    bank.displayName = args.displayName;
+    bank.bankIdentifierCode = args.bankIdentifierCode;
+    return bank;
+  }
 
-  async save(args: BankSaveArgsModel): Promise<BankModel> {
-    const bankModel =
-      args.id ? await this.loadEntity(args.id) : await this.createEntity();
-    bankModel.displayName =  args.displayName;
-    bankModel.bankIdentifierCode = args.bankIdentifierCode;
-    return bankModel;
+  typeName(): string {
+    return BankServiceKey;
   }
 
 }

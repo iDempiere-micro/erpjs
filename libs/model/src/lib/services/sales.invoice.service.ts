@@ -1,54 +1,61 @@
-import {
-  BankAccountModel,
-  BaseEntityService,
-  CurrencyModel,
-  CustomerModel,
-  InvoiceSaveArgsModel,
-  OrganizationModel,
-  SalesInvoiceModel,
-  SalesInvoiceVatModel
-} from '../..';
 import { dateToISO, groupBy, onlyDate, roundNumber, sum } from '../../util';
+import { SalesInvoiceModel } from '../entities/sales.invoice.model';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { SalesInvoiceSaveArgsModel } from '../args/sales.invoice.save.args.model';
+import { SalesInvoiceVatModel } from '../entities/sales.invoice.vat.model';
 
-export abstract class SalesInvoiceService<T extends SalesInvoiceModel>
-  implements BaseEntityService<T, InvoiceSaveArgsModel> {
+export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
-  abstract createEntity(): Promise<T>;
-  abstract loadEntity(id: number): Promise<T>;
-  abstract save(args: InvoiceSaveArgsModel): Promise<T>;
-
-  async createSalesInvoice(
-    bankAccount: BankAccountModel,
-    customer: CustomerModel,
-    organization: OrganizationModel,
-    paymentTermInDays: number,
-    transactionDate: Date,
-    currency: CurrencyModel,
-  ): Promise<T> {
-    const invoice = await this.createEntity();
-    invoice.bankAccount = Promise.resolve(bankAccount);
-    invoice.customer = Promise.resolve(customer);
-    invoice.organization = Promise.resolve(organization);
+export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesInvoiceModel, SalesInvoiceSaveArgsModel> {
+  protected async doSave(args: SalesInvoiceSaveArgsModel, invoice: SalesInvoiceModel): Promise<SalesInvoiceModel> {
+    invoice.bankAccount = Promise.resolve(args.bankAccount);
+    invoice.customer = Promise.resolve(args.customer);
+    invoice.organization = Promise.resolve(args.organization);
     invoice.issuedOn = onlyDate(new Date());
-    invoice.dueDate = onlyDate(new Date(+invoice.issuedOn + paymentTermInDays * 86400000));
+    invoice.dueDate = onlyDate(new Date(+invoice.issuedOn + args.paymentTermInDays * 86400000));
     invoice.grandTotal = 0;
     invoice.grandTotalAccountingSchemeCurrency = 0;
     invoice.totalLines = 0;
     invoice.totalLinesAccountingSchemeCurrency = 0;
-    invoice.transactionDate = transactionDate;
-    invoice.currency = Promise.resolve(currency);
+    invoice.transactionDate = args.transactionDate;
+    invoice.currency = Promise.resolve(args.currency);
     invoice.currencyMultiplyingRateToAccountingSchemeCurrency = 0;
     invoice.narration = 'invalid';
     invoice.isDraft = true;
     invoice.isCalculated = false;
+    await this.persist(invoice);
+
+    const vatRegistrations = await args.organization.vatRegistrations;
+    const vatRegistered = (vatRegistrations && vatRegistrations.length > 0);
+
+    let lineOrder = 10;
+    const invoiceLines = [];
+    for(const line1 of args.lines) {
+      const line = await this.getInjector().salesInvoiceLineService.save(
+        {
+          ...line1,
+          product: await line1.product,
+          lineTax: vatRegistered ? await line1.lineTax : await this.getInjector().taxService.getZeroTax(),
+          invoice,
+          lineOrder,
+        }
+      );
+      lineOrder += 10;
+      invoiceLines.push(line);
+    }
+    invoice.lines = Promise.resolve(invoiceLines);
 
     return invoice;
   }
 
+  typeName(): string {
+    return SalesInvoiceServiceKey;
+  }
+
   async calculatePrices(
-    invoiceWithLines: T,
+    invoiceWithLines: SalesInvoiceModel,
     currencyMultiplyingRateToAccountingSchemeCurrency: number,
-  ): Promise<T> {
+  ): Promise<SalesInvoiceModel> {
     if (!invoiceWithLines) return invoiceWithLines;
 
     const lines = await invoiceWithLines.lines;
@@ -83,13 +90,16 @@ export abstract class SalesInvoiceService<T extends SalesInvoiceModel>
       const vatTotal = sum(toBeSummed.map(x => x.vatTotal));
       const vatTotalAccountingSchemeCurrency = sum(toBeSummed.map(x => x.vatTotalAccountingSchemeCurrency));
       vatReport.push(
-        {
-          vatRatePercent: vatRatePercent as number,
-          vatTotalRaw: vatTotal,
-          vatTotal: roundNumber(vatTotal, 2),
-          vatTotalAccountingSchemeCurrencyRaw: vatTotalAccountingSchemeCurrency,
-          vatTotalAccountingSchemeCurrency: roundNumber(vatTotalAccountingSchemeCurrency, 2),
-        }
+        await this.getInjector().salesInvoiceVatService.save(
+          {
+            vatRatePercent: vatRatePercent as number,
+            vatTotalRaw: vatTotal,
+            vatTotal: roundNumber(vatTotal, 2),
+            vatTotalAccountingSchemeCurrencyRaw: vatTotalAccountingSchemeCurrency,
+            vatTotalAccountingSchemeCurrency: roundNumber(vatTotalAccountingSchemeCurrency, 2),
+            invoice: invoiceWithLines,
+          }
+        )
       );
     }
 
@@ -111,3 +121,4 @@ export abstract class SalesInvoiceService<T extends SalesInvoiceModel>
     return invoiceWithLines;
   }
 }
+

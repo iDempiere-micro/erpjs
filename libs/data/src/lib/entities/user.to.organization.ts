@@ -15,4 +15,6 @@ export class UserToOrganization extends EntityBase implements UserToOrganization
   @Field(type => AppUser)
   @ManyToOne(type => AppUser, appUser => appUser.organizations, { nullable: false })
   user: Promise<AppUser>;
+
+  displayName: '';
 }

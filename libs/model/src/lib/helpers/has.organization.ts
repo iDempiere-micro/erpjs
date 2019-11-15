@@ -1,4 +1,4 @@
-import { OrganizationModel } from '@erpjs/model';
+import { OrganizationModel } from '../entities/organization.model';
 
 export interface HasOrganization {
   organization: Promise<OrganizationModel>

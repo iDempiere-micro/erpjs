@@ -1,5 +1,6 @@
-import { GeneralJournalEntryModel, GeneralLedgerEntryModel } from '../..';
 import { dateFromDayOfYear, DayOfYear, dayOfYear, groupBy, sum } from '../../util';
+import { GeneralJournalEntryModel } from '../entities/general.journal.entry.model';
+import { GeneralLedgerEntryModel } from '../entities/general.ledger.entry.model';
 
 const { map } = require('p-iteration');
 

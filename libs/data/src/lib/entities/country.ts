@@ -12,7 +12,7 @@ export class Country extends EntityBase implements CountryModel {
   @Field()
   displayName: string;
 
-  @Column()
+  @Column({unique: true})
   @Field()
   isoCode: string;
 

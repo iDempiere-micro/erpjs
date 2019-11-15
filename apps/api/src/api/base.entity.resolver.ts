@@ -10,10 +10,13 @@ import { getManager } from 'typeorm';
 export abstract class BaseEntityResolver<T extends BaseModel,
   S extends BaseSaveArgsModel, R extends BaseEntityService<T,S>> {
   abstract getService(): R;
-  abstract getCtor(): new (...args: any[]) => T;
 
   async find(user: AppUser) : Promise<Array<T>> {
-    return run( user, getManager(), async () => await getManager().getRepository(this.getCtor()).find() );
+    return run( user, getManager(), async () => await this.getService().loadEntities() );
+  }
+  async findById(id: number, user: AppUser) : Promise<T> {
+    if (!id) return null;
+    return run( user, getManager(), async () => await this.getService().loadEntity(id) );
   }
 
   async save(user: AppUser, objData: S): Promise<T> {

@@ -1,22 +1,23 @@
-import { BaseService, CustomerModel, CustomerSaveArgsModel } from '../..';
-import { BaseEntityService } from './base.entity.service';
+import { BaseEntityServiceImplementation } from './base.entity.service';
+import { CustomerModel } from '../entities/customer.model';
+import { CustomerSaveArgsModel } from '../args/customer.save.args.model';
 
-export abstract class CustomerService extends BaseService
-  implements BaseEntityService<CustomerModel, CustomerSaveArgsModel> {
-  abstract createEntity(): Promise<CustomerModel>;
-  abstract loadEntity(id: number): Promise<CustomerModel>;
+export const CustomerServiceKey = 'CustomerService';
 
-  async save(
-    args: CustomerSaveArgsModel,
-  ): Promise<CustomerModel> {
-    const customer =
-      args.id ? await this.loadEntity(args.id) : await this.createEntity();
+export class CustomerService extends BaseEntityServiceImplementation<CustomerModel, CustomerSaveArgsModel> {
+  protected async doSave(args: CustomerSaveArgsModel, customer: CustomerModel): Promise<CustomerModel> {
+    const address = await this.getInjector().addressService.save(args.legalAddress);
 
     customer.displayName = args.displayName;
     customer.vatNumber = args.vatNumber;
     customer.legalName = args.legalName;
     customer.invoicingEmail = args.invoicingEmail;
-    customer.legalAddress = this.getInjector().addressService.save(args.legalAddress);
+    customer.legalAddress = Promise.resolve(address);
     return customer;
   }
+
+  typeName(): string {
+    return CustomerServiceKey;
+  }
+
 }

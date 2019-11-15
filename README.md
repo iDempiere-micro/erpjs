@@ -1,6 +1,6 @@
 # @erpjs
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/2bcf52b02cc9ffe4979f/maintainability)](https://codeclimate.com/github/iDempiere-micro/erpjs/maintainability)
+NOTE! Node 12+ required to build.
 
 ## @erpjs API server
 
@@ -35,10 +35,14 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 
 ## Publish `@erpjs/model`
+`ng build model`
+
 `npm publish ~/dev/erp/dist/libs/model/ --access public`
 
 ## @erpjs and PostgreSQL
-Note: we are NOT Postgres 12 compatible now please see [typeorm/issues/4332](https://github.com/typeorm/typeorm/issues/4332).
+Note: we are NOT Postgres 12 compatible yet please see [typeorm/issues/4332](https://github.com/typeorm/typeorm/issues/4332).
+Use Postgres 11 till the TypeORM issue is solved.
+ 
 `docker pull postgres:11`
 
 `docker stop pg-docker; docker run --rm --name pg-docker -e POSTGRES_PASSWORD=HlohIn14563 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:11`
@@ -56,8 +60,6 @@ set `AWS` environment variable on the lambda to `1` for the `GraphQLModule` auto
 `AUTH0_DOMAIN=DOMAIN AUTH0_CLIENT_ID=CLIENTID AUTH0_AUDIENCE=AUDIENCE npm run build`
 
 ## Heroku
-`heroku buildpacks:add jontewks/puppeteer --app erpjs`
-
 `AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET ./heroku_deploy_api.sh`
 
 

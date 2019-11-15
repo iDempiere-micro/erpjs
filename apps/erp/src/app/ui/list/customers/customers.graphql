@@ -1,14 +1,5 @@
 query customers {
   customers{
-    id updtTs updtOpId isActive isCurrent
-    displayName legalName vatNumber
-    legalAddress {
-      id updtTs updtOpId isActive isCurrent
-      line1 city
-      country {
-        id
-        displayName isoCode
-      } zipCode
-    } invoicingEmail
+...CustomerListParts
   }
 }

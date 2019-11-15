@@ -28,7 +28,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "typedoc": "typedoc",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml && ng lint --fix"
   },
   "private": true,
   "dependencies": {
@@ -73,6 +73,7 @@
     "class-validator": "0.9.1",
     "cls-hooked": "^4.2.2",
     "core-js": "^2.5.4",
+    "data-anonymizer": "^0.1.0",
     "deep-equal": "^1.1.0",
     "graphql": "^14.3.1",
     "graphql-subscriptions": "1.1.0",

@@ -1,20 +1,6 @@
-import { BankAccountService, Injector } from '@erpjs/model';
+import { BankAccountService } from '@erpjs/model';
 import { Injectable } from '@nestjs/common';
-import { BankAccount } from '../entities/bank.account';
-import { ModelModule } from '@erpjs/data';
+import { Implement } from './base.service.implementation';
 
 @Injectable()
-export class BankAccountServiceImplementation extends BankAccountService {
-  async createEntity(): Promise<BankAccount> {
-    return new BankAccount();
-  }
-
-  getInjector(): Injector {
-    return ModelModule.getInjector();
-  }
-
-  async loadEntity(id: number): Promise<BankAccount> {
-    return ModelModule.getEntityManager().getRepository(BankAccount).findOne(id);
-  }
-
-}
+export class BankAccountServiceImplementation extends Implement(BankAccountService) {}

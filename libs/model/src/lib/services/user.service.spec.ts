@@ -1,19 +1,19 @@
 import { UserIdentityModel, UserModel, UserProfileModel, UserProfileModelIdentity, UserService } from '@erpjs/model';
 import { Test } from '@nestjs/testing';
 
-class DummyUserService extends UserService<UserModel<any>, any> {
-  currentUser: UserModel<any> = null;
-  users: UserModel<any>[];
+class DummyUserService extends UserService<UserModel, any> {
+  currentUser: UserModel = null;
+  users: UserModel[];
 
-  convertProfileIdentities(userProfileIdentities: Array<UserProfileModelIdentity>, context: any): Promise<Array<UserIdentityModel<UserModel<any>>>> {
+  convertProfileIdentities(userProfileIdentities: Array<UserProfileModelIdentity>, context: any): Promise<Array<UserIdentityModel<UserModel>>> {
     return undefined;
   }
 
-  createNewUser(userProfileModel: UserProfileModel, context: any): Promise<UserModel<any>> {
+  createNewUser(userProfileModel: UserProfileModel, context: any): Promise<UserModel> {
     return undefined;
   }
 
-  findUser(userProfileModel: UserProfileModel, context: any): Promise<UserModel<any>> {
+  findUser(userProfileModel: UserProfileModel, context: any): Promise<UserModel> {
     return undefined;
   }
 
@@ -27,21 +27,21 @@ class DummyUserService extends UserService<UserModel<any>, any> {
     return null;
   }
 
-  getCurrentUser(): UserModel<any> {
+  getCurrentUser(): UserModel {
     return this.currentUser;
   }
-  setCurrentUser(currentUser: UserModel<any>) {
+  setCurrentUser(currentUser: UserModel) {
     this.currentUser = currentUser;
   }
 }
 
-const user : UserModel<any> = {
+const user : UserModel = {
   id:0, displayName: 'John', identities: Promise.resolve([]), organizations: Promise.resolve([]),
 };
 const userIdentityModel: UserIdentityModel<any> = {id: 0, externalUser: '12345', provider: 'hu', user:Promise.resolve(user), displayName: 'aaa'};
 user.identities = Promise.resolve([userIdentityModel]);
 
-const user2 : UserModel<any> = {
+const user2 : UserModel = {
   id:1, displayName: 'James', identities: Promise.resolve([]), organizations: Promise.resolve([]),
 };
 const userIdentityModel2: UserIdentityModel<any> = {id: 1, externalUser: '6789', provider: 'hu', user:Promise.resolve(user2), displayName: 'bbb'};

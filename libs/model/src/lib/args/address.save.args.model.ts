@@ -1,8 +1,10 @@
 import { BaseSaveArgsModel } from './base.save.args.model';
+import { CountryModel } from '../entities/country.model';
 
 export interface AddressSaveArgsModel extends BaseSaveArgsModel{
   city: string;
   line1: string;
   zipCode: string;
-  countryId: number;
+  countryIsoCode?: string
+  country?: CountryModel;
 }

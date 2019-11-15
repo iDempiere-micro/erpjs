@@ -19,7 +19,7 @@
     "paths": {
       "@erpjs/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@erpjs/data": ["libs/data/src/index.ts"],
-      "@erpjs/model": ["libs/model/src/index.ts"],
+      "@erpjs/model": ["libs/model/src/export.ts"],
       "@erpjs/util": ["libs/util/src/index.ts"]
     }
   },

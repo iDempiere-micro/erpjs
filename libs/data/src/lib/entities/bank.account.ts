@@ -1,5 +1,5 @@
 import { EntityBase } from './shared/EntityBase';
-import { BankAccountModel } from '@erpjs/model';
+import { BankAccountModel, BankModel } from '@erpjs/model';
 import { Bank } from './bank';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
@@ -18,7 +18,7 @@ export class BankAccount extends EntityBase implements BankAccountModel {
   swift: string;
   @Field(type => Bank)
   @ManyToOne(type => Bank, bank => bank.bankAccounts, { nullable: false })
-  bank: Promise<Bank>;
+  bank: Promise<BankModel>;
 
   @Column()
   @Field()
