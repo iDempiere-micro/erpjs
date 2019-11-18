@@ -1,7 +1,6 @@
-# api-interfaces
+# @erpjs  - the headless serverless ERP and CRM for the cloud 
 
-This library was generated with [Nx](https://nx.dev).
+This is the documentation of the [erpjs](http://erpjs.eu), the headless serverless ERP and CRM for the cloud.
 
-## Running unit tests
+If you are looking for a bigger example, please have a look at [iDempiere-micro/erpjs](https://github.com/iDempiere-micro/erpjs).   
 
-Run `ng test api-interfaces` to execute the unit tests via [Jest](https://jestjs.io).
