@@ -1,0 +1,514 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>BaseEntityService | erpjs</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">erpjs</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="baseentityservice.html">BaseEntityService</a>
+				</li>
+			</ul>
+			<h1>Class BaseEntityService&lt;T, S, T, R&gt;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T<span class="tsd-signature-symbol">: </span><a href="../interfaces/basemodel.html" class="tsd-signature-type">BaseModel</a></h4>
+					</li>
+					<li>
+						<h4>S<span class="tsd-signature-symbol">: </span><a href="../interfaces/basesaveargsmodel.html" class="tsd-signature-type">BaseSaveArgsModel</a></h4>
+					</li>
+					<li>
+						<h4>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EntityBase</span></h4>
+					</li>
+					<li>
+						<h4>R<span class="tsd-signature-symbol">: </span><a href="../interfaces/withid.html" class="tsd-signature-type">WithId</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">BaseEntityService</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="accountingschemeservice.html" class="tsd-signature-type">AccountingSchemeService</a></li>
+					<li><a href="accountingschemeserviceimplementation.html" class="tsd-signature-type">AccountingSchemeServiceImplementation</a></li>
+					<li><a href="accountingschemeserviceimplementation.html" class="tsd-signature-type">AccountingSchemeServiceImplementation</a></li>
+					<li><a href="addressservice.html" class="tsd-signature-type">AddressService</a></li>
+					<li><a href="addressserviceimplementation.html" class="tsd-signature-type">AddressServiceImplementation</a></li>
+					<li><a href="addressserviceimplementation.html" class="tsd-signature-type">AddressServiceImplementation</a></li>
+					<li><a href="bankaccountservice.html" class="tsd-signature-type">BankAccountService</a></li>
+					<li><a href="bankaccountserviceimplementation.html" class="tsd-signature-type">BankAccountServiceImplementation</a></li>
+					<li><a href="bankaccountserviceimplementation.html" class="tsd-signature-type">BankAccountServiceImplementation</a></li>
+					<li><a href="bankservice.html" class="tsd-signature-type">BankService</a></li>
+					<li><a href="bankserviceimplementation.html" class="tsd-signature-type">BankServiceImplementation</a></li>
+					<li><a href="bankserviceimplementation.html" class="tsd-signature-type">BankServiceImplementation</a></li>
+					<li><a href="baseentityserviceimplementation.html" class="tsd-signature-type">BaseEntityServiceImplementation</a></li>
+					<li><a href="calendaractivityservice.html" class="tsd-signature-type">CalendarActivityService</a></li>
+					<li><a href="calendaractivityserviceimplementation.html" class="tsd-signature-type">CalendarActivityServiceImplementation</a></li>
+					<li><a href="calendaractivityserviceimplementation.html" class="tsd-signature-type">CalendarActivityServiceImplementation</a></li>
+					<li><a href="countryservice.html" class="tsd-signature-type">CountryService</a></li>
+					<li><a href="countryserviceimplementation.html" class="tsd-signature-type">CountryServiceImplementation</a></li>
+					<li><a href="countryserviceimplementation.html" class="tsd-signature-type">CountryServiceImplementation</a></li>
+					<li><a href="currencyservice.html" class="tsd-signature-type">CurrencyService</a></li>
+					<li><a href="currencyserviceimplementation.html" class="tsd-signature-type">CurrencyServiceImplementation</a></li>
+					<li><a href="currencyserviceimplementation.html" class="tsd-signature-type">CurrencyServiceImplementation</a></li>
+					<li><a href="customerservice.html" class="tsd-signature-type">CustomerService</a></li>
+					<li><a href="customerserviceimplementation.html" class="tsd-signature-type">CustomerServiceImplementation</a></li>
+					<li><a href="customerserviceimplementation.html" class="tsd-signature-type">CustomerServiceImplementation</a></li>
+					<li><a href="organizationservice.html" class="tsd-signature-type">OrganizationService</a></li>
+					<li><a href="organizationserviceimplementation.html" class="tsd-signature-type">OrganizationServiceImplementation</a></li>
+					<li><a href="organizationserviceimplementation.html" class="tsd-signature-type">OrganizationServiceImplementation</a></li>
+					<li><a href="salesinvoicelineservice.html" class="tsd-signature-type">SalesInvoiceLineService</a></li>
+					<li><a href="salesinvoicelineserviceimplementation.html" class="tsd-signature-type">SalesInvoiceLineServiceImplementation</a></li>
+					<li><a href="salesinvoicelineserviceimplementation.html" class="tsd-signature-type">SalesInvoiceLineServiceImplementation</a></li>
+					<li><a href="salesinvoiceservice.html" class="tsd-signature-type">SalesInvoiceService</a></li>
+					<li><a href="salesinvoiceserviceimplementation.html" class="tsd-signature-type">SalesInvoiceServiceImplementation</a></li>
+					<li><a href="salesinvoiceserviceimplementation.html" class="tsd-signature-type">SalesInvoiceServiceImplementation</a></li>
+					<li><a href="salesinvoicevatservice.html" class="tsd-signature-type">SalesInvoiceVatService</a></li>
+					<li><a href="salesinvoicevatserviceimplemenation.html" class="tsd-signature-type">SalesInvoiceVatServiceImplemenation</a></li>
+					<li><a href="salesinvoicevatserviceimplemenation.html" class="tsd-signature-type">SalesInvoiceVatServiceImplemenation</a></li>
+					<li><a href="taskservice.html" class="tsd-signature-type">TaskService</a></li>
+					<li><a href="taskserviceimplementation.html" class="tsd-signature-type">TaskServiceImplementation</a></li>
+					<li><a href="taskserviceimplementation.html" class="tsd-signature-type">TaskServiceImplementation</a></li>
+					<li><a href="taxservice.html" class="tsd-signature-type">TaxService</a></li>
+					<li><a href="taxserviceimplementation.html" class="tsd-signature-type">TaxServiceImplementation</a></li>
+					<li><a href="taxserviceimplementation.html" class="tsd-signature-type">TaxServiceImplementation</a></li>
+					<li><a href="userservice.html" class="tsd-signature-type">UserService</a></li>
+					<li><a href="userserviceimplementation.html" class="tsd-signature-type">UserServiceImplementation</a></li>
+					<li><a href="userserviceimplementation.html" class="tsd-signature-type">UserServiceImplementation</a></li>
+					<li><a href="usertoorganizationservice.html" class="tsd-signature-type">UserToOrganizationService</a></li>
+					<li><a href="usertoorganizationserviceimplementation.html" class="tsd-signature-type">UserToOrganizationServiceImplementation</a></li>
+					<li><a href="usertoorganizationserviceimplementation.html" class="tsd-signature-type">UserToOrganizationServiceImplementation</a></li>
+					<li><a href="vatregistrationservice.html" class="tsd-signature-type">VatRegistrationService</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-private-protected">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-protected"><a href="baseentityservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-private-protected">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="baseentityservice.html#tctor" class="tsd-kind-icon">TCtor</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="baseentityservice.html#repo" class="tsd-kind-icon">repo</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#createentity" class="tsd-kind-icon">create<wbr>Entity</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#findall" class="tsd-kind-icon">find<wbr>All</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#findonebyid" class="tsd-kind-icon">find<wbr>One<wbr>ById</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#loadentities" class="tsd-kind-icon">load<wbr>Entities</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#loadentity" class="tsd-kind-icon">load<wbr>Entity</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#persist" class="tsd-kind-icon">persist</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="baseentityservice.html#save" class="tsd-kind-icon">save</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-protected">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Base<wbr>Entity<wbr>Service<span class="tsd-signature-symbol">(</span>TCtor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, repo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="baseentityservice.html" class="tsd-signature-type">BaseEntityService</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/data/src/lib/entities/shared/base.entity.service.ts#L7">libs/data/src/lib/entities/shared/base.entity.service.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>TCtor: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+									</ul>
+								</li>
+								<li>
+									<h5>repo: <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="baseentityservice.html" class="tsd-signature-type">BaseEntityService</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="tctor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> TCtor</h3>
+					<div class="tsd-signature tsd-kind-icon">TCtor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/data/src/lib/entities/shared/base.entity.service.ts#L10">libs/data/src/lib/entities/shared/base.entity.service.ts:10</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+					<a name="repo" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> repo</h3>
+					<div class="tsd-signature tsd-kind-icon">repo<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Repository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/data/src/lib/entities/shared/base.entity.service.ts#L7">libs/data/src/lib/entities/shared/base.entity.service.ts:7</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="createentity" class="tsd-anchor"></a>
+					<h3>create<wbr>Entity</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Entity<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/model/src/lib/services/base.entity.service.ts#L7">libs/model/src/lib/services/base.entity.service.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="findall" class="tsd-anchor"></a>
+					<h3>find<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>All<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">: </span><a href="commonqueryargs.html" class="tsd-signature-type">CommonQueryArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/data/src/lib/entities/shared/base.entity.service.ts#L16">libs/data/src/lib/entities/shared/base.entity.service.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>args: <a href="commonqueryargs.html" class="tsd-signature-type">CommonQueryArgs</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="findonebyid" class="tsd-anchor"></a>
+					<h3>find<wbr>One<wbr>ById</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">find<wbr>One<wbr>ById<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/data/src/lib/entities/shared/base.entity.service.ts#L20">libs/data/src/lib/entities/shared/base.entity.service.ts:20</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="loadentities" class="tsd-anchor"></a>
+					<h3>load<wbr>Entities</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Entities<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/model/src/lib/services/base.entity.service.ts#L9">libs/model/src/lib/services/base.entity.service.ts:9</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="loadentity" class="tsd-anchor"></a>
+					<h3>load<wbr>Entity</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Entity<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/model/src/lib/services/base.entity.service.ts#L8">libs/model/src/lib/services/base.entity.service.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="persist" class="tsd-anchor"></a>
+					<h3>persist</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">persist<span class="tsd-signature-symbol">(</span>T<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/model/src/lib/services/base.entity.service.ts#L11">libs/model/src/lib/services/base.entity.service.ts:11</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>T: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="save" class="tsd-anchor"></a>
+					<h3>save</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">save<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/libs/model/src/lib/services/base.entity.service.ts#L10">libs/model/src/lib/services/base.entity.service.ts:10</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>args: <span class="tsd-signature-type">S</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-has-type-parameter">
+						<a href="baseentityservice.html" class="tsd-kind-icon">Base<wbr>Entity<wbr>Service</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-protected">
+								<a href="baseentityservice.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="baseentityservice.html#tctor" class="tsd-kind-icon">TCtor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="baseentityservice.html#repo" class="tsd-kind-icon">repo</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#createentity" class="tsd-kind-icon">create<wbr>Entity</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#findall" class="tsd-kind-icon">find<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#findonebyid" class="tsd-kind-icon">find<wbr>One<wbr>ById</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#loadentities" class="tsd-kind-icon">load<wbr>Entities</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#loadentity" class="tsd-kind-icon">load<wbr>Entity</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#persist" class="tsd-kind-icon">persist</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="baseentityservice.html#save" class="tsd-kind-icon">save</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
