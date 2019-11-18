@@ -122,7 +122,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L40">apps/erp/src/app/auth/auth.service.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L40">apps/erp/src/app/auth/auth.service.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -144,7 +144,7 @@
 					<div class="tsd-signature tsd-kind-icon">auth0<wbr>Client$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Auth0Client</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;(from(createAuth0Client({domain: config.domain,client_id: config.clientId,redirect_uri: &#x60;${window.location.origin}/callback&#x60;,audience: config.audience})) as Observable&lt;Auth0Client&gt;).pipe(shareReplay(1), // Every subscription receives the same shared valuecatchError(err &#x3D;&gt; throwError(err)))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L14">apps/erp/src/app/auth/auth.service.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L14">apps/erp/src/app/auth/auth.service.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -154,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">handle<wbr>Redirect<wbr>Callback$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RedirectLoginResult</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;this.auth0Client$.pipe(concatMap((client: Auth0Client) &#x3D;&gt; from(client.handleRedirectCallback())))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L33">apps/erp/src/app/auth/auth.service.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L33">apps/erp/src/app/auth/auth.service.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -164,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Authenticated$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;this.auth0Client$.pipe(concatMap((client: Auth0Client) &#x3D;&gt; from(client.isAuthenticated())),tap(res &#x3D;&gt; this.loggedIn &#x3D; res))</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L29">apps/erp/src/app/auth/auth.service.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L29">apps/erp/src/app/auth/auth.service.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -174,7 +174,7 @@
 					<div class="tsd-signature tsd-kind-icon">logged<wbr>In<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L40">apps/erp/src/app/auth/auth.service.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L40">apps/erp/src/app/auth/auth.service.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -184,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">router<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Router</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L42">apps/erp/src/app/auth/auth.service.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L42">apps/erp/src/app/auth/auth.service.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Profile$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;this.userProfileSubject$.asObservable()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L38">apps/erp/src/app/auth/auth.service.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L38">apps/erp/src/app/auth/auth.service.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -204,7 +204,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Profile<wbr>Subject$<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BehaviorSubject</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new BehaviorSubject&lt;any&gt;(null)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L37">apps/erp/src/app/auth/auth.service.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L37">apps/erp/src/app/auth/auth.service.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -221,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L55">apps/erp/src/app/auth/auth.service.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L55">apps/erp/src/app/auth/auth.service.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -244,7 +244,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L46">apps/erp/src/app/auth/auth.service.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L46">apps/erp/src/app/auth/auth.service.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -267,7 +267,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L94">apps/erp/src/app/auth/auth.service.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L94">apps/erp/src/app/auth/auth.service.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -284,7 +284,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L61">apps/erp/src/app/auth/auth.service.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L61">apps/erp/src/app/auth/auth.service.ts:61</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -301,7 +301,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L82">apps/erp/src/app/auth/auth.service.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L82">apps/erp/src/app/auth/auth.service.ts:82</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -324,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/4eb7cfb/apps/erp/src/app/auth/auth.service.ts#L119">apps/erp/src/app/auth/auth.service.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/auth/auth.service.ts#L119">apps/erp/src/app/auth/auth.service.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
