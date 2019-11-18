@@ -1,6 +1,15 @@
-# @erpjs
+# @erpjs  - the headless serverless ERP and CRM for the cloud.
 
-NOTE! Node 12+ required to build.
+This is the source code of the [erpjs](http://erpjs.eu), the headless serverless ERP and CRM for the cloud.
+
+You can download the source code and own the ERP&CRM.
+You can explore the source code and find out how we used [Nx](https://nx.dev/), [NestJS](https://nestjs.com/), 
+[TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Angular](https://angular.io/) 
+to both build the backend that can run in [AWS Lambda](https://aws.amazon.com/lambda/) and 
+a sample frontend application that can be immediately used to run a business.
+You can run the ERP&CRM in your own cloud provided by AWS and both keep your data safe and prevent bad things 
+happening by having all your important data on your laptop or own server.
+      
 
 ## @erpjs API server
 

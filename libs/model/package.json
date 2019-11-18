@@ -1,6 +1,16 @@
 {
   "name": "@erpjs/model",
   "version": "0.0.5",
+  "author": {
+    "name": "NašeÚkoly.CZ s.r.o.",
+    "email": "info@naseukoly.cz",
+    "url": "http://erpjs.eu/"
+  },
+  "homepage": "http://erpjs.eu/",
+  "license": "MIT",
+  "description": "erpjs - the headless serverless ERP and CRM for the cloud core",
+  "repository": "github:iDempiere-micro/erpjs",
+  "bugs": "https://github.com/iDempiere-micro/erpjs/issues",
   "peerDependencies": {
     "p-iteration": "^1.1.8",
     "deep-equal": "^1.1.0"
