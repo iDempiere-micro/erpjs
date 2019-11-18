@@ -9,7 +9,8 @@ to both build the backend that can run in [AWS Lambda](https://aws.amazon.com/la
 a sample frontend application that can be immediately used to run a business.
 You can run the ERP&CRM in your own cloud provided by AWS and both keep your data safe and prevent bad things 
 happening by having all your important data on your laptop or own server.
-      
+
+![adding task sample](https://user-images.githubusercontent.com/436605/69057342-93ddee00-0a09-11ea-9b81-9531ab71bcca.gif)      
 
 ## @erpjs API server
 
