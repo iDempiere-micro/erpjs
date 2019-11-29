@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Implement } from './base.service.implementation';
 import { CurrencyService } from '@erpjs/model';
-import { ModelModule } from '@erpjs/data';
 
 @Injectable()
 export class CurrencyServiceImplementation
@@ -9,7 +8,7 @@ export class CurrencyServiceImplementation
   constructor() {
     super();
     this.getCurrency = (isoCode: string) =>
-      this.implementation.getRepository(ModelModule.getEntityManager()).findOne({where: {isoCode}})
+      this.getRepository().findOne({where: {isoCode}})
   }
 
 }

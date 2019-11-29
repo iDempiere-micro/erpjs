@@ -9,9 +9,6 @@ import { User as CurrentUser } from './user.decorator';
 export class CalendarActivityResolver
   extends BaseEntityResolver<CalendarActivityModel, CalendarActivitySaveArgs,
     CalendarActivityService> {
-  getCtor(): { new(...args: any[]): CalendarActivityModel } {
-    return CalendarActivity;
-  }
 
   getService(): CalendarActivityService {
     return this.calendarActivityService;

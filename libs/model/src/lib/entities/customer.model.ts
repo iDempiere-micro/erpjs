@@ -6,4 +6,5 @@ import { CanHaveVatRegistration } from '../helpers/can.have.vat.registration';
 export interface CustomerModel extends BaseModel, HasLegalAddress, HasLegalName,
 CanHaveVatRegistration {
   invoicingEmail: string;
+  idNumber: string;
 }

@@ -98,6 +98,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="tax.html#isactive" class="tsd-kind-icon">is<wbr>Active</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="tax.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tax.html#ratepercent" class="tsd-kind-icon">rate<wbr>Percent</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tax.html#recurringsalesinvoiceline" class="tsd-kind-icon">recurring<wbr>Sales<wbr>Invoice<wbr>Line</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tax.html#salesinvoiceline" class="tsd-kind-icon">sales<wbr>Invoice<wbr>Line</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="tax.html#updtopid" class="tsd-kind-icon">updt<wbr>OpId</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="tax.html#updtts" class="tsd-kind-icon">updt<wbr>Ts</a></li>
@@ -114,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">__typename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Tax"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L391">libs/api-interfaces/src/lib/graphql.ts:391</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L711">libs/api-interfaces/src/lib/graphql.ts:711</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -125,8 +126,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taxmodel.html">TaxModel</a>.<a href="../interfaces/taxmodel.html#displayname">displayName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L397">libs/api-interfaces/src/lib/graphql.ts:397</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/tax.ts#L12">libs/data/src/lib/entities/tax.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L717">libs/api-interfaces/src/lib/graphql.ts:717</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/tax.ts#L13">libs/data/src/lib/entities/tax.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,7 +139,7 @@
 						<p>Implementation of <a href="../interfaces/taxmodel.html">TaxModel</a>.<a href="../interfaces/taxmodel.html#id">id</a></p>
 						<p>Overrides EntityBase.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L392">libs/api-interfaces/src/lib/graphql.ts:392</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L712">libs/api-interfaces/src/lib/graphql.ts:712</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -149,7 +150,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isActive</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L395">libs/api-interfaces/src/lib/graphql.ts:395</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L715">libs/api-interfaces/src/lib/graphql.ts:715</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -160,7 +161,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isCurrent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L396">libs/api-interfaces/src/lib/graphql.ts:396</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L716">libs/api-interfaces/src/lib/graphql.ts:716</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,19 +172,28 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taxmodel.html">TaxModel</a>.<a href="../interfaces/taxmodel.html#ratepercent">ratePercent</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L398">libs/api-interfaces/src/lib/graphql.ts:398</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/tax.ts#L16">libs/data/src/lib/entities/tax.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L718">libs/api-interfaces/src/lib/graphql.ts:718</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/tax.ts#L17">libs/data/src/lib/entities/tax.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="recurringsalesinvoiceline" class="tsd-anchor"></a>
+					<h3>recurring<wbr>Sales<wbr>Invoice<wbr>Line</h3>
+					<div class="tsd-signature tsd-kind-icon">recurring<wbr>Sales<wbr>Invoice<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RecurringSalesInvoiceLine</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/tax.ts#L24">libs/data/src/lib/entities/tax.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="salesinvoiceline" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sales<wbr>Invoice<wbr>Line</h3>
+					<h3>sales<wbr>Invoice<wbr>Line</h3>
 					<div class="tsd-signature tsd-kind-icon">sales<wbr>Invoice<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SalesInvoiceLine</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L399">libs/api-interfaces/src/lib/graphql.ts:399</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/tax.ts#L20">libs/data/src/lib/entities/tax.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/tax.ts#L20">libs/data/src/lib/entities/tax.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +204,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtOpId</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L394">libs/api-interfaces/src/lib/graphql.ts:394</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L714">libs/api-interfaces/src/lib/graphql.ts:714</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -205,7 +215,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtTs</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L393">libs/api-interfaces/src/lib/graphql.ts:393</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L713">libs/api-interfaces/src/lib/graphql.ts:713</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -243,6 +253,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="tax.html#ratepercent" class="tsd-kind-icon">rate<wbr>Percent</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="tax.html#recurringsalesinvoiceline" class="tsd-kind-icon">recurring<wbr>Sales<wbr>Invoice<wbr>Line</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="tax.html#salesinvoiceline" class="tsd-kind-icon">sales<wbr>Invoice<wbr>Line</a>

@@ -32,6 +32,12 @@ import { ItemListComponent } from '../item.list.component';
             <clr-dg-cell><a [routerLink]="['/customer',customer.id]">{{customer.displayName}}</a></clr-dg-cell>
             <clr-dg-cell><a [routerLink]="['/customer',customer.id]">{{customer.legalName}}</a></clr-dg-cell>
             <clr-dg-cell><a [routerLink]="['/customer',customer.id]">{{customer.vatNumber}}</a></clr-dg-cell>
+
+            <clr-dg-row-detail *clrIfExpanded>
+                <div class="clr-row">
+                    <erp-edit-customer [customer]="customer" ></erp-edit-customer>
+                </div>
+            </clr-dg-row-detail>
         </clr-dg-row>
 
         <clr-dg-footer>{{data.length}} customers</clr-dg-footer>

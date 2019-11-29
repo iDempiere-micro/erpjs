@@ -1,0 +1,5 @@
+query prospects {
+  prospects{
+...ProspectListParts
+  }
+}

@@ -1,5 +1,6 @@
 import {
   AccountingSchemeServiceKey,
+  AccountServiceKey,
   AddressServiceKey,
   BankAccountServiceKey,
   BankServiceKey,
@@ -8,19 +9,26 @@ import {
   CalendarActivityServiceKey,
   Constructor,
   CountryServiceKey,
+  CurrencyRateServiceKey,
   CurrencyServiceKey,
   CustomerServiceKey,
   Injector,
+  LeadServiceKey,
   OrganizationServiceKey,
+  ProductServiceKey,
+  ProspectServiceKey,
+  RecurringSalesInvoiceLineServiceKey,
+  RecurringSalesInvoiceServiceKey,
   SalesInvoiceLineServiceKey,
   SalesInvoiceServiceKey,
   SalesInvoiceVatServiceKey,
+  SuspectServiceKey,
   TaskServiceKey,
   TaxServiceKey,
   UserServiceKey,
   UserToOrganizationServiceKey
 } from '@erpjs/model';
-import { AppUser, CalendarActivity, Customer, ModelModule, SalesInvoice, Task } from '@erpjs/data';
+import { AppUser, CalendarActivity, Customer, ModelModule, Prospect, SalesInvoice, Suspect, Task } from '@erpjs/data';
 import { EntityManager, Repository } from 'typeorm';
 import { Address } from '../entities/address';
 import { BankAccount } from '../entities/bank.account';
@@ -33,6 +41,12 @@ import { AccountingScheme } from '../entities/accounting.scheme';
 import { Organization } from '../entities/organization';
 import { SalesInvoiceVat } from '../entities/sales.invoice.vat';
 import { UserToOrganization } from '../entities/user.to.organization';
+import { Lead } from '../entities/lead';
+import { Product } from '../entities/product';
+import { CurrencyRate } from '../entities/currency.rate';
+import { RecurringSalesInvoice } from '../entities/recurring.sales.invoice';
+import { RecurringSalesInvoiceLine } from '../entities/recurring.sales.invoice.line';
+import { Account } from '../entities/account';
 
 class ClassImplementation<E extends BaseModel, S> {
   createEntity: () => E;
@@ -88,6 +102,30 @@ const implementations = new Map<string, ClassImplementation<any, any>>([
   [TaskServiceKey, {
     createEntity: ()=> new Task(),
     getRepository: (manager: EntityManager) => manager.getRepository(Task), }],
+  [LeadServiceKey, {
+    createEntity: ()=> new Lead(),
+    getRepository: (manager: EntityManager) => manager.getRepository(Lead), }],
+  [SuspectServiceKey, {
+    createEntity: ()=> new Suspect(),
+    getRepository: (manager: EntityManager) => manager.getRepository(Suspect), }],
+  [ProspectServiceKey, {
+    createEntity: ()=> new Prospect(),
+    getRepository: (manager: EntityManager) => manager.getRepository(Prospect), }],
+  [ProductServiceKey, {
+    createEntity: ()=> new Product(),
+    getRepository: (manager: EntityManager) => manager.getRepository(Product), }],
+  [CurrencyRateServiceKey, {
+    createEntity: ()=> new CurrencyRate(),
+    getRepository: (manager: EntityManager) => manager.getRepository(CurrencyRate), }],
+  [RecurringSalesInvoiceServiceKey, {
+    createEntity: ()=> new RecurringSalesInvoice(),
+    getRepository: (manager: EntityManager) => manager.getRepository(RecurringSalesInvoice), }],
+  [RecurringSalesInvoiceLineServiceKey, {
+    createEntity: ()=> new RecurringSalesInvoiceLine(),
+    getRepository: (manager: EntityManager) => manager.getRepository(RecurringSalesInvoiceLine), }],
+  [AccountServiceKey, {
+    createEntity: ()=> new Account(),
+    getRepository: (manager: EntityManager) => manager.getRepository(Account), }],
 ]);
 
 // this is the derived class that will receive the constructor with super
@@ -106,6 +144,7 @@ export function Implement<T extends Constructor<BaseEntityService<E, S>>, E exte
       this.createEntity = () => this.implementation.createEntity();
       this.loadEntity = async (id) => await this.getRepository().findOne(id);
       this.persist = async(entity: E) => await this.getRepository().save(entity as any);
+      this.delete  = async(entity: E) => await this.getRepository().remove(entity as any);
     }
 
     typeName(): string {

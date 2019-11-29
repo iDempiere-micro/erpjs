@@ -9,6 +9,7 @@ export interface BaseEntityService<T extends BaseModel, S extends BaseSaveArgsMo
   loadEntities(): Promise<Array<T>>;
   save(args:S): Promise<T>;
   persist(T);
+  delete(T);
 }
 
 export abstract class BaseEntityServiceImplementation<T extends BaseModel, S extends BaseSaveArgsModel>
@@ -19,6 +20,7 @@ export abstract class BaseEntityServiceImplementation<T extends BaseModel, S ext
   createEntity: () => Promise<T>;
   loadEntity: (id) => Promise<T>;
   persist: (e:T) => Promise<void>;
+  delete: (e:T) => Promise<void>;
   protected abstract async doSave(args: S, entity: T): Promise<T>;
 
   async save(args: S): Promise<T> {

@@ -74,6 +74,14 @@
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">TasksComponent</span>
+								<ul class="tsd-hierarchy">
+									<li>
+										<a href="customertaskscomponent.html" class="tsd-signature-type">CustomerTasksComponent</a>
+									</li>
+									<li>
+										<a href="prospecttaskscomponent.html" class="tsd-signature-type">ProspectTasksComponent</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>
@@ -99,10 +107,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="taskscomponent.html#customer" class="tsd-kind-icon">customer</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="taskscomponent.html#data" class="tsd-kind-icon">data</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscomponent.html#duedatecomparator" class="tsd-kind-icon">due<wbr>Date<wbr>Comparator</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="taskscomponent.html#filters" class="tsd-kind-icon">filters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscomponent.html#tabs" class="tsd-kind-icon">tabs</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscomponent.html#tasksgql" class="tsd-kind-icon">tasksGQL</a></li>
 							</ul>
 						</section>
@@ -131,7 +139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L77">apps/erp/src/app/ui/list/tasks/tasks.component.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L82">apps/erp/src/app/ui/list/tasks/tasks.component.ts:82</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -147,16 +155,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="customer" class="tsd-anchor"></a>
-					<h3>customer</h3>
-					<div class="tsd-signature tsd-kind-icon">customer<span class="tsd-signature-symbol">:</span> <a href="../globals.html#customerlistpartsfragment" class="tsd-signature-type">CustomerListPartsFragment</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L61">apps/erp/src/app/ui/list/tasks/tasks.component.ts:61</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="data" class="tsd-anchor"></a>
 					<h3>data</h3>
@@ -164,7 +162,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="itemlistcomponent.html">ItemListComponent</a>.<a href="itemlistcomponent.html#data">data</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/item.list.component.ts#L8">apps/erp/src/app/ui/list/item.list.component.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/item.list.component.ts#L8">apps/erp/src/app/ui/list/item.list.component.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -174,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">due<wbr>Date<wbr>Comparator<span class="tsd-signature-symbol">:</span> <a href="basicdatecomparator.html" class="tsd-signature-type">BasicDateComparator</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new BasicDateComparator(&#x27;dueDate&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L63">apps/erp/src/app/ui/list/tasks/tasks.component.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L66">apps/erp/src/app/ui/list/tasks/tasks.component.ts:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -185,7 +183,17 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="itemlistcomponent.html">ItemListComponent</a>.<a href="itemlistcomponent.html#filters">filters</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/item.list.component.ts#L9">apps/erp/src/app/ui/list/item.list.component.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/item.list.component.ts#L9">apps/erp/src/app/ui/list/item.list.component.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="tabs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> tabs</h3>
+					<div class="tsd-signature tsd-kind-icon">tabs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ClrTabs</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L64">apps/erp/src/app/ui/list/tasks/tasks.component.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">tasksGQL<span class="tsd-signature-symbol">:</span> <a href="tasksgql.html" class="tsd-signature-type">TasksGQL</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L80">apps/erp/src/app/ui/list/tasks/tasks.component.ts:80</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L85">apps/erp/src/app/ui/list/tasks/tasks.component.ts:85</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -213,7 +221,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="itemlistcomponent.html">ItemListComponent</a>.<a href="itemlistcomponent.html#extractdata">extractData</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L65">apps/erp/src/app/ui/list/tasks/tasks.component.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L68">apps/erp/src/app/ui/list/tasks/tasks.component.ts:68</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -237,7 +245,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="itemlistcomponent.html">ItemListComponent</a>.<a href="itemlistcomponent.html#getquery">getQuery</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L75">apps/erp/src/app/ui/list/tasks/tasks.component.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L80">apps/erp/src/app/ui/list/tasks/tasks.component.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="tasksgql.html" class="tsd-signature-type">TasksGQL</a></h4>
@@ -255,7 +263,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="itemlistcomponent.html">ItemListComponent</a>.<a href="itemlistcomponent.html#ngoninit">ngOnInit</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L83">apps/erp/src/app/ui/list/tasks/tasks.component.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L88">apps/erp/src/app/ui/list/tasks/tasks.component.ts:88</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -272,7 +280,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L69">apps/erp/src/app/ui/list/tasks/tasks.component.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/tasks/tasks.component.ts#L72">apps/erp/src/app/ui/list/tasks/tasks.component.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,7 +304,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="itemlistcomponent.html">ItemListComponent</a>.<a href="itemlistcomponent.html#setbasicitemfilter">setBasicItemFilter</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/apps/erp/src/app/ui/list/item.list.component.ts#L14">apps/erp/src/app/ui/list/item.list.component.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/apps/erp/src/app/ui/list/item.list.component.ts#L14">apps/erp/src/app/ui/list/item.list.component.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -329,9 +337,6 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="taskscomponent.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="taskscomponent.html#customer" class="tsd-kind-icon">customer</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="taskscomponent.html#data" class="tsd-kind-icon">data</a>
 							</li>
@@ -340,6 +345,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="taskscomponent.html#filters" class="tsd-kind-icon">filters</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="taskscomponent.html#tabs" class="tsd-kind-icon">tabs</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="taskscomponent.html#tasksgql" class="tsd-kind-icon">tasksGQL</a>

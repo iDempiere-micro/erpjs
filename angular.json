@@ -93,10 +93,7 @@
               "apps/erp/tsconfig.app.json",
               "apps/erp/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/erp/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/erp/**"]
           }
         },
         "test": {
@@ -130,13 +127,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/erp-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/erp-e2e/**"
-            ]
+            "tsConfig": ["apps/erp-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/erp-e2e/**"]
           }
         }
       }
@@ -155,9 +147,7 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -186,10 +176,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
         "test": {
@@ -215,9 +202,7 @@
             "outputPath": "dist/apps/api-sls",
             "main": "apps/api/src/index.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -246,10 +231,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
         "test": {
@@ -274,10 +256,7 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/api-interfaces/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
           }
         },
         "test": {
@@ -302,10 +281,7 @@
               "libs/data/tsconfig.lib.json",
               "libs/data/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/data/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/data/**"]
           }
         },
         "test": {
@@ -337,10 +313,7 @@
               "libs/model/tsconfig.lib.json",
               "libs/model/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/model/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/model/**"]
           }
         },
         "test": {
@@ -365,10 +338,7 @@
               "libs/util/tsconfig.lib.json",
               "libs/util/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/util/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/util/**"]
           }
         },
         "test": {
@@ -376,6 +346,110 @@
           "options": {
             "jestConfig": "libs/util/jest.config.js",
             "tsConfig": "libs/util/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "capture-prospect": {
+      "root": "apps/capture-prospect",
+      "sourceRoot": "apps/capture-prospect/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/capture-prospect",
+            "index": "apps/capture-prospect/src/index.html",
+            "main": "apps/capture-prospect/src/main.tsx",
+            "polyfills": "apps/capture-prospect/src/polyfills.ts",
+            "tsConfig": "apps/capture-prospect/tsconfig.app.json",
+            "assets": [
+              "apps/capture-prospect/src/favicon.ico",
+              "apps/capture-prospect/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/babel"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/capture-prospect/src/environments/environment.ts",
+                  "with": "apps/capture-prospect/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "capture-prospect:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "capture-prospect:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/capture-prospect/tsconfig.app.json",
+              "apps/capture-prospect/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/capture-prospect/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/capture-prospect/jest.config.js",
+            "tsConfig": "apps/capture-prospect/tsconfig.spec.json"
+          }
+        }
+      }
+    },
+    "capture-prospect-e2e": {
+      "root": "apps/capture-prospect-e2e",
+      "sourceRoot": "apps/capture-prospect-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/capture-prospect-e2e/cypress.json",
+            "tsConfig": "apps/capture-prospect-e2e/tsconfig.e2e.json",
+            "devServerTarget": "capture-prospect:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "capture-prospect:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/capture-prospect-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/capture-prospect-e2e/**"]
           }
         }
       }
@@ -391,6 +465,20 @@
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "tslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "tslint"
+      }
     }
   },
   "defaultProject": "erp"

@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'erp-homepage',
   template: `
-    <div>
-        <erp-development-token></erp-development-token>
-    </div>
+        <erp-gantt></erp-gantt>
   `,
   styles: []
 })

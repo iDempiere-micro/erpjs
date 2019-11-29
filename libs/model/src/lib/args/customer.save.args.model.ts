@@ -10,4 +10,6 @@ export interface CustomerSaveArgsModel extends BaseSaveArgsModel {
   legalAddress: AddressSaveArgsModel;
 
   invoicingEmail: string;
+
+  idNumber: string;
 }

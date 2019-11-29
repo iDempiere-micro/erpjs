@@ -5,6 +5,8 @@ import { CustomerSaveArgsModel } from '../args/customer.save.args.model';
 export const CustomerServiceKey = 'CustomerService';
 
 export class CustomerService extends BaseEntityServiceImplementation<CustomerModel, CustomerSaveArgsModel> {
+  getCustomer: (displayName: string) => Promise<CustomerModel>;
+
   protected async doSave(args: CustomerSaveArgsModel, customer: CustomerModel): Promise<CustomerModel> {
     const address = await this.getInjector().addressService.save(args.legalAddress);
 
@@ -13,6 +15,7 @@ export class CustomerService extends BaseEntityServiceImplementation<CustomerMod
     customer.legalName = args.legalName;
     customer.invoicingEmail = args.invoicingEmail;
     customer.legalAddress = Promise.resolve(address);
+    customer.idNumber = args.idNumber;
     return customer;
   }
 

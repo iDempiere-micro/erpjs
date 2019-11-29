@@ -1,14 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  CustomerListPartsFragment,
-  TaskGQL,
-  TaskListPartsFragment,
-  UserListPartsFragment
-} from '@erpjs/api-interfaces';
+import { TaskGQL, TaskListPartsFragment, TaskSaveArgs, UserListPartsFragment } from '@erpjs/api-interfaces';
 
 @Component({
-  selector: 'erp-task',
+  selector: 'erp-edit-task',
   template: `
       <form clrForm [formGroup]="editForm" (ngSubmit)="onSubmit()" (reset)="onReset()">
           <clr-input-container>
@@ -26,11 +21,11 @@ import {
           <erp-users-select label="Owner" (selectedUserChanged)="onOwnerChanged($event)" ></erp-users-select>
           <erp-users-select label="Responsible" (selectedUserChanged)="onResponsibleChanged($event)"></erp-users-select>
           <button type="submit" class="btn btn-primary">Save</button>
-      </form>  `,
+      </form>  
+  `,
   styles: []
 })
 export class EditTaskComponent implements OnInit {
-  @Input() customer: CustomerListPartsFragment;
   @Input() task: TaskListPartsFragment;
   @Output()  selectedTaskChanged = new EventEmitter<TaskListPartsFragment>();
 
@@ -61,6 +56,15 @@ export class EditTaskComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.editForm.controls; }
 
+  getSaveArgs(formValues: any): TaskSaveArgs {
+    return {
+      dueDate: formValues.dueDate,
+      displayName: formValues.displayName,
+      ownerId: this.owner.id,
+      responsibleId: this.responsible.id,
+    };
+  }
+
   async onSubmit() {
     this.submitted = true;
 
@@ -69,15 +73,10 @@ export class EditTaskComponent implements OnInit {
       return;
     }
 
+    const args = this.getSaveArgs(this.editForm.value);
     const result = await this.taskGQL.mutate(
       {
-        args:       {
-          dueDate: this.editForm.value.dueDate,
-          customerId: this.customer.id,
-          displayName: this.editForm.value.displayName,
-          ownerId: this.owner.id,
-          responsibleId: 1
-        }
+        args,
       }).toPromise();
     this.selectedTaskChanged.emit(result.data.task);
   }

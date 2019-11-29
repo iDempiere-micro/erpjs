@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">EntityBase</span>
+						<span class="tsd-signature-type">UniqueDisplayEntityBase</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Bank</span>
@@ -95,7 +95,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bank.html#__typename" class="tsd-kind-icon">__typename</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bank.html#bankaccounts" class="tsd-kind-icon">bank<wbr>Accounts</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bank.html#bankidentifiercode" class="tsd-kind-icon">bank<wbr>Identifier<wbr>Code</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bank.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="bank.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="bank.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="bank.html#isactive" class="tsd-kind-icon">is<wbr>Active</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="bank.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a></li>
@@ -114,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">__typename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Bank"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L84">libs/api-interfaces/src/lib/graphql.ts:84</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L93">libs/api-interfaces/src/lib/graphql.ts:93</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -124,8 +124,8 @@
 					<div class="tsd-signature tsd-kind-icon">bank<wbr>Accounts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">BankAccount</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L92">libs/api-interfaces/src/lib/graphql.ts:92</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/bank.ts#L20">libs/data/src/lib/entities/bank.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L101">libs/api-interfaces/src/lib/graphql.ts:101</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/bank.ts#L16">libs/data/src/lib/entities/bank.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -136,20 +136,20 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/bankmodel.html">BankModel</a>.<a href="../interfaces/bankmodel.html#bankidentifiercode">bankIdentifierCode</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L90">libs/api-interfaces/src/lib/graphql.ts:90</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/bank.ts#L12">libs/data/src/lib/entities/bank.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L100">libs/api-interfaces/src/lib/graphql.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/bank.ts#L12">libs/data/src/lib/entities/bank.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="displayname" class="tsd-anchor"></a>
 					<h3>display<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/bankmodel.html">BankModel</a>.<a href="../interfaces/bankmodel.html#displayname">displayName</a></p>
+						<p>Overrides UniqueDisplayEntityBase.displayName</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L91">libs/api-interfaces/src/lib/graphql.ts:91</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/bank.ts#L16">libs/data/src/lib/entities/bank.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L99">libs/api-interfaces/src/lib/graphql.ts:99</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,7 +161,7 @@
 						<p>Implementation of <a href="../interfaces/bankmodel.html">BankModel</a>.<a href="../interfaces/bankmodel.html#id">id</a></p>
 						<p>Overrides EntityBase.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L85">libs/api-interfaces/src/lib/graphql.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L94">libs/api-interfaces/src/lib/graphql.ts:94</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +172,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isActive</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L88">libs/api-interfaces/src/lib/graphql.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L97">libs/api-interfaces/src/lib/graphql.ts:97</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -183,7 +183,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isCurrent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L89">libs/api-interfaces/src/lib/graphql.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L98">libs/api-interfaces/src/lib/graphql.ts:98</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +194,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtOpId</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L87">libs/api-interfaces/src/lib/graphql.ts:87</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L96">libs/api-interfaces/src/lib/graphql.ts:96</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -205,7 +205,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtTs</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L86">libs/api-interfaces/src/lib/graphql.ts:86</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L95">libs/api-interfaces/src/lib/graphql.ts:95</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -235,7 +235,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="bank.html#bankidentifiercode" class="tsd-kind-icon">bank<wbr>Identifier<wbr>Code</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="bank.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">

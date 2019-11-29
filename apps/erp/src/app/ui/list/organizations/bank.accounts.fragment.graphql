@@ -1,0 +1,4 @@
+fragment BankAccountListParts on BankAccount {
+  id updtTs updtOpId isActive isCurrent
+  displayName bankAccountCustomerPrintableNumber
+}

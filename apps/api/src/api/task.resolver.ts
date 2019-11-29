@@ -8,9 +8,6 @@ import { User as CurrentUser } from './user.decorator';
 
 export class TaskResolver
   extends BaseEntityResolver<TaskModel, TaskSaveArgs, TaskService> {
-  getCtor(): { new(...args: any[]): TaskModel } {
-    return Task;
-  }
 
   getService(): TaskService {
     return this.taskService;

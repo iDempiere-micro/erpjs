@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">EntityBase</span>
+						<span class="tsd-signature-type">UniqueDisplayEntityBase</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">AccountingScheme</span>
@@ -95,7 +95,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="accountingscheme.html#__typename" class="tsd-kind-icon">__typename</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="accountingscheme.html#accounts" class="tsd-kind-icon">accounts</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="accountingscheme.html#currency" class="tsd-kind-icon">currency</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="accountingscheme.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="accountingscheme.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="accountingscheme.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="accountingscheme.html#isactive" class="tsd-kind-icon">is<wbr>Active</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="accountingscheme.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a></li>
@@ -115,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">__typename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"AccountingScheme"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L33">libs/api-interfaces/src/lib/graphql.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L34">libs/api-interfaces/src/lib/graphql.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -125,8 +125,8 @@
 					<div class="tsd-signature tsd-kind-icon">accounts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Account</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L41">libs/api-interfaces/src/lib/graphql.ts:41</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/accounting.scheme.ts#L23">libs/data/src/lib/entities/accounting.scheme.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L42">libs/api-interfaces/src/lib/graphql.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/accounting.scheme.ts#L18">libs/data/src/lib/entities/accounting.scheme.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -137,20 +137,20 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/accountingschememodel.html">AccountingSchemeModel</a>.<a href="../interfaces/accountingschememodel.html#currency">currency</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L40">libs/api-interfaces/src/lib/graphql.ts:40</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/accounting.scheme.ts#L19">libs/data/src/lib/entities/accounting.scheme.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L41">libs/api-interfaces/src/lib/graphql.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/accounting.scheme.ts#L14">libs/data/src/lib/entities/accounting.scheme.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="displayname" class="tsd-anchor"></a>
 					<h3>display<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/accountingschememodel.html">AccountingSchemeModel</a>.<a href="../interfaces/accountingschememodel.html#displayname">displayName</a></p>
+						<p>Overrides UniqueDisplayEntityBase.displayName</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L39">libs/api-interfaces/src/lib/graphql.ts:39</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/accounting.scheme.ts#L15">libs/data/src/lib/entities/accounting.scheme.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L40">libs/api-interfaces/src/lib/graphql.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -162,7 +162,7 @@
 						<p>Implementation of <a href="../interfaces/accountingschememodel.html">AccountingSchemeModel</a>.<a href="../interfaces/accountingschememodel.html#id">id</a></p>
 						<p>Overrides EntityBase.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L34">libs/api-interfaces/src/lib/graphql.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L35">libs/api-interfaces/src/lib/graphql.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +173,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isActive</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L37">libs/api-interfaces/src/lib/graphql.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L38">libs/api-interfaces/src/lib/graphql.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -184,7 +184,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isCurrent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L38">libs/api-interfaces/src/lib/graphql.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L39">libs/api-interfaces/src/lib/graphql.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">organizations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Organization</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/accounting.scheme.ts#L27">libs/data/src/lib/entities/accounting.scheme.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/accounting.scheme.ts#L22">libs/data/src/lib/entities/accounting.scheme.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -205,7 +205,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtOpId</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L36">libs/api-interfaces/src/lib/graphql.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L37">libs/api-interfaces/src/lib/graphql.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -216,7 +216,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtTs</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L35">libs/api-interfaces/src/lib/graphql.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L36">libs/api-interfaces/src/lib/graphql.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +246,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="accountingscheme.html#currency" class="tsd-kind-icon">currency</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="accountingscheme.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">

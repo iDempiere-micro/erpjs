@@ -1,0 +1,5 @@
+query taxes {
+  taxes{
+    ...TaxListParts
+  }
+}

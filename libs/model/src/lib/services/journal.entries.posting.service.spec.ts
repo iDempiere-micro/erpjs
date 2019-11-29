@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
-import { JournalEntriesPostingService } from '../..';
 import { sum } from '../../util';
+import { JournalEntriesPostingService } from './journal.entries.posting.service';
 
 describe('JournalEntriesPostingService', () => {
   let service: JournalEntriesPostingService;

@@ -1,3 +1,5 @@
+export const moment = require('moment');
+
 export function sum(arrayToSum: Array<number>): number {
   return arrayToSum.sort().reduce((a, b) => a + b, 0);
 }

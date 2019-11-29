@@ -14,6 +14,16 @@ import { UserService } from './services/user.service';
 import { UserToOrganizationService } from './services/user.to.organization.service';
 import { TaskService } from './services/task.service';
 import { CalendarActivityService } from './services/calendar.activity.service';
+import { LeadService } from './services/lead.service';
+import { SuspectService } from './services/suspect.service';
+import { ProspectService } from './services/prospect.service';
+import { ProductService } from './services/product.service';
+import { CurrencyRateService } from './services/currency.rate.service';
+import { RecurringSalesInvoiceService } from './services/recurring.sales.invoice.service';
+import { RecurringSalesInvoiceLineService } from './services/recurring.sales.invoice.line.service';
+import { AccountService } from './services/account.service';
+import { DocumentNumberingServiceModel } from './service.interfaces/document.numbering.service.model';
+import { ReportsServiceModel } from './service.interfaces/reports.service.model';
 
 export interface Injector {
   bankService: BankService;
@@ -32,4 +42,14 @@ export interface Injector {
   userToOrganizationService: UserToOrganizationService;
   taskService: TaskService;
   calendarActivityService: CalendarActivityService;
+  leadService: LeadService;
+  suspectService: SuspectService;
+  prospectService: ProspectService;
+  productService: ProductService;
+  currencyRateService: CurrencyRateService;
+  recurringSalesInvoiceService: RecurringSalesInvoiceService;
+  recurringSalesInvoiceLineService: RecurringSalesInvoiceLineService;
+  accountService: AccountService;
+  documentNumberingServiceModel: DocumentNumberingServiceModel;
+  reportsServiceModel: ReportsServiceModel;
 }

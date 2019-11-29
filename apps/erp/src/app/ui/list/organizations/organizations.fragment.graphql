@@ -1,0 +1,8 @@
+fragment OrganizationListParts on Organization {
+  id updtTs updtOpId isActive isCurrent
+  displayName
+  bankAccount {
+    ...BankAccountListParts
+  }
+  accountingScheme { currency { ...CurrencyListParts } }
+}

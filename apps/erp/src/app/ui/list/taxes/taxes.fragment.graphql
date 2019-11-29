@@ -1,0 +1,4 @@
+fragment TaxListParts on Tax {
+  id updtTs updtOpId isActive isCurrent
+  displayName ratePercent
+}

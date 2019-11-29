@@ -2,16 +2,21 @@ import { EntityBase } from './shared/EntityBase';
 import { CalendarActivityModel } from '@erpjs/model';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
-import { AppUser, Customer } from '@erpjs/data';
+import { AppUser, Customer, Prospect } from '@erpjs/data';
 import { DateTimeScalarType } from '../..';
 
 @Entity()
 @ObjectType()
 export class CalendarActivity extends EntityBase implements CalendarActivityModel {
 
-  @Field(type => Customer)
-  @ManyToOne(type => Customer, customer => customer.calendarActivities, { nullable: false })
-  customer: Promise<Customer>;
+  @Field(type => Customer, { nullable: true })
+  @ManyToOne(type => Customer, customer => customer.calendarActivities, { nullable: true })
+  customer?: Promise<Customer>;
+
+  @Field(type => Prospect, { nullable: true })
+  @ManyToOne(type => Prospect, prospect => prospect.calendarActivities, { nullable: true })
+  prospect?: Promise<Prospect>;
+
 
   @Field()
   @Column()

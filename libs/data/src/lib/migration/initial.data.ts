@@ -1,6 +1,4 @@
-const DataAnonymizer = require('data-anonymizer');
-export const a = new DataAnonymizer({ seed: 'my secret seed 123' });
-
+import { anonym } from '../../../../../apps/api/src/environments/config';
 import {
   BankSaveArgsModel,
   CountrySaveArgsModel,
@@ -8,6 +6,12 @@ import {
   OrganizationSaveArgsModel,
   VatRegistrationSaveArgsModel
 } from '@erpjs/model';
+
+const DataAnonymizer = require('data-anonymizer');
+export const a =
+  anonym ?
+    new DataAnonymizer({ seed: Date.now().toString() })
+  : { anonymize: x =>x };
 
 export interface InitialData {
   initialUserEmail: string;

@@ -41,7 +41,7 @@ export class SalesInvoice extends EntityBase implements SalesInvoiceModel {
   }
 
   @Column( {nullable: true})
-  @Field()
+  @Field({nullable: true})
   documentNo?: string;
 
   @Column()
@@ -103,4 +103,8 @@ export class SalesInvoice extends EntityBase implements SalesInvoiceModel {
   @Field(type => String, { nullable: true })
   @Column('bytea', { nullable: true })
   content?: string;
+
+  @Column( )
+  @Field()
+  paymentTermInDays: number;
 }

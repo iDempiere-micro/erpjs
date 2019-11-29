@@ -19,7 +19,7 @@ export class EverythingSubscriber implements EntitySubscriberInterface {
     updateUpdtOpId(entity) {
       const user = UserServiceImplementation.currentUser();
       if (!user && !EverythingSubscriber.allowInsertUpdateWithoutUser) throw new Error('Every transaction must run in a user context.');
-      if (user) entity.updtOpId = user.id
+      if (user && entity) entity.updtOpId = user.id
     }
 
     beforeInsert(event: InsertEvent<any>) {

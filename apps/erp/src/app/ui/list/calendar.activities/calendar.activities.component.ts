@@ -27,6 +27,10 @@ import { BasicDateComparator } from '../basic.date.comparator';
           <clr-dg-column>Customer
               <clr-dg-string-filter [clrDgStringFilter]="filters.customer_displayName"></clr-dg-string-filter>
           </clr-dg-column>
+          <clr-dg-column>Prospect
+              <clr-dg-string-filter [clrDgStringFilter]="filters.prospect_displayName"></clr-dg-string-filter>
+          </clr-dg-column>
+          
 
           <clr-dg-row *clrDgItems="let calendarActivity of data">
               <clr-dg-cell><a [routerLink]="['/calendarActivity',calendarActivity.id]">{{calendarActivity.id}}</a></clr-dg-cell>
@@ -34,7 +38,12 @@ import { BasicDateComparator } from '../basic.date.comparator';
               <clr-dg-cell>{{calendarActivity.start | date : 'short'}}</clr-dg-cell>
               <clr-dg-cell>{{calendarActivity.end | date : 'short'}}</clr-dg-cell>
               <clr-dg-cell>{{calendarActivity.owner.email}}</clr-dg-cell>
-              <clr-dg-cell><a [routerLink]="['/customer',calendarActivity.customer.id]">{{calendarActivity.customer.displayName}}</a></clr-dg-cell>
+              <clr-dg-cell><a [routerLink]="['/customer',calendarActivity.customer ? calendarActivity.customer.id : null]">
+                  {{calendarActivity.customer ? calendarActivity.customer.displayName : ''}}</a>
+              </clr-dg-cell>
+              <clr-dg-cell><a [routerLink]="['/prospect',calendarActivity.prospect ? calendarActivity.prospect.id : null]">
+                  {{calendarActivity.prospect ? calendarActivity.prospect.displayName : ''}}</a>
+              </clr-dg-cell>
           </clr-dg-row>
 
           <clr-dg-footer>{{data.length}} calendar activities</clr-dg-footer>
@@ -63,7 +72,7 @@ export class CalendarActivitiesComponent
 
   async ngOnInit(): Promise<void> {
     await super.ngOnInit();
-    super.setBasicItemFilter(['displayName', 'owner.email', 'customer.displayName']);
+    super.setBasicItemFilter(['displayName', 'owner.email', 'customer.displayName', 'prospect.displayName']);
   }
 
 }

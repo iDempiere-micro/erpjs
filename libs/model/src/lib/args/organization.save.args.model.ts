@@ -11,4 +11,6 @@ export interface OrganizationSaveArgsModel extends  BaseSaveArgsModel {
   accountingScheme? : AccountingSchemeModel;
   registration : string;
   contact : string;
+  idNumber: string;
+
 }

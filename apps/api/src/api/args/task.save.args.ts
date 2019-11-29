@@ -1,10 +1,10 @@
 import { Field, InputType } from 'type-graphql';
 import { BaseSaveArgs } from './base.save.args';
-import { CustomerModel, TaskSaveArgsModel, UserModel } from '@erpjs/model';
+import { CustomerModel, ProspectModel, TaskSaveArgsModel, UserModel } from '@erpjs/model';
 
 @InputType()
 export class TaskSaveArgs extends BaseSaveArgs implements TaskSaveArgsModel {
-  @Field()
+  @Field({nullable:true})
   customerId?: number;
   customer?: CustomerModel;
   @Field()
@@ -17,4 +17,7 @@ export class TaskSaveArgs extends BaseSaveArgs implements TaskSaveArgsModel {
   responsible?: UserModel;
   @Field()
   displayName: string;
+  @Field({nullable:true})
+  prospectId?: number;
+  prospect?: ProspectModel;
 }

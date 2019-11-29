@@ -15,4 +15,6 @@ export class CustomerSaveArgs extends BaseSaveArgs implements CustomerSaveArgsMo
   legalName: string;
   @Field()
   invoicingEmail: string;
+  @Field()
+  idNumber: string;
 }

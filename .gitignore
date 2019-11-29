@@ -48,3 +48,4 @@ credentials.json
 localdev-config.json
 node_modules_linux
 .serverless
+nucz_heroku_deploy_api.sh

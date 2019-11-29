@@ -1,7 +1,7 @@
 fragment SalesInvoiceListParts on SalesInvoice {
   id updtTs updtOpId isActive isCurrent grandTotalAccountingSchemeCurrency dueDate
   issuedOn
-  organization {id }
+  organization {id accountingScheme { currency { ...CurrencyListParts } } }
   currency {id displayName isoCode}
   isDraft isCalculated documentNo
   customer {id displayName legalName}

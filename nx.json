@@ -31,6 +31,12 @@
     },
     "util": {
       "tags": []
+    },
+    "capture-prospect": {
+      "tags": []
+    },
+    "capture-prospect-e2e": {
+      "tags": []
     }
   }
 }

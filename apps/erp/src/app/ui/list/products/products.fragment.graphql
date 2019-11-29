@@ -1,0 +1,4 @@
+fragment ProductListParts on Product {
+  id updtTs updtOpId isActive isCurrent
+  displayName sku
+}

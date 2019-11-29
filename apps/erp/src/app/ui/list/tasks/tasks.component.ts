@@ -1,13 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemListComponent } from '../item.list.component';
-import {
-  CustomerListPartsFragment,
-  TaskListPartsFragment,
-  TasksGQL,
-  TasksQuery,
-  TasksQueryVariables
-} from '@erpjs/api-interfaces';
+import { TaskListPartsFragment, TasksGQL, TasksQuery, TasksQueryVariables } from '@erpjs/api-interfaces';
 import { BasicDateComparator } from '../basic.date.comparator';
+import { ClrTabs } from '@clr/angular';
 
 @Component({
   selector: 'erp-tasks',
@@ -30,14 +25,22 @@ import { BasicDateComparator } from '../basic.date.comparator';
                       <clr-dg-column>Customer
                           <clr-dg-string-filter [clrDgStringFilter]="filters.customer_displayName"></clr-dg-string-filter>
                       </clr-dg-column>
+                      <clr-dg-column>Prospect
+                          <clr-dg-string-filter [clrDgStringFilter]="filters.prospect_displayName"></clr-dg-string-filter>
+                      </clr-dg-column>
 
 
                       <clr-dg-row *clrDgItems="let task of data">
-                          <clr-dg-cell><a [routerLink]="['/calendarActivity',task.id]">{{task.id}}</a></clr-dg-cell>
+                          <clr-dg-cell><a [routerLink]="['/task',task.id]">{{task.id}}</a></clr-dg-cell>
                           <clr-dg-cell>{{task.displayName}}</clr-dg-cell>
                           <clr-dg-cell>{{task.dueDate | date}}</clr-dg-cell>
                           <clr-dg-cell>{{task.owner.email}}</clr-dg-cell>
-                          <clr-dg-cell>{{task.customer.displayName}}</clr-dg-cell>
+                          <clr-dg-cell><a [routerLink]="['/customer',task.customer ? task.customer.id : null]">
+                              {{task.customer ? task.customer.displayName : ''}}</a>
+                          </clr-dg-cell>
+                          <clr-dg-cell><a [routerLink]="['/prospect',task.prospect ? task.prospect.id : null]">
+                              {{task.prospect ? task.prospect.displayName : ''}}</a>
+                          </clr-dg-cell>
                       </clr-dg-row>
 
                       <clr-dg-footer>{{data.length}} tasks</clr-dg-footer>
@@ -47,7 +50,7 @@ import { BasicDateComparator } from '../basic.date.comparator';
           <clr-tab>
               <button clrTabLink>Create a new task</button>
               <clr-tab-content *clrIfActive>
-                  <erp-task [customer]="customer" (selectedTaskChanged)="selectedTaskChanged($event)"></erp-task>
+                  <erp-edit-task (selectedTaskChanged)="selectedTaskChanged($event)"></erp-edit-task>
               </clr-tab-content>
           </clr-tab>
       </clr-tabs>
@@ -58,7 +61,7 @@ export class TasksComponent
   extends ItemListComponent<TaskListPartsFragment, TasksQuery,
     TasksQueryVariables, TasksGQL>
   implements OnInit {
-  @Input() customer: CustomerListPartsFragment;
+  @ViewChild(ClrTabs, {static: false}) private readonly tabs: ClrTabs;
 
   private dueDateComparator = new BasicDateComparator('dueDate');
 
@@ -70,6 +73,8 @@ export class TasksComponent
     const other = this.data.filter( x => x.id !== task.id );
     other.push(task);
     this.data = other;
+    // see https://github.com/vmware/clarity/issues/2112
+    window.setTimeout(() => { this.tabs.tabLinkDirectives[0].activate(); }, 0); // delay so Angular doesn't complain
   }
 
   getQuery(): TasksGQL {
@@ -82,6 +87,6 @@ export class TasksComponent
 
   async ngOnInit(): Promise<void> {
     await super.ngOnInit();
-    super.setBasicItemFilter(['displayName', 'owner.email', 'customer.displayName']);
+    super.setBasicItemFilter(['displayName', 'owner.email', 'customer.displayName', 'prospect.displayName']);
   }
 }

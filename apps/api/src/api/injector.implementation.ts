@@ -1,6 +1,8 @@
 import {
   AccountingSchemeService,
   AccountingSchemeServiceKey,
+  AccountService,
+  AccountServiceKey,
   AddressService,
   AddressServiceKey,
   BankAccountService,
@@ -11,19 +13,33 @@ import {
   CalendarActivityServiceKey,
   CountryService,
   CountryServiceKey,
+  CurrencyRateService,
+  CurrencyRateServiceKey,
   CurrencyService,
   CurrencyServiceKey,
   CustomerService,
   CustomerServiceKey,
   Injector,
+  LeadService,
+  LeadServiceKey,
   OrganizationService,
   OrganizationServiceKey,
+  ProductService,
+  ProductServiceKey,
+  ProspectService,
+  ProspectServiceKey,
+  RecurringSalesInvoiceLineService,
+  RecurringSalesInvoiceLineServiceKey,
+  RecurringSalesInvoiceService,
+  RecurringSalesInvoiceServiceKey,
   SalesInvoiceLineService,
   SalesInvoiceLineServiceKey,
   SalesInvoiceService,
   SalesInvoiceServiceKey,
   SalesInvoiceVatService,
   SalesInvoiceVatServiceKey,
+  SuspectService,
+  SuspectServiceKey,
   TaskService,
   TaskServiceKey,
   TaxService,
@@ -35,9 +51,14 @@ import {
 } from '@erpjs/model';
 import { Inject, Injectable } from '@nestjs/common';
 import { ModelModule } from '@erpjs/data';
+import { DocumentNumberingService } from '@erpjs/data';
+import { ReportsService } from '../../../../libs/data/src/lib/services/reports.service';
 
 @Injectable()
 export class InjectorImplementation implements Injector {
+  public readonly documentNumberingServiceModel = new DocumentNumberingService();
+  public readonly reportsServiceModel = new ReportsService();
+
   constructor(
     @Inject(AddressServiceKey) public readonly addressService: AddressService,
     @Inject(BankAccountServiceKey) public readonly bankAccountService: BankAccountService,
@@ -55,6 +76,15 @@ export class InjectorImplementation implements Injector {
     @Inject(UserToOrganizationServiceKey) public readonly userToOrganizationService: UserToOrganizationService,
     @Inject(TaskServiceKey) public readonly taskService: TaskService,
     @Inject(CalendarActivityServiceKey) public readonly calendarActivityService: CalendarActivityService,
+    @Inject(LeadServiceKey) public readonly leadService: LeadService,
+    @Inject(SuspectServiceKey) public readonly suspectService: SuspectService,
+    @Inject(ProspectServiceKey) public readonly prospectService: ProspectService,
+    @Inject(ProductServiceKey) public readonly productService: ProductService,
+    @Inject(CurrencyRateServiceKey) public readonly currencyRateService: CurrencyRateService,
+    @Inject(RecurringSalesInvoiceServiceKey) public readonly recurringSalesInvoiceService: RecurringSalesInvoiceService,
+    @Inject(RecurringSalesInvoiceLineServiceKey)
+    public readonly recurringSalesInvoiceLineService: RecurringSalesInvoiceLineService,
+    @Inject(AccountServiceKey) public readonly accountService: AccountService,
   ) {
     ModelModule.setInjector(this);
   }

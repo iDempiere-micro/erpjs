@@ -1,0 +1,4 @@
+fragment CurrencyListParts on Currency {
+  id updtTs updtOpId isActive isCurrent
+  displayName isoCode
+}

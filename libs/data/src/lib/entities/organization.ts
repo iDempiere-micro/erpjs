@@ -1,7 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
-import { EntityBase } from './shared/EntityBase';
-import { AccountingSchemeModel, OrganizationModel } from '@erpjs/model';
+import { AccountingSchemeModel, OrganizationModel, ProjectModel } from '@erpjs/model';
 import { Address } from './address';
 import { VatRegistration } from './vat.registration';
 import { SalesInvoice } from './sales.invoice';
@@ -9,14 +8,14 @@ import { BankAccount } from './bank.account';
 import { AccountingScheme } from './accounting.scheme';
 import { UserToOrganization } from './user.to.organization';
 import { DocumentNumberSequence } from './document.number.sequence';
+import { Project } from './project';
+import { VendorInvoice } from '@erpjs/data';
+import { UniqueDisplayEntityBase } from './shared/unique.display.entity.base';
+import { RecurringSalesInvoice } from './recurring.sales.invoice';
 
 @Entity()
 @ObjectType()
-export class Organization extends EntityBase implements OrganizationModel {
-  @Column()
-  @Field()
-  displayName: string;
-
+export class Organization extends UniqueDisplayEntityBase implements OrganizationModel {
   @Column()
   @Field()
   contact: string;
@@ -37,6 +36,14 @@ export class Organization extends EntityBase implements OrganizationModel {
   @OneToMany(type => SalesInvoice, salesInvoice => salesInvoice.organization)
   salesInvoices: Promise<Array<SalesInvoice>>;
 
+  @Field(type => [SalesInvoice], { nullable: true })
+  @OneToMany(type => SalesInvoice, salesInvoice => salesInvoice.organization)
+  recurringSalesInvoices: Promise<Array<RecurringSalesInvoice>>;
+
+  @Field(type => [VendorInvoice], { nullable: true })
+  @OneToMany(type => VendorInvoice, vendorInvoice => vendorInvoice.organization)
+  vendorInvoices: Promise<Array<VendorInvoice>>;
+
   @Field(type => BankAccount)
   @ManyToOne(type => BankAccount, bankAccount => bankAccount.organizations, { nullable: true })
   bankAccount: Promise<BankAccount>;
@@ -53,7 +60,16 @@ export class Organization extends EntityBase implements OrganizationModel {
   @OneToMany(type => DocumentNumberSequence, documentNumberSequence => documentNumberSequence.organization)
   documentNumberSequences: Promise<Array<DocumentNumberSequence>>;
 
+  @Field(type => [Project], { nullable: true })
+  @OneToMany(type => Project, project => project.owner)
+  projects: Promise<Array<ProjectModel>>;
+
   @Column()
   @Field()
   registration: string;
+
+  @Column()
+  @Field()
+  idNumber: string;
+
 }

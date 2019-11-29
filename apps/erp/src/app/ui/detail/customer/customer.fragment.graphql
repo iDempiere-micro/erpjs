@@ -18,4 +18,5 @@ fragment CustomerDetailParts on Customer {
   tasks {
     ...TaskListParts
   }
+  idNumber
 }

@@ -5,6 +5,8 @@ import { BankAccountSaveArgsModel } from '../args/bank.account.save.args.model';
 export const BankAccountServiceKey = 'BankAccountService';
 
 export class BankAccountService extends BaseEntityServiceImplementation<BankAccountModel, BankAccountSaveArgsModel> {
+  getBankAccount: (displayName: string) => Promise<BankAccountModel>;
+
   protected async doSave(args: BankAccountSaveArgsModel, bankAccountModel: BankAccountModel): Promise<BankAccountModel> {
     bankAccountModel.displayName = args.displayName;
     bankAccountModel.swift = args.swift;

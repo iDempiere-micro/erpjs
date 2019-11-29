@@ -23,7 +23,7 @@ import { map } from 'rxjs/operators';
             <clr-accordion-panel>
                 <clr-accordion-title>Tasks</clr-accordion-title>
                 <clr-accordion-content *clrIfExpanded>
-                    <erp-tasks [data]="customer.tasks" [customer]="customer"></erp-tasks>
+                    <erp-customer-tasks [data]="customer.tasks" [customer]="customer"></erp-customer-tasks>
                 </clr-accordion-content>
             </clr-accordion-panel>
 

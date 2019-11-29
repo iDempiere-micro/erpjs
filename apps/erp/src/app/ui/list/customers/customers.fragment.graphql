@@ -8,5 +8,5 @@ fragment CustomerListParts on Customer {
       id
       displayName isoCode
     } zipCode
-  } invoicingEmail
+  } invoicingEmail idNumber
 }

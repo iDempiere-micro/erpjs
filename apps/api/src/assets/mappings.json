@@ -69,5 +69,12 @@
       "env:port",
       "file:/auth_config_server.json:$.port"
     ]
+  },
+  "anonym": {
+    "searchPatterns": [
+      "cloudfoundry:erp-anonym",
+      "env:ANONYM",
+      "file:/auth_config_server.json:$.anonym"
+    ]
   }
 }

@@ -1,0 +1,10 @@
+fragment SalesInvoiceLineDetailParts on SalesInvoiceLine {
+  id updtTs updtOpId isActive isCurrent
+  lineOrder
+  lineTax { id displayName }
+  linePrice
+  product { id displayName }
+  quantity
+  invoice { id }
+  narration
+}

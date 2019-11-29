@@ -13,10 +13,6 @@ extends BaseEntityResolver<CustomerModel, CustomerSaveArgs, CustomerService>
     @Inject(CustomerServiceKey) private readonly customerService : CustomerService,
   ) { super(); }
 
-  getCtor(): { new(...args: any[]): CustomerModel } {
-    return Customer;
-  }
-
   getService(): CustomerService {
     return this.customerService;
   }

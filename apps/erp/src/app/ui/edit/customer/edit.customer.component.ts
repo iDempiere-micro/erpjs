@@ -1,17 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Address, Country, Customer, CustomerGQL } from '@erpjs/api-interfaces';
+import { CustomerDetailPartsFragment, CustomerGQL } from '@erpjs/api-interfaces';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-export type EditCustomer = { __typename?: 'Customer' }
-  & Pick<Customer, 'id' |'displayName' | 'legalName' | 'vatNumber' | 'invoicingEmail'>
-  & { legalAddress: (
-    { __typename?: 'Address' }
-    & Pick<Address, 'line1' | 'city' | 'zipCode'>
-    & { country: (
-      { __typename?: 'Country' }
-      & Pick<Country, 'id' | 'displayName' | 'isoCode'>
-      ) }
-    ) };
 
 @Component({
   selector: 'erp-edit-customer',
@@ -32,8 +21,15 @@ export type EditCustomer = { __typename?: 'Customer' }
           <clr-input-container>
               <label>VAT number</label>
               <input clrInput type="text" formControlName="vatNumber" />
-              <clr-control-helper>VAT number is the customer is VAT registered.</clr-control-helper>
+              <clr-control-helper>VAT number is the customer number when VAT registered.</clr-control-helper>
               <clr-control-error>We have to have the VAT number. If the customer is not VAT registered, 
+                  enter some other unique id number.</clr-control-error>
+          </clr-input-container>
+          <clr-input-container>
+              <label>ID number</label>
+              <input clrInput type="text" formControlName="idNumber" />
+              <clr-control-helper>ID number is the customer registration number.</clr-control-helper>
+              <clr-control-error>We have to have the ID number. If the customer is not registered,
                   enter some other unique id number.</clr-control-error>
           </clr-input-container>
           <clr-input-container>
@@ -66,7 +62,7 @@ export type EditCustomer = { __typename?: 'Customer' }
   styles: []
 })
 export class EditCustomerComponent implements OnInit {
-  @Input() customer: EditCustomer;
+  @Input() customer: CustomerDetailPartsFragment;
 
   editForm: FormGroup;
   submitted = false;
@@ -85,6 +81,7 @@ export class EditCustomerComponent implements OnInit {
       legalAddressCity: [this.customer.legalAddress.city, Validators.required],
       legalAddressZip: [this.customer.legalAddress.zipCode, Validators.required],
       invoicingEmail: [this.customer.invoicingEmail, Validators.required],
+      idNumber: [this.customer.idNumber, Validators.required],
     }, );
   }
 
@@ -99,19 +96,22 @@ export class EditCustomerComponent implements OnInit {
       return;
     }
 
+    const form = this.editForm.value;
+
     await this.customerGQL.mutate(
       {
         args: {
           id: this.customer.id,
-          displayName: this.editForm.value.displayName,
-          legalName: this.editForm.value.legalName,
+          displayName: form.displayName,
+          legalName: form.legalName,
           legalAddress: {
-            city: this.editForm.value.legalAddressCity,
+            city: form.legalAddressCity,
             countryIsoCode: 'CZ',
-            line1: this.editForm.value.legalAddressLine1,
-            zipCode: this.editForm.value.legalAddressZip,
+            line1: form.legalAddressLine1,
+            zipCode: form.legalAddressZip,
           },
-          invoicingEmail: this.editForm.value.invoicingEmail,
+          invoicingEmail: form.invoicingEmail,
+          idNumber: form.idNumber,
         }}).toPromise();
     // display form values on success
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.editForm.value, null, 4));

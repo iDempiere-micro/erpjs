@@ -1,0 +1,10 @@
+fragment ProspectDetailParts on Prospect {
+  id updtTs updtOpId isActive isCurrent
+  displayName actionTaken problem url
+  calendarActivities {
+    ...CalendarActivityListParts
+  }
+  tasks {
+    ...TaskListParts
+  }
+}

@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">EntityBase</span>
+						<span class="tsd-signature-type">UniqueDisplayEntityBase</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Customer</span>
@@ -94,8 +94,9 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="customer.html#__typename" class="tsd-kind-icon">__typename</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="customer.html#calendaractivities" class="tsd-kind-icon">calendar<wbr>Activities</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="customer.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="customer.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="customer.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="customer.html#idnumber" class="tsd-kind-icon">id<wbr>Number</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="customer.html#invoicingemail" class="tsd-kind-icon">invoicing<wbr>Email</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="customer.html#isactive" class="tsd-kind-icon">is<wbr>Active</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="customer.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a></li>
@@ -119,7 +120,7 @@
 					<div class="tsd-signature tsd-kind-icon">__typename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Customer"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L157">libs/api-interfaces/src/lib/graphql.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L198">libs/api-interfaces/src/lib/graphql.ts:198</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -129,20 +130,20 @@
 					<div class="tsd-signature tsd-kind-icon">calendar<wbr>Activities<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">CalendarActivity</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L168">libs/api-interfaces/src/lib/graphql.ts:168</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L38">libs/data/src/lib/entities/customer.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L209">libs/api-interfaces/src/lib/graphql.ts:209</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L33">libs/data/src/lib/entities/customer.ts:33</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="displayname" class="tsd-anchor"></a>
 					<h3>display<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#displayname">displayName</a></p>
+						<p>Overrides UniqueDisplayEntityBase.displayName</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L163">libs/api-interfaces/src/lib/graphql.ts:163</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L16">libs/data/src/lib/entities/customer.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L204">libs/api-interfaces/src/lib/graphql.ts:204</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -154,7 +155,19 @@
 						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#id">id</a></p>
 						<p>Overrides EntityBase.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L158">libs/api-interfaces/src/lib/graphql.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L199">libs/api-interfaces/src/lib/graphql.ts:199</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="idnumber" class="tsd-anchor"></a>
+					<h3>id<wbr>Number</h3>
+					<div class="tsd-signature tsd-kind-icon">id<wbr>Number<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#idnumber">idNumber</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L212">libs/api-interfaces/src/lib/graphql.ts:212</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L45">libs/data/src/lib/entities/customer.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -165,8 +178,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#invoicingemail">invoicingEmail</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L170">libs/api-interfaces/src/lib/graphql.ts:170</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L46">libs/data/src/lib/entities/customer.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L211">libs/api-interfaces/src/lib/graphql.ts:211</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L41">libs/data/src/lib/entities/customer.ts:41</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,7 +190,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isActive</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L161">libs/api-interfaces/src/lib/graphql.ts:161</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L202">libs/api-interfaces/src/lib/graphql.ts:202</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -188,7 +201,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isCurrent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L162">libs/api-interfaces/src/lib/graphql.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L203">libs/api-interfaces/src/lib/graphql.ts:203</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -199,8 +212,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#legaladdress">legalAddress</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L164">libs/api-interfaces/src/lib/graphql.ts:164</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L20">libs/data/src/lib/entities/customer.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L205">libs/api-interfaces/src/lib/graphql.ts:205</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L15">libs/data/src/lib/entities/customer.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -211,8 +224,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#legalname">legalName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L165">libs/api-interfaces/src/lib/graphql.ts:165</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L25">libs/data/src/lib/entities/customer.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L206">libs/api-interfaces/src/lib/graphql.ts:206</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L20">libs/data/src/lib/entities/customer.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -222,8 +235,8 @@
 					<div class="tsd-signature tsd-kind-icon">sales<wbr>Invoices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SalesInvoice</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L167">libs/api-interfaces/src/lib/graphql.ts:167</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L34">libs/data/src/lib/entities/customer.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L208">libs/api-interfaces/src/lib/graphql.ts:208</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L29">libs/data/src/lib/entities/customer.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,8 +246,8 @@
 					<div class="tsd-signature tsd-kind-icon">tasks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Task</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L169">libs/api-interfaces/src/lib/graphql.ts:169</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L42">libs/data/src/lib/entities/customer.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L210">libs/api-interfaces/src/lib/graphql.ts:210</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L37">libs/data/src/lib/entities/customer.ts:37</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -245,7 +258,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtOpId</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L160">libs/api-interfaces/src/lib/graphql.ts:160</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L201">libs/api-interfaces/src/lib/graphql.ts:201</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +269,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtTs</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L159">libs/api-interfaces/src/lib/graphql.ts:159</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L200">libs/api-interfaces/src/lib/graphql.ts:200</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -267,8 +280,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/customermodel.html">CustomerModel</a>.<a href="../interfaces/customermodel.html#vatnumber">vatNumber</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L166">libs/api-interfaces/src/lib/graphql.ts:166</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/customer.ts#L30">libs/data/src/lib/entities/customer.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L207">libs/api-interfaces/src/lib/graphql.ts:207</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/customer.ts#L25">libs/data/src/lib/entities/customer.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -295,11 +308,14 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="customer.html#calendaractivities" class="tsd-kind-icon">calendar<wbr>Activities</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="customer.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="customer.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="customer.html#idnumber" class="tsd-kind-icon">id<wbr>Number</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="customer.html#invoicingemail" class="tsd-kind-icon">invoicing<wbr>Email</a>

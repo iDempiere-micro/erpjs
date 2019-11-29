@@ -19,4 +19,7 @@ export interface SalesInvoiceModel extends BaseModel, HasProductsQuantitiesPrice
   WasPrinted {
   currencyMultiplyingRateToAccountingSchemeCurrency: number;
   vatReport: Promise<Array<SalesInvoiceVatModel>>;
+  isCalculated: boolean;
+  isDraft: boolean;
+  paymentTermInDays: number;
 }

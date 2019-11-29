@@ -1,0 +1,3 @@
+query leads {leads{
+  ...LeadListParts
+}}

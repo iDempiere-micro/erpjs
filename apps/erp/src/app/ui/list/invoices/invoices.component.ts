@@ -28,14 +28,20 @@ import { BasicDateComparator } from '../basic.date.comparator';
           </clr-dg-column>
           <clr-dg-column [clrDgSortBy]="totalLinesComparator" >Grand Total (posted)
           </clr-dg-column>
+          <clr-dg-column>
+          </clr-dg-column>
+
 
           <clr-dg-row *clrDgItems="let invoice of data">
-              <clr-dg-cell>{{invoice.id}}</clr-dg-cell>
-              <clr-dg-cell>{{invoice.documentNo}}</clr-dg-cell>
+            <clr-dg-cell><a [routerLink]="['/salesInvoice',invoice.id]">{{invoice.id}}</a></clr-dg-cell>
+              <clr-dg-cell><a [routerLink]="['/salesInvoice',invoice.id]">{{invoice.documentNo}}</a></clr-dg-cell>
               <clr-dg-cell>{{invoice.customer.legalName}}</clr-dg-cell>
-              <clr-dg-cell>{{invoice.totalLines}} {{invoice.currency.displayName}}</clr-dg-cell>
-              <clr-dg-cell>{{invoice.dueDate | date}}</clr-dg-cell>
-              <clr-dg-cell>{{invoice.grandTotalAccountingSchemeCurrency}} Kč </clr-dg-cell>
+              <clr-dg-cell><a [routerLink]="['/salesInvoice',invoice.id]">{{invoice.totalLines}} {{invoice.currency.displayName}}</a></clr-dg-cell>
+              <clr-dg-cell><a [routerLink]="['/salesInvoice',invoice.id]">{{invoice.dueDate | date}}</a></clr-dg-cell>
+              <clr-dg-cell><a [routerLink]="['/salesInvoice',invoice.id]">{{invoice.grandTotalAccountingSchemeCurrency}}
+              {{invoice.organization.accountingScheme.currency.displayName}}
+              </a></clr-dg-cell>
+              <clr-dg-cell><erp-download-invoice [invoice]="invoice"></erp-download-invoice></clr-dg-cell>
           </clr-dg-row>
 
           <clr-dg-footer>{{data.length}} sales invoices</clr-dg-footer>

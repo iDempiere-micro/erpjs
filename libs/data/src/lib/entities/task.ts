@@ -1,10 +1,11 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { TaskModel } from '@erpjs/model';
-import { AppUser, Customer } from '@erpjs/data';
+import { ProjectModel, ProspectModel, SuspectModel, TaskModel } from '@erpjs/model';
+import { AppUser, Customer, Prospect, Suspect } from '@erpjs/data';
 import { SalesInvoiceLine } from './sales.invoice.line';
 import { WorkLog } from './work.log';
+import { Project } from './project';
 
 @Entity()
 @ObjectType()
@@ -13,9 +14,9 @@ export class Task extends EntityBase implements TaskModel {
   @Column({default: false})
   completed: boolean;
 
-  @Field(type => Customer)
-  @ManyToOne(type => Customer, customer => customer.tasks, { nullable: false })
-  customer: Promise<Customer>;
+  @Field(type => Customer, { nullable: true })
+  @ManyToOne(type => Customer, customer => customer.tasks, { nullable: true })
+  customer?: Promise<Customer>;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
@@ -44,4 +45,21 @@ export class Task extends EntityBase implements TaskModel {
   @Field(type => AppUser)
   @ManyToOne(type => AppUser, appUser => appUser.solvingTasks, { nullable: false })
   responsible: Promise<AppUser>;
+
+  @Field(type => Task)
+  @JoinTable()
+  @ManyToMany(type => Task)
+  predecessors: Promise<Array<TaskModel>>;
+
+  @Field(type => Project, { nullable: true })
+  @ManyToOne(type => Project, project => project.tasks, { nullable: true })
+  project?: Promise<ProjectModel>;
+
+  @Field(type => Prospect, { nullable: true })
+  @ManyToOne(type => Prospect, prospect => prospect.tasks, { nullable: true })
+  prospect?: Promise<ProspectModel>;
+
+  @Field(type => Suspect, { nullable: true })
+  @ManyToOne(type => Suspect, suspect => suspect.tasks, { nullable: true })
+  suspect?: Promise<SuspectModel>;
 }

@@ -79,6 +79,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/salesinvoicelinesaveargs.html" class="tsd-signature-type">SalesInvoiceLineSaveArgs</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -88,11 +94,14 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="salesinvoicelinesaveargsmodel.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#invoice" class="tsd-kind-icon">invoice</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#invoiceid" class="tsd-kind-icon">invoice<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#lineorder" class="tsd-kind-icon">line<wbr>Order</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#lineprice" class="tsd-kind-icon">line<wbr>Price</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#linetax" class="tsd-kind-icon">line<wbr>Tax</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#linetaxid" class="tsd-kind-icon">line<wbr>Tax<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#narration" class="tsd-kind-icon">narration</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#product" class="tsd-kind-icon">product</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#productid" class="tsd-kind-icon">product<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="salesinvoicelinesaveargsmodel.html#quantity" class="tsd-kind-icon">quantity</a></li>
 							</ul>
 						</section>
@@ -108,17 +117,27 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="basesaveargsmodel.html">BaseSaveArgsModel</a>.<a href="basesaveargsmodel.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/base.save.args.model.ts#L2">libs/model/src/lib/args/base.save.args.model.ts:2</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/base.save.args.model.ts#L2">libs/model/src/lib/args/base.save.args.model.ts:2</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="invoice" class="tsd-anchor"></a>
-					<h3>invoice</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> invoice</h3>
 					<div class="tsd-signature tsd-kind-icon">invoice<span class="tsd-signature-symbol">:</span> <a href="salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L9">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L9">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="invoiceid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> invoice<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">invoice<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L10">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -128,7 +147,7 @@
 					<div class="tsd-signature tsd-kind-icon">line<wbr>Order<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L10">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L11">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,17 +157,27 @@
 					<div class="tsd-signature tsd-kind-icon">line<wbr>Price<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L8">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L8">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="linetax" class="tsd-anchor"></a>
-					<h3>line<wbr>Tax</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> line<wbr>Tax</h3>
 					<div class="tsd-signature tsd-kind-icon">line<wbr>Tax<span class="tsd-signature-symbol">:</span> <a href="taxmodel.html" class="tsd-signature-type">TaxModel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L13">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L15">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="linetaxid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> line<wbr>Tax<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">line<wbr>Tax<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L16">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,17 +187,27 @@
 					<div class="tsd-signature tsd-kind-icon">narration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L7">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L7">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="product" class="tsd-anchor"></a>
-					<h3>product</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> product</h3>
 					<div class="tsd-signature tsd-kind-icon">product<span class="tsd-signature-symbol">:</span> <a href="productmodel.html" class="tsd-signature-type">ProductModel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L11">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L12">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="productid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> product<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">product<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L13">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">quantity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L12">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/args/sales.invoice.line.save.args.model.ts#L14">libs/model/src/lib/args/sales.invoice.line.save.args.model.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -206,6 +245,9 @@
 								<a href="salesinvoicelinesaveargsmodel.html#invoice" class="tsd-kind-icon">invoice</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="salesinvoicelinesaveargsmodel.html#invoiceid" class="tsd-kind-icon">invoice<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="salesinvoicelinesaveargsmodel.html#lineorder" class="tsd-kind-icon">line<wbr>Order</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -215,10 +257,16 @@
 								<a href="salesinvoicelinesaveargsmodel.html#linetax" class="tsd-kind-icon">line<wbr>Tax</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="salesinvoicelinesaveargsmodel.html#linetaxid" class="tsd-kind-icon">line<wbr>Tax<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="salesinvoicelinesaveargsmodel.html#narration" class="tsd-kind-icon">narration</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="salesinvoicelinesaveargsmodel.html#product" class="tsd-kind-icon">product</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="salesinvoicelinesaveargsmodel.html#productid" class="tsd-kind-icon">product<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="salesinvoicelinesaveargsmodel.html#quantity" class="tsd-kind-icon">quantity</a>

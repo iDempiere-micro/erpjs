@@ -4,9 +4,22 @@ import { SalesInvoiceModel } from '../entities/sales.invoice.model';
 import { SalesInvoiceVatModel } from '../entities/sales.invoice.vat.model';
 import { BankAccountModel } from '../entities/bank.account.model';
 import { CustomerModel } from '../entities/customer.model';
-import { CurrencyModel, OrganizationModel, ProductQuantityPriceTaxModel, SalesInvoiceService } from '@erpjs/model';
+import {
+  CurrencyModel,
+  CurrencyRateService,
+  Injector,
+  OrganizationModel,
+  ProductQuantityPriceTaxModel,
+  SalesInvoiceService,
+  SalesInvoiceVatService
+} from '@erpjs/model';
 
 class TestInvoice implements SalesInvoiceModel {
+  paymentTermInDays: number;
+  content: string;
+  printDate: Date;
+  printError: string;
+  printed: boolean;
   isCalculated: boolean;
   documentNo?: string;
   isDraft: boolean;
@@ -24,15 +37,29 @@ class TestInvoice implements SalesInvoiceModel {
   issuedOn: Date;
   lines: Promise<Array<ProductQuantityPriceTaxModel>>;
   narration: string;
-  organization: Promise<OrganizationModel>;
+  organization = Promise.resolve({vatRegistrations:[{}]} as any);
   totalLines: number;
   transactionDate: Date;
 }
 
-class TestInvoiceServiceImpl extends SalesInvoiceService<TestInvoice> {
-  createNewSalesInvoice(): TestInvoice {
-    return new TestInvoice();
+class TestInvoiceServiceImpl extends SalesInvoiceService {
+  rate = 1;
+
+  constructor() {
+    super();
+    const injector = {} as any as Injector;
+    injector.currencyRateService = new CurrencyRateService();
+    injector.currencyRateService.getAccountingForDateAndOrg =
+      async (transactionDate: Date, from: CurrencyModel, org: OrganizationModel) => ({
+        id:0, displayName: '', currencyMultiplyingRate: this.rate, from: Promise.resolve(from), to: Promise.resolve(from),
+          start: transactionDate, end: transactionDate});
+
+    injector.salesInvoiceVatService = new SalesInvoiceVatService();
+    injector.salesInvoiceVatService.createEntity = () => Promise.resolve({} as any);
+
+    this.getInjector = () => injector;
   }
+
 }
 
 describe('SalesInvoiceService', () => {
@@ -58,8 +85,9 @@ describe('SalesInvoiceService', () => {
 
   describe('SalesInvoiceService', () => {
     it('calculatePrices nothing returns null', async () => {
+      service.rate = 1;
       const result = await service.calculatePrices(
-        null, 0
+        null
       );
       expect(result).toBeNull();
     });
@@ -70,8 +98,9 @@ describe('SalesInvoiceService', () => {
       ] ;
       const invoice = new TestInvoice();
       invoice.lines = Promise.resolve(lines);
+      service.rate = 1;
       const result = await service.calculatePrices(
-        invoice, 1
+        invoice
       );
       expect(result).not.toBeUndefined();
       expect(result).not.toBeNull();
@@ -93,8 +122,9 @@ describe('SalesInvoiceService', () => {
       ] ;
       const invoice = new TestInvoice();
       invoice.lines = Promise.resolve(lines);
+      service.rate = 1;
       const result = await service.calculatePrices(
-        invoice,1
+        invoice
       );
       expect(result).not.toBeUndefined();
       expect(result).not.toBeNull();
@@ -113,8 +143,9 @@ describe('SalesInvoiceService', () => {
       ] ;
       const invoice = new TestInvoice();
       invoice.lines = Promise.resolve(lines);
+      service.rate = 24.29;
       const result = await service.calculatePrices(
-        invoice,24.29
+        invoice
       );
       expect(result).not.toBeUndefined();
       expect(result).not.toBeNull();

@@ -3,39 +3,55 @@ import { SalesInvoiceModel } from '../entities/sales.invoice.model';
 import { BaseEntityServiceImplementation } from './base.entity.service';
 import { SalesInvoiceSaveArgsModel } from '../args/sales.invoice.save.args.model';
 import { SalesInvoiceVatModel } from '../entities/sales.invoice.vat.model';
+import { SalesInvoiceJob } from '../jobs/sales.invoice.job';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
 export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesInvoiceModel, SalesInvoiceSaveArgsModel> {
   protected async doSave(args: SalesInvoiceSaveArgsModel, invoice: SalesInvoiceModel): Promise<SalesInvoiceModel> {
-    invoice.bankAccount = Promise.resolve(args.bankAccount);
-    invoice.customer = Promise.resolve(args.customer);
-    invoice.organization = Promise.resolve(args.organization);
-    invoice.issuedOn = onlyDate(new Date());
+    const {bankAccountService, customerService, organizationService, currencyService, salesInvoiceLineService,
+      taxService, reportsServiceModel
+    } = this.getInjector();
+    invoice.bankAccount =
+      Promise.resolve(
+        args.bankAccount ? args.bankAccount : await bankAccountService.getBankAccount(args.bankAccountDisplayName)
+      );
+    invoice.customer =
+      Promise.resolve(
+        args.customer ? args.customer : await customerService.getCustomer(args.customerDisplayName)
+      );
+    const organization =
+        args.organization ? args.organization : await organizationService.getOrg(args.organizationDisplayName);
+    invoice.organization = Promise.resolve(organization);
+    invoice.issuedOn = onlyDate(args.issuedOn);
     invoice.dueDate = onlyDate(new Date(+invoice.issuedOn + args.paymentTermInDays * 86400000));
     invoice.grandTotal = 0;
     invoice.grandTotalAccountingSchemeCurrency = 0;
     invoice.totalLines = 0;
     invoice.totalLinesAccountingSchemeCurrency = 0;
     invoice.transactionDate = args.transactionDate;
-    invoice.currency = Promise.resolve(args.currency);
+    invoice.paymentTermInDays = args.paymentTermInDays;
+    invoice.currency =
+      Promise.resolve(
+        args.currency ? args.currency : await currencyService.getCurrency(args.currencyIsoCode)
+      );
     invoice.currencyMultiplyingRateToAccountingSchemeCurrency = 0;
     invoice.narration = 'invalid';
     invoice.isDraft = true;
     invoice.isCalculated = false;
     await this.persist(invoice);
 
-    const vatRegistrations = await args.organization.vatRegistrations;
+    const vatRegistrations = await organization.vatRegistrations;
     const vatRegistered = (vatRegistrations && vatRegistrations.length > 0);
 
     let lineOrder = 10;
     const invoiceLines = [];
     for(const line1 of args.lines) {
-      const line = await this.getInjector().salesInvoiceLineService.save(
+      const line = await salesInvoiceLineService.save(
         {
           ...line1,
           product: await line1.product,
-          lineTax: vatRegistered ? await line1.lineTax : await this.getInjector().taxService.getZeroTax(),
+          lineTax: vatRegistered ? await line1.lineTax : await taxService.getZeroTax(),
           invoice,
           lineOrder,
         }
@@ -45,7 +61,11 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
     }
     invoice.lines = Promise.resolve(invoiceLines);
 
-    return invoice;
+    const result = await this.calculatePrices(invoice);
+
+    await reportsServiceModel.printSalesInvoice(result);
+
+    return result;
   }
 
   typeName(): string {
@@ -54,10 +74,20 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
 
   async calculatePrices(
     invoiceWithLines: SalesInvoiceModel,
-    currencyMultiplyingRateToAccountingSchemeCurrency: number,
   ): Promise<SalesInvoiceModel> {
+    const {currencyRateService, salesInvoiceVatService,
+    } = this.getInjector();
     if (!invoiceWithLines) return invoiceWithLines;
 
+
+    const currencyRate = await currencyRateService.getAccountingForDateAndOrg(
+      invoiceWithLines.transactionDate, await invoiceWithLines.currency, await invoiceWithLines.organization
+    );
+    if (!currencyRate)
+      throw new Error(
+        `No currency rate for ${(await invoiceWithLines.currency).displayName} at ${invoiceWithLines.transactionDate}`
+      );
+    const currencyMultiplyingRateToAccountingSchemeCurrency: number = currencyRate.currencyMultiplyingRate;
     const lines = await invoiceWithLines.lines;
 
     invoiceWithLines.totalLines = 0;
@@ -86,11 +116,20 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
     }
     const taxes = await groupBy(lineCalculatedTaxes, x => x.vatRatePercent);
     const vatReport: SalesInvoiceVatModel[] = [];
+
+    // remove the old invoiceWithLines.vatReport
+    const oldVatReports = await invoiceWithLines.vatReport;
+    if (oldVatReports) {
+      for (const oldVatReport of oldVatReports) {
+        await salesInvoiceVatService.delete(oldVatReport);
+      }
+    }
+
     for (const [vatRatePercent, toBeSummed] of taxes) {
       const vatTotal = sum(toBeSummed.map(x => x.vatTotal));
       const vatTotalAccountingSchemeCurrency = sum(toBeSummed.map(x => x.vatTotalAccountingSchemeCurrency));
       vatReport.push(
-        await this.getInjector().salesInvoiceVatService.save(
+        await salesInvoiceVatService.save(
           {
             vatRatePercent: vatRatePercent as number,
             vatTotalRaw: vatTotal,
@@ -118,7 +157,18 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
       `${(await invoiceWithLines.customer || { displayName: 'nocust' }).displayName || ''}:` +
       `${dateToISO(invoiceWithLines.issuedOn)}:${invoiceWithLines.grandTotal}:${dateToISO(invoiceWithLines.dueDate)}`;
     invoiceWithLines.isCalculated = true;
+
     return invoiceWithLines;
+  }
+
+  async confirm(invoice: SalesInvoiceModel): Promise<SalesInvoiceModel> {
+    const {reportsServiceModel} = this.getInjector();
+    const salesInvoiceJob = new SalesInvoiceJob();
+    invoice.isDraft = false;
+    await salesInvoiceJob.assignDocumentNumbers([invoice], this.getInjector().documentNumberingServiceModel);
+    await reportsServiceModel.printSalesInvoice(invoice);
+    await this.persist(invoice);
+    return invoice;
   }
 }
 

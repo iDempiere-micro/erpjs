@@ -1,0 +1,10 @@
+fragment OrganizationDetailParts on Organization {
+  id updtTs updtOpId isActive isCurrent
+  displayName
+  bankAccount {
+    ...BankAccountListParts
+  }
+  legalAddress {
+    ...AddressDetailParts
+  }
+}

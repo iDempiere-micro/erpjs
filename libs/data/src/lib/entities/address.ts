@@ -1,10 +1,11 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { AddressModel, CountryModel } from '@erpjs/model';
+import { AddressModel, CountryModel, VendorModel } from '@erpjs/model';
 import { Country } from './country';
 import { Customer } from './customer';
 import { Organization } from './organization';
+import { Vendor } from './vendor';
 
 @Entity()
 @ObjectType()
@@ -36,4 +37,9 @@ export class Address extends EntityBase implements AddressModel {
   @Field(type => [Organization], { nullable: true })
   @OneToMany(type => Organization, organization => organization.legalAddress)
   organizationRegistratedAddresses: Promise<Array<Organization>>;
+
+  @Field(type => [Vendor], { nullable: true })
+  @OneToMany(type => Vendor, vendor => vendor.legalAddress)
+  vendorRegistratedAddresses: Promise<Array<VendorModel>>;
+
 }

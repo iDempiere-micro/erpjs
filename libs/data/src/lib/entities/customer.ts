@@ -1,4 +1,3 @@
-import { EntityBase } from './shared/EntityBase';
 import { CustomerModel } from '@erpjs/model';
 import { Column, Entity, Index, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
@@ -6,15 +5,11 @@ import { Address } from './address';
 import { SalesInvoice } from './sales.invoice';
 import { CalendarActivity } from './calendar.activity';
 import { Task } from './task';
+import { UniqueDisplayEntityBase } from './shared/unique.display.entity.base';
 
 @Entity()
 @ObjectType()
-export class Customer extends EntityBase implements CustomerModel {
-  @Column()
-  @Field()
-  @Index({unique: true})
-  displayName: string;
-
+export class Customer extends UniqueDisplayEntityBase implements CustomerModel {
   @Field(type => Address)
   @ManyToOne(type => Address, address => address.customerRegistratedAddresses, { nullable: false })
   legalAddress: Promise<Address>;
@@ -44,4 +39,8 @@ export class Customer extends EntityBase implements CustomerModel {
   @Column()
   @Field()
   invoicingEmail: string;
+
+  @Column()
+  @Field()
+  idNumber: string;
 }

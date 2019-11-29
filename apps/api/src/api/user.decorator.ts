@@ -12,9 +12,18 @@ const authZero = new ManagementClient({
   scope: 'read:users update:users'
 });
 
-export const User = createParamDecorator(async (data, [root, args, ctx, info]) => {
-  const user = ctx.req.user;
+async function setUser(user) {
   const profile = await authZero.getUser({ id: (user as any).sub });
   const userServiceImplementation = new UserServiceImplementation();
   return await runJob( getManager(), async () => await userServiceImplementation.handleLogin(profile) );
+}
+
+export const User = createParamDecorator(async (data, [root, args, ctx, info]) => {
+  const user = ctx.req.user;
+  return setUser(user);
 } );
+
+export const ControllerUser = createParamDecorator(async (data, req) => {
+  const user = req.user;
+  return setUser(user);
+});

@@ -93,6 +93,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#createentity" class="tsd-kind-icon">create<wbr>Entity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#delete" class="tsd-kind-icon">delete</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="salesinvoiceservice.html#getinjector" class="tsd-kind-icon">get<wbr>Injector</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadentities" class="tsd-kind-icon">load<wbr>Entities</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadentity" class="tsd-kind-icon">load<wbr>Entity</a></li>
@@ -103,11 +104,13 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="salesinvoiceservice.html#calculateprices" class="tsd-kind-icon">calculate<wbr>Prices</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="salesinvoiceservice.html#confirm" class="tsd-kind-icon">confirm</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="salesinvoiceservice.html#dosave" class="tsd-kind-icon">do<wbr>Save</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadbank" class="tsd-kind-icon">load<wbr>Bank</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadbankaccount" class="tsd-kind-icon">load<wbr>Bank<wbr>Account</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadcountrybyisocode" class="tsd-kind-icon">load<wbr>Country<wbr>ByIso<wbr>Code</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadcurrencybyisocode" class="tsd-kind-icon">load<wbr>Currency<wbr>ByIso<wbr>Code</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#loadorgbydisplayname" class="tsd-kind-icon">load<wbr>Org<wbr>ByDisplay<wbr>Name</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="salesinvoiceservice.html#save" class="tsd-kind-icon">save</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="salesinvoiceservice.html#typename" class="tsd-kind-icon">type<wbr>Name</a></li>
 							</ul>
@@ -124,7 +127,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#createentity">createEntity</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.entity.service.ts#L19">libs/model/src/lib/services/base.entity.service.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L20">libs/model/src/lib/services/base.entity.service.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -143,6 +146,38 @@
 						</ul>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="delete" class="tsd-anchor"></a>
+					<h3>delete</h3>
+					<div class="tsd-signature tsd-kind-icon">delete<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#delete">delete</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L23">libs/model/src/lib/services/base.entity.service.ts:23</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>e: <a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 					<a name="getinjector" class="tsd-anchor"></a>
 					<h3>get<wbr>Injector</h3>
@@ -151,7 +186,7 @@
 						<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#getinjector">getInjector</a></p>
 						<p>Overrides <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#getinjector">getInjector</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.entity.service.ts#L18">libs/model/src/lib/services/base.entity.service.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L19">libs/model/src/lib/services/base.entity.service.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -177,7 +212,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#loadentities">loadEntities</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.entity.service.ts#L17">libs/model/src/lib/services/base.entity.service.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L18">libs/model/src/lib/services/base.entity.service.ts:18</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -203,7 +238,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#loadentity">loadEntity</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.entity.service.ts#L20">libs/model/src/lib/services/base.entity.service.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L21">libs/model/src/lib/services/base.entity.service.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -235,7 +270,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#persist">persist</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.entity.service.ts#L21">libs/model/src/lib/services/base.entity.service.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L22">libs/model/src/lib/services/base.entity.service.ts:22</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -267,13 +302,13 @@
 					<a name="calculateprices" class="tsd-anchor"></a>
 					<h3>calculate<wbr>Prices</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">calculate<wbr>Prices<span class="tsd-signature-symbol">(</span>invoiceWithLines<span class="tsd-signature-symbol">: </span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a>, currencyMultiplyingRateToAccountingSchemeCurrency<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">calculate<wbr>Prices<span class="tsd-signature-symbol">(</span>invoiceWithLines<span class="tsd-signature-symbol">: </span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/sales.invoice.service.ts#L55">libs/model/src/lib/services/sales.invoice.service.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/sales.invoice.service.ts#L75">libs/model/src/lib/services/sales.invoice.service.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -281,8 +316,28 @@
 								<li>
 									<h5>invoiceWithLines: <a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a></h5>
 								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="confirm" class="tsd-anchor"></a>
+					<h3>confirm</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">confirm<span class="tsd-signature-symbol">(</span>invoice<span class="tsd-signature-symbol">: </span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/sales.invoice.service.ts#L164">libs/model/src/lib/services/sales.invoice.service.ts:164</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
 								<li>
-									<h5>currencyMultiplyingRateToAccountingSchemeCurrency: <span class="tsd-signature-type">number</span></h5>
+									<h5>invoice: <a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/salesinvoicemodel.html" class="tsd-signature-type">SalesInvoiceModel</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -300,7 +355,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#dosave">doSave</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/sales.invoice.service.ts#L10">libs/model/src/lib/services/sales.invoice.service.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/sales.invoice.service.ts#L11">libs/model/src/lib/services/sales.invoice.service.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -327,7 +382,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#loadbank">loadBank</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.service.ts#L14">libs/model/src/lib/services/base.service.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.service.ts#L15">libs/model/src/lib/services/base.service.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -351,7 +406,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#loadbankaccount">loadBankAccount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.service.ts#L17">libs/model/src/lib/services/base.service.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.service.ts#L18">libs/model/src/lib/services/base.service.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -375,7 +430,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#loadcountrybyisocode">loadCountryByIsoCode</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.service.ts#L20">libs/model/src/lib/services/base.service.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.service.ts#L21">libs/model/src/lib/services/base.service.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -399,7 +454,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#loadcurrencybyisocode">loadCurrencyByIsoCode</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.service.ts#L24">libs/model/src/lib/services/base.service.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.service.ts#L25">libs/model/src/lib/services/base.service.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -409,6 +464,30 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/currencymodel.html" class="tsd-signature-type">CurrencyModel</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="loadorgbydisplayname" class="tsd-anchor"></a>
+					<h3>load<wbr>Org<wbr>ByDisplay<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Org<wbr>ByDisplay<wbr>Name<span class="tsd-signature-symbol">(</span>displayName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/organizationmodel.html" class="tsd-signature-type">OrganizationModel</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#loadorgbydisplayname">loadOrgByDisplayName</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.service.ts#L28">libs/model/src/lib/services/base.service.ts:28</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>displayName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/organizationmodel.html" class="tsd-signature-type">OrganizationModel</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -423,7 +502,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="baseentityserviceimplementation.html">BaseEntityServiceImplementation</a>.<a href="baseentityserviceimplementation.html#save">save</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/base.entity.service.ts#L24">libs/model/src/lib/services/base.entity.service.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/base.entity.service.ts#L26">libs/model/src/lib/services/base.entity.service.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -447,7 +526,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="baseservice.html">BaseService</a>.<a href="baseservice.html#typename">typeName</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/model/src/lib/services/sales.invoice.service.ts#L51">libs/model/src/lib/services/sales.invoice.service.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/model/src/lib/services/sales.invoice.service.ts#L71">libs/model/src/lib/services/sales.invoice.service.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -474,6 +553,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="salesinvoiceservice.html#createentity" class="tsd-kind-icon">create<wbr>Entity</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="salesinvoiceservice.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
 								<a href="salesinvoiceservice.html#getinjector" class="tsd-kind-icon">get<wbr>Injector</a>
 							</li>
@@ -489,6 +571,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="salesinvoiceservice.html#calculateprices" class="tsd-kind-icon">calculate<wbr>Prices</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="salesinvoiceservice.html#confirm" class="tsd-kind-icon">confirm</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 								<a href="salesinvoiceservice.html#dosave" class="tsd-kind-icon">do<wbr>Save</a>
 							</li>
@@ -503,6 +588,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="salesinvoiceservice.html#loadcurrencybyisocode" class="tsd-kind-icon">load<wbr>Currency<wbr>ByIso<wbr>Code</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="salesinvoiceservice.html#loadorgbydisplayname" class="tsd-kind-icon">load<wbr>Org<wbr>ByDisplay<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="salesinvoiceservice.html#save" class="tsd-kind-icon">save</a>

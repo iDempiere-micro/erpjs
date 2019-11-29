@@ -1,0 +1,4 @@
+fragment ProspectListParts on Prospect {
+  id updtTs updtOpId isActive isCurrent
+  displayName actionTaken problem url
+}

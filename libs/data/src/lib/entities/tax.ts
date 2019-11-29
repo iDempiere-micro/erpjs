@@ -3,6 +3,7 @@ import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
 import { TaxModel } from '@erpjs/model';
 import { SalesInvoiceLine } from './sales.invoice.line';
+import { RecurringSalesInvoiceLine } from './recurring.sales.invoice.line';
 
 @Entity()
 @ObjectType()
@@ -15,7 +16,10 @@ export class Tax extends EntityBase implements TaxModel {
   @Field()
   ratePercent: number;
 
-  @Field(type => [SalesInvoiceLine], { nullable: true })
   @OneToMany(type => SalesInvoiceLine, salesInvoiceLine => salesInvoiceLine.lineTax)
   salesInvoiceLine: Promise<Array<SalesInvoiceLine>>;
+
+  @OneToMany(type => RecurringSalesInvoiceLine,
+      recurringSalesInvoiceLine => recurringSalesInvoiceLine.lineTax)
+  recurringSalesInvoiceLine: Promise<Array<RecurringSalesInvoiceLine>>;
 }

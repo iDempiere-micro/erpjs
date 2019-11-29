@@ -1,6 +1,10 @@
-import { CountryModel, FifoCostsOfGoodsSoldService, ProductModel, ReceiptLineModel, WarehouseModel } from '../..';
 import { Test } from '@nestjs/testing';
 import { sum } from '../../util';
+import { FifoCostsOfGoodsSoldService } from './fifo.costs.of.goods.sold.service';
+import { CountryModel } from '../entities/country.model';
+import { WarehouseModel } from '../entities/warehouse.model';
+import { ProductModel } from '../entities/product.model';
+import { ReceiptLineModel } from '../entities/receipt.line.model';
 
 describe('FifoCostsOfGoodsSoldService', () => {
   let service: FifoCostsOfGoodsSoldService;

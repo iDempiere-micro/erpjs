@@ -1,0 +1,5 @@
+fragment LeadListParts on Lead {
+  id updtTs updtOpId isActive isCurrent
+  displayName company email phone
+  budget currency { ...CurrencyListParts }
+}

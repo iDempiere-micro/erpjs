@@ -1,5 +1,5 @@
 import { Min } from 'class-validator';
-import { ArgsType, Field, Int } from 'type-graphql';
+import { ArgsType, Field, InputType, Int } from 'type-graphql';
 
 @ArgsType()
 export class CommonGetOneArgs {

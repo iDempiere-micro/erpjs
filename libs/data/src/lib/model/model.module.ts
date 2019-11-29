@@ -6,18 +6,26 @@ import { UserServiceImplementation } from './user.service.implementation';
 import { CustomerServiceImplementation } from './customer.service.implementation';
 import {
   AccountingSchemeServiceKey,
+  AccountServiceKey,
   AddressServiceKey,
   BankAccountServiceKey,
   BankServiceKey,
   CalendarActivityServiceKey,
   CountryServiceKey,
+  CurrencyRateServiceKey,
   CurrencyServiceKey,
   CustomerServiceKey,
   Injector,
+  LeadServiceKey,
   OrganizationServiceKey,
+  ProductServiceKey,
+  ProspectServiceKey,
+  RecurringSalesInvoiceLineServiceKey,
+  RecurringSalesInvoiceServiceKey,
   SalesInvoiceLineServiceKey,
   SalesInvoiceServiceKey,
   SalesInvoiceVatServiceKey,
+  SuspectServiceKey,
   TaskServiceKey,
   TaxServiceKey,
   UserServiceKey,
@@ -38,6 +46,14 @@ import { TaxServiceImplementation } from './tax.service.implementation';
 import { SalesInvoiceVatServiceImplemenation } from './sales.invoice.vat.service.implemenation';
 import { UserToOrganizationServiceImplementation } from './user.to.organization.service.implementation';
 import { TaskServiceImplementation } from './task.service.implementation';
+import { LeadServiceImplementation } from './lead.service.implementation';
+import { ProspectServiceImplementation } from './prospect.service.implementation';
+import { SuspectServiceImplementation } from './suspect.service.implementation';
+import { ProductServiceImplementation } from './product.service.implementation';
+import { CurrencyRateServiceImplementation } from './currency.rate.service.implementation';
+import { RecurringSalesInvoiceServiceImplementation } from './recurring.sales.invoice.service.implementation';
+import { RecurringSalesInvoiceLineServiceImplementation } from './recurring.sales.invoice.line.service.implementation';
+import { AccountServiceImplementation } from './account.service.implementation';
 
 export const ORDER_SERVICE = 'OrderService';
 
@@ -61,6 +77,16 @@ const taxServiceProvider = { provide: TaxServiceKey, useClass: TaxServiceImpleme
 const salesInvoiceVatServiceProvider = { provide: SalesInvoiceVatServiceKey, useClass: SalesInvoiceVatServiceImplemenation };
 const userToOrganizationServiceProvider = { provide: UserToOrganizationServiceKey, useClass: UserToOrganizationServiceImplementation };
 const taskServiceProvider = { provide: TaskServiceKey, useClass: TaskServiceImplementation };
+const leadServiceProvider = { provide: LeadServiceKey, useClass: LeadServiceImplementation };
+const prospectServiceProvider = { provide: ProspectServiceKey, useClass: ProspectServiceImplementation };
+const suspectServiceProvider = { provide: SuspectServiceKey, useClass: SuspectServiceImplementation };
+const productServiceProvider = { provide: ProductServiceKey, useClass: ProductServiceImplementation };
+const currencyRateServiceProvider = { provide: CurrencyRateServiceKey, useClass: CurrencyRateServiceImplementation };
+const recurringSalesInvoiceServiceProvider = { provide: RecurringSalesInvoiceServiceKey,
+  useClass: RecurringSalesInvoiceServiceImplementation };
+const recurringSalesInvoiceLineServiceProvider = { provide: RecurringSalesInvoiceLineServiceKey,
+  useClass: RecurringSalesInvoiceLineServiceImplementation };
+const accountServiceProvider = { provide: AccountServiceKey, useClass: AccountServiceImplementation };
 
 const providers = [
   orderServiceProvider,
@@ -81,6 +107,14 @@ const providers = [
   salesInvoiceVatServiceProvider,
   userToOrganizationServiceProvider,
   taskServiceProvider,
+  leadServiceProvider,
+  prospectServiceProvider,
+  suspectServiceProvider,
+  productServiceProvider,
+  currencyRateServiceProvider,
+  recurringSalesInvoiceServiceProvider,
+  recurringSalesInvoiceLineServiceProvider,
+  accountServiceProvider,
 ];
 
 const ENTITY_MANAGER_ID = '##entityManager##';

@@ -27,6 +27,17 @@ import { HistoryService } from './services/history.service';
 import { Task } from './entities/task';
 import { CalendarActivity } from './entities/calendar.activity';
 import { WorkLog } from './entities/work.log';
+import { Project } from './entities/project';
+import { Lead } from './entities/lead';
+import { Suspect } from './entities/suspect';
+import { Prospect } from './entities/prospect';
+import { Opportunity } from './entities/opportunity';
+import { VendorInvoice } from './entities/vendor.invoice';
+import { VendorInvoiceVat } from './entities/vendor.invoice.vat';
+import { Vendor } from './entities/vendor';
+import { CurrencyRate } from './entities/currency.rate';
+import { RecurringSalesInvoiceLine } from './entities/recurring.sales.invoice.line';
+import { RecurringSalesInvoice } from './entities/recurring.sales.invoice';
 
 export const entities = [
   Address,
@@ -51,6 +62,17 @@ export const entities = [
   Task,
   CalendarActivity,
   WorkLog,
+  Project,
+  Lead,
+  Suspect,
+  Prospect,
+  Opportunity,
+  Vendor,
+  VendorInvoice,
+  VendorInvoiceVat,
+  CurrencyRate,
+  RecurringSalesInvoiceLine,
+  RecurringSalesInvoice,
 ];
 
 export const migrations = [

@@ -1,0 +1,5 @@
+query prospectById($id: Int!) {
+  prospectById(id: $id){
+...ProspectDetailParts
+  }
+}

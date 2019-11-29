@@ -103,7 +103,11 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="task.html#isactive" class="tsd-kind-icon">is<wbr>Active</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="task.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#owner" class="tsd-kind-icon">owner</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#predecessors" class="tsd-kind-icon">predecessors</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#project" class="tsd-kind-icon">project</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#prospect" class="tsd-kind-icon">prospect</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#responsible" class="tsd-kind-icon">responsible</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#suspect" class="tsd-kind-icon">suspect</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="task.html#updtopid" class="tsd-kind-icon">updt<wbr>OpId</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="task.html#updtts" class="tsd-kind-icon">updt<wbr>Ts</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="task.html#worklogs" class="tsd-kind-icon">work<wbr>Logs</a></li>
@@ -120,7 +124,7 @@
 					<div class="tsd-signature tsd-kind-icon">__typename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Task"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L364">libs/api-interfaces/src/lib/graphql.ts:364</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L679">libs/api-interfaces/src/lib/graphql.ts:679</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,20 +135,20 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#completed">completed</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L370">libs/api-interfaces/src/lib/graphql.ts:370</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L14">libs/data/src/lib/entities/task.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L685">libs/api-interfaces/src/lib/graphql.ts:685</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L15">libs/data/src/lib/entities/task.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="customer" class="tsd-anchor"></a>
-					<h3>customer</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> customer</h3>
 					<div class="tsd-signature tsd-kind-icon">customer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Customer</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#customer">customer</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L371">libs/api-interfaces/src/lib/graphql.ts:371</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L18">libs/data/src/lib/entities/task.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L686">libs/api-interfaces/src/lib/graphql.ts:686</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L19">libs/data/src/lib/entities/task.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -155,8 +159,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#description">description</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L372">libs/api-interfaces/src/lib/graphql.ts:372</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L22">libs/data/src/lib/entities/task.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L687">libs/api-interfaces/src/lib/graphql.ts:687</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L23">libs/data/src/lib/entities/task.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,8 +171,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#displayname">displayName</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L373">libs/api-interfaces/src/lib/graphql.ts:373</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L26">libs/data/src/lib/entities/task.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L688">libs/api-interfaces/src/lib/graphql.ts:688</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L27">libs/data/src/lib/entities/task.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,8 +183,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#duedate">dueDate</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L374">libs/api-interfaces/src/lib/graphql.ts:374</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L30">libs/data/src/lib/entities/task.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L689">libs/api-interfaces/src/lib/graphql.ts:689</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L31">libs/data/src/lib/entities/task.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -192,7 +196,7 @@
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#id">id</a></p>
 						<p>Overrides EntityBase.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L365">libs/api-interfaces/src/lib/graphql.ts:365</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L680">libs/api-interfaces/src/lib/graphql.ts:680</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,8 +207,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#invoicelines">invoiceLines</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L375">libs/api-interfaces/src/lib/graphql.ts:375</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L34">libs/data/src/lib/entities/task.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L690">libs/api-interfaces/src/lib/graphql.ts:690</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L35">libs/data/src/lib/entities/task.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -215,7 +219,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isActive</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L368">libs/api-interfaces/src/lib/graphql.ts:368</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L683">libs/api-interfaces/src/lib/graphql.ts:683</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -226,7 +230,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isCurrent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L369">libs/api-interfaces/src/lib/graphql.ts:369</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L684">libs/api-interfaces/src/lib/graphql.ts:684</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,8 +241,44 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#owner">owner</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L377">libs/api-interfaces/src/lib/graphql.ts:377</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L42">libs/data/src/lib/entities/task.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L692">libs/api-interfaces/src/lib/graphql.ts:692</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L43">libs/data/src/lib/entities/task.ts:43</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="predecessors" class="tsd-anchor"></a>
+					<h3>predecessors</h3>
+					<div class="tsd-signature tsd-kind-icon">predecessors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/taskmodel.html" class="tsd-signature-type">TaskModel</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#predecessors">predecessors</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L694">libs/api-interfaces/src/lib/graphql.ts:694</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L52">libs/data/src/lib/entities/task.ts:52</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="project" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> project</h3>
+					<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/projectmodel.html" class="tsd-signature-type">ProjectModel</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#project">project</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L695">libs/api-interfaces/src/lib/graphql.ts:695</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L56">libs/data/src/lib/entities/task.ts:56</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="prospect" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> prospect</h3>
+					<div class="tsd-signature tsd-kind-icon">prospect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/prospectmodel.html" class="tsd-signature-type">ProspectModel</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#prospect">prospect</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L696">libs/api-interfaces/src/lib/graphql.ts:696</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L60">libs/data/src/lib/entities/task.ts:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -249,8 +289,19 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#responsible">responsible</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L378">libs/api-interfaces/src/lib/graphql.ts:378</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L46">libs/data/src/lib/entities/task.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L693">libs/api-interfaces/src/lib/graphql.ts:693</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L47">libs/data/src/lib/entities/task.ts:47</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="suspect" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> suspect</h3>
+					<div class="tsd-signature tsd-kind-icon">suspect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/suspectmodel.html" class="tsd-signature-type">SuspectModel</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L697">libs/api-interfaces/src/lib/graphql.ts:697</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L64">libs/data/src/lib/entities/task.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -261,7 +312,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtOpId</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L367">libs/api-interfaces/src/lib/graphql.ts:367</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L682">libs/api-interfaces/src/lib/graphql.ts:682</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -272,7 +323,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtTs</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L366">libs/api-interfaces/src/lib/graphql.ts:366</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L681">libs/api-interfaces/src/lib/graphql.ts:681</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -283,8 +334,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/taskmodel.html">TaskModel</a>.<a href="../interfaces/taskmodel.html#worklogs">workLogs</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L376">libs/api-interfaces/src/lib/graphql.ts:376</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/task.ts#L38">libs/data/src/lib/entities/task.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L691">libs/api-interfaces/src/lib/graphql.ts:691</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/task.ts#L39">libs/data/src/lib/entities/task.ts:39</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -339,7 +390,19 @@
 								<a href="task.html#owner" class="tsd-kind-icon">owner</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="task.html#predecessors" class="tsd-kind-icon">predecessors</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="task.html#project" class="tsd-kind-icon">project</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="task.html#prospect" class="tsd-kind-icon">prospect</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="task.html#responsible" class="tsd-kind-icon">responsible</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="task.html#suspect" class="tsd-kind-icon">suspect</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="task.html#updtopid" class="tsd-kind-icon">updt<wbr>OpId</a>

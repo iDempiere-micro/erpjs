@@ -6,9 +6,12 @@ import { TaxModel } from '../entities/tax.model';
 export interface SalesInvoiceLineSaveArgsModel  extends BaseSaveArgsModel {
   narration: string;
   linePrice: number;
-  invoice: SalesInvoiceModel;
+  invoice?: SalesInvoiceModel;
+  invoiceId?: number;
   lineOrder: number;
-  product: ProductModel;
+  product?: ProductModel;
+  productId?: number;
   quantity: number;
-  lineTax: TaxModel;
+  lineTax?: TaxModel;
+  lineTaxId?: number;
 }

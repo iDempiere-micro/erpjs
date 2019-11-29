@@ -11,7 +11,16 @@ export class TaskService extends BaseEntityServiceImplementation<TaskModel, Task
     task.displayName = args.displayName;
     task.dueDate = args.dueDate;
     task.completed = false;
-    task.customer = Promise.resolve(args.customer ? args.customer : await this.getInjector().customerService.loadEntity(args.customerId));
+    task.customer =
+      Promise.resolve(
+        args.customer ? args.customer :
+          args.customerId ? (await this.getInjector().customerService.loadEntity(args.customerId)) : null
+      );
+    task.prospect =
+      Promise.resolve(
+        args.prospect ? args.prospect :
+          args.prospectId ? (await this.getInjector().prospectService.loadEntity(args.prospectId)) : null
+      );
     task.responsible = Promise.resolve(args.responsible ? args.responsible : await userService.loadEntity(args.responsibleId));
     task.owner = Promise.resolve(args.owner ? args.owner : await userService.loadEntity(args.ownerId));
     return task;

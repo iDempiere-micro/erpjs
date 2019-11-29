@@ -1,17 +1,13 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
-import { EntityBase } from './shared/EntityBase';
 import { CountryModel } from '@erpjs/model';
 import { Address } from './address';
 import { VatRegistration } from './vat.registration';
+import { UniqueDisplayEntityBase } from './shared/unique.display.entity.base';
 
 @Entity()
 @ObjectType()
-export class Country extends EntityBase implements CountryModel {
-  @Column()
-  @Field()
-  displayName: string;
-
+export class Country extends UniqueDisplayEntityBase implements CountryModel {
   @Column({unique: true})
   @Field()
   isoCode: string;

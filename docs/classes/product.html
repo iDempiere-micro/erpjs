@@ -70,7 +70,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">EntityBase</span>
+						<span class="tsd-signature-type">UniqueDisplayEntityBase</span>
 						<ul class="tsd-hierarchy">
 							<li>
 								<span class="target">Product</span>
@@ -94,10 +94,12 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#__typename" class="tsd-kind-icon">__typename</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#buyingaccount" class="tsd-kind-icon">buying<wbr>Account</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="product.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="product.html#id" class="tsd-kind-icon">id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="product.html#isactive" class="tsd-kind-icon">is<wbr>Active</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="product.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#opportunities" class="tsd-kind-icon">opportunities</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#recurringsalesinvoiceline" class="tsd-kind-icon">recurring<wbr>Sales<wbr>Invoice<wbr>Line</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#salesinvoiceline" class="tsd-kind-icon">sales<wbr>Invoice<wbr>Line</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#sellingaccount" class="tsd-kind-icon">selling<wbr>Account</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="product.html#sku" class="tsd-kind-icon">sku</a></li>
@@ -116,7 +118,7 @@
 					<div class="tsd-signature tsd-kind-icon">__typename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Product"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L265">libs/api-interfaces/src/lib/graphql.ts:265</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L400">libs/api-interfaces/src/lib/graphql.ts:400</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -127,20 +129,20 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/productmodel.html">ProductModel</a>.<a href="../interfaces/productmodel.html#buyingaccount">buyingAccount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L271">libs/api-interfaces/src/lib/graphql.ts:271</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/product.ts#L13">libs/data/src/lib/entities/product.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L407">libs/api-interfaces/src/lib/graphql.ts:407</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/product.ts#L15">libs/data/src/lib/entities/product.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="displayname" class="tsd-anchor"></a>
 					<h3>display<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/productmodel.html">ProductModel</a>.<a href="../interfaces/productmodel.html#displayname">displayName</a></p>
+						<p>Overrides UniqueDisplayEntityBase.displayName</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L272">libs/api-interfaces/src/lib/graphql.ts:272</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/product.ts#L18">libs/data/src/lib/entities/product.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L406">libs/api-interfaces/src/lib/graphql.ts:406</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -152,7 +154,7 @@
 						<p>Implementation of <a href="../interfaces/productmodel.html">ProductModel</a>.<a href="../interfaces/productmodel.html#id">id</a></p>
 						<p>Overrides EntityBase.id</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L266">libs/api-interfaces/src/lib/graphql.ts:266</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L401">libs/api-interfaces/src/lib/graphql.ts:401</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -163,7 +165,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isActive</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L269">libs/api-interfaces/src/lib/graphql.ts:269</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L404">libs/api-interfaces/src/lib/graphql.ts:404</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -174,7 +176,29 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.isCurrent</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L270">libs/api-interfaces/src/lib/graphql.ts:270</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L405">libs/api-interfaces/src/lib/graphql.ts:405</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="opportunities" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> opportunities</h3>
+					<div class="tsd-signature tsd-kind-icon">opportunities<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/opportunitymodel.html" class="tsd-signature-type">OpportunityModel</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L412">libs/api-interfaces/src/lib/graphql.ts:412</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/product.ts#L39">libs/data/src/lib/entities/product.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="recurringsalesinvoiceline" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> recurring<wbr>Sales<wbr>Invoice<wbr>Line</h3>
+					<div class="tsd-signature tsd-kind-icon">recurring<wbr>Sales<wbr>Invoice<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RecurringSalesInvoiceLine</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L410">libs/api-interfaces/src/lib/graphql.ts:410</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/product.ts#L29">libs/data/src/lib/entities/product.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -184,8 +208,8 @@
 					<div class="tsd-signature tsd-kind-icon">sales<wbr>Invoice<wbr>Line<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">SalesInvoiceLine</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L274">libs/api-interfaces/src/lib/graphql.ts:274</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/product.ts#L26">libs/data/src/lib/entities/product.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L409">libs/api-interfaces/src/lib/graphql.ts:409</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/product.ts#L23">libs/data/src/lib/entities/product.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -196,8 +220,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/productmodel.html">ProductModel</a>.<a href="../interfaces/productmodel.html#sellingaccount">sellingAccount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L273">libs/api-interfaces/src/lib/graphql.ts:273</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/product.ts#L22">libs/data/src/lib/entities/product.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L408">libs/api-interfaces/src/lib/graphql.ts:408</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/product.ts#L19">libs/data/src/lib/entities/product.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -208,8 +232,8 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/productmodel.html">ProductModel</a>.<a href="../interfaces/productmodel.html#sku">sku</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L275">libs/api-interfaces/src/lib/graphql.ts:275</a></li>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/data/src/lib/entities/product.ts#L31">libs/data/src/lib/entities/product.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L411">libs/api-interfaces/src/lib/graphql.ts:411</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/data/src/lib/entities/product.ts#L35">libs/data/src/lib/entities/product.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,7 +244,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtOpId</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L268">libs/api-interfaces/src/lib/graphql.ts:268</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L403">libs/api-interfaces/src/lib/graphql.ts:403</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -231,7 +255,7 @@
 					<aside class="tsd-sources">
 						<p>Overrides EntityBase.updtTs</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/643a9f9/libs/api-interfaces/src/lib/graphql.ts#L267">libs/api-interfaces/src/lib/graphql.ts:267</a></li>
+							<li>Defined in <a href="https://github.com/iDempiere-micro/erpjs/blob/0da61bc/libs/api-interfaces/src/lib/graphql.ts#L402">libs/api-interfaces/src/lib/graphql.ts:402</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,7 +282,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="product.html#buyingaccount" class="tsd-kind-icon">buying<wbr>Account</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="product.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
@@ -269,6 +293,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="product.html#iscurrent" class="tsd-kind-icon">is<wbr>Current</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="product.html#opportunities" class="tsd-kind-icon">opportunities</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="product.html#recurringsalesinvoiceline" class="tsd-kind-icon">recurring<wbr>Sales<wbr>Invoice<wbr>Line</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="product.html#salesinvoiceline" class="tsd-kind-icon">sales<wbr>Invoice<wbr>Line</a>

@@ -6,6 +6,7 @@ import { CurrencyModel } from '../entities/currency.model';
 import { BaseModel } from '../entities/base.model';
 import { BaseEntityService } from './base.entity.service';
 import { BaseSaveArgsModel } from '../args/base.save.args.model';
+import { OrganizationModel } from '../entities/organization.model';
 
 export abstract class BaseService {
   abstract getInjector(): Injector;
@@ -23,6 +24,9 @@ export abstract class BaseService {
 
   async loadCurrencyByIsoCode(isoCode: string): Promise<CurrencyModel> {
     return await this.getInjector().currencyService.getCurrency(isoCode);
+  }
+  async loadOrgByDisplayName(displayName: string): Promise<OrganizationModel> {
+    return await this.getInjector().organizationService.getOrg(displayName);
   }
 }
 

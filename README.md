@@ -15,6 +15,7 @@ You can explore the source code and find out how we used [Nx](https://nx.dev/), 
 [TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Angular](https://angular.io/) 
 to both build the backend that can run in [AWS Lambda](https://aws.amazon.com/lambda/) and 
 a sample frontend application that can be immediately used to run a business.
+
 You can run the ERP&CRM in your own cloud provided by AWS and both keep your data safe and prevent bad things 
 happening by having all your important data on your laptop or own server.
 

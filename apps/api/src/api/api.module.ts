@@ -6,17 +6,28 @@ import { UnauthorizedExceptionFilter } from './unauthorized-exception.filter';
 import { GenericEntityResolver } from './genericEntity.resolver';
 import { HomepageResolver } from './homepage.resolver';
 import { CustomerResolver } from './customer.resolver';
-import { InvoiceResolver } from './invoice.resolver';
+import { SalesInvoiceResolver } from './sales.invoice.resolver';
 import { InjectorImplementation } from './injector.implementation';
 import { TaskResolver } from './task.resolver';
 import { CalendarActivityResolver } from './calendar.activity.resolver';
 import { UserResolver } from './user.resolver';
+import { LeadResolver } from './lead.resolver';
+import { ProspectResolver } from './prospect.resolver';
+import { AccountResolver } from './account.resolver';
+import { ProductResolver } from './product.resolver';
+import { FileController } from './file.controller';
+import { SalesInvoiceLineResolver } from './sales.invoice.line.resolver';
+import { OrganizationResolver } from './organization.resolver';
+import { TaxResolver } from './tax.resolver';
+import { BankAccountResolver } from './bank.account.resolver';
+import { CurrencyResolver } from './currency.resolver';
 
 @Module({
     imports: [EntityModule, AuthModule, ModelModule],
     providers: [DateScalar, GenericEntityResolver, HomepageResolver,
-      CustomerResolver, InvoiceResolver, TaskResolver, CalendarActivityResolver,
-      UserResolver,
+      CustomerResolver, SalesInvoiceResolver, TaskResolver, CalendarActivityResolver,
+      UserResolver, LeadResolver, ProspectResolver, AccountResolver, ProductResolver, SalesInvoiceLineResolver,
+      OrganizationResolver, TaxResolver, BankAccountResolver, CurrencyResolver,
         {
             provide: APP_FILTER,
             useClass: UnauthorizedExceptionFilter,
@@ -24,7 +35,7 @@ import { UserResolver } from './user.resolver';
     exports: [
         DateScalar, GenericEntityResolver, HomepageResolver, CustomerResolver,
     ],
-    controllers: [],
+    controllers: [FileController],
 })
 export class ApiModule {
 }

@@ -1,6 +1,6 @@
 {
   "name": "@erpjs/model",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": {
     "name": "NašeÚkoly.CZ s.r.o.",
     "email": "info@naseukoly.cz",
@@ -13,6 +13,11 @@
   "bugs": "https://github.com/iDempiere-micro/erpjs/issues",
   "peerDependencies": {
     "p-iteration": "^1.1.8",
-    "deep-equal": "^1.1.0"
-  }
+    "deep-equal": "^1.1.0",
+    "moment": "^2.24.0"
+  },
+  "keywords": [
+    "erp",
+    "crm"
+  ]
 }

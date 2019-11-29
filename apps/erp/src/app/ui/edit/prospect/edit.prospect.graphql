@@ -1,0 +1,6 @@
+# Write your query or mutation here
+mutation prospect($args: ProspectSaveArgs!) {
+  prospect(args: $args) {
+    ...ProspectListParts
+  }
+}

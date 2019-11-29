@@ -12,4 +12,5 @@ export interface OrganizationModel extends BaseModel, HasLegalAddress,
   users: Promise<Array<UserToOrganizationModel>>;
   registration: string;
   contact: string;
+  idNumber: string;
 }

@@ -31,6 +31,8 @@ export interface PrintSalesInvoiceParty extends CanHaveVatRegistration{
   city: string;
   country: string;
   zipCode: string;
+  registration: string;
+  idNumber: string;
 }
 
 export interface PrintSalesInvoiceItem {

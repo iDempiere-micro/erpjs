@@ -9,18 +9,42 @@ import { runJob } from '@erpjs/data';
 
 export class SalesInvoiceJobImplementation {
   static plan() {
-    schedule('* * * * *', () => {
-      // SalesInvoiceJobImplementation.assignDocumentNumbers();
+/*    schedule('* * * * *', () => {
+      SalesInvoiceJobImplementation.calculate();
+      SalesInvoiceJobImplementation.assignDocumentNumbers();
     });
-    SalesInvoiceJobImplementation.assignDocumentNumbers();
+    SalesInvoiceJobImplementation.calculate();
+    SalesInvoiceJobImplementation.assignDocumentNumbers();*/
   }
 
-  static async assignDocumentNumbers() {
+  static async calculate() {
     await getManager().transaction(async manager => {
-      await runJob(getManager(), async () => {
+      await runJob(manager, async () => {
         const salesInvoiceJob = new SalesInvoiceJob();
         const salesInvoiceServiceImplementation = new SalesInvoiceServiceImplementation();
-        const documentNumberingService = new DocumentNumberingService(manager);
+        const invoices = await manager.createQueryBuilder()
+          .setLock('pessimistic_write')
+          .select('invoice')
+          .from(SalesInvoice, 'invoice')
+          .where(
+            `invoice.isCalculated = :isCalculated`,
+            { isCalculated: false, })
+          .orderBy('id')
+          .getMany();
+
+        for (const invoice of invoices) {
+          const calculatedInvoice = await salesInvoiceServiceImplementation.calculatePrices(invoice);
+          await manager.save(calculatedInvoice);
+        }
+      });
+    });
+  }
+  static async assignDocumentNumbers() {
+    await getManager().transaction(async manager => {
+      await runJob(manager, async () => {
+        const salesInvoiceJob = new SalesInvoiceJob();
+        const salesInvoiceServiceImplementation = new SalesInvoiceServiceImplementation();
+        const documentNumberingService = new DocumentNumberingService();
         const invoices = await manager.createQueryBuilder()
           .setLock('pessimistic_write')
           .select('invoice')

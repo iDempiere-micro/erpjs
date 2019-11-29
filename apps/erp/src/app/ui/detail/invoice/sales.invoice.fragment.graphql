@@ -1,0 +1,24 @@
+fragment SalesInvoiceDetailParts on SalesInvoice {
+  id updtTs updtOpId isActive isCurrent grandTotalAccountingSchemeCurrency dueDate
+  issuedOn paymentTermInDays
+  isDraft isCalculated documentNo
+  customer { ...CustomerListParts }
+  grandTotal narration totalLines totalLinesAccountingSchemeCurrency
+  currencyMultiplyingRateToAccountingSchemeCurrency transactionDate printed
+
+  lines {
+    ...SalesInvoiceLineDetailParts
+  }
+
+  bankAccount {...BankAccountListParts }
+
+  organization {...OrganizationListParts}
+
+  currency { ...CurrencyListParts }
+
+  vatReport {
+    vatRatePercent
+    vatTotal
+    vatTotalAccountingSchemeCurrency
+  }
+}

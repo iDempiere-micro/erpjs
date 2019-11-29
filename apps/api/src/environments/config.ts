@@ -20,6 +20,7 @@ if (!fs.existsSync(localSecurityFile)) {
     dbPassword: process.env.DB_PASSWORD,
     dbSsl: process.env.DB_SSL,
     dbPort: process.env.DB_PORT,
+    anonym: process.env.ANONYM,
   };
 
   if (process.env.AUTH0_CLIENT_SECRET && process.env.AUTH0_CLIENT_SECRET !== '') {
@@ -47,3 +48,4 @@ export const dbPassword = IBMCloudEnv.getString('db-password');
 export const dbSsl = IBMCloudEnv.getString('db-ssl') === 'true';
 export const dbPort = +IBMCloudEnv.getString('db-port');
 export const appPort = +IBMCloudEnv.getString('port');
+export const anonym = IBMCloudEnv.getString('anonym') === 'true';
