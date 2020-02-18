@@ -67,7 +67,7 @@
     "apollo-server-core": "2.5.0",
     "apollo-server-express": "2.5.0",
     "auth0": "^2.20.0",
-    "aws-lambda": "^0.1.2",
+    "aws-lambda": "^1.0.5",
     "aws-serverless-express": "^3.3.5",
     "class-transformer": "0.2.3",
     "class-validator": "0.9.1",
