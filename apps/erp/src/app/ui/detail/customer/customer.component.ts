@@ -1,56 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerByIdGQL, CustomerDetailPartsFragment } from '@erpjs/api-interfaces';
-import { map } from 'rxjs/operators';
+import { CustomerByIdGQL, CustomerByIdQuery, CustomerByIdQueryVariables, CustomerDetailPartsFragment } from '@erpjs/api-interfaces';
+import { ItemDetailComponent } from '@erp/core/base/item.detail.component';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-customer',
   template: `
-    <div *ngIf="customer">
-        <h1>{{customer.legalName}} - {{customer.displayName}}</h1>
-        <h2>{{customer.legalAddress.line1}}, {{customer.legalAddress.zipCode}}
-            {{customer.legalAddress.city}}, {{customer.legalAddress.country.displayName}}
+    <div *ngIf="data">
+        <h1>{{data.legalName}} - {{data.displayName}}</h1>
+        <h2>{{data.legalAddress.line1}}, {{data.legalAddress.zipCode}}
+            {{data.legalAddress.city}}, {{data.legalAddress.country.displayName}}
         </h2>
 
         <clr-accordion>
             <clr-accordion-panel>
                 <clr-accordion-title>Sales Invoices</clr-accordion-title>
                 <clr-accordion-content *clrIfExpanded>
-                    <erp-invoices [data]="customer.salesInvoices" ></erp-invoices>
+                    <erp-invoices [data]="data.salesInvoices" ></erp-invoices>
                 </clr-accordion-content>
             </clr-accordion-panel>
 
             <clr-accordion-panel>
                 <clr-accordion-title>Tasks</clr-accordion-title>
                 <clr-accordion-content *clrIfExpanded>
-                    <erp-customer-tasks [data]="customer.tasks" [customer]="customer"></erp-customer-tasks>
+                    <erp-customer-tasks [data]="data.tasks" [customer]="data"></erp-customer-tasks>
                 </clr-accordion-content>
             </clr-accordion-panel>
 
             <clr-accordion-panel>
                 <clr-accordion-title>Calendar Activities</clr-accordion-title>
                 <clr-accordion-content *clrIfExpanded>
-                    <erp-calendar-activities [data]="customer.calendarActivities" ></erp-calendar-activities>
+                    <erp-calendar-activities [data]="data.calendarActivities" ></erp-calendar-activities>
                 </clr-accordion-content>
             </clr-accordion-panel>
-        </clr-accordion>        
+        </clr-accordion>
     </div>
   `,
   styles: []
 })
-export class CustomerComponent implements OnInit {
-  id: number;
-  customer: CustomerDetailPartsFragment;
+export class CustomerComponent
+  extends ItemDetailComponent<CustomerDetailPartsFragment, CustomerByIdQuery, CustomerByIdQueryVariables, CustomerByIdGQL> {
+
+  extractData(result: CustomerByIdQuery): CustomerDetailPartsFragment {
+    return result.customerById;
+  }
+
+  getQuery(): CustomerByIdGQL { return this.query; }
 
   constructor(
-    private route: ActivatedRoute,
+    route: ActivatedRoute,
     private query: CustomerByIdGQL,
-  ) {}
-
-  async ngOnInit() {
-    this.id = this.route.snapshot.params.id;
-    this.customer = await this.query.fetch({id: +this.id})
-      .pipe(map((result) => result.data.customerById)).toPromise();
-  }
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
+  ) {super(route, dataLoadingService, windowService);}
 
 }

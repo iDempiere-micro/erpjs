@@ -1,3 +1,4 @@
 <erp-layout>
-  <router-outlet></router-outlet>
+  <clr-spinner *ngIf="loading">Loading data</clr-spinner>
+  <router-outlet *ngIf="!loading"></router-outlet>
 </erp-layout>

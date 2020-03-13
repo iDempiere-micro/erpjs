@@ -1,0 +1,31 @@
+@import 'variables';
+
+@import "~@nativescript/theme/core";
+@import "~@nativescript/theme/blue";
+
+RadSideDrawer .drawerContentText {
+  font-size: 13;
+  padding: 10;
+}
+
+RadSideDrawer .drawerContentButton {
+  margin: 10;
+  horizontal-align: left;
+}
+
+.sideStackLayout {
+  background-color: gray;
+}
+
+.sideTitleStackLayout {
+  text-align: center;
+  vertical-align: center;
+}
+
+.sideLabel {
+  padding: 10;
+}
+
+.sideLightGrayLabel {
+  background-color: lightgray;
+}

@@ -12,6 +12,7 @@ import { HasIssuedOn } from '../helpers/has.issued.on';
 import { HasDocumentNo } from '../helpers/has.document.no';
 import { WasPrinted } from '../helpers/was.printed';
 import { SalesInvoiceVatModel } from './sales.invoice.vat.model';
+import { CustomerOrderModel } from './customer.order.model';
 
 export interface SalesInvoiceModel extends BaseModel, HasProductsQuantitiesPricesTaxes,
   HasCustomer, HasCurrency, HasTotalLines, HasGrandTotal, TransactionModel,
@@ -22,4 +23,6 @@ export interface SalesInvoiceModel extends BaseModel, HasProductsQuantitiesPrice
   isCalculated: boolean;
   isDraft: boolean;
   paymentTermInDays: number;
+  reverseCharge: boolean;
+  originalOrder?: Promise<CustomerOrderModel>
 }

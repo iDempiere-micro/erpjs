@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemListComponent } from '../item.list.component';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
 import { LeadListPartsFragment, LeadsGQL, LeadsQuery, LeadsQueryVariables } from '@erpjs/api-interfaces';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-leads',
@@ -49,11 +50,12 @@ export class LeadsComponent
   }
 
   constructor(
-    private leadsGQL: LeadsGQL
-  ) { super(); }
+    private leadsGQL: LeadsGQL,
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
+  ) { super(dataLoadingService,windowService); }
 
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     super.setBasicItemFilter(['displayName', 'email', 'company', 'phone']);
   }
 

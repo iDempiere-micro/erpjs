@@ -8,9 +8,8 @@ import { ClarityModule } from '@clr/angular';
 import { PageNotFoundComponent } from './error/page-not-found.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CallbackComponent } from './support/callback/callback.component';
-import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { HttpLink, HttpLinkModule } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloModule } from 'apollo-angular';
+import { HttpLinkModule } from 'apollo-angular-link-http';
 import { CustomersComponent } from './list/customers/customers.component';
 import { EditCustomerComponent } from './edit/customer/edit.customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,6 +47,7 @@ import { BankAccountsComponent } from './list/bank-accounts/bank-accounts.compon
 import { CurrenciesComponent } from './list/currencies/currencies.component';
 import { SalesInvoiceComponent } from './detail/invoice/sales.invoice.component';
 import { ShowInvoiceComponent } from './shared/download-invoice/show-invoice.component';
+import { _globalServerRootUri, apolloProvider } from '@erpjs/api-interfaces';
 
 @NgModule({
   declarations: [LayoutComponent, HeaderComponent, SidebarComponent, MainComponent, PageNotFoundComponent,
@@ -70,20 +70,11 @@ import { ShowInvoiceComponent } from './shared/download-invoice/show-invoice.com
 
   ],
   providers:
-  [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory: (httpLink: HttpLink) => {
-        return {
-          cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: `${config.api}/graphql`
-          })
-        }
-      },
-      deps: [HttpLink]
-    },
-  ],
+  [ apolloProvider ],
   exports: [ LayoutComponent, PageNotFoundComponent, HomepageComponent ]
 })
-export class UiModule { }
+export class UiModule {
+  constructor() {
+    _globalServerRootUri.uri = config.api;
+  }
+}

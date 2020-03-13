@@ -1,0 +1,11 @@
+<StackLayout class="p-20" *ngIf="!data && isIOS">
+  <ActivityIndicator width="100" height="100" [busy]="true"></ActivityIndicator>
+</StackLayout>
+<StackLayout class="p-20" *ngIf="data">
+  <Label [text]="data.displayName" class="h1 text-center"></Label>
+  <Label [text]="data.legalName" class="h2 text-center"></Label>
+  <Label [text]="address">
+  </Label>
+
+  <xpl-sales-invoices [data]="data.salesInvoices" [showCustomer]="false"></xpl-sales-invoices>
+</StackLayout>

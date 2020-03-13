@@ -126,5 +126,4 @@ export class AuthService {
       });
     });
   }
-
 }

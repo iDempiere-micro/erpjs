@@ -13,7 +13,7 @@ export class MigrationService implements OnModuleInit {
     async onModuleInit() {
       console.log('Running migrations...');
         await this.connection.runMigrations({
-            transaction: true,
+            transaction: 'all',
         });
 
         // TODO: here?

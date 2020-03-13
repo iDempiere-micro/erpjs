@@ -5,6 +5,8 @@ import { TaxSaveArgsModel } from '@erpjs/model';
 @InputType()
 export class TaxSaveArgs extends BaseSaveArgs implements TaxSaveArgsModel {
   @Field()
+  isStandard: boolean;
+  @Field()
   displayName: string;
   @Field()
   ratePercent: number;

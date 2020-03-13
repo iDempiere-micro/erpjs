@@ -1,17 +1,10 @@
 import { BaseEntityResolver } from './base.entity.resolver';
-import {
-  OrganizationModel,
-  OrganizationService,
-  OrganizationServiceKey,
-  UserService,
-  UserServiceKey
-} from '@erpjs/model';
+import { OrganizationModel, OrganizationService, OrganizationServiceKey, UserService, UserServiceKey } from '@erpjs/model';
 import { OrganizationSaveArgs } from './args/organization.save.args';
 import { Inject } from '@nestjs/common';
 import { Args, Query } from '@nestjs/graphql';
-import { CommonGetOneArgs, run } from '@erpjs/data';
+import { CommonGetOneArgs, Organization, run } from '@erpjs/data';
 import { User as CurrentUser } from './user.decorator';
-import { Organization } from '../../../../libs/data/src/lib/entities/organization';
 import { getManager } from 'typeorm';
 
 export class OrganizationResolver

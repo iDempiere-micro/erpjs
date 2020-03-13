@@ -8,10 +8,12 @@ import {
   CurrencyModel,
   CurrencyRateService,
   Injector,
+  LanguageModel,
   OrganizationModel,
   ProductQuantityPriceTaxModel,
   SalesInvoiceService,
-  SalesInvoiceVatService
+  SalesInvoiceVatService,
+  TaxModel
 } from '@erpjs/model';
 
 class TestInvoice implements SalesInvoiceModel {
@@ -40,6 +42,8 @@ class TestInvoice implements SalesInvoiceModel {
   organization = Promise.resolve({vatRegistrations:[{}]} as any);
   totalLines: number;
   transactionDate: Date;
+  printLanguage: LanguageModel = {} as any;
+  reverseCharge: boolean;
 }
 
 class TestInvoiceServiceImpl extends SalesInvoiceService {
@@ -73,14 +77,14 @@ describe('SalesInvoiceService', () => {
     service = app.get<TestInvoiceServiceImpl>(TestInvoiceServiceImpl);
   });
 
-  const tax1 = Promise.resolve({
-    id: 0, displayName: null, ratePercent: 10
+  const tax1: Promise<TaxModel> = Promise.resolve({
+    id: 0, displayName: null, ratePercent: 10, isStandard: false
   });
   const tax2 = Promise.resolve({
-    id: 0, displayName: null, ratePercent: 18.5
+    id: 0, displayName: null, ratePercent: 18.5, isStandard: false
   });
   const tax3 = Promise.resolve({
-    id: 0, displayName: null, ratePercent: 21
+    id: 0, displayName: null, ratePercent: 21, isStandard: false
   });
 
   describe('SalesInvoiceService', () => {

@@ -141,6 +141,10 @@ describe('util', () => {
       const result = roundNumber(875 * 19.42 * 0.21,2);
       expect(result).toBe(3568.43);
     });
+    it('should work on 50.8 * 25.515', async () => {
+      const result = roundNumber(50.8 * 25.515,2);
+      expect(result).toBe(1296.16);
+    });
   });
 
 });

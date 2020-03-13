@@ -1,9 +1,4 @@
-import {
-  HasProductsQuantities,
-  HasProductsQuantitiesPricesTaxes,
-  HasSalesStage,
-  PricingServiceModel
-} from '@erpjs/model';
+import { HasProductsQuantities, HasProductsQuantitiesPricesTaxes, HasSalesStage, PricingServiceModel } from '@erpjs/model';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

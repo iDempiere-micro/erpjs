@@ -11,10 +11,18 @@ import {
   CountryServiceKey,
   CurrencyRateServiceKey,
   CurrencyServiceKey,
+  CustomerGroupServiceKey,
+  CustomerOrderServiceKey,
+  CustomerPriceListServiceKey,
+  CustomerProductPriceServiceKey,
   CustomerServiceKey,
   Injector,
   LeadServiceKey,
-  OrganizationServiceKey,
+  OrganizationServiceKey, ProductIssueLineServiceKey,
+  ProductIssueServiceKey,
+  ProductQuantityOnHandServiceKey,
+  ProductReceiptLineServiceKey,
+  ProductReceiptServiceKey,
   ProductServiceKey,
   ProspectServiceKey,
   RecurringSalesInvoiceLineServiceKey,
@@ -26,7 +34,8 @@ import {
   TaskServiceKey,
   TaxServiceKey,
   UserServiceKey,
-  UserToOrganizationServiceKey
+  UserToOrganizationServiceKey,
+  WarehouseServiceKey
 } from '@erpjs/model';
 import { AppUser, CalendarActivity, Customer, ModelModule, Prospect, SalesInvoice, Suspect, Task } from '@erpjs/data';
 import { EntityManager, Repository } from 'typeorm';
@@ -47,6 +56,17 @@ import { CurrencyRate } from '../entities/currency.rate';
 import { RecurringSalesInvoice } from '../entities/recurring.sales.invoice';
 import { RecurringSalesInvoiceLine } from '../entities/recurring.sales.invoice.line';
 import { Account } from '../entities/account';
+import { CustomerGroup } from '../entities/customer.group';
+import { CustomerPriceList } from '../entities/customer.price.list';
+import { CustomerProductPrice } from '../entities/customer.product.price';
+import { ProductQuantityOnHandServiceImplementation } from '@erp/data/src/lib/model/product.quantity.on-hand.service.implementation';
+import { ProductQuantityOnHand } from '@erp/data/src/lib/entities/product.quantity.on-hand';
+import { Warehouse } from '@erp/data/src/lib/entities/warehouse';
+import { ProductReceipt } from '@erp/data/src/lib/entities/product.receipt';
+import { ProductReceiptLine } from '@erp/data/src/lib/entities/product.receipt.line';
+import { CustomerOrder } from '@erp/data/src/lib/entities/customer.order';
+import { ProductIssue } from '@erp/data/src/lib/entities/product.issue';
+import { ProductIssueLine } from '@erp/data/src/lib/entities/product.issue.line';
 
 class ClassImplementation<E extends BaseModel, S> {
   createEntity: () => E;
@@ -126,6 +146,38 @@ const implementations = new Map<string, ClassImplementation<any, any>>([
   [AccountServiceKey, {
     createEntity: ()=> new Account(),
     getRepository: (manager: EntityManager) => manager.getRepository(Account), }],
+  [CustomerGroupServiceKey, {
+    createEntity: ()=> new CustomerGroup(),
+    getRepository: (manager: EntityManager) => manager.getRepository(CustomerGroup), }],
+  [CustomerPriceListServiceKey, {
+    createEntity: ()=> new CustomerPriceList(),
+    getRepository: (manager: EntityManager) => manager.getRepository(CustomerPriceList), }],
+  [CustomerProductPriceServiceKey, {
+    createEntity: ()=> new CustomerProductPrice(),
+    getRepository: (manager: EntityManager) => manager.getRepository(CustomerProductPrice), }],
+  [ProductQuantityOnHandServiceKey, {
+    createEntity: ()=> new ProductQuantityOnHand(),
+    getRepository: (manager: EntityManager) => manager.getRepository(ProductQuantityOnHand), }],
+  [WarehouseServiceKey, {
+    createEntity: ()=> new Warehouse(),
+    getRepository: (manager: EntityManager) => manager.getRepository(Warehouse), }],
+  [ProductReceiptServiceKey, {
+    createEntity: ()=> new ProductReceipt(),
+    getRepository: (manager: EntityManager) => manager.getRepository(ProductReceipt), }],
+  [ProductReceiptLineServiceKey, {
+    createEntity: ()=> new ProductReceiptLine(),
+    getRepository: (manager: EntityManager) => manager.getRepository(ProductReceiptLine), }],
+  [CustomerOrderServiceKey, {
+    createEntity: ()=> new CustomerOrder(),
+    getRepository: (manager: EntityManager) => manager.getRepository(CustomerOrder), }],
+  [ProductIssueServiceKey, {
+    createEntity: ()=> new ProductIssue(),
+    getRepository: (manager: EntityManager) => manager.getRepository(ProductIssue), }],
+  [ProductIssueLineServiceKey, {
+    createEntity: ()=> new ProductIssueLine(),
+    getRepository: (manager: EntityManager) => manager.getRepository(ProductIssueLine), }],
+
+
 ]);
 
 // this is the derived class that will receive the constructor with super

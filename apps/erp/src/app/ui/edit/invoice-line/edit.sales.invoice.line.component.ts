@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {
   ProductListPartsFragment,
   ProductsGQL,
@@ -11,6 +11,7 @@ import {
 } from '@erpjs/api-interfaces';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { ClrForm } from '@clr/angular';
 
 @Component({
   selector: 'erp-edit-invoice-line',
@@ -19,35 +20,38 @@ import { map } from 'rxjs/operators';
           <clr-input-container>
               <label>Line order</label>
               <input clrInput type="text" formControlName="lineOrder"/>
-              <clr-control-helper>Any header you want the task to be called</clr-control-helper>
-              <clr-control-error>You have to give a task a name.</clr-control-error>
+              <clr-control-helper>Invoice Line Order</clr-control-helper>
+              <clr-control-error>Invoice line must have a line order to know in which order to print them</clr-control-error>
           </clr-input-container>
           <clr-input-container>
               <label>Line price</label>
               <input clrInput type="text" formControlName="linePrice"/>
-              <clr-control-helper>Any header you want the task to be called</clr-control-helper>
-              <clr-control-error>You have to give a task a name.</clr-control-error>
+              <clr-control-helper>Total line price. Unit price is calculated from Line price and Quantity</clr-control-helper>
+              <clr-control-error>Invoice line must have a line price</clr-control-error>
           </clr-input-container>
           <clr-input-container>
               <label>Narration</label>
               <input clrInput type="text" formControlName="narration"/>
-              <clr-control-helper>Any header you want the task to be called</clr-control-helper>
-              <clr-control-error>You have to give a task a name.</clr-control-error>
+              <clr-control-helper>Invoice Line narration/description/title, why is the line on the invoice</clr-control-helper>
+              <clr-control-error>Every invoice line must have a narration/description/title</clr-control-error>
           </clr-input-container>
           <clr-input-container>
               <label>Quantity</label>
               <input clrInput type="text" formControlName="quantity"/>
-              <clr-control-helper>Any header you want the task to be called</clr-control-helper>
-              <clr-control-error>You have to give a task a name.</clr-control-error>
+              <clr-control-helper>How many units is invoiced</clr-control-helper>
+              <clr-control-error>You must specify the number of units invoiced.</clr-control-error>
           </clr-input-container>
           <clr-select-container>
               <label>Line Tax</label>
-              <select clrSelect name="responsible" formControlName="lineTaxId" *ngIf="taxes && editForm"
+              <select clrSelect name="lineTaxId" formControlName="lineTaxId" *ngIf="taxes && editForm"
                       (change)="taxChanged()">
                   <option *ngFor="let tax of taxes" [value]="tax.id">{{tax.displayName}}</option>
               </select>
           </clr-select-container>
 
+        <div class="clr-form-control clr-row">
+          <label class="clr-control-label clr-col-12 clr-col-md-2" for="clr-form-control-15">
+            Product</label>
           <clr-datagrid [(clrDgSingleSelected)]="product" *ngIf="products"
                         (clrDgSingleSelectedChange)="productSelectionChanged($event)">
               <clr-dg-column>ID
@@ -62,10 +66,10 @@ import { map } from 'rxjs/operators';
                   <clr-dg-cell><a [routerLink]="['/product',product.id]">{{product.displayName}}</a></clr-dg-cell>
                   <clr-dg-cell><a [routerLink]="['/product',product.id]">{{product.sku}}</a></clr-dg-cell>
               </clr-dg-row>
-          </clr-datagrid>
+          </clr-datagrid><clr-icon *ngIf="productNotSelected" class="is-error" size="24" shape="exclamation-circle"></clr-icon>
+        </div>
 
-          <button *ngIf="this.invoice" type="submit" class="btn btn-primary">Save</button>
-          <button class="btn btn-primary" (click)="okClick()">OK</button>
+          <button type="submit" class="btn btn-primary">OK</button>
       </form>
   `,
   styles: []
@@ -80,6 +84,8 @@ export class EditSalesInvoiceLineComponent implements OnInit {
   submitted = false;
   product: ProductListPartsFragment;
   products: Array<ProductListPartsFragment>;
+  @ViewChild(ClrForm, {static:false}) form: ClrForm;
+  productNotSelected = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -89,6 +95,7 @@ export class EditSalesInvoiceLineComponent implements OnInit {
   ) { }
 
   productSelectionChanged(product:ProductListPartsFragment) {
+    this.productNotSelected = false;
     this.editForm.patchValue(
       {
         productId: product.id
@@ -115,27 +122,29 @@ export class EditSalesInvoiceLineComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.editForm.invalid) {
+      this.form.markAsTouched();
+
       return;
     }
 
-    const args = this.getSaveArgs(this.editForm.value);
-    const result = await this.salesInvoiceLineGQL.mutate(
-      {
-        args,
-      }).toPromise();
-    this.selectedInvoiceLineChanged.emit(result.data.salesInvoiceLine);
-  }
-
-  okClick() {
-    const formValues = this.editForm.value;
-    const invoiceLine = this.invoiceLine;
-    this.selectedInvoiceLineChanged.emit(
-      {
-        ...invoiceLine,
-        ...this.getSaveArgs(formValues),
-        id: this.invoiceLine ? this.invoiceLine.id : null
-      }
-    );
+    if (this.invoice) {
+      const args = this.getSaveArgs(this.editForm.value);
+      const result = await this.salesInvoiceLineGQL.mutate(
+        {
+          args,
+        }).toPromise();
+      this.selectedInvoiceLineChanged.emit(result.data.salesInvoiceLine);
+    } else {
+      const formValues = this.editForm.value;
+      const invoiceLine = this.invoiceLine;
+      this.selectedInvoiceLineChanged.emit(
+        {
+          ...invoiceLine,
+          ...this.getSaveArgs(formValues),
+          id: this.invoiceLine ? this.invoiceLine.id : null
+        }
+      );
+    }
   }
 
   taxChanged() {

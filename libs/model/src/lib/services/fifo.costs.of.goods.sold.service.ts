@@ -1,31 +1,39 @@
 /**
  * Service to calculate costs of goods sold using FIFO.
  */
-import { ReceiptLineModel } from '../entities/receipt.line.model';
 import { ProductQuantityModel } from '../helpers/product.quantity.model';
 import { WarehouseModel } from '../entities/warehouse.model';
+import { ProductReceiptLineModel } from '../entities/product.receipt.line.model';
+
+export const FifoCostsOfGoodsSoldServiceKey = 'FifoCostsOfGoodsSoldService';
+
+const { filter } = require('p-iteration');
 
 export interface FifoCostsOfGoodsSoldCalculationResult {
   costsOfGoodsSold: number;
-  receiptLinesModified: Array<ReceiptLineModel>;
+  receiptLinesModified: Array<ProductReceiptLineModel>;
 }
 
 export class FifoCostsOfGoodsSoldService {
   async calculateFifoCostsOfGoodsSold(
     of: ProductQuantityModel,
-    basedOn: Array<ReceiptLineModel>,
+    basedOn: Array<ProductReceiptLineModel>,
     warehouse: WarehouseModel
   ):
     Promise<FifoCostsOfGoodsSoldCalculationResult> {
-      if (!of || !warehouse || !basedOn || basedOn.length === 0) {
-        return { costsOfGoodsSold: undefined, receiptLinesModified:[] };
-      }
+    if (!of || !warehouse || !basedOn || basedOn.length === 0) {
+      return { costsOfGoodsSold: undefined, receiptLinesModified: [] };
+    }
 
-    const receiptLinesSortedByReceiptDate = basedOn
-        .filter( x => x.quantityOnHand && x.quantityOnHand > 0 && x.warehouse
-        && x.warehouse.id === warehouse.id)
-        // @ts-ignore
-        .sort( (x,y) => x.receiptDate - y.receiptDate );
+    async function onlyValid(x: ProductReceiptLineModel): Promise<boolean> {
+      const x_warehouse = await(await x.productReceipt).warehouse;
+      return x.quantityOnHand && x.quantityOnHand > 0 && x_warehouse
+        && x_warehouse.id === warehouse.id
+    }
+
+    const receiptLinesSortedByReceiptDate =
+      (await filter(basedOn, async x => await onlyValid(x)))
+        .sort((x, y) => x.movementDate - y.movementDate);
 
     const receiptLinesModified = [];
     let quantityRemaining = of.quantity;
@@ -44,6 +52,6 @@ export class FifoCostsOfGoodsSoldService {
         break;
       }
     }
-    return { costsOfGoodsSold, receiptLinesModified};
+    return { costsOfGoodsSold, receiptLinesModified };
   }
 }

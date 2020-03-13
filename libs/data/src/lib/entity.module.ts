@@ -38,6 +38,18 @@ import { Vendor } from './entities/vendor';
 import { CurrencyRate } from './entities/currency.rate';
 import { RecurringSalesInvoiceLine } from './entities/recurring.sales.invoice.line';
 import { RecurringSalesInvoice } from './entities/recurring.sales.invoice';
+import { CustomerGroup } from './entities/customer.group';
+import { CustomerPriceList } from './entities/customer.price.list';
+import { CustomerProductPrice } from './entities/customer.product.price';
+import { CustomerOrder } from '@erp/data/src/lib/entities/customer.order';
+import { SalesStage } from '@erp/data/src/lib/entities/sales.stage';
+import { OrderLine } from '@erp/data/src/lib/entities/order.line';
+import { ProductQuantityOnHand } from '@erp/data/src/lib/entities/product.quantity.on-hand';
+import { Warehouse } from '@erp/data/src/lib/entities/warehouse';
+import { ProductReceipt } from '@erp/data/src/lib/entities/product.receipt';
+import { ProductReceiptLine } from '@erp/data/src/lib/entities/product.receipt.line';
+import { ProductIssue } from '@erp/data/src/lib/entities/product.issue';
+import { ProductIssueLine } from '@erp/data/src/lib/entities/product.issue.line';
 
 export const entities = [
   Address,
@@ -73,10 +85,21 @@ export const entities = [
   CurrencyRate,
   RecurringSalesInvoiceLine,
   RecurringSalesInvoice,
+  CustomerGroup,
+  CustomerPriceList,
+  CustomerProductPrice,
+  CustomerOrder,
+  SalesStage,
+  OrderLine,
+  ProductQuantityOnHand,
+  Warehouse,
+  ProductReceipt,
+  ProductReceiptLine,
+  ProductIssue,
+  ProductIssueLine,
 ];
 
-export const migrations = [
-];
+export const migrations = [];
 
 @Module({
   imports: [

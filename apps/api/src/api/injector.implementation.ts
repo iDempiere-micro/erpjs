@@ -17,13 +17,31 @@ import {
   CurrencyRateServiceKey,
   CurrencyService,
   CurrencyServiceKey,
+  CustomerGroupService,
+  CustomerGroupServiceKey, CustomerOrderService, CustomerOrderServiceKey,
+  CustomerPriceListService,
+  CustomerPriceListServiceKey,
+  CustomerProductPriceService,
+  CustomerProductPriceServiceKey,
   CustomerService,
-  CustomerServiceKey,
+  CustomerServiceKey, FifoCostsOfGoodsSoldService, FifoCostsOfGoodsSoldServiceKey,
   Injector,
+  LanguagesService,
+  LanguagesServiceKey,
   LeadService,
   LeadServiceKey,
   OrganizationService,
   OrganizationServiceKey,
+  ProductIssueLineService,
+  ProductIssueLineServiceKey,
+  ProductIssueService,
+  ProductIssueServiceKey,
+  ProductQuantityOnHandService,
+  ProductQuantityOnHandServiceKey,
+  ProductReceiptLineService,
+  ProductReceiptLineServiceKey,
+  ProductReceiptService,
+  ProductReceiptServiceKey,
   ProductService,
   ProductServiceKey,
   ProspectService,
@@ -44,20 +62,22 @@ import {
   TaskServiceKey,
   TaxService,
   TaxServiceKey,
+  TranslationService,
+  TranslationServiceKey,
   UserService,
   UserServiceKey,
   UserToOrganizationService,
-  UserToOrganizationServiceKey
+  UserToOrganizationServiceKey,
+  WarehouseService,
+  WarehouseServiceKey
 } from '@erpjs/model';
 import { Inject, Injectable } from '@nestjs/common';
-import { ModelModule } from '@erpjs/data';
-import { DocumentNumberingService } from '@erpjs/data';
-import { ReportsService } from '../../../../libs/data/src/lib/services/reports.service';
+import { DocumentNumberingService, ModelModule, ReportsService } from '@erpjs/data';
 
 @Injectable()
 export class InjectorImplementation implements Injector {
   public readonly documentNumberingServiceModel = new DocumentNumberingService();
-  public readonly reportsServiceModel = new ReportsService();
+  public readonly reportsServiceModel;
 
   constructor(
     @Inject(AddressServiceKey) public readonly addressService: AddressService,
@@ -85,7 +105,21 @@ export class InjectorImplementation implements Injector {
     @Inject(RecurringSalesInvoiceLineServiceKey)
     public readonly recurringSalesInvoiceLineService: RecurringSalesInvoiceLineService,
     @Inject(AccountServiceKey) public readonly accountService: AccountService,
+    @Inject(CustomerGroupServiceKey) public readonly customerGroupService: CustomerGroupService,
+    @Inject(CustomerPriceListServiceKey) public readonly customerPriceListService: CustomerPriceListService,
+    @Inject(CustomerProductPriceServiceKey) public readonly customerProductPriceService : CustomerProductPriceService,
+    @Inject(TranslationServiceKey) public readonly translationService: TranslationService,
+    @Inject(LanguagesServiceKey) public readonly languagesService: LanguagesService,
+    @Inject(ProductQuantityOnHandServiceKey) public readonly productQuantityOnHandService: ProductQuantityOnHandService,
+    @Inject(ProductReceiptLineServiceKey) public readonly productReceiptLineService: ProductReceiptLineService,
+    @Inject(ProductReceiptServiceKey) public readonly productReceiptService: ProductReceiptService,
+    @Inject(WarehouseServiceKey) public readonly warehouseService: WarehouseService,
+    @Inject(ProductIssueLineServiceKey) public readonly productIssueLineService: ProductIssueLineService,
+    @Inject(ProductIssueServiceKey) public readonly productIssueService: ProductIssueService,
+    @Inject(FifoCostsOfGoodsSoldServiceKey) public readonly fifoCostsOfGoodsSoldService: FifoCostsOfGoodsSoldService,
+    @Inject(CustomerOrderServiceKey) public readonly customerOrderService: CustomerOrderService,
   ) {
     ModelModule.setInjector(this);
+    this.reportsServiceModel= new ReportsService(translationService);
   }
 }

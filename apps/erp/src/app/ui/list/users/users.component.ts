@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemListComponent } from '../item.list.component';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
 import { UserListPartsFragment, UsersGQL, UsersQuery, UsersQueryVariables } from '@erpjs/api-interfaces';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-users',
@@ -29,8 +30,8 @@ import { UserListPartsFragment, UsersGQL, UsersQuery, UsersQueryVariables } from
       </clr-datagrid>      `,
   styles: []
 })
-export class UsersComponent extends ItemListComponent<UserListPartsFragment, UsersQuery, UsersQueryVariables, UsersGQL>
-  implements OnInit {
+export class UsersComponent
+  extends ItemListComponent<UserListPartsFragment, UsersQuery, UsersQueryVariables, UsersGQL> {
 
   extractData(result: UsersQuery): Array<UserListPartsFragment> {
     return result.users;
@@ -42,11 +43,11 @@ export class UsersComponent extends ItemListComponent<UserListPartsFragment, Use
 
   constructor(
     private usersGQL: UsersGQL,
-  ) { super(); }
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
+  ) { super(dataLoadingService, windowService); }
 
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     super.setBasicItemFilter(['email', 'username', 'name']);
   }
-
 }

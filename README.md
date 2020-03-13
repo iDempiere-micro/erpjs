@@ -1,4 +1,4 @@
-# @erpjs  - the headless serverless ERP and CRM for the cloud.
+# @erpjs  - the headless serverless ERP and CRM for the cloud
 
 This is the source code of the [erpjs](http://erpjs.eu), the headless serverless ERP and CRM for the cloud 
 written in TypeScript running on [Node.js](https://nodejs.org/en/) and 
@@ -32,13 +32,20 @@ This is the business core of the ERP/CRM. Stored in `libs/model`:
     
     - `SalesInvoiceService` makes sure VATs are applied if necessary, the grand total is rounded and is ready 
     to be posted with the correct currency rate
+    
     -  `ProspectService` correctly converts `SuspectModel` to `ProspectModel` when needed
+    
 - **entity interfaces** (e.g. `AccountModel` or `CustomerModel` ). What are the basic minimum attributes entities need to have.
+
 - **jobs** (e.g. `SalesInvoiceJob`). Repeatable jobs that e.g. assign document numbers to invoices.
+
 - **args**. The interface for a new entity to be created through the service.
+
 - **Injector** to be able to make calls between services. 
 
 This library contains only the business code, no persistence, minimum dependencies.
+Never import like `import { ... } from '@erp/model` here, always use the relative paths or the `@erpjs/model`
+will not build.
 
 ### @erpjs/data
 This is the implementation of @erpjs/model in [NestJS](https://nestjs.com/).
@@ -60,8 +67,9 @@ calling the API using [GraphQL](https://graphql.org/).
 
 ## Prerequisities
 
-- Node.JS 10+ for running the API server 
+- Node.JS 10 for running the API server; switch with commands like `nvm use v10.18.1`, also note we are now not node 13.5 compatible 
 - Auth0 tenant created and setup following [Setup Auth0 for erpjs](https://naseukolycz.atlassian.net/wiki/spaces/ERPJS/pages/363856005/Setup+Auth0+for+erpjs).
+- for the mobile application you have [to install NativeScript](https://docs.nativescript.org/angular/start/quick-setup) e.g. `npm install -g nativescript`
 
 ## Dependencies
 Run `npm i` to install the dependencies.
@@ -120,22 +128,47 @@ Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
 `npm publish ~/dev/erp/dist/libs/model/ --access public`
 
 ### @erpjs and PostgreSQL
-Note: we are NOT Postgres 12 compatible yet please see [typeorm/issues/4332](https://github.com/typeorm/typeorm/issues/4332).
-Use Postgres 11 till the TypeORM issue is solved.
- 
-`docker pull postgres:11`
+`docker pull postgres:12`
 
-`docker stop pg-docker; docker run --rm --name pg-docker -e POSTGRES_PASSWORD=HlohIn14563 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:11`
+`docker stop pg-docker; docker run --rm --name pg-docker -e POSTGRES_PASSWORD=HlohIn14563 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:12`
 
 ### serverless
 
 set `AWS` environment variable on the lambda to `1` for the `GraphQLModule` automatic schema generation to work.
 
-`AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET npm start build api-sls`
+`AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET npm run build api-sls`
 
-`cp serverless.yml ./dist/apps/api-sls/ && cp auth_config_server.json ./dist/apps/api-sls/  && (cd ./dist/apps/api-sls/ && npm i && sls deploy) `
+`AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET  cp serverless.yml ./dist/apps/api-sls/ && cp auth_config_server.json ./dist/apps/api-sls/  && (cd ./dist/apps/api-sls/ && npm i && sls deploy) `
+
+Open [Serveless Dashboard](https://dashboard.serverless.com/), locate the `erpjs` service, find `any/` API endpoint 
+and try to access `/api/hello` on the URL. 
+
+The API is the path to the API endpoint ending with the stage (e.g. `/dev`). 
+ 
  
 ### Heroku
+
+#### Reset the database if needed
+`heroku restart --app erpjs && heroku pg:reset DATABASE --app erpjs`
+
+#### Deploy
 `AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET ./heroku_deploy_api.sh`
 
+#### Test
+Access [the health check](https://erpjs.herokuapp.com/health).
+The API is `https://erpjs.herokuapp.com`.
 
+### Mobile client
+Run `npm run start.nativescript.mobile.android`.
+
+#### Deploy
+If you have `Signing for "nativescriptmobile" requires a development team.` you need 
+to go to the project Targets and choose the team (you need to create the development team in advance).
+
+![Choose the team](https://user-images.githubusercontent.com/436605/74342379-4f13ea00-4da1-11ea-8b93-264eedfeb3e4.png)
+
+#### Untrusted developer
+When running on the real device, you will get the error about `Untrusted developer`.
+Go to Setting -> General -> Device Management and "Trust" the developer used.
+
+if the "Device Management" option is not present, reinstall the application.

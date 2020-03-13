@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  CustomerListPartsFragment,
-  CustomersGQL,
-  CustomersQuery,
-  CustomersQueryVariables
-} from '@erpjs/api-interfaces';
-import { ItemListComponent } from '../item.list.component';
+import { CustomerListPartsFragment, CustomersGQL, CustomersQuery, CustomersQueryVariables } from '@erpjs/api-interfaces';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-customers',
@@ -41,15 +37,17 @@ import { ItemListComponent } from '../item.list.component';
         </clr-dg-row>
 
         <clr-dg-footer>{{data.length}} customers</clr-dg-footer>
-    </clr-datagrid>    
+    </clr-datagrid>
   `,
   styles: []
 })
-export class CustomersComponent extends ItemListComponent<CustomerListPartsFragment, CustomersQuery, CustomersQueryVariables, CustomersGQL>
-implements OnInit {
+export class CustomersComponent
+  extends ItemListComponent<CustomerListPartsFragment, CustomersQuery, CustomersQueryVariables, CustomersGQL> {
   constructor(
     private customersGQL: CustomersGQL,
-  ) { super(); }
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
+  ) { super(dataLoadingService,windowService); }
 
   public getQuery(): CustomersGQL {
     return this.customersGQL;
@@ -58,8 +56,8 @@ implements OnInit {
     return result.customers;
   }
 
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     super.setBasicItemFilter(['displayName', 'legalName', 'vatNumber']);
   }
+
 }

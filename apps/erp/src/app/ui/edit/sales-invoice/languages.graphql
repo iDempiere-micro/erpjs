@@ -1,0 +1,3 @@
+query languages {languages{
+  ...LanguageListParts
+}}

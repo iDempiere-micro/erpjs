@@ -10,12 +10,8 @@ export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesInvoiceModel, SalesInvoiceSaveArgsModel> {
   protected async doSave(args: SalesInvoiceSaveArgsModel, invoice: SalesInvoiceModel): Promise<SalesInvoiceModel> {
     const {bankAccountService, customerService, organizationService, currencyService, salesInvoiceLineService,
-      taxService, reportsServiceModel
+      taxService, reportsServiceModel, languagesService,
     } = this.getInjector();
-    invoice.bankAccount =
-      Promise.resolve(
-        args.bankAccount ? args.bankAccount : await bankAccountService.getBankAccount(args.bankAccountDisplayName)
-      );
     invoice.customer =
       Promise.resolve(
         args.customer ? args.customer : await customerService.getCustomer(args.customerDisplayName)
@@ -23,6 +19,7 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
     const organization =
         args.organization ? args.organization : await organizationService.getOrg(args.organizationDisplayName);
     invoice.organization = Promise.resolve(organization);
+    invoice.bankAccount = organization.bankAccount;
     invoice.issuedOn = onlyDate(args.issuedOn);
     invoice.dueDate = onlyDate(new Date(+invoice.issuedOn + args.paymentTermInDays * 86400000));
     invoice.grandTotal = 0;
@@ -39,6 +36,23 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
     invoice.narration = 'invalid';
     invoice.isDraft = true;
     invoice.isCalculated = false;
+    // TODO: implement also other reverse charge conditions
+    // see e.g. https://europa.eu/youreurope/business/taxation/vat/cross-border-vat/index_en.htm
+    // or https://www.uctovani.net/clanek.php?t=Preneseni-danove-povinnosti-neboli-reverse-charge&idc=217
+    const customerCountry = await (await(await invoice.customer).legalAddress).country;
+    const supplierCountry = await (await organization.legalAddress).country;
+    invoice.reverseCharge =
+      customerCountry.isEUMember && supplierCountry.isEUMember && customerCountry.isoCode !== supplierCountry.isoCode;
+
+    // TODO: get better printLanguage implementation
+    const languages = languagesService.getLanguages();
+    const language =
+      (customerCountry.isoCode === supplierCountry.isoCode) ?
+        languages.find( x => x.isoCode.toLowerCase() === customerCountry.isoCode.toLowerCase() )
+        : languages.find( x => x.isoCode.toLowerCase() === `${supplierCountry.isoCode}-${customerCountry.isoCode}`.toLowerCase() );
+    if (!language) throw new Error(`No language for ${supplierCountry.isoCode} -> ${customerCountry.isoCode}`);
+    invoice.printLanguage = language;
+
     await this.persist(invoice);
 
     const vatRegistrations = await organization.vatRegistrations;
@@ -51,7 +65,7 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
         {
           ...line1,
           product: await line1.product,
-          lineTax: vatRegistered ? await line1.lineTax : await taxService.getZeroTax(),
+          lineTax: (vatRegistered && !invoice.reverseCharge) ? await line1.lineTax : await taxService.getZeroTax(),
           invoice,
           lineOrder,
         }
@@ -63,7 +77,7 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
 
     const result = await this.calculatePrices(invoice);
 
-    await reportsServiceModel.printSalesInvoice(result);
+    await reportsServiceModel.printSalesInvoice(result, result.printLanguage);
 
     return result;
   }
@@ -166,7 +180,7 @@ export class SalesInvoiceService extends BaseEntityServiceImplementation<SalesIn
     const salesInvoiceJob = new SalesInvoiceJob();
     invoice.isDraft = false;
     await salesInvoiceJob.assignDocumentNumbers([invoice], this.getInjector().documentNumberingServiceModel);
-    await reportsServiceModel.printSalesInvoice(invoice);
+    await reportsServiceModel.printSalesInvoice(invoice, invoice.printLanguage);
     await this.persist(invoice);
     return invoice;
   }

@@ -10,7 +10,7 @@ export class DocumentNumberingService implements DocumentNumberingServiceModel {
   ): Promise<string> {
       const manager = ModelModule.getEntityManager();
       const model = await manager.getRepository(DocumentNumberSequence)
-        .findOne({where: { forType: modelCtor.name, organization }});
+        .findOne({where: { forType: modelCtor.name, organization }, order: { id: 'DESC' } });
       const result = model.current;
       model.current = +model.current + 1;
       await manager.save(model);

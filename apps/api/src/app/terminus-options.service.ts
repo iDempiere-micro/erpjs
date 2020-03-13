@@ -1,10 +1,4 @@
-import {
-  DNSHealthIndicator,
-  TerminusEndpoint,
-  TerminusModuleOptions,
-  TerminusOptionsFactory,
-  TypeOrmHealthIndicator
-} from '@nestjs/terminus';
+import { DNSHealthIndicator, TerminusEndpoint, TerminusModuleOptions, TerminusOptionsFactory, TypeOrmHealthIndicator } from '@nestjs/terminus';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

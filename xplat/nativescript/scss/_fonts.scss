@@ -1,0 +1,18 @@
+.fa {
+  font-family: 'FontAwesome', fontawesome-webfont;
+  font-size: 30;
+
+  &.disabled {
+    color: $grey;
+  }
+}
+
+.fa-16 {
+  @extend .fa;
+  font-size: 16;
+}
+
+.fa-8 {
+  @extend .fa;
+  font-size: 8;
+}
