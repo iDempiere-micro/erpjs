@@ -1,6 +1,8 @@
 import { CanHaveVatRegistration } from './can.have.vat.registration';
+import { LocalizedMessages } from './localized.messages';
 
 export interface PrintSalesInvoice  {
+  messages: LocalizedMessages;
   transactionDatePrintable: string;
   issuedOnPrintable: string;
   dueDatePrintable: string;
@@ -23,6 +25,7 @@ export interface PrintSalesInvoice  {
   vatRegistered: boolean;
   buyerEmail: string;
   sellerContact: string;
+  reverseCharge: boolean;
 }
 
 export interface PrintSalesInvoiceParty extends CanHaveVatRegistration{

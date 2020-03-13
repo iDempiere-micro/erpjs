@@ -1,0 +1,47 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    environment:
+      AUTH0_DOMAIN: domain
+      AUTH0_CLIENT_ID: clientid
+      AUTH0_AUDIENCE: erpjs
+      API: http://localhost:3333
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:12-browsers-legacy
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # build frontend
+      - run: npm run build erp
+
+      # build backend
+      - run: npm run build api
+
+      # run tests!
+      - run: npx -p @angular/cli ng test
+
+      # run library build
+      - run: npx -p @angular/cli ng build model
+

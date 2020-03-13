@@ -1,13 +1,15 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import { SalesInvoiceModel, SalesInvoiceVatModel } from '@erpjs/model';
+import { LanguageModel, CustomerOrderModel, SalesInvoiceModel, SalesInvoiceVatModel } from '@erpjs/model';
 import { Customer } from './customer';
 import { Organization } from './organization';
 import { Currency } from './currency';
 import { SalesInvoiceLine } from './sales.invoice.line';
 import { BankAccount } from './bank.account';
 import { SalesInvoiceVat } from './sales.invoice.vat';
+import { languages } from './shared/language';
+import { CustomerOrder } from '@erp/data/src/lib/entities/customer.order';
 
 @Entity()
 @ObjectType()
@@ -35,6 +37,10 @@ export class SalesInvoice extends EntityBase implements SalesInvoiceModel {
   @Field(type => Customer)
   @ManyToOne(type => Customer, customer => customer.salesInvoices, { nullable: false })
   customer: Promise<Customer>;
+
+  @Field(type => CustomerOrder)
+  @ManyToOne(type => CustomerOrder, order => order.salesInvoices, { nullable: true })
+  originalOrder?: Promise<CustomerOrderModel>;
 
   get displayName(): string {
     return this.isDraft ? `#${this.id}` : `${this.documentNo}`;
@@ -104,7 +110,21 @@ export class SalesInvoice extends EntityBase implements SalesInvoiceModel {
   @Column('bytea', { nullable: true })
   content?: string;
 
-  @Column( )
+  @Column()
   @Field()
   paymentTermInDays: number;
+
+  get printLanguage(): LanguageModel {
+    return languages.find( x => x.isoCode === this.printLanguageIsoCode )
+  }
+
+  set printLanguage(value: LanguageModel) {
+    this.printLanguageIsoCode = value.isoCode;
+  }
+  @Column()
+  printLanguageIsoCode: string;
+
+  @Column()
+  @Field()
+  reverseCharge: boolean;
 }

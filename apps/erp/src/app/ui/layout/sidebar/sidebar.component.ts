@@ -23,6 +23,7 @@ import { Component, OnInit } from '@angular/core';
                   <ul class="nav-list">
                       <li><a class="nav-link" href="/customers">Customers</a></li>
                       <li><a class="nav-link" href="/salesInvoices">Sales Invoices</a></li>
+                      <li><a class="nav-link" href="/editSalesInvoice/0">New Sales Invoice</a></li>
                       <li><a class="nav-link" href="/calendarActivities">Activities</a></li>
                       <li><a class="nav-link" href="/tasks">Tasks</a></li>
                       <li><a class="nav-link">Projects</a></li>

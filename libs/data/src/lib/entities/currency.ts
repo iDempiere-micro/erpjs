@@ -1,11 +1,12 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
-import { CurrencyModel, CurrencyRateModel, LeadModel, OpportunityModel } from '@erpjs/model';
+import { CurrencyModel, CurrencyRateModel, LeadModel, OpportunityModel, CustomerOrderModel } from '@erpjs/model';
 import { SalesInvoice } from './sales.invoice';
 import { AccountingScheme } from './accounting.scheme';
 import { Lead, Opportunity, VendorInvoice } from '@erpjs/data';
 import { UniqueDisplayEntityBase } from './shared/unique.display.entity.base';
 import { CurrencyRate } from './currency.rate';
+import { CustomerOrder } from '@erp/data/src/lib/entities/customer.order';
 
 @Entity()
 @ObjectType()
@@ -16,6 +17,9 @@ export class Currency extends UniqueDisplayEntityBase implements CurrencyModel {
 
   @OneToMany(type => SalesInvoice, salesInvoice => salesInvoice.currency)
   salesInvoices: Promise<Array<SalesInvoice>>;
+
+  @OneToMany(type => CustomerOrder, order => order.currency)
+  orders: Promise<Array<CustomerOrderModel>>;
 
   @OneToMany(type => SalesInvoice, salesInvoice => salesInvoice.currency)
   recurringSalesInvoices: Promise<Array<SalesInvoice>>;

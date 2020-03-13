@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemListComponent } from '../item.list.component';
-import {
-  SalesInvoiceListPartsFragment,
-  SalesInvoicesGQL,
-  SalesInvoicesQuery,
-  SalesInvoicesQueryVariables
-} from '@erpjs/api-interfaces';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
+import { SalesInvoiceListPartsFragment, SalesInvoicesGQL, SalesInvoicesQuery, SalesInvoicesQueryVariables } from '@erpjs/api-interfaces';
 import { BasicStringComparator } from '../basic.string.comparator';
 import { BasicNumberComparator } from '../basic.number.comparator';
 import { BasicDateComparator } from '../basic.date.comparator';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-invoices',
@@ -50,17 +46,20 @@ import { BasicDateComparator } from '../basic.date.comparator';
   styles: []
 })
 export class InvoicesComponent
-  extends ItemListComponent<SalesInvoiceListPartsFragment, SalesInvoicesQuery, SalesInvoicesQueryVariables, SalesInvoicesGQL>
-  implements OnInit {
+  extends ItemListComponent<
+    SalesInvoiceListPartsFragment, SalesInvoicesQuery, SalesInvoicesQueryVariables, SalesInvoicesGQL
+  > {
 
   private documentNoStringComparator = new BasicStringComparator('documentNo');
   private totalLinesComparator = new BasicNumberComparator('totalLines');
   private dueDateComparator = new BasicDateComparator('dueDate');
 
   constructor(
-    private salesInvoicesGQL: SalesInvoicesGQL
+    private salesInvoicesGQL: SalesInvoicesGQL,
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
   ) {
-    super();
+    super(dataLoadingService,windowService);
   }
 
   extractData(result: SalesInvoicesQuery): Array<SalesInvoiceListPartsFragment> {
@@ -71,8 +70,7 @@ export class InvoicesComponent
     return this.salesInvoicesGQL;
   }
 
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     super.setBasicItemFilter(['documentNo', 'customer.legalName']);
   }
 }

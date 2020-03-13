@@ -1,8 +1,14 @@
 fragment OrganizationListParts on Organization {
   id updtTs updtOpId isActive isCurrent
-  displayName
+  displayName legalName idNumber
   bankAccount {
     ...BankAccountListParts
   }
   accountingScheme { currency { ...CurrencyListParts } }
+  legalAddress {
+    line1 zipCode city
+    country {
+      displayName
+    }
+  }
 }

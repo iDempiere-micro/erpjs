@@ -24,6 +24,19 @@ import { RecurringSalesInvoiceLineService } from './services/recurring.sales.inv
 import { AccountService } from './services/account.service';
 import { DocumentNumberingServiceModel } from './service.interfaces/document.numbering.service.model';
 import { ReportsServiceModel } from './service.interfaces/reports.service.model';
+import { CustomerGroupService } from './services/customer.group.service';
+import { CustomerPriceListService } from './services/customer.price.list.service';
+import { CustomerProductPriceService } from './services/customer.product.price.service';
+import { TranslationService } from './services/translation.service';
+import { LanguagesService } from './services/languages.service';
+import { ProductQuantityOnHandService } from './services/product.quantity.on-hand.service';
+import { ProductReceiptLineService } from './services/product.receipt.line.service';
+import { ProductReceiptService } from './services/product.receipt.service';
+import { WarehouseService } from './services/warehouse.service';
+import { ProductIssueLineService } from './services/product.issue.line.service';
+import { ProductIssueService } from './services/product.issue.service';
+import { FifoCostsOfGoodsSoldService } from './services/fifo.costs.of.goods.sold.service';
+import { CustomerOrderService } from '@erp/model/src/lib/services/customer.order.service';
 
 export interface Injector {
   bankService: BankService;
@@ -52,4 +65,17 @@ export interface Injector {
   accountService: AccountService;
   documentNumberingServiceModel: DocumentNumberingServiceModel;
   reportsServiceModel: ReportsServiceModel;
+  customerGroupService: CustomerGroupService;
+  customerPriceListService: CustomerPriceListService;
+  customerProductPriceService: CustomerProductPriceService;
+  translationService: TranslationService;
+  languagesService: LanguagesService;
+  productQuantityOnHandService: ProductQuantityOnHandService;
+  productReceiptLineService: ProductReceiptLineService;
+  productReceiptService: ProductReceiptService;
+  warehouseService : WarehouseService;
+  productIssueLineService: ProductIssueLineService;
+  productIssueService: ProductIssueService;
+  fifoCostsOfGoodsSoldService: FifoCostsOfGoodsSoldService;
+  customerOrderService: CustomerOrderService;
 }

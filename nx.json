@@ -37,6 +37,15 @@
     },
     "capture-prospect-e2e": {
       "tags": []
+    },
+    "nativescript-mobile": {
+      "tags": []
+    },
+    "libs": {
+      "tags": []
+    },
+    "xplat": {
+      "tags": []
     }
   }
 }

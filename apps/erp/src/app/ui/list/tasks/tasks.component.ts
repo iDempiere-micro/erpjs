@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ItemListComponent } from '../item.list.component';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
 import { TaskListPartsFragment, TasksGQL, TasksQuery, TasksQueryVariables } from '@erpjs/api-interfaces';
 import { BasicDateComparator } from '../basic.date.comparator';
 import { ClrTabs } from '@clr/angular';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-tasks',
@@ -59,8 +60,7 @@ import { ClrTabs } from '@clr/angular';
 })
 export class TasksComponent
   extends ItemListComponent<TaskListPartsFragment, TasksQuery,
-    TasksQueryVariables, TasksGQL>
-  implements OnInit {
+    TasksQueryVariables, TasksGQL> {
   @ViewChild(ClrTabs, {static: false}) private readonly tabs: ClrTabs;
 
   private dueDateComparator = new BasicDateComparator('dueDate');
@@ -83,10 +83,11 @@ export class TasksComponent
 
   constructor(
     private tasksGQL : TasksGQL,
-  ) { super(); }
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
+  ) { super(dataLoadingService, windowService); }
 
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     super.setBasicItemFilter(['displayName', 'owner.email', 'customer.displayName', 'prospect.displayName']);
   }
 }

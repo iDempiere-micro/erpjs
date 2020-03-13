@@ -1,7 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { moment, PrintSalesInvoice, PrintSalesInvoiceParty, SalesInvoiceModel } from '@erpjs/model';
+import { Inject, Injectable } from '@nestjs/common';
+import {
+  LanguageModel,
+  moment,
+  PrintSalesInvoice,
+  PrintSalesInvoiceParty,
+  ReportsServiceModel,
+  SalesInvoiceModel,
+  TranslationService,
+  TranslationServiceKey
+} from '@erpjs/model';
 import { onlyDate, roundNumber } from '@erpjs/util';
-import { ReportsServiceModel } from '../../../../model/src/lib/service.interfaces/reports.service.model';
 
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
@@ -9,35 +17,34 @@ const PDFDocument = require('pdfkit');
 
 async function createInvoice(path: string, invoice: PrintSalesInvoice) {
   const doc = new PDFDocument({ margin: 50 });
+  const messages = invoice.messages;
 
-  const fontPath = fs.existsSync('./Cardo-Regular.ttf') ? './' : './apps/api/src/assets/';
+  const fontPath = fs.existsSync('./assets/Cardo-Regular.ttf') ? './assets/' : './apps/api/src/assets/';
 
   doc.registerFont('Cardo', `${fontPath}Cardo-Regular.ttf`);
   doc.registerFont('Cardo-Bold', `${fontPath}Cardo-Bold.ttf`);
-
-  const logo = 'logo.png';
 
   function generateHeader() {
 
     doc
       .font('Cardo-Bold')
       .fillColor('#444444')
-      .fontSize(20)
-      .text(`Invoice ${invoice.vatRegistered ? '- VAT': ''} ${invoice.invoiceNumber}`, 200, 57, { align: 'right' })
+      .fontSize(18)
+      .text(`${messages.invoice(invoice.vatRegistered)} ${invoice.invoiceNumber}`, 20, 57, { align: 'right' })
       .font('Cardo')
       .fontSize(10);
 
     doc
       .font('Cardo')
-      .text(`Created: ${invoice.issuedOnPrintable}`, 200, 87, { align: 'right' })
-      .text(`Due: ${invoice.dueDatePrintable}`, 200, 87 + 15, { align: 'right' })
-      .text(`Details: ${invoice.invoiceNumber}`, 200, 87 + 2*15, { align: 'right' });
+      .text(`${messages.issuedOn}: ${invoice.issuedOnPrintable}`, 200, 87, { align: 'right' })
+      .text(`${messages.dueDate}: ${invoice.dueDatePrintable}`, 200, 87 + 15, { align: 'right' })
+      .text(`${messages.invoiceNumber}: ${invoice.invoiceNumber}`, 200, 87 + 2*15, { align: 'right' });
 
     let line = 87 + 60;
     if (invoice.vatRegistered) {
       doc
         .font('Cardo')
-        .text(`The Date of Taxable Supply: ${invoice.transactionDatePrintable}`, 200, 87 + 3*15, { align: 'right' });
+        .text(`${messages.transactionDate}: ${invoice.transactionDatePrintable}`, 200, 87 + 3*15, { align: 'right' });
       line += 15;
     }
 
@@ -46,7 +53,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 
     doc
       .font('Cardo-Bold')
-      .text('Supplier:', 20, line)
+      .text(`${messages.seller}:`, 20, line)
       .font('Cardo')
       .text(seller.name, 20, line + 15)
       .text(seller.road, 20, line + 2*15)
@@ -54,23 +61,23 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
       .text(seller.country, 20, line + 4*15)
       .text(invoice.sellerContact, 20, line + 5*15)
       .text(seller.registration, 20, line + 6*15)
-      .text(`ID: ${seller.idNumber}`, 20, line + 7*15)
-      .text(seller.vatNumber && invoice.vatRegistered ? `VAT ID: ${seller.vatNumber}` : '', 20, line + 8*15)
-      .text(`Bank Account: ${invoice.payTo}`,20, line + 9*15)
+      .text(`IČ: ${seller.idNumber}`, 20, line + 7*15)
+      .text(seller.vatNumber && invoice.vatRegistered ? `DIČ: ${seller.vatNumber}` : '', 20, line + 8*15)
+      .text(`ČR Účet: ${invoice.payTo}`,20, line + 9*15)
       .text(`IBAN: ${invoice.iban}`,20, line + 10*15)
       .text(`SWIFT: ${invoice.swift}`,20, line + 11*15)
 
 
       .font('Cardo-Bold')
-      .text('Customer:', 200, line, { align: 'right' })
+      .text(`${messages.buyer}:`, 200, line, { align: 'right' })
       .font('Cardo')
       .text(buyer.name, 200, line + 15, { align: 'right' })
       .text(buyer.road, 200, line + 2*15, { align: 'right' })
       .text(buyer.zipCode + ' ' + buyer.city, 200, line + 3*15, { align: 'right' })
       .text(buyer.country, 200, line + 4*15, { align: 'right' })
       .text(invoice.buyerEmail, 200, line + 5*15, { align: 'right' })
-      .text(`ID: ${buyer.idNumber}`, 200, line + 6*15, { align: 'right' })
-      .text(buyer.vatNumber && invoice.vatRegistered ? `VAT ID: ${buyer.vatNumber}` : '', 200, line + 7*15, { align: 'right' })
+      .text(`${messages.idNumber}: ${buyer.idNumber}`, 200, line + 6*15, { align: 'right' })
+      .text(buyer.vatNumber && invoice.vatRegistered ? `${messages.vatNumber}: ${buyer.vatNumber}` : '', 200, line + 7*15, { align: 'right' })
 
       .moveDown();
   }
@@ -79,8 +86,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
     doc
       .font('Cardo')
       .fontSize(5)
-      .text(
-        `Thank you for your business!`,
+      .text( messages.invoiceFooter(invoice),
         50,
         700,
         { align: 'center', width: 500 }
@@ -96,37 +102,48 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
       .text(c2, 150, y)
       .text(c3, 180, y, { width: 90, align: 'right' });
 
-    if (invoice.vatRegistered) {
+    if (invoice.vatRegistered && !invoice.reverseCharge ) {
       doc
         .text(c4, 270, y, { width: 90, align: 'right' })
         .text(c5, 360, y, { width: 90, align: 'right' });
     }
 
     doc
-      .text(c6, 450, y, { align: 'right' })
+      .text(c6, 450, y, { align: 'right' });
 
     if (r2)
       doc.text(r2, 50, y + 15);
   }
 
   function generateInvoiceTable() {
-    let i = 0;
-    const invoiceTableTop  = 360;
+    let i;
+    let invoiceTableTop  = 360;
 
     generateTableRow(
       invoiceTableTop,
-      'Item',
+      `${messages.item}`,
       `${invoice.currency}/1`,
-      'Quantity',
-      `Tax Base ${invoice.currency}`,
-      'VAT Rate',
-      `Total ${invoice.currency}`,
+      `${messages.units}`,
+      `Základ ${invoice.currency}`,
+      'Sazba',
+      `${messages.total} ${invoice.currency}`,
       null
     );
 
+    let pageNumber = 0;
+
     for (i = 0; i < invoice.items.length; i++) {
       const item = invoice.items[i];
-      const position = invoiceTableTop + (i + 1) * 30;
+      if (i >= 11 * (pageNumber+1)) {
+        doc.addPage();
+        pageNumber++;
+        invoiceTableTop = 100
+      }
+      const position =
+        invoiceTableTop
+        + (i + 1) * 30
+        - (11 * pageNumber * 30);
+
       generateTableRow(
         position,
         `${i+1}. ${item.name}`,
@@ -142,22 +159,24 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 
   function generateVatTable() {
     let i = 0;
-    let invoiceTableTop  = 450  + invoice.items.length * 30;
+    let invoiceTableTop  =
+      ( invoice.items.length <= 11 ? 450 : 200 )
+      + (invoice.items.length % 11) * 30;
 
     if (invoice.printRate) {
       generateTableRow(
         invoiceTableTop,
         '', '', '', '', '',
-        `Currency Rate: 1 ${invoice.currency} = ${invoice.currencyMultiplyingRateToAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
+        `Kurz: 1 ${invoice.currency} = ${invoice.currencyMultiplyingRateToAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
         null
       );
       invoiceTableTop += 15;
     }
-    if (invoice.vatRegistered) {
+    if (invoice.vatRegistered && !invoice.reverseCharge) {
       generateTableRow(
         invoiceTableTop,
         '', '', '', '', '',
-        `Tax Base: ${invoice.totalLinesAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
+        `Základ daně: ${invoice.totalLinesAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
         null
       );
       invoiceTableTop += 15;
@@ -171,16 +190,24 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
           '',
           '',
           '',
-          `${item.vatRatePercent}% VAT: ${item.vatTotalAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
+          `${item.vatRatePercent}% DPH: ${item.vatTotalAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
           null,
         );
       }
       invoiceTableTop += 15 * invoice.vatReport.length;
     }
+    if (invoice.reverseCharge) {
+      generateTableRow(
+        invoiceTableTop,
+        `${messages.reverseCharge}`, '', '', '', '',
+        '',
+        null
+      );
+    }
     doc
       .font('Cardo-Bold')
-      .fontSize(20)
-      .text(`To be paid: ${invoice.grandTotal} ${invoice.currency}`, 50, invoiceTableTop)
+      .fontSize(18)
+      .text(`${messages.totalToBePaid}: ${invoice.grandTotal} ${invoice.currency}`, 50, invoiceTableTop + 30)
       .font('Cardo');
   }
 
@@ -193,7 +220,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 }
 
 function savePdfToFile(pdf, fileName : string) : Promise<void> {
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<void>((resolve) => {
 
     // To determine when the PDF has finished being written successfully
     // we need to confirm the following 2 conditions:
@@ -221,7 +248,11 @@ function savePdfToFile(pdf, fileName : string) : Promise<void> {
 
 @Injectable()
 export class ReportsService implements ReportsServiceModel {
-  async printSalesInvoice(data: SalesInvoiceModel) {
+  constructor(
+    @Inject(TranslationServiceKey) private readonly translationService : TranslationService,) {
+  }
+
+  async printSalesInvoice(data: SalesInvoiceModel, language: LanguageModel) {
     const organization = await data.organization;
     const accountingScheme = await organization.accountingScheme;
     const organizationLegalAddress = await organization.legalAddress;
@@ -274,6 +305,7 @@ export class ReportsService implements ReportsServiceModel {
     const bankAccount = (await data.bankAccount);
 
     const converted = {
+      messages: this.translationService.getMessages(language),
       transactionDatePrintable: dateToString(data.transactionDate),
       issuedOnPrintable: dateToString(data.issuedOn),
       dueDatePrintable: dateToString(data.dueDate),
@@ -303,6 +335,7 @@ export class ReportsService implements ReportsServiceModel {
       vatRegistered,
       buyerEmail: customer.invoicingEmail,
       sellerContact: organization.contact,
+      reverseCharge: data.reverseCharge,
     };
 
     try {
@@ -317,8 +350,6 @@ export class ReportsService implements ReportsServiceModel {
   }
 
   async printInvoice(data: PrintSalesInvoice): Promise<string> {
-    const template = '/assets/sales-invoice.html';
-
     const resultFile = `/tmp/invoice-${data.invoiceNumber}-${Date.now()}`;
     await createInvoice(`${resultFile}.pdf`, data);
 

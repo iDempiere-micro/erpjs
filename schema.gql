@@ -47,6 +47,7 @@ type Address {
   customerRegistratedAddresses: [Customer!]
   organizationRegistratedAddresses: [Organization!]
   vendorRegistratedAddresses: [Vendor!]
+  warehouses: [Warehouse!]
 }
 
 input AddressSaveArgs {
@@ -179,13 +180,69 @@ type Customer {
   isCurrent: Boolean!
   displayName: String!
   legalAddress: Address!
+  customerGroup: CustomerGroup!
   legalName: String!
   vatNumber: String
   salesInvoices: [SalesInvoice!]
+  orders: [CustomerOrder!]
   calendarActivities: [CalendarActivity!]
   tasks: [Task!]
   invoicingEmail: String!
   idNumber: String!
+}
+
+type CustomerGroup {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  displayName: String!
+  customers: [Customer!]
+}
+
+type CustomerOrder {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  currency: Currency!
+  customer: Customer!
+  deliveryAddress: Address!
+  displayName: String!
+  grandTotal: Float!
+  grandTotalAccountingSchemeCurrency: Float!
+  isEditByCustomerPossible: Boolean!
+  lines: [OrderLine!]
+  salesStage: SalesStage!
+  totalLines: Float!
+  totalLinesAccountingSchemeCurrency: Float!
+  salesInvoices: [SalesInvoice!]
+  productIssues: [ProductIssue!]
+}
+
+type CustomerPriceList {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  customerGroup: CustomerGroup!
+  displayName: String!
+  productPrices: [CustomerProductPrice!]
+  validFrom: Date
+  validTo: Date
+}
+
+type CustomerProductPrice {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  product: Product!
+  sellingPrice: Float!
 }
 
 input CustomerSaveArgs {
@@ -231,6 +288,12 @@ input GenericEntityArgs {
 type GenericEntityResult {
   updated: Boolean!
   date: Date!
+}
+
+type Language {
+  displayName: String!
+  id: Float!
+  isoCode: String!
 }
 
 type Lead {
@@ -285,6 +348,22 @@ type Opportunity {
   solution: Product!
 }
 
+type OrderLine {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  lineOrder: Float!
+  lineTax: Tax!
+  linePrice: Float!
+  product: Product!
+  quantity: Float!
+  task: Task!
+  narration: String!
+  order: CustomerOrder!
+}
+
 type Organization {
   id: Float!
   updtTs: Date!
@@ -321,6 +400,76 @@ type Product {
   recurringSalesInvoiceLine: [RecurringSalesInvoiceLine!]
   sku: String!
   opportunities: [Opportunity!]
+  customerProductPrices: [CustomerProductPrice!]
+  productQuantityOnHand: ProductQuantityOnHand!
+  productReceiptLines: [ProductReceiptLine!]
+  productIssueLines: [ProductIssueLine!]
+}
+
+type ProductIssue {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  isConfirmed: Boolean!
+  issueDate: Date!
+  warehouse: Warehouse!
+  displayName: String!
+  lines: [ProductIssueLine!]
+  customerOrder: CustomerOrder!
+}
+
+type ProductIssueLine {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  linePrice: Float!
+  movementDate: Date!
+  product: Product!
+  quantity: Float!
+  productIssue: ProductIssue!
+}
+
+type ProductQuantityOnHand {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  product: Product!
+  quantity: Float!
+  warehouse: Warehouse!
+}
+
+type ProductReceipt {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  isConfirmed: Boolean!
+  receiptDate: Date!
+  warehouse: Warehouse!
+  displayName: String!
+  lines: [ProductReceiptLine!]
+}
+
+type ProductReceiptLine {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  linePrice: Float!
+  lineTax: Tax!
+  movementDate: Date!
+  product: Product!
+  quantity: Float!
+  quantityOnHand: Float!
+  productReceipt: ProductReceipt!
 }
 
 input ProductSaveArgs {
@@ -393,6 +542,7 @@ type Query {
   bankAccountById(id: Int!): BankAccount!
   currencies: [Currency!]!
   currencyById(id: Int!): Currency!
+  languages: [Language!]!
 }
 
 type RecurringSalesInvoice {
@@ -437,6 +587,7 @@ type SalesInvoice {
   organization: Organization!
   currency: Currency!
   customer: Customer!
+  originalOrder: CustomerOrder!
   documentNo: String
   isDraft: Boolean!
   isCalculated: Boolean!
@@ -454,6 +605,7 @@ type SalesInvoice {
   printError: String
   content: String
   paymentTermInDays: Float!
+  reverseCharge: Boolean!
 }
 
 type SalesInvoiceLine {
@@ -467,9 +619,9 @@ type SalesInvoiceLine {
   linePrice: Float!
   product: Product!
   quantity: Float!
-  invoice: SalesInvoice!
   task: Task!
   narration: String!
+  invoice: SalesInvoice!
 }
 
 input SalesInvoiceLineSaveArgs {
@@ -507,6 +659,16 @@ type SalesInvoiceVat {
   vatTotalRaw: Float!
   vatTotalAccountingSchemeCurrency: Float!
   vatTotal: Float!
+}
+
+type SalesStage {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  displayName: String!
+  orders: [CustomerOrder!]
 }
 
 type Suspect {
@@ -561,10 +723,12 @@ type Tax {
   isCurrent: Boolean!
   displayName: String!
   ratePercent: Float!
+  isStandard: Boolean!
 }
 
 input TaxSaveArgs {
   id: Float
+  isStandard: Boolean!
   displayName: String!
   ratePercent: Float!
 }
@@ -653,6 +817,18 @@ type VendorInvoiceVat {
   invoice: VendorInvoice!
   vatRatePercent: Float!
   vatTotalAccountingSchemeCurrency: Float!
+}
+
+type Warehouse {
+  id: Float!
+  updtTs: Date!
+  updtOpId: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  address: Address!
+  displayName: String!
+  productReceipts: [ProductReceipt!]
+  productIssues: [ProductIssue!]
 }
 
 type WorkLog {

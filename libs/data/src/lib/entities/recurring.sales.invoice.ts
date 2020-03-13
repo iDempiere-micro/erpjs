@@ -1,13 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { EntityBase } from './shared/EntityBase';
-import {
-  CurrencyModel,
-  CustomerModel,
-  OrganizationModel,
-  ProductQuantityPriceTaxModel,
-  RecurringSalesInvoiceModel
-} from '@erpjs/model';
+import { CurrencyModel, CustomerModel, OrganizationModel, ProductQuantityPriceTaxModel, RecurringSalesInvoiceModel } from '@erpjs/model';
 import { BankAccount } from './bank.account';
 import { Currency } from './currency';
 import { Customer } from '@erpjs/data';

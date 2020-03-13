@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemListComponent } from '../item.list.component';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
 import {
   CalendarActivitiesGQL,
   CalendarActivitiesQuery,
@@ -7,6 +7,7 @@ import {
   CalendarActivityListPartsFragment
 } from '@erpjs/api-interfaces';
 import { BasicDateComparator } from '../basic.date.comparator';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-calendar-activities',
@@ -30,7 +31,7 @@ import { BasicDateComparator } from '../basic.date.comparator';
           <clr-dg-column>Prospect
               <clr-dg-string-filter [clrDgStringFilter]="filters.prospect_displayName"></clr-dg-string-filter>
           </clr-dg-column>
-          
+
 
           <clr-dg-row *clrDgItems="let calendarActivity of data">
               <clr-dg-cell><a [routerLink]="['/calendarActivity',calendarActivity.id]">{{calendarActivity.id}}</a></clr-dg-cell>
@@ -53,8 +54,7 @@ import { BasicDateComparator } from '../basic.date.comparator';
 })
 export class CalendarActivitiesComponent
   extends ItemListComponent<CalendarActivityListPartsFragment, CalendarActivitiesQuery,
-    CalendarActivitiesQueryVariables, CalendarActivitiesGQL>
-  implements OnInit {
+    CalendarActivitiesQueryVariables, CalendarActivitiesGQL> {
   private startComparator = new BasicDateComparator('start');
   private endComparator = new BasicDateComparator('end');
 
@@ -68,11 +68,11 @@ export class CalendarActivitiesComponent
 
   constructor(
     private calendarActivitiesGQL: CalendarActivitiesGQL,
-  ) { super(); }
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
+  ) { super(dataLoadingService, windowService); }
 
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     super.setBasicItemFilter(['displayName', 'owner.email', 'customer.displayName', 'prospect.displayName']);
   }
-
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GanttEditorComponent, GanttEditorOptions } from 'ng-gantt';
-import { ItemListComponent } from '../list/item.list.component';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
 import { TaskListPartsFragment, TasksGQL, TasksQuery, TasksQueryVariables } from '@erpjs/api-interfaces';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-gantt',
@@ -11,8 +12,7 @@ import { TaskListPartsFragment, TasksGQL, TasksQuery, TasksQueryVariables } from
   styles: []
 })
 export class GanttComponent extends ItemListComponent<TaskListPartsFragment, TasksQuery,
-  TasksQueryVariables, TasksGQL>
-implements OnInit  {
+  TasksQueryVariables, TasksGQL> {
   public editorOptions: GanttEditorOptions;
   public convertedData: any;
   @ViewChild(GanttEditorComponent, { static: true }) editor: GanttEditorComponent;
@@ -24,9 +24,7 @@ implements OnInit  {
     return this.tasksGQL;
   }
 
-
-  async ngOnInit(): Promise<void> {
-    await super.ngOnInit();
+  async customOnInit() {
     this.convertedData =
       this.data.map(x => (
         {
@@ -51,8 +49,10 @@ implements OnInit  {
 
   constructor(
     private tasksGQL : TasksGQL,
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
   ) {
-    super();
+    super(dataLoadingService,windowService);
     this.editorOptions = new GanttEditorOptions();
   }
 }

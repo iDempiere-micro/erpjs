@@ -21,13 +21,15 @@ import { OrganizationResolver } from './organization.resolver';
 import { TaxResolver } from './tax.resolver';
 import { BankAccountResolver } from './bank.account.resolver';
 import { CurrencyResolver } from './currency.resolver';
+import { ConfigController } from './config.controller';
+import { LanguageResolver } from './language.resolver';
 
 @Module({
     imports: [EntityModule, AuthModule, ModelModule],
     providers: [DateScalar, GenericEntityResolver, HomepageResolver,
       CustomerResolver, SalesInvoiceResolver, TaskResolver, CalendarActivityResolver,
       UserResolver, LeadResolver, ProspectResolver, AccountResolver, ProductResolver, SalesInvoiceLineResolver,
-      OrganizationResolver, TaxResolver, BankAccountResolver, CurrencyResolver,
+      OrganizationResolver, TaxResolver, BankAccountResolver, CurrencyResolver, LanguageResolver,
         {
             provide: APP_FILTER,
             useClass: UnauthorizedExceptionFilter,
@@ -35,7 +37,7 @@ import { CurrencyResolver } from './currency.resolver';
     exports: [
         DateScalar, GenericEntityResolver, HomepageResolver, CustomerResolver,
     ],
-    controllers: [FileController],
+    controllers: [FileController, ConfigController],
 })
 export class ApiModule {
 }

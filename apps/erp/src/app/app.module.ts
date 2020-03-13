@@ -9,6 +9,8 @@ import { UiModule } from './ui/ui.module';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routing';
 import { InterceptorService } from './auth/interceptor.service';
+import { CoreModule } from '@erp/core';
+import { XplCoreModule } from '@erp/web';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { InterceptorService } from './auth/interceptor.service';
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
-    )
+    ),
+    CoreModule, XplCoreModule,
   ],
   providers: [
     {

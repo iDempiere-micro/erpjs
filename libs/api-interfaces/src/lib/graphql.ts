@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
 import * as Apollo from 'apollo-angular';
+
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
@@ -203,6 +204,7 @@ export interface Customer {
   isCurrent: Scalars['Boolean'],
   displayName: Scalars['String'],
   legalAddress: Address,
+  customerGroup: CustomerGroup,
   legalName: Scalars['String'],
   vatNumber?: Maybe<Scalars['String']>,
   salesInvoices?: Maybe<Array<SalesInvoice>>,
@@ -210,6 +212,42 @@ export interface Customer {
   tasks?: Maybe<Array<Task>>,
   invoicingEmail: Scalars['String'],
   idNumber: Scalars['String'],
+}
+
+export interface CustomerGroup {
+   __typename?: 'CustomerGroup',
+  id: Scalars['Float'],
+  updtTs: Scalars['Date'],
+  updtOpId: Scalars['Float'],
+  isActive: Scalars['Boolean'],
+  isCurrent: Scalars['Boolean'],
+  displayName: Scalars['String'],
+  customers?: Maybe<Array<Customer>>,
+}
+
+export interface CustomerPriceList {
+   __typename?: 'CustomerPriceList',
+  id: Scalars['Float'],
+  updtTs: Scalars['Date'],
+  updtOpId: Scalars['Float'],
+  isActive: Scalars['Boolean'],
+  isCurrent: Scalars['Boolean'],
+  customerGroup: CustomerGroup,
+  displayName: Scalars['String'],
+  productPrices?: Maybe<Array<CustomerProductPrice>>,
+  validFrom?: Maybe<Scalars['Date']>,
+  validTo?: Maybe<Scalars['Date']>,
+}
+
+export interface CustomerProductPrice {
+   __typename?: 'CustomerProductPrice',
+  id: Scalars['Float'],
+  updtTs: Scalars['Date'],
+  updtOpId: Scalars['Float'],
+  isActive: Scalars['Boolean'],
+  isCurrent: Scalars['Boolean'],
+  product: Product,
+  sellingPrice: Scalars['Float'],
 }
 
 export interface CustomerSaveArgs {
@@ -255,6 +293,13 @@ export interface GenericEntityResult {
    __typename?: 'GenericEntityResult',
   updated: Scalars['Boolean'],
   date: Scalars['Date'],
+}
+
+export interface Language {
+   __typename?: 'Language',
+  displayName: Scalars['String'],
+  id: Scalars['Float'],
+  isoCode: Scalars['String'],
 }
 
 export interface Lead {
@@ -410,6 +455,7 @@ export interface Product {
   recurringSalesInvoiceLine?: Maybe<Array<RecurringSalesInvoiceLine>>,
   sku: Scalars['String'],
   opportunities?: Maybe<Array<Opportunity>>,
+  customerProductPrices?: Maybe<Array<CustomerProductPrice>>,
 }
 
 export interface ProductSaveArgs {
@@ -485,6 +531,7 @@ export interface Query {
   bankAccountById: BankAccount,
   currencies: Array<Currency>,
   currencyById: Currency,
+  languages: Array<Language>,
 }
 
 
@@ -604,6 +651,7 @@ export interface SalesInvoice {
   printError?: Maybe<Scalars['String']>,
   content?: Maybe<Scalars['String']>,
   paymentTermInDays: Scalars['Float'],
+  reverseCharge: Scalars['Boolean'],
 }
 
 export interface SalesInvoiceLine {
@@ -716,10 +764,12 @@ export interface Tax {
   isCurrent: Scalars['Boolean'],
   displayName: Scalars['String'],
   ratePercent: Scalars['Float'],
+  isStandard: Scalars['Boolean'],
 }
 
 export interface TaxSaveArgs {
   id?: Maybe<Scalars['Float']>,
+  isStandard: Scalars['Boolean'],
   displayName: Scalars['String'],
   ratePercent: Scalars['Float'],
 }
@@ -1029,6 +1079,22 @@ export type SalesInvoiceMutation = (
   ) }
 );
 
+export type LanguageListPartsFragment = (
+  { __typename?: 'Language' }
+  & Pick<Language, 'id' | 'displayName' | 'isoCode'>
+);
+
+export interface LanguagesQueryVariables {}
+
+
+export type LanguagesQuery = (
+  { __typename?: 'Query' }
+  & { languages: Array<(
+    { __typename?: 'Language' }
+    & LanguageListPartsFragment
+  )> }
+);
+
 export interface TaskMutationVariables {
   args: TaskSaveArgs
 }
@@ -1212,7 +1278,7 @@ export type OrganizationDetailPartsFragment = (
 
 export type OrganizationListPartsFragment = (
   { __typename?: 'Organization' }
-  & Pick<Organization, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName'>
+  & Pick<Organization, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName' | 'legalName' | 'idNumber'>
   & { bankAccount: (
     { __typename?: 'BankAccount' }
     & BankAccountListPartsFragment
@@ -1221,6 +1287,13 @@ export type OrganizationListPartsFragment = (
     & { currency: (
       { __typename?: 'Currency' }
       & CurrencyListPartsFragment
+    ) }
+  ), legalAddress: (
+    { __typename?: 'Address' }
+    & Pick<Address, 'line1' | 'zipCode' | 'city'>
+    & { country: (
+      { __typename?: 'Country' }
+      & Pick<Country, 'displayName'>
     ) }
   ) }
 );
@@ -1569,12 +1642,22 @@ export const OrganizationListPartsFragmentDoc = gql`
   isActive
   isCurrent
   displayName
+  legalName
+  idNumber
   bankAccount {
     ...BankAccountListParts
   }
   accountingScheme {
     currency {
       ...CurrencyListParts
+    }
+  }
+  legalAddress {
+    line1
+    zipCode
+    city
+    country {
+      displayName
     }
   }
 }
@@ -1671,6 +1754,13 @@ export const SalesInvoiceLineListPartsFragmentDoc = gql`
   narration
 }
     `;
+export const LanguageListPartsFragmentDoc = gql`
+    fragment LanguageListParts on Language {
+  id
+  displayName
+  isoCode
+}
+    `;
 export const AccountListPartsFragmentDoc = gql`
     fragment AccountListParts on Account {
   id
@@ -1761,7 +1851,7 @@ export const CustomerByIdDocument = gql`
   })
   export class CustomerByIdGQL extends Apollo.Query<CustomerByIdQuery, CustomerByIdQueryVariables> {
     document = CustomerByIdDocument;
-    
+
   }
 export const ConfirmSalesInvoiceDocument = gql`
     mutation confirmSalesInvoice($args: BaseSaveArgs!) {
@@ -1776,7 +1866,7 @@ export const ConfirmSalesInvoiceDocument = gql`
   })
   export class ConfirmSalesInvoiceGQL extends Apollo.Mutation<ConfirmSalesInvoiceMutation, ConfirmSalesInvoiceMutationVariables> {
     document = ConfirmSalesInvoiceDocument;
-    
+
   }
 export const SalesInvoiceByIdDocument = gql`
     query salesInvoiceById($id: Int!) {
@@ -1791,7 +1881,7 @@ export const SalesInvoiceByIdDocument = gql`
   })
   export class SalesInvoiceByIdGQL extends Apollo.Query<SalesInvoiceByIdQuery, SalesInvoiceByIdQueryVariables> {
     document = SalesInvoiceByIdDocument;
-    
+
   }
 export const ProspectByIdDocument = gql`
     query prospectById($id: Int!) {
@@ -1806,7 +1896,7 @@ export const ProspectByIdDocument = gql`
   })
   export class ProspectByIdGQL extends Apollo.Query<ProspectByIdQuery, ProspectByIdQueryVariables> {
     document = ProspectByIdDocument;
-    
+
   }
 export const CustomerDocument = gql`
     mutation customer($args: CustomerSaveArgs!) {
@@ -1833,7 +1923,7 @@ export const CustomerDocument = gql`
   })
   export class CustomerGQL extends Apollo.Mutation<CustomerMutation, CustomerMutationVariables> {
     document = CustomerDocument;
-    
+
   }
 export const SalesInvoiceLineDocument = gql`
     mutation salesInvoiceLine($args: SalesInvoiceLineSaveArgs!) {
@@ -1848,7 +1938,7 @@ export const SalesInvoiceLineDocument = gql`
   })
   export class SalesInvoiceLineGQL extends Apollo.Mutation<SalesInvoiceLineMutation, SalesInvoiceLineMutationVariables> {
     document = SalesInvoiceLineDocument;
-    
+
   }
 export const ProspectDocument = gql`
     mutation prospect($args: ProspectSaveArgs!) {
@@ -1863,7 +1953,7 @@ export const ProspectDocument = gql`
   })
   export class ProspectGQL extends Apollo.Mutation<ProspectMutation, ProspectMutationVariables> {
     document = ProspectDocument;
-    
+
   }
 export const SalesInvoiceDocument = gql`
     mutation salesInvoice($args: SalesInvoiceSaveArgs!) {
@@ -1878,7 +1968,22 @@ export const SalesInvoiceDocument = gql`
   })
   export class SalesInvoiceGQL extends Apollo.Mutation<SalesInvoiceMutation, SalesInvoiceMutationVariables> {
     document = SalesInvoiceDocument;
-    
+
+  }
+export const LanguagesDocument = gql`
+    query languages {
+  languages {
+    ...LanguageListParts
+  }
+}
+    ${LanguageListPartsFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class LanguagesGQL extends Apollo.Query<LanguagesQuery, LanguagesQueryVariables> {
+    document = LanguagesDocument;
+
   }
 export const TaskDocument = gql`
     mutation task($args: TaskSaveArgs!) {
@@ -1893,7 +1998,7 @@ export const TaskDocument = gql`
   })
   export class TaskGQL extends Apollo.Mutation<TaskMutation, TaskMutationVariables> {
     document = TaskDocument;
-    
+
   }
 export const AccountsDocument = gql`
     query accounts {
@@ -1908,7 +2013,7 @@ export const AccountsDocument = gql`
   })
   export class AccountsGQL extends Apollo.Query<AccountsQuery, AccountsQueryVariables> {
     document = AccountsDocument;
-    
+
   }
 export const BankAccountsDocument = gql`
     query bankAccounts {
@@ -1923,7 +2028,7 @@ export const BankAccountsDocument = gql`
   })
   export class BankAccountsGQL extends Apollo.Query<BankAccountsQuery, BankAccountsQueryVariables> {
     document = BankAccountsDocument;
-    
+
   }
 export const CalendarActivitiesDocument = gql`
     query calendarActivities {
@@ -1938,7 +2043,7 @@ export const CalendarActivitiesDocument = gql`
   })
   export class CalendarActivitiesGQL extends Apollo.Query<CalendarActivitiesQuery, CalendarActivitiesQueryVariables> {
     document = CalendarActivitiesDocument;
-    
+
   }
 export const CurrenciesDocument = gql`
     query currencies {
@@ -1953,7 +2058,7 @@ export const CurrenciesDocument = gql`
   })
   export class CurrenciesGQL extends Apollo.Query<CurrenciesQuery, CurrenciesQueryVariables> {
     document = CurrenciesDocument;
-    
+
   }
 export const CustomersDocument = gql`
     query customers {
@@ -1968,7 +2073,7 @@ export const CustomersDocument = gql`
   })
   export class CustomersGQL extends Apollo.Query<CustomersQuery, CustomersQueryVariables> {
     document = CustomersDocument;
-    
+
   }
 export const SalesInvoicesDocument = gql`
     query salesInvoices {
@@ -1983,7 +2088,7 @@ export const SalesInvoicesDocument = gql`
   })
   export class SalesInvoicesGQL extends Apollo.Query<SalesInvoicesQuery, SalesInvoicesQueryVariables> {
     document = SalesInvoicesDocument;
-    
+
   }
 export const LeadsDocument = gql`
     query leads {
@@ -1998,7 +2103,7 @@ export const LeadsDocument = gql`
   })
   export class LeadsGQL extends Apollo.Query<LeadsQuery, LeadsQueryVariables> {
     document = LeadsDocument;
-    
+
   }
 export const MyOrganizationsDocument = gql`
     query myOrganizations {
@@ -2013,7 +2118,7 @@ export const MyOrganizationsDocument = gql`
   })
   export class MyOrganizationsGQL extends Apollo.Query<MyOrganizationsQuery, MyOrganizationsQueryVariables> {
     document = MyOrganizationsDocument;
-    
+
   }
 export const ProductsDocument = gql`
     query products {
@@ -2028,7 +2133,7 @@ export const ProductsDocument = gql`
   })
   export class ProductsGQL extends Apollo.Query<ProductsQuery, ProductsQueryVariables> {
     document = ProductsDocument;
-    
+
   }
 export const ProspectsDocument = gql`
     query prospects {
@@ -2043,7 +2148,7 @@ export const ProspectsDocument = gql`
   })
   export class ProspectsGQL extends Apollo.Query<ProspectsQuery, ProspectsQueryVariables> {
     document = ProspectsDocument;
-    
+
   }
 export const TasksDocument = gql`
     query tasks {
@@ -2058,7 +2163,7 @@ export const TasksDocument = gql`
   })
   export class TasksGQL extends Apollo.Query<TasksQuery, TasksQueryVariables> {
     document = TasksDocument;
-    
+
   }
 export const TaxesDocument = gql`
     query taxes {
@@ -2073,7 +2178,7 @@ export const TaxesDocument = gql`
   })
   export class TaxesGQL extends Apollo.Query<TaxesQuery, TaxesQueryVariables> {
     document = TaxesDocument;
-    
+
   }
 export const UsersDocument = gql`
     query users {
@@ -2088,7 +2193,7 @@ export const UsersDocument = gql`
   })
   export class UsersGQL extends Apollo.Query<UsersQuery, UsersQueryVariables> {
     document = UsersDocument;
-    
+
   }
 export const GetServerTimeDocument = gql`
     query getServerTime {
@@ -2101,5 +2206,5 @@ export const GetServerTimeDocument = gql`
   })
   export class GetServerTimeGQL extends Apollo.Query<GetServerTimeQuery, GetServerTimeQueryVariables> {
     document = GetServerTimeDocument;
-    
+
   }

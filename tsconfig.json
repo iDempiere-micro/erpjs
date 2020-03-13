@@ -20,7 +20,12 @@
       "@erpjs/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@erpjs/data": ["libs/data/src/index.ts"],
       "@erpjs/model": ["libs/model/src/export.ts"],
-      "@erpjs/util": ["libs/util/src/index.ts"]
+      "@erpjs/util": ["libs/util/src/index.ts"],
+      "@erp/*": ["libs/*"],
+      "@erp/nativescript": ["xplat/nativescript/index.ts"],
+      "@erp/nativescript/*": ["xplat/nativescript/*"],
+      "@erp/web": ["xplat/web/index.ts"],
+      "@erp/web/*": ["xplat/web/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

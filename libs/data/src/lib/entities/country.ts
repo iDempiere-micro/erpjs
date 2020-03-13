@@ -5,9 +5,23 @@ import { Address } from './address';
 import { VatRegistration } from './vat.registration';
 import { UniqueDisplayEntityBase } from './shared/unique.display.entity.base';
 
+const euMembersISOCodes = [
+  'BE', 'EL', 'LT', 'PT',
+  'BG',	'ES', 'LU', 'RO',
+  'CZ', 'FR', 'HU', 'SI',
+  'DK', 'HR', 'MT', 'SK',
+  'DE', 'IT', 'NL', 'FI',
+  'EE', 'CY', 'AT', 'SE',
+  'IE', 'LV', 'PL', 'UK'
+];
+
 @Entity()
 @ObjectType()
 export class Country extends UniqueDisplayEntityBase implements CountryModel {
+  get isEUMember(): boolean {
+    return euMembersISOCodes.indexOf(this.isoCode) >= 0
+  }
+
   @Column({unique: true})
   @Field()
   isoCode: string;

@@ -14,10 +14,18 @@ import {
   CountryServiceKey,
   CurrencyRateServiceKey,
   CurrencyServiceKey,
-  CustomerServiceKey,
+  CustomerGroupServiceKey, CustomerOrderServiceKey,
+  CustomerPriceListServiceKey,
+  CustomerProductPriceServiceKey,
+  CustomerServiceKey, FifoCostsOfGoodsSoldService, FifoCostsOfGoodsSoldServiceKey,
   Injector,
+  LanguagesServiceKey,
   LeadServiceKey,
-  OrganizationServiceKey,
+  OrganizationServiceKey, ProductIssueLineServiceKey, ProductIssueServiceKey,
+  ProductQuantityOnHandService,
+  ProductQuantityOnHandServiceKey,
+  ProductReceiptLineService,
+  ProductReceiptLineServiceKey, ProductReceiptService, ProductReceiptServiceKey,
   ProductServiceKey,
   ProspectServiceKey,
   RecurringSalesInvoiceLineServiceKey,
@@ -28,8 +36,9 @@ import {
   SuspectServiceKey,
   TaskServiceKey,
   TaxServiceKey,
+  TranslationServiceKey,
   UserServiceKey,
-  UserToOrganizationServiceKey
+  UserToOrganizationServiceKey, WarehouseService, WarehouseServiceKey
 } from '@erpjs/model';
 import { AddressServiceImplementation } from './address.service.implementation';
 import { OrganizationServiceImplementation } from './organization.service.implementation';
@@ -54,6 +63,18 @@ import { CurrencyRateServiceImplementation } from './currency.rate.service.imple
 import { RecurringSalesInvoiceServiceImplementation } from './recurring.sales.invoice.service.implementation';
 import { RecurringSalesInvoiceLineServiceImplementation } from './recurring.sales.invoice.line.service.implementation';
 import { AccountServiceImplementation } from './account.service.implementation';
+import { CustomerGroupServiceImplementation } from './customer.group.service.implementation';
+import { CustomerPriceListServiceImplementation } from './customer.price.list.service.implementation';
+import { CustomerProductPriceServiceImplementation } from './customer.product.price.service.implementation';
+import { TranslationServiceImplementation } from './translation.service.implementation';
+import { LanguagesServiceImplementation } from './languages.service.implementation';
+import { ProductQuantityOnHandServiceImplementation } from '@erp/data/src/lib/model/product.quantity.on-hand.service.implementation';
+import { ProductReceiptLineServiceImplementation } from '@erp/data/src/lib/model/product.receipt.line.service.implementation';
+import { ProductReceiptServiceImplementation } from '@erp/data/src/lib/model/product.receipt.service.implementation';
+import { WarehouseServiceImplementation } from '@erp/data/src/lib/model/warehouse.service.implementation';
+import { ProductIssueLineServiceImplementation } from '@erp/data/src/lib/model/product.issue.line.service.implementation';
+import { ProductIssueServiceImplementation } from '@erp/data/src/lib/model/product.issue.service.implementation';
+import { CustomerOrderServiceImplementation } from '@erp/data/src/lib/model/customer.order.service.implementation';
 
 export const ORDER_SERVICE = 'OrderService';
 
@@ -87,6 +108,19 @@ const recurringSalesInvoiceServiceProvider = { provide: RecurringSalesInvoiceSer
 const recurringSalesInvoiceLineServiceProvider = { provide: RecurringSalesInvoiceLineServiceKey,
   useClass: RecurringSalesInvoiceLineServiceImplementation };
 const accountServiceProvider = { provide: AccountServiceKey, useClass: AccountServiceImplementation };
+const customerGroupServiceProvider = { provide: CustomerGroupServiceKey, useClass: CustomerGroupServiceImplementation };
+const customerPriceListServiceProvider = { provide: CustomerPriceListServiceKey, useClass: CustomerPriceListServiceImplementation };
+const customerProductPriceServiceProvider = { provide: CustomerProductPriceServiceKey, useClass: CustomerProductPriceServiceImplementation };
+const translationServiceProvider = { provide: TranslationServiceKey, useClass: TranslationServiceImplementation };
+const languageServiceProvider = { provide: LanguagesServiceKey, useClass: LanguagesServiceImplementation };
+const productQuantityOnHandServiceProvider = { provide: ProductQuantityOnHandServiceKey, useClass: ProductQuantityOnHandServiceImplementation };
+const productReceiptLineServiceProvider = { provide: ProductReceiptLineServiceKey, useClass: ProductReceiptLineServiceImplementation };
+const productReceiptServiceProvider = { provide: ProductReceiptServiceKey, useClass: ProductReceiptServiceImplementation };
+const warehouseServiceProvider = { provide: WarehouseServiceKey, useClass: WarehouseServiceImplementation };
+const productIssueLineServiceProvider = { provide: ProductIssueLineServiceKey, useClass: ProductIssueLineServiceImplementation };
+const productIssueServiceProvider = { provide: ProductIssueServiceKey, useClass: ProductIssueServiceImplementation };
+const fifoCostsOfGoodsSoldServiceProvider = { provide: FifoCostsOfGoodsSoldServiceKey, useClass: FifoCostsOfGoodsSoldService };
+const customerOrderServiceProvider = { provide: CustomerOrderServiceKey, useClass: CustomerOrderServiceImplementation };
 
 const providers = [
   orderServiceProvider,
@@ -115,6 +149,19 @@ const providers = [
   recurringSalesInvoiceServiceProvider,
   recurringSalesInvoiceLineServiceProvider,
   accountServiceProvider,
+  customerGroupServiceProvider,
+  customerPriceListServiceProvider,
+  customerProductPriceServiceProvider,
+  translationServiceProvider,
+  languageServiceProvider,
+  productQuantityOnHandServiceProvider,
+  productReceiptLineServiceProvider,
+  productReceiptServiceProvider,
+  warehouseServiceProvider,
+  productIssueLineServiceProvider,
+  productIssueServiceProvider,
+  fifoCostsOfGoodsSoldServiceProvider,
+  customerOrderServiceProvider,
 ];
 
 const ENTITY_MANAGER_ID = '##entityManager##';

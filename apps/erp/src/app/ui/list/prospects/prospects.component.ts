@@ -1,12 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ItemListComponent } from '../item.list.component';
-import {
-  ProspectListPartsFragment,
-  ProspectsGQL,
-  ProspectsQuery,
-  ProspectsQueryVariables
-} from '@erpjs/api-interfaces';
+import { ItemListComponent } from '@erp/core/base/item.list.component';
+import { ProspectListPartsFragment, ProspectsGQL, ProspectsQuery, ProspectsQueryVariables } from '@erpjs/api-interfaces';
 import { ClrTabs } from '@clr/angular';
+import { DataLoadingService, WindowService } from '@erp/core';
 
 @Component({
   selector: 'erp-prospects',
@@ -45,7 +41,7 @@ import { ClrTabs } from '@clr/angular';
                                                     (selectedProspectChanged)="selectedProspectChanged($event)"></erp-edit-prospect>
                                   </div>
                                   <div class="clr-col-lg-4">
-                                      
+
                                   </div>
                               </div>
                           </clr-dg-row-detail>
@@ -74,8 +70,10 @@ export class ProspectsComponent
 
   constructor(
     private prospectsGQL: ProspectsGQL,
+    dataLoadingService: DataLoadingService,
+    windowService: WindowService,
   ) {
-    super();
+    super(dataLoadingService, windowService);
   }
 
 
