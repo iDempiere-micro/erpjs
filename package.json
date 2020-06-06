@@ -72,7 +72,7 @@
     "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.13",
     "apollo-link-retry": "^2.2.15",
-    "apollo-server-core": "2.9.16",
+    "apollo-server-core": "2.14.2",
     "apollo-server-express": "2.9.16",
     "auth0": "^2.22.0",
     "aws-lambda": "^1.0.5",
