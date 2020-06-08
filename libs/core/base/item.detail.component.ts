@@ -1,10 +1,11 @@
 import * as Apollo from 'apollo-angular';
-import { Input, OnInit } from '@angular/core';
+import { Input, OnInit, Directive } from '@angular/core';
 import { BaseComponent } from './base-component';
 import { ActivatedRoute } from '@angular/router';
 import { DataLoadingService } from '../services/data.loading.service';
 import { WindowService } from '@erp/core';
 
+@Directive()
 export abstract class ItemDetailComponent<TM, TQ, TV, Q extends Apollo.Query<TQ, TV>>
   extends BaseComponent implements OnInit {
   id: number;

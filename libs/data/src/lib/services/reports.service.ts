@@ -109,7 +109,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
     }
 
     doc
-      .text(c6, 450, y, { align: 'right' });
+      .text(c6, 430, y, { align: 'right' });
 
     if (r2)
       doc.text(r2, 50, y + 15);

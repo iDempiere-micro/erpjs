@@ -20,7 +20,7 @@
             "main": "apps/erp/src/main.ts",
             "polyfills": "apps/erp/src/polyfills.ts",
             "tsConfig": "apps/erp/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/erp/src/favicon.ico",
               "apps/erp/src/assets",
@@ -32,7 +32,8 @@
               "apps/erp/src/styles.styl"
             ],
             "scripts": [
-              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+              "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
               "node_modules/@clr/icons/clr-icons.min.js"
             ]
           },
@@ -49,7 +50,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -328,6 +328,11 @@
           "options": {
             "tsConfig": "libs/model/tsconfig.lib.json",
             "project": "libs/model/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/model/tsconfig.lib.prod.json"
+            }
           }
         },
         "lint": {
@@ -499,7 +504,7 @@
       "prefix": "erp",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "style": "scss"
         }
       },
       "architect": {

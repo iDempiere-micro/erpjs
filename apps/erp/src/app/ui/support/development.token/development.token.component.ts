@@ -14,7 +14,7 @@ import { AuthService } from '../../../auth/auth.service';
 })
 export class DevelopmentTokenComponent implements OnInit {
   public token: Observable<string>;
-  @ViewChild('tokenInput', {static: false}) tokenInput:ElementRef;
+  @ViewChild('tokenInput') tokenInput:ElementRef;
 
   constructor(private authService: AuthService,) { }
 

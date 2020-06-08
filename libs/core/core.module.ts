@@ -26,7 +26,7 @@ export const BASE_PROVIDERS: any[] = [
 })
 export class CoreModule {
   // configuredProviders: *required to configure WindowService and others per platform
-  static forRoot(configuredProviders: Array<any>): ModuleWithProviders {
+  static forRoot(configuredProviders: Array<any>): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
       providers: [...BASE_PROVIDERS, ...configuredProviders]
