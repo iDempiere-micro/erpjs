@@ -1,8 +1,9 @@
-import { createParamDecorator } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { ManagementClient } from 'auth0';
 import { runJob, UserServiceImplementation } from '@erpjs/data';
 import { getManager } from 'typeorm';
 import { auth0ClientId, auth0ClientSecret, auth0Domain } from '../environments/config';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 const authZero = new ManagementClient({
   // 3
@@ -18,12 +19,14 @@ async function setUser(user) {
   return await runJob( getManager(), async () => await userServiceImplementation.handleLogin(profile) );
 }
 
-export const User = createParamDecorator(async (data, [root, args, ctx, info]) => {
-  const user = ctx.req.user;
-  return setUser(user);
-} );
-
-export const ControllerUser = createParamDecorator(async (data, req) => {
-  const user = req.user;
-  return setUser(user);
-});
+export const User = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    if (!request) {
+      const context = GqlExecutionContext.create(ctx);
+      const user = context.getContext().req.user;
+      return setUser(user);
+    }
+    return setUser(request.user);
+  },
+);

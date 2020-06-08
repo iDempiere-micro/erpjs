@@ -84,7 +84,7 @@ export class EditSalesInvoiceLineComponent implements OnInit {
   submitted = false;
   product: ProductListPartsFragment;
   products: Array<ProductListPartsFragment>;
-  @ViewChild(ClrForm, {static:false}) form: ClrForm;
+  @ViewChild(ClrForm) form: ClrForm;
   productNotSelected = true;
 
   constructor(

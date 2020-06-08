@@ -66,7 +66,7 @@ import { DataLoadingService, WindowService } from '@erp/core';
 export class ProspectsComponent
   extends ItemListComponent<ProspectListPartsFragment, ProspectsQuery, ProspectsQueryVariables, ProspectsGQL>
   implements OnInit {
-  @ViewChild(ClrTabs, {static: false}) private readonly tabs: ClrTabs;
+  @ViewChild(ClrTabs) private readonly tabs: ClrTabs;
 
   constructor(
     private prospectsGQL: ProspectsGQL,

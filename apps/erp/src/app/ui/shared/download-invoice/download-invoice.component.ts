@@ -20,7 +20,7 @@ interface DownLoadMessage {
 })
 export class DownloadInvoiceComponent {
   @Input() invoice: SalesInvoiceListPartsFragment;
-  @ViewChild('realDownload', {static: false}) realDownload:ElementRef;
+  @ViewChild('realDownload') realDownload:ElementRef;
   href$ = null;
   constructor(private http: HttpClient) {}
 

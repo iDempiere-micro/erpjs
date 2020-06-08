@@ -1,7 +1,8 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { EventEmitter, Input, Output, Directive } from '@angular/core';
 // libs
 import { BaseComponent } from '@erp/core/base';
 
+@Directive()
 export abstract class HeaderBaseComponent extends BaseComponent {
   /**
    * These are just samples to give you an idea of what can be done.

@@ -1,11 +1,12 @@
 import * as Apollo from 'apollo-angular';
-import { Input, OnInit } from '@angular/core';
+import { Input, OnInit, Directive } from '@angular/core';
 
 import { BaseComponent } from './base-component';
 import { BasicItemFilter } from './basic.item.filter';
 import { DataLoadingService } from '@erp/core/services/data.loading.service';
 import { WindowService } from '@erp/core';
 
+@Directive()
 export abstract class ItemListComponent<TM, TQ, TV, Q extends Apollo.Query<TQ, TV>>
   extends BaseComponent implements OnInit {
   @Input() public data: Array<TM>;

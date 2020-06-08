@@ -61,7 +61,7 @@ import { DataLoadingService, WindowService } from '@erp/core';
 export class TasksComponent
   extends ItemListComponent<TaskListPartsFragment, TasksQuery,
     TasksQueryVariables, TasksGQL> {
-  @ViewChild(ClrTabs, {static: false}) private readonly tabs: ClrTabs;
+  @ViewChild(ClrTabs) private readonly tabs: ClrTabs;
 
   private dueDateComparator = new BasicDateComparator('dueDate');
 
