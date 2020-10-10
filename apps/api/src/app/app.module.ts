@@ -17,26 +17,31 @@ import { AuthModule } from '../auth';
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('NX_POSTGRES_HOST', 'localhost'),
+        port: configService.get<number>('NX_POSTGRES_PORT', 5432),
+        username: configService.get('NX_POSTGRES_USER', 'postgres'),
+        password: configService.get('NX_POSTGRES_PASSWORD', 'postgres'),
+        database: configService.get('NX_POSTGRES_DATABASE', 'erp3'),
 
-      host: process.env.NX_POSTGRES_HOST,
-      database: process.env.NX_POSTGRES_DATABASE,
-      port: +process.env.NX_POSTGRES_PORT,
-      username: process.env.NX_POSTGRES_USER,
-      password: process.env.NX_POSTGRES_PASSWORD,
-      ssl: false,
+        ssl: false,
 
-      synchronize: true,
-      logging: !(process.env.CI === "true"),
-      migrationsRun: false, // we run migrations programmatically
-      // also no subscribers! use Nest DI and push to connection.subscribers
-      entities: entities,
-      migrations: migrations,
-      cli: {
-        entitiesDir: 'src/entity',
-        migrationsDir: 'src/entity/migration',
-      },
+        synchronize: true,
+        logging: !(process.env.CI === "true"),
+        migrationsRun: false, // we run migrations programmatically
+        // also no subscribers! use Nest DI and push to connection.subscribers
+        entities: entities,
+        migrations: migrations,
+        cli: {
+          entitiesDir: 'src/entity',
+          migrationsDir: 'src/entity/migration',
+        },
+      }),
     }),
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
