@@ -5,7 +5,7 @@ import { GqlAuthGuard } from '../../auth';
 import { getManager } from 'typeorm';
 
 @Resolver(() => Customer )
-@UseGuards(new GqlAuthGuard())
+@UseGuards(GqlAuthGuard)
 export class CustomerResolver {
   constructor(
     @Inject(CustomerServiceKey) protected readonly customerService: CustomerService,

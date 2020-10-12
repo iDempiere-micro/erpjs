@@ -117,7 +117,7 @@ export class UserService
     if (!login || !login.identities) return null;
     const existingUserIdentity = await this.findUserIdentity(manager, login.identities);
     if (existingUserIdentity) {
-      return Promise.resolve(await existingUserIdentity.user);
+      return existingUserIdentity.user;
     } else {
       // we do not have the identity; we must first try to find out if we have the same User already
       const existingUser = await this.findUser(manager, login);
@@ -131,7 +131,7 @@ export class UserService
         return existingUser;
       } else {
         // this is a completely new user
-        return Promise.resolve(await this.createNewUser(manager, login));
+        return await this.createNewUser(manager, login);
       }
     }
   }

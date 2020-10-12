@@ -681,6 +681,6 @@ export class UserIdentity extends EntityBase implements UserIdentityModel {
   provider: string;
 
   @Field(() => User)
-  @ManyToOne(() => User, (user) => user.identities, { nullable: false })
+  @ManyToOne(() => User, (user) => user.identities, { nullable: false, eager: true })
   user: UserModel;
 }

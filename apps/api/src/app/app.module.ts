@@ -23,11 +23,11 @@ import { AuthModule } from '../auth';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('NX_POSTGRES_HOST', 'localhost'),
-        port: configService.get<number>('NX_POSTGRES_PORT', 5432),
-        username: configService.get('NX_POSTGRES_USER', 'postgres'),
-        password: configService.get('NX_POSTGRES_PASSWORD', 'postgres'),
-        database: configService.get('NX_POSTGRES_DATABASE', 'erp3'),
+        host: configService.get('POSTGRES_HOST', 'localhost'),
+        port: configService.get<number>('POSTGRES_PORT', 5432),
+        username: configService.get('POSTGRES_USER', 'postgres'),
+        password: configService.get('POSTGRES_PASSWORD', 'postgres'),
+        database: configService.get('POSTGRES_DATABASE', 'erp3'),
 
         ssl: false,
 

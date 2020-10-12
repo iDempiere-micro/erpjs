@@ -5,7 +5,7 @@ import { CurrentUser, GqlAuthGuard } from '../auth';
 import { DateService, DateServiceKey, UserModel } from '../model';
 
 @Resolver()
-@UseGuards(new GqlAuthGuard())
+@UseGuards(GqlAuthGuard)
 export class AppResolver {
   constructor(
     @Inject(DateServiceKey) protected readonly dateService: DateService
@@ -13,7 +13,6 @@ export class AppResolver {
 
   @Query(() => DateTimeScalarType)
   async now(@CurrentUser() user: UserModel): Promise<Date> {
-    console.log('*** user', user);
     return this.dateService.now(user);
   }
 
@@ -23,7 +22,6 @@ export class AppResolver {
     @CurrentUser() user: UserModel,
     @Args({ name: 'clientId', type: () => String }) clientId: string
   ) {
-    console.log('*** user', user);
     return this.dateService.now(user);
   }
 }
