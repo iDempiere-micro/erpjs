@@ -6,16 +6,22 @@
     "dev": "cross-env PORT=5000 sapper dev",
     "build": "sapper build --legacy",
     "export": "sapper export --legacy",
+    "prettier": "prettier --write ./**/*.svelte",
     "start": "node __sapper__/build",
-    "validate": "svelte-check --ignore src/node_modules/@sapper"
+    "validate": "svelte-check --ignore src/node_modules/@sapper",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "apollo-boost": "0.4.9",
     "body-parser": "^1.19.0",
     "compression": "^1.7.1",
     "express-session": "^1.17.1",
+    "graphql": "15.3.0",
+    "isomorphic-fetch": "3.0.0",
     "polka": "next",
     "session-file-store": "^1.5.0",
-    "sirv": "^1.0.0"
+    "sirv": "^1.0.0",
+    "svelte-apollo": "0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -23,6 +29,7 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "@graphql-codegen/cli": "1.17.8",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
@@ -33,6 +40,8 @@
     "@types/node": "^14.11.1",
     "@types/polka": "^0.5.1",
     "cross-env": "7.0.2",
+    "prettier" : "^2.1.2",
+    "prettier-plugin-svelte": "^1.4.0",
     "rollup": "^2.3.4",
     "rollup-plugin-svelte": "^6.0.0",
     "rollup-plugin-terser": "^7.0.0",
@@ -41,6 +50,12 @@
     "svelte-check": "^1.0.46",
     "svelte-preprocess": "^4.3.0",
     "tslib": "^2.0.1",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "@graphql-codegen/typescript": "1.17.8",
+    "@graphql-codegen/typescript-operations": "1.17.8",
+    "@graphql-codegen/typescript-graphql-files-modules": "1.17.8",
+    "@graphql-codegen/typescript-document-nodes": "1.17.8",
+    "@graphql-codegen/fragment-matcher": "1.17.8",
+    "@graphql-codegen/introspection": "1.17.8"
   }
 }
