@@ -8,6 +8,7 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import { preprocess } from './svelte.config';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -31,7 +32,7 @@ export default {
 			svelte({
 				dev,
 				hydratable: true,
-				preprocess: sveltePreprocess(),
+				preprocess,
 				emitCss: true
 			}),
 			resolve({
@@ -78,7 +79,7 @@ export default {
 			svelte({
 				generate: 'ssr',
 				hydratable: true,
-				preprocess: sveltePreprocess(),
+				preprocess,
 				dev
 			}),
 			resolve({
