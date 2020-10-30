@@ -26,6 +26,13 @@ type Address {
   zipCode: String!
 }
 
+input AddressSaveArgs {
+  city: String!
+  countryIsoCode: String!
+  line1: String!
+  zipCode: String!
+}
+
 type Bank {
   bankAccounts: [BankAccount!]
   bankIdentifierCode: String!
@@ -103,6 +110,16 @@ type Customer {
   vatNumber: String
 }
 
+input CustomerSaveArgs {
+  displayName: String!
+  id: Float
+  idNumber: String!
+  invoicingEmail: String!
+  legalAddress: AddressSaveArgs!
+  legalName: String!
+  vatNumber: String
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -120,6 +137,7 @@ type DocumentNumberSequence {
 }
 
 type Mutation {
+  createCustomer(args: CustomerSaveArgs!): Customer!
   keepAlive(clientId: String!): UniversalDateTime!
 }
 

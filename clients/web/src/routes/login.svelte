@@ -8,7 +8,7 @@ const self = this;
 onMount(() => {
   // @ts-ignore
   const keycloak = new Keycloak({
-    url: "http://localhost:8080/auth",
+    url: process.env.KEYCLOAK_BASE_URL,
     realm: "erpjs",
     clientId: "erpjs",
     flow: "implicit",
@@ -22,6 +22,7 @@ onMount(() => {
           redirectUri: "http://localhost:5000/",
         });
       } else {
+        console.log("*** keycloak", keycloak);
         const { token } = keycloak;
         console.log("*** authenticated with token!", token);
         session.token = token;

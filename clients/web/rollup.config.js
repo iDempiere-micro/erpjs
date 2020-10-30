@@ -9,6 +9,9 @@ import typescript from '@rollup/plugin-typescript';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 import { preprocess } from './svelte.config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -25,19 +28,21 @@ export default {
 		input: config.client.input().replace(/.js$/, '.ts'),
 		output: config.client.output(),
 		plugins: [
+			resolve({
+				browser: true,
+				dedupe: ['svelte']
+			}),
 			replace({
 				'process.browser': true,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'process.env.KEYCLOAK_BASE_URL': JSON.stringify(process.env.KEYCLOAK_BASE_URL),
+				'process.env.KEYCLOAK_REALM': JSON.stringify(process.env.KEYCLOAK_REALM),
 			}),
 			svelte({
 				dev,
 				hydratable: true,
 				preprocess,
 				emitCss: true
-			}),
-			resolve({
-				browser: true,
-				dedupe: ['svelte']
 			}),
 			commonjs(),
 			typescript({ sourceMap: dev }),
@@ -72,18 +77,20 @@ export default {
 		input: { server: config.server.input().server.replace(/.js$/, ".ts") },
 		output: config.server.output(),
 		plugins: [
+			resolve({
+				dedupe: ['svelte']
+			}),
 			replace({
 				'process.browser': false,
-				'process.env.NODE_ENV': JSON.stringify(mode)
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'process.env.KEYCLOAK_BASE_URL': JSON.stringify(process.env.KEYCLOAK_BASE_URL),
+				'process.env.KEYCLOAK_REALM': JSON.stringify(process.env.KEYCLOAK_REALM),
 			}),
 			svelte({
 				generate: 'ssr',
 				hydratable: true,
 				preprocess,
 				dev
-			}),
-			resolve({
-				dedupe: ['svelte']
 			}),
 			commonjs(),
 			typescript({ sourceMap: dev })

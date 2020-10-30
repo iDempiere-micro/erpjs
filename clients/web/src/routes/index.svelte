@@ -1,8 +1,8 @@
 <style lang="postcss">
-  .btn {
-    @apply bg-red-500 text-red-100 uppercase tracking-wide font-semibold
+.btn {
+  @apply bg-red-500 text-red-100 uppercase tracking-wide font-semibold
       text-4xl px-4 py-3 shadow-lg rounded;
-  }
+}
 </style>
 
 <script context="module">
@@ -10,9 +10,9 @@ export function preload(page, session) {
   const { token } = session;
   console.log("*** token", token);
 
-  /*if (!token) {
+  if (!token) {
     return this.redirect(302, "login");
-  }*/
+  }
 }
 </script>
 

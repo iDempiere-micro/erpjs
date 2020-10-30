@@ -1,0 +1,12 @@
+*.tgz
+webpack.config.js
+hooks/*
+!hooks/after-createProject/after-createProject.js
+lib/
+node_modules/
+platforms/
+.idea
+.cloud
+.project
+.vscode
+.npmrc

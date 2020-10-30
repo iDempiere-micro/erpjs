@@ -1,8 +1,16 @@
-import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
-import { AddressService, AddressServiceKey, Customer, CustomerService, CustomerServiceKey } from '../../model';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  AddressService,
+  AddressServiceKey,
+  Customer,
+  CustomerModel,
+  CustomerService,
+  CustomerServiceKey,
+} from '../../model';
 import { Inject, UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth';
+import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { getManager } from 'typeorm';
+import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 
 @Resolver(() => Customer )
 @UseGuards(GqlAuthGuard)
@@ -32,4 +40,13 @@ export class CustomerResolver {
       await this.customerService.createQueryBuilder(entityManager, `customer`).where(`customer.id=:id`, {id} ).getRawOne();
     return this.addressService.loadEntityById(entityManager, customer_legalAddressId);
   }
+
+  @Mutation(() => Customer)
+  async createCustomer(
+    @Args('args') objData: CustomerSaveArgs,
+    @CurrentUser() user
+  ): Promise<CustomerModel> {
+    return this.customerService.save(getManager(), objData);
+  }
+
 }

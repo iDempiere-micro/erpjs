@@ -1,9 +1,8 @@
 <script context="module">
-// https://github.com/CorfitzMe/sapper-w-svelte-apollo/blob/master/src/routes/index.svelte
-import { apollo, gqlQuery } from "../lib/apollo";
-import { gql } from "apollo-boost";
+  import { apollo } from '../lib/apollo';
+  import { gql } from 'apollo-boost';
 
-const EVERYTHING = gql`
+  const EVERYTHING = gql`
   {
     customers {
       id
@@ -12,22 +11,35 @@ const EVERYTHING = gql`
   }
 `;
 
-export async function preload(page, session) {
-  return gqlQuery(this, session, EVERYTHING);
-}
+  export async function preload(page, session) {
+    const { token } = session;
+    if (!token) {
+      return this.redirect(302, "login");
+    }
+
+    const client = apollo(token);
+
+    try {
+      return {
+        cache: await client.query({
+          query: EVERYTHING,
+        }),
+      };
+    } catch (e) {
+      console.error(e);
+      return this.redirect(302, "logout");
+    }
+  }
 </script>
 
-<script>
-import { resourceUsage } from "process";
-import { setClient, restore, query } from "svelte-apollo";
+<script lang="ts">
+// https://github.com/CorfitzMe/sapper-w-svelte-apollo/blob/master/src/routes/index.svelte
+import { query, restore } from "svelte-apollo";
+
 export let cache;
-export let token;
-const client = apollo(token);
-restore(client, EVERYTHING, cache.data);
-// TODO Uncommenting this part triggers a 500 error.
-// setClient(client);
-// query a subset of the preloaded (the rest if for Account)
-const customers = query(client, { query: EVERYTHING });
+
+restore(EVERYTHING, { data: cache.data });
+const customers = query(EVERYTHING, {});
 
 import Customers from "../components/customers/Customers.svelte";
 </script>

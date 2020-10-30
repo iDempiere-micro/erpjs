@@ -58,6 +58,7 @@ export class AuthenticationService {
 
       return user;
     } catch (e) {
+      console.log('*** auth failed', e);
       throw new AuthenticationError(e.message);
     }
   }
