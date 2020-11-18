@@ -10,6 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "keycloak": "docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:11.0.2",
+    "typeorm-migration": "./node_modules/.bin/typeorm migration:create -d apps/api/src/app/migrations -n",
     "pg": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=Coggel86 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:12",
     "start": "nest start",
     "start:dev": "nest start --watch",

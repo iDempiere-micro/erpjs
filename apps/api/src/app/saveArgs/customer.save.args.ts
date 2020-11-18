@@ -2,11 +2,12 @@ import { Field, InputType } from '@nestjs/graphql';
 import { AddressSaveArgs } from './address.save.args';
 import { BaseSaveArgs } from './base.save.args';
 import { CustomerSaveArgsModel } from '../../model';
+import { AddressSaveArgsType } from '../saveArgs';
 
 @InputType()
 export class CustomerSaveArgs extends BaseSaveArgs
   implements CustomerSaveArgsModel {
-  @Field()
+  @Field(AddressSaveArgsType)
   legalAddress: AddressSaveArgs;
   @Field()
   displayName: string;
