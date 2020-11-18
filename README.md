@@ -12,3 +12,11 @@
 - erpjs `client`
 allow Valid Redirect URIs: `http://localhost:5000/*`
 allow Web Origins: `+`
+
+or import the realm from docs folder
+
+## .env file
+Current ip address on macos: `ipconfig getifaddr en0`
+
+
+

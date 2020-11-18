@@ -31,4 +31,3 @@ typings/
 !.vscode/extensions.json
 
 *.tgz
-webpack.config.js

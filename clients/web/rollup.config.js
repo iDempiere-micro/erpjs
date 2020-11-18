@@ -37,6 +37,7 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode),
 				'process.env.KEYCLOAK_BASE_URL': JSON.stringify(process.env.KEYCLOAK_BASE_URL),
 				'process.env.KEYCLOAK_REALM': JSON.stringify(process.env.KEYCLOAK_REALM),
+				'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
 			}),
 			svelte({
 				dev,
@@ -85,6 +86,7 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode),
 				'process.env.KEYCLOAK_BASE_URL': JSON.stringify(process.env.KEYCLOAK_BASE_URL),
 				'process.env.KEYCLOAK_REALM': JSON.stringify(process.env.KEYCLOAK_REALM),
+				'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
 			}),
 			svelte({
 				generate: 'ssr',

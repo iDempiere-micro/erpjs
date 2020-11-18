@@ -1,8 +1,20 @@
 <script lang="typescript">
     import type { EventData } from "@nativescript/core";
     import { TnsOAuthClient, ITnsOAuthTokenResult } from "nativescript-oauth2";
+    import { apollo } from './lib/apollo';
+    import gql from 'graphql-tag';
 
     let message: string = "Blank Svelte Native App"
+
+    const EVERYTHING = gql`
+      {
+        customers {
+          id
+          legalName
+        }
+      }
+    `;
+
 
     const onButtonTap = (args: EventData) => {
         const client = new TnsOAuthClient('keycloak');
@@ -14,6 +26,13 @@
             } else {
                 console.log("back to main page with access token: ");
                 console.log(tokenResult);
+
+                const {accessToken} = tokenResult;
+
+                const client = apollo(accessToken);
+                client.query({
+                      query: EVERYTHING,
+                  }).then((data)=> {console.log('*** data', data);})
             }
             });
     }

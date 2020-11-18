@@ -13,7 +13,7 @@ function configureOAuthProviderMyCustomProvider(): TnsOaProvider {
         redirectUri: "erpjs://erpjs",
         keycloakBaseUrl: process.env.KEYCLOAK_BASE_URL, 
         clientSecret: "ignore",
-        realm: 'erpjs',
+        realm: process.env.KEYCLOAK_REALM,
         scopes: ['openid', 'email', 'microprofile-jwt'],
     };
     return new KeycloakProvider(

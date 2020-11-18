@@ -1,18 +1,19 @@
-import fetch from 'isomorphic-fetch';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
+import { ApolloLink } from "apollo-link";
 
 export const apollo = (token, uri = process.env.API_BASE_URL) => new ApolloClient({
-  uri,
-  fetch,
-  request: (operation) => {
+  link: new ApolloLink((operation, forward) => {
     operation.setContext({
-      headers: token ? {
+      headers: {
         authorization: `Bearer ${token}`
-      } : {}
-    })
-  },
+      }
+    });
+    return forward(operation);
+  }).concat(createHttpLink({ uri })),
+  cache: new InMemoryCache(),
 });
-
 
 export const gqlQuery = async (this_component, session, gql) => {
   const { token } = session;
