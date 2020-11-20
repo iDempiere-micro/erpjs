@@ -14,6 +14,8 @@ import { ModuleRef } from '@nestjs/core';
 import { ModelModule, ModuleReferenceService } from '../model';
 import { AuthModule } from '../auth';
 
+console.log('*** ENV', process.env)
+
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({
   imports: [
@@ -21,27 +23,43 @@ import { AuthModule } from '../auth';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('POSTGRES_HOST', 'localhost'),
-        port: configService.get<number>('POSTGRES_PORT', 5432),
-        username: configService.get('POSTGRES_USER', 'postgres'),
-        password: configService.get('POSTGRES_PASSWORD', 'postgres'),
-        database: configService.get('POSTGRES_DATABASE', 'erp3'),
+      useFactory: async (configService: ConfigService) => (
+        process.env.DATABASE_URL ?
+          {
+            type: 'postgres',
+            extra: {
+              ssl: { rejectUnauthorized: false }
+            },
+            url: process.env.DATABASE_URL,
+            synchronize: true,
+            logging: true,
+            migrationsRun: false, // we run migrations programmatically
+            // also no subscribers! use Nest DI and push to connection.subscribers
+            entities: entities,
+            migrations: migrations
+          }
+        :
+          {
+            type: 'postgres',
+            host: configService.get('POSTGRES_HOST', 'localhost'),
+            port: configService.get<number>('POSTGRES_PORT', 5432),
+            username: configService.get('POSTGRES_USER', 'postgres'),
+            password: configService.get('POSTGRES_PASSWORD', 'postgres'),
+            database: configService.get('POSTGRES_DATABASE', 'erp3'),
 
-        ssl: false,
+            ssl: false,
 
-        synchronize: true,
-        logging: !(process.env.CI === "true"),
-        migrationsRun: false, // we run migrations programmatically
-        // also no subscribers! use Nest DI and push to connection.subscribers
-        entities: entities,
-        migrations: migrations,
-        cli: {
-          entitiesDir: 'src/entity',
-          migrationsDir: 'src/entity/migration',
-        },
-      }),
+            synchronize: true,
+            logging: !(process.env.CI === "true"),
+            migrationsRun: false, // we run migrations programmatically
+            // also no subscribers! use Nest DI and push to connection.subscribers
+            entities: entities,
+            migrations: migrations,
+            cli: {
+              entitiesDir: 'src/entity',
+              migrationsDir: 'src/entity/migration',
+            },
+          }),
     }),
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
