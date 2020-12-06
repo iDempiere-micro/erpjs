@@ -52,10 +52,4 @@
 </page>
 
 <style>
-    .info .fas {
-        color: #3A53FF;
-    }
-    .info {
-        font-size: 20;
-    }
 </style>

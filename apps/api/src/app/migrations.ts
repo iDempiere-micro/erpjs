@@ -7,6 +7,7 @@ import { Invoices202008B1599053746373 } from './migrations/1599053746373-Invoice
 import { Invoices202008C1599277217737 } from './migrations/1599277217737-Invoices202008C';
 import { Invoices2020091601905859728 } from './migrations/1601905859728-Invoices202009';
 import { Invoices2020101604477022458 } from './migrations/1604477022458-Invoices202010';
+import { Invoices2020111607012419575 } from './migrations/1607012419575-Invoices202011';
 
 export const migrations = [
   CreateAnAddress1595508635328,
@@ -18,4 +19,5 @@ export const migrations = [
   Invoices202008C1599277217737,
   Invoices2020091601905859728,
   Invoices2020101604477022458,
+  Invoices2020111607012419575,
 ];

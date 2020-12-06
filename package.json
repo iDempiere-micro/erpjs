@@ -8,6 +8,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "docker:build:api": "docker build -t erpjs3-api . -f api.dockerfile",
+    "docker:run:api": "docker run --expose 3333 -env-file=.env -e POSTGRES_HOST=host.docker.internal -p 3333:3333 erpjs3-api",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "keycloak": "docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:11.0.2",
     "typeorm-migration": "./node_modules/.bin/typeorm migration:create -d apps/api/src/app/migrations -n",
