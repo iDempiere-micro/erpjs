@@ -3,7 +3,7 @@ import type { Address, CustomerDetailPartsFragment } from "../../generated/graph
 
 export let customers: CustomerDetailPartsFragment[];
 
-const addressOneLiner = (address : any) => `${address.line1}, ${address.country.isoCode}-${address.zipCode} ${address.city}`;
+const addressOneLiner = (address : Address) => `${address.line1}, ${address.country.isoCode}-${address.zipCode} ${address.city}`;
 
 </script>
 
