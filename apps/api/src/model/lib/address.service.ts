@@ -24,6 +24,10 @@ export class AddressService extends BaseEntityService<
     return new Address();
   }
 
+  loadEntityByIdRelations(): string[] {
+    return [ 'country' ];
+  }
+
   protected async doSave(
     transactionalEntityManager,
     newAddress: AddressSaveArgsModel

@@ -30,6 +30,7 @@ import { SalesInvoiceLineModel } from './sales.invoice.line.model';
 import { UserIdentityModel } from './user.identity.model';
 import { UserModel } from './user.model';
 import { UserToOrganizationModel } from './user.to.organization.model';
+import { MenuModel } from './menu.model';
 
 const euMembersISOCodes = [
   'BE',
@@ -683,4 +684,9 @@ export class UserIdentity extends EntityBase implements UserIdentityModel {
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.identities, { nullable: false, eager: true })
   user: UserModel;
+}
+
+@Entity()
+@ObjectType()
+export class Menu extends UniqueDisplayEntityBase implements MenuModel {
 }

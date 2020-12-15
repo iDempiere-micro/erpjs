@@ -31,6 +31,11 @@ export class CustomerResolver {
     return await this.customerService.loadEntityById(getManager(), id);
   }
 
+  @Query(() => [Customer])
+  async customersByDisplayName(@Args('displayName', { type: () => String }) displayName: string) {
+    return await this.customerService.loadEntities(getManager(), { where: {displayName} })
+  }
+
   @ResolveField()
   async legalAddress(@Parent() customer: Customer) {
     const entityManager = getManager();

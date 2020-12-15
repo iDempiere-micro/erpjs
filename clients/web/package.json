@@ -45,6 +45,7 @@
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-replace": "^2.3.3",
     "@rollup/plugin-typescript": "^6.0.0",
+    "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/typography": "^0.2.0",
     "@tsconfig/svelte": "^1.0.10",
     "@types/compression": "^1.7.0",
@@ -57,8 +58,9 @@
     "dotenv": "^8.2.0",
     "graphql": "15.3.0",
     "npm-run-all": "^4.1.5",
-    "postcss-cli": "^8.1.0",
-    "postcss-import": "^12.0.1",
+    "postcss": "^8.2.1",
+    "postcss-cli": "^8.3.0",
+    "postcss-import": "^13.0.0",
     "postcss-load-config": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.1.2",
@@ -72,7 +74,7 @@
     "svelte-check": "^1.0.46",
     "svelte-forms": "^1.1.2",
     "svelte-preprocess": "^4.5.2",
-    "tailwindcss": "^1.9.2",
+    "tailwindcss": "^2.0.1",
     "tslib": "^2.0.1",
     "typescript": "^4.0.3"
   }

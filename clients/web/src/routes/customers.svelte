@@ -2,14 +2,25 @@
   import { apollo } from '../lib/apollo';
   import { gql } from 'apollo-boost';
 
-  const EVERYTHING = gql`
-  {
+  const EVERYTHING = gql`{
     customers {
       id
       legalName
+      displayName
+      vatNumber
+      invoicingEmail
+      legalAddress {
+        id
+        city
+        line1
+        zipCode
+        country {
+          id
+          isoCode
+        }
+      }
     }
-  }
-`;
+}`;
 
   export async function preload(page, session) {
     const { token } = session;
@@ -48,17 +59,11 @@ import Customers from "../components/customers/Customers.svelte";
   <title>Customers</title>
 </svelte:head>
 
-<h1>Customers</h1>
-
-<p>Customers are shown here</p>
-
 {#await $customers}
   <p>Loading...</p>
 {:then result}
   {#if result.data}
-    <ul>
-      <Customers customers="{result.data.customers}" />
-    </ul>
+    <Customers customers="{result.data.customers}" />
   {:else}
     <p>ERROR!!</p>
   {/if}
