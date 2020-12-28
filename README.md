@@ -1,4 +1,4 @@
-# Erp2
+# ERP.JS 3
 
 ## Start the database
 

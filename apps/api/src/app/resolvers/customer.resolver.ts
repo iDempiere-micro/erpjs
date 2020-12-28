@@ -32,8 +32,15 @@ export class CustomerResolver {
   }
 
   @Query(() => [Customer])
-  async customersByDisplayName(@Args('displayName', { type: () => String }) displayName: string) {
-    return await this.customerService.loadEntities(getManager(), { where: {displayName} })
+  async customersByArgs(
+    @Args('displayName', { type: () => String, nullable: true }) displayName: string,
+    @Args('legalName', { type: () => String, nullable: true }) legalName: string
+  ) {
+    const where : any = {};
+    if (displayName) { where.displayName = displayName; }
+    if (legalName) { where.legalName = legalName; }
+
+    return await this.customerService.loadEntities(getManager(), { where })
   }
 
   @ResolveField()

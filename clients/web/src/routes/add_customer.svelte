@@ -49,17 +49,23 @@ const ADD_CUSTOMER = gql`
 `;
 
 
-const GET_CUSTOMERS_BY_DISPLAY_NAME = gql`
-    query CustomersByDisplayName($displayName: String!){
-        customersByDisplayName(displayName:$displayName){id}
+const GET_CUSTOMERS_BY_ARGS = gql`
+    query CustomersByArgs($displayName: String, $legalName: String){
+        customersByArgs(displayName:$displayName, legalName:$legalName){id}
     }
 `;
 
 const addBook = mutation(ADD_CUSTOMER );
 const getCustomersByDisplayName = () => client.query(
   {
-    query: GET_CUSTOMERS_BY_DISPLAY_NAME,
+    query: GET_CUSTOMERS_BY_ARGS,
     variables: { displayName }
+  }
+);
+const getCustomersByLegalName = () => client.query(
+  {
+    query: GET_CUSTOMERS_BY_ARGS,
+    variables: { legalName }
   }
 );
 
@@ -71,15 +77,30 @@ const validateDisplayName = async () => {
   const { data } = await getCustomersByDisplayName();
   return {
     name: "validateDisplayName",
-    valid: !data.customersByDisplayName.length
+    valid: !data.customersByArgs.length
+  }
+}
+
+const validateLegalName = async () => {
+  const { data } = await getCustomersByLegalName();
+  return {
+    name: "validateLegalName",
+    valid: !data.customersByArgs.length
   }
 }
 
 const myForm = form(() => ({
   displayName: { value: displayName, validators: ["required", "min:6", validateDisplayName] },
-  legalName: { value: legalName, validators: ["required"] },
+  legalName: { value: legalName, validators: ["required", "min:6", validateLegalName] },
   legalAddressCity: { value: legalAddressCity, validators: ["required"] },
-}));
+}),
+{
+      initCheck: true,
+      validateOnChange: false,
+      stopAtFirstError: true,
+      stopAtFirstFieldError: true
+    }
+);
 
 const createCustomer = async () => {
   const { data } = await addBook({
@@ -108,9 +129,27 @@ const createCustomer = async () => {
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-4">
                 <label for="display_name" class="block text-sm font-medium text-gray-700">Display Name</label>
-                <input type="text" name="display_name" id="display_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+
+                {#if $myForm.fields.displayName.errors.includes('required')}
+                  <label class="block text-sm font-small text-red-700">The display name is required</label>
+                {/if}
+
+                {#if $myForm.fields.displayName.errors.includes('min')}
+                  <label class="block text-sm font-small text-red-700">The display name should be at least 6 characters</label>
+                {/if}
+
+                {#if $myForm.fields.displayName.pending}
+                  <label class="block text-sm font-small text-gray-900">Checking display name availability..</label>
+                {/if}
+
+                {#if $myForm.fields.displayName.errors.includes('validateDisplayName')}
+                  <label class="block text-sm font-small text-red-700">This display name is already taken</label>
+                {/if}
+
+                <input type="text" name="display_name" id="display_name" class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
                        bind:value="{displayName}"
                        use:bindClass="{{ form: myForm }}"
+                       on:blur|preventDefault={() => myForm.validate()}
                 >
               </div>
             </div>
@@ -161,6 +200,7 @@ const createCustomer = async () => {
                 <input type="text" name="display_name" id="legal_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                        bind:value="{legalName}"
                        use:bindClass="{{ form: myForm }}"
+                       on:blur|preventDefault={() => myForm.validate()}
                 >
               </div>
 

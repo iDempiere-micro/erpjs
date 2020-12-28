@@ -176,7 +176,7 @@ type Product {
 type Query {
   customer(id: Int!): Customer!
   customers: [Customer!]!
-  customersByDisplayName(displayName: String!): [Customer!]!
+  customersByArgs(displayName: String, legalName: String): [Customer!]!
   now: UniversalDateTime!
 }
 

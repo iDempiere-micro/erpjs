@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "api:dev": "nest start --watch api",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "docker:build:api": "docker build -t erpjs3-api . -f api.dockerfile",
@@ -16,7 +17,7 @@
     "typeorm-migration": "./node_modules/.bin/typeorm migration:create -d apps/api/src/app/migrations -n",
     "pg": "docker run --rm --name pg-docker -e POSTGRES_PASSWORD=Coggel86 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:12",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
