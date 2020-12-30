@@ -3,7 +3,7 @@ import { CountryModel } from './country.model';
 import { CountrySaveArgsModel } from './country.save.args.model';
 import { EntityManager, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { Country } from './entity.base';
+import { Country } from '../generated/entities/Country';
 
 export const CountryServiceKey = 'CountryService';
 

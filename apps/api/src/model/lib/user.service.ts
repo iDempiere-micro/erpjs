@@ -2,9 +2,12 @@ import { UserModel } from './user.model';
 import { UserProfileModel } from './user.profile.model';
 import { UserSaveArgsModel } from './user.save.args.model';
 import { BaseEntityService } from './base.entity.service';
-import { User, UserIdentity } from './entity.base';
-import { EntityManager, Repository } from 'typeorm/index';
+import { EntityManager, Repository } from 'typeorm';
 import { UserProfileModelIdentity } from './user.profile.model.identity';
+import { User } from '../generated/entities/User';
+import { UserIdentity } from '../generated/entities/UserIdentity';
+import { Session } from '../../app/support/session';
+import { Injectable } from '@nestjs/common';
 
 export const UserServiceKey = 'UserService';
 
@@ -17,9 +20,14 @@ export interface LoginHandler {
   handleLogin(manager: EntityManager, login: UserProfileModel): Promise<UserModel>;
 }
 
+export const getTechnicalUser = (manager: EntityManager) => manager
+  .getRepository(User)
+  .findOne({ where: { email: process.env.TECHNICAL_USER_EMAIL } });
+
 /**
  * User service to handle possibly multiple user identities and automatic user creation on a successful login-
  */
+@Injectable()
 export class UserService
   extends BaseEntityService<UserModel, UserSaveArgsModel>
   implements LoginHandler {
@@ -31,7 +39,6 @@ export class UserService
   protected getRepository(transactionalEntityManager): Repository<UserModel>{
     return transactionalEntityManager.getRepository(User);
   }
-
 
   async findUserByEmail(manager: EntityManager, email: string): Promise<User> {
     if (!email) return null;

@@ -1,8 +1,8 @@
-import { EntityManager } from 'typeorm/index';
+import { EntityManager } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { BaseModel } from './base.model';
 import { OrganizationModel } from './organization.model';
-import { DocumentNumberSequence } from './entity.base';
+import { DocumentNumberSequence } from '../generated/entities/DocumentNumberSequence';
 
 export const DocumentNumberingServiceKey = 'DocumentNumberingService';
 

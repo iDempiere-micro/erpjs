@@ -2,7 +2,6 @@ import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nes
 import {
   AddressService,
   AddressServiceKey,
-  Customer,
   CustomerModel,
   CustomerService,
   CustomerServiceKey,
@@ -11,6 +10,7 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { getManager } from 'typeorm';
 import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
+import { Customer } from '../../model/generated/entities/Customer';
 
 @Resolver(() => Customer )
 @UseGuards(GqlAuthGuard)

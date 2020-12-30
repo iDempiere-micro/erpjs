@@ -8,8 +8,10 @@ import { Invoices202008C1599277217737 } from './migrations/1599277217737-Invoice
 import { Invoices2020091601905859728 } from './migrations/1601905859728-Invoices202009';
 import { Invoices2020101604477022458 } from './migrations/1604477022458-Invoices202010';
 import { Invoices2020111607012419575 } from './migrations/1607012419575-Invoices202011';
+import { CreateUser1595508635324 } from './migrations/1595508635324-CreateUser';
 
 export const migrations = [
+  CreateUser1595508635324,
   CreateAnAddress1595508635328,
   CreateInvoice2020071596526951614,
   CreateInvoice202007B1596628283384,

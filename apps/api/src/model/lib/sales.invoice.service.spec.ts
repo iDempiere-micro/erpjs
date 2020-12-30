@@ -19,7 +19,7 @@ import { DocumentNumberingServiceKey } from './document.numbering.service';
 import { SaveArgsValidationService, SaveArgsValidationServiceKey } from './save.args.validation.service';
 import { TaxModel } from './tax.model';
 import { SalesInvoiceLineModel } from './sales.invoice.line.model';
-import { SalesInvoice } from './entity.base';
+import { SalesInvoice } from '../generated/entities/SalesInvoice';
 
 const mockTaxService = {};
 export const mockTaxServiceProvider = {

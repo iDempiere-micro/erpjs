@@ -4,7 +4,6 @@ import { OrganizationModel } from './organization.model';
 import { OrganizationSaveArgsModel } from './organization.save.args.model';
 import { EntityManager, Repository } from 'typeorm';
 import { AddressService, AddressServiceKey } from './address.service';
-import { Organization } from './entity.base';
 import {
   BankAccountService,
   BankAccountServiceKey,
@@ -13,6 +12,7 @@ import {
   AccountingSchemeService,
   AccountingSchemeServiceKey,
 } from './accounting.scheme.service';
+import { Organization } from '../generated/entities/Organization';
 
 export const OrganizationServiceKey = 'OrganizationService';
 

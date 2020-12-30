@@ -1,12 +1,12 @@
 import { SalesInvoiceModel } from './sales.invoice.model';
 import { SalesInvoiceSaveArgsModel } from './sales.invoice.save.args.model';
-import { EntityManager, Repository } from 'typeorm/index';
+import { EntityManager, Repository } from 'typeorm';
 import {
   BankAccountService,
   BankAccountServiceKey,
 } from './bank.account.service';
 import { CustomerService, CustomerServiceKey } from './customer.service';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CurrencyService, CurrencyServiceKey } from './currency.service';
 import { TaxService, TaxServiceKey } from './tax.service';
 import { ReportsService, ReportsServiceKey } from './reports.service';
@@ -30,13 +30,14 @@ import {
   OrganizationService,
   OrganizationServiceKey,
 } from './organization.service';
-import { SalesInvoice, SalesInvoiceLine } from './entity.base';
 import { getService } from './module.reference.service';
 import { SalesInvoiceLineModel } from './sales.invoice.line.model';
 import { SalesInvoiceLineSaveArgsModel } from './sales.invoice.line.save.args.model';
 import { ProductService, ProductServiceKey } from './product.service';
 import { OrganizationModel } from './organization.model';
 import moment = require('moment');
+import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
+import { SalesInvoice } from '../generated/entities/SalesInvoice';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 

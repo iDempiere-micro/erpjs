@@ -32,7 +32,6 @@ export * from './lib/customer.service';
 export * from './lib/date.service';
 export * from './lib/document.numbering.service';
 export * from './lib/entities';
-export * from './lib/entity.base';
 export * from './lib/language.model';
 export * from './lib/languages.service';
 export * from './lib/localized.messages';

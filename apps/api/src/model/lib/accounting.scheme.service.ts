@@ -1,10 +1,10 @@
 import { AccountingSchemeModel } from './accounting.scheme.model';
 import { AccountingSchemeSaveArgsModel } from './accounting.scheme.save.args.model';
-import { EntityManager, Repository } from 'typeorm/index';
+import { EntityManager, Repository } from 'typeorm';
 import { CurrencyService, CurrencyServiceKey } from './currency.service';
 import { Inject, Injectable } from '@nestjs/common';
 import { BaseEntityService } from './base.entity.service';
-import { AccountingScheme } from './entity.base';
+import { AccountingScheme } from '../generated/entities/AccountingScheme';
 
 export const AccountingSchemeServiceKey = 'AccountingSchemeService';
 

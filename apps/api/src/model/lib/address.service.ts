@@ -5,7 +5,7 @@ import { AddressSaveArgsModel } from './address.save.args.model';
 import { EntityManager, Repository } from 'typeorm';
 import * as deepEqual from 'deep-equal';
 import { CountryService, CountryServiceKey } from './country.service';
-import { Address } from './entity.base';
+import { Address } from '../generated/entities/Address';
 
 export const AddressServiceKey = 'AddressService';
 

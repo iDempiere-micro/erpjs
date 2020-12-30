@@ -1,10 +1,10 @@
 import { CustomerModel } from './customer.model';
 import { CustomerSaveArgsModel } from './customer.save.args.model';
-import { EntityManager, Repository } from 'typeorm/index';
+import { EntityManager, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { BaseEntityService } from './base.entity.service';
-import { Customer } from './entity.base';
 import { AddressService } from './address.service';
+import { Customer } from '../generated/entities/Customer';
 
 export const CustomerServiceKey = 'CustomerService';
 
