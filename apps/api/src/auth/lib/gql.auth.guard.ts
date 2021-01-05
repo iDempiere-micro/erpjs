@@ -34,7 +34,11 @@ export class GqlAuthGuard  implements CanActivate {
   }
 
   getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context);
-    return ctx.getContext().req;
+    const request = context.switchToHttp().getRequest();
+    if (!request) {
+      const ctx = GqlExecutionContext.create(context);
+      return ctx.getContext().req;
+    }
+    return request;
   }
 }
