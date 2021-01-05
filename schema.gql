@@ -107,6 +107,7 @@ type Query {
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   now: UniversalDateTime!
+  salesInvoice(id: Int!): SalesInvoice!
   salesInvoices: [SalesInvoice!]!
 }
 
