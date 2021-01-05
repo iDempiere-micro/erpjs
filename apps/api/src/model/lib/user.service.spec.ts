@@ -1,8 +1,5 @@
 import { Test } from '@nestjs/testing';
 import { UserService } from './user.service';
-import { UserProfileModel } from './user.profile.model';
-import { UserModel } from './user.model';
-import { EntityManager } from 'typeorm/index';
 
 describe('UserService', () => {
   let service: UserService;

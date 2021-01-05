@@ -77,15 +77,16 @@ export class Organization implements OrganizationModel {
   @ManyToOne(
     () => AccountingScheme,
     (accountingScheme) => accountingScheme.organizations
+    , {nullable: false, eager: true}
   )
   @JoinColumn([{ name: "accountingSchemeId", referencedColumnName: "id" }])
   accountingScheme: AccountingScheme;
 
-  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.organizations)
+  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.organizations, {nullable: false, eager: true})
   @JoinColumn([{ name: "bankAccountId", referencedColumnName: "id" }])
   bankAccount: BankAccount;
 
-  @ManyToOne(() => Address, (address) => address.organizations)
+  @ManyToOne(() => Address, (address) => address.organizations, {nullable: false, eager: true})
   @JoinColumn([{ name: "legalAddressId", referencedColumnName: "id" }])
   legalAddress: Address;
 

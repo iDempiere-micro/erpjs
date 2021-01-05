@@ -5,7 +5,10 @@
   "root": "apps/erp3",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/erp3/tsconfig.app.json"
+    "tsConfigPath": "apps/erp3/tsconfig.app.json",
+    "assets": [
+      "**/assets/*.ttf"
+    ]
   },
   "projects": {
     "erp3": {

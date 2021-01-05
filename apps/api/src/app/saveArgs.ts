@@ -1,3 +1,3 @@
-import { CustomAddressSaveArgs } from './custom/custom.address.save.args';
+import { AddressSaveArgs } from './saveArgs/address.save.args';
 
-export const AddressSaveArgsType = () => CustomAddressSaveArgs;
+export const AddressSaveArgsType = () => /*CustomAddressSaveArgs*/ AddressSaveArgs;

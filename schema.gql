@@ -14,6 +14,13 @@ type Address {
   zipCode: String!
 }
 
+input AddressSaveArgs {
+  city: String!
+  countryIsoCode: String!
+  line1: String!
+  zipCode: String!
+}
+
 type BankAccount {
   bankAccountCustomerPrintableNumber: String!
   displayName: String!
@@ -46,14 +53,6 @@ type Currency {
   updtTs: DateTime!
 }
 
-input CustomAddressSaveArgs {
-  blemba: String!
-  city: String!
-  countryIsoCode: String!
-  line1: String!
-  zipCode: String!
-}
-
 type Customer {
   displayName: String!
   id: Float!
@@ -74,7 +73,7 @@ input CustomerSaveArgs {
   id: Float
   idNumber: String!
   invoicingEmail: String!
-  legalAddress: CustomAddressSaveArgs!
+  legalAddress: AddressSaveArgs!
   legalName: String!
   vatNumber: String
 }
@@ -108,6 +107,7 @@ type Query {
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   now: UniversalDateTime!
+  salesInvoices: [SalesInvoice!]!
 }
 
 type SalesInvoice {

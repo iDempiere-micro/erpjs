@@ -19,7 +19,7 @@ onMount(() => {
       console.log(authenticated ? "authenticated" : "not authenticated");
       if (!authenticated) {
         keycloak.login({
-          redirectUri: "http://localhost:5000/",
+          redirectUri: process.env.URL,
         });
       } else {
         console.log("*** keycloak", keycloak);

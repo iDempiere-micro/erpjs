@@ -33,6 +33,7 @@ export * from './lib/date.service';
 export * from './lib/document.numbering.service';
 export * from './lib/entities';
 export * from './lib/language.model';
+export * from './lib/language.save.args.model';
 export * from './lib/languages.service';
 export * from './lib/localized.messages';
 export * from './lib/model.module';

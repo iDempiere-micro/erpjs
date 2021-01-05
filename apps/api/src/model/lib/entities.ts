@@ -16,6 +16,7 @@ import { Product } from '../generated/entities/Product';
 import { User } from '../generated/entities/User';
 import { UserToOrganization } from '../generated/entities/UserToOrganization';
 import { UserIdentity } from '../generated/entities/UserIdentity';
+import { Language } from '../generated/entities/Language';
 
 export const entities = [
   Address,
@@ -36,4 +37,5 @@ export const entities = [
   User,
   UserToOrganization,
   UserIdentity,
+  Language,
 ];

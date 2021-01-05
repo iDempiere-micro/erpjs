@@ -23,7 +23,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 
   const fontPath = fs.existsSync('./assets/Cardo-Regular.ttf')
     ? './assets/'
-    : './apps/api/src/assets/';
+    : (fs.existsSync('./apps/api/assets/Cardo-Regular.ttf') ? './apps/api/assets/' : './apps/api/src/assets/');
 
   doc.registerFont('Cardo', `${fontPath}Cardo-Regular.ttf`);
   doc.registerFont('Cardo-Bold', `${fontPath}Cardo-Bold.ttf`);
@@ -378,7 +378,7 @@ export class ReportsService {
       grandTotalAccountingSchemeCurrency: (+data.grandTotalAccountingSchemeCurrency).toFixed(
         2
       ),
-      vatReport: (await data.vatReport).map((x) => ({
+      vatReport: (data.vatReport).map((x) => ({
         vatRatePercent: (+x.vatRatePercent).toFixed(0),
         vatTotal: (+x.vatTotal).toFixed(2),
         vatTotalAccountingSchemeCurrency: (+x.vatTotalAccountingSchemeCurrencyRaw).toFixed(
@@ -394,14 +394,9 @@ export class ReportsService {
       reverseCharge: data.reverseCharge,
     };
 
-    try {
-      data.content = await this.printInvoice(converted);
-      data.printed = true;
-      data.printDate = new Date();
-    } catch (e) {
-      console.log('*** FAIL', e);
-      data.printError = '' + e;
-    }
+    data.content = await this.printInvoice(converted);
+    data.printed = true;
+    data.printDate = new Date();
     return data;
   }
 
@@ -411,6 +406,5 @@ export class ReportsService {
 
     const content = fs.readFileSync(`${resultFile}.pdf`);
     return '\\x' + content.toString('hex');
-    //return '';
   }
 }

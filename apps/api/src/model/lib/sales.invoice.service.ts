@@ -244,7 +244,7 @@ export class SalesInvoiceService extends BaseEntityService<
       customerCountry.isoCode !== supplierCountry.isoCode;
 
     // TODO: get better printLanguage implementation
-    const languages = this.languagesService.getLanguages();
+    const languages = await this.languagesService.loadEntities(transactionalEntityManager);
     const language =
       customerCountry.isoCode === supplierCountry.isoCode
         ? languages.find(
@@ -426,6 +426,7 @@ export class SalesInvoiceService extends BaseEntityService<
   }
 
   async fixPrint(manager: EntityManager) {
+    console.log('Fix print started');
     const invoices = await manager
       .createQueryBuilder()
       .setLock('pessimistic_write')
@@ -435,13 +436,16 @@ export class SalesInvoiceService extends BaseEntityService<
       .orderBy('id')
       .getMany();
 
-    for (const invoice of invoices) {
+    for (const i of invoices) {
+      const invoice = await this.loadEntityById(manager, i.id);
+      console.log('Fixing content of ', invoice);
       const printed = await this.reportsService.printSalesInvoice(
         invoice,
         invoice.printLanguage
       );
       await manager.save(printed);
     }
+    console.log('Fix print done');
   }
 
   async assignDocumentNumbersToInvoices(
@@ -460,5 +464,9 @@ export class SalesInvoiceService extends BaseEntityService<
         await invoice.organization
       );
     }
+  }
+
+  loadEntityByIdRelations(): string[] {
+    return [ 'lines', 'vatReport' ];
   }
 }

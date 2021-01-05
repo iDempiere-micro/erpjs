@@ -53,7 +53,7 @@ export class Address implements AddressModel {
   @Field()
   zipCode: string;
 
-  @ManyToOne(() => Country, (country) => country.addresses)
+  @ManyToOne(() => Country, (country) => country.addresses,{nullable: false, eager: true})
   @JoinColumn([{ name: "countryId", referencedColumnName: "id" }])
   @Field(()=>Country)
   country: CountryModel;

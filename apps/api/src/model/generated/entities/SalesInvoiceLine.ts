@@ -61,11 +61,11 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
   @JoinColumn([{ name: "invoiceId", referencedColumnName: "id" }])
   invoice: SalesInvoiceModel;
 
-  @ManyToOne(() => Tax, (tax) => tax.salesInvoiceLines)
+  @ManyToOne(() => Tax, (tax) => tax.salesInvoiceLines, {nullable: false, eager: true})
   @JoinColumn([{ name: "lineTaxId", referencedColumnName: "id" }])
   lineTax: Tax;
 
-  @ManyToOne(() => Product, (product) => product.salesInvoiceLines)
+  @ManyToOne(() => Product, (product) => product.salesInvoiceLines, {nullable: false, eager: true})
   @JoinColumn([{ name: "productId", referencedColumnName: "id" }])
   product: Product;
 }

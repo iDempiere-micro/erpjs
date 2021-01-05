@@ -131,22 +131,22 @@ export class SalesInvoice implements SalesInvoiceModel {
   @Field()
   reverseCharge: boolean;
 
-  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.salesInvoices)
+  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.salesInvoices, {nullable: false, eager: true})
   @JoinColumn([{ name: "bankAccountId", referencedColumnName: "id" }])
   @Field(() => BankAccount)
   bankAccount: BankAccountModel;
 
-  @ManyToOne(() => Currency, (currency) => currency.salesInvoices)
+  @ManyToOne(() => Currency, (currency) => currency.salesInvoices, {nullable: false, eager: true})
   @JoinColumn([{ name: "currencyId", referencedColumnName: "id" }])
   @Field(() => Currency)
   currency: CurrencyModel;
 
-  @ManyToOne(() => Customer, (customer) => customer.salesInvoices)
+  @ManyToOne(() => Customer, (customer) => customer.salesInvoices, {nullable: false, eager: true})
   @JoinColumn([{ name: "customerId", referencedColumnName: "id" }])
   @Field(() => Customer)
   customer: CustomerModel;
 
-  @ManyToOne(() => Organization, (organization) => organization.salesInvoices)
+  @ManyToOne(() => Organization, (organization) => organization.salesInvoices, {nullable: false, eager: true})
   @JoinColumn([{ name: "organizationId", referencedColumnName: "id" }])
   @Field(() => Organization)
   organization: OrganizationModel;

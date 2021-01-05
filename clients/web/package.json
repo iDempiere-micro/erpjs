@@ -3,7 +3,7 @@
   "description": "TODO",
   "version": "0.0.1",
   "scripts": {
-    "expor:sappert": "sapper export --legacy",
+    "export:sappert": "sapper export --legacy",
     "prettier": "prettier --write ./**/*.svelte",
     "validate": "svelte-check --ignore src/node_modules/@sapper",
     "generate": "graphql-codegen --config codegen.yml",

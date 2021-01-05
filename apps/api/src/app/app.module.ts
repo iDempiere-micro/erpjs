@@ -33,8 +33,8 @@ console.log('*** ENV', process.env)
               ssl: { rejectUnauthorized: false }
             },
             url: process.env.DATABASE_URL,
-            synchronize: true,
-            logging: true,
+            synchronize: false,
+            logging: !(process.env.CI === "true"),
             migrationsRun: false, // we run migrations programmatically
             // also no subscribers! use Nest DI and push to connection.subscribers
             entities: entities,
@@ -51,7 +51,7 @@ console.log('*** ENV', process.env)
 
             ssl: false,
 
-            synchronize: true,
+            synchronize: false,
             logging: !(process.env.CI === "true"),
             migrationsRun: false, // we run migrations programmatically
             // also no subscribers! use Nest DI and push to connection.subscribers

@@ -1,12 +1,10 @@
 import {
+  AddressService,
   AddressServiceKey,
-  SalesInvoiceService,
   SalesInvoiceServiceKey,
   serviceProviders as modelServiceProviders,
 } from '../model';
-import { CustomAddressService } from './custom/custom.address.service';
 import {
-  SaveArgsValidationService,
   SaveArgsValidationServiceKey,
 } from '../model';
 import { CustomSalesInvoiceService } from './custom/custom.sales.invoice.service';
@@ -14,7 +12,7 @@ import { CustomSaveArgsValidationService } from './custom/custom.save.args.valid
 
 const addressServiceProvider = {
   provide: AddressServiceKey,
-  useClass: CustomAddressService,
+  useClass: AddressService, // CustomAddressService,
 };
 const salesInvoiceServiceProvider = {
   provide: SalesInvoiceServiceKey,

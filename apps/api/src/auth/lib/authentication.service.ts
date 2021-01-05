@@ -1,6 +1,7 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { getService, UserModel, UserService, UserServiceKey } from '../../model';
+import { getService, getTechnicalUser, UserModel, UserService, UserServiceKey } from '../../model';
 import { getManager } from 'typeorm';
+import { run } from '../../model/lib/context.service';
 
 interface KeycloakUserInfoResponse {
   sub: string;
@@ -54,9 +55,14 @@ export class AuthenticationService {
           }
         ]
       };
-      const user = await userService.handleLogin(getManager(), profile);
 
-      return user;
+      const manager = getManager();
+      const technicalUser = await getTechnicalUser(manager);
+
+      return await run(
+        technicalUser, manager,
+        async () => await userService.handleLogin(manager, profile)
+      );
     } catch (e) {
       console.log('*** auth failed', e);
       throw new AuthenticationError(e.message);

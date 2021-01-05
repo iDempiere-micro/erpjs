@@ -62,7 +62,7 @@ export class Customer {
   @Field()
   idNumber: string;
 
-  @ManyToOne(() => Address, (address) => address.customers)
+  @ManyToOne(() => Address, (address) => address.customers, {nullable: false, eager: true})
   @JoinColumn([{ name: "legalAddressId", referencedColumnName: "id" }])
   @Field(()=>Address)
   legalAddress: AddressModel;

@@ -1,20 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    
+
     import { goto, stores } from "@sapper/app";
     const { session } = stores();
-    const self = this;
-    
-    onMount(() => {
-      // @ts-ignore
-      const keycloak = new Keycloak({
-        url: process.env.KEYCLOAK_BASE_URL,
-        realm: "erpjs",
-        clientId: "erpjs",
-        flow: "implicit",
-      });      
 
-      const handleLogin = async () => {
+    onMount(() => {
+      const handleLogout = async () => {
           const response = await fetch("/login", {
             method: "POST",
             headers: {
@@ -24,12 +15,14 @@
             body: null,
           });
         };
-    handleLogin();
-    setTimeout(() => {
-        window && window.location.replace("/");
-    }, 100);      
+      handleLogout();
 
-    keycloak.logout({redirectUri:'http://localhost:5000/'});
+      const logoutUrl = `${process.env.KEYCLOAK_BASE_URL}/realms/${process.env.KEYCLOAK_REALM}/protocol/openid-connect/logout?redirect_uri=${process.env.URL}`;
+      console.log('*** logoutUrl', logoutUrl);
+
+      setTimeout(() => {
+        window && window.location.replace(logoutUrl);
+    }, 100);
     }
     );
 </script>
