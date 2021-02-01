@@ -51,7 +51,7 @@ export class Customer {
   legalName: string;
 
   @Column("character varying", { name: "vatNumber", nullable: true })
-  @Field()
+  @Field({nullable: true})
   vatNumber: string | null;
 
   @Column("character varying", { name: "invoicingEmail" })

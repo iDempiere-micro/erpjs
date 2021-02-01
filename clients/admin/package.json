@@ -1,0 +1,43 @@
+{
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "prettier": "prettier --write --plugin-search-dir=. ./**/*.html",
+    "svelte-check": "svelte-check",
+    "test": "web-test-runner \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "svelte": "^3.24.0"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.3.7",
+    "@snowpack/plugin-dotenv": "^2.0.5",
+    "@snowpack/plugin-postcss": "^1.1.0",
+    "@snowpack/plugin-svelte": "^3.5.0",
+    "@snowpack/plugin-typescript": "^1.2.0",
+    "@snowpack/web-test-runner-plugin": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.0",
+    "@testing-library/svelte": "^3.0.0",
+    "@types/chai": "^4.2.13",
+    "@types/mocha": "^8.2.0",
+    "@types/snowpack-env": "^2.3.2",
+    "@web/test-runner": "^0.12.0",
+    "autoprefixer": "^10.2.1",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.4.0",
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "prettier": "^2.2.1",
+    "prettier-plugin-svelte": "^2.1.1",
+    "snowpack": "^3.0.1",
+    "svelte-apollo": "^0.4.0",
+    "svelte-check": "^1.1.28",
+    "svelte-forms": "^1.1.2",
+    "svelte-preprocess": "^4.0.8",
+    "svelte-routing": "^1.5.0",
+    "tailwindcss": "^2.0.2",
+    "typescript": "^4.0.0"
+  }
+}

@@ -1,5 +1,0 @@
-query {
-  customers {
-      ...CustomerDetailParts
-  }
-}

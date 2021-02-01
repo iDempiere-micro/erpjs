@@ -65,12 +65,12 @@ type Customer {
   salesInvoices: [SalesInvoice!]!
   updtOpId: Float!
   updtTs: DateTime!
-  vatNumber: String!
+  vatNumber: String
 }
 
 input CustomerSaveArgs {
   displayName: String!
-  id: Float
+  id: Int
   idNumber: String!
   invoicingEmail: String!
   legalAddress: AddressSaveArgs!

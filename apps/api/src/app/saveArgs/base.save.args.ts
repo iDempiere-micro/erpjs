@@ -1,8 +1,8 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { BaseSaveArgsModel } from '../../model';
 
 @InputType()
 export class BaseSaveArgs implements BaseSaveArgsModel {
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   id?: number;
 }

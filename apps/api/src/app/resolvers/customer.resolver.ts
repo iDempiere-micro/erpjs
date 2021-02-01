@@ -11,6 +11,7 @@ import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { getManager } from 'typeorm';
 import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 import { Customer } from '../../model/generated/entities/Customer';
+import { run } from '../../model/lib/context.service';
 
 @Resolver(() => Customer )
 @UseGuards(GqlAuthGuard)
@@ -21,7 +22,7 @@ export class CustomerResolver {
   ) {
   }
 
-  @Query(()=>[Customer])
+  @Query(() => [Customer])
   async customers() {
     return await this.customerService.loadEntities(getManager())
   }
@@ -36,9 +37,13 @@ export class CustomerResolver {
     @Args('displayName', { type: () => String, nullable: true }) displayName: string,
     @Args('legalName', { type: () => String, nullable: true }) legalName: string
   ) {
-    const where : any = {};
-    if (displayName) { where.displayName = displayName; }
-    if (legalName) { where.legalName = legalName; }
+    const where: any = {};
+    if (displayName) {
+      where.displayName = displayName;
+    }
+    if (legalName) {
+      where.legalName = legalName;
+    }
 
     return await this.customerService.loadEntities(getManager(), { where })
   }
@@ -49,7 +54,7 @@ export class CustomerResolver {
     const { id } = customer;
     // eslint-disable-next-line @typescript-eslint/camelcase
     const { customer_legalAddressId } =
-      await this.customerService.createQueryBuilder(entityManager, `customer`).where(`customer.id=:id`, {id} ).getRawOne();
+      await this.customerService.createQueryBuilder(entityManager, `customer`).where(`customer.id=:id`, { id }).getRawOne();
     return this.addressService.loadEntityById(entityManager, customer_legalAddressId);
   }
 
@@ -58,7 +63,9 @@ export class CustomerResolver {
     @Args('args') objData: CustomerSaveArgs,
     @CurrentUser() user
   ): Promise<CustomerModel> {
-    return this.customerService.save(getManager(), objData);
+    return await run(
+      user, getManager(),
+      async () => this.customerService.save(getManager(), objData)
+    )
   }
-
 }
