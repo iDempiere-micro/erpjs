@@ -1,6 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Connection, EntitySubscriberInterface, InsertEvent, UpdateEvent } from 'typeorm';
-import { ContextService, ContextServiceKey } from '../../model/lib/context.service';
+import {
+  Connection,
+  EntitySubscriberInterface,
+  InsertEvent,
+  UpdateEvent,
+} from 'typeorm';
+import {
+  ContextService,
+  ContextServiceKey,
+} from '../../model/lib/context.service';
 import { User } from '../../model/generated/entities/User';
 import { EntityManager } from 'typeorm';
 
@@ -24,7 +32,7 @@ export class EverythingSubscriber implements EntitySubscriberInterface {
     } finally {
       EverythingSubscriber.allowInsertUpdateWithoutUser = false;
     }
-  }
+  };
 
   updateUpdtOpId(entity) {
     const user = this.contextService.getCurrent().currentUser;

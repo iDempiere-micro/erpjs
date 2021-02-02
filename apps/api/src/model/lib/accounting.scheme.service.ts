@@ -19,13 +19,13 @@ export class AccountingSchemeService extends BaseEntityService<
 
   constructor(
     @Inject(CurrencyServiceKey)
-    protected readonly currencyService: CurrencyService
+    protected readonly currencyService: CurrencyService,
   ) {
     super();
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<AccountingSchemeModel> {
     return transactionalEntityManager.getRepository(AccountingScheme);
   }
@@ -35,21 +35,21 @@ export class AccountingSchemeService extends BaseEntityService<
   async doSave(
     transactionalEntityManager: EntityManager,
     newAccountingScheme: AccountingSchemeSaveArgsModel,
-    accountingScheme: AccountingSchemeModel
+    accountingScheme: AccountingSchemeModel,
   ): Promise<AccountingSchemeModel> {
     accountingScheme.displayName = newAccountingScheme.displayName;
     accountingScheme.currency = newAccountingScheme.currency
       ? newAccountingScheme.currency
       : await this.currencyService.getCurrency(
           transactionalEntityManager,
-          newAccountingScheme.currencyIsoCode
+          newAccountingScheme.currencyIsoCode,
         );
     return accountingScheme;
   }
 
   getAccountingScheme = async (
     transactionalEntityManager: EntityManager,
-    displayName: string
+    displayName: string,
   ) =>
     this.getRepository(transactionalEntityManager).findOne({
       where: { displayName },

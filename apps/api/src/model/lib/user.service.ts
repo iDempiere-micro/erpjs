@@ -17,26 +17,28 @@ export interface LoginHandler {
    * @param manager - entity manager
    * @param login - a user profile of a successfully logged user
    */
-  handleLogin(manager: EntityManager, login: UserProfileModel): Promise<UserModel>;
+  handleLogin(
+    manager: EntityManager,
+    login: UserProfileModel,
+  ): Promise<UserModel>;
 }
 
-export const getTechnicalUser = (manager: EntityManager) => manager
-  .getRepository(User)
-  .findOne({ where: { email: process.env.TECHNICAL_USER_EMAIL } });
+export const getTechnicalUser = (manager: EntityManager) =>
+  manager
+    .getRepository(User)
+    .findOne({ where: { email: process.env.TECHNICAL_USER_EMAIL } });
 
 /**
  * User service to handle possibly multiple user identities and automatic user creation on a successful login-
  */
 @Injectable()
-export class UserService
-  extends BaseEntityService<UserModel, UserSaveArgsModel>
+export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
   implements LoginHandler {
-
   createEntity(): UserModel {
     return new User();
   }
 
-  protected getRepository(transactionalEntityManager): Repository<UserModel>{
+  protected getRepository(transactionalEntityManager): Repository<UserModel> {
     return transactionalEntityManager.getRepository(User);
   }
 
@@ -50,7 +52,7 @@ export class UserService
 
   async findUserIdentity(
     manager: EntityManager,
-    userProfileIdentities: Array<UserProfileModelIdentity>
+    userProfileIdentities: Array<UserProfileModelIdentity>,
   ): Promise<UserIdentity> {
     const userId = userProfileIdentities[0].user_id;
     const provider = userProfileIdentities[0].provider;
@@ -60,14 +62,17 @@ export class UserService
       .findOne({ where: { externalUser: userId, provider } });
     return found || null;
   }
-  async findUser(manager: EntityManager, userProfileModel: UserProfileModel): Promise<UserModel> {
+  async findUser(
+    manager: EntityManager,
+    userProfileModel: UserProfileModel,
+  ): Promise<UserModel> {
     const email = userProfileModel.email;
     return await this.findUserByEmail(manager, email);
   }
   async convertProfileIdentities(
     manager: EntityManager,
     user: UserModel,
-    userProfileIdentities: Array<UserProfileModelIdentity>
+    userProfileIdentities: Array<UserProfileModelIdentity>,
   ): Promise<Array<UserIdentity>> {
     const result: Array<UserIdentity> = [];
     for (const userProfileIdentity of userProfileIdentities) {
@@ -85,7 +90,10 @@ export class UserService
     }
     return result;
   }
-  async createNewUser(manager: EntityManager, userProfileModel: UserProfileModel): Promise<User> {
+  async createNewUser(
+    manager: EntityManager,
+    userProfileModel: UserProfileModel,
+  ): Promise<User> {
     const result = new User();
     result.email = userProfileModel.email;
     result.name = userProfileModel.name;
@@ -103,7 +111,7 @@ export class UserService
   protected async doSave(
     manager: EntityManager,
     args: UserSaveArgsModel,
-    entity: UserModel
+    entity: UserModel,
   ): Promise<UserModel> {
     return entity;
   }
@@ -119,10 +127,13 @@ export class UserService
    */
   async handleLogin(
     manager: EntityManager,
-    login: UserProfileModel
+    login: UserProfileModel,
   ): Promise<UserModel> {
     if (!login || !login.identities) return null;
-    const existingUserIdentity = await this.findUserIdentity(manager, login.identities);
+    const existingUserIdentity = await this.findUserIdentity(
+      manager,
+      login.identities,
+    );
     if (existingUserIdentity) {
       return existingUserIdentity.user;
     } else {
@@ -132,7 +143,7 @@ export class UserService
         const converted = await this.convertProfileIdentities(
           manager,
           existingUser,
-          login.identities
+          login.identities,
         );
         existingUser.identities.push(...converted);
         return existingUser;

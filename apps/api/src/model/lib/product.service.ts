@@ -17,7 +17,7 @@ export class ProductService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<ProductModel> {
     return transactionalEntityManager.getRepository(Product);
   }
@@ -25,7 +25,7 @@ export class ProductService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: ProductSaveArgsModel,
-    entity: ProductModel
+    entity: ProductModel,
   ): Promise<ProductModel> {
     entity.displayName = args.displayName;
     entity.sku = args.sku;

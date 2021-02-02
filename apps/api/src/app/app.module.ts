@@ -17,7 +17,7 @@ import { EverythingSubscriber } from './support/everything.subscriber';
 import { ContextService } from '../model/lib/context.service';
 import { FileController } from './controllers/file.controller';
 
-console.log('*** ENV', process.env)
+console.log('*** ENV', process.env);
 
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({
@@ -26,43 +26,42 @@ console.log('*** ENV', process.env)
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => (
-        process.env.DATABASE_URL ?
-          {
-            type: 'postgres',
-            extra: {
-              ssl: { rejectUnauthorized: false }
-            },
-            url: process.env.DATABASE_URL,
-            synchronize: false,
-            logging: !(process.env.CI === "true"),
-            migrationsRun: false, // we run migrations programmatically
-            // also no subscribers! use Nest DI and push to connection.subscribers
-            entities: entities,
-            migrations: migrations
-          }
-        :
-          {
-            type: 'postgres',
-            host: configService.get('POSTGRES_HOST', 'localhost'),
-            port: configService.get<number>('POSTGRES_PORT', 5432),
-            username: configService.get('POSTGRES_USER', 'postgres'),
-            password: configService.get('POSTGRES_PASSWORD', 'postgres'),
-            database: configService.get('POSTGRES_DATABASE', 'erp3'),
+      useFactory: async (configService: ConfigService) =>
+        process.env.DATABASE_URL
+          ? {
+              type: 'postgres',
+              extra: {
+                ssl: { rejectUnauthorized: false },
+              },
+              url: process.env.DATABASE_URL,
+              synchronize: false,
+              logging: !(process.env.CI === 'true'),
+              migrationsRun: false, // we run migrations programmatically
+              // also no subscribers! use Nest DI and push to connection.subscribers
+              entities: entities,
+              migrations: migrations,
+            }
+          : {
+              type: 'postgres',
+              host: configService.get('POSTGRES_HOST', 'localhost'),
+              port: configService.get<number>('POSTGRES_PORT', 5432),
+              username: configService.get('POSTGRES_USER', 'postgres'),
+              password: configService.get('POSTGRES_PASSWORD', 'postgres'),
+              database: configService.get('POSTGRES_DATABASE', 'erp3'),
 
-            ssl: false,
+              ssl: false,
 
-            synchronize: false,
-            logging: !(process.env.CI === "true"),
-            migrationsRun: false, // we run migrations programmatically
-            // also no subscribers! use Nest DI and push to connection.subscribers
-            entities: entities,
-            migrations: migrations,
-            cli: {
-              entitiesDir: 'src/entity',
-              migrationsDir: 'src/entity/migration',
+              synchronize: false,
+              logging: !(process.env.CI === 'true'),
+              migrationsRun: false, // we run migrations programmatically
+              // also no subscribers! use Nest DI and push to connection.subscribers
+              entities: entities,
+              migrations: migrations,
+              cli: {
+                entitiesDir: 'src/entity',
+                migrationsDir: 'src/entity/migration',
+              },
             },
-          }),
     }),
     GraphQLModule.forRootAsync({
       imports: [ConfigModule],
@@ -82,7 +81,14 @@ console.log('*** ENV', process.env)
     AuthModule,
   ],
   controllers: [AppController, FileController],
-  providers: [AppService, MigrationService, EverythingSubscriber, ContextService, ...serviceProviders, ...resolvers],
+  providers: [
+    AppService,
+    MigrationService,
+    EverythingSubscriber,
+    ContextService,
+    ...serviceProviders,
+    ...resolvers,
+  ],
 })
 export class AppModule {
   constructor(private moduleRef: ModuleRef) {

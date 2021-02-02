@@ -14,13 +14,15 @@ export class UserToOrganizationService extends BaseEntityService<
     return new UserToOrganization();
   }
 
-  protected getRepository(transactionalEntityManager:EntityManager): Repository<UserToOrganizationModel>{
+  protected getRepository(
+    transactionalEntityManager: EntityManager,
+  ): Repository<UserToOrganizationModel> {
     return transactionalEntityManager.getRepository(UserToOrganization);
   }
   protected async doSave(
-    transactionalEntityManager:EntityManager,
+    transactionalEntityManager: EntityManager,
     args: UserToOrganizationSaveArgsModel,
-    entity: UserToOrganizationModel
+    entity: UserToOrganizationModel,
   ): Promise<UserToOrganizationModel> {
     entity.organization = args.organization;
     entity.user = args.user;

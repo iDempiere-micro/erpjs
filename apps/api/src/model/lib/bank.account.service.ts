@@ -18,20 +18,20 @@ export class BankAccountService extends BaseEntityService<
   }
 
   constructor(
-    @Inject(BankServiceKey) protected readonly bankService: BankService
+    @Inject(BankServiceKey) protected readonly bankService: BankService,
   ) {
     super();
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<BankAccountModel> {
     return transactionalEntityManager.getRepository(BankAccount);
   }
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: BankAccountSaveArgsModel,
-    bankAccountModel: BankAccountModel
+    bankAccountModel: BankAccountModel,
   ): Promise<BankAccountModel> {
     bankAccountModel.displayName = args.displayName;
     bankAccountModel.swift = args.swift;
@@ -43,11 +43,11 @@ export class BankAccountService extends BaseEntityService<
       (args.bankDisplayName
         ? await this.bankService.getBank(
             transactionalEntityManager,
-            args.bankDisplayName
+            args.bankDisplayName,
           )
         : await this.bankService.loadEntityById(
             transactionalEntityManager,
-            args.bankId
+            args.bankId,
           ));
     return bankAccountModel;
   }

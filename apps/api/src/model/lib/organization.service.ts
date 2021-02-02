@@ -29,7 +29,7 @@ export class OrganizationService extends BaseEntityService<
     @Inject(BankAccountServiceKey)
     public readonly bankAccountService: BankAccountService,
     @Inject(AccountingSchemeServiceKey)
-    public readonly accountingSchemeService: AccountingSchemeService
+    public readonly accountingSchemeService: AccountingSchemeService,
   ) {
     super();
   }
@@ -41,7 +41,7 @@ export class OrganizationService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: OrganizationSaveArgsModel,
-    organization: OrganizationModel
+    organization: OrganizationModel,
   ): Promise<OrganizationModel> {
     organization.contact = args.contact;
     organization.registration = args.registration;
@@ -49,20 +49,20 @@ export class OrganizationService extends BaseEntityService<
     organization.legalName = args.legalName;
     organization.legalAddress = await this.addressService.save(
       transactionalEntityManager,
-      args.legalAddress
+      args.legalAddress,
     );
     organization.idNumber = args.idNumber;
     organization.bankAccount =
       args.bankAccount ||
       (await this.bankAccountService.loadEntityById(
         transactionalEntityManager,
-        args.bankAccountId
+        args.bankAccountId,
       ));
     organization.accountingScheme =
       args.accountingScheme ||
       (await this.accountingSchemeService.loadEntityById(
         transactionalEntityManager,
-        args.accountingSchemeId
+        args.accountingSchemeId,
       ));
     organization.vatNumber = args.vatNumber;
 
@@ -70,7 +70,7 @@ export class OrganizationService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager: EntityManager
+    transactionalEntityManager: EntityManager,
   ): Repository<OrganizationModel> {
     return transactionalEntityManager.getRepository(Organization);
   }
@@ -78,7 +78,7 @@ export class OrganizationService extends BaseEntityService<
   getOrg = (
     transactionalEntityManager: EntityManager,
     displayName: string,
-    relations?: string[]
+    relations?: string[],
   ) =>
     this.getRepository(transactionalEntityManager).findOne({
       where: { displayName },

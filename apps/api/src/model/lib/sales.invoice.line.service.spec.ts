@@ -4,8 +4,14 @@ import { CustomerModel } from './customer.model';
 import { SalesInvoiceModel } from './sales.invoice.model';
 import { TaxServiceKey } from './tax.service';
 import { ProductServiceKey } from './product.service';
-import { SalesInvoiceLineService, SalesInvoiceServiceKey } from './sales.invoice.service';
-import { SaveArgsValidationService, SaveArgsValidationServiceKey } from './save.args.validation.service';
+import {
+  SalesInvoiceLineService,
+  SalesInvoiceServiceKey,
+} from './sales.invoice.service';
+import {
+  SaveArgsValidationService,
+  SaveArgsValidationServiceKey,
+} from './save.args.validation.service';
 
 const customer: CustomerModel = {
   invoicingEmail: '',
@@ -67,12 +73,12 @@ export const mockSalesInvoiceServiceProvider = {
 
 const mockEntityManager = {
   getRepository: () => ({
-    save: (x) => x,
+    save: x => x,
   }),
 } as any;
 
 (global as any).moduleRef = {
-  get: (token) =>
+  get: token =>
     token === SalesInvoiceServiceKey
       ? mockSalesInvoiceService
       : new SaveArgsValidationService(),

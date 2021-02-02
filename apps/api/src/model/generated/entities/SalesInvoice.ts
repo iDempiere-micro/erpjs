@@ -5,13 +5,13 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { BankAccount } from "./BankAccount";
-import { Currency } from "./Currency";
-import { Customer } from "./Customer";
-import { Organization } from "./Organization";
-import { SalesInvoiceLine } from "./SalesInvoiceLine";
-import { SalesInvoiceVat } from "./SalesInvoiceVat";
+} from 'typeorm';
+import { BankAccount } from './BankAccount';
+import { Currency } from './Currency';
+import { Customer } from './Customer';
+import { Organization } from './Organization';
+import { SalesInvoiceLine } from './SalesInvoiceLine';
+import { SalesInvoiceVat } from './SalesInvoiceVat';
 import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { SalesInvoiceLineModel } from '../../lib/sales.invoice.line.model';
 import { SalesInvoiceVatModel } from '../../lib/sales.invoice.vat.model';
@@ -24,149 +24,169 @@ import { OrganizationModel } from '../../lib/organization.model';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 
-@Entity("sales_invoice", { schema: "public" })
+@Entity('sales_invoice', { schema: 'public' })
 @ObjectType()
 export class SalesInvoice implements SalesInvoiceModel {
-  @PrimaryGeneratedColumn({ type: "integer", name: "id" })
+  @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   @Field()
   id: number;
 
-  @Column("timestamp without time zone", {
-    name: "updtTs",
-    default: () => "now()",
+  @Column('timestamp without time zone', {
+    name: 'updtTs',
+    default: () => 'now()',
   })
   @Field()
   updtTs: Date;
 
-  @ManyToOne(() => User, (user) => user.updSalesInvoices, {nullable: false, eager: true})
-  @JoinColumn([{ name: "updtOpId", referencedColumnName: "id" }])
-  @Field(()=>User)
+  @ManyToOne(
+    () => User,
+    user => user.updSalesInvoices,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
   updtOp: UserModel;
 
-  @Column("boolean", { name: "isActive", default: () => "true" })
+  @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()
   isActive: boolean;
 
-  @Column("boolean", { name: "isCurrent", default: () => "true" })
+  @Column('boolean', { name: 'isCurrent', default: () => 'true' })
   @Field()
   isCurrent: boolean;
 
-  @Column("date", { name: "dueDate" })
+  @Column('date', { name: 'dueDate' })
   @Field()
   dueDate: Date;
 
-  @Column("date", { name: "issuedOn" })
+  @Column('date', { name: 'issuedOn' })
   @Field()
   issuedOn: Date;
 
-  @Column("character varying", { name: "documentNo", nullable: true })
-  @Field({nullable: true})
+  @Column('character varying', { name: 'documentNo', nullable: true })
+  @Field({ nullable: true })
   documentNo: string | null;
 
-  @Column("boolean", { name: "isDraft" })
+  @Column('boolean', { name: 'isDraft' })
   @Field()
   isDraft: boolean;
 
-  @Column("boolean", { name: "isCalculated" })
+  @Column('boolean', { name: 'isCalculated' })
   @Field()
   isCalculated: boolean;
 
-  @Column("numeric", { name: "grandTotal", precision: 12, scale: 2 })
+  @Column('numeric', { name: 'grandTotal', precision: 12, scale: 2 })
   @Field()
   grandTotal: number;
 
-  @Column("double precision", { name: "totalLines" })
+  @Column('double precision', { name: 'totalLines' })
   @Field()
   totalLines: number;
 
-  @Column("double precision", {
-    name: "totalLinesAccountingSchemeCurrency"
+  @Column('double precision', {
+    name: 'totalLinesAccountingSchemeCurrency',
   })
   @Field()
   totalLinesAccountingSchemeCurrency: number;
 
-  @Column("numeric", {
-    name: "grandTotalAccountingSchemeCurrency",
+  @Column('numeric', {
+    name: 'grandTotalAccountingSchemeCurrency',
     precision: 12,
     scale: 2,
   })
   @Field()
   grandTotalAccountingSchemeCurrency: number;
 
-  @Column("double precision", {
-    name: "currencyMultiplyingRateToAccountingSchemeCurrency",
+  @Column('double precision', {
+    name: 'currencyMultiplyingRateToAccountingSchemeCurrency',
   })
   @Field()
   currencyMultiplyingRateToAccountingSchemeCurrency: number;
 
-  @Column("date", { name: "transactionDate" })
+  @Column('date', { name: 'transactionDate' })
   @Field()
   transactionDate: Date;
 
-  @Column("timestamp without time zone", { name: "printDate", nullable: true })
-  @Field({nullable: true})
+  @Column('timestamp without time zone', { name: 'printDate', nullable: true })
+  @Field({ nullable: true })
   printDate: Date | null;
 
-  @Column("boolean", { name: "printed", default: () => "false" })
+  @Column('boolean', { name: 'printed', default: () => 'false' })
   @Field()
   printed: boolean;
 
-  @Column("character varying", { name: "printError", nullable: true })
-  @Field({nullable: true})
+  @Column('character varying', { name: 'printError', nullable: true })
+  @Field({ nullable: true })
   printError: string | null;
 
-  @Column("bytea", { name: "content", nullable: true })
+  @Column('bytea', { name: 'content', nullable: true })
   @Field()
   content: string;
 
-  @Column("integer", { name: "paymentTermInDays" })
+  @Column('integer', { name: 'paymentTermInDays' })
   @Field()
   paymentTermInDays: number;
 
-  @Column("character varying", { name: "printLanguageIsoCode" })
+  @Column('character varying', { name: 'printLanguageIsoCode' })
   @Field()
   printLanguageIsoCode: string;
 
-  @Column("boolean", { name: "reverseCharge" })
+  @Column('boolean', { name: 'reverseCharge' })
   @Field()
   reverseCharge: boolean;
 
-  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.salesInvoices, {nullable: false, eager: true})
-  @JoinColumn([{ name: "bankAccountId", referencedColumnName: "id" }])
+  @ManyToOne(
+    () => BankAccount,
+    bankAccount => bankAccount.salesInvoices,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
   @Field(() => BankAccount)
   bankAccount: BankAccountModel;
 
-  @ManyToOne(() => Currency, (currency) => currency.salesInvoices, {nullable: false, eager: true})
-  @JoinColumn([{ name: "currencyId", referencedColumnName: "id" }])
+  @ManyToOne(
+    () => Currency,
+    currency => currency.salesInvoices,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
   @Field(() => Currency)
   currency: CurrencyModel;
 
-  @ManyToOne(() => Customer, (customer) => customer.salesInvoices, {nullable: false, eager: true})
-  @JoinColumn([{ name: "customerId", referencedColumnName: "id" }])
+  @ManyToOne(
+    () => Customer,
+    customer => customer.salesInvoices,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'customerId', referencedColumnName: 'id' }])
   @Field(() => Customer)
   customer: CustomerModel;
 
-  @ManyToOne(() => Organization, (organization) => organization.salesInvoices, {nullable: false, eager: true})
-  @JoinColumn([{ name: "organizationId", referencedColumnName: "id" }])
+  @ManyToOne(
+    () => Organization,
+    organization => organization.salesInvoices,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
   @Field(() => Organization)
   organization: OrganizationModel;
 
   @OneToMany(
     () => SalesInvoiceLine,
-    (salesInvoiceLine) => salesInvoiceLine.invoice
+    salesInvoiceLine => salesInvoiceLine.invoice,
   )
   @Field(() => [SalesInvoiceLine])
   lines: SalesInvoiceLineModel[];
 
   @OneToMany(
     () => SalesInvoiceVat,
-    (salesInvoiceVat) => salesInvoiceVat.invoice
+    salesInvoiceVat => salesInvoiceVat.invoice,
   )
   @Field(() => [SalesInvoiceVat])
   vatReport: SalesInvoiceVatModel[];
 
   get printLanguage(): LanguageModel {
-    return languages.find((x) => x.isoCode === this.printLanguageIsoCode);
+    return languages.find(x => x.isoCode === this.printLanguageIsoCode);
   }
 
   set printLanguage(value: LanguageModel) {

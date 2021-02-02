@@ -10,8 +10,9 @@ export const DocumentNumberingServiceKey = 'DocumentNumberingService';
 export class DocumentNumberingService {
   async getNextDocumentNumber<M extends BaseModel>(
     manager: EntityManager,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     modelCtor: (new () => M) | Function,
-    organization: OrganizationModel
+    organization: OrganizationModel,
   ): Promise<string> {
     const model = await manager.getRepository(DocumentNumberSequence).findOne({
       where: { forType: modelCtor.name, organization },

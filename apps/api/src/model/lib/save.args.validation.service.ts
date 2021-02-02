@@ -9,7 +9,7 @@ export class SaveArgsValidationService {
   async checkIsSaveArgValid<T extends BaseSaveArgsModel>(
     transactionalEntityManager: EntityManager,
     typeName: string,
-    args: T
+    args: T,
   ): Promise<void> {
     /* left intentionally empty for the real validation engine */
   }

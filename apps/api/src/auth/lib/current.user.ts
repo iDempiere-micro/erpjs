@@ -9,5 +9,5 @@ export const CurrentUser = createParamDecorator(
       return context.getContext().req.user;
     }
     return request.user;
-  }
+  },
 );

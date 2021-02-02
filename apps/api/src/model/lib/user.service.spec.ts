@@ -6,7 +6,7 @@ describe('UserService', () => {
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
-      providers: [UserService]
+      providers: [UserService],
     }).compile();
 
     service = app.get<UserService>(UserService);

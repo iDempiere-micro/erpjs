@@ -15,7 +15,7 @@ export class CurrencyService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<CurrencyModel> {
     return transactionalEntityManager.getRepository(Currency);
   }
@@ -29,7 +29,7 @@ export class CurrencyService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: CurrencySaveArgsModel,
-    currency: CurrencyModel
+    currency: CurrencyModel,
   ): Promise<CurrencyModel> {
     currency.displayName = args.displayName;
     currency.isoCode = args.isoCode;

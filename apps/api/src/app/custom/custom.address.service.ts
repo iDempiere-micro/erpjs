@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CustomAddress, HasNote } from './custom.address';
 import { EntityManager, Repository } from 'typeorm';
-import { AddressModel, AddressSaveArgsModel, AddressService } from '../../model';
+import {
+  AddressModel,
+  AddressSaveArgsModel,
+  AddressService,
+} from '../../model';
 
 @Injectable()
 export class CustomAddressService extends AddressService {
@@ -13,7 +17,7 @@ export class CustomAddressService extends AddressService {
 
   protected async doSave(
     transactionalEntityManager,
-    newAddress: AddressSaveArgsModel
+    newAddress: AddressSaveArgsModel,
   ): Promise<AddressModel> {
     return {
       note: 'this is a note',
@@ -22,7 +26,7 @@ export class CustomAddressService extends AddressService {
   }
 
   protected getRepository(
-    transactionalEntityManager: EntityManager
+    transactionalEntityManager: EntityManager,
   ): Repository<AddressModel> {
     return transactionalEntityManager.getRepository(CustomAddress);
   }

@@ -22,7 +22,7 @@ export class BankService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: BankSaveArgsModel,
-    bank: BankModel
+    bank: BankModel,
   ): Promise<BankModel> {
     bank.displayName = args.displayName;
     bank.bankIdentifierCode = args.bankIdentifierCode;
@@ -35,7 +35,7 @@ export class BankService extends BaseEntityService<
 
   getBank = async (
     transactionalEntityManager: EntityManager,
-    displayName: string
+    displayName: string,
   ) =>
     this.getRepository(transactionalEntityManager).findOne({
       where: { displayName },

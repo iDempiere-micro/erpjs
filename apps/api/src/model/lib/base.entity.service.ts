@@ -15,12 +15,12 @@ export abstract class BaseEntityService<
 > {
   abstract createEntity(): T;
   protected abstract getRepository(
-    transactionalEntityManager: EntityManager
+    transactionalEntityManager: EntityManager,
   ): Repository<T>;
   protected abstract async doSave(
     transactionalEntityManager: EntityManager,
     args: S,
-    entity: T
+    entity: T,
   ): Promise<T>;
 
   abstract typeName(): string;
@@ -42,53 +42,51 @@ export abstract class BaseEntityService<
     transactionalEntityManager: EntityManager,
     options: FindOneOptions<T>,
   ): Promise<T> =>
-    await this.getRepository(transactionalEntityManager).findOne(
-      options,
-    );
+    await this.getRepository(transactionalEntityManager).findOne(options);
 
   createQueryBuilder = (
     transactionalEntityManager: EntityManager,
     alias: string,
-  ) : SelectQueryBuilder<T> =>
+  ): SelectQueryBuilder<T> =>
     this.getRepository(transactionalEntityManager).createQueryBuilder(alias);
 
   loadEntities = async (
     transactionalEntityManager: EntityManager,
-    options?: FindManyOptions<T>
+    options?: FindManyOptions<T>,
   ): Promise<Array<T>> =>
     await this.getRepository(transactionalEntityManager).find(options);
 
   async save(transactionalEntityManager: EntityManager, args: S): Promise<T> {
     const saveArgsValidationService: SaveArgsValidationService = getService(
-      SaveArgsValidationServiceKey
+      SaveArgsValidationServiceKey,
     );
     await saveArgsValidationService.checkIsSaveArgValid(
       transactionalEntityManager,
       this.typeName(),
-      args
+      args,
     );
 
     const entity = args.id
       ? await this.loadEntityById(transactionalEntityManager, args.id)
       : await this.createEntity();
     return await this.getRepository(transactionalEntityManager).save(
-      await this.doSave(transactionalEntityManager, args, entity)
+      await this.doSave(transactionalEntityManager, args, entity),
     );
   }
   persist = async (
     transactionalEntityManager: EntityManager,
-    t: T
+    t: T,
   ): Promise<T> => await this.getRepository(transactionalEntityManager).save(t);
   delete = async (
     transactionalEntityManager: EntityManager,
-    t: T
+    t: T,
   ): Promise<void> => {
     await this.getRepository(transactionalEntityManager).remove(t);
   };
   reloadEntity = async (
     transactionalEntityManager: EntityManager,
     entity: T,
-    relations?: string[]
+    relations?: string[],
   ): Promise<T> => ({
     ...entity,
     ...(await this.getRepository(transactionalEntityManager).findOne({

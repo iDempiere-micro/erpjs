@@ -14,34 +14,33 @@ export interface Context {
 @Injectable()
 export class ContextService {
   getCurrent(): Context {
-    return Session.get(ContextServiceKey) || {
-      currentUser: undefined, entityManager: undefined
-    };
+    return (
+      Session.get(ContextServiceKey) || {
+        currentUser: undefined,
+        entityManager: undefined,
+      }
+    );
   }
 }
 
 export async function run<T>(
   currentUser: User,
   entityManager: EntityManager,
-  fn: () => T
+  fn: () => T,
 ): Promise<T> {
   Session.createDefault();
   return Session.default.bind(async () => {
     try {
-      Session.set(
-        ContextServiceKey,
-        {
-          currentUser, entityManager
-        }
-      );
+      Session.set(ContextServiceKey, {
+        currentUser,
+        entityManager,
+      });
       return await fn();
     } finally {
-      Session.set(
-        ContextServiceKey,
-        {
-          currentUser: undefined, entityManager: undefined
-        }
-      );
+      Session.set(ContextServiceKey, {
+        currentUser: undefined,
+        entityManager: undefined,
+      });
     }
   })();
 }

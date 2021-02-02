@@ -1,4 +1,12 @@
-import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import {
   AddressService,
   AddressServiceKey,
@@ -13,18 +21,19 @@ import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 import { Customer } from '../../model/generated/entities/Customer';
 import { run } from '../../model/lib/context.service';
 
-@Resolver(() => Customer )
+@Resolver(() => Customer)
 @UseGuards(GqlAuthGuard)
 export class CustomerResolver {
   constructor(
-    @Inject(CustomerServiceKey) protected readonly customerService: CustomerService,
-    @Inject(AddressServiceKey) protected readonly addressService: AddressService
-  ) {
-  }
+    @Inject(CustomerServiceKey)
+    protected readonly customerService: CustomerService,
+    @Inject(AddressServiceKey)
+    protected readonly addressService: AddressService,
+  ) {}
 
   @Query(() => [Customer])
   async customers() {
-    return await this.customerService.loadEntities(getManager())
+    return await this.customerService.loadEntities(getManager());
   }
 
   @Query(() => Customer)
@@ -34,8 +43,10 @@ export class CustomerResolver {
 
   @Query(() => [Customer])
   async customersByArgs(
-    @Args('displayName', { type: () => String, nullable: true }) displayName: string,
-    @Args('legalName', { type: () => String, nullable: true }) legalName: string
+    @Args('displayName', { type: () => String, nullable: true })
+    displayName: string,
+    @Args('legalName', { type: () => String, nullable: true })
+    legalName: string,
   ) {
     const where: any = {};
     if (displayName) {
@@ -45,27 +56,30 @@ export class CustomerResolver {
       where.legalName = legalName;
     }
 
-    return await this.customerService.loadEntities(getManager(), { where })
+    return await this.customerService.loadEntities(getManager(), { where });
   }
 
   @ResolveField()
   async legalAddress(@Parent() customer: Customer) {
     const entityManager = getManager();
     const { id } = customer;
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    const { customer_legalAddressId } =
-      await this.customerService.createQueryBuilder(entityManager, `customer`).where(`customer.id=:id`, { id }).getRawOne();
-    return this.addressService.loadEntityById(entityManager, customer_legalAddressId);
+    const { customer_legalAddressId } = await this.customerService
+      .createQueryBuilder(entityManager, `customer`)
+      .where(`customer.id=:id`, { id })
+      .getRawOne();
+    return this.addressService.loadEntityById(
+      entityManager,
+      customer_legalAddressId,
+    );
   }
 
   @Mutation(() => Customer)
   async createCustomer(
     @Args('args') objData: CustomerSaveArgs,
-    @CurrentUser() user
+    @CurrentUser() user,
   ): Promise<CustomerModel> {
-    return await run(
-      user, getManager(),
-      async () => this.customerService.save(getManager(), objData)
-    )
+    return await run(user, getManager(), async () =>
+      this.customerService.save(getManager(), objData),
+    );
   }
 }

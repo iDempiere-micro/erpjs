@@ -18,7 +18,7 @@ export class CustomerService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<CustomerModel> {
     return transactionalEntityManager.getRepository(Customer);
   }
@@ -29,11 +29,11 @@ export class CustomerService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: CustomerSaveArgsModel,
-    customer: CustomerModel
+    customer: CustomerModel,
   ): Promise<CustomerModel> {
     const address = await this.addressService.save(
       transactionalEntityManager,
-      args.legalAddress
+      args.legalAddress,
     );
 
     customer.displayName = args.displayName;
@@ -52,7 +52,7 @@ export class CustomerService extends BaseEntityService<
   getCustomer = (
     transactionalEntityManager: EntityManager,
     displayName: string,
-    relations?: string[]
+    relations?: string[],
   ) =>
     this.getRepository(transactionalEntityManager).findOne({
       where: { displayName },

@@ -12,7 +12,9 @@ import { SalesInvoiceModel } from './sales.invoice.model';
 import { LanguageModel } from './language.model';
 import * as _ from 'lodash';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const PDFDocument = require('pdfkit');
 
 export const ReportsServiceKey = 'ReportsServiceKey';
@@ -23,7 +25,9 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 
   const fontPath = fs.existsSync('./assets/Cardo-Regular.ttf')
     ? './assets/'
-    : (fs.existsSync('./apps/api/assets/Cardo-Regular.ttf') ? './apps/api/assets/' : './apps/api/src/assets/');
+    : fs.existsSync('./apps/api/assets/Cardo-Regular.ttf')
+    ? './apps/api/assets/'
+    : './apps/api/src/assets/';
 
   doc.registerFont('Cardo', `${fontPath}Cardo-Regular.ttf`);
   doc.registerFont('Cardo-Bold', `${fontPath}Cardo-Bold.ttf`);
@@ -37,7 +41,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
         `${messages.invoice(invoice.vatRegistered)} ${invoice.invoiceNumber}`,
         20,
         57,
-        { align: 'right' }
+        { align: 'right' },
       )
       .font('Cardo')
       .fontSize(10);
@@ -54,7 +58,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
         `${messages.invoiceNumber}: ${invoice.invoiceNumber}`,
         200,
         87 + 2 * 15,
-        { align: 'right' }
+        { align: 'right' },
       );
 
     let line = 87 + 60;
@@ -65,7 +69,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
           `${messages.transactionDate}: ${invoice.transactionDatePrintable}`,
           200,
           87 + 3 * 15,
-          { align: 'right' }
+          { align: 'right' },
         );
       line += 15;
     }
@@ -89,7 +93,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
           ? `DIČ: ${seller.vatNumber}`
           : '',
         20,
-        line + 8 * 15
+        line + 8 * 15,
       )
       .text(`ČR Účet: ${invoice.payTo}`, 20, line + 9 * 15)
       .text(`IBAN: ${invoice.iban}`, 20, line + 10 * 15)
@@ -114,7 +118,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
           : '',
         200,
         line + 7 * 15,
-        { align: 'right' }
+        { align: 'right' },
       )
 
       .moveDown();
@@ -161,7 +165,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
       `Základ ${invoice.currency}`,
       'Sazba',
       `${messages.total} ${invoice.currency}`,
-      null
+      null,
     );
 
     let pageNumber = 0;
@@ -183,7 +187,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
         item.totalLine,
         item.vatRatePercent,
         item.totalLineToBePaid,
-        item.description
+        item.description,
       );
     }
   }
@@ -203,7 +207,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
         '',
         '',
         `Kurz: 1 ${invoice.currency} = ${invoice.currencyMultiplyingRateToAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
-        null
+        null,
       );
       invoiceTableTop += 15;
     }
@@ -216,7 +220,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
         '',
         '',
         `Základ daně: ${invoice.totalLinesAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
-        null
+        null,
       );
       invoiceTableTop += 15;
       for (i = 0; i < invoice.vatReport.length; i++) {
@@ -230,7 +234,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
           '',
           '',
           `${item.vatRatePercent}% DPH: ${item.vatTotalAccountingSchemeCurrency} ${invoice.accountingSchemeCurrency}`,
-          null
+          null,
         );
       }
       invoiceTableTop += 15 * invoice.vatReport.length;
@@ -244,7 +248,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
         '',
         '',
         '',
-        null
+        null,
       );
     }
     doc
@@ -253,7 +257,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
       .text(
         `${messages.totalToBePaid}: ${invoice.grandTotal} ${invoice.currency}`,
         50,
-        invoiceTableTop + 30
+        invoiceTableTop + 30,
       )
       .font('Cardo');
   }
@@ -267,7 +271,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 }
 
 function savePdfToFile(pdf, fileName: string): Promise<void> {
-  return new Promise<void>((resolve) => {
+  return new Promise<void>(resolve => {
     // To determine when the PDF has finished being written successfully
     // we need to confirm the following 2 conditions:
     //
@@ -296,7 +300,7 @@ function savePdfToFile(pdf, fileName: string): Promise<void> {
 export class ReportsService {
   constructor(
     @Inject(TranslationServiceKey)
-    private readonly translationService: TranslationService
+    private readonly translationService: TranslationService,
   ) {}
 
   async printSalesInvoice(data: SalesInvoiceModel, language: LanguageModel) {
@@ -344,7 +348,7 @@ export class ReportsService {
         vatRatePercent: lineTaxPercent,
         totalLineToBePaid: _.round(
           line.linePrice * (1 + lineTaxPercent / 100),
-          2
+          2,
         ),
         description: line.narration,
       });
@@ -367,22 +371,22 @@ export class ReportsService {
       grandTotal: (+data.grandTotal).toFixed(2),
       currency: data.currency.displayName,
       currencyMultiplyingRateToAccountingSchemeCurrency: (+data.currencyMultiplyingRateToAccountingSchemeCurrency).toFixed(
-        3
+        3,
       ),
       accountingSchemeCurrency: accountingScheme
         ? accountingScheme.currency.displayName
         : '###',
       totalLinesAccountingSchemeCurrency: (+data.totalLinesAccountingSchemeCurrency).toFixed(
-        2
+        2,
       ),
       grandTotalAccountingSchemeCurrency: (+data.grandTotalAccountingSchemeCurrency).toFixed(
-        2
+        2,
       ),
-      vatReport: (data.vatReport).map((x) => ({
+      vatReport: data.vatReport.map(x => ({
         vatRatePercent: (+x.vatRatePercent).toFixed(0),
         vatTotal: (+x.vatTotal).toFixed(2),
         vatTotalAccountingSchemeCurrency: (+x.vatTotalAccountingSchemeCurrencyRaw).toFixed(
-          2
+          2,
         ),
       })),
       printRate:

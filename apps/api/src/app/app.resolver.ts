@@ -8,7 +8,7 @@ import { DateService, DateServiceKey, UserModel } from '../model';
 @UseGuards(GqlAuthGuard)
 export class AppResolver {
   constructor(
-    @Inject(DateServiceKey) protected readonly dateService: DateService
+    @Inject(DateServiceKey) protected readonly dateService: DateService,
   ) {}
 
   @Query(() => DateTimeScalarType)
@@ -20,7 +20,7 @@ export class AppResolver {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async keepAlive(
     @CurrentUser() user: UserModel,
-    @Args({ name: 'clientId', type: () => String }) clientId: string
+    @Args({ name: 'clientId', type: () => String }) clientId: string,
   ) {
     return this.dateService.now(user);
   }

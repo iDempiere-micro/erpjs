@@ -23,7 +23,7 @@ export class CurrencyRateService extends BaseEntityService<
     @Inject(CurrencyServiceKey)
     protected readonly currencyService: CurrencyService,
     @Inject(OrganizationServiceKey)
-    protected readonly organizationService: OrganizationService
+    protected readonly organizationService: OrganizationService,
   ) {
     super();
   }
@@ -32,7 +32,7 @@ export class CurrencyRateService extends BaseEntityService<
     transactionalEntityManager: EntityManager,
     transactionDate: Date,
     from: CurrencyModel,
-    org: OrganizationModel
+    org: OrganizationModel,
   ) => {
     const toCurrency: CurrencyModel =
       org?.accountingScheme?.currency ||
@@ -40,7 +40,7 @@ export class CurrencyRateService extends BaseEntityService<
         await this.organizationService.reloadEntity(
           transactionalEntityManager,
           org,
-          ['accountingScheme', 'accountingScheme.currency']
+          ['accountingScheme', 'accountingScheme.currency'],
         )
       ).accountingScheme.currency;
 
@@ -64,7 +64,7 @@ export class CurrencyRateService extends BaseEntityService<
           from: from.id,
           to: toCurrency.id,
           transactionDate,
-        }
+        },
       )
       .getOne();
   };
@@ -72,7 +72,7 @@ export class CurrencyRateService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: CurrencyRateSaveArgsModel,
-    entity: CurrencyRateModel
+    entity: CurrencyRateModel,
   ): Promise<CurrencyRateModel> {
     const currencyService = this.currencyService;
     entity.currencyMultiplyingRate = args.currencyMultiplyingRate;
@@ -82,13 +82,13 @@ export class CurrencyRateService extends BaseEntityService<
       args.from ||
       (await currencyService.getCurrency(
         transactionalEntityManager,
-        args.fromIsoCode
+        args.fromIsoCode,
       ));
     entity.to =
       args.to ||
       (await currencyService.getCurrency(
         transactionalEntityManager,
-        args.toIsoCode
+        args.toIsoCode,
       ));
     return entity;
   }
@@ -102,7 +102,7 @@ export class CurrencyRateService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<CurrencyRateModel> {
     return transactionalEntityManager.getRepository(CurrencyRate);
   }

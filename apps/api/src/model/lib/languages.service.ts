@@ -12,7 +12,7 @@ export const LanguagesServiceKey = 'LanguagesService';
 export class LanguagesService extends BaseEntityService<
   LanguageModel,
   LanguageSaveArgsModel
-  > {
+> {
   typeName(): string {
     return LanguagesServiceKey;
   }
@@ -20,13 +20,19 @@ export class LanguagesService extends BaseEntityService<
     return new Language();
   }
 
-  protected async doSave(transactionalEntityManager: EntityManager, args: LanguageSaveArgsModel, entity: LanguageModel): Promise<LanguageModel> {
+  protected async doSave(
+    transactionalEntityManager: EntityManager,
+    args: LanguageSaveArgsModel,
+    entity: LanguageModel,
+  ): Promise<LanguageModel> {
     entity.isoCode = args.isoCode;
     entity.displayName = args.displayName;
     return entity;
   }
 
-  protected getRepository(transactionalEntityManager: EntityManager): Repository<LanguageModel> {
+  protected getRepository(
+    transactionalEntityManager: EntityManager,
+  ): Repository<LanguageModel> {
     return transactionalEntityManager.getRepository(Language);
   }
 }

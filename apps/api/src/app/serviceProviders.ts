@@ -4,9 +4,7 @@ import {
   SalesInvoiceServiceKey,
   serviceProviders as modelServiceProviders,
 } from '../model';
-import {
-  SaveArgsValidationServiceKey,
-} from '../model';
+import { SaveArgsValidationServiceKey } from '../model';
 import { CustomSalesInvoiceService } from './custom/custom.sales.invoice.service';
 import { CustomSaveArgsValidationService } from './custom/custom.save.args.validation.service';
 
@@ -28,11 +26,11 @@ export const serviceProviders = [
   salesInvoiceServiceProvider,
   saveArgsValidationServiceProvider,
   ...modelServiceProviders.filter(
-    (x) =>
+    x =>
       ![
         AddressServiceKey,
         SaveArgsValidationServiceKey,
         SalesInvoiceServiceKey,
-      ].includes(x.provide)
+      ].includes(x.provide),
   ),
 ];

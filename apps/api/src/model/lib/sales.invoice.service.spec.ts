@@ -4,7 +4,10 @@ import * as _ from 'lodash';
 import { EntityManager } from 'typeorm/index';
 import { TaxServiceKey } from './tax.service';
 import { ProductServiceKey } from './product.service';
-import { SalesInvoiceLineServiceKey, SalesInvoiceService } from './sales.invoice.service';
+import {
+  SalesInvoiceLineServiceKey,
+  SalesInvoiceService,
+} from './sales.invoice.service';
 import { BankAccountServiceKey } from './bank.account.service';
 import { CustomerServiceKey } from './customer.service';
 import { OrganizationServiceKey } from './organization.service';
@@ -16,7 +19,10 @@ import { OrganizationModel } from './organization.model';
 import { CurrencyRateServiceKey } from './currency.rate.service';
 import { SalesInvoiceVatServiceKey } from './sales.invoice.vat.service';
 import { DocumentNumberingServiceKey } from './document.numbering.service';
-import { SaveArgsValidationService, SaveArgsValidationServiceKey } from './save.args.validation.service';
+import {
+  SaveArgsValidationService,
+  SaveArgsValidationServiceKey,
+} from './save.args.validation.service';
 import { TaxModel } from './tax.model';
 import { SalesInvoiceLineModel } from './sales.invoice.line.model';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
@@ -72,7 +78,7 @@ const mockCurrencyRateService = {
     transactionalEntityManager: EntityManager,
     transactionDate: Date,
     from: CurrencyModel,
-    org: OrganizationModel
+    org: OrganizationModel,
   ) => ({
     id: 0,
     displayName: '',
@@ -106,7 +112,7 @@ const saveArgsValidationServiceProvider = {
 
 const mockEntityManager = {
   getRepository: () => ({
-    save: (x) => x,
+    save: x => x,
   }),
 } as any;
 
@@ -190,7 +196,7 @@ describe('SalesInvoiceService', () => {
       const invoice = new SalesInvoice();
       invoice.lines = lines;
       invoice.organization = { vatNumber: 'ABC' } as any;
-      invoice.lines.forEach((x) => (x.invoice = invoice));
+      invoice.lines.forEach(x => (x.invoice = invoice));
       mockCurrencyRateService.rate = 1;
       const result = await service.calculatePrices(null, invoice);
       expect(result).not.toBeUndefined();
@@ -206,9 +212,9 @@ describe('SalesInvoiceService', () => {
       expect(vatReport.length).toBe(2);
       expect(
         _.round(
-          _.sum(vatReport.map((x) => x.vatTotalAccountingSchemeCurrency)),
-          2
-        )
+          _.sum(vatReport.map(x => x.vatTotalAccountingSchemeCurrency)),
+          2,
+        ),
       ).toBe(_.round(1111.85 - 1010, 2));
     });
     it('calculatePrices should round correctly', async () => {
@@ -237,7 +243,7 @@ describe('SalesInvoiceService', () => {
       const invoice = new SalesInvoice();
       invoice.lines = lines;
       invoice.organization = { vatNumber: 'ABC' } as any;
-      invoice.lines.forEach((x) => (x.invoice = invoice));
+      invoice.lines.forEach(x => (x.invoice = invoice));
       mockCurrencyRateService.rate = 1;
       const result = await service.calculatePrices(null, invoice);
       expect(result).not.toBeUndefined();
@@ -251,9 +257,9 @@ describe('SalesInvoiceService', () => {
       expect(vatReport.length).toBe(2);
       expect(
         _.round(
-          _.sum(vatReport.map((x) => x.vatTotalAccountingSchemeCurrency)),
-          2
-        )
+          _.sum(vatReport.map(x => x.vatTotalAccountingSchemeCurrency)),
+          2,
+        ),
       ).toBe(_.round(0.67 - 0.6, 2));
     });
     it('calculatePrices should work with the currency rate correctly', async () => {
@@ -272,7 +278,7 @@ describe('SalesInvoiceService', () => {
       const invoice = new SalesInvoice();
       invoice.lines = lines;
       invoice.organization = { vatNumber: 'ABC' } as any;
-      invoice.lines.forEach((x) => (x.invoice = invoice));
+      invoice.lines.forEach(x => (x.invoice = invoice));
       mockCurrencyRateService.rate = 24.29;
       const result = await service.calculatePrices(null, invoice);
       expect(result).not.toBeUndefined();

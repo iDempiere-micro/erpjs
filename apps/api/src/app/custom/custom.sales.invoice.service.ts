@@ -7,11 +7,11 @@ import { SalesInvoiceSaveArgsModel, SalesInvoiceService } from '../../model';
 export class CustomSalesInvoiceService extends SalesInvoiceService {
   async checkSaveArgs(
     transactionalEntityManager: EntityManager,
-    args: SalesInvoiceSaveArgsModel
+    args: SalesInvoiceSaveArgsModel,
   ) {
     const organization = await this.getOrganization(
       transactionalEntityManager,
-      args
+      args,
     );
     if (organization.displayName === 'DP') {
       const invoices = await this.getRepository(transactionalEntityManager)
@@ -20,11 +20,12 @@ export class CustomSalesInvoiceService extends SalesInvoiceService {
           `invoice.organization = :organizationId AND invoice."transactionDate">='2021-01-01' AND invoice."transactionDate"<='2021-12-31' `,
           {
             organizationId: organization.id,
-          }
+          },
         )
         .getMany();
-      const total =
-        _.sum(invoices.map((x) => x.totalLinesAccountingSchemeCurrency));
+      const total = _.sum(
+        invoices.map(x => x.totalLinesAccountingSchemeCurrency),
+      );
 
       if (total > 1000000) throw new Error('Cannot invoice more than 1M CZK');
     }

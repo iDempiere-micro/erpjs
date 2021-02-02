@@ -6,7 +6,7 @@ export interface HasNote {
   note: string;
 }
 
-@Entity("address", { schema: "public" })
+@Entity('address', { schema: 'public' })
 @ObjectType('address')
 export class CustomAddress extends Address implements HasNote {
   @Column({ nullable: true })

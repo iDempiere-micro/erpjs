@@ -13,7 +13,7 @@ export class SalesInvoiceVatService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: SalesInvoiceVatSaveArgsModel,
-    salesInvoiceVatModel: SalesInvoiceVatModel
+    salesInvoiceVatModel: SalesInvoiceVatModel,
   ): Promise<SalesInvoiceVatModel> {
     salesInvoiceVatModel.vatTotal = args.vatTotal;
     salesInvoiceVatModel.vatTotalAccountingSchemeCurrency =
@@ -35,7 +35,7 @@ export class SalesInvoiceVatService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager
+    transactionalEntityManager,
   ): Repository<SalesInvoiceVatModel> {
     return transactionalEntityManager.getRepository(SalesInvoiceVat);
   }

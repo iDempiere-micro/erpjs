@@ -1,15 +1,21 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { getService, getTechnicalUser, UserModel, UserService, UserServiceKey } from '../../model';
+import {
+  getService,
+  getTechnicalUser,
+  UserModel,
+  UserService,
+  UserServiceKey,
+} from '../../model';
 import { getManager } from 'typeorm';
 import { run } from '../../model/lib/context.service';
 
 interface KeycloakUserInfoResponse {
   sub: string;
   email_verified: boolean;
-  name:string;
+  name: string;
   preferred_username: string;
   given_name: string;
-  family_name: string,
+  family_name: string;
   email: string;
 }
 
@@ -17,13 +23,10 @@ export class AuthenticationError extends Error {}
 
 @Injectable()
 export class AuthenticationService {
-
   private readonly baseURL: string;
   private readonly realm: string;
 
-  constructor(
-    private httpService: HttpService,
-  ) {
+  constructor(private httpService: HttpService) {
     this.baseURL = process.env.KEYCLOAK_BASE_URL;
     this.realm = process.env.KEYCLOAK_REALM;
   }
@@ -38,11 +41,13 @@ export class AuthenticationService {
     const url = `${this.baseURL}/realms/${this.realm}/protocol/openid-connect/userinfo`;
 
     try {
-      const response = await this.httpService.get<KeycloakUserInfoResponse>(url, {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      }).toPromise();
+      const response = await this.httpService
+        .get<KeycloakUserInfoResponse>(url, {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .toPromise();
 
       const userService = getService<UserService>(UserServiceKey);
       const profile = {
@@ -52,16 +57,17 @@ export class AuthenticationService {
           {
             user_id: response.data.email,
             provider: 'keycloak',
-          }
-        ]
+          },
+        ],
       };
 
       const manager = getManager();
       const technicalUser = await getTechnicalUser(manager);
 
       return await run(
-        technicalUser, manager,
-        async () => await userService.handleLogin(manager, profile)
+        technicalUser,
+        manager,
+        async () => await userService.handleLogin(manager, profile),
       );
     } catch (e) {
       console.log('*** auth failed', e);

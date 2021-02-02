@@ -19,7 +19,7 @@ export class CountryService extends BaseEntityService<
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: CountrySaveArgsModel,
-    country: CountryModel
+    country: CountryModel,
   ): Promise<CountryModel> {
     country.displayName = args.displayName;
     country.isoCode = args.isoCode;
@@ -27,14 +27,14 @@ export class CountryService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager: EntityManager
+    transactionalEntityManager: EntityManager,
   ): Repository<CountryModel> {
     return transactionalEntityManager.getRepository(Country);
   }
 
   getCountry = async (
     transactionalEntityManager: EntityManager,
-    isoCode: string
+    isoCode: string,
   ) =>
     this.getRepository(transactionalEntityManager).findOne({
       where: { isoCode },

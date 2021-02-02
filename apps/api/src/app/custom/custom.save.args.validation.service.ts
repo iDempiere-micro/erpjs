@@ -11,7 +11,7 @@ export class CustomSaveArgsValidationService {
   async checkIsSaveArgValid<T extends BaseSaveArgsModel>(
     transactionalEntityManager: EntityManager,
     typeName: string,
-    args: T
+    args: T,
   ): Promise<void> {
     const service = getService(typeName);
     if ((service as any).checkSaveArgs) {

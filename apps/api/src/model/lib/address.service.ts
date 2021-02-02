@@ -15,7 +15,7 @@ export class AddressService extends BaseEntityService<
   AddressSaveArgsModel
 > {
   constructor(
-    @Inject(CountryServiceKey) public readonly countryService: CountryService
+    @Inject(CountryServiceKey) public readonly countryService: CountryService,
   ) {
     super();
   }
@@ -25,12 +25,12 @@ export class AddressService extends BaseEntityService<
   }
 
   loadEntityByIdRelations(): string[] {
-    return [ 'country' ];
+    return ['country'];
   }
 
   protected async doSave(
     transactionalEntityManager,
-    newAddress: AddressSaveArgsModel
+    newAddress: AddressSaveArgsModel,
   ): Promise<AddressModel> {
     const oldAddress = newAddress.id
       ? await this.loadEntityById(transactionalEntityManager, newAddress.id)
@@ -54,7 +54,7 @@ export class AddressService extends BaseEntityService<
       } else {
         address.country = await this.countryService.getCountry(
           transactionalEntityManager,
-          newAddress.countryIsoCode
+          newAddress.countryIsoCode,
         );
       }
 
@@ -66,7 +66,7 @@ export class AddressService extends BaseEntityService<
   }
 
   protected getRepository(
-    transactionalEntityManager: EntityManager
+    transactionalEntityManager: EntityManager,
   ): Repository<AddressModel> {
     return transactionalEntityManager.getRepository(Address);
   }

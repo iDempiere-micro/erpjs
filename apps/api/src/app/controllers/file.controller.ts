@@ -5,22 +5,25 @@ import { getManager } from 'typeorm';
 
 type DownloadedFile = {
   data?: string;
-}
+};
 
 @UseGuards(GqlAuthGuard)
 @Controller('file')
 export class FileController {
   constructor(
-    @Inject(SalesInvoiceServiceKey) protected readonly salesInvoiceService: SalesInvoiceService,
-  ) {
-  }
+    @Inject(SalesInvoiceServiceKey)
+    protected readonly salesInvoiceService: SalesInvoiceService,
+  ) {}
 
   @Get('sales-invoice/:invoiceId')
   async downloadInvoice(
     @Param('invoiceId') invoiceId,
-    @CurrentUser() user
+    @CurrentUser() user,
   ): Promise<DownloadedFile> {
-    const invoice = await this.salesInvoiceService.loadEntityById(getManager(), invoiceId);
+    const invoice = await this.salesInvoiceService.loadEntityById(
+      getManager(),
+      invoiceId,
+    );
     const buffer = (invoice.content as any) as Buffer;
     if (buffer) {
       const data = buffer.toString('base64');

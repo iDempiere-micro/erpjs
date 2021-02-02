@@ -20,7 +20,7 @@ export class TaxService extends BaseEntityService<TaxModel, TaxSaveArgsModel> {
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: TaxSaveArgsModel,
-    tax: TaxModel
+    tax: TaxModel,
   ): Promise<TaxModel> {
     tax.ratePercent = args.ratePercent;
     tax.displayName = args.displayName;

@@ -54,7 +54,7 @@ const messagesEN: LocalizedMessages = {
   buyer: '',
   dueDate: '',
   idNumber: '',
-  invoiceFooter: function (p1) {
+  invoiceFooter: function(p1) {
     return '';
   },
   invoiceNumber: '',
