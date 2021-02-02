@@ -13,6 +13,7 @@ import { CreateDB1595508635320 } from './migrations/1595508635320-CreateDB';
 import { Language1595508635326 } from './migrations/1595508635326-Language';
 import { InvoicesContent1609846660789 } from './migrations/1609846660789-InvoicesContent';
 import { Invoices2020121609863957092 } from './migrations/1609863957092-Invoices202012';
+import { Invoices2021011612204947049 } from './migrations/1612204947049-Invoices202101';
 
 export const migrations = [
   CreateDB1595508635320,
@@ -30,4 +31,5 @@ export const migrations = [
   Invoices2020111607012419575,
   InvoicesContent1609846660789,
   Invoices2020121609863957092,
+  Invoices2021011612204947049,
 ];
