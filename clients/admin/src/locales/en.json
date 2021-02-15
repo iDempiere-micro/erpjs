@@ -1,0 +1,24 @@
+{
+  "page": {
+    "home": {
+      "title": "Homepage",
+      "nav": "Home"
+    },
+    "about": {
+      "title": "About",
+      "nav": "About"
+    },
+    "contact": {
+      "title": "Contact",
+      "nav": "Contact Us"
+    }
+  },
+  "menu" : {
+    "ERPStandard": "ERP Standard",
+    "items" : {
+      "Dashboard": "Dashboard",
+      "Customers": "Customers",
+      "SalesInvoices": "Sales Invoices"
+    }
+  }
+}

@@ -9,6 +9,8 @@ import { SalesInvoice } from './SalesInvoice';
 import { SalesInvoiceVatModel } from '../../lib/sales.invoice.vat.model';
 import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { User } from './User';
+import { UserModel } from '../../lib/user.model';
 
 @Entity('sales_invoice_vat', { schema: 'public' })
 @ObjectType()
@@ -24,9 +26,14 @@ export class SalesInvoiceVat implements SalesInvoiceVatModel {
   @Field()
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  @Field()
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()

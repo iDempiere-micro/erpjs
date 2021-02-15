@@ -11,6 +11,8 @@ import { Bank } from './Bank';
 import { Organization } from './Organization';
 import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { User } from './User';
+import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_d13847b5db0cf66c1ea23615eb', ['displayName'], { unique: true })
 @Entity('bank_account', { schema: 'public' })
@@ -27,9 +29,14 @@ export class BankAccount {
   @Field()
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  @Field()
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()

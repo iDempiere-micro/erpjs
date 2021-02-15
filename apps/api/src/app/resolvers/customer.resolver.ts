@@ -19,7 +19,6 @@ import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { getManager } from 'typeorm';
 import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 import { Customer } from '../../model/generated/entities/Customer';
-import { run } from '../../model/lib/context.service';
 
 @Resolver(() => Customer)
 @UseGuards(GqlAuthGuard)
@@ -78,8 +77,6 @@ export class CustomerResolver {
     @Args('args') objData: CustomerSaveArgs,
     @CurrentUser() user,
   ): Promise<CustomerModel> {
-    return await run(user, getManager(), async () =>
-      this.customerService.save(getManager(), objData),
-    );
+    return await this.customerService.save(getManager(), objData, user);
   }
 }

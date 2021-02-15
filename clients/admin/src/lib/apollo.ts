@@ -17,7 +17,10 @@ const authLink = (token: string) => setContext((_, { headers }) => {
 });
 
 const logoutLink = (nextUrl:string) => onError(({response}) => {
-  if (response?.errors && response.errors.length > 0 && response.errors[0].message.indexOf("Request failed with status code 401") >=0 ) {
+  if (response?.errors && response.errors.length > 0 &&
+      ( response.errors[0].message.indexOf("Request failed with status code 401") >=0
+      )
+  ) {
     window.location.replace('/#nextUrl='+ nextUrl);
   }
 });

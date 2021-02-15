@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { Link } from 'svelte-routing';
+    import Menu from './Menu.svelte';
+    export let segment: string;
 </script>
 
 <nav class="bg-gray-800">
@@ -15,23 +16,7 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <Link
-                            to="/"
-                            class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >Dashboard</Link
-                        >
-
-                        <Link
-                            to="/customers"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >Customers</Link
-                        >
-                        <Link
-                            to="/add-customer"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                            >Add Customer</Link
-                        >
+                        <Menu segment='{segment}' />
                     </div>
                 </div>
             </div>

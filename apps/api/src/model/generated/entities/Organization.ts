@@ -15,6 +15,8 @@ import { SalesInvoice } from './SalesInvoice';
 import { UserToOrganization } from './UserToOrganization';
 import { OrganizationModel } from '../../lib/organization.model';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { User } from './User';
+import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_4177d3499a2c7edb42ead3d916', ['displayName'], { unique: true })
 @Index('IDX_99ecb4de1fda7ee51fb91b3055', ['vatNumber'], { unique: true })
@@ -32,9 +34,14 @@ export class Organization implements OrganizationModel {
   @Field()
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  @Field()
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()

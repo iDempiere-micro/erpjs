@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { Field } from '@nestjs/graphql';
 
 @Index('IDX_c555c4388d24da3c6fa22d85bd', ['externalUser'], { unique: true })
 @Index('IDX_1c243d6d65f07e169d53a69ea0', ['provider'], {})
@@ -22,8 +23,14 @@ export class UserIdentity {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;

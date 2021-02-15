@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseEntityService } from './base.entity.service';
 import { AddressService } from './address.service';
 import { Customer } from '../generated/entities/Customer';
+import { UserModel } from './user.model';
 
 export const CustomerServiceKey = 'CustomerService';
 
@@ -30,10 +31,12 @@ export class CustomerService extends BaseEntityService<
     transactionalEntityManager: EntityManager,
     args: CustomerSaveArgsModel,
     customer: CustomerModel,
+    currentUser: UserModel,
   ): Promise<CustomerModel> {
     const address = await this.addressService.save(
       transactionalEntityManager,
       args.legalAddress,
+      currentUser,
     );
 
     customer.displayName = args.displayName;

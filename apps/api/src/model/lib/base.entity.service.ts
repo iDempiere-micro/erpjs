@@ -8,6 +8,7 @@ import {
 } from './save.args.validation.service';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
+import { UserModel } from './user.model';
 
 export abstract class BaseEntityService<
   T extends BaseModel,
@@ -21,6 +22,7 @@ export abstract class BaseEntityService<
     transactionalEntityManager: EntityManager,
     args: S,
     entity: T,
+    currentUser: UserModel,
   ): Promise<T>;
 
   abstract typeName(): string;
@@ -56,10 +58,11 @@ export abstract class BaseEntityService<
   ): Promise<Array<T>> =>
     await this.getRepository(transactionalEntityManager).find(options);
 
-  async save(transactionalEntityManager: EntityManager, args: S): Promise<T> {
+  async save(transactionalEntityManager: EntityManager, args: S, currentUser: UserModel): Promise<T> {
     const saveArgsValidationService: SaveArgsValidationService = getService(
       SaveArgsValidationServiceKey,
     );
+
     await saveArgsValidationService.checkIsSaveArgValid(
       transactionalEntityManager,
       this.typeName(),
@@ -69,8 +72,14 @@ export abstract class BaseEntityService<
     const entity = args.id
       ? await this.loadEntityById(transactionalEntityManager, args.id)
       : await this.createEntity();
+    (entity as any).updtOp = currentUser;
+    (entity as any).updtOpId = currentUser.id;
+    const toBeSaved = await this.doSave(transactionalEntityManager, args, entity, currentUser);
+    (toBeSaved as any).updtOp = currentUser;
+    (toBeSaved as any).updtOpId = currentUser.id;
+
     return await this.getRepository(transactionalEntityManager).save(
-      await this.doSave(transactionalEntityManager, args, entity),
+      toBeSaved
     );
   }
   persist = async (

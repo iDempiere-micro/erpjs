@@ -7,7 +7,6 @@ import {
   UserServiceKey,
 } from '../../model';
 import { getManager } from 'typeorm';
-import { run } from '../../model/lib/context.service';
 
 interface KeycloakUserInfoResponse {
   sub: string;
@@ -64,11 +63,7 @@ export class AuthenticationService {
       const manager = getManager();
       const technicalUser = await getTechnicalUser(manager);
 
-      return await run(
-        technicalUser,
-        manager,
-        async () => await userService.handleLogin(manager, profile),
-      );
+      return await userService.handleLogin(manager, profile);
     } catch (e) {
       console.log('*** auth failed', e);
       throw new AuthenticationError(e.message);

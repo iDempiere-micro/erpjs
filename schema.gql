@@ -9,7 +9,7 @@ type Address {
   isActive: Boolean!
   isCurrent: Boolean!
   line1: String!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
   zipCode: String!
 }
@@ -29,7 +29,7 @@ type BankAccount {
   isActive: Boolean!
   isCurrent: Boolean!
   swift: String!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
 }
 
@@ -39,7 +39,7 @@ type Country {
   isActive: Boolean!
   isCurrent: Boolean!
   isoCode: String!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
 }
 
@@ -49,7 +49,7 @@ type Currency {
   isActive: Boolean!
   isCurrent: Boolean!
   isoCode: String!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
 }
 
@@ -63,7 +63,7 @@ type Customer {
   legalAddress: Address!
   legalName: String!
   salesInvoices: [SalesInvoice!]!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
   vatNumber: String
 }
@@ -83,6 +83,27 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Menu {
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  items: [MenuItem!]!
+  updtOp: User!
+  updtTs: DateTime!
+}
+
+type MenuItem {
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  menu: Menu!
+  to: String!
+  updtOp: User!
+  updtTs: DateTime!
+}
+
 type Mutation {
   createCustomer(args: CustomerSaveArgs!): Customer!
   keepAlive(clientId: String!): UniversalDateTime!
@@ -97,7 +118,7 @@ type Organization {
   isCurrent: Boolean!
   legalName: String!
   registration: String!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
   vatNumber: String!
 }
@@ -106,6 +127,7 @@ type Query {
   customer(id: Int!): Customer!
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
+  menu: [Menu!]!
   now: UniversalDateTime!
   salesInvoice(id: Int!): SalesInvoice!
   salesInvoices: [SalesInvoice!]!
@@ -151,7 +173,7 @@ type SalesInvoiceLine {
   linePrice: Float!
   narration: String!
   quantity: Float!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
 }
 
@@ -159,7 +181,7 @@ type SalesInvoiceVat {
   id: Float!
   isActive: Boolean!
   isCurrent: Boolean!
-  updtOpId: Float!
+  updtOp: User!
   updtTs: DateTime!
   vatRatePercent: Float!
   vatTotal: Float!

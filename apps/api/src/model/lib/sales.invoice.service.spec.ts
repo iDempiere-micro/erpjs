@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 
 import * as _ from 'lodash';
-import { EntityManager } from 'typeorm/index';
+import { EntityManager } from 'typeorm';
 import { TaxServiceKey } from './tax.service';
 import { ProductServiceKey } from './product.service';
 import {
@@ -167,7 +167,7 @@ describe('SalesInvoiceService', () => {
 
   describe('SalesInvoiceService', () => {
     it('calculatePrices nothing returns null', async () => {
-      const result = await service.calculatePrices(null, null);
+      const result = await service.calculatePrices(null, null, null);
       expect(result).toBeNull();
     });
     it('calculatePrices somelines return correct', async () => {
@@ -198,7 +198,7 @@ describe('SalesInvoiceService', () => {
       invoice.organization = { vatNumber: 'ABC' } as any;
       invoice.lines.forEach(x => (x.invoice = invoice));
       mockCurrencyRateService.rate = 1;
-      const result = await service.calculatePrices(null, invoice);
+      const result = await service.calculatePrices(null, invoice, null);
       expect(result).not.toBeUndefined();
       expect(result).not.toBeNull();
       const resultLines = result.lines;
@@ -245,7 +245,7 @@ describe('SalesInvoiceService', () => {
       invoice.organization = { vatNumber: 'ABC' } as any;
       invoice.lines.forEach(x => (x.invoice = invoice));
       mockCurrencyRateService.rate = 1;
-      const result = await service.calculatePrices(null, invoice);
+      const result = await service.calculatePrices(null, invoice, null);
       expect(result).not.toBeUndefined();
       expect(result).not.toBeNull();
       const resultLines = result.lines;
@@ -280,7 +280,7 @@ describe('SalesInvoiceService', () => {
       invoice.organization = { vatNumber: 'ABC' } as any;
       invoice.lines.forEach(x => (x.invoice = invoice));
       mockCurrencyRateService.rate = 24.29;
-      const result = await service.calculatePrices(null, invoice);
+      const result = await service.calculatePrices(null, invoice, null);
       expect(result).not.toBeUndefined();
       expect(result).not.toBeNull();
       const resultLines = result.lines;

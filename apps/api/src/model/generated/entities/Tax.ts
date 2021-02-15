@@ -1,5 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
+import { User } from './User';
+import { Field } from '@nestjs/graphql';
+import { UserModel } from '../../lib/user.model';
 
 @Entity('tax', { schema: 'public' })
 export class Tax {
@@ -12,8 +15,14 @@ export class Tax {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;

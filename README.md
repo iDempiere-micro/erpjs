@@ -4,6 +4,13 @@
 
 `docker stop pg-docker; docker run --rm --name pg-docker -e POSTGRES_PASSWORD=Coggel86 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:12`
 
+### Generate migrations
+
+1. change `nest-cli.json` to `"webpack": false,`
+2. `yarn build api`
+3.  `yarn typeorm-migration-generate MIGRATION_NAME`
+4. change `nest-cli.json` to `"webpack": true,`
+
 ## Keyclock
 
 `docker run -p 8080:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin quay.io/keycloak/keycloak:11.0.2`

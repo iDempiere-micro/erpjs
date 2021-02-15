@@ -7,6 +7,9 @@ import {
 } from 'typeorm';
 import { Organization } from './Organization';
 import { OrganizationModel } from '../../lib/organization.model';
+import { User } from './User';
+import { Field } from '@nestjs/graphql';
+import { UserModel } from '../../lib/user.model';
 
 @Entity('document_number_sequence', { schema: 'public' })
 export class DocumentNumberSequence {
@@ -19,8 +22,14 @@ export class DocumentNumberSequence {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;

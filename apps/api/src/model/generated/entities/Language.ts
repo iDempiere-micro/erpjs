@@ -1,12 +1,15 @@
 import {
   Column,
   Entity,
-  Index,
+  Index, JoinColumn, ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { LanguageModel } from '../../lib/language.model';
+import { User } from './User';
+import { Field } from '@nestjs/graphql';
+import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_language_displayName', ['displayName'], { unique: true })
 @Index('IDX_language_isoCode', ['isoCode'], { unique: true })
@@ -21,8 +24,14 @@ export class Language implements LanguageModel {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;

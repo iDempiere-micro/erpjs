@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  Index,
+  Index, JoinColumn, ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -9,6 +9,8 @@ import { AccountingScheme } from './AccountingScheme';
 import { CurrencyRate } from './CurrencyRate';
 import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { User } from './User';
+import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_215b85e32bfbe1cf9f1c47e14d', ['displayName'], { unique: true })
 @Entity('currency', { schema: 'public' })
@@ -25,9 +27,14 @@ export class Currency {
   @Field()
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  @Field()
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()

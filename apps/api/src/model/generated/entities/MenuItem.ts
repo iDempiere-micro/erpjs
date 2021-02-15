@@ -1,26 +1,27 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  ManyToOne,
+  Index, JoinColumn, ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Organization } from './Organization';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
-import { UserToOrganizationModel } from '../../lib/user.to.organization.model';
 import { UserModel } from '../../lib/user.model';
-import { OrganizationModel } from '../../lib/organization.model';
-import { Field } from '@nestjs/graphql';
+import { Menu } from './Menu';
 
-@Entity('user_to_organization', { schema: 'public' })
-export class UserToOrganization implements UserToOrganizationModel {
+@Index('IDX_displayName_menuItem', ['displayName'], { unique: true })
+@Entity('menu_item', { schema: 'public' })
+@ObjectType()
+export class MenuItem {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field()
   id: number;
 
   @Column('timestamp without time zone', {
     name: 'updtTs',
     default: () => 'now()',
   })
+  @Field()
   updtTs: Date;
 
   @ManyToOne(
@@ -31,24 +32,29 @@ export class UserToOrganization implements UserToOrganizationModel {
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
-  
+
   @Column('boolean', { name: 'isActive', default: () => 'true' })
+  @Field()
   isActive: boolean;
 
   @Column('boolean', { name: 'isCurrent', default: () => 'true' })
+  @Field()
   isCurrent: boolean;
 
-  @ManyToOne(
-    () => Organization,
-    organization => organization.userToOrganizations,
-  )
-  @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
-  organization: OrganizationModel;
+  @Column('character varying', { name: 'displayName' })
+  @Field()
+  displayName: string;
+
+  @Column('character varying', { name: 'to' })
+  @Field()
+  to: string;
 
   @ManyToOne(
-    () => User,
-    user => user.organizations,
+    () => Menu,
+    menu => menu.items,
+    { nullable: false, eager: false },
   )
-  @JoinColumn([{ name: 'userId', referencedColumnName: 'id' }])
-  user: UserModel;
+  @JoinColumn([{ name: 'menuId', referencedColumnName: 'id' }])
+  @Field(() => Menu)
+  menu: Menu;
 }

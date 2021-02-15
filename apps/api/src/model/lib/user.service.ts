@@ -6,7 +6,6 @@ import { EntityManager, Repository } from 'typeorm';
 import { UserProfileModelIdentity } from './user.profile.model.identity';
 import { User } from '../generated/entities/User';
 import { UserIdentity } from '../generated/entities/UserIdentity';
-import { Session } from '../../app/support/session';
 import { Injectable } from '@nestjs/common';
 
 export const UserServiceKey = 'UserService';
@@ -80,6 +79,7 @@ export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
       userIdentity.externalUser = userProfileIdentity.user_id;
       userIdentity.provider = userProfileIdentity.provider;
       userIdentity.user = user;
+      userIdentity.updtOp = user;
       try {
         await manager.save(userIdentity);
         result.push(userIdentity);
@@ -93,16 +93,19 @@ export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
   async createNewUser(
     manager: EntityManager,
     userProfileModel: UserProfileModel,
+    technicalUser: UserModel
   ): Promise<User> {
     const result = new User();
     result.email = userProfileModel.email;
     result.name = userProfileModel.name;
+    result.updtOpId = technicalUser.id;
     await manager.save(result);
     const ident = userProfileModel.identities[0];
     const userIdentity = new UserIdentity();
     userIdentity.externalUser = ident.user_id;
     userIdentity.provider = ident.provider;
     userIdentity.user = result;
+    userIdentity.updtOp = result;
     await manager.save(userIdentity);
     result.identities = [userIdentity];
     return result;
@@ -138,6 +141,7 @@ export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
       return existingUserIdentity.user;
     } else {
       // we do not have the identity; we must first try to find out if we have the same User already
+      const technicalUser = await getTechnicalUser(manager);
       const existingUser = await this.findUser(manager, login);
       if (existingUser) {
         const converted = await this.convertProfileIdentities(
@@ -149,7 +153,7 @@ export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
         return existingUser;
       } else {
         // this is a completely new user
-        return await this.createNewUser(manager, login);
+        return await this.createNewUser(manager, login, technicalUser);
       }
     }
   }

@@ -13,8 +13,6 @@ import { resolvers } from './resolvers';
 import { ModuleRef } from '@nestjs/core';
 import { ModelModule, ModuleReferenceService } from '../model';
 import { AuthModule } from '../auth';
-import { EverythingSubscriber } from './support/everything.subscriber';
-import { ContextService } from '../model/lib/context.service';
 import { FileController } from './controllers/file.controller';
 
 console.log('*** ENV', process.env);
@@ -84,8 +82,6 @@ console.log('*** ENV', process.env);
   providers: [
     AppService,
     MigrationService,
-    EverythingSubscriber,
-    ContextService,
     ...serviceProviders,
     ...resolvers,
   ],

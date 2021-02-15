@@ -7,6 +7,9 @@ import {
 } from 'typeorm';
 import { Currency } from './Currency';
 import { CurrencyRateModel } from '../../lib/currency.rate.model';
+import { User } from './User';
+import { Field } from '@nestjs/graphql';
+import { UserModel } from '../../lib/user.model';
 
 @Entity('currency_rate', { schema: 'public' })
 export class CurrencyRate implements CurrencyRateModel {
@@ -19,8 +22,14 @@ export class CurrencyRate implements CurrencyRateModel {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;

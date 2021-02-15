@@ -14,6 +14,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { CountryModel } from '../../lib/country.model';
 import { CustomerModel } from '../../lib/customer.model';
 import { OrganizationModel } from '../../lib/organization.model';
+import { User } from './User';
+import { UserModel } from '../../lib/user.model';
 
 @Entity('address', { schema: 'public' })
 @ObjectType()
@@ -29,9 +31,14 @@ export class Address implements AddressModel {
   @Field()
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  @Field()
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()

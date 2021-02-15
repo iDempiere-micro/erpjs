@@ -38,6 +38,7 @@ import { OrganizationModel } from './organization.model';
 import moment = require('moment');
 import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
+import { UserModel } from './user.model';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -195,6 +196,7 @@ export class SalesInvoiceService extends BaseEntityService<
     transactionalEntityManager: EntityManager,
     args: SalesInvoiceSaveArgsModel,
     invoice: SalesInvoiceModel,
+    currentUser: UserModel,
   ): Promise<SalesInvoiceModel> {
     invoice.customer =
       (args.customer &&
@@ -285,6 +287,7 @@ export class SalesInvoiceService extends BaseEntityService<
           invoice,
           lineOrder,
         },
+        currentUser
       );
       lineOrder += 10;
       invoiceLines.push(line);
@@ -294,6 +297,7 @@ export class SalesInvoiceService extends BaseEntityService<
     const result = await this.calculatePrices(
       transactionalEntityManager,
       invoice,
+      currentUser,
     );
 
     await this.reportsServiceModel.printSalesInvoice(
@@ -311,6 +315,7 @@ export class SalesInvoiceService extends BaseEntityService<
   async calculatePrices(
     transactionalEntityManager: EntityManager,
     invoiceWithLines: SalesInvoiceModel,
+    currentUser: UserModel,
   ): Promise<SalesInvoiceModel> {
     if (!invoiceWithLines) return invoiceWithLines;
 
@@ -391,7 +396,7 @@ export class SalesInvoiceService extends BaseEntityService<
             2,
           ),
           invoice: invoiceWithLines,
-        }),
+        }, currentUser,),
       );
     }
 

@@ -13,6 +13,7 @@ import {
   AccountingSchemeServiceKey,
 } from './accounting.scheme.service';
 import { Organization } from '../generated/entities/Organization';
+import { UserModel } from './user.model';
 
 export const OrganizationServiceKey = 'OrganizationService';
 
@@ -42,6 +43,7 @@ export class OrganizationService extends BaseEntityService<
     transactionalEntityManager: EntityManager,
     args: OrganizationSaveArgsModel,
     organization: OrganizationModel,
+    currentUser: UserModel,
   ): Promise<OrganizationModel> {
     organization.contact = args.contact;
     organization.registration = args.registration;
@@ -50,6 +52,7 @@ export class OrganizationService extends BaseEntityService<
     organization.legalAddress = await this.addressService.save(
       transactionalEntityManager,
       args.legalAddress,
+      currentUser,
     );
     organization.idNumber = args.idNumber;
     organization.bankAccount =

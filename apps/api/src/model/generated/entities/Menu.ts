@@ -5,18 +5,19 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Address } from './Address';
-import { CountryModel } from '../../lib/country.model';
-import { euMembersISOCodes } from '../../lib/euMembersISOCodes';
+import { AccountingScheme } from './AccountingScheme';
+import { CurrencyRate } from './CurrencyRate';
+import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
+import { MenuItem } from './MenuItem';
 
-@Index('IDX_06db3c87e9e1b9eba96918b308', ['displayName'], { unique: true })
-@Index('UQ_6eba1a52ee121d100c8a0a6510c', ['isoCode'], { unique: true })
-@Entity('country', { schema: 'public' })
+@Index('IDX_displayName_menu', ['displayName'], { unique: true })
+@Entity('menu', { schema: 'public' })
 @ObjectType()
-export class Country implements CountryModel {
+export class Menu {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   @Field()
   id: number;
@@ -49,17 +50,11 @@ export class Country implements CountryModel {
   @Field()
   displayName: string;
 
-  @Column('character varying', { name: 'isoCode', unique: true })
-  @Field()
-  isoCode: string;
-
   @OneToMany(
-    () => Address,
-    address => address.country,
+    () => MenuItem,
+    menuItem => menuItem.menu,
+    { eager: true }
   )
-  addresses: Address[];
-
-  get isEUMember(): boolean {
-    return euMembersISOCodes.indexOf(this.isoCode) >= 0;
-  }
+  @Field(() => [MenuItem])
+  items: MenuItem[];
 }

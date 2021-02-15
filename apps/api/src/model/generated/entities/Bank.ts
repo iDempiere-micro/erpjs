@@ -1,12 +1,15 @@
 import {
   Column,
   Entity,
-  Index,
+  Index, JoinColumn, ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { BankAccount } from './BankAccount';
 import { BankModel } from '../../lib/bank.model';
+import { User } from './User';
+import { Field } from '@nestjs/graphql';
+import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_1930777e62854add6a64f50d42', ['displayName'], { unique: true })
 @Entity('bank', { schema: 'public' })
@@ -20,8 +23,14 @@ export class Bank implements BankModel {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;

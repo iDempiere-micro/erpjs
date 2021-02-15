@@ -4,7 +4,6 @@ import { GqlAuthGuard } from '../../auth';
 import { SalesInvoice } from '../../model/generated/entities/SalesInvoice';
 import { SalesInvoiceService, SalesInvoiceServiceKey } from '../../model';
 import { getManager } from 'typeorm';
-import { Customer } from '../../model/generated/entities/Customer';
 
 @Resolver(() => SalesInvoice)
 @UseGuards(GqlAuthGuard)

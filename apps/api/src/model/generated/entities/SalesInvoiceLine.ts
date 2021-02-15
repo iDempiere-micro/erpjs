@@ -11,6 +11,8 @@ import { Product } from './Product';
 import { SalesInvoiceLineModel } from '../../lib/sales.invoice.line.model';
 import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { User } from './User';
+import { UserModel } from '../../lib/user.model';
 
 @Entity('sales_invoice_line', { schema: 'public' })
 @ObjectType()
@@ -26,9 +28,14 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
   @Field()
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  @Field()
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   @Field()

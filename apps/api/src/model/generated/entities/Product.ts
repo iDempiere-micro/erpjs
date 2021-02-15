@@ -1,11 +1,14 @@
 import {
   Column,
   Entity,
-  Index,
+  Index, JoinColumn, ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
+import { User } from './User';
+import { Field } from '@nestjs/graphql';
+import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_826d69dcc65d9650be67af6d48', ['displayName'], { unique: true })
 @Index('IDX_34f6ca1cd897cc926bdcca1ca3', ['sku'], { unique: true })
@@ -20,8 +23,14 @@ export class Product {
   })
   updtTs: Date;
 
-  @Column('integer', { name: 'updtOpId', default: () => '0' })
-  updtOpId: number;
+  @ManyToOne(
+    () => User,
+    user => user.updAccountingSchemes,
+    { nullable: false, eager: true },
+  )
+  @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
+  @Field(() => User)
+  updtOp: UserModel;
 
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;
