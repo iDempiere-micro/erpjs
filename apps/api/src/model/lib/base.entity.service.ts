@@ -58,7 +58,11 @@ export abstract class BaseEntityService<
   ): Promise<Array<T>> =>
     await this.getRepository(transactionalEntityManager).find(options);
 
-  async save(transactionalEntityManager: EntityManager, args: S, currentUser: UserModel): Promise<T> {
+  async save(
+    transactionalEntityManager: EntityManager,
+    args: S,
+    currentUser: UserModel,
+  ): Promise<T> {
     const saveArgsValidationService: SaveArgsValidationService = getService(
       SaveArgsValidationServiceKey,
     );
@@ -74,13 +78,16 @@ export abstract class BaseEntityService<
       : await this.createEntity();
     (entity as any).updtOp = currentUser;
     (entity as any).updtOpId = currentUser.id;
-    const toBeSaved = await this.doSave(transactionalEntityManager, args, entity, currentUser);
+    const toBeSaved = await this.doSave(
+      transactionalEntityManager,
+      args,
+      entity,
+      currentUser,
+    );
     (toBeSaved as any).updtOp = currentUser;
     (toBeSaved as any).updtOpId = currentUser.id;
 
-    return await this.getRepository(transactionalEntityManager).save(
-      toBeSaved
-    );
+    return await this.getRepository(transactionalEntityManager).save(toBeSaved);
   }
   persist = async (
     transactionalEntityManager: EntityManager,

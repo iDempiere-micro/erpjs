@@ -1,35 +1,22 @@
-call yarn rimraf dist
+call yarn
 
-cd clients\web\
+call yarn rimraf build
 
+set API_BASE_URL=https://erpjs-api.app.naseukoly.cz/graphql
+set KEYCLOAK_BASE_URL=https://keycloak.app.naseukoly.cz/auth
+set KEYCLOAK_REALM=erpjs
+set URL=https://erpjs-admin.app.naseukoly.cz/
 call yarn build
 
-mkdir ..\..\dist\
+cd build
 
-copy package.json ..\..\dist\
-copy yarn.lock ..\..\dist\
-xcopy static ..\..\dist\static\ /E/H
-xcopy __sapper__ ..\..\dist\__sapper__\ /E/H
 
-cd ..\..\dist
-
-call yarn --prod
-
-cd ..
-
-call yarn rimraf dist\__sapper__\dev
-call yarn rimraf dist\node_modules
-
-cd dist
+type nul >>.static & copy .static +,,
 
 git init
-
-git remote add dokku dokku@dokku.me:erpjs
-
+git remote add dokku dokku@app.naseukoly.cz:erpjs-admin
 git add .
-
 git commit -am "make it better"
-
 git push dokku master:master --force
 
 cd ..

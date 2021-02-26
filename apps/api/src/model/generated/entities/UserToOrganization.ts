@@ -31,7 +31,7 @@ export class UserToOrganization implements UserToOrganizationModel {
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
-  
+
   @Column('boolean', { name: 'isActive', default: () => 'true' })
   isActive: boolean;
 

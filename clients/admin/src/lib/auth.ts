@@ -4,4 +4,4 @@ export interface WithToken {
     token: string;
 }
 
-export const authStore= writable<WithToken | null>(null); // start with no user
+export const authStore = writable<WithToken | null>(null); // start with no user

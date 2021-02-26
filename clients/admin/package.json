@@ -2,7 +2,8 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
-    "prettier": "prettier --write --plugin-search-dir=. ./**/*.html",
+    "generate": "graphql-codegen --config codegen.yml",
+    "prettier": "prettier --write --plugin-search-dir=. ./**/*.svelte ./**/*.ts",
     "svelte-check": "svelte-check",
     "test": "web-test-runner \"src/**/*.test.ts\""
   },
@@ -11,6 +12,8 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.3.7",
+    "@graphql-codegen/cli": "^1.20.1",
+    "@graphql-codegen/typescript-operations": "^1.17.14",
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-postcss": "^1.1.0",
     "@snowpack/plugin-svelte": "^3.5.0",

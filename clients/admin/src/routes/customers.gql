@@ -1,0 +1,21 @@
+query Customers($dummy: Int)
+        {
+            customers {
+                id
+                legalName
+                displayName
+                vatNumber
+                invoicingEmail
+                legalAddress {
+                    id
+                    city
+                    line1
+                    zipCode
+                    country {
+                        id
+                        isoCode
+                    }
+                }
+            }
+        }
+

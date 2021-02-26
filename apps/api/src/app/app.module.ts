@@ -79,12 +79,7 @@ console.log('*** ENV', process.env);
     AuthModule,
   ],
   controllers: [AppController, FileController],
-  providers: [
-    AppService,
-    MigrationService,
-    ...serviceProviders,
-    ...resolvers,
-  ],
+  providers: [AppService, MigrationService, ...serviceProviders, ...resolvers],
 })
 export class AppModule {
   constructor(private moduleRef: ModuleRef) {

@@ -1,330 +1,311 @@
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-  DateTime: any;
-  UniversalDateTime: any;
-};
-
-export type AccountingScheme = {
-  __typename?: 'AccountingScheme';
-  currency: Currency;
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+    ID: string;
+    String: string;
+    Boolean: boolean;
+    Int: number;
+    Float: number;
+    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+    DateTime: any;
+    UniversalDateTime: any;
 };
 
 export type Address = {
-  __typename?: 'Address';
-  city: Scalars['String'];
-  country: Country;
-  customerRegistratedAddresses?: Maybe<Array<Customer>>;
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  line1: Scalars['String'];
-  organizationRegisteredAddresses?: Maybe<Array<Organization>>;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  zipCode: Scalars['String'];
+    __typename?: 'Address';
+    city: Scalars['String'];
+    country: Country;
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    line1: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
+    zipCode: Scalars['String'];
 };
 
-export type Bank = {
-  __typename?: 'Bank';
-  bankAccounts?: Maybe<Array<BankAccount>>;
-  bankIdentifierCode: Scalars['String'];
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+export type AddressSaveArgs = {
+    city: Scalars['String'];
+    countryIsoCode: Scalars['String'];
+    line1: Scalars['String'];
+    zipCode: Scalars['String'];
 };
 
 export type BankAccount = {
-  __typename?: 'BankAccount';
-  bank: Bank;
-  bankAccountCustomerPrintableNumber: Scalars['String'];
-  displayName: Scalars['String'];
-  iban: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  organizations?: Maybe<Array<Organization>>;
-  salesInvoices?: Maybe<Array<SalesInvoice>>;
-  swift: Scalars['String'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+    __typename?: 'BankAccount';
+    bankAccountCustomerPrintableNumber: Scalars['String'];
+    displayName: Scalars['String'];
+    iban: Scalars['String'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    swift: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
 };
 
 export type Country = {
-  __typename?: 'Country';
-  addresses?: Maybe<Array<Address>>;
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  isoCode: Scalars['String'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+    __typename?: 'Country';
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    isoCode: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
 };
 
 export type Currency = {
-  __typename?: 'Currency';
-  currencyRatesFrom?: Maybe<Array<CurrencyRate>>;
-  currencyRatesTo?: Maybe<Array<CurrencyRate>>;
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  isoCode: Scalars['String'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-};
-
-export type CurrencyRate = {
-  __typename?: 'CurrencyRate';
-  currencyMultiplyingRate: Scalars['Float'];
-  end: Scalars['DateTime'];
-  from: Currency;
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  start: Scalars['DateTime'];
-  to: Currency;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+    __typename?: 'Currency';
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    isoCode: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
 };
 
 export type Customer = {
-  __typename?: 'Customer';
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  idNumber: Scalars['String'];
-  invoicingEmail: Scalars['String'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  legalAddress: Address;
-  legalName: Scalars['String'];
-  salesInvoices?: Maybe<Array<SalesInvoice>>;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  vatNumber?: Maybe<Scalars['String']>;
+    __typename?: 'Customer';
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    idNumber: Scalars['String'];
+    invoicingEmail: Scalars['String'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    legalAddress: Address;
+    legalName: Scalars['String'];
+    salesInvoices: Array<SalesInvoice>;
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
+    vatNumber?: Maybe<Scalars['String']>;
 };
 
+export type CustomerSaveArgs = {
+    displayName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    idNumber: Scalars['String'];
+    invoicingEmail: Scalars['String'];
+    legalAddress: AddressSaveArgs;
+    legalName: Scalars['String'];
+    vatNumber?: Maybe<Scalars['String']>;
+};
 
-export type DocumentNumberSequence = {
-  __typename?: 'DocumentNumberSequence';
-  current: Scalars['Float'];
-  forType: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  organization: Organization;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+export type Menu = {
+    __typename?: 'Menu';
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    items: Array<MenuItem>;
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
+};
+
+export type MenuItem = {
+    __typename?: 'MenuItem';
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    menu: Menu;
+    to: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  keepAlive: Scalars['UniversalDateTime'];
+    __typename?: 'Mutation';
+    createCustomer: Customer;
+    keepAlive: Scalars['UniversalDateTime'];
 };
 
+export type MutationCreateCustomerArgs = {
+    args: CustomerSaveArgs;
+};
 
 export type MutationKeepAliveArgs = {
-  clientId: Scalars['String'];
+    clientId: Scalars['String'];
 };
 
 export type Organization = {
-  __typename?: 'Organization';
-  accountingScheme: AccountingScheme;
-  bankAccount: BankAccount;
-  contact: Scalars['String'];
-  displayName: Scalars['String'];
-  documentNumberSequences?: Maybe<Array<DocumentNumberSequence>>;
-  id: Scalars['Float'];
-  idNumber: Scalars['String'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  legalAddress: Address;
-  legalName: Scalars['String'];
-  registration: Scalars['String'];
-  salesInvoices?: Maybe<Array<SalesInvoice>>;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  users?: Maybe<Array<UserToOrganization>>;
-  vatNumber?: Maybe<Scalars['String']>;
-};
-
-export type Product = {
-  __typename?: 'Product';
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  salesInvoiceLine?: Maybe<Array<SalesInvoiceLine>>;
-  sku: Scalars['String'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+    __typename?: 'Organization';
+    contact: Scalars['String'];
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    idNumber: Scalars['String'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    legalName: Scalars['String'];
+    registration: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
+    vatNumber: Scalars['String'];
 };
 
 export type Query = {
-  __typename?: 'Query';
-  customer: Customer;
-  customers: Array<Customer>;
-  now: Scalars['UniversalDateTime'];
+    __typename?: 'Query';
+    customer: Customer;
+    customers: Array<Customer>;
+    customersByArgs: Array<Customer>;
+    menu: Array<Menu>;
+    now: Scalars['UniversalDateTime'];
+    salesInvoice: SalesInvoice;
+    salesInvoices: Array<SalesInvoice>;
 };
 
-
 export type QueryCustomerArgs = {
-  id: Scalars['Int'];
+    id: Scalars['Int'];
+};
+
+export type QueryCustomersByArgsArgs = {
+    displayName?: Maybe<Scalars['String']>;
+    legalName?: Maybe<Scalars['String']>;
+};
+
+export type QuerySalesInvoiceArgs = {
+    id: Scalars['Int'];
 };
 
 export type SalesInvoice = {
-  __typename?: 'SalesInvoice';
-  bankAccount: BankAccount;
-  content?: Maybe<Scalars['String']>;
-  currency: Currency;
-  currencyMultiplyingRateToAccountingSchemeCurrency: Scalars['Float'];
-  customer: Customer;
-  documentNo?: Maybe<Scalars['String']>;
-  dueDate: Scalars['DateTime'];
-  grandTotal: Scalars['Float'];
-  grandTotalAccountingSchemeCurrency: Scalars['Float'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCalculated: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  isDraft: Scalars['Boolean'];
-  issuedOn: Scalars['DateTime'];
-  lines?: Maybe<Array<SalesInvoiceLine>>;
-  organization: Organization;
-  paymentTermInDays: Scalars['Float'];
-  printDate?: Maybe<Scalars['DateTime']>;
-  printed: Scalars['Boolean'];
-  printError?: Maybe<Scalars['String']>;
-  reverseCharge: Scalars['Boolean'];
-  totalLines: Scalars['Float'];
-  totalLinesAccountingSchemeCurrency: Scalars['Float'];
-  transactionDate: Scalars['DateTime'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  vatReport?: Maybe<Array<SalesInvoiceVat>>;
+    __typename?: 'SalesInvoice';
+    bankAccount: BankAccount;
+    content: Scalars['String'];
+    currency: Currency;
+    currencyMultiplyingRateToAccountingSchemeCurrency: Scalars['Float'];
+    customer: Customer;
+    documentNo?: Maybe<Scalars['String']>;
+    dueDate: Scalars['DateTime'];
+    grandTotal: Scalars['Float'];
+    grandTotalAccountingSchemeCurrency: Scalars['Float'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCalculated: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    isDraft: Scalars['Boolean'];
+    issuedOn: Scalars['DateTime'];
+    lines: Array<SalesInvoiceLine>;
+    organization: Organization;
+    paymentTermInDays: Scalars['Float'];
+    printDate?: Maybe<Scalars['DateTime']>;
+    printed: Scalars['Boolean'];
+    printError?: Maybe<Scalars['String']>;
+    printLanguageIsoCode: Scalars['String'];
+    reverseCharge: Scalars['Boolean'];
+    totalLines: Scalars['Float'];
+    totalLinesAccountingSchemeCurrency: Scalars['Float'];
+    transactionDate: Scalars['DateTime'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
+    vatReport: Array<SalesInvoiceVat>;
 };
 
 export type SalesInvoiceLine = {
-  __typename?: 'SalesInvoiceLine';
-  id: Scalars['Float'];
-  invoice: SalesInvoice;
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  lineOrder: Scalars['Float'];
-  linePrice: Scalars['Float'];
-  lineTax: Tax;
-  narration: Scalars['String'];
-  product: Product;
-  quantity: Scalars['Float'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
+    __typename?: 'SalesInvoiceLine';
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    lineOrder: Scalars['Float'];
+    linePrice: Scalars['Float'];
+    narration: Scalars['String'];
+    quantity: Scalars['Float'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
 };
 
 export type SalesInvoiceVat = {
-  __typename?: 'SalesInvoiceVat';
-  id: Scalars['Float'];
-  invoice: SalesInvoice;
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  vatRatePercent: Scalars['Float'];
-  vatTotal: Scalars['Float'];
-  vatTotalAccountingSchemeCurrency: Scalars['Float'];
-  vatTotalAccountingSchemeCurrencyRaw: Scalars['Float'];
-  vatTotalRaw: Scalars['Float'];
+    __typename?: 'SalesInvoiceVat';
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    updtOp: User;
+    updtTs: Scalars['DateTime'];
+    vatRatePercent: Scalars['Float'];
+    vatTotal: Scalars['Float'];
+    vatTotalAccountingSchemeCurrency: Scalars['Float'];
+    vatTotalAccountingSchemeCurrencyRaw: Scalars['Float'];
+    vatTotalRaw: Scalars['Float'];
 };
-
-export type Tax = {
-  __typename?: 'Tax';
-  displayName: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  isStandard: Scalars['Boolean'];
-  ratePercent: Scalars['Float'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-};
-
 
 export type User = {
-  __typename?: 'User';
-  email?: Maybe<Scalars['String']>;
-  id: Scalars['Float'];
-  identities?: Maybe<Array<UserIdentity>>;
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  name?: Maybe<Scalars['String']>;
-  organizations?: Maybe<Array<UserToOrganization>>;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  username?: Maybe<Scalars['String']>;
+    __typename?: 'User';
+    email?: Maybe<Scalars['String']>;
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    name?: Maybe<Scalars['String']>;
+    updtOpId: Scalars['Float'];
+    updtTs: Scalars['DateTime'];
+    username?: Maybe<Scalars['String']>;
 };
 
-export type UserIdentity = {
-  __typename?: 'UserIdentity';
-  externalUser: Scalars['String'];
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  provider: Scalars['String'];
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  user: User;
+export type CreateCustomerMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    displayName: Scalars['String'];
+    legalName: Scalars['String'];
+    legalAddressCity: Scalars['String'];
+}>;
+
+export type CreateCustomerMutation = { __typename?: 'Mutation' } & {
+    createCustomer: { __typename?: 'Customer' } & Pick<Customer, 'id'>;
 };
 
-export type UserToOrganization = {
-  __typename?: 'UserToOrganization';
-  id: Scalars['Float'];
-  isActive: Scalars['Boolean'];
-  isCurrent: Scalars['Boolean'];
-  organization: Organization;
-  updtOpId: Scalars['Float'];
-  updtTs: Scalars['DateTime'];
-  user: User;
+export type CustomersByArgsQueryVariables = Exact<{
+    displayName?: Maybe<Scalars['String']>;
+    legalName?: Maybe<Scalars['String']>;
+}>;
+
+export type CustomersByArgsQuery = { __typename?: 'Query' } & {
+    customersByArgs: Array<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>;
 };
 
-export type CustomerDetailPartsFragment = (
-  { __typename?: 'Customer' }
-  & Pick<Customer, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'displayName' | 'legalName' | 'vatNumber' | 'invoicingEmail' | 'idNumber'>
-  & { legalAddress: (
-    { __typename?: 'Address' }
-    & Pick<Address, 'id' | 'updtTs' | 'updtOpId' | 'isActive' | 'isCurrent' | 'line1' | 'city' | 'zipCode'>
-    & { country: (
-      { __typename?: 'Country' }
-      & Pick<Country, 'id' | 'displayName' | 'isoCode'>
-    ) }
-  ), salesInvoices?: Maybe<Array<(
-    { __typename?: 'SalesInvoice' }
-    & Pick<SalesInvoice, 'id'>
-  )>> }
-);
+export type CustomerByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+export type CustomerByIdQuery = { __typename?: 'Query' } & {
+    customer: { __typename?: 'Customer' } & Pick<
+        Customer,
+        'id' | 'legalName' | 'displayName' | 'vatNumber' | 'invoicingEmail'
+    > & {
+            legalAddress: { __typename?: 'Address' } & Pick<
+                Address,
+                'id' | 'city' | 'line1' | 'zipCode'
+            > & { country: { __typename?: 'Country' } & Pick<Country, 'id' | 'isoCode'> };
+        };
+};
 
+export type CustomersQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
 
-export type Unnamed_1_Query = (
-  { __typename?: 'Query' }
-  & { customers: Array<(
-    { __typename?: 'Customer' }
-    & CustomerDetailPartsFragment
-  )> }
-);
+export type CustomersQuery = { __typename?: 'Query' } & {
+    customers: Array<
+        { __typename?: 'Customer' } & Pick<
+            Customer,
+            'id' | 'legalName' | 'displayName' | 'vatNumber' | 'invoicingEmail'
+        > & {
+                legalAddress: { __typename?: 'Address' } & Pick<
+                    Address,
+                    'id' | 'city' | 'line1' | 'zipCode'
+                > & { country: { __typename?: 'Country' } & Pick<Country, 'id' | 'isoCode'> };
+            }
+    >;
+};
+
+export type SalesInvoicesQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type SalesInvoicesQuery = { __typename?: 'Query' } & {
+    salesInvoices: Array<
+        { __typename?: 'SalesInvoice' } & Pick<
+            SalesInvoice,
+            'documentNo' | 'grandTotalAccountingSchemeCurrency'
+        >
+    >;
+};

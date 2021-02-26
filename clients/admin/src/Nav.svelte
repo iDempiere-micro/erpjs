@@ -16,7 +16,7 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <Menu segment='{segment}' />
+                        <Menu {segment} />
                     </div>
                 </div>
             </div>

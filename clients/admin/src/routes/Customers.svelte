@@ -1,11 +1,11 @@
 <script lang="ts">
     import { query, setClient } from 'svelte-apollo';
-    import type { Unnamed_1_Query } from '../generated/graphql';
     import gql from 'graphql-tag';
     import { authStore } from '../lib/auth';
     import { apollo } from '../lib/apollo';
     import CustomerList from '../components/customers/CustomerList.svelte';
     import { getError } from '../lib/util';
+    import type { Customer } from 'src/generated/graphql';
 
     const EVERYTHING = gql`
         {
@@ -31,7 +31,7 @@
 
     const client = apollo($authStore?.token, process.env.API_BASE_URL, 'customers');
     setClient(client);
-    const customers = query<Unnamed_1_Query>(EVERYTHING);
+    const customers = query<Customer[]>(EVERYTHING);
 </script>
 
 {#if $customers.loading}

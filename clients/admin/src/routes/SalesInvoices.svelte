@@ -1,6 +1,6 @@
 <script lang="ts">
     import { query, setClient } from 'svelte-apollo';
-    import type { Unnamed_1_Query } from '../generated/graphql';
+    import type { SalesInvoice } from 'src/generated/graphql';
     import gql from 'graphql-tag';
     import { authStore } from '../lib/auth';
     import { apollo } from '../lib/apollo';
@@ -10,15 +10,15 @@
     const EVERYTHING = gql`
         {
             salesInvoices {
-              documentNo
-              grandTotalAccountingSchemeCurrency
+                documentNo
+                grandTotalAccountingSchemeCurrency
             }
         }
     `;
 
     const client = apollo($authStore?.token, process.env.API_BASE_URL, 'sales-invoices');
     setClient(client);
-    const salesInvoices = query<any>(EVERYTHING);
+    const salesInvoices = query<SalesInvoice[]>(EVERYTHING);
 </script>
 
 {#if $salesInvoices.loading}

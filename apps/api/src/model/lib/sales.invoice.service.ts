@@ -287,7 +287,7 @@ export class SalesInvoiceService extends BaseEntityService<
           invoice,
           lineOrder,
         },
-        currentUser
+        currentUser,
       );
       lineOrder += 10;
       invoiceLines.push(line);
@@ -386,17 +386,21 @@ export class SalesInvoiceService extends BaseEntityService<
         toBeSummed.map(x => x.vatTotalAccountingSchemeCurrency),
       );
       vatReport.push(
-        await this.salesInvoiceVatService.save(transactionalEntityManager, {
-          vatRatePercent: +vatRatePercent,
-          vatTotalRaw: vatTotal,
-          vatTotal: _.round(vatTotal, 2),
-          vatTotalAccountingSchemeCurrencyRaw: vatTotalAccountingSchemeCurrency,
-          vatTotalAccountingSchemeCurrency: _.round(
-            vatTotalAccountingSchemeCurrency,
-            2,
-          ),
-          invoice: invoiceWithLines,
-        }, currentUser,),
+        await this.salesInvoiceVatService.save(
+          transactionalEntityManager,
+          {
+            vatRatePercent: +vatRatePercent,
+            vatTotalRaw: vatTotal,
+            vatTotal: _.round(vatTotal, 2),
+            vatTotalAccountingSchemeCurrencyRaw: vatTotalAccountingSchemeCurrency,
+            vatTotalAccountingSchemeCurrency: _.round(
+              vatTotalAccountingSchemeCurrency,
+              2,
+            ),
+            invoice: invoiceWithLines,
+          },
+          currentUser,
+        ),
       );
     }
 

@@ -1,7 +1,9 @@
 import {
   Column,
   Entity,
-  Index, JoinColumn, ManyToOne,
+  Index,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -53,7 +55,7 @@ export class Menu {
   @OneToMany(
     () => MenuItem,
     menuItem => menuItem.menu,
-    { eager: true }
+    { eager: true },
   )
   @Field(() => [MenuItem])
   items: MenuItem[];

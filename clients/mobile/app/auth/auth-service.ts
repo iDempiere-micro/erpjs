@@ -1,5 +1,8 @@
 import { TnsOaProvider } from 'nativescript-oauth2/providers';
-import { KeycloakProvider, KeycloakProviderOptions } from '~/auth/keycloak.provider';
+import {
+    KeycloakProvider,
+    KeycloakProviderOptions,
+} from '~/auth/keycloak.provider';
 import { configureTnsOAuth } from 'nativescript-oauth2';
 
 export function configureOAuthProviders() {
@@ -8,15 +11,13 @@ export function configureOAuthProviders() {
 }
 function configureOAuthProviderMyCustomProvider(): TnsOaProvider {
     const keycloakProviderOptions: KeycloakProviderOptions = {
-        openIdSupport: "oid-none",
-        clientId: "erpjs",
-        redirectUri: "erpjs://erpjs",
-        keycloakBaseUrl: process.env.KEYCLOAK_BASE_URL, 
-        clientSecret: "ignore",
+        openIdSupport: 'oid-none',
+        clientId: 'erpjs',
+        redirectUri: 'erpjs://erpjs',
+        keycloakBaseUrl: process.env.KEYCLOAK_BASE_URL,
+        clientSecret: 'ignore',
         realm: process.env.KEYCLOAK_REALM,
         scopes: ['openid', 'email', 'microprofile-jwt'],
     };
-    return new KeycloakProvider(
-        keycloakProviderOptions
-    );
+    return new KeycloakProvider(keycloakProviderOptions);
 }

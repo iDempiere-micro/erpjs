@@ -93,7 +93,7 @@ export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
   async createNewUser(
     manager: EntityManager,
     userProfileModel: UserProfileModel,
-    technicalUser: UserModel
+    technicalUser: UserModel,
   ): Promise<User> {
     const result = new User();
     result.email = userProfileModel.email;

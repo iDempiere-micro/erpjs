@@ -1,4 +1,8 @@
-import { TnsOaProvider, TnsOaProviderType, TnsOaUnsafeProviderOptions } from 'nativescript-oauth2/providers';
+import {
+    TnsOaProvider,
+    TnsOaProviderType,
+    TnsOaUnsafeProviderOptions,
+} from 'nativescript-oauth2/providers';
 import { ITnsOAuthTokenResult } from 'nativescript-oauth2';
 
 export interface KeycloakProviderOptions extends TnsOaUnsafeProviderOptions {
@@ -19,12 +23,14 @@ export class KeycloakProvider implements TnsOaProvider {
     constructor(public options: KeycloakProviderOptions) {
         const realm = options.realm;
 
-        this.openIdSupport = "oid-none";
-        this.providerType = "keycloak";
+        this.openIdSupport = 'oid-none';
+        this.providerType = 'keycloak';
         this.authority = options.keycloakBaseUrl;
         this.tokenEndpointBase = options.keycloakBaseUrl;
-        this.authorizeEndpoint = '/realms/'+realm+'/protocol/openid-connect/auth';
-        this.tokenEndpoint = '/realms/'+realm+'/protocol/openid-connect/token';
+        this.authorizeEndpoint =
+            '/realms/' + realm + '/protocol/openid-connect/auth';
+        this.tokenEndpoint =
+            '/realms/' + realm + '/protocol/openid-connect/token';
         this.cookieDomains = [realm];
     }
 
