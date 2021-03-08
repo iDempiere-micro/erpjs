@@ -83,6 +83,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input IdAndNumber {
+  id: Float!
+  value: Float!
+}
+
 type Menu {
   displayName: String!
   id: Float!
@@ -106,6 +111,7 @@ type MenuItem {
 
 type Mutation {
   createCustomer(args: CustomerSaveArgs!): Customer!
+  createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   keepAlive(clientId: String!): UniversalDateTime!
 }
 
@@ -129,6 +135,7 @@ type Query {
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   menu: [Menu!]!
   now: UniversalDateTime!
+  organizations: [Organization!]!
   salesInvoice(id: Int!): SalesInvoice!
   salesInvoices: [SalesInvoice!]!
 }
@@ -175,6 +182,17 @@ type SalesInvoiceLine {
   quantity: Float!
   updtOp: User!
   updtTs: DateTime!
+}
+
+input SalesInvoiceMonthlySaveArgs {
+  dailyRate: Float!
+  day: Int!
+  eurToCzkRate: Float!
+  month: Int!
+  narration: String!
+  organizationDivider: [IdAndNumber!]!
+  totalHours: Float!
+  year: Int!
 }
 
 type SalesInvoiceVat {

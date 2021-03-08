@@ -1,0 +1,13 @@
+query menu($mobile: Boolean)
+        {
+            menu {
+                id
+                displayName
+                items {
+                    id
+                    to
+                    displayName
+                }
+            }
+        }
+

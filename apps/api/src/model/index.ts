@@ -49,6 +49,7 @@ export * from './lib/reports.service';
 export * from './lib/sales.invoice.line.model';
 export * from './lib/sales.invoice.line.save.args.model';
 export * from './lib/sales.invoice.model';
+export * from './lib/sales.invoice.monthly.save.args.model';
 export * from './lib/sales.invoice.save.args.model';
 export * from './lib/sales.invoice.service';
 export * from './lib/sales.invoice.vat.model';

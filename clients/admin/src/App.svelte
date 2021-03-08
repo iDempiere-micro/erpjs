@@ -17,8 +17,11 @@
     import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
 
     import en from './locales/en.json';
+    import cs from './locales/cs.json';
+    import AddMonthlySalesInvoice from './routes/AddMonthlySalesInvoice.svelte';
 
     addMessages('en', en);
+    addMessages('cs', cs);
 
     init({
         fallbackLocale: 'en',
@@ -102,6 +105,14 @@
             </Page>
         </Route>
 
+        <Route path="add-monthly-sales-invoice">
+            <Page title="Add Monthly Sales Invoice" segment="sales-invoices">
+                <span slot="content">
+                    <AddMonthlySalesInvoice />
+                </span>
+            </Page>
+        </Route>
+
         <Route path="customer/:id" let:params>
             <Page title="Edit Customer" segment="customers">
                 <span slot="content">
@@ -129,6 +140,11 @@
                         to={`/create-sales-invoice`}
                         class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                         >Create Sales Invoice</Link
+                    >
+                    <Link
+                        to={`/add-monthly-sales-invoice`}
+                        class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        >Create Monthly Sales Invoice</Link
                     >
                 </span>
             </Page>

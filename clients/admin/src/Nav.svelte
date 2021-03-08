@@ -1,4 +1,6 @@
 <script lang="ts">
+    let mobileMenuOpened: boolean;
+
     import Menu from './Menu.svelte';
     export let segment: string;
 </script>
@@ -89,6 +91,9 @@
                 <!-- Mobile menu button -->
                 <button
                     class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    on:click={() => {
+                        mobileMenuOpened = !mobileMenuOpened;
+                    }}
                 >
                     <span class="sr-only">Open main menu</span>
                     <!--
@@ -141,18 +146,9 @@
 
       Open: "block", closed: "hidden"
     -->
-    <div class="hidden md:hidden">
+    <div class={mobileMenuOpened ? 'block md:block' : 'hidden md:hidden'}>
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <!-- a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
-
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
-
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
-
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Reports</a -->
+            <Menu {segment} mobile={true} />
         </div>
         <div class="pt-4 pb-3 border-t border-gray-700">
             <div class="flex items-center px-5">

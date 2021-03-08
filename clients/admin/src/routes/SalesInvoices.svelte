@@ -10,6 +10,7 @@
     const EVERYTHING = gql`
         {
             salesInvoices {
+                id
                 documentNo
                 grandTotalAccountingSchemeCurrency
             }

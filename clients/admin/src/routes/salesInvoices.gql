@@ -1,6 +1,7 @@
 query SalesInvoices($dummy: Int)
         {
             salesInvoices {
+                id
                 documentNo
                 grandTotalAccountingSchemeCurrency
             }

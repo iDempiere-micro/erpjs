@@ -6,6 +6,7 @@
 
     export let segment: string;
     let menu: any = null;
+    export let mobile: boolean | null;
 
     import gql from 'graphql-tag';
     import { apollo } from './lib/apollo';
@@ -42,7 +43,11 @@
     {#each $menuStore?.data?.menu[0].items || [] as menuItem}
         <Link
             to={`/${menuItem.to}`}
-            class={segment === menuItem.to
+            class={mobile
+                ? segment === menuItem.to
+                    ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
+                : segment === menuItem.to
                 ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
                 : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'}
             >{$_(menuItem.displayName)}</Link

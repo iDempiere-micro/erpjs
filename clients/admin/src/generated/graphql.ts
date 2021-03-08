@@ -95,6 +95,11 @@ export type CustomerSaveArgs = {
     vatNumber?: Maybe<Scalars['String']>;
 };
 
+export type IdAndNumber = {
+    id: Scalars['Float'];
+    value: Scalars['Float'];
+};
+
 export type Menu = {
     __typename?: 'Menu';
     displayName: Scalars['String'];
@@ -121,11 +126,16 @@ export type MenuItem = {
 export type Mutation = {
     __typename?: 'Mutation';
     createCustomer: Customer;
+    createMonthlyInvoice: Array<SalesInvoice>;
     keepAlive: Scalars['UniversalDateTime'];
 };
 
 export type MutationCreateCustomerArgs = {
     args: CustomerSaveArgs;
+};
+
+export type MutationCreateMonthlyInvoiceArgs = {
+    args: SalesInvoiceMonthlySaveArgs;
 };
 
 export type MutationKeepAliveArgs = {
@@ -154,6 +164,7 @@ export type Query = {
     customersByArgs: Array<Customer>;
     menu: Array<Menu>;
     now: Scalars['UniversalDateTime'];
+    organizations: Array<Organization>;
     salesInvoice: SalesInvoice;
     salesInvoices: Array<SalesInvoice>;
 };
@@ -217,6 +228,17 @@ export type SalesInvoiceLine = {
     updtTs: Scalars['DateTime'];
 };
 
+export type SalesInvoiceMonthlySaveArgs = {
+    dailyRate: Scalars['Float'];
+    day: Scalars['Int'];
+    eurToCzkRate: Scalars['Float'];
+    month: Scalars['Int'];
+    narration: Scalars['String'];
+    organizationDivider: Array<IdAndNumber>;
+    totalHours: Scalars['Float'];
+    year: Scalars['Int'];
+};
+
 export type SalesInvoiceVat = {
     __typename?: 'SalesInvoiceVat';
     id: Scalars['Float'];
@@ -263,6 +285,21 @@ export type CustomersByArgsQuery = { __typename?: 'Query' } & {
     customersByArgs: Array<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>;
 };
 
+export type CreateMonthlyInvoiceMutationVariables = Exact<{
+    totalHours: Scalars['Float'];
+    dailyRate: Scalars['Float'];
+    organizationDivider: Array<IdAndNumber> | IdAndNumber;
+    year: Scalars['Int'];
+    month: Scalars['Int'];
+    day: Scalars['Int'];
+    eurToCzkRate: Scalars['Float'];
+    narration: Scalars['String'];
+}>;
+
+export type CreateMonthlyInvoiceMutation = { __typename?: 'Mutation' } & {
+    createMonthlyInvoice: Array<{ __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>>;
+};
+
 export type CustomerByIdQueryVariables = Exact<{
     id: Scalars['Int'];
 }>;
@@ -277,6 +314,20 @@ export type CustomerByIdQuery = { __typename?: 'Query' } & {
                 'id' | 'city' | 'line1' | 'zipCode'
             > & { country: { __typename?: 'Country' } & Pick<Country, 'id' | 'isoCode'> };
         };
+};
+
+export type MenuQueryVariables = Exact<{
+    mobile?: Maybe<Scalars['Boolean']>;
+}>;
+
+export type MenuQuery = { __typename?: 'Query' } & {
+    menu: Array<
+        { __typename?: 'Menu' } & Pick<Menu, 'id' | 'displayName'> & {
+                items: Array<
+                    { __typename?: 'MenuItem' } & Pick<MenuItem, 'id' | 'to' | 'displayName'>
+                >;
+            }
+    >;
 };
 
 export type CustomersQueryVariables = Exact<{
@@ -305,7 +356,7 @@ export type SalesInvoicesQuery = { __typename?: 'Query' } & {
     salesInvoices: Array<
         { __typename?: 'SalesInvoice' } & Pick<
             SalesInvoice,
-            'documentNo' | 'grandTotalAccountingSchemeCurrency'
+            'id' | 'documentNo' | 'grandTotalAccountingSchemeCurrency'
         >
     >;
 };

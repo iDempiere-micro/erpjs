@@ -1,6 +1,6 @@
 import { SalesInvoiceModel } from './sales.invoice.model';
 import { SalesInvoiceSaveArgsModel } from './sales.invoice.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager, QueryRunner, Repository } from 'typeorm';
 import {
   BankAccountService,
   BankAccountServiceKey,
@@ -39,6 +39,8 @@ import moment = require('moment');
 import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
 import { UserModel } from './user.model';
+import { SalesInvoiceMonthlySaveArgsModel } from './sales.invoice.monthly.save.args.model';
+import { finalize } from 'rxjs/operators';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -192,6 +194,7 @@ export class SalesInvoiceService extends BaseEntityService<
   ): Repository<SalesInvoiceModel> {
     return transactionalEntityManager.getRepository(SalesInvoice);
   }
+
   protected async doSave(
     transactionalEntityManager: EntityManager,
     args: SalesInvoiceSaveArgsModel,
@@ -481,5 +484,153 @@ export class SalesInvoiceService extends BaseEntityService<
 
   loadEntityByIdRelations(): string[] {
     return ['lines', 'vatReport'];
+  }
+
+  async createMonthlyInvoice(
+    entityManager: EntityManager,
+    objData: SalesInvoiceMonthlySaveArgsModel,
+    currentUser: UserModel,
+  ) {
+    const organizationService: OrganizationService = getService(
+      OrganizationServiceKey,
+    );
+    const nucz = (await organizationService.loadEntities(entityManager)).find(
+      x => x.displayName === `NUCZ`,
+    );
+    const NUCZPercentage = objData.organizationDivider.find(
+      x => x.id === nucz.id,
+    ).value;
+    const carvagoHours = objData.totalHours;
+    const dailyRate = objData.dailyRate;
+    const narration = objData.narration;
+
+    const evalue = async (
+      entityManager: EntityManager,
+      technicalUser: UserModel,
+    ): Promise<SalesInvoiceModel[]> => {
+      const result: SalesInvoiceModel[] = [];
+
+      const salesInvoiceService: SalesInvoiceService = getService(
+        SalesInvoiceServiceKey,
+      );
+
+      const issuedOn = new Date(objData.year, objData.month - 1, objData.day);
+      const lines: SalesInvoiceLineSaveArgsModel[] = [
+        {
+          lineTaxIsStandard: true,
+          productSku: `EX`,
+          linePrice: _.round(
+            (NUCZPercentage * carvagoHours * dailyRate) / 8,
+            2,
+          ),
+          quantity: _.round(carvagoHours * NUCZPercentage, 2),
+          narration,
+          lineOrder: 1,
+        },
+      ];
+      const invoice = await salesInvoiceService.save(
+        entityManager,
+        {
+          customerDisplayName: 'evalue',
+          organizationDisplayName: `NUCZ`,
+          paymentTermInDays: 14,
+          transactionDate: issuedOn,
+          issuedOn,
+          currencyIsoCode: `CZK`,
+          lines,
+        },
+        technicalUser,
+      );
+      result.push(await salesInvoiceService.confirm(entityManager, invoice));
+
+      const lines2: SalesInvoiceLineSaveArgsModel[] = [
+        {
+          lineTaxIsStandard: true,
+          productSku: `EX`,
+          linePrice: _.round(
+            ((1 - NUCZPercentage) * carvagoHours * dailyRate) / 8,
+            2,
+          ),
+          quantity: _.round(carvagoHours * (1 - NUCZPercentage), 2),
+          narration,
+          lineOrder: 1,
+        },
+      ];
+      const invoice2 = await salesInvoiceService.save(
+        entityManager,
+        {
+          customerDisplayName: 'evalue',
+          organizationDisplayName: `DP`,
+          paymentTermInDays: 14,
+          transactionDate: issuedOn,
+          issuedOn,
+          currencyIsoCode: `CZK`,
+          lines: lines2,
+        },
+        technicalUser,
+      );
+      result.push(await salesInvoiceService.confirm(entityManager, invoice2));
+      return result;
+    };
+
+    const realityZaPrahou = async (
+      entityManager: EntityManager,
+      technicalUser: UserModel,
+    ): Promise<SalesInvoiceModel> => {
+      const currencyRateService: CurrencyRateService = getService(
+        CurrencyRateServiceKey,
+      );
+      const salesInvoiceService: SalesInvoiceService = getService(
+        SalesInvoiceServiceKey,
+      );
+
+      const issuedOn = new Date(objData.year, objData.month - 1, objData.day);
+      const start = moment(issuedOn)
+        .startOf('day')
+        .toDate();
+      const end = moment(issuedOn)
+        .endOf('day')
+        .toDate();
+      await currencyRateService.save(
+        entityManager,
+        {
+          start,
+          end,
+          currencyMultiplyingRate: objData.eurToCzkRate,
+          fromIsoCode: 'EUR',
+          toIsoCode: 'CZK',
+        },
+        technicalUser,
+      );
+      const lines: SalesInvoiceLineSaveArgsModel[] = [
+        {
+          lineTaxIsStandard: true,
+          productSku: 'MS.O365.BP.M',
+          linePrice: 4 * 12.7,
+          quantity: 4,
+          narration: 'Licence Office 365 Business Premium',
+          lineOrder: 1,
+        },
+      ];
+      const invoice = await salesInvoiceService.save(
+        entityManager,
+        {
+          customerDisplayName: 'RealityzaPrahou',
+          organizationDisplayName: `NUCZ`,
+          paymentTermInDays: 23,
+          transactionDate: issuedOn,
+          issuedOn,
+          currencyIsoCode: `EUR`,
+          lines,
+        },
+        technicalUser,
+      );
+      return await salesInvoiceService.confirm(entityManager, invoice);
+    };
+
+    return [
+      ...(await evalue(entityManager, currentUser)),
+      await realityZaPrahou(entityManager, currentUser),
+    ];
   }
 }
