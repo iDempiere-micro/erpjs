@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "module": "ESNext",
-        "target": "ES2017",
+        "module": "esnext",
+        "target": "es2017",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": false,
@@ -11,7 +11,8 @@
         "noEmitOnError": true,
         "skipLibCheck": true,
         "lib": [
-            "ES2017"
+            "ES2017",
+            "es2017"
         ],
         "types": [
             "svelte"
@@ -21,7 +22,8 @@
             "~/*": [
                 "app/*"
             ]
-        }
+        },
+        "removeComments": false
     },
     "include": [
         "app/**/*"
