@@ -2445,12 +2445,12 @@ svelte-native-preprocessor@^0.2.0:
   resolved "https://registry.yarnpkg.com/svelte-native-preprocessor/-/svelte-native-preprocessor-0.2.0.tgz#b850744d8a4a9bfe00061e97f6f199c89404921c"
   integrity sha512-6cOnQ2XTFAWo9tgskGZBd8XQRpJ0C4FdwAp3FQaAMFqP04C/bLafwpBBnCP74qUA2tn2KYsTl6Zv1+wGcdAvsw==
 
-svelte-native@~0.9.1:
+svelte-native@~0.9.5:
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/svelte-native/-/svelte-native-0.9.5.tgz#9b901c07b3c5aaf8d186d3c2ca77bb0364e07897"
   integrity sha512-DRbrez6/uG4vDj544n12My2c4JjQrtKVFZGXTZzPxo7BMhFARbWPBJOoI89yoRn9D0gkFXxK6e1+xYB1s9GzKg==
 
-svelte-preprocess@^4.0.8:
+svelte-preprocess@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.7.0.tgz#10a0acf1a8b1afdd7e0aff3769f4175eb77776fe"
   integrity sha512-iNrY4YGqi0LD2e6oT9YbdSzOKntxk8gmzfqso1z/lUJOZh4o6fyIqkirmiZ8/dDJFqtIE1spVgDFWgkfhLEYlw==
@@ -2460,10 +2460,10 @@ svelte-preprocess@^4.0.8:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte@~3.24.1:
-  version "3.24.1"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.24.1.tgz#aca364937dd1df27fe131e2a4c234acb6061db4b"
-  integrity sha512-OX/IBVUJSFo1rnznXdwf9rv6LReJ3qQ0PwRjj76vfUWyTfbHbR9OXqJBnUrpjyis2dwYcbT2Zm1DFjOOF1ZbbQ==
+svelte@~3.35.0:
+  version "3.35.0"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.35.0.tgz#e0d0ba60c4852181c2b4fd851194be6fda493e65"
+  integrity sha512-gknlZkR2sXheu/X+B7dDImwANVvK1R0QGQLd8CNIfxxGPeXBmePnxfzb6fWwTQRsYQG7lYkZXvpXJvxvpsoB7g==
 
 symbol-observable@^1.0.2:
   version "1.2.0"
