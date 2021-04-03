@@ -1,0 +1,10 @@
+fragment SalesInvoiceLineDetailParts on SalesInvoiceLine {
+    id
+    lineOrder
+    linePrice
+    narration
+    quantity
+    product {
+        id
+    }
+}

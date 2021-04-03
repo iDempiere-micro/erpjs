@@ -1,0 +1,24 @@
+ mutation CreateCustomer(
+            $id: Int
+            $displayName: String!
+            $legalName: String!
+            $legalAddressCity: String!
+        ) {
+            createCustomer(
+                args: {
+                    id: $id
+                    displayName: $displayName
+                    legalName: $legalName
+                    invoicingEmail: "ccc"
+                    idNumber: "123"
+                    legalAddress: {
+                        city: $legalAddressCity
+                        countryIsoCode: "CZ"
+                        line1: "lll"
+                        zipCode: "1234567"
+                    }
+                }
+            ) {
+                id
+            }
+        }

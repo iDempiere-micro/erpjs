@@ -1,0 +1,5 @@
+query SalesInvoiceById($id: Int!) {
+    salesInvoice(id: $id) {
+        ...SalesInvoiceDetailParts
+    }
+}

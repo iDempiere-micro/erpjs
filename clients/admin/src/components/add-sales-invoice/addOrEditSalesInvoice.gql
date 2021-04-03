@@ -1,0 +1,22 @@
+mutation CreateSalesInvoice(
+    $id: Int
+    $currencyIsoCode: String!
+    $customerDisplayName:  String!
+    $issuedOn:  Date!
+    $lines: [SalesInvoiceLineSaveArgs!]!,
+    $organizationDisplayName:  String!
+    $paymentTermInDays: Int!
+    $transactionDate:  Date!
+) { createSalesInvoice( args :
+{
+    id: $id
+    currencyIsoCode: $currencyIsoCode
+    customerDisplayName: $customerDisplayName
+    issuedOn: $issuedOn
+    lines: $lines,
+    organizationDisplayName: $organizationDisplayName
+    paymentTermInDays: $paymentTermInDays
+    transactionDate: $transactionDate
+}
+
+) { id } }

@@ -1,0 +1,89 @@
+{
+  "page": {
+    "home": {
+      "title": "Homepage",
+      "nav": "Home"
+    },
+    "about": {
+      "title": "About",
+      "nav": "About"
+    },
+    "contact": {
+      "title": "Contact",
+      "nav": "Contact Us"
+    },
+    "notifications": {
+      "title": "View notifications",
+      "nav": "Notifications"
+    },
+    "customers": {
+      "title": "Customers",
+      "nav": "Customers",
+      "add" : {
+        "title": "Add Customer",
+        "nav": "Add Customer"
+      },
+      "edit" : {
+        "title": "Edit Customer",
+        "nav": "Edit Customer"
+      }
+    },
+    "salesInvoices": {
+      "title": "Sales Invoices",
+      "nav": "Sales Invoices",
+
+      "monthly": {
+        "add": {
+          "title": "Add Monthly Sales Invoice",
+          "nav": "Add Monthly Sales Invoice"
+        }
+      },
+      "add": {
+        "title": "Create Sales Invoice",
+        "nav": "Create Sales Invoice"
+      },
+      "edit": {
+        "title": "Edit Sales Invoice",
+        "nav": "Edit Sales Invoice"
+      },
+      "detail": {
+        "title": "Sales Invoice Detail",
+        "nav": "Sales Invoice Detail"
+      }
+    },
+    "products": {
+      "title": "Products",
+      "nav": "Products",
+      "add": {
+        "title": "Add Product",
+        "nav": "Add Product"
+      },
+      "edit": {
+        "title": "Edit Product",
+        "nav": "Add Product"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "nav": "Settings"
+    },
+    "lists": {
+      "title": "Lists",
+      "nav": "Lists"
+    }
+  },
+  "menu" : {
+    "ERPStandard": "ERP Standard",
+    "items" : {
+      "Dashboard": "Dashboard",
+      "Customers": "Customers",
+      "SalesInvoices": "Sales Invoices",
+      "Settings": "List Admin"
+    }
+  },
+  "status": {
+    "loading": "Loading...",
+    "error": "Error",
+    "refresh": "Refreshing..."
+  }
+}

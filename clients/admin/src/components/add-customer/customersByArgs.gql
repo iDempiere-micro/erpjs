@@ -1,0 +1,6 @@
+        query CustomersByArgs($displayName: String, $legalName: String) {
+            customersByArgs(displayName: $displayName, legalName: $legalName) {
+                id
+            }
+        }
+

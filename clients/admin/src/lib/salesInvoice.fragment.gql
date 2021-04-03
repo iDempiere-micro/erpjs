@@ -1,0 +1,36 @@
+fragment SalesInvoiceDetailParts on SalesInvoice {
+    currency {
+        ...CurrencyListParts
+    }
+    customer {
+        ...CustomerListParts
+    }
+    documentNo
+    dueDate
+    grandTotal
+    grandTotalAccountingSchemeCurrency
+    id
+    isActive
+    isCalculated
+    isCurrent
+    isDraft
+    issuedOn
+    lines {
+        ...SalesInvoiceLineDetailParts
+    }
+    organization {
+        ...OrganizationListParts
+    }
+    paymentTermInDays
+    printDate
+    printed
+    printError
+    printLanguageIsoCode
+    reverseCharge
+    totalLines
+    totalLinesAccountingSchemeCurrency
+    transactionDate
+    vatReport {
+        ...SalesInvoiceVatDetailParts
+    }
+}

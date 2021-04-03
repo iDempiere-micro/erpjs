@@ -1,0 +1,310 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Address {
+  city: String!
+  country: Country!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  line1: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+  zipCode: String!
+}
+
+input AddressSaveArgs {
+  city: String!
+  countryIsoCode: String!
+  line1: String!
+  zipCode: String!
+}
+
+type BankAccount {
+  bankAccountCustomerPrintableNumber: String!
+  displayName: String!
+  iban: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  swift: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+type Country {
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  isoCode: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+type Currency {
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  isoCode: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+input CurrencySaveArgs {
+  displayName: String!
+  id: Int
+  isoCode: String!
+}
+
+type Customer {
+  address: Address
+  displayName: String!
+  id: Float!
+  idNumber: String!
+  invoicingEmail: String!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  legalAddress: Address!
+  legalName: String!
+  note: String
+  salesInvoices: [SalesInvoice!]!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+  vatNumber: String
+}
+
+input CustomerSaveArgs {
+  address: AddressSaveArgs
+  displayName: String!
+  id: Int
+  idNumber: String!
+  invoicingEmail: String!
+  legalAddress: AddressSaveArgs!
+  legalName: String!
+  note: String
+  vatNumber: String
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+input IdAndNumber {
+  id: Float!
+  value: Float!
+}
+
+type Menu {
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  items: [MenuItem!]!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+type MenuItem {
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  menu: Menu!
+  to: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+type Mutation {
+  createCustomer(args: CustomerSaveArgs!): Customer!
+  createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
+  createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
+  keepAlive(clientId: String!): UniversalDateTime!
+  saveCurrency(args: CurrencySaveArgs!): Currency!
+  saveOrganization(args: OrganizationSaveArgs!): Organization!
+  saveProduct(args: ProductSaveArgs!): Product!
+}
+
+type Organization {
+  contact: String!
+  displayName: String!
+  id: Float!
+  idNumber: String!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  legalName: String!
+  registration: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+  vatNumber: String!
+}
+
+input OrganizationSaveArgs {
+  accountingSchemeId: Float!
+  bankAccountId: Float!
+  contact: String!
+  displayName: String!
+  id: Int
+  idNumber: String!
+  legalAddress: AddressSaveArgs!
+  legalName: String!
+  registration: String!
+  vatNumber: String
+}
+
+type Product {
+  defaultUoM: UnitOfMeasurement
+  displayName: String!
+  id: Float!
+  sku: String!
+  updtOp: User!
+}
+
+input ProductSaveArgs {
+  displayName: String!
+  id: Int
+  sku: String!
+}
+
+type Query {
+  currencies: [Currency!]!
+  customer(id: Int!): Customer!
+  customers: [Customer!]!
+  customersByArgs(displayName: String, legalName: String): [Customer!]!
+  menu: [Menu!]!
+  now: UniversalDateTime!
+  organizations: [Organization!]!
+  product(id: Int!): Product!
+  products: [Product!]!
+  salesInvoice(id: Int!): SalesInvoice!
+  salesInvoices: [SalesInvoice!]!
+  salesInvoicesReport: [SalesInvoicesInTime!]!
+}
+
+type SalesInvoice {
+  bankAccount: BankAccount!
+  content: String!
+  currency: Currency!
+  currencyMultiplyingRateToAccountingSchemeCurrency: Float!
+  customer: Customer!
+  documentNo: String
+  dueDate: Date!
+  grandTotal: Float!
+  grandTotalAccountingSchemeCurrency: Float!
+  id: Float!
+  isActive: Boolean!
+  isCalculated: Boolean!
+  isCurrent: Boolean!
+  isDraft: Boolean!
+  issuedOn: Date!
+  lines: [SalesInvoiceLine!]!
+  organization: Organization!
+  paymentTermInDays: Float!
+  printDate: Date
+  printed: Boolean!
+  printError: String
+  printLanguageIsoCode: String!
+  reverseCharge: Boolean!
+  totalLines: Float!
+  totalLinesAccountingSchemeCurrency: Float!
+  transactionDate: Date!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+  vatReport: [SalesInvoiceVat!]!
+}
+
+type SalesInvoiceLine {
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  lineOrder: Float!
+  linePrice: Float!
+  narration: String!
+  product: Product!
+  quantity: Float!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+input SalesInvoiceLineSaveArgs {
+  id: Int
+  lineOrder: Float!
+  linePrice: Float!
+  lineTaxId: Float
+  lineTaxIsStandard: Boolean!
+  narration: String!
+  productId: Float!
+  quantity: Float!
+}
+
+input SalesInvoiceMonthlySaveArgs {
+  dailyRate: Float!
+  day: Int!
+  eurToCzkRate: Float!
+  month: Int!
+  narration: String!
+  organizationDivider: [IdAndNumber!]!
+  totalHours: Float!
+  year: Int!
+}
+
+input SalesInvoiceSaveArgs {
+  currencyIsoCode: String!
+  customerDisplayName: String!
+  id: Int
+  issuedOn: Date!
+  lines: [SalesInvoiceLineSaveArgs!]!
+  organizationDisplayName: String!
+  paymentTermInDays: Int!
+  transactionDate: Date!
+}
+
+type SalesInvoicesInTime {
+  date: String!
+  group: String!
+  value: Float!
+}
+
+type SalesInvoiceVat {
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+  vatRatePercent: Float!
+  vatTotal: Float!
+  vatTotalAccountingSchemeCurrency: Float!
+  vatTotalAccountingSchemeCurrencyRaw: Float!
+  vatTotalRaw: Float!
+}
+
+type UnitOfMeasurement {
+  conversionRates: [UnitOfMeasurementConversion!]!
+  conversionRates2: [UnitOfMeasurementConversion!]!
+  displayName: String!
+  id: Float!
+  updtOp: User!
+}
+
+type UnitOfMeasurementConversion {
+  from: UnitOfMeasurement!
+  id: Float!
+  to: UnitOfMeasurement!
+  unitMultiplyingRate: Float!
+  updtOp: User!
+}
+
+scalar UniversalDateTime
+
+type User {
+  email: String
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  name: String
+  updtOpId: Float!
+  updtTs: UniversalDateTime!
+  username: String
+}
