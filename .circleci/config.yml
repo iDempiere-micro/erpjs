@@ -6,10 +6,7 @@ version: 2
 jobs:
   build:
     environment:
-      AUTH0_DOMAIN: domain
-      AUTH0_CLIENT_ID: clientid
-      AUTH0_AUDIENCE: erpjs
-      API: http://localhost:3333
+      MOCK: mock
     docker:
       # specify the version you desire here
       - image: circleci/node:12-browsers-legacy
@@ -26,22 +23,14 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm install
+      - run: yarn
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # build frontend
-      - run: npm run build erp
+      - run: yarn build api
+      - run: yarn test api
 
-      # build backend
-      - run: npm run build api
-
-      # run tests!
-      - run: npx -p @angular/cli ng test
-
-      # run library build
-      - run: npx -p @angular/cli ng build model
-
+      - run: (cd clients/admin && yarn && yarn build && yarn test)
