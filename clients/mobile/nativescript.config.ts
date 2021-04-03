@@ -1,12 +1,11 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-    id: 'technology.sveltenative.template',
-    appResourcesPath: 'app/App_Resources',
+    id: 'cz.naseukoly.erpjs.mobile',
+    appPath: 'app',
+    appResourcesPath: 'App_Resources',
     android: {
         v8Flags: '--expose_gc',
-        markingMode: 'none',
-    },
-    webpackConfigPath: './svelte-native.webpack.config.js',
-    appPath: 'app',
+        markingMode: 'none'
+    }
 } as NativeScriptConfig;
