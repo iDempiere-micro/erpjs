@@ -37,6 +37,12 @@ export class AuthenticationService {
    * If it fails, the token is invalid or expired
    */
   async authenticate(accessToken: string): Promise<UserModel> {
+    const manager = getManager();
+    const technicalUser = await getTechnicalUser(manager);
+    if (accessToken === process.env.FAKE_TOKEN) {
+      return technicalUser;
+    }
+
     const url = `${this.baseURL}/realms/${this.realm}/protocol/openid-connect/userinfo`;
 
     try {
@@ -60,12 +66,9 @@ export class AuthenticationService {
         ],
       };
 
-      const manager = getManager();
-      const technicalUser = await getTechnicalUser(manager);
-
       return await userService.handleLogin(manager, profile);
     } catch (e) {
-      console.log('*** auth failed', e);
+      console.log('*** auth failed', accessToken, e);
       throw new AuthenticationError(e.message);
     }
   }

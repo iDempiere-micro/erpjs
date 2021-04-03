@@ -10,7 +10,7 @@ type Address {
   isCurrent: Boolean!
   line1: String!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
   zipCode: String!
 }
 
@@ -30,7 +30,7 @@ type BankAccount {
   isCurrent: Boolean!
   swift: String!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
 }
 
 type Country {
@@ -40,7 +40,7 @@ type Country {
   isCurrent: Boolean!
   isoCode: String!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
 }
 
 type Currency {
@@ -50,10 +50,17 @@ type Currency {
   isCurrent: Boolean!
   isoCode: String!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
+}
+
+input CurrencySaveArgs {
+  displayName: String!
+  id: Int
+  isoCode: String!
 }
 
 type Customer {
+  address: Address
   displayName: String!
   id: Float!
   idNumber: String!
@@ -62,26 +69,27 @@ type Customer {
   isCurrent: Boolean!
   legalAddress: Address!
   legalName: String!
+  note: String
   salesInvoices: [SalesInvoice!]!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
   vatNumber: String
 }
 
 input CustomerSaveArgs {
+  address: AddressSaveArgs
   displayName: String!
   id: Int
   idNumber: String!
   invoicingEmail: String!
   legalAddress: AddressSaveArgs!
   legalName: String!
+  note: String
   vatNumber: String
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+"""Date custom scalar type"""
+scalar Date
 
 input IdAndNumber {
   id: Float!
@@ -95,7 +103,7 @@ type Menu {
   isCurrent: Boolean!
   items: [MenuItem!]!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
 }
 
 type MenuItem {
@@ -106,13 +114,17 @@ type MenuItem {
   menu: Menu!
   to: String!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
 }
 
 type Mutation {
   createCustomer(args: CustomerSaveArgs!): Customer!
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
+  createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
   keepAlive(clientId: String!): UniversalDateTime!
+  saveCurrency(args: CurrencySaveArgs!): Currency!
+  saveOrganization(args: OrganizationSaveArgs!): Organization!
+  saveProduct(args: ProductSaveArgs!): Product!
 }
 
 type Organization {
@@ -125,19 +137,50 @@ type Organization {
   legalName: String!
   registration: String!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
   vatNumber: String!
 }
 
+input OrganizationSaveArgs {
+  accountingSchemeId: Float!
+  bankAccountId: Float!
+  contact: String!
+  displayName: String!
+  id: Int
+  idNumber: String!
+  legalAddress: AddressSaveArgs!
+  legalName: String!
+  registration: String!
+  vatNumber: String
+}
+
+type Product {
+  defaultUoM: UnitOfMeasurement
+  displayName: String!
+  id: Float!
+  sku: String!
+  updtOp: User!
+}
+
+input ProductSaveArgs {
+  displayName: String!
+  id: Int
+  sku: String!
+}
+
 type Query {
+  currencies: [Currency!]!
   customer(id: Int!): Customer!
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   menu: [Menu!]!
   now: UniversalDateTime!
   organizations: [Organization!]!
+  product(id: Int!): Product!
+  products: [Product!]!
   salesInvoice(id: Int!): SalesInvoice!
   salesInvoices: [SalesInvoice!]!
+  salesInvoicesReport: [SalesInvoicesInTime!]!
 }
 
 type SalesInvoice {
@@ -147,7 +190,7 @@ type SalesInvoice {
   currencyMultiplyingRateToAccountingSchemeCurrency: Float!
   customer: Customer!
   documentNo: String
-  dueDate: DateTime!
+  dueDate: Date!
   grandTotal: Float!
   grandTotalAccountingSchemeCurrency: Float!
   id: Float!
@@ -155,20 +198,20 @@ type SalesInvoice {
   isCalculated: Boolean!
   isCurrent: Boolean!
   isDraft: Boolean!
-  issuedOn: DateTime!
+  issuedOn: Date!
   lines: [SalesInvoiceLine!]!
   organization: Organization!
   paymentTermInDays: Float!
-  printDate: DateTime
+  printDate: Date
   printed: Boolean!
   printError: String
   printLanguageIsoCode: String!
   reverseCharge: Boolean!
   totalLines: Float!
   totalLinesAccountingSchemeCurrency: Float!
-  transactionDate: DateTime!
+  transactionDate: Date!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
   vatReport: [SalesInvoiceVat!]!
 }
 
@@ -179,9 +222,21 @@ type SalesInvoiceLine {
   lineOrder: Float!
   linePrice: Float!
   narration: String!
+  product: Product!
   quantity: Float!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
+}
+
+input SalesInvoiceLineSaveArgs {
+  id: Int
+  lineOrder: Float!
+  linePrice: Float!
+  lineTaxId: Float
+  lineTaxIsStandard: Boolean!
+  narration: String!
+  productId: Float!
+  quantity: Float!
 }
 
 input SalesInvoiceMonthlySaveArgs {
@@ -195,17 +250,50 @@ input SalesInvoiceMonthlySaveArgs {
   year: Int!
 }
 
+input SalesInvoiceSaveArgs {
+  currencyIsoCode: String!
+  customerDisplayName: String!
+  id: Int
+  issuedOn: Date!
+  lines: [SalesInvoiceLineSaveArgs!]!
+  organizationDisplayName: String!
+  paymentTermInDays: Int!
+  transactionDate: Date!
+}
+
+type SalesInvoicesInTime {
+  date: String!
+  group: String!
+  value: Float!
+}
+
 type SalesInvoiceVat {
   id: Float!
   isActive: Boolean!
   isCurrent: Boolean!
   updtOp: User!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
   vatRatePercent: Float!
   vatTotal: Float!
   vatTotalAccountingSchemeCurrency: Float!
   vatTotalAccountingSchemeCurrencyRaw: Float!
   vatTotalRaw: Float!
+}
+
+type UnitOfMeasurement {
+  conversionRates: [UnitOfMeasurementConversion!]!
+  conversionRates2: [UnitOfMeasurementConversion!]!
+  displayName: String!
+  id: Float!
+  updtOp: User!
+}
+
+type UnitOfMeasurementConversion {
+  from: UnitOfMeasurement!
+  id: Float!
+  to: UnitOfMeasurement!
+  unitMultiplyingRate: Float!
+  updtOp: User!
 }
 
 scalar UniversalDateTime
@@ -217,6 +305,6 @@ type User {
   isCurrent: Boolean!
   name: String
   updtOpId: Float!
-  updtTs: DateTime!
+  updtTs: UniversalDateTime!
   username: String
 }

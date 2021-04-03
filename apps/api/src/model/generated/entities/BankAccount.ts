@@ -13,6 +13,7 @@ import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_d13847b5db0cf66c1ea23615eb', ['displayName'], { unique: true })
 @Entity('bank_account', { schema: 'public' })
@@ -26,7 +27,7 @@ export class BankAccount {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

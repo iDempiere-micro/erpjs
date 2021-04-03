@@ -8,8 +8,11 @@ export interface CustomerSaveArgsModel extends BaseSaveArgsModel {
   vatNumber?: string;
 
   legalAddress: AddressSaveArgsModel;
+  address?: AddressSaveArgsModel;
 
   invoicingEmail: string;
 
   idNumber: string;
+
+  note?: string;
 }

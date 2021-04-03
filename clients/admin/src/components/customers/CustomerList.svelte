@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type { CustomerDetailPartsFragment } from '../../generated/graphql';
+    import type { CustomerListPartsFragment } from '../../generated/graphql';
     import NameColumn from './NameColumn.svelte';
     import AddressColumn from './AddressColumn.svelte';
     import ThirdColumn from './ThirdColumn.svelte';
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
 
-    export let customers: CustomerDetailPartsFragment[] | undefined;
+    export let customers: CustomerListPartsFragment[] | undefined;
 
     const columns = [
         {

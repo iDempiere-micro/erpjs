@@ -13,6 +13,7 @@ import { euMembersISOCodes } from '../../lib/euMembersISOCodes';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_06db3c87e9e1b9eba96918b308', ['displayName'], { unique: true })
 @Index('UQ_6eba1a52ee121d100c8a0a6510c', ['isoCode'], { unique: true })
@@ -27,7 +28,7 @@ export class Country implements CountryModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

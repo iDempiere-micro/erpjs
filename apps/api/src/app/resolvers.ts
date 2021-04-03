@@ -3,11 +3,16 @@ import { CustomerResolver } from './resolvers/customer.resolver';
 import { SalesInvoiceResolver } from './resolvers/sales.invoice.resolver';
 import { MenuResolver } from './resolvers/menu.resolver';
 import { OrganizationResolver } from './resolvers/organization.resolver';
+import { ProductResolver } from './resolvers/product.resolver';
+import { CurrencyResolver } from './resolvers/currency.resolver';
 
 export const resolvers = [
   AppResolver,
+
+  CurrencyResolver,
   CustomerResolver,
-  SalesInvoiceResolver,
   MenuResolver,
   OrganizationResolver,
+  ProductResolver,
+  SalesInvoiceResolver,
 ];

@@ -1,8 +1,8 @@
 <script lang="ts">
     import gql from 'graphql-tag';
 
-    import { form, bindClass } from 'svelte-forms';
-    import { mutation, setClient, query } from 'svelte-apollo';
+    import { form } from 'svelte-forms';
+    import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type { Customer, IdAndNumber, SalesInvoice } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
@@ -38,8 +38,8 @@
     `;
 
     export let client: ApolloClient<NormalizedCacheObject>;
-    export let invoices: SalesInvoice[] | null;
-    export let invoiceIds: number[] | null; // = [1,2,3];
+    let invoices: SalesInvoice[] | null;
+    let invoiceIds: number[] | null; // = [1,2,3];
 
     let totalHours: number;
     let dailyRate: number;

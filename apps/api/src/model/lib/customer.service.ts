@@ -33,7 +33,14 @@ export class CustomerService extends BaseEntityService<
     customer: CustomerModel,
     currentUser: UserModel,
   ): Promise<CustomerModel> {
-    const address = await this.addressService.save(
+    const address =
+      args.address &&
+      (await this.addressService.save(
+        transactionalEntityManager,
+        args.address,
+        currentUser,
+      ));
+    const legalAddress = await this.addressService.save(
       transactionalEntityManager,
       args.legalAddress,
       currentUser,
@@ -43,7 +50,8 @@ export class CustomerService extends BaseEntityService<
     customer.vatNumber = args.vatNumber;
     customer.legalName = args.legalName;
     customer.invoicingEmail = args.invoicingEmail;
-    customer.legalAddress = address;
+    customer.address = address;
+    customer.legalAddress = legalAddress;
     customer.idNumber = args.idNumber;
     return customer;
   }

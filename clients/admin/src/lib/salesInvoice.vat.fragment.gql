@@ -1,0 +1,8 @@
+fragment SalesInvoiceVatDetailParts on SalesInvoiceVat {
+    id
+    vatRatePercent
+    vatTotal
+    vatTotalAccountingSchemeCurrency
+    vatTotalAccountingSchemeCurrencyRaw
+    vatTotalRaw
+}

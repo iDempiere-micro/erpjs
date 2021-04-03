@@ -9,4 +9,7 @@ export interface CustomerModel extends BaseModel {
   invoicingEmail: string;
   idNumber: string;
   displayName: string;
+
+  address?: AddressModel;
+  note?: string;
 }

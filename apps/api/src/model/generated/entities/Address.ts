@@ -16,6 +16,7 @@ import { CustomerModel } from '../../lib/customer.model';
 import { OrganizationModel } from '../../lib/organization.model';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Entity('address', { schema: 'public' })
 @ObjectType()
@@ -28,7 +29,7 @@ export class Address implements AddressModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(
@@ -74,6 +75,12 @@ export class Address implements AddressModel {
     customer => customer.legalAddress,
   )
   customers: CustomerModel[];
+
+  @OneToMany(
+    () => Customer,
+    customer => customer.address,
+  )
+  customers1: CustomerModel[];
 
   @OneToMany(
     () => Organization,

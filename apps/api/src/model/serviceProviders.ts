@@ -47,6 +47,10 @@ import {
   SaveArgsValidationService,
   SaveArgsValidationServiceKey,
 } from './lib/save.args.validation.service';
+import {
+  UnitOfMeasurementService,
+  UnitOfMeasurementServiceKey,
+} from './lib/unit.of.measurement.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -153,6 +157,11 @@ const saveArgsValidationServiceProvider = {
   useClass: SaveArgsValidationService,
 };
 
+const unitOfMeasurementServiceProvider = {
+  provide: UnitOfMeasurementServiceKey,
+  useClass: UnitOfMeasurementService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -175,4 +184,5 @@ export const serviceProviders = [
   dateServiceProvider,
   userServiceProvider,
   saveArgsValidationServiceProvider,
+  unitOfMeasurementServiceProvider,
 ];

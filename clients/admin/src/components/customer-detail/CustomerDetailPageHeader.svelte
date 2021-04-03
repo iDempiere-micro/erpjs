@@ -1,23 +1,22 @@
 <script lang="ts">
-    import { apollo } from '../../lib/apollo';
-    import { authStore } from '../../lib/auth';
-    import { setClient } from 'svelte-apollo';
-    import type { ApolloQueryResult } from '@apollo/client';
+    import { apollo, setClient } from '../../lib/apollo';
     import { getCustomerBy } from '../../lib/customer';
+    import { _ } from 'svelte-i18n';
+    import { getError } from '../../lib/util';
 
     export let id: number;
     id = parseInt('' + id);
 
-    const client = apollo($authStore?.token, process.env.API_BASE_URL, 'customer-detail/' + id);
+    const client = apollo('customer-detail/' + id);
     setClient(client);
 
     const customer = getCustomerBy(id);
 </script>
 
 {#if $customer.loading}
-    Loading...
+    {$_('status.loading')}
 {:else if $customer.error}
-    Error: {$customer.error.message}
+    {$_('status.error')} {getError($customer.error.message)}
 {:else}
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="lg:flex lg:items-center lg:justify-between">

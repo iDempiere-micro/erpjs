@@ -1,19 +1,5 @@
 query CustomerById($id: Int!) {
             customer(id: $id) {
-                id
-                legalName
-                displayName
-                vatNumber
-                invoicingEmail
-                legalAddress {
-                    id
-                    city
-                    line1
-                    zipCode
-                    country {
-                        id
-                        isoCode
-                    }
-                }
+                ...CustomerDetailParts
             }
         }

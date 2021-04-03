@@ -15,6 +15,7 @@ import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
 import { MenuItem } from './MenuItem';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_displayName_menu', ['displayName'], { unique: true })
 @Entity('menu', { schema: 'public' })
@@ -28,7 +29,7 @@ export class Menu {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

@@ -16,6 +16,9 @@ import { Invoices2020121609863957092 } from './migrations/1609863957092-Invoices
 import { Invoices2021011612204947049 } from './migrations/1612204947049-Invoices202101';
 import { Menu1612978737166 } from './migrations/1612978737166-Menu';
 import { MenuContent1612983991735 } from './migrations/1612983991735-MenuContent';
+import { EnhanceCustomer1615749063579 } from './migrations/1615749063579-EnhanceCustomer';
+import { MenuSettings1615961288134 } from './migrations/1615961288134-MenuSettings';
+import { UoM1616228731111 } from './migrations/1616228731111-UoM';
 
 export const migrations = [
   CreateDB1595508635320,
@@ -36,4 +39,7 @@ export const migrations = [
   Invoices2021011612204947049,
   Menu1612978737166,
   MenuContent1612983991735,
+  EnhanceCustomer1615749063579,
+  MenuSettings1615961288134,
+  UoM1616228731111,
 ];

@@ -73,6 +73,7 @@ export abstract class BaseEntityService<
       args,
     );
 
+    if (!args) throw new Error('Args must be set when saving an entity');
     const entity = args.id
       ? await this.loadEntityById(transactionalEntityManager, args.id)
       : await this.createEntity();

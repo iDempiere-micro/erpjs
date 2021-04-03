@@ -1,0 +1,9 @@
+fragment AddressListParts on Address {
+    id
+    city
+    line1
+    zipCode
+    country {
+        ...CountryListParts
+    }
+}

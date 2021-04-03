@@ -3,9 +3,9 @@
     import gql from 'graphql-tag';
 
     import { form, bindClass } from 'svelte-forms';
-    import { mutation, setClient, query } from 'svelte-apollo';
+    import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-    import type { Customer } from 'src/generated/graphql';
+    import type { CustomerDetailPartsFragment } from 'src/generated/graphql';
 
     const ADD_CUSTOMER = gql`
         mutation CreateCustomer(
@@ -35,7 +35,7 @@
     `;
 
     export let client: ApolloClient<NormalizedCacheObject>;
-    export let customer: Customer | null;
+    export let customer: CustomerDetailPartsFragment | undefined;
     let displayName = customer?.displayName;
     let legalAddressCity = customer?.legalAddress.city;
     let legalName = customer?.legalName;
@@ -121,7 +121,7 @@
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
             <div class="shadow overflow-hidden sm:rounded-md">
-                <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
                             <label

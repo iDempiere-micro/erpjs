@@ -9,14 +9,18 @@ import {
 } from 'typeorm';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { User } from './User';
-import { Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
+import { UnitOfMeasurementModel } from '../../lib/unit.of.measurement.model';
+import { UnitOfMeasurement } from './UnitOfMeasurement';
 
 @Index('IDX_826d69dcc65d9650be67af6d48', ['displayName'], { unique: true })
 @Index('IDX_34f6ca1cd897cc926bdcca1ca3', ['sku'], { unique: true })
 @Entity('product', { schema: 'public' })
+@ObjectType()
 export class Product {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field()
   id: number;
 
   @Column('timestamp without time zone', {
@@ -41,9 +45,11 @@ export class Product {
   isCurrent: boolean;
 
   @Column('character varying', { name: 'displayName' })
+  @Field()
   displayName: string;
 
   @Column('character varying', { name: 'sku' })
+  @Field()
   sku: string;
 
   @OneToMany(
@@ -51,4 +57,13 @@ export class Product {
     salesInvoiceLine => salesInvoiceLine.product,
   )
   salesInvoiceLines: SalesInvoiceLine[];
+
+  @ManyToOne(
+    () => UnitOfMeasurement,
+    uom => uom.products,
+    { nullable: true, eager: true },
+  )
+  @JoinColumn([{ name: 'uomId', referencedColumnName: 'id' }])
+  @Field(() => UnitOfMeasurement, { nullable: true })
+  defaultUoM: UnitOfMeasurementModel;
 }

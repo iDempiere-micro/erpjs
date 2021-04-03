@@ -12,6 +12,7 @@ import {
   SaveArgsValidationService,
   SaveArgsValidationServiceKey,
 } from './save.args.validation.service';
+import { UserModel } from './user.model';
 
 const customer: CustomerModel = {
   invoicingEmail: '',
@@ -107,15 +108,19 @@ describe('SalesInvoiceLineService', () => {
   });
 
   it('line price is taken from the linePrice field (no calculation yet)', async () => {
-    const line = await service.save(mockEntityManager, {
-      narration: '',
-      linePrice: 2 * QUANTITY,
-      invoice,
-      lineOrder: 0,
-      quantity: QUANTITY,
-      lineTax: {} as any,
-      product,
-    });
+    const line = await service.save(
+      mockEntityManager,
+      {
+        narration: '',
+        linePrice: 2 * QUANTITY,
+        invoice,
+        lineOrder: 0,
+        quantity: QUANTITY,
+        lineTax: {} as any,
+        product,
+      },
+      { id: 1 } as UserModel,
+    );
     expect(line.linePrice).toBe(2 * QUANTITY);
   });
 });

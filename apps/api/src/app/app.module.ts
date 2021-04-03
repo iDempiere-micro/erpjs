@@ -14,8 +14,7 @@ import { ModuleRef } from '@nestjs/core';
 import { ModelModule, ModuleReferenceService } from '../model';
 import { AuthModule } from '../auth';
 import { FileController } from './controllers/file.controller';
-
-console.log('*** ENV', process.env);
+import { DateScalar } from './support/date.scalar';
 
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({
@@ -79,7 +78,13 @@ console.log('*** ENV', process.env);
     AuthModule,
   ],
   controllers: [AppController, FileController],
-  providers: [AppService, MigrationService, ...serviceProviders, ...resolvers],
+  providers: [
+    AppService,
+    MigrationService,
+    ...serviceProviders,
+    ...resolvers,
+    DateScalar,
+  ],
 })
 export class AppModule {
   constructor(private moduleRef: ModuleRef) {

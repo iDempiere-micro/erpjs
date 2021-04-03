@@ -1,0 +1,9 @@
+fragment OrganizationListParts on Organization {
+    contact
+    displayName
+    id
+    idNumber
+    legalName
+    registration
+    vatNumber
+}

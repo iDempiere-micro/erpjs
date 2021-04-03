@@ -15,6 +15,7 @@ import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { AccountingScheme } from './AccountingScheme';
 import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_e12875dfb3b1d92d7d7c5377e2', ['email'], { unique: true })
 @Index('IDX_065d4d8f3b5adb4a08841eae3c', ['name'], { unique: true })
@@ -30,7 +31,7 @@ export class User implements UserModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @Column('integer', { name: 'updtOpId', default: () => '0' })

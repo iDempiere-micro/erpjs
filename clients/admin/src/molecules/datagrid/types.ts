@@ -7,5 +7,6 @@ export interface Column {
 
 export interface RowAction {
     name: string;
-    url: string;
+    url?: string;
+    onclick?: (row: any) => void;
 }

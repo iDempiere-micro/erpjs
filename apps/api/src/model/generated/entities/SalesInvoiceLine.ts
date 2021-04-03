@@ -13,6 +13,9 @@ import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { ProductModel } from '../../lib/product.model';
+import { TaxModel } from '../../lib/tax.model';
 
 @Entity('sales_invoice_line', { schema: 'public' })
 @ObjectType()
@@ -25,7 +28,7 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(
@@ -74,7 +77,7 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'lineTaxId', referencedColumnName: 'id' }])
-  lineTax: Tax;
+  lineTax: TaxModel;
 
   @ManyToOne(
     () => Product,
@@ -82,5 +85,6 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'productId', referencedColumnName: 'id' }])
-  product: Product;
+  @Field(() => Product)
+  product: ProductModel;
 }

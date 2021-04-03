@@ -17,6 +17,7 @@ import { OrganizationModel } from '../../lib/organization.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_4177d3499a2c7edb42ead3d916', ['displayName'], { unique: true })
 @Index('IDX_99ecb4de1fda7ee51fb91b3055', ['vatNumber'], { unique: true })
@@ -31,7 +32,7 @@ export class Organization implements OrganizationModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

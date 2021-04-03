@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { SalesInvoice } from '../../generated/graphql';
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
+    import type { SalesInvoiceListPartsFragment } from '../../generated/graphql';
 
-    export let salesInvoices: SalesInvoice[] | undefined;
+    export let salesInvoices: SalesInvoiceListPartsFragment[] | undefined;
 
     const columns = [
         {

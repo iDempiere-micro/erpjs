@@ -23,6 +23,7 @@ import { CustomerModel } from '../../lib/customer.model';
 import { OrganizationModel } from '../../lib/organization.model';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Entity('sales_invoice', { schema: 'public' })
 @ObjectType()
@@ -35,7 +36,7 @@ export class SalesInvoice implements SalesInvoiceModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

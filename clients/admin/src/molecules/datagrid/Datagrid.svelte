@@ -1,13 +1,15 @@
 <script lang="ts">
     import type { Column, RowAction } from './types';
-    import { Link } from 'svelte-routing';
 
     export let columns: Column[] = [];
     export let rowActions: RowAction[] = [];
     export let rows: any[] | undefined = [];
+    export let getRowKey: (any) => number = (x) => x.id;
+    export let border: boolean | undefined = false;
+    export let noScroll: boolean | undefined;
 </script>
 
-<table class="min-w-full divide-y divide-gray-200">
+<table class="{border ? 'border' : ''} min-w-full divide-y divide-gray-200">
     <thead class="bg-gray-50">
         <tr>
             {#each columns as column}
@@ -28,15 +30,18 @@
             {/if}
         </tr>
     </thead>
-    <tbody class="bg-white divide-y divide-gray-200">
+    <tbody
+        class="bg-white divide-y divide-gray-200"
+        style={!noScroll ? 'max-height: 400px; overflow-y: auto;' : ''}
+    >
         {#if rows}
-            {#each rows as row}
+            {#each rows as row (getRowKey(row))}
                 <tr>
                     {#each columns as column}
                         <td class="px-6 py-4 whitespace-nowrap">
                             <svelte:component
                                 this={column.cellComponent}
-                                rowNumber={row.i}
+                                rowNumber={getRowKey(row)}
                                 {column}
                                 {row}
                             />
@@ -48,7 +53,15 @@
                                 <span
                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
                                 >
-                                    <Link to={a.url + row.id}>{a.name}</Link>
+                                    {#if a.url}
+                                        <a href={`#/${a.url}${getRowKey(row)}`}>{a.name}</a>
+                                    {:else}
+                                        <button
+                                            on:click|preventDefault={() => {
+                                                a.onclick(row);
+                                            }}>{a.name}</button
+                                        >
+                                    {/if}
                                 </span>
                             {/each}
                         </td>
@@ -71,8 +84,6 @@
     }
     tbody {
         display: block;
-        overflow-y: auto;
         table-layout: fixed;
-        max-height: 400px;
     }
 </style>

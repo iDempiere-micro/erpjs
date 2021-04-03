@@ -1,4 +1,5 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
+if (!process.env.API_BASE_URL) require('dotenv').config()
 module.exports = {
   mount: {
     public: {url: '/', static: true},
@@ -8,7 +9,37 @@ module.exports = {
     '@snowpack/plugin-svelte',
     '@snowpack/plugin-dotenv',
     '@snowpack/plugin-typescript',
-    "@snowpack/plugin-postcss",
+    "@snowpack/plugin-postcss",[
+      'snowpack-plugin-replace',
+      {
+        list: [
+          {
+            from: 'process.env.FAKE_TOKEN',
+            to: JSON.stringify(process.env.FAKE_TOKEN)
+          },
+          {
+            from: 'process.env.API_BASE_URL',
+            to: JSON.stringify(process.env.API_BASE_URL)
+          },
+          {
+            from: 'process.env.URL',
+            to: JSON.stringify(process.env.URL)
+          },
+          {
+            from: 'process.env.KEYCLOAK_REALM',
+            to: JSON.stringify(process.env.KEYCLOAK_REALM)
+          },
+          {
+            from: 'process.env.KEYCLOAK_BASE_URL',
+            to: JSON.stringify(process.env.KEYCLOAK_BASE_URL)
+          },
+          {
+            from: 'process.env.MOCK',
+            to: JSON.stringify(process.env.MOCK)
+          }
+        ],
+      },
+    ]
   ],
   routes: [
     /* Enable an SPA Fallback in development: */

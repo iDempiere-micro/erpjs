@@ -1,0 +1,12 @@
+mutation SaveProduct(
+    $id: Int
+    $displayName: String!
+    $sku:  String!
+) { saveProduct( args :
+{
+    id: $id
+    displayName: $displayName
+    sku: $sku
+}
+
+) { id } }

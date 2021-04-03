@@ -633,4 +633,21 @@ export class SalesInvoiceService extends BaseEntityService<
       await realityZaPrahou(entityManager, currentUser),
     ];
   }
+
+  async salesInvoicesReport(manager: EntityManager) {
+    return await manager
+      .getRepository(SalesInvoice)
+      .createQueryBuilder('salesInvoice')
+      .innerJoinAndSelect('salesInvoice.organization', 'organization')
+      .select('EXTRACT(YEAR from salesInvoice.transactionDate)', 'year')
+      .addSelect('EXTRACT(MONTH from salesInvoice.transactionDate)', 'month')
+      .addSelect('salesInvoice.organization')
+      .addSelect('SUM(salesInvoice.totalLinesAccountingSchemeCurrency)', 'sum')
+      .addSelect('organization.displayName')
+      .groupBy('EXTRACT(YEAR from salesInvoice.transactionDate)')
+      .addGroupBy('EXTRACT(MONTH from salesInvoice.transactionDate)')
+      .addGroupBy('salesInvoice.organization')
+      .addGroupBy('organization.displayName')
+      .getRawMany();
+  }
 }

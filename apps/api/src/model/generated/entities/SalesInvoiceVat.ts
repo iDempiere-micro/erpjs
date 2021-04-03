@@ -11,6 +11,7 @@ import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Entity('sales_invoice_vat', { schema: 'public' })
 @ObjectType()
@@ -23,7 +24,7 @@ export class SalesInvoiceVat implements SalesInvoiceVatModel {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

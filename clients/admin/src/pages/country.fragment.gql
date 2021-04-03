@@ -1,0 +1,4 @@
+fragment CountryListParts on Country {
+    id
+    isoCode
+}

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { SalesInvoice } from '../../generated/graphql';
+    import type { SalesInvoiceListPartsFragment } from '../../generated/graphql';
     import { downloadInvoice } from '../../lib/salesInvoices';
     import { authStore } from '../../lib/auth';
-    export let row: SalesInvoice;
+    export let row: SalesInvoiceListPartsFragment;
 
     const download = (id: number) =>
         downloadInvoice(process.env.API_BASE_URL, $authStore?.token, id);

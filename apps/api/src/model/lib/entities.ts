@@ -19,6 +19,8 @@ import { UserIdentity } from '../generated/entities/UserIdentity';
 import { Language } from '../generated/entities/Language';
 import { MenuItem } from '../generated/entities/MenuItem';
 import { Menu } from '../generated/entities/Menu';
+import { UnitOfMeasurement } from '../generated/entities/UnitOfMeasurement';
+import { UnitOfMeasurementConversion } from '../generated/entities/UnitOfMeasurementConversion';
 
 export const entities = [
   Address,
@@ -42,4 +44,6 @@ export const entities = [
   Language,
   MenuItem,
   Menu,
+  UnitOfMeasurement,
+  UnitOfMeasurementConversion,
 ];

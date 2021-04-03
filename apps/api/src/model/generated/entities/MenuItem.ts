@@ -10,6 +10,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { Menu } from './Menu';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_displayName_menuItem', ['displayName'], { unique: true })
 @Entity('menu_item', { schema: 'public' })
@@ -23,7 +24,7 @@ export class MenuItem {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(

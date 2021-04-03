@@ -14,6 +14,7 @@ import { AddressModel } from '../../lib/address.model';
 import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_df529c45726940beb548906481', ['displayName'], { unique: true })
 @Index('IDX_71b54ec7502c83c7f503f57c64', ['legalName'], { unique: true })
@@ -29,7 +30,7 @@ export class Customer {
     name: 'updtTs',
     default: () => 'now()',
   })
-  @Field()
+  @Field(() => DateTimeScalarType)
   updtTs: Date;
 
   @ManyToOne(
@@ -84,4 +85,17 @@ export class Customer {
   )
   @Field(() => [SalesInvoice])
   salesInvoices: SalesInvoiceModel[];
+
+  @Column('character varying', { name: 'note', nullable: true })
+  @Field({ nullable: true })
+  note: string | null;
+
+  @ManyToOne(
+    () => Address,
+    address => address.customers1,
+    { nullable: true, eager: true },
+  )
+  @JoinColumn([{ name: 'addressId', referencedColumnName: 'id' }])
+  @Field(() => Address, { nullable: true })
+  address: AddressModel;
 }
