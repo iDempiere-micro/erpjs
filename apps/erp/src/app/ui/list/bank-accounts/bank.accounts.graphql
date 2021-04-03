@@ -1,5 +1,0 @@
-query bankAccounts {
-  bankAccounts{
-    ...BankAccountListParts
-  }
-}

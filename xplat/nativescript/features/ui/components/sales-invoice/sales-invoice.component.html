@@ -1,4 +1,0 @@
-<StackLayout class="p-20" *ngIf="data">
-  <Label text='{{data.documentNo}} : {{data.organization.displayName}} - {{data.customer.displayName}}' class="text-center"></Label>
-  <PDFView [src]="content$ | async"></PDFView>
-</StackLayout>

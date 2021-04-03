@@ -1,3 +1,0 @@
-mutation customer($args: CustomerSaveArgs!) {
-  customer(args: $args) {id displayName legalName vatNumber legalAddress { id line1 city country { id } zipCode } }
-}

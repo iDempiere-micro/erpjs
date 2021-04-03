@@ -1,6 +1,0 @@
-# Write your query or mutation here
-mutation confirmSalesInvoice($args: BaseSaveArgs!) {
-  confirmSalesInvoice(args: $args) {
-    ...SalesInvoiceListParts
-  }
-}

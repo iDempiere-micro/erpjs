@@ -1,4 +1,0 @@
-fragment AddressDetailParts on Address {
-  id updtTs updtOpId isActive isCurrent
-  line1
-}

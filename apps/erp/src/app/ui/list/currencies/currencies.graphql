@@ -1,5 +1,0 @@
-query currencies {
-  currencies{
-...CurrencyListParts
-  }
-}

@@ -1,5 +1,0 @@
-{
-  "mode": "file",
-  "out": "docs",
-  "exclude": [ "**/*.po.ts", "**/*.spec.ts" ]
-}

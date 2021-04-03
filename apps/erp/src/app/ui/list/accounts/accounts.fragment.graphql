@@ -1,4 +1,0 @@
-fragment AccountListParts on Account {
-  id updtTs updtOpId isActive isCurrent
-  displayName code
-}

@@ -1,5 +1,0 @@
-query users {
-  users{
-    ...UserListParts
-  }
-}

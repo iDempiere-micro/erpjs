@@ -1,5 +1,0 @@
-query salesInvoiceById($id: Int!) {
-  salesInvoiceById(id: $id){
-...SalesInvoiceDetailParts
-  }
-}

@@ -1,3 +1,0 @@
-query calendarActivities {calendarActivities{
-  ...CalendarActivityListParts
-}}

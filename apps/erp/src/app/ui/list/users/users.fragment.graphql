@@ -1,4 +1,0 @@
-fragment UserListParts on AppUser {
-  id updtTs updtOpId isActive isCurrent
-  email username name
-}

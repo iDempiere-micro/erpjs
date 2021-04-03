@@ -1,3 +1,0 @@
-fragment LanguageListParts on Language {
-  id displayName isoCode
-}

@@ -1,6 +1,0 @@
-# Write your query or mutation here
-mutation task($args: TaskSaveArgs!) {
-  task(args: $args) {
-    ...TaskListParts
-  }
-}
