@@ -46,107 +46,6 @@ calling the API using [GraphQL](https://graphql.org/).
 ## Dependencies
 Run `yarn` to install the dependencies.
 
-## Building
-
-### Frontend
-Build frontend with `AUTH0_DOMAIN=<domain>.auth0.com AUTH0_CLIENT_ID=<clientid> AUTH0_AUDIENCE='@erpjs' API='<api server url>' npm run build erp`.
-Obtain the AUTH0_* variables from the [Setup Auth0 for erpjs](https://naseukolycz.atlassian.net/wiki/spaces/ERPJS/pages/363856005/Setup+Auth0+for+erpjs) guide 
-for the SPA application (do not use the machine-machine API ones). 
-
-### Other projects
-Run `ng build [project name]` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running
-
-### @erpjs API server
-
-Run `AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET ng serve api` for a dev API server. 
-Navigate to http://localhost:3333/api/hello. The app will automatically reload if you change any of the source files.
-
-## @erpjs front end development server
-
-Run `ng serve erp` for a dev server. Navigate to http://localhost:4200/. 
-The app will automatically reload if you change any of the source files.
-
-## Tests
-
-### Running @erpjs unit tests
-
-Run `ng test` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-### Running @erpjs end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Workspace
-
-### Understand the @erpjs workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help on the Nx framework used
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## Other notes
-
-### Publish `@erpjs/model`
-`ng build model`
-
-`npm publish ~/dev/erp/dist/libs/model/ --access public`
-
-### @erpjs and PostgreSQL
-`docker pull postgres:12`
-
-`docker stop pg-docker; docker run --rm --name pg-docker -e POSTGRES_PASSWORD=HlohIn14563 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:12`
-
-### serverless
-
-set `AWS` environment variable on the lambda to `1` for the `GraphQLModule` automatic schema generation to work.
-
-`AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET npm run build api-sls`
-
-`AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET  cp serverless.yml ./dist/apps/api-sls/ && cp auth_config_server.json ./dist/apps/api-sls/  && (cd ./dist/apps/api-sls/ && npm i && sls deploy) `
-
-Open [Serveless Dashboard](https://dashboard.serverless.com/), locate the `erpjs` service, find `any/` API endpoint 
-and try to access `/api/hello` on the URL. 
-
-The API is the path to the API endpoint ending with the stage (e.g. `/dev`). 
- 
- 
-### Heroku
-
-#### Reset the database if needed
-`heroku restart --app erpjs && heroku pg:reset DATABASE --app erpjs`
-
-#### Deploy
-`AUTH0_DOMAIN=AAAAA.eu.auth0.com AUTH0_CLIENT_ID=CLIENTID AUTH0_CLIENT_SECRET=SECRET ./heroku_deploy_api.sh`
-
-#### Test
-Access [the health check](https://erpjs.herokuapp.com/health).
-The API is `https://erpjs.herokuapp.com`.
-
-### Mobile client
-Run `npm run start.nativescript.mobile.android`.
-
-#### Deploy
-If you have `Signing for "nativescriptmobile" requires a development team.` you need 
-to go to the project Targets and choose the team (you need to create the development team in advance).
-
-![Choose the team](https://user-images.githubusercontent.com/436605/74342379-4f13ea00-4da1-11ea-8b93-264eedfeb3e4.png)
-
-#### Untrusted developer
-When running on the real device, you will get the error about `Untrusted developer`.
-Go to Setting -> General -> Device Management and "Trust" the developer used.
-
-if the "Device Management" option is not present, reinstall the application.
-
-# ERP.JS 3
-
 ## Start the database
 
 `docker stop pg-docker; docker run --rm --name pg-docker -e POSTGRES_PASSWORD=Coggel86 -e POSTGRES_DB=gt2 -d -p 5432:5432 postgres:12`
@@ -171,7 +70,6 @@ or import the realm from docs folder
 
 ## .env file
 Current ip address on macos: `ipconfig getifaddr en0`
-
 
 ## Deploy to dokku
 
