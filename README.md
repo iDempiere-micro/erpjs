@@ -1,57 +1,25 @@
-# @erpjs  - the headless serverless ERP and CRM for the cloud
+# MaeERP  - the headless serverless ERP and CRM for the cloud
 
-This is the source code of the [erpjs](http://erpjs.eu), the headless serverless ERP and CRM for the cloud 
+This is the source code of MaeERP, the headless serverless ERP and CRM for the cloud 
 written in TypeScript running on [Node.js](https://nodejs.org/en/) and 
-in a browser as an [Angular](https://angular.io/) single page application. 
+in a browser as an [Svelte](https://svelte.dev/) single page application. 
 
 It can run on your local computer, in a containerized environment like Kubernetes (K8) 
 on Google Cloud, Microsoft Azure or IBM Cloud or even as a serverless function in AWS. 
 
-[Auth0](https://auth0.com/) is used for the authentication so with paid plans you can achieve Single Sign On 
-with G Suite, Office 365 or Salesforce.com (SFDC) while still running free on the plain old username + password.
+[Keycloak](https://www.keycloak.org/), Open Source Identity and Access Management is used for the authentication 
+so you can even get advanced features such as User Federation, Identity Brokering and Social Login.
 
 You can download the source code and own the ERP&CRM.
-You can explore the source code and find out how we used [Nx](https://nx.dev/), [NestJS](https://nestjs.com/), 
-[TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Angular](https://angular.io/) 
+You can explore the source code and find out how we used [NestJS](https://nestjs.com/), 
+[TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Svelte](https://svelte.dev/) 
 to both build the backend that can run in [AWS Lambda](https://aws.amazon.com/lambda/) and 
 a sample frontend application that can be immediately used to run a business.
 
 You can run the ERP&CRM in your own cloud provided by AWS and both keep your data safe and prevent bad things 
 happening by having all your important data on your laptop or own server.
 
-![adding task sample](https://user-images.githubusercontent.com/436605/69057342-93ddee00-0a09-11ea-9b81-9531ab71bcca.gif)      
-
-## Content of the repository
-This is a monorepo of the erpjs API server (backend) and a sample Angular web client (frontend) together with some
-libraries like [@erpjs/model](https://www.npmjs.com/package/@erpjs/model), the business core of erpjs.
-
-### [@erpjs/model](https://www.npmjs.com/package/@erpjs/model)
-This is the business core of the ERP/CRM. Stored in `libs/model`:
- 
-- **services** (e.g. `BankAccountService` or `LeadService`). The services contains the core business logic like: 
-    
-    - `SalesInvoiceService` makes sure VATs are applied if necessary, the grand total is rounded and is ready 
-    to be posted with the correct currency rate
-    
-    -  `ProspectService` correctly converts `SuspectModel` to `ProspectModel` when needed
-    
-- **entity interfaces** (e.g. `AccountModel` or `CustomerModel` ). What are the basic minimum attributes entities need to have.
-
-- **jobs** (e.g. `SalesInvoiceJob`). Repeatable jobs that e.g. assign document numbers to invoices.
-
-- **args**. The interface for a new entity to be created through the service.
-
-- **Injector** to be able to make calls between services. 
-
-This library contains only the business code, no persistence, minimum dependencies.
-Never import like `import { ... } from '@erp/model` here, always use the relative paths or the `@erpjs/model`
-will not build.
-
-### @erpjs/data
-This is the implementation of @erpjs/model in [NestJS](https://nestjs.com/).
-Implements the entity persistence using [TypeORM](https://typeorm.io/#/).
-
-### @erpjs API server
+### API server
 The main backend serving the [GraphQL](https://graphql.org/) requests from the client 
 and running jobs like invoicing, downloading currency rates etc. Stored in `apps/api`.
 
@@ -59,20 +27,24 @@ The default implementation uses [PostgreSQL](https://www.postgresql.org/), but
 any [TypeORM](https://typeorm.io/#/) supported relation database should work (MySQL, MariaDB, CockroachDB, 
 Microsoft SQL Server, Oracle). 
 
-The server is tested on [Heroku](https://www.heroku.com/) and [AWS Lambda](https://aws.amazon.com/lambda/). 
+The server is tested on [Dokku](https://dokku.com/). 
 
-### @erpjs Angular client
-The sample frontend written in [Angular](https://angular.io/) with [Clarity Design System](https://clarity.design/) 
+### Browser client
+The sample frontend written in [Svelte](https://svelte.dev/) with [Tailwind CSS](https://tailwindcss.com/) 
 calling the API using [GraphQL](https://graphql.org/).
 
-## Prerequisities
+### Mobile client
+The sample mobile client written in [Svelte](https://svelte.dev/) with [NativeScript](https://nativescript.org/)
+calling the API using [GraphQL](https://graphql.org/).
 
-- Node.JS 10 for running the API server; switch with commands like `nvm use v10.18.1`, also note we are now not node 13.5 compatible 
-- Auth0 tenant created and setup following [Setup Auth0 for erpjs](https://naseukolycz.atlassian.net/wiki/spaces/ERPJS/pages/363856005/Setup+Auth0+for+erpjs).
+## Prerequisites
+
+- Node.JS 12 for running the API server; switch with commands like `nvm use v10.18.1`
+- Keyclock (you can import the sample realm by using `real-export.json` from the `docs` folder).
 - for the mobile application you have [to install NativeScript](https://docs.nativescript.org/angular/start/quick-setup) e.g. `npm install -g nativescript`
 
 ## Dependencies
-Run `npm i` to install the dependencies.
+Run `yarn` to install the dependencies.
 
 ## Building
 
