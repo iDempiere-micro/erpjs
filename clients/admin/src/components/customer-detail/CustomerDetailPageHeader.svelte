@@ -16,13 +16,13 @@
 {#if $customer.loading}
     {$_('status.loading')}
 {:else if $customer.error}
-    {$_('status.error')} {getError($customer.error.message)}
-{:else}
+    {$_('status.error')} {getError($customer.error)}
+{:else if $customer.data?.customer}
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                {$customer.data.customer.displayName}
+                {$customer.data?.customer?.displayName}
             </h2>
             <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
                 <div class="mt-2 flex items-center text-sm text-gray-500">
@@ -43,7 +43,7 @@
                             d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"
                         />
                     </svg>
-                    {$customer.data.customer.legalName}
+                    {$customer.data?.customer?.legalName}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: location-marker -->
@@ -223,4 +223,6 @@
             </span>
         </div>
     </div>
+{:else}
+    {$_('status.error')}
 {/if}

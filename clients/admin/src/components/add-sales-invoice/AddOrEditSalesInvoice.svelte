@@ -27,6 +27,7 @@
     import { mutation } from 'svelte-apollo';
     import * as R from 'ramda';
     import { customersStore, ensureCustomersStore, mapCustomers } from '../../lib/customers';
+    import type { OnSelectParam, SelectItem } from '../../lib/select';
 
     export let salesInvoice: SalesInvoiceDetailPartsFragment | undefined;
     export let client: ApolloClient<NormalizedCacheObject>;
@@ -66,26 +67,30 @@
 
     const createSalesInvoice = async () => {
         paymentTermInDays = +paymentTermInDays;
-        const { data } = await addSalesInvoice({
-            variables: {
-                id: salesInvoice?.id,
-                currencyIsoCode,
-                customerDisplayName,
-                issuedOn,
-                lines: lines.map((line) => ({
-                    lineOrder: line.lineOrder,
-                    linePrice: line.linePrice,
-                    lineTaxIsStandard: true,
-                    narration: line.narration,
-                    productId: line.productId,
-                    quantity: line.quantity,
-                })),
-                organizationDisplayName,
-                paymentTermInDays,
-                transactionDate,
-            },
-        });
-        console.log('*** invoice created', data.createSalesInvoice.id);
+        const { data } =
+            organizationDisplayName &&
+            customerDisplayName &&
+            currencyIsoCode &&
+            (await addSalesInvoice({
+                variables: {
+                    id: salesInvoice?.id,
+                    currencyIsoCode,
+                    customerDisplayName,
+                    issuedOn,
+                    lines: lines.map((line) => ({
+                        lineOrder: line.lineOrder,
+                        linePrice: line.linePrice,
+                        lineTaxIsStandard: true,
+                        narration: line.narration,
+                        productId: line.productId,
+                        quantity: line.quantity,
+                    })),
+                    organizationDisplayName,
+                    paymentTermInDays,
+                    transactionDate,
+                },
+            }));
+        console.log('*** invoice created', data?.createSalesInvoice?.id);
     };
 
     ensureCurrenciesStore();
@@ -98,11 +103,11 @@
     let organizationDisplayName = salesInvoice?.organization?.displayName;
     let issuedOn = salesInvoice?.issuedOn;
     let transactionDate = salesInvoice?.transactionDate;
-    let paymentTermInDays: Number = salesInvoice?.paymentTermInDays;
-    let itemsOk;
-    let selectedCurrencyValue;
-    let selectedCustomerValue;
-    let selectedOrganizationValue;
+    let paymentTermInDays: number | undefined = salesInvoice?.paymentTermInDays;
+    let itemsOk = true;
+    let selectedCurrencyValue: SelectItem | undefined;
+    let selectedCustomerValue: SelectItem | undefined;
+    let selectedOrganizationValue: SelectItem | undefined;
     let lines: SalesInvoiceLineSaveArgs[] = R.clone(salesInvoice?.lines || []).map((x) => ({
         ...x,
         productId: x.product.id,
@@ -163,16 +168,16 @@
             stopAtFirstFieldError: false,
         },
     );
-    const handleSelectCurrency = (event) => {
-        currencyIsoCode = event.detail.value;
+    const handleSelectCurrency = (event: OnSelectParam) => {
+        currencyIsoCode = '' + event.detail.value;
         myForm.validate();
     };
-    const handleSelectCustomer = (event) => {
-        customerDisplayName = event.detail.value;
+    const handleSelectCustomer = (event: OnSelectParam) => {
+        customerDisplayName = '' + event.detail.value;
         myForm.validate();
     };
-    const handleSelectOrganization = (event) => {
-        organizationDisplayName = event.detail.value;
+    const handleSelectOrganization = (event: OnSelectParam) => {
+        organizationDisplayName = '' + event.detail.value;
         myForm.validate();
     };
 
@@ -225,7 +230,7 @@
                                 >
                             {/if}
                             <Select
-                                id="currencies"
+                                inputAttributes={{ id: 'currencies' }}
                                 items={mapCurrencies($currenciesStore?.currencies)}
                                 selectedValue={selectedCurrencyValue}
                                 on:select={handleSelectCurrency}
@@ -244,7 +249,7 @@
                                 >
                             {/if}
                             <Select
-                                id="customers"
+                                inputAttributes={{ id: 'customers' }}
                                 items={mapCustomers($customersStore?.customers)}
                                 selectedValue={selectedCustomerValue}
                                 on:select={handleSelectCustomer}
@@ -265,7 +270,7 @@
                                 >
                             {/if}
                             <Select
-                                id="organizations"
+                                inputAttributes={{ id: 'organizations' }}
                                 items={mapOrganizations($organizationsStore?.organizations)}
                                 selectedValue={selectedOrganizationValue}
                                 on:select={handleSelectOrganization}
@@ -309,8 +314,8 @@
                         {columns}
                         {rowActions}
                         getRowKey={getLineOrder}
-                        border="true"
-                        noScroll="true"
+                        border={true}
+                        noScroll={true}
                     />
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
@@ -318,8 +323,6 @@
                             type="submit"
                             class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             on:click|preventDefault={() => {
-                                console.log('*** items', lines);
-
                                 createSalesInvoice();
                             }}
                             disabled={false}

@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import type { OrganizationListPartsFragment, OrganizationsQuery } from '../generated/graphql';
 import { query } from 'svelte-apollo';
 import { store } from './store';
+import type { SelectItem } from './select';
 
 const ORGANIZATIONS = gql`
     {
@@ -35,7 +36,7 @@ export const ensureOrganizationsStore = () => {
     });
 };
 
-export const mapOrganizations = (data: OrganizationListPartsFragment[]) =>
+export const mapOrganizations = (data: OrganizationListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
               value: displayName,
