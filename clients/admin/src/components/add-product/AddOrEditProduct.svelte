@@ -45,14 +45,16 @@
     );
 
     const saveProduct = async () => {
-        const { data } = await saveProductMutation({
-            variables: {
-                id: product?.id,
-                displayName,
-                sku,
-            },
-        });
-        console.log('*** product created', data.saveProduct.id);
+        if (displayName && sku) {
+            const { data } = await saveProductMutation({
+                variables: {
+                    id: product?.id,
+                    displayName,
+                    sku,
+                },
+            });
+            console.log('*** product created', data?.saveProduct?.id);
+        }
     };
 </script>
 

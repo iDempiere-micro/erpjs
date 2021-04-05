@@ -55,6 +55,7 @@ export const apollo = (nextUrlIfLogout: string) => {
 
     const token = process.env.FAKE_TOKEN || authStore?.get()?.token;
     const uri = process.env.API_BASE_URL;
+    if (!uri) throw new Error('API_BASE_URL must be specified');
     const redirect = nextUrlIfLogout.replace(':id', '');
     return new ApolloClient({
         link: authLink(token!).concat(logoutLink(nextUrlIfLogout).concat(httpLink(uri!))),

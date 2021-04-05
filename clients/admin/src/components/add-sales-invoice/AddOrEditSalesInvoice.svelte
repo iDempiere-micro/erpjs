@@ -66,12 +66,14 @@
     >(ADD_SALES_INVOICE);
 
     const createSalesInvoice = async () => {
-        paymentTermInDays = +paymentTermInDays;
-        const { data } =
+        if (
             organizationDisplayName &&
             customerDisplayName &&
             currencyIsoCode &&
-            (await addSalesInvoice({
+            paymentTermInDays
+        ) {
+            paymentTermInDays = +paymentTermInDays;
+            const { data } = await addSalesInvoice({
                 variables: {
                     id: salesInvoice?.id,
                     currencyIsoCode,
@@ -89,8 +91,9 @@
                     paymentTermInDays,
                     transactionDate,
                 },
-            }));
-        console.log('*** invoice created', data?.createSalesInvoice?.id);
+            });
+            console.log('*** invoice created', data?.createSalesInvoice?.id);
+        }
     };
 
     ensureCurrenciesStore();
@@ -111,6 +114,7 @@
     let lines: SalesInvoiceLineSaveArgs[] = R.clone(salesInvoice?.lines || []).map((x) => ({
         ...x,
         productId: x.product.id,
+        lineTaxIsStandard: true,
     }));
     const emptyItem = () =>
         ({
