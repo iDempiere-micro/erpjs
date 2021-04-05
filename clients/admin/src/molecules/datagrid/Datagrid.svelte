@@ -6,7 +6,7 @@
     export let rows: any[] | undefined = [];
     export let getRowKey: (row: any) => number = (x) => x.id;
     export let border: boolean | undefined = false;
-    export let noScroll: boolean | undefined;
+    export let noScroll: boolean | undefined = false;
 </script>
 
 <table class="{border ? 'border' : ''} min-w-full divide-y divide-gray-200">
