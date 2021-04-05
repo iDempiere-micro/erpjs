@@ -30,11 +30,7 @@ export class SalesInvoiceResolver {
 
   @Query(() => SalesInvoice)
   async salesInvoice(@Args('id', { type: () => Int }) id: number) {
-    const result = await this.salesInvoiceService.loadEntityById(
-      getManager(),
-      id,
-    );
-    return result;
+    return await this.salesInvoiceService.loadEntityById(getManager(), id);
   }
 
   @Query(() => [SalesInvoicesInTime])

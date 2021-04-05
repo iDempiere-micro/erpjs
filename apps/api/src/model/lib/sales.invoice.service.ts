@@ -1,6 +1,6 @@
 import { SalesInvoiceModel } from './sales.invoice.model';
 import { SalesInvoiceSaveArgsModel } from './sales.invoice.save.args.model';
-import { EntityManager, QueryRunner, Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import {
   BankAccountService,
   BankAccountServiceKey,
@@ -40,7 +40,6 @@ import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
 import { UserModel } from './user.model';
 import { SalesInvoiceMonthlySaveArgsModel } from './sales.invoice.monthly.save.args.model';
-import { finalize } from 'rxjs/operators';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -500,7 +499,7 @@ export class SalesInvoiceService extends BaseEntityService<
     const NUCZPercentage = objData.organizationDivider.find(
       x => x.id === nucz.id,
     ).value;
-    const carvagoHours = objData.totalHours;
+    const hours = objData.totalHours;
     const dailyRate = objData.dailyRate;
     const narration = objData.narration;
 
@@ -510,53 +509,45 @@ export class SalesInvoiceService extends BaseEntityService<
     ): Promise<SalesInvoiceModel[]> => {
       const result: SalesInvoiceModel[] = [];
 
-      const salesInvoiceService: SalesInvoiceService = getService(
-        SalesInvoiceServiceKey,
-      );
-
       const issuedOn = new Date(objData.year, objData.month - 1, objData.day);
-      const lines: SalesInvoiceLineSaveArgsModel[] = [
-        {
-          lineTaxIsStandard: true,
-          productSku: `EX`,
-          linePrice: _.round(
-            (NUCZPercentage * carvagoHours * dailyRate) / 8,
-            2,
-          ),
-          quantity: _.round(carvagoHours * NUCZPercentage, 2),
-          narration,
-          lineOrder: 1,
-        },
-      ];
-      const invoice = await salesInvoiceService.save(
-        entityManager,
-        {
-          customerDisplayName: 'evalue',
-          organizationDisplayName: `NUCZ`,
-          paymentTermInDays: 14,
-          transactionDate: issuedOn,
-          issuedOn,
-          currencyIsoCode: `CZK`,
-          lines,
-        },
-        technicalUser,
-      );
-      result.push(await salesInvoiceService.confirm(entityManager, invoice));
+      if (NUCZPercentage > 0) {
+        const lines: SalesInvoiceLineSaveArgsModel[] = [
+          {
+            lineTaxIsStandard: true,
+            productSku: `EX`,
+            linePrice: _.round((NUCZPercentage * hours * dailyRate) / 8, 2),
+            quantity: _.round(hours * NUCZPercentage, 2),
+            narration,
+            lineOrder: 1,
+          },
+        ];
+        const invoice = await this.save(
+          entityManager,
+          {
+            customerDisplayName: 'evalue',
+            organizationDisplayName: `NUCZ`,
+            paymentTermInDays: 14,
+            transactionDate: issuedOn,
+            issuedOn,
+            currencyIsoCode: `CZK`,
+            lines,
+          },
+          technicalUser,
+        );
+        result.push(await this.confirm(entityManager, invoice));
+      }
 
       const lines2: SalesInvoiceLineSaveArgsModel[] = [
         {
           lineTaxIsStandard: true,
           productSku: `EX`,
-          linePrice: _.round(
-            ((1 - NUCZPercentage) * carvagoHours * dailyRate) / 8,
-            2,
-          ),
-          quantity: _.round(carvagoHours * (1 - NUCZPercentage), 2),
+          linePrice: _.round(((1 - NUCZPercentage) * hours * dailyRate) / 8, 2),
+          quantity: _.round(hours * (1 - NUCZPercentage), 2),
           narration,
           lineOrder: 1,
         },
       ];
-      const invoice2 = await salesInvoiceService.save(
+      const invoice2 = await this.save(
         entityManager,
         {
           customerDisplayName: 'evalue',
@@ -569,7 +560,7 @@ export class SalesInvoiceService extends BaseEntityService<
         },
         technicalUser,
       );
-      result.push(await salesInvoiceService.confirm(entityManager, invoice2));
+      result.push(await this.confirm(entityManager, invoice2));
       return result;
     };
 
@@ -579,9 +570,6 @@ export class SalesInvoiceService extends BaseEntityService<
     ): Promise<SalesInvoiceModel> => {
       const currencyRateService: CurrencyRateService = getService(
         CurrencyRateServiceKey,
-      );
-      const salesInvoiceService: SalesInvoiceService = getService(
-        SalesInvoiceServiceKey,
       );
 
       const issuedOn = new Date(objData.year, objData.month - 1, objData.day);
@@ -612,7 +600,7 @@ export class SalesInvoiceService extends BaseEntityService<
           lineOrder: 1,
         },
       ];
-      const invoice = await salesInvoiceService.save(
+      const invoice = await this.save(
         entityManager,
         {
           customerDisplayName: 'RealityzaPrahou',
@@ -625,7 +613,7 @@ export class SalesInvoiceService extends BaseEntityService<
         },
         technicalUser,
       );
-      return await salesInvoiceService.confirm(entityManager, invoice);
+      return await this.confirm(entityManager, invoice);
     };
 
     return [
