@@ -1,6 +1,5 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/apollo';
-    import AddOrEditSalesInvoice from '../components/add-sales-invoice/AddOrEditSalesInvoice.svelte';
     import { getSalesInvoiceBy } from '../lib/salesInvoices';
     import { getError } from '../lib/util';
     import { urls } from './pathAndSegment';
@@ -17,7 +16,11 @@
     const salesInvoice = getSalesInvoiceBy(id);
 </script>
 
-<Page title={$_('page.salesInvoices.detail.title')} segment={segments.salesInvoices}>
+<Page
+    title={$_('page.salesInvoices.detail.title')}
+    segment={segments.salesInvoices}
+    name="page.salesInvoices.detail"
+>
     <span slot="content">
         {#if $salesInvoice.loading}
             {$_('status.loading')}

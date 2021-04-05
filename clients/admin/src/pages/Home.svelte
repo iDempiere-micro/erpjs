@@ -3,7 +3,7 @@
     import Page from '../Page.svelte';
 </script>
 
-<Page title="Dashboard" segment="">
+<Page title="Dashboard" segment="" name="dashboard">
     <span slot="content">
         <SalesInvoicesInTime />
     </span>

@@ -6,7 +6,12 @@ import type {
     SalesInvoiceByIdQuery,
 } from '../generated/graphql';
 
-export const downloadInvoice = (baseUrl: string, token: string, id: number) => {
+export const downloadInvoice = (
+    baseUrl: string | undefined,
+    token: string | undefined,
+    id: number,
+) => {
+    if (!baseUrl) throw new Error('baseUrl must be specified');
     fetch(baseUrl + '/../file/sales-invoice/' + id, {
         headers: {
             Authorization: `Bearer ${token}`,

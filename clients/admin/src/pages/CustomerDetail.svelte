@@ -17,7 +17,7 @@
     const customer = getCustomerBy(id);
 </script>
 
-<Page segment={segments.customers}>
+<Page segment={segments.customers} name="page.customer.detail">
     <span slot="content">
         {#if $customer.loading}
             {$_('status.loading')}
@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="ml-4 flex-shrink-0">
                                             <a
-                                                href="#"
+                                                href="/"
                                                 class="font-medium text-indigo-600 hover:text-indigo-500"
                                             >
                                                 Download
@@ -131,8 +131,8 @@
                                         </div>
                                         <div class="ml-4 flex-shrink-0">
                                             <a
-                                                href="#"
                                                 class="font-medium text-indigo-600 hover:text-indigo-500"
+                                                href="/"
                                             >
                                                 Download
                                             </a>

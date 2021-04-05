@@ -5,7 +5,9 @@
     export let row: SalesInvoiceListPartsFragment;
 
     const download = (id: number) =>
-        downloadInvoice(process.env.API_BASE_URL, $authStore?.token, id);
+        process.env.API_BASE_URL &&
+        authStore?.get()?.token &&
+        downloadInvoice(process.env.API_BASE_URL, authStore?.get()?.token || '', id);
 </script>
 
 <div class="flex items-center">

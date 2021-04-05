@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import type { CurrencyListPartsFragment } from '../generated/graphql';
 import { query } from 'svelte-apollo';
 import { store } from './store';
+import type { SelectItem } from './select';
 
 const CURRENCIES = gql`
     {
@@ -35,7 +36,7 @@ export const ensureCurrenciesStore = () => {
         }
     });
 };
-export const mapCurrencies = (data: CurrencyListPartsFragment[]) =>
+export const mapCurrencies = (data: CurrencyListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ isoCode, displayName }) => ({
               value: isoCode,

@@ -4,7 +4,11 @@
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-    import type { Customer, IdAndNumber, SalesInvoice } from 'src/generated/graphql';
+    import type {
+        CreateMonthlyInvoiceMutation,
+        CreateMonthlyInvoiceMutationVariables,
+        SalesInvoice,
+    } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { authStore } from '../../lib/auth';
     import { downloadInvoice } from '../../lib/salesInvoices';
@@ -39,7 +43,7 @@
 
     export let client: ApolloClient<NormalizedCacheObject>;
     let invoices: SalesInvoice[] | null;
-    let invoiceIds: number[] | null; // = [1,2,3];
+    let invoiceIds: number[] | undefined; // = [1,2,3];
 
     let totalHours: number;
     let dailyRate: number;
@@ -48,7 +52,10 @@
     let nuczdivider: number;
     let invoiceDate: string; // 2021-02-28
 
-    const addMonthlySalesInvoice = mutation(ADD_MONTHLY_SALES_INVOICE);
+    const addMonthlySalesInvoice = mutation<
+        CreateMonthlyInvoiceMutation,
+        CreateMonthlyInvoiceMutationVariables
+    >(ADD_MONTHLY_SALES_INVOICE);
 
     const myForm = form(
         () => ({
@@ -101,7 +108,7 @@
                 narration,
             },
         });
-        invoiceIds = data.createMonthlyInvoice.map((x) => x.id);
+        invoiceIds = data?.createMonthlyInvoice?.map((x) => x.id);
         console.log('*** invoices created', invoiceIds);
     };
 

@@ -6,6 +6,7 @@
     import type { SalesInvoicesInTimeQuery } from '../../generated/graphql';
     import { QUERY } from '../../lib/queries/salesInvoicesInTime';
     import { _ } from 'svelte-i18n';
+    import { ScaleTypes } from '@carbon/charts/interfaces';
 
     const client = apollo('/');
     setClient(client);
@@ -29,11 +30,11 @@
             axes: {
                 left: {
                     stacked: true,
-                    scaleType: 'linear',
+                    scaleType: ScaleTypes.LINEAR,
                     mapsTo: 'value',
                 },
                 bottom: {
-                    scaleType: 'time',
+                    scaleType: ScaleTypes.TIME,
                     mapsTo: 'date',
                 },
             },

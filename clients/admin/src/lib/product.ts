@@ -8,6 +8,7 @@ import { query } from 'svelte-apollo';
 import { store } from './store';
 import { PRODUCT_DETAIL_PARTS, UNIT_OF_MEASUREMENT_DETAIL_PARTS } from './fragments';
 import { PRODUCTS } from './queries/products';
+import type { SelectItem } from './select';
 
 export interface WithProductListPartsFragment {
     loaded: boolean;
@@ -33,7 +34,7 @@ export const ensureProductsStore = () => {
     });
 };
 
-export const mapProducts = (data: ProductListPartsFragment[]) =>
+export const mapProducts = (data: ProductListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
               value: id,

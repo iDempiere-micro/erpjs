@@ -1,0 +1,13 @@
+fragment MenuListParts on Menu {
+    id
+    displayName
+    items {
+        ...MenuItemListParts
+    }
+}
+
+fragment MenuItemListParts on MenuItem {
+    id
+    to
+    displayName
+}

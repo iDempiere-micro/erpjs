@@ -5,15 +5,15 @@
     import { apollo } from './lib/apollo';
     import { onDestroy } from 'svelte';
     import { GET_MENU } from './lib/queries/menu';
+    import type { MenuQuery } from './generated/graphql';
 
     export let segment: string;
-    let menu: any = null;
     export let mobile: boolean | null;
 
     const loadMenu = async (token: string | undefined) => {
-        if (token && !$menuStore?.data) {
+        if (token && !$menuStore) {
             const client = apollo('/');
-            $menuStore = await client.query({ query: GET_MENU });
+            $menuStore = (await client.query<MenuQuery>({ query: GET_MENU })).data.menu[0];
         }
     };
 
@@ -25,8 +25,8 @@
 </script>
 
 <div class="ml-10 flex items-baseline space-x-4">
-    {#if $menuStore?.data?.menu}
-        {#each $menuStore?.data?.menu[0].items as menuItem}
+    {#if $menuStore}
+        {#each ($menuStore || { items: [] }).items as menuItem}
             <a
                 href={`#/${menuItem.to}`}
                 data-testid={`menu-${menuItem.id}-${mobile ? 'mobile' : 'desktop'}`}

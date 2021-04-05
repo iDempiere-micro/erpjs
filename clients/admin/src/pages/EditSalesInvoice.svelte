@@ -17,7 +17,11 @@
     const salesInvoice = getSalesInvoiceBy(id);
 </script>
 
-<Page title={$_('page.salesInvoices.edit.title')} segment={segments.salesInvoices}>
+<Page
+    title={$_('page.salesInvoices.edit.title')}
+    segment={segments.salesInvoices}
+    name="page.salesInvoices.edit"
+>
     <span slot="content">
         {#if $salesInvoice.loading}
             {$_('status.loading')}

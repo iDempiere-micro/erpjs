@@ -5,7 +5,11 @@
     import { form, bindClass } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-    import type { CustomerDetailPartsFragment } from 'src/generated/graphql';
+    import type {
+        CreateCustomerMutation,
+        CreateCustomerMutationVariables,
+        CustomerDetailPartsFragment,
+    } from 'src/generated/graphql';
 
     const ADD_CUSTOMER = gql`
         mutation CreateCustomer(
@@ -48,7 +52,9 @@
         }
     `;
 
-    const addCustomer = mutation(ADD_CUSTOMER);
+    const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
+        ADD_CUSTOMER,
+    );
     const getCustomersByDisplayName = () =>
         client.query({
             query: GET_CUSTOMERS_BY_ARGS,
@@ -98,16 +104,18 @@
     );
 
     const createCustomer = async () => {
-        const { data } = await addCustomer({
-            variables: {
-                id: customer ? customer.id : null,
-                displayName,
-                legalName,
-                legalAddressCity,
-            },
-        });
-        const { id } = data.createCustomer;
-        console.log('*** customer created', id);
+        if (displayName && legalName && legalAddressCity) {
+            const { data } = await addCustomer({
+                variables: {
+                    id: customer ? customer.id : null,
+                    displayName,
+                    legalName,
+                    legalAddressCity,
+                },
+            });
+            const id = data?.createCustomer?.id;
+            console.log('*** customer created', id);
+        }
     };
 </script>
 

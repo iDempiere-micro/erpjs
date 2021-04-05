@@ -543,18 +543,21 @@ export type UnitOfMeasurementDetailPartsFragment = { __typename?: 'UnitOfMeasure
 >;
 
 export type MenuQueryVariables = Exact<{
-    mobile?: Maybe<Scalars['Boolean']>;
+    dummy?: Maybe<Scalars['Int']>;
 }>;
 
 export type MenuQuery = { __typename?: 'Query' } & {
-    menu: Array<
-        { __typename?: 'Menu' } & Pick<Menu, 'id' | 'displayName'> & {
-                items: Array<
-                    { __typename?: 'MenuItem' } & Pick<MenuItem, 'id' | 'to' | 'displayName'>
-                >;
-            }
-    >;
+    menu: Array<{ __typename?: 'Menu' } & MenuListPartsFragment>;
 };
+
+export type MenuListPartsFragment = { __typename?: 'Menu' } & Pick<Menu, 'id' | 'displayName'> & {
+        items: Array<{ __typename?: 'MenuItem' } & MenuItemListPartsFragment>;
+    };
+
+export type MenuItemListPartsFragment = { __typename?: 'MenuItem' } & Pick<
+    MenuItem,
+    'id' | 'to' | 'displayName'
+>;
 
 export type AddressListPartsFragment = { __typename?: 'Address' } & Pick<
     Address,

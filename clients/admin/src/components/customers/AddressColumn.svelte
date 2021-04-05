@@ -3,12 +3,10 @@
         AddressListPartsFragment,
         CustomerListPartsFragment,
     } from '../../generated/graphql';
-    import type { Column } from '../../molecules/datagrid/types';
 
-    export let column: Column;
     export let row: CustomerListPartsFragment;
 
-    const addressOneLiner = (address: AddressListPartsFragment) =>
+    const addressOneLiner = (address: AddressListPartsFragment | undefined | null) =>
         address
             ? `${address.line1}, ${address.country.isoCode}-${address.zipCode} ${address.city}`
             : '';

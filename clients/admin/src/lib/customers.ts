@@ -2,8 +2,9 @@ import type { CustomerListPartsFragment, CustomersQuery } from '../generated/gra
 import { query } from 'svelte-apollo';
 import { store } from './store';
 import { CUSTOMERS } from './queries/customers';
+import type { SelectItem } from './select';
 
-export const mapCustomers = (data: CustomerListPartsFragment[]) =>
+export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ displayName }) => ({
               value: displayName,

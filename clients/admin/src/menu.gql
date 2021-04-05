@@ -1,13 +1,7 @@
-query menu($mobile: Boolean)
-        {
-            menu {
-                id
-                displayName
-                items {
-                    id
-                    to
-                    displayName
-                }
-            }
-        }
+query Menu($dummy: Int)
+{
+    menu {
+        ...MenuListParts
+    }
+}
 

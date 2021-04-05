@@ -40,4 +40,4 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn build api
       - run: yarn test api
-      - run: (cd clients/admin && yarn && yarn build && yarn test)
+      - run: (cd clients/admin && yarn && yarn build && yarn svelte-check && yarn test)

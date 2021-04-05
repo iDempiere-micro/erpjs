@@ -2,9 +2,9 @@
     import { bindClass } from 'svelte-forms';
 
     export let title: string;
-    export let type: string | null;
+    export let type: string | null = null;
     export let form: any;
-    export let min: number | null;
+    export let min: number | null = null;
     export let id: string;
     export let value: any;
 </script>

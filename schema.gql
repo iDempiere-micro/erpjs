@@ -203,9 +203,9 @@ type SalesInvoice {
   organization: Organization!
   paymentTermInDays: Float!
   printDate: Date
-  printed: Boolean!
   printError: String
   printLanguageIsoCode: String!
+  printed: Boolean!
   reverseCharge: Boolean!
   totalLines: Float!
   totalLinesAccountingSchemeCurrency: Float!
@@ -261,12 +261,6 @@ input SalesInvoiceSaveArgs {
   transactionDate: Date!
 }
 
-type SalesInvoicesInTime {
-  date: String!
-  group: String!
-  value: Float!
-}
-
 type SalesInvoiceVat {
   id: Float!
   isActive: Boolean!
@@ -278,6 +272,12 @@ type SalesInvoiceVat {
   vatTotalAccountingSchemeCurrency: Float!
   vatTotalAccountingSchemeCurrencyRaw: Float!
   vatTotalRaw: Float!
+}
+
+type SalesInvoicesInTime {
+  date: String!
+  group: String!
+  value: Float!
 }
 
 type UnitOfMeasurement {

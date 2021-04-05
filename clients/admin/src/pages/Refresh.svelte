@@ -6,7 +6,7 @@
     setTimeout(() => push('/'), 300);
 </script>
 
-<Page title={$_('status.refresh')} name="refresh">
+<Page title={$_('status.refresh')} name="refresh" segment="refresh">
     <span slot="content">
         {$_('status.refresh')}
     </span>
