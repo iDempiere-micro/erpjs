@@ -35,7 +35,19 @@
       "monthly": {
         "add": {
           "title": "Add Monthly Sales Invoice",
-          "nav": "Add Monthly Sales Invoice"
+          "nav": "Add Monthly Sales Invoice",
+
+          "invoicingInformation": "Invoicing Information",
+          "totalHours": "Total Hours",
+          "dailyRate": "Daily Rate",
+          "orgDivider": "NUCZ Org Divider",
+          "eur2czk": "1 EUR = ? CZK",
+          "narration": "Main Line Narration",
+          "invoiceDate": "Invoice Date",
+          "save": "Create the Invoices",
+          "generatedInvoices": "Invoices Generated",
+          "invoice": "Invoice",
+          "download": "Download"
         }
       },
       "add": {

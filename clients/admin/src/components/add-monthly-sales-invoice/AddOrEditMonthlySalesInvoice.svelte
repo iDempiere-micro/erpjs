@@ -12,6 +12,7 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { authStore } from '../../lib/auth';
     import { downloadInvoice } from '../../lib/salesInvoices';
+    import { _ } from 'svelte-i18n';
 
     const ADD_MONTHLY_SALES_INVOICE = gql`
         mutation CreateMonthlyInvoice(
@@ -120,7 +121,9 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Invoicing Information</h3>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    {$_('page.salesInvoices.monthly.add.invoicingInformation')}
+                </h3>
                 <p class="mt-1 text-sm text-gray-600" />
             </div>
         </div>
@@ -129,42 +132,42 @@
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <SimpleTextBox
                         form={myForm}
-                        title="Total Hours"
+                        title={$_('page.salesInvoices.monthly.add.totalHours')}
                         bind:value={totalHours}
                         id="totalHours"
                     />
 
                     <SimpleTextBox
                         form={myForm}
-                        title="Daily Rate"
+                        title={$_('page.salesInvoices.monthly.add.dailyRate')}
                         bind:value={dailyRate}
                         id="dailyRate"
                     />
 
                     <SimpleTextBox
                         form={myForm}
-                        title="NUCZ Organization Divider"
+                        title={$_('page.salesInvoices.monthly.add.orgDivider')}
                         bind:value={nuczdivider}
                         id="nuczdivider"
                     />
 
                     <SimpleTextBox
                         form={myForm}
-                        title="1 EUR = ? CZK"
+                        title={$_('page.salesInvoices.monthly.add.eur2czk')}
                         bind:value={eurToCzkRate}
                         id="eurToCzkRate"
                     />
 
                     <SimpleTextBox
                         form={myForm}
-                        title="Carvago line Narration"
+                        title={$_('page.salesInvoices.monthly.add.narration')}
                         bind:value={narration}
                         id="narration"
                     />
 
                     <SimpleTextBox
                         form={myForm}
-                        title="Invoice Date"
+                        title={$_('page.salesInvoices.monthly.add.invoiceDate')}
                         bind:value={invoiceDate}
                         id="invoiceDate"
                         type="date"
@@ -177,13 +180,15 @@
                             on:click|preventDefault={createMonthlySalesInvoice}
                             disabled={!$myForm.valid}
                         >
-                            Save
+                            {$_('page.salesInvoices.monthly.add.save')}
                         </button>
                     </div>
 
                     {#if invoiceIds}
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">Generated invoices</dt>
+                            <dt class="text-sm font-medium text-gray-500">
+                                {$_('page.salesInvoices.monthly.add.generatedInvoices')}
+                            </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 <ul
                                     class="border border-gray-200 rounded-md divide-y divide-gray-200"
@@ -208,7 +213,8 @@
                                                     />
                                                 </svg>
                                                 <span class="ml-2 flex-1 w-0 truncate">
-                                                    Invoice {invoiceIds}
+                                                    {$_('page.salesInvoices.monthly.add.invoice')}
+                                                    {invoiceId}
                                                 </span>
                                             </div>
                                             <div class="ml-4 flex-shrink-0">
@@ -216,7 +222,7 @@
                                                     on:click={() => download(invoiceId)}
                                                     class="font-medium text-indigo-600 hover:text-indigo-500"
                                                 >
-                                                    Download
+                                                    {$_('page.salesInvoices.monthly.add.download')}
                                                 </a>
                                             </div>
                                         </li>

@@ -499,7 +499,7 @@ export class SalesInvoiceService extends BaseEntityService<
     const NUCZPercentage = objData.organizationDivider.find(
       x => x.id === nucz.id,
     ).value;
-    const carvagoHours = objData.totalHours;
+    const hours = objData.totalHours;
     const dailyRate = objData.dailyRate;
     const narration = objData.narration;
 
@@ -515,11 +515,8 @@ export class SalesInvoiceService extends BaseEntityService<
           {
             lineTaxIsStandard: true,
             productSku: `EX`,
-            linePrice: _.round(
-              (NUCZPercentage * carvagoHours * dailyRate) / 8,
-              2,
-            ),
-            quantity: _.round(carvagoHours * NUCZPercentage, 2),
+            linePrice: _.round((NUCZPercentage * hours * dailyRate) / 8, 2),
+            quantity: _.round(hours * NUCZPercentage, 2),
             narration,
             lineOrder: 1,
           },
@@ -544,11 +541,8 @@ export class SalesInvoiceService extends BaseEntityService<
         {
           lineTaxIsStandard: true,
           productSku: `EX`,
-          linePrice: _.round(
-            ((1 - NUCZPercentage) * carvagoHours * dailyRate) / 8,
-            2,
-          ),
-          quantity: _.round(carvagoHours * (1 - NUCZPercentage), 2),
+          linePrice: _.round(((1 - NUCZPercentage) * hours * dailyRate) / 8, 2),
+          quantity: _.round(hours * (1 - NUCZPercentage), 2),
           narration,
           lineOrder: 1,
         },
