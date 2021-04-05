@@ -42,7 +42,6 @@
     "deep-equal": "^2.0.4",
     "graphql": "^15.3.0",
     "graphql-tools": "^6.2.6",
-    "jwks-rsa": "^1.10.1",
     "moment": "^2.29.1",
     "pdfkit": "^0.11.0",
     "pg": "^8.4.1",
