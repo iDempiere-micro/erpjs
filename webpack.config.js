@@ -1,11 +1,10 @@
-const CopyPlugin = require('copy-webpack-plugin');
 const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin');
 const path = require('path');
 const packageJson = require('./package.json');
 const fs = require('fs');
 
 /**
- * Extend the default Webpack configuration from nx / ng.
+ * Extend the default Webpack configuration from nest.
  */
 module.exports = (config) => {
   const outputPath = './apps/api/'; // config.output.filename;
@@ -37,7 +36,8 @@ module.exports = (config) => {
  * @returns {Array} An array of Webpack plugins
  */
 function extractRelevantNodeModules(outputPath) {
-  return [copyYarnLockFile('./'), generatePackageJson()];
+  copyYarnLockFile(outputPath);
+  return [generatePackageJson()];
 }
 
 /**
@@ -48,14 +48,12 @@ function extractRelevantNodeModules(outputPath) {
  * @returns {*} A Webpack plugin
  */
 function copyYarnLockFile(outputPath) {
-  return new CopyPlugin({
-    patterns: [
-      {
-        from: 'yarn.lock',
-        to: path.join(outputPath, 'yarn.lock')
-      }
-    ]
-  });
+  const dir = process.cwd() + '/dist';
+  function ensureDir(dir){ if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+  }}
+  ensureDir(process.cwd() + '/dist');
+  fs.copyFileSync('./yarn.lock', dir + '/yarn.lock' );
 }
 
 /**
