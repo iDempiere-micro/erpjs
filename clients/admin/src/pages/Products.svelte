@@ -15,7 +15,7 @@
     const products = query<ProductsQuery, any>(PRODUCTS);
 </script>
 
-<Page title={$_('page.products.title')} segment={segments.products}>
+<Page title={$_('page.products.title')} segment={segments.products} name="page.products">
     <span slot="content">
         {#if $products.loading}
             {$_('status.loading')}

@@ -10,9 +10,13 @@
     setClient(client);
 </script>
 
-<Page title={$_('page.products.add.title')} segment={segments.products}>
+<Page
+    title={$_('page.products.add.title')}
+    segment={segments.products}
+    name="page.products.add.title"
+>
     <span slot="content">
-        <AddOrEditProduct {client} />
+        <AddOrEditProduct product={undefined} />
     </span>
 </Page>
 

@@ -17,7 +17,11 @@
     const customer = getCustomerBy(id);
 </script>
 
-<Page title={$_('page.customers.edit.title')} segment={segments.customers}>
+<Page
+    title={$_('page.customers.edit.title')}
+    segment={segments.customers}
+    name="page.customers.edit"
+>
     <span slot="content">
         {#if $customer.loading}
             {$_('status.loading')}

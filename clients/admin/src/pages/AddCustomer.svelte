@@ -16,7 +16,7 @@
 >
     name={'page.customers.add.title'}
     <span slot="content">
-        <AddOrEditCustomer {client} customer={null} />
+        <AddOrEditCustomer {client} customer={undefined} />
     </span>
 </Page>
 

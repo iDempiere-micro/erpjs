@@ -10,9 +10,13 @@
     setClient(client);
 </script>
 
-<Page title={$_('page.salesInvoices.monthly.add.title')} segment={segments.salesInvoices}>
+<Page
+    title={$_('page.salesInvoices.monthly.add.title')}
+    segment={segments.salesInvoices}
+    name="page.salesInvoices.monthly.add.title"
+>
     <span slot="content">
-        <AddOrEditMonthlySalesInvoice {client} customer={null} />
+        <AddOrEditMonthlySalesInvoice {client} />
     </span>
 </Page>
 

@@ -17,7 +17,7 @@
     const product = getProductBy(id);
 </script>
 
-<Page title={$_('page.products.edit.title')} segment={segments.products}>
+<Page title={$_('page.products.edit.title')} segment={segments.products} name="page.products.edit">
     <span slot="content">
         {#if $product.loading}
             {$_('status.loading')}

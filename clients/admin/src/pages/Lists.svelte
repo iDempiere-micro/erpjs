@@ -9,7 +9,7 @@
     setClient(client);
 </script>
 
-<Page title={$_('page.lists.title')} segment={segments.lists}>
+<Page title={$_('page.lists.title')} segment={segments.lists} name="page.lists">
     <span slot="content">
         <a
             href="#/{urls.products.list}"

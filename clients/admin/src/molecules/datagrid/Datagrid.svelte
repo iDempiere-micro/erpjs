@@ -4,7 +4,7 @@
     export let columns: Column[] = [];
     export let rowActions: RowAction[] = [];
     export let rows: any[] | undefined = [];
-    export let getRowKey: (any) => number = (x) => x.id;
+    export let getRowKey: (row: any) => number = (x) => x.id;
     export let border: boolean | undefined = false;
     export let noScroll: boolean | undefined;
 </script>
@@ -58,7 +58,7 @@
                                     {:else}
                                         <button
                                             on:click|preventDefault={() => {
-                                                a.onclick(row);
+                                                if (a?.onclick) a?.onclick(row);
                                             }}>{a.name}</button
                                         >
                                     {/if}

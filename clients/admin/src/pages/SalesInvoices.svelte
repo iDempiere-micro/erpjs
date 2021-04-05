@@ -15,7 +15,11 @@
     const salesInvoices = query<SalesInvoicesQuery, any>(EVERYTHING);
 </script>
 
-<Page title={$_('page.salesInvoices.title')} segment={segments.salesInvoices}>
+<Page
+    title={$_('page.salesInvoices.title')}
+    segment={segments.salesInvoices}
+    name="page.salesInvoices"
+>
     <span slot="content">
         {#if $salesInvoices.loading}
             {$_('status.loading')}
