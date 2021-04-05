@@ -1,4 +1,4 @@
-# MaeERP  - the headless serverless ERP and CRM for the cloud
+# [MaeERP  - the headless serverless ERP and CRM for the cloud](https://github.com/iDempiere-micro/erpjs/wiki)
 
 This is the source code of MaeERP, the headless serverless ERP and CRM for the cloud 
 written in TypeScript running on [Node.js](https://nodejs.org/en/) and 
