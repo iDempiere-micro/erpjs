@@ -52,7 +52,12 @@ export const mockCustomerServiceProvider = {
   provide: CustomerServiceKey,
   useValue: mockCustomerService,
 };
-const mockOrganizationService = {};
+const mockOrganizationService = {
+  loadEntities: () => [
+    { id: 1, displayName: 'NUCZ' },
+    { id: 2, displayName: 'ABCD' },
+  ],
+};
 export const mockOrganizationServiceProvider = {
   provide: OrganizationServiceKey,
   useValue: mockOrganizationService,
@@ -62,7 +67,11 @@ export const mockCurrencyServiceProvider = {
   provide: CurrencyServiceKey,
   useValue: mockCurrencyService,
 };
-const mockReportsService = {};
+const mockReportsService = {
+  printSalesInvoice: () => {
+    /* intentionally left blank */
+  },
+};
 export const mockReportsServiceProvider = {
   provide: ReportsServiceKey,
   useValue: mockReportsService,
@@ -88,6 +97,9 @@ const mockCurrencyRateService = {
     start: transactionDate,
     end: transactionDate,
   }),
+  save: () => {
+    /* intentionally left blank */
+  },
 };
 export const mockCurrencyRateServiceProvider = {
   provide: CurrencyRateServiceKey,
@@ -100,7 +112,9 @@ export const mockSalesInvoiceVatServiceProvider = {
   provide: SalesInvoiceVatServiceKey,
   useValue: mockSalesInvoiceVatService,
 };
-const mockDocumentNumberingService = {};
+const mockDocumentNumberingService = {
+  getNextDocumentNumber: () => 1,
+};
 export const mockDocumentNumberingServiceProvider = {
   provide: DocumentNumberingServiceKey,
   useValue: mockDocumentNumberingService,
@@ -116,8 +130,32 @@ const mockEntityManager = {
   }),
 } as any;
 
+const providers = [
+  SalesInvoiceService,
+  mockTaxServiceProvider,
+  mockProductServiceProvider,
+  mockSalesInvoiceLineServiceProvider,
+  mockBankAccountServiceProvider,
+  mockCustomerServiceProvider,
+  mockOrganizationServiceProvider,
+  mockCurrencyServiceProvider,
+  mockReportsServiceProvider,
+  mockLanguagesServiceProvider,
+  mockCurrencyRateServiceProvider,
+  mockSalesInvoiceVatServiceProvider,
+  mockDocumentNumberingServiceProvider,
+  saveArgsValidationServiceProvider,
+];
+
 (global as any).moduleRef = {
-  get: () => mockSalesInvoiceLineService,
+  get: (typeOrToken: string) => {
+    const found = providers.find(x => (x as any).provide === typeOrToken);
+    if (found) {
+      const val = (found as any).useValue;
+      if (val) return val;
+    }
+    return mockSalesInvoiceLineService;
+  },
 };
 
 describe('SalesInvoiceService', () => {
@@ -125,22 +163,7 @@ describe('SalesInvoiceService', () => {
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
-      providers: [
-        SalesInvoiceService,
-        mockTaxServiceProvider,
-        mockProductServiceProvider,
-        mockSalesInvoiceLineServiceProvider,
-        mockBankAccountServiceProvider,
-        mockCustomerServiceProvider,
-        mockOrganizationServiceProvider,
-        mockCurrencyServiceProvider,
-        mockReportsServiceProvider,
-        mockLanguagesServiceProvider,
-        mockCurrencyRateServiceProvider,
-        mockSalesInvoiceVatServiceProvider,
-        mockDocumentNumberingServiceProvider,
-        saveArgsValidationServiceProvider,
-      ],
+      providers,
     }).compile();
 
     service = app.get<SalesInvoiceService>(SalesInvoiceService);
@@ -292,6 +315,40 @@ describe('SalesInvoiceService', () => {
       expect(vatReport.length).toBe(1);
       expect(vatReport[0].vatRatePercent).toBe((await tax3).ratePercent);
       expect(vatReport[0].vatTotalAccountingSchemeCurrency).toBe(229.54);
+    });
+
+    it('monthly invoices are generated even for zero org divider', async () => {
+      let saveCount = 0;
+      (service as any).save = () => {
+        saveCount++;
+        return {};
+      };
+
+      const result = await service.createMonthlyInvoice(
+        mockEntityManager,
+        {
+          totalHours: 100,
+          dailyRate: 1000,
+          organizationDivider: [
+            {
+              id: 1,
+              value: 0,
+            },
+            {
+              id: 1,
+              value: 1,
+            },
+          ],
+          narration: 'test',
+          year: 2021,
+          month: 3 - 1,
+          day: 31,
+          eurToCzkRate: 25,
+        },
+        null,
+      );
+      expect(saveCount).toBe(2);
+      expect(result.length).toBe(2);
     });
   });
 });
