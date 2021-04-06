@@ -5,8 +5,7 @@
     import Page from '../Page.svelte';
     import { _ } from 'svelte-i18n';
 
-    const client = apollo(urls.customer.add);
-    setClient(client);
+    setClient(apollo(urls.customer.add));
 </script>
 
 <Page
@@ -16,7 +15,7 @@
 >
     name={'page.salesInvoices.add.title'}
     <span slot="content">
-        <AddOrEditSalesInvoice {client} salesInvoice={undefined} />
+        <AddOrEditSalesInvoice salesInvoice={undefined} />
     </span>
 </Page>
 
