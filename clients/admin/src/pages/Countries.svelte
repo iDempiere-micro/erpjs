@@ -5,7 +5,7 @@
     import { getError } from '../lib/util';
     import CountryList from '../components/countries/CountryList.svelte';
     import { urls } from './pathAndSegment';
-    import { PRODUCTS } from '../lib/queries/countries';
+    import { COUNTRIES } from '../lib/queries/countries';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { segments } from './pathAndSegment';
