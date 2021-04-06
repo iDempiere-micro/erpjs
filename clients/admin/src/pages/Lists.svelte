@@ -16,5 +16,11 @@
             class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >{$_('page.products.title')}</a
         >
+
+        <a
+            href="#/{urls.countries.list}"
+            class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >{$_('page.countries.title')}</a
+        >
     </span>
 </Page>
