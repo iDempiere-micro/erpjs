@@ -14,6 +14,10 @@ import EditProduct from './pages/EditProduct.svelte';
 import Lists from './pages/Lists.svelte';
 import AddSalesInvoice from './pages/AddSalesInvoice.svelte';
 import { segments, urls } from './pages/pathAndSegment';
+import Countries from './pages/Countries.svelte';
+import AddCountry from './pages/AddCountry.svelte';
+import EditCountry from './pages/EditCountry.svelte';
+import CountryDetail from './pages/CountryDetail.svelte';
 
 export const routes = {
     // Exact path
@@ -43,8 +47,12 @@ addRoute(urls.customer.detail, CustomerDetail);
 addRoute(urls.salesInvoices.list, SalesInvoices);
 addRoute(urls.salesInvoices.edit, EditSalesInvoice);
 addRoute(urls.salesInvoices.detail, SalesInvoiceDetail);
-addRoute(urls.products.list, Products);
 addRoute(urls.settings.list, Lists);
+addRoute(urls.products.list, Products);
 addRoute(urls.products.edit, EditProduct);
 addRoute(urls.products.add, AddProduct);
 addRoute(urls.salesInvoices.add, AddSalesInvoice);
+addRoute(urls.countries.list, Countries);
+addRoute(urls.countries.edit, EditCountry);
+addRoute(urls.countries.add, AddCountry);
+addRoute(urls.countries.detail, CountryDetail);

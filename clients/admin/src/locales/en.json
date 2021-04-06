@@ -82,7 +82,26 @@
     "lists": {
       "title": "Lists",
       "nav": "Lists"
-    }
+    },
+    "countries": {
+      "title": "Countries",
+      "nav": "Countries",
+      "add": {
+        "title": "Add Country",
+        "nav": "Add Country"
+      },
+      "edit": {
+        "title": "Edit Country",
+        "nav": "Add Country"
+      },
+      "detail": {
+        "title": "Country Detail",
+        "nav": "Country Detail",
+        "info": "Country information",
+        "displayName": "Display Name",
+        "isoCode": "ISO Code"
+      }
+    }  
   },
   "menu" : {
     "ERPStandard": "ERP Standard",

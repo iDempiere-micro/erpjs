@@ -43,6 +43,12 @@ type Country {
   updtTs: UniversalDateTime!
 }
 
+input CountrySaveArgs {
+  displayName: String!
+  id: Int
+  isoCode: String!
+}
+
 type Currency {
   displayName: String!
   id: Float!
@@ -122,6 +128,7 @@ type Mutation {
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
   keepAlive(clientId: String!): UniversalDateTime!
+  saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
   saveProduct(args: ProductSaveArgs!): Product!
@@ -169,6 +176,8 @@ input ProductSaveArgs {
 }
 
 type Query {
+  countries: [Country!]!
+  country(id: Int!): Country!
   currencies: [Currency!]!
   customer(id: Int!): Customer!
   customers: [Customer!]!
