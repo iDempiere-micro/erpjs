@@ -12,7 +12,7 @@
 
     const client = apollo(urls.countries.list);
     setClient(client);
-    const countries = query<CountriesQuery, any>(PRODUCTS);
+    const countries = query<CountriesQuery, any>(COUNTRIES);
 </script>
 
 <Page title={$_('page.countries.title')} segment={segments.countries} name="page.countries">
