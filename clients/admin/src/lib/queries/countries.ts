@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const PRODUCTS = gql`
+export const COUNTRIES = gql`
     {
         countries {
             id

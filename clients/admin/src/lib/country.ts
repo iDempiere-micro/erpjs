@@ -7,7 +7,7 @@ import type {
 import { query } from 'svelte-apollo';
 import { store } from './store';
 import { COUNTRY_DETAIL_PARTS } from './fragments';
-import { PRODUCTS } from './queries/countries';
+import { COUNTRIES } from './queries/countries';
 import type { SelectItem } from './select';
 
 export interface WithCountryListPartsFragment {
@@ -22,13 +22,12 @@ export const countriesStore = store<WithCountryListPartsFragment>({
 export const ensureCountriesStore = () => {
     if (countriesStore.get().loaded) return;
 
-    const countriesResult = query<CountriesQuery>(PRODUCTS);
+    const countriesResult = query<CountriesQuery>(COUNTRIES);
     countriesResult.subscribe((value) => {
         if (value?.data) {
             countriesStore.update((x) => ({
                 loaded: true,
-                // @ts-ignore
-                countries: value.data.countries,
+                countries: value?.data?.countries || [],
             }));
         }
     });
