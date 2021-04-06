@@ -12,6 +12,7 @@ import Products from './pages/Products.svelte';
 import AddProduct from './pages/AddProduct.svelte';
 import EditProduct from './pages/EditProduct.svelte';
 import Lists from './pages/Lists.svelte';
+import AddSalesInvoice from './pages/AddSalesInvoice.svelte';
 import { segments, urls } from './pages/pathAndSegment';
 
 export const routes = {
@@ -46,3 +47,4 @@ addRoute(urls.products.list, Products);
 addRoute(urls.settings.list, Lists);
 addRoute(urls.products.edit, EditProduct);
 addRoute(urls.products.add, AddProduct);
+addRoute(urls.salesInvoices.add, AddSalesInvoice);
