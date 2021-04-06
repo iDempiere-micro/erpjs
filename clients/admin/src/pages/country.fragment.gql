@@ -1,4 +1,5 @@
 fragment CountryListParts on Country {
     id
+    displayName
     isoCode
 }
