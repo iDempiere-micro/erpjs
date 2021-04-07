@@ -43,7 +43,7 @@
     let legalName = customer?.legalName;
     let note = customer?.note || undefined;
     let idNumber = customer?.idNumber;
-    let vatNumber = customer?.vatNumber;
+    let vatNumber = customer?.vatNumber || undefined;
     let legalAddressCountryIsoCode = customer?.legalAddress?.country?.isoCode;
     let selectedLegalAddressCountryValue: SelectItem | undefined;
     let legalAddressLine1 = customer?.legalAddress?.line1;
@@ -51,7 +51,8 @@
     let invoicingEmail = customer?.invoicingEmail;
 
     const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
-        legalAddressCountryIsoCode = '' + event.detail.value;
+        const countries = countriesStore.get().countries;
+        legalAddressCountryIsoCode = countries?.find((x) => x.id === event.detail.value)?.isoCode || 'invalid';
         myForm.validate();
     };
 
@@ -101,7 +102,16 @@
         !customer ? ids : ids.filter(({ id }) => id != customer!.id);
 
     const createCustomer = async () => {
-        if (displayName && legalName && legalAddressCity) {
+        if (
+            displayName &&
+            legalName &&
+            legalAddressCity &&
+            idNumber &&
+            legalAddressZipCode &&
+            legalAddressLine1 &&
+            legalAddressCountryIsoCode &&
+            invoicingEmail
+        ) {
             const { data } = await addCustomer({
                 variables: {
                     id: customer ? customer.id : null,
@@ -202,7 +212,8 @@
                                 placeholder={$_('page.customers.add.placeholder.note')}
                                 bind:value={note}
                                 use:bindClass={{ form: myForm }}
-                                on:blur|preventDefault={() => myForm.validate()}></textarea>
+                                on:blur|preventDefault={() => myForm.validate()}
+                            />
                         </div>
                         <p class="mt-2 text-sm text-gray-500">
                             {$_('page.customers.add.description.note')}
@@ -628,4 +639,14 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+    <button
+        type="submit"
+        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        on:click|preventDefault={createCustomer}
+    >
+        Save
+    </button>
 </div>
