@@ -3,6 +3,7 @@ import { query } from 'svelte-apollo';
 import { store } from './store';
 import { CUSTOMERS } from './queries/customers';
 import type { SelectItem } from './select';
+import gql from 'graphql-tag';
 
 export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data
@@ -35,3 +36,10 @@ export const ensureCustomersStore = () => {
         }
     });
 };
+export const GET_CUSTOMERS_BY_ARGS = gql`
+    query CustomersByArgs($displayName: String, $legalName: String) {
+        customersByArgs(displayName: $displayName, legalName: $legalName) {
+            id
+        }
+    }
+`;

@@ -1,8 +1,7 @@
 <script lang="ts">
     import Break from '../../molecules/form/Break.svelte';
-    import gql from 'graphql-tag';
 
-    import { form, bindClass } from 'svelte-forms';
+    import { bindClass, form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
@@ -10,64 +9,17 @@
         CreateCustomerMutationVariables,
         CustomerDetailPartsFragment,
     } from 'src/generated/graphql';
-
-    const ADD_CUSTOMER = gql`
-        mutation CreateCustomer(
-            $id: Int
-            $displayName: String!
-            $legalName: String!
-            $legalAddressCity: String!
-        ) {
-            createCustomer(
-                args: {
-                    id: $id
-                    displayName: $displayName
-                    legalName: $legalName
-                    invoicingEmail: "ccc"
-                    idNumber: "123"
-                    legalAddress: {
-                        city: $legalAddressCity
-                        countryIsoCode: "CZ"
-                        line1: "lll"
-                        zipCode: "1234567"
-                    }
-                }
-            ) {
-                id
-            }
-        }
-    `;
+    import { _ } from 'svelte-i18n';
+    import { ADD_CUSTOMER } from '../../lib/queries/customer';
+    import { GET_CUSTOMERS_BY_ARGS } from '../../lib/customers';
+    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import Select from 'svelte-select';
+    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
-    let displayName = customer?.displayName;
-    let legalAddressCity = customer?.legalAddress.city;
-    let legalName = customer?.legalName;
 
-    const GET_CUSTOMERS_BY_ARGS = gql`
-        query CustomersByArgs($displayName: String, $legalName: String) {
-            customersByArgs(displayName: $displayName, legalName: $legalName) {
-                id
-            }
-        }
-    `;
-
-    const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
-        ADD_CUSTOMER,
-    );
-    const getCustomersByDisplayName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { displayName },
-        });
-    const getCustomersByLegalName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { legalName },
-        });
-
-    const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
-        !customer ? ids : ids.filter(({ id }) => id != customer!.id);
+    ensureCountriesStore();
 
     const validateDisplayName = async () => {
         const { data } = await getCustomersByDisplayName();
@@ -86,6 +38,24 @@
         };
     };
 
+    let displayName = customer?.displayName;
+    let legalAddressCity = customer?.legalAddress.city;
+    let legalName = customer?.legalName;
+    let note = customer?.note || undefined;
+    let idNumber = customer?.idNumber;
+    let vatNumber = customer?.vatNumber || undefined;
+    let legalAddressCountryIsoCode = customer?.legalAddress?.country?.isoCode;
+    let selectedLegalAddressCountryValue: SelectItem | undefined;
+    let legalAddressLine1 = customer?.legalAddress?.line1;
+    let legalAddressZipCode = customer?.legalAddress?.zipCode;
+    let invoicingEmail = customer?.invoicingEmail;
+
+    const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
+        const countries = countriesStore.get().countries;
+        legalAddressCountryIsoCode = countries?.find((x) => x.id === event.detail.value)?.isoCode || 'invalid';
+        myForm.validate();
+    };
+
     const myForm = form(
         () => ({
             displayName: {
@@ -94,6 +64,14 @@
             },
             legalName: { value: legalName, validators: ['required', 'min:6', validateLegalName] },
             legalAddressCity: { value: legalAddressCity, validators: ['required'] },
+
+            note: { value: note, validators: [] },
+
+            idNumber: { value: idNumber, validators: ['required'] },
+            vatNumber: { value: vatNumber, validators: ['required'] },
+            legalAddressLine1: { value: legalAddressLine1, validators: ['required'] },
+            legalZip: { value: legalAddressZipCode, validators: ['required'] },
+            invoicingEmail: { value: invoicingEmail, validators: ['required'] },
         }),
         {
             initCheck: true,
@@ -103,14 +81,49 @@
         },
     );
 
+    $: {
+    }
+
+    const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
+        ADD_CUSTOMER,
+    );
+    const getCustomersByDisplayName = () =>
+        client.query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { displayName },
+        });
+    const getCustomersByLegalName = () =>
+        client.query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { legalName },
+        });
+
+    const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
+        !customer ? ids : ids.filter(({ id }) => id != customer!.id);
+
     const createCustomer = async () => {
-        if (displayName && legalName && legalAddressCity) {
+        if (
+            displayName &&
+            legalName &&
+            legalAddressCity &&
+            idNumber &&
+            legalAddressZipCode &&
+            legalAddressLine1 &&
+            legalAddressCountryIsoCode &&
+            invoicingEmail
+        ) {
             const { data } = await addCustomer({
                 variables: {
                     id: customer ? customer.id : null,
                     displayName,
                     legalName,
                     legalAddressCity,
+                    note,
+                    idNumber,
+                    legalAddressCountryIsoCode,
+                    legalAddressLine1,
+                    legalAddressZipCode,
+                    invoicingEmail,
                 },
             });
             const id = data?.createCustomer?.id;
@@ -123,8 +136,12 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Internal Information</h3>
-                <p class="mt-1 text-sm text-gray-600" />
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    {$_('page.customers.add.internalInformation')}
+                </h3>
+                <p class="mt-1 text-sm text-gray-600">
+                    {$_('page.customers.add.description.internalInformation')}
+                </p>
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
@@ -134,14 +151,15 @@
                         <div class="col-span-6 sm:col-span-4">
                             <label
                                 for="display_name"
-                                class="block text-sm font-medium text-gray-700">Display Name</label
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.displayName')}</label
                             >
 
                             {#if $myForm.fields.displayName.errors.includes('required')}
                                 <label
                                     for="display_name"
                                     class="block text-sm font-small text-red-700"
-                                    >The display name is required</label
+                                    >{$_('page.customers.add.error.displayNameRequired')}</label
                                 >
                             {/if}
 
@@ -149,7 +167,7 @@
                                 <label
                                     for="display_name"
                                     class="block text-sm font-small text-red-700"
-                                    >The display name should be at least 6 characters</label
+                                    >{$_('page.customers.add.error.displayNameMinLength')}</label
                                 >
                             {/if}
 
@@ -157,7 +175,7 @@
                                 <label
                                     for="display_name"
                                     class="block text-sm font-small text-gray-900"
-                                    >Checking display name availability..</label
+                                    >{$_('page.customers.add.error.displayNameChecking')}</label
                                 >
                             {/if}
 
@@ -165,7 +183,7 @@
                                 <label
                                     for="display_name"
                                     class="block text-sm font-small text-red-700"
-                                    >This display name is already taken</label
+                                    >{$_('page.customers.add.error.displayNameTaken')}</label
                                 >
                             {/if}
 
@@ -183,7 +201,7 @@
 
                     <div>
                         <label for="note" class="block text-sm font-medium text-gray-700">
-                            About
+                            {$_('page.customers.add.note')}
                         </label>
                         <div class="mt-1">
                             <textarea
@@ -191,11 +209,14 @@
                                 name="about"
                                 rows="3"
                                 class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                                placeholder="He is very interested in..."
+                                placeholder={$_('page.customers.add.placeholder.note')}
+                                bind:value={note}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
                         <p class="mt-2 text-sm text-gray-500">
-                            Brief description of the customer esp. why is he buying from us.
+                            {$_('page.customers.add.description.note')}
                         </p>
                     </div>
                 </div>
@@ -210,9 +231,11 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Legal Information</h3>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    {$_('page.customers.add.legalInformation')}
+                </h3>
                 <p class="mt-1 text-sm text-gray-600">
-                    Use the legal information that can be used e.g. for billing.
+                    {$_('page.customers.add.description.legalInformation')}
                 </p>
             </div>
         </div>
@@ -222,7 +245,7 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
                             <label for="legal_name" class="block text-sm font-medium text-gray-700"
-                                >Legal name</label
+                                >{$_('page.customers.add.legalName')}</label
                             >
                             <input
                                 type="text"
@@ -235,9 +258,27 @@
                             />
                         </div>
 
+                        <div class="col-span-6 sm:col-span-4">
+                            <label
+                                for="invoicing_email_address"
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.invoicingEmailAddress')}</label
+                            >
+                            <input
+                                type="text"
+                                name="email_address"
+                                id="invoicing_email_address"
+                                autocomplete="email"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={invoicingEmail}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
+                            />
+                        </div>
+
                         <div class="col-span-6 sm:col-span-3">
                             <label for="id_number" class="block text-sm font-medium text-gray-700"
-                                >ID number</label
+                                >{$_('page.customers.add.idNumber')}</label
                             >
                             <input
                                 type="text"
@@ -245,19 +286,25 @@
                                 id="id_number"
                                 autocomplete="id-number"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={idNumber}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
                             <label for="vat_number" class="block text-sm font-medium text-gray-700"
-                                >VAT number</label
+                                >{$_('page.customers.add.vatNumber')}</label
                             >
                             <input
                                 type="text"
                                 name="last_name"
                                 id="vat_number"
-                                autocomplete="family-name"
+                                autocomplete="vat-number"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={vatNumber}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
@@ -265,25 +312,21 @@
                             <label
                                 for="billing_country"
                                 class="block text-sm font-medium text-gray-700"
-                                >Country / Region</label
+                                >{$_('page.customers.add.country')}</label
                             >
-                            <select
-                                id="billing_country"
-                                name="country"
-                                autocomplete="country"
-                                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                                <option>United States</option>
-                                <option>Canada</option>
-                                <option>Mexico</option>
-                            </select>
+                            <Select
+                                inputAttributes={{ id: 'billing_country' }}
+                                items={mapCountries($countriesStore?.countries)}
+                                selectedValue={selectedLegalAddressCountryValue}
+                                on:select={handleSelectLegalAddressCountry}
+                            />
                         </div>
 
                         <div class="col-span-6">
                             <label
                                 for="billing_street_address"
                                 class="block text-sm font-medium text-gray-700"
-                                >Street address</label
+                                >{$_('page.customers.add.line1')}</label
                             >
                             <input
                                 type="text"
@@ -291,13 +334,17 @@
                                 id="billing_street_address"
                                 autocomplete="street-address"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={legalAddressLine1}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                             <label
                                 for="billing_city"
-                                class="block text-sm font-medium text-gray-700">City</label
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.city')}</label
                             >
                             <input
                                 type="text"
@@ -306,27 +353,15 @@
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 bind:value={legalAddressCity}
                                 use:bindClass={{ form: myForm }}
-                            />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <label
-                                for="billing_state"
-                                class="block text-sm font-medium text-gray-700"
-                                >State / Province</label
-                            >
-                            <input
-                                type="text"
-                                name="state"
-                                id="billing_state"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                             <label
                                 for="billing_postal_code"
-                                class="block text-sm font-medium text-gray-700">ZIP / Postal</label
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.zip')}</label
                             >
                             <input
                                 type="text"
@@ -334,6 +369,9 @@
                                 id="billing_postal_code"
                                 autocomplete="postal-code"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={legalAddressZipCode}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
                     </div>
@@ -350,9 +388,9 @@
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    Customer Legal information
+                    Customer Public information
                 </h3>
-                <p class="mt-1 text-sm text-gray-600">Blah blah bla</p>
+                <p class="mt-1 text-sm text-gray-600">Information you can find out</p>
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
@@ -477,9 +515,11 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    {$_('page.customers.add.contactInformation')}
+                </h3>
                 <p class="mt-1 text-sm text-gray-600">
-                    Use a permanent address where you can receive mail.
+                    {$_('page.customers.add.description.contactInformation')}
                 </p>
             </div>
         </div>
@@ -601,146 +641,12 @@
     </div>
 </div>
 
-<Break />
-
-<div class="mt-10 sm:mt-0">
-    <div class="md:grid md:grid-cols-3 md:gap-6">
-        <div class="md:col-span-1">
-            <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Notifications</h3>
-                <p class="mt-1 text-sm text-gray-600">
-                    Decide which communications you'd like to receive and how.
-                </p>
-            </div>
-        </div>
-        <div class="mt-5 md:mt-0 md:col-span-2">
-            <div class="shadow overflow-hidden sm:rounded-md">
-                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                    <fieldset>
-                        <legend class="text-base font-medium text-gray-900">By Email</legend>
-                        <div class="mt-4 space-y-4">
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input
-                                        id="comments"
-                                        name="comments"
-                                        type="checkbox"
-                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                    />
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="comments" class="font-medium text-gray-700"
-                                        >Comments</label
-                                    >
-                                    <p class="text-gray-500">
-                                        Get notified when someones posts a comment on a posting.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input
-                                        id="candidates"
-                                        name="candidates"
-                                        type="checkbox"
-                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                    />
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="candidates" class="font-medium text-gray-700"
-                                        >Candidates</label
-                                    >
-                                    <p class="text-gray-500">
-                                        Get notified when a candidate applies for a job.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input
-                                        id="offers"
-                                        name="offers"
-                                        type="checkbox"
-                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                    />
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="offers" class="font-medium text-gray-700"
-                                        >Offers</label
-                                    >
-                                    <p class="text-gray-500">
-                                        Get notified when a candidate accepts or rejects an offer.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div>
-                            <legend class="text-base font-medium text-gray-900"
-                                >Push Notifications</legend
-                            >
-                            <p class="text-sm text-gray-500">
-                                These are delivered via SMS to your mobile phone.
-                            </p>
-                        </div>
-                        <div class="mt-4 space-y-4">
-                            <div class="flex items-center">
-                                <input
-                                    id="push_everything"
-                                    name="push_notifications"
-                                    type="radio"
-                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                />
-                                <label
-                                    for="push_everything"
-                                    class="ml-3 block text-sm font-medium text-gray-700"
-                                >
-                                    Everything
-                                </label>
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    id="push_email"
-                                    name="push_notifications"
-                                    type="radio"
-                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                />
-                                <label
-                                    for="push_email"
-                                    class="ml-3 block text-sm font-medium text-gray-700"
-                                >
-                                    Same as email
-                                </label>
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    id="push_nothing"
-                                    name="push_notifications"
-                                    type="radio"
-                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                                />
-                                <label
-                                    for="push_nothing"
-                                    class="ml-3 block text-sm font-medium text-gray-700"
-                                >
-                                    No push notifications
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                        type="submit"
-                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        on:click|preventDefault={createCustomer}
-                        disabled={!$myForm.valid}
-                    >
-                        Save
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+    <button
+        type="submit"
+        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        on:click|preventDefault={createCustomer}
+    >
+        Save
+    </button>
 </div>

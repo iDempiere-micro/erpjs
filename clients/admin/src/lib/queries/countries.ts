@@ -5,6 +5,7 @@ export const COUNTRIES = gql`
         countries {
             id
             displayName
+            isoCode
         }
     }
 `;
