@@ -11,8 +11,7 @@
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const client = apollo(urls.customer.edit + id);
-    setClient(client);
+    setClient(apollo(urls.customer.edit + id));
 
     const salesInvoice = getSalesInvoiceBy(id);
 </script>
@@ -28,7 +27,7 @@
         {:else if $salesInvoice.error}
             {$_('status.error')} {getError($salesInvoice.error)}
         {:else if $salesInvoice?.data?.salesInvoice}
-            <AddOrEditSalesInvoice {client} salesInvoice={$salesInvoice?.data?.salesInvoice} />
+            <AddOrEditSalesInvoice salesInvoice={$salesInvoice?.data?.salesInvoice} />
         {:else}
             {$_('status.error')}
         {/if}

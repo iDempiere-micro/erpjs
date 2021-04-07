@@ -17,7 +17,6 @@
     import { currenciesStore, ensureCurrenciesStore } from '../../lib/currency';
     import { mapCurrencies } from '../../lib/currency';
     import { ensureProductsStore } from '../../lib/product';
-    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import {
         ensureOrganizationsStore,
         mapOrganizations,
@@ -30,7 +29,6 @@
     import type { OnSelectParam, SelectItem } from '../../lib/select';
 
     export let salesInvoice: SalesInvoiceDetailPartsFragment | undefined;
-    export let client: ApolloClient<NormalizedCacheObject>;
 
     const ADD_SALES_INVOICE = gql`
         mutation CreateSalesInvoice(
