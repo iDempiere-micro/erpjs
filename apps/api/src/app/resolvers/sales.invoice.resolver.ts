@@ -77,7 +77,10 @@ export class SalesInvoiceResolver {
     @CurrentUser() user,
   ): Promise<SalesInvoiceModel> {
     const id = objData.id;
-    const invoice = await this.salesInvoiceService.loadEntityById(getManager(), id)
+    const invoice = await this.salesInvoiceService.loadEntityById(
+      getManager(),
+      id,
+    );
     return await this.salesInvoiceService.confirm(getManager(), invoice, user);
   }
 }

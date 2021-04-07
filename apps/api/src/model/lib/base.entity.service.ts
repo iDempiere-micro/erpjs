@@ -98,7 +98,7 @@ export abstract class BaseEntityService<
     (t as any).updtOp = currentUser;
     (t as any).updtOpId = currentUser.id;
     return await this.getRepository(transactionalEntityManager).save(t);
-  }
+  };
 
   delete = async (
     transactionalEntityManager: EntityManager,
