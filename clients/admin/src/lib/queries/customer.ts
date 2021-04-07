@@ -63,19 +63,24 @@ export const ADD_CUSTOMER = gql`
         $legalName: String!
         $legalAddressCity: String!
         $note: String
+        $idNumber: String!
+        $legalAddressCountryIsoCode: String!
+        $legalAddressLine1: String!
+        $legalAddressZipCode: String!
+        $invoicingEmail: String!
     ) {
         createCustomer(
             args: {
                 id: $id
                 displayName: $displayName
                 legalName: $legalName
-                invoicingEmail: "ccc"
-                idNumber: "123"
+                invoicingEmail: $invoicingEmail
+                idNumber: $idNumber
                 legalAddress: {
                     city: $legalAddressCity
-                    countryIsoCode: "CZ"
-                    line1: "lll"
-                    zipCode: "1234567"
+                    countryIsoCode: $legalAddressCountryIsoCode
+                    line1: $legalAddressLine1
+                    zipCode: $legalAddressZipCode
                 }
                 note: $note
             }

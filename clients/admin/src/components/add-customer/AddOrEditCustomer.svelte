@@ -38,20 +38,20 @@
         };
     };
 
-
     let displayName = customer?.displayName;
     let legalAddressCity = customer?.legalAddress.city;
     let legalName = customer?.legalName;
     let note = customer?.note || undefined;
     let idNumber = customer?.idNumber;
     let vatNumber = customer?.vatNumber;
-    let selectedLegalAddressCountryIsoCode = customer?.legalAddress?.country?.isoCode;
-    let selectedLegalAddressCountryValue : SelectItem | undefined;
+    let legalAddressCountryIsoCode = customer?.legalAddress?.country?.isoCode;
+    let selectedLegalAddressCountryValue: SelectItem | undefined;
     let legalAddressLine1 = customer?.legalAddress?.line1;
-    let legalZip = customer?.legalAddress?.zipCode;
+    let legalAddressZipCode = customer?.legalAddress?.zipCode;
+    let invoicingEmail = customer?.invoicingEmail;
 
     const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
-        selectedLegalAddressCountryIsoCode = '' + event.detail.value;
+        legalAddressCountryIsoCode = '' + event.detail.value;
         myForm.validate();
     };
 
@@ -69,7 +69,8 @@
             idNumber: { value: idNumber, validators: ['required'] },
             vatNumber: { value: vatNumber, validators: ['required'] },
             legalAddressLine1: { value: legalAddressLine1, validators: ['required'] },
-            legalZip: { value: legalZip, validators: ['required'] },
+            legalZip: { value: legalAddressZipCode, validators: ['required'] },
+            invoicingEmail: { value: invoicingEmail, validators: ['required'] },
         }),
         {
             initCheck: true,
@@ -79,8 +80,7 @@
         },
     );
 
-    $ : {
-
+    $: {
     }
 
     const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
@@ -108,6 +108,12 @@
                     displayName,
                     legalName,
                     legalAddressCity,
+                    note,
+                    idNumber,
+                    legalAddressCountryIsoCode,
+                    legalAddressLine1,
+                    legalAddressZipCode,
+                    invoicingEmail,
                 },
             });
             const id = data?.createCustomer?.id;
@@ -196,8 +202,7 @@
                                 placeholder={$_('page.customers.add.placeholder.note')}
                                 bind:value={note}
                                 use:bindClass={{ form: myForm }}
-                                on:blur|preventDefault={() => myForm.validate()}
-                            />
+                                on:blur|preventDefault={() => myForm.validate()}></textarea>
                         </div>
                         <p class="mt-2 text-sm text-gray-500">
                             {$_('page.customers.add.description.note')}
@@ -237,6 +242,24 @@
                                 id="legal_name"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 bind:value={legalName}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
+                            />
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <label
+                                for="invoicing_email_address"
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.invoicingEmailAddress')}</label
+                            >
+                            <input
+                                type="text"
+                                name="email_address"
+                                id="invoicing_email_address"
+                                autocomplete="email"
+                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={invoicingEmail}
                                 use:bindClass={{ form: myForm }}
                                 on:blur|preventDefault={() => myForm.validate()}
                             />
@@ -335,7 +358,7 @@
                                 id="billing_postal_code"
                                 autocomplete="postal-code"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                bind:value={legalZip}
+                                bind:value={legalAddressZipCode}
                                 use:bindClass={{ form: myForm }}
                                 on:blur|preventDefault={() => myForm.validate()}
                             />
@@ -354,9 +377,9 @@
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    Customer Legal information
+                    Customer Public information
                 </h3>
-                <p class="mt-1 text-sm text-gray-600">Blah blah bla</p>
+                <p class="mt-1 text-sm text-gray-600">Information you can find out</p>
             </div>
         </div>
         <div class="mt-5 md:mt-0 md:col-span-2">
@@ -481,9 +504,11 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                    {$_('page.customers.add.contactInformation')}
+                </h3>
                 <p class="mt-1 text-sm text-gray-600">
-                    Use a permanent address where you can receive mail.
+                    {$_('page.customers.add.description.contactInformation')}
                 </p>
             </div>
         </div>

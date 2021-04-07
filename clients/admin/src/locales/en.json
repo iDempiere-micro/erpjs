@@ -34,7 +34,8 @@
         "description": {
           "note": "Brief description of the customer esp. why is he buying from us.",
           "internalInformation": "This section is for us, fill in how we call the customer, what we know etc.",
-          "legalInformation": "Use the legal information that can be used e.g. for billing."
+          "legalInformation": "Use the legal information that can be used e.g. for billing.",
+          "contactInformation": "Use a permanent address where you can receive mail."
         },
         "placeholder": {
           "note": "They are very interested in..."
@@ -46,7 +47,9 @@
         "country": "Country",
         "line1": "Street address",
         "city": "City",
-        "zip": "ZIP / Postal Code"
+        "zip": "ZIP / Postal Code",
+        "contactInformation": "Customer Contact Information",
+        "invoicingEmailAddress": "Invoicing Email Address"
       },
       "edit" : {
         "title": "Edit Customer",
