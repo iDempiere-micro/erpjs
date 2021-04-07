@@ -3,6 +3,7 @@ fragment CustomerDetailParts on Customer {
     legalName
     displayName
     vatNumber
+    idNumber
     invoicingEmail
     legalAddress {
         ...AddressListParts

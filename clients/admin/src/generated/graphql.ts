@@ -411,6 +411,12 @@ export type CreateCustomerMutationVariables = Exact<{
     displayName: Scalars['String'];
     legalName: Scalars['String'];
     legalAddressCity: Scalars['String'];
+    note?: Maybe<Scalars['String']>;
+    idNumber: Scalars['String'];
+    legalAddressCountryIsoCode: Scalars['String'];
+    legalAddressLine1: Scalars['String'];
+    legalAddressZipCode: Scalars['String'];
+    invoicingEmail: Scalars['String'];
 }>;
 
 export type CreateCustomerMutation = { __typename?: 'Mutation' } & {
@@ -494,7 +500,7 @@ export type CountryByIdQuery = { __typename?: 'Query' } & {
 
 export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
     Customer,
-    'id' | 'legalName' | 'displayName' | 'vatNumber' | 'invoicingEmail' | 'note'
+    'id' | 'legalName' | 'displayName' | 'vatNumber' | 'idNumber' | 'invoicingEmail' | 'note'
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
