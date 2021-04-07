@@ -3,6 +3,7 @@
             $displayName: String!
             $legalName: String!
             $legalAddressCity: String!
+            $note: String
         ) {
             createCustomer(
                 args: {
@@ -17,6 +18,7 @@
                         line1: "lll"
                         zipCode: "1234567"
                     }
+                    note: $note
                 }
             ) {
                 id

@@ -21,7 +21,24 @@
       "nav": "Customers",
       "add" : {
         "title": "Add Customer",
-        "nav": "Add Customer"
+        "nav": "Add Customer",
+        "internalInformation": "Internal Information",
+        "displayName": "Display Name",
+        "error" : {
+          "displayNameRequired": "The display name is required",
+          "displayNameMinLength": "The display name should be at least 6 characters",
+          "displayNameChecking": "Checking display name availability..",
+          "displayNameTaken": "This display name is already taken"
+        },
+        "note": "About",
+        "description": {
+          "note": "Brief description of the customer esp. why is he buying from us.",
+          "internalInformation": "This section is for us, fill in how we call the customer, what we know etc."
+        },
+        "placeholder": {
+          "note": "They are very interested in..."
+        },
+        "legalInformation": "Legal Information"
       },
       "edit" : {
         "title": "Edit Customer",
