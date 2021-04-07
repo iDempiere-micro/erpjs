@@ -1,8 +1,7 @@
 <script lang="ts">
     import Break from '../../molecules/form/Break.svelte';
-    import gql from 'graphql-tag';
 
-    import { form, bindClass } from 'svelte-forms';
+    import { bindClass, form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
@@ -11,67 +10,16 @@
         CustomerDetailPartsFragment,
     } from 'src/generated/graphql';
     import { _ } from 'svelte-i18n';
-
-    const ADD_CUSTOMER = gql`
-        mutation CreateCustomer(
-            $id: Int
-            $displayName: String!
-            $legalName: String!
-            $legalAddressCity: String!
-            $note: String
-        ) {
-            createCustomer(
-                args: {
-                    id: $id
-                    displayName: $displayName
-                    legalName: $legalName
-                    invoicingEmail: "ccc"
-                    idNumber: "123"
-                    legalAddress: {
-                        city: $legalAddressCity
-                        countryIsoCode: "CZ"
-                        line1: "lll"
-                        zipCode: "1234567"
-                    }
-                    note: $note
-                }
-            ) {
-                id
-            }
-        }
-    `;
+    import { ADD_CUSTOMER } from '../../lib/queries/customer';
+    import { GET_CUSTOMERS_BY_ARGS } from '../../lib/customers';
+    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import Select from 'svelte-select';
+    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
-    let displayName = customer?.displayName;
-    let legalAddressCity = customer?.legalAddress.city;
-    let legalName = customer?.legalName;
-    let note = customer?.note || undefined;
 
-    const GET_CUSTOMERS_BY_ARGS = gql`
-        query CustomersByArgs($displayName: String, $legalName: String) {
-            customersByArgs(displayName: $displayName, legalName: $legalName) {
-                id
-            }
-        }
-    `;
-
-    const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
-        ADD_CUSTOMER,
-    );
-    const getCustomersByDisplayName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { displayName },
-        });
-    const getCustomersByLegalName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { legalName },
-        });
-
-    const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
-        !customer ? ids : ids.filter(({ id }) => id != customer!.id);
+    ensureCountriesStore();
 
     const validateDisplayName = async () => {
         const { data } = await getCustomersByDisplayName();
@@ -90,6 +38,23 @@
         };
     };
 
+
+    let displayName = customer?.displayName;
+    let legalAddressCity = customer?.legalAddress.city;
+    let legalName = customer?.legalName;
+    let note = customer?.note || undefined;
+    let idNumber = customer?.idNumber;
+    let vatNumber = customer?.vatNumber;
+    let selectedLegalAddressCountryIsoCode = customer?.legalAddress?.country?.isoCode;
+    let selectedLegalAddressCountryValue : SelectItem | undefined;
+    let legalAddressLine1 = customer?.legalAddress?.line1;
+    let legalZip = customer?.legalAddress?.zipCode;
+
+    const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
+        selectedLegalAddressCountryIsoCode = '' + event.detail.value;
+        myForm.validate();
+    };
+
     const myForm = form(
         () => ({
             displayName: {
@@ -100,6 +65,11 @@
             legalAddressCity: { value: legalAddressCity, validators: ['required'] },
 
             note: { value: note, validators: [] },
+
+            idNumber: { value: idNumber, validators: ['required'] },
+            vatNumber: { value: vatNumber, validators: ['required'] },
+            legalAddressLine1: { value: legalAddressLine1, validators: ['required'] },
+            legalZip: { value: legalZip, validators: ['required'] },
         }),
         {
             initCheck: true,
@@ -108,6 +78,27 @@
             stopAtFirstFieldError: true,
         },
     );
+
+    $ : {
+
+    }
+
+    const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
+        ADD_CUSTOMER,
+    );
+    const getCustomersByDisplayName = () =>
+        client.query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { displayName },
+        });
+    const getCustomersByLegalName = () =>
+        client.query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { legalName },
+        });
+
+    const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
+        !customer ? ids : ids.filter(({ id }) => id != customer!.id);
 
     const createCustomer = async () => {
         if (displayName && legalName && legalAddressCity) {
@@ -205,7 +196,8 @@
                                 placeholder={$_('page.customers.add.placeholder.note')}
                                 bind:value={note}
                                 use:bindClass={{ form: myForm }}
-                                on:blur|preventDefault={() => myForm.validate()}></textarea>
+                                on:blur|preventDefault={() => myForm.validate()}
+                            />
                         </div>
                         <p class="mt-2 text-sm text-gray-500">
                             {$_('page.customers.add.description.note')}
@@ -286,25 +278,21 @@
                             <label
                                 for="billing_country"
                                 class="block text-sm font-medium text-gray-700"
-                                >Country / Region</label
+                                >{$_('page.customers.add.country')}</label
                             >
-                            <select
-                                id="billing_country"
-                                name="country"
-                                autocomplete="country"
-                                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                                <option>United States</option>
-                                <option>Canada</option>
-                                <option>Mexico</option>
-                            </select>
+                            <Select
+                                inputAttributes={{ id: 'billing_country' }}
+                                items={mapCountries($countriesStore?.countries)}
+                                selectedValue={selectedLegalAddressCountryValue}
+                                on:select={handleSelectLegalAddressCountry}
+                            />
                         </div>
 
                         <div class="col-span-6">
                             <label
                                 for="billing_street_address"
                                 class="block text-sm font-medium text-gray-700"
-                                >Street address</label
+                                >{$_('page.customers.add.line1')}</label
                             >
                             <input
                                 type="text"
@@ -312,13 +300,17 @@
                                 id="billing_street_address"
                                 autocomplete="street-address"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={legalAddressLine1}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                             <label
                                 for="billing_city"
-                                class="block text-sm font-medium text-gray-700">City</label
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.city')}</label
                             >
                             <input
                                 type="text"
@@ -327,27 +319,15 @@
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 bind:value={legalAddressCity}
                                 use:bindClass={{ form: myForm }}
-                            />
-                        </div>
-
-                        <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <label
-                                for="billing_state"
-                                class="block text-sm font-medium text-gray-700"
-                                >State / Province</label
-                            >
-                            <input
-                                type="text"
-                                name="state"
-                                id="billing_state"
-                                class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                             <label
                                 for="billing_postal_code"
-                                class="block text-sm font-medium text-gray-700">ZIP / Postal</label
+                                class="block text-sm font-medium text-gray-700"
+                                >{$_('page.customers.add.zip')}</label
                             >
                             <input
                                 type="text"
@@ -355,6 +335,9 @@
                                 id="billing_postal_code"
                                 autocomplete="postal-code"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={legalZip}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
                     </div>

@@ -56,3 +56,31 @@ export const GET_CUSTOMER_BY_ID = gql`
         }
     }
 `;
+export const ADD_CUSTOMER = gql`
+    mutation CreateCustomer(
+        $id: Int
+        $displayName: String!
+        $legalName: String!
+        $legalAddressCity: String!
+        $note: String
+    ) {
+        createCustomer(
+            args: {
+                id: $id
+                displayName: $displayName
+                legalName: $legalName
+                invoicingEmail: "ccc"
+                idNumber: "123"
+                legalAddress: {
+                    city: $legalAddressCity
+                    countryIsoCode: "CZ"
+                    line1: "lll"
+                    zipCode: "1234567"
+                }
+                note: $note
+            }
+        ) {
+            id
+        }
+    }
+`;

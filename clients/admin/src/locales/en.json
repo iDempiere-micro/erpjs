@@ -42,7 +42,11 @@
         "legalInformation": "Legal Information",
         "legalName": "Legal Name",
         "idNumber": "ID Number",
-        "vatNumber": "VAT Number"
+        "vatNumber": "VAT Number",
+        "country": "Country",
+        "line1": "Street address",
+        "city": "City",
+        "zip": "ZIP / Postal Code"
       },
       "edit" : {
         "title": "Edit Customer",
