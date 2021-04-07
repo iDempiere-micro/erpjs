@@ -270,7 +270,7 @@ export class SalesInvoiceService extends BaseEntityService<
       );
     invoice.printLanguage = language;
 
-    await this.persist(transactionalEntityManager, invoice);
+    await this.persist(transactionalEntityManager, invoice, currentUser);
 
     const vatRegistered = !!organization.vatNumber;
 
@@ -429,6 +429,7 @@ export class SalesInvoiceService extends BaseEntityService<
   async confirm(
     manager: EntityManager,
     invoice: SalesInvoiceModel,
+    currentUser: UserModel,
   ): Promise<SalesInvoiceModel> {
     invoice.isDraft = false;
     await this.assignDocumentNumbersToInvoices(manager, [invoice]);
@@ -436,7 +437,7 @@ export class SalesInvoiceService extends BaseEntityService<
       invoice,
       invoice.printLanguage,
     );
-    await this.persist(manager, invoice);
+    await this.persist(manager, invoice, currentUser);
     return invoice;
   }
 
@@ -534,7 +535,7 @@ export class SalesInvoiceService extends BaseEntityService<
           },
           technicalUser,
         );
-        result.push(await this.confirm(entityManager, invoice));
+        result.push(await this.confirm(entityManager, invoice, currentUser));
       }
 
       const lines2: SalesInvoiceLineSaveArgsModel[] = [
@@ -560,7 +561,7 @@ export class SalesInvoiceService extends BaseEntityService<
         },
         technicalUser,
       );
-      result.push(await this.confirm(entityManager, invoice2));
+      result.push(await this.confirm(entityManager, invoice2, currentUser));
       return result;
     };
 
@@ -613,7 +614,7 @@ export class SalesInvoiceService extends BaseEntityService<
         },
         technicalUser,
       );
-      return await this.confirm(entityManager, invoice);
+      return await this.confirm(entityManager, invoice, currentUser);
     };
 
     return [

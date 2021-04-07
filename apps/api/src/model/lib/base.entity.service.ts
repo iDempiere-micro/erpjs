@@ -93,7 +93,13 @@ export abstract class BaseEntityService<
   persist = async (
     transactionalEntityManager: EntityManager,
     t: T,
-  ): Promise<T> => await this.getRepository(transactionalEntityManager).save(t);
+    currentUser: UserModel,
+  ): Promise<T> => {
+    (t as any).updtOp = currentUser;
+    (t as any).updtOpId = currentUser.id;
+    return await this.getRepository(transactionalEntityManager).save(t);
+  }
+
   delete = async (
     transactionalEntityManager: EntityManager,
     t: T,

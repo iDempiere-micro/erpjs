@@ -15,6 +15,7 @@
     import type { OnSelectParam, SelectItem } from '../../lib/select';
     import Select from 'svelte-select';
     import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
+    import { throwOnUndefined } from '../../lib/util';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
@@ -65,7 +66,7 @@
     const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
         const countries = countriesStore.get().countries;
         legalAddressCountryIsoCode =
-            countries?.find((x) => x.id === event.detail.value)?.isoCode || 'invalid';
+            countries?.find((x) => x.id === event.detail.value)?.isoCode || throwOnUndefined();
         myForm.validate();
     };
 

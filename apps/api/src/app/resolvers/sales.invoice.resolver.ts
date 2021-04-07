@@ -12,6 +12,7 @@ import { SalesInvoiceMonthlySaveArgs } from '../saveArgs/sales.invoice.monthly.s
 import { SalesInvoiceSaveArgs } from '../saveArgs/sales.invoice.save.args';
 import { SalesInvoicesInTime } from '../dto/SalesInvoicesInTime';
 import * as moment from 'moment';
+import { BaseSaveArgs } from '../saveArgs/base.save.args';
 
 @Resolver(() => SalesInvoice)
 @UseGuards(GqlAuthGuard)
@@ -68,5 +69,15 @@ export class SalesInvoiceResolver {
     @CurrentUser() user,
   ): Promise<SalesInvoiceModel> {
     return await this.salesInvoiceService.save(getManager(), objData, user);
+  }
+
+  @Mutation(() => SalesInvoice)
+  async confirmSalesInvoice(
+    @Args('args') objData: BaseSaveArgs,
+    @CurrentUser() user,
+  ): Promise<SalesInvoiceModel> {
+    const id = objData.id;
+    const invoice = await this.salesInvoiceService.loadEntityById(getManager(), id)
+    return await this.salesInvoiceService.confirm(getManager(), invoice, user);
   }
 }
