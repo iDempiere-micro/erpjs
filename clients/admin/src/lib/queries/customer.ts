@@ -1,17 +1,19 @@
 import gql from 'graphql-tag';
+import { ADDRESS_LIST_PARTS, COUNTRY_LIST_PARTS, CUSTOMER_DETAIL_PARTS } from '../fragments';
 
 export const mock = {
     data: {
         customer: {
             id: 1,
-            legalName: 'eValue.cz s.r.o.',
-            displayName: 'evalue',
-            vatNumber: 'CZ03841812',
-            invoicingEmail: 'lukas.tomasek@evalue.cz',
+            legalName: 'ABC s.r.o.',
+            displayName: 'abc',
+            vatNumber: 'CZ012345678',
+            idNumber: '12345678',
+            invoicingEmail: 'a.b@abc.com',
             legalAddress: {
                 id: 3,
                 city: 'Praha 3 Žižkov',
-                line1: 'Jičínská 1616/29',
+                line1: 'Street 11',
                 zipCode: '13000',
                 country: {
                     id: 2,
@@ -25,34 +27,12 @@ export const mock = {
 };
 
 export const GET_CUSTOMER_BY_ID = gql`
+    ${COUNTRY_LIST_PARTS}
+    ${ADDRESS_LIST_PARTS}
+    ${CUSTOMER_DETAIL_PARTS}
     query CustomerById($id: Int!) {
         customer(id: $id) {
-            id
-            legalName
-            displayName
-            vatNumber
-            invoicingEmail
-            legalAddress {
-                id
-                city
-                line1
-                zipCode
-                country {
-                    id
-                    isoCode
-                }
-            }
-            address {
-                id
-                city
-                line1
-                zipCode
-                country {
-                    id
-                    isoCode
-                }
-            }
-            note
+            ...CustomerDetailParts
         }
     }
 `;
@@ -68,6 +48,7 @@ export const ADD_CUSTOMER = gql`
         $legalAddressLine1: String!
         $legalAddressZipCode: String!
         $invoicingEmail: String!
+        $vatNumber: String!
     ) {
         createCustomer(
             args: {
@@ -83,6 +64,7 @@ export const ADD_CUSTOMER = gql`
                     zipCode: $legalAddressZipCode
                 }
                 note: $note
+                vatNumber: $vatNumber
             }
         ) {
             id

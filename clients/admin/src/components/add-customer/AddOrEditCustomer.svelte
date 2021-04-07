@@ -21,6 +21,18 @@
 
     ensureCountriesStore();
 
+    const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
+        !customer ? ids : ids.filter(({ id }) => id != customer!.id);
+    const getCustomersByDisplayName = () =>
+        client.query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { displayName },
+        });
+    const getCustomersByLegalName = () =>
+        client.query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { legalName },
+        });
     const validateDisplayName = async () => {
         const { data } = await getCustomersByDisplayName();
 
@@ -52,7 +64,8 @@
 
     const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
         const countries = countriesStore.get().countries;
-        legalAddressCountryIsoCode = countries?.find((x) => x.id === event.detail.value)?.isoCode || 'invalid';
+        legalAddressCountryIsoCode =
+            countries?.find((x) => x.id === event.detail.value)?.isoCode || 'invalid';
         myForm.validate();
     };
 
@@ -82,25 +95,14 @@
     );
 
     $: {
+        selectedLegalAddressCountryValue = mapCountries([ $countriesStore?.countries.find(
+            (x) => x.isoCode === legalAddressCountryIsoCode
+        ) || { id: -1, displayName: '', isoCode: '' }])[0];
     }
 
     const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
         ADD_CUSTOMER,
     );
-    const getCustomersByDisplayName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { displayName },
-        });
-    const getCustomersByLegalName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { legalName },
-        });
-
-    const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
-        !customer ? ids : ids.filter(({ id }) => id != customer!.id);
-
     const createCustomer = async () => {
         if (
             displayName &&
@@ -124,6 +126,7 @@
                     legalAddressLine1,
                     legalAddressZipCode,
                     invoicingEmail,
+                    vatNumber,
                 },
             });
             const id = data?.createCustomer?.id;

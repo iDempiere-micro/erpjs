@@ -25,3 +25,41 @@ export const COUNTRY_DETAIL_PARTS = gql`
         isoCode
     }
 `;
+
+export const COUNTRY_LIST_PARTS = gql`
+    fragment CountryListParts on Country {
+        id
+        displayName
+        isoCode
+    }
+`;
+
+export const ADDRESS_LIST_PARTS = gql`
+    fragment AddressListParts on Address {
+        id
+        city
+        line1
+        zipCode
+        country {
+            ...CountryListParts
+        }
+    }
+`;
+
+export const CUSTOMER_DETAIL_PARTS = gql`
+    fragment CustomerDetailParts on Customer {
+        id
+        legalName
+        displayName
+        vatNumber
+        idNumber
+        invoicingEmail
+        legalAddress {
+            ...AddressListParts
+        }
+        address {
+            ...AddressListParts
+        }
+        note
+    }
+`;
