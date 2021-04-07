@@ -95,9 +95,13 @@
     );
 
     $: {
-        selectedLegalAddressCountryValue = mapCountries([ $countriesStore?.countries.find(
-            (x) => x.isoCode === legalAddressCountryIsoCode
-        ) || { id: -1, displayName: '', isoCode: '' }])[0];
+        selectedLegalAddressCountryValue = mapCountries([
+            $countriesStore?.countries.find((x) => x.isoCode === legalAddressCountryIsoCode) || {
+                id: -1,
+                displayName: '',
+                isoCode: '',
+            },
+        ])[0];
     }
 
     const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(

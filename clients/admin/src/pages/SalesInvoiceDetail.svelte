@@ -6,6 +6,7 @@
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { segments } from './pathAndSegment';
+    import { authStore } from '../lib/auth';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
@@ -14,6 +15,24 @@
     setClient(client);
 
     const salesInvoice = getSalesInvoiceBy(id);
+
+    let invoiceContent;
+
+    const loadInvoiceContent = async () => {
+        const result = await fetch(
+            process.env.API_BASE_URL.replace('graphql', 'file/sales-invoice/' + id),
+            {
+                headers: {
+                    'Content-Type': 'application/pdf',
+                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
+                },
+            },
+        );
+        const { data } = await result.json();
+        invoiceContent = data;
+    };
+
+    loadInvoiceContent();
 </script>
 
 <Page
@@ -27,9 +46,18 @@
         {:else if $salesInvoice.error}
             {$_('status.error')} {getError($salesInvoice.error)}
         {:else if $salesInvoice?.data?.salesInvoice}
-            Sales invoice detail here
+            {$salesInvoice?.data?.salesInvoice.documentNo}
+
+            <iframe src={`data:application/pdf;base64,${invoiceContent}`} />
         {:else}
             {$_('status.error')}
         {/if}
     </span>
 </Page>
+
+<style>
+    iframe {
+        width: 100%;
+        height: 600px;
+    }
+</style>
