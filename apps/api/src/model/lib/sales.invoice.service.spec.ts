@@ -345,7 +345,7 @@ describe('SalesInvoiceService', () => {
           day: 31,
           eurToCzkRate: 25,
         },
-        null,
+        { id: 1 } as any,
       );
       expect(saveCount).toBe(2);
       expect(result.length).toBe(2);

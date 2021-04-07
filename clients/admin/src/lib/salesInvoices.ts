@@ -1,10 +1,6 @@
 import gql from 'graphql-tag';
-import { mutation, query } from 'svelte-apollo';
-import type {
-    CreateSalesInvoiceMutation,
-    CreateSalesInvoiceMutationVariables,
-    SalesInvoiceByIdQuery,
-} from '../generated/graphql';
+import { query } from 'svelte-apollo';
+import type { SalesInvoiceByIdQuery } from '../generated/graphql';
 
 export const downloadInvoice = (
     baseUrl: string | undefined,

@@ -35,6 +35,7 @@ export const COUNTRY_LIST_PARTS = gql`
 `;
 
 export const ADDRESS_LIST_PARTS = gql`
+    ${COUNTRY_LIST_PARTS}
     fragment AddressListParts on Address {
         id
         city
@@ -47,6 +48,7 @@ export const ADDRESS_LIST_PARTS = gql`
 `;
 
 export const CUSTOMER_DETAIL_PARTS = gql`
+    ${ADDRESS_LIST_PARTS}
     fragment CustomerDetailParts on Customer {
         id
         legalName
@@ -61,5 +63,109 @@ export const CUSTOMER_DETAIL_PARTS = gql`
             ...AddressListParts
         }
         note
+    }
+`;
+
+export const CURRENCY_LIST_PARTS = gql`
+    fragment CurrencyListParts on Currency {
+        id
+        isoCode
+        displayName
+    }
+`;
+
+export const CUSTOMER_LIST_PARTS = gql`
+    ${ADDRESS_LIST_PARTS}
+    fragment CustomerListParts on Customer {
+        id
+        legalName
+        displayName
+        vatNumber
+        invoicingEmail
+        legalAddress {
+            ...AddressListParts
+        }
+        address {
+            ...AddressListParts
+        }
+        note
+    }
+`;
+export const SALES_INVOICE_LINE_DETAIL_PARTS = gql`
+    fragment SalesInvoiceLineDetailParts on SalesInvoiceLine {
+        id
+        lineOrder
+        linePrice
+        narration
+        quantity
+        product {
+            id
+        }
+    }
+`;
+
+export const ORGANIZATION_LIST_PARTS = gql`
+    fragment OrganizationListParts on Organization {
+        contact
+        displayName
+        id
+        idNumber
+        legalName
+        registration
+        vatNumber
+    }
+`;
+export const SALES_INVOICE_VAT_DETAIL_PARTS = gql`
+    fragment SalesInvoiceVatDetailParts on SalesInvoiceVat {
+        id
+        vatRatePercent
+        vatTotal
+        vatTotalAccountingSchemeCurrency
+        vatTotalAccountingSchemeCurrencyRaw
+        vatTotalRaw
+    }
+`;
+
+export const SALES_INVOICE_DETAIL_PARTS = gql`
+    ${CURRENCY_LIST_PARTS}
+    ${CUSTOMER_LIST_PARTS}
+    ${SALES_INVOICE_LINE_DETAIL_PARTS}
+    ${ORGANIZATION_LIST_PARTS}
+    ${SALES_INVOICE_VAT_DETAIL_PARTS}
+    fragment SalesInvoiceDetailParts on SalesInvoice {
+        currency {
+            ...CurrencyListParts
+        }
+        customer {
+            ...CustomerListParts
+        }
+        documentNo
+        dueDate
+        grandTotal
+        grandTotalAccountingSchemeCurrency
+        id
+        isActive
+        isCalculated
+        isCurrent
+        isDraft
+        issuedOn
+        lines {
+            ...SalesInvoiceLineDetailParts
+        }
+        organization {
+            ...OrganizationListParts
+        }
+        paymentTermInDays
+        printDate
+        printed
+        printError
+        printLanguageIsoCode
+        reverseCharge
+        totalLines
+        totalLinesAccountingSchemeCurrency
+        transactionDate
+        vatReport {
+            ...SalesInvoiceVatDetailParts
+        }
     }
 `;

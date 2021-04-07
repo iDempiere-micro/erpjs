@@ -41,3 +41,5 @@ export const getError = (error: ApolloError | any): string => {
     console.error('*** getError', error);
     return message;
 };
+
+export const throwOnUndefined = () : string => { throw new Error('Value was supposed to be defined'); }

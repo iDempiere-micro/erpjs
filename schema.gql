@@ -33,6 +33,10 @@ type BankAccount {
   updtTs: UniversalDateTime!
 }
 
+input BaseSaveArgs {
+  id: Int
+}
+
 type Country {
   displayName: String!
   id: Float!
@@ -124,6 +128,7 @@ type MenuItem {
 }
 
 type Mutation {
+  confirmSalesInvoice(args: BaseSaveArgs!): SalesInvoice!
   createCustomer(args: CustomerSaveArgs!): Customer!
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
