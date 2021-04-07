@@ -1,4 +1,4 @@
- mutation CreateCustomer(
+mutation CreateCustomer(
             $id: Int
             $displayName: String!
             $legalName: String!
@@ -9,6 +9,7 @@
             $legalAddressLine1: String!
             $legalAddressZipCode: String!
             $invoicingEmail: String!
+            $vatNumber: String
         ) {
             createCustomer(
                 args: {
@@ -24,6 +25,7 @@
                         zipCode: $legalAddressZipCode
                     }
                     note: $note
+                    vatNumber: $vatNumber
                 }
             ) {
                 id

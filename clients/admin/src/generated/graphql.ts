@@ -417,6 +417,7 @@ export type CreateCustomerMutationVariables = Exact<{
     legalAddressLine1: Scalars['String'];
     legalAddressZipCode: Scalars['String'];
     invoicingEmail: Scalars['String'];
+    vatNumber?: Maybe<Scalars['String']>;
 }>;
 
 export type CreateCustomerMutation = { __typename?: 'Mutation' } & {
