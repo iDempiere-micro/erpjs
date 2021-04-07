@@ -17,3 +17,11 @@ export const PRODUCT_DETAIL_PARTS = gql`
         }
     }
 `;
+
+export const COUNTRY_DETAIL_PARTS = gql`
+    fragment CountryDetailParts on Country {
+        id
+        displayName
+        isoCode
+    }
+`;

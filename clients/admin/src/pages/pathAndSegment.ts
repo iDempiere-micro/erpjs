@@ -23,6 +23,12 @@ export const urls = {
         list: 'settings',
     },
     refresh: 'refresh',
+    countries: {
+        list: 'countries',
+        add: 'add-country',
+        edit: 'country/:id',
+        detail: 'country-detail/:id',
+    },
 };
 
 export const segments = {
@@ -30,4 +36,5 @@ export const segments = {
     salesInvoices: urls.salesInvoices.list,
     products: urls.products.list,
     lists: urls.settings.list,
+    countries: urls.countries.list,
 };

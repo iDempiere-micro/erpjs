@@ -5,6 +5,7 @@ import { MenuResolver } from './resolvers/menu.resolver';
 import { OrganizationResolver } from './resolvers/organization.resolver';
 import { ProductResolver } from './resolvers/product.resolver';
 import { CurrencyResolver } from './resolvers/currency.resolver';
+import { CountryResolver } from './resolvers/country.resolver';
 
 export const resolvers = [
   AppResolver,
@@ -15,4 +16,5 @@ export const resolvers = [
   OrganizationResolver,
   ProductResolver,
   SalesInvoiceResolver,
+  CountryResolver,
 ];

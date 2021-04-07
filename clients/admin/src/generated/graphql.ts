@@ -58,6 +58,12 @@ export type Country = {
     updtTs: Scalars['UniversalDateTime'];
 };
 
+export type CountrySaveArgs = {
+    displayName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    isoCode: Scalars['String'];
+};
+
 export type Currency = {
     __typename?: 'Currency';
     displayName: Scalars['String'];
@@ -139,6 +145,7 @@ export type Mutation = {
     createMonthlyInvoice: Array<SalesInvoice>;
     createSalesInvoice: SalesInvoice;
     keepAlive: Scalars['UniversalDateTime'];
+    saveCountry: Country;
     saveCurrency: Currency;
     saveOrganization: Organization;
     saveProduct: Product;
@@ -158,6 +165,10 @@ export type MutationCreateSalesInvoiceArgs = {
 
 export type MutationKeepAliveArgs = {
     clientId: Scalars['String'];
+};
+
+export type MutationSaveCountryArgs = {
+    args: CountrySaveArgs;
 };
 
 export type MutationSaveCurrencyArgs = {
@@ -217,6 +228,8 @@ export type ProductSaveArgs = {
 
 export type Query = {
     __typename?: 'Query';
+    countries: Array<Country>;
+    country: Country;
     currencies: Array<Currency>;
     customer: Customer;
     customers: Array<Customer>;
@@ -229,6 +242,10 @@ export type Query = {
     salesInvoice: SalesInvoice;
     salesInvoices: Array<SalesInvoice>;
     salesInvoicesReport: Array<SalesInvoicesInTime>;
+};
+
+export type QueryCountryArgs = {
+    id: Scalars['Int'];
 };
 
 export type QueryCustomerArgs = {
@@ -269,9 +286,9 @@ export type SalesInvoice = {
     organization: Organization;
     paymentTermInDays: Scalars['Float'];
     printDate?: Maybe<Scalars['Date']>;
-    printed: Scalars['Boolean'];
     printError?: Maybe<Scalars['String']>;
     printLanguageIsoCode: Scalars['String'];
+    printed: Scalars['Boolean'];
     reverseCharge: Scalars['Boolean'];
     totalLines: Scalars['Float'];
     totalLinesAccountingSchemeCurrency: Scalars['Float'];
@@ -328,13 +345,6 @@ export type SalesInvoiceSaveArgs = {
     transactionDate: Scalars['Date'];
 };
 
-export type SalesInvoicesInTime = {
-    __typename?: 'SalesInvoicesInTime';
-    date: Scalars['String'];
-    group: Scalars['String'];
-    value: Scalars['Float'];
-};
-
 export type SalesInvoiceVat = {
     __typename?: 'SalesInvoiceVat';
     id: Scalars['Float'];
@@ -347,6 +357,13 @@ export type SalesInvoiceVat = {
     vatTotalAccountingSchemeCurrency: Scalars['Float'];
     vatTotalAccountingSchemeCurrencyRaw: Scalars['Float'];
     vatTotalRaw: Scalars['Float'];
+};
+
+export type SalesInvoicesInTime = {
+    __typename?: 'SalesInvoicesInTime';
+    date: Scalars['String'];
+    group: Scalars['String'];
+    value: Scalars['Float'];
 };
 
 export type UnitOfMeasurement = {
@@ -377,6 +394,16 @@ export type User = {
     updtOpId: Scalars['Float'];
     updtTs: Scalars['UniversalDateTime'];
     username?: Maybe<Scalars['String']>;
+};
+
+export type SaveCountryMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    displayName: Scalars['String'];
+    isoCode: Scalars['String'];
+}>;
+
+export type SaveCountryMutation = { __typename?: 'Mutation' } & {
+    saveCountry: { __typename?: 'Country' } & Pick<Country, 'id'>;
 };
 
 export type CreateCustomerMutationVariables = Exact<{
@@ -450,6 +477,19 @@ export type SalesInvoicesInTimeQuery = { __typename?: 'Query' } & {
             'group' | 'date' | 'value'
         >
     >;
+};
+
+export type CountryDetailPartsFragment = { __typename?: 'Country' } & Pick<
+    Country,
+    'id' | 'displayName' | 'isoCode'
+>;
+
+export type CountryByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type CountryByIdQuery = { __typename?: 'Query' } & {
+    country: { __typename?: 'Country' } & CountryDetailPartsFragment;
 };
 
 export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
@@ -564,7 +604,18 @@ export type AddressListPartsFragment = { __typename?: 'Address' } & Pick<
     'id' | 'city' | 'line1' | 'zipCode'
 > & { country: { __typename?: 'Country' } & CountryListPartsFragment };
 
-export type CountryListPartsFragment = { __typename?: 'Country' } & Pick<Country, 'id' | 'isoCode'>;
+export type CountriesQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type CountriesQuery = { __typename?: 'Query' } & {
+    countries: Array<{ __typename?: 'Country' } & CountryListPartsFragment>;
+};
+
+export type CountryListPartsFragment = { __typename?: 'Country' } & Pick<
+    Country,
+    'id' | 'displayName' | 'isoCode'
+>;
 
 export type CurrenciesQueryVariables = Exact<{
     dummy?: Maybe<Scalars['Int']>;
