@@ -46,7 +46,7 @@
     let displayName = customer?.displayName;
     let legalAddressCity = customer?.legalAddress.city;
     let legalName = customer?.legalName;
-    let note = customer?.note;
+    let note = customer?.note || undefined;
 
     const GET_CUSTOMERS_BY_ARGS = gql`
         query CustomersByArgs($displayName: String, $legalName: String) {
@@ -224,10 +224,10 @@
         <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
-                    {$_('page.customers.add.legalInformation.note')}
+                    {$_('page.customers.add.legalInformation')}
                 </h3>
                 <p class="mt-1 text-sm text-gray-600">
-                    Use the legal information that can be used e.g. for billing.
+                    {$_('page.customers.add.description.legalInformation')}
                 </p>
             </div>
         </div>
@@ -237,7 +237,7 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-4">
                             <label for="legal_name" class="block text-sm font-medium text-gray-700"
-                                >Legal name</label
+                                >{$_('page.customers.add.legalName')}</label
                             >
                             <input
                                 type="text"
@@ -252,7 +252,7 @@
 
                         <div class="col-span-6 sm:col-span-3">
                             <label for="id_number" class="block text-sm font-medium text-gray-700"
-                                >ID number</label
+                                >{$_('page.customers.add.idNumber')}</label
                             >
                             <input
                                 type="text"
@@ -260,19 +260,25 @@
                                 id="id_number"
                                 autocomplete="id-number"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={idNumber}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
                             <label for="vat_number" class="block text-sm font-medium text-gray-700"
-                                >VAT number</label
+                                >{$_('page.customers.add.vatNumber')}</label
                             >
                             <input
                                 type="text"
                                 name="last_name"
                                 id="vat_number"
-                                autocomplete="family-name"
+                                autocomplete="vat-number"
                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                bind:value={vatNumber}
+                                use:bindClass={{ form: myForm }}
+                                on:blur|preventDefault={() => myForm.validate()}
                             />
                         </div>
 

@@ -33,12 +33,16 @@
         "note": "About",
         "description": {
           "note": "Brief description of the customer esp. why is he buying from us.",
-          "internalInformation": "This section is for us, fill in how we call the customer, what we know etc."
+          "internalInformation": "This section is for us, fill in how we call the customer, what we know etc.",
+          "legalInformation": "Use the legal information that can be used e.g. for billing."
         },
         "placeholder": {
           "note": "They are very interested in..."
         },
-        "legalInformation": "Legal Information"
+        "legalInformation": "Legal Information",
+        "legalName": "Legal Name",
+        "idNumber": "ID Number",
+        "vatNumber": "VAT Number"
       },
       "edit" : {
         "title": "Edit Customer",
@@ -118,7 +122,7 @@
         "displayName": "Display Name",
         "isoCode": "ISO Code"
       }
-    }  
+    }
   },
   "menu" : {
     "ERPStandard": "ERP Standard",
