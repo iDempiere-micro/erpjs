@@ -1,11 +1,6 @@
 import { ModuleRef } from '@nestjs/core';
 
-export function getService<TResult>(
-  typeOrToken: string,
-  options?: {
-    strict: boolean;
-  },
-): TResult {
+export function getService<TResult>(typeOrToken: string): TResult {
   return (global as any).moduleRef.get(typeOrToken);
 }
 

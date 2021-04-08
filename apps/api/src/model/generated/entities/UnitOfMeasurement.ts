@@ -9,11 +9,8 @@ import {
 import { User } from './User';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
-import { CurrencyRate } from './CurrencyRate';
 import { UnitOfMeasurementConversion } from './UnitOfMeasurementConversion';
 import { UnitOfMeasurementConversionModel } from '../../lib/unit.of.measurement.conversion.model';
-import { AccountingScheme } from './AccountingScheme';
-import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
 import { Product } from './Product';
 import { ProductModel } from '../../lib/product.model';
 

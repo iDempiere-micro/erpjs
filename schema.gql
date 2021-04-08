@@ -132,7 +132,7 @@ type Mutation {
   createCustomer(args: CustomerSaveArgs!): Customer!
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
-  keepAlive(clientId: String!): UniversalDateTime!
+  keepAlive: UniversalDateTime!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
   saveOrganization(args: OrganizationSaveArgs!): Organization!

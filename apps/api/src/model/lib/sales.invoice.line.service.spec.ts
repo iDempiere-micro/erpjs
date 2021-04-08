@@ -53,7 +53,6 @@ const product: ProductModel = {
   displayName: '',
 };
 
-const PRODUCT_PRICE = 123;
 const QUANTITY = 10;
 
 const mockTaxService = {};

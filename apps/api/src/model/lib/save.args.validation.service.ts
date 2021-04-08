@@ -7,9 +7,12 @@ export const SaveArgsValidationServiceKey = 'SaveArgsValidationService';
 @Injectable()
 export class SaveArgsValidationService {
   async checkIsSaveArgValid<T extends BaseSaveArgsModel>(
-    transactionalEntityManager: EntityManager,
-    typeName: string,
-    args: T,
+    /* eslint-disable  @typescript-eslint/no-unused-vars */
+    _transactionalEntityManager: EntityManager,
+    /* eslint-disable  @typescript-eslint/no-unused-vars */
+    _typeName: string,
+    /* eslint-disable  @typescript-eslint/no-unused-vars */
+    _args: T,
   ): Promise<void> {
     /* left intentionally empty for the real validation engine */
   }

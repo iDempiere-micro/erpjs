@@ -15,7 +15,7 @@ export class MenuSettings1615961288134 implements MigrationInterface {
     await createMenuItems(menu, entityManager, items, technicalUser);
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
+  public async down(): Promise<void> {
     // left empty
   }
 }

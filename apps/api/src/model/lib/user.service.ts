@@ -116,7 +116,7 @@ export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
     args: UserSaveArgsModel,
     entity: UserModel,
   ): Promise<UserModel> {
-    return entity;
+    return manager && args && entity;
   }
 
   typeName(): string {

@@ -4,10 +4,8 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { LanguageModel } from '../../lib/language.model';
 import { User } from './User';
 import { Field } from '@nestjs/graphql';
