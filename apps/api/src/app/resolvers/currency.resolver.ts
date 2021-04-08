@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Currency } from '../../model/generated/entities/Currency';
@@ -29,5 +29,11 @@ export class CurrencyResolver {
     @CurrentUser() user,
   ): Promise<CurrencyModel> {
     return await this.currencyService.save(getManager(), objData, user);
+  }
+
+  @Query(() => Currency)
+  async currency(@Args('id', { type: () => Int }) id: number) {
+    const result = await this.currencyService.loadEntityById(getManager(), id);
+    return result;
   }
 }

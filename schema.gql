@@ -184,6 +184,7 @@ type Query {
   countries: [Country!]!
   country(id: Int!): Country!
   currencies: [Currency!]!
+  currency(id: Int!): Currency!
   customer(id: Int!): Customer!
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!

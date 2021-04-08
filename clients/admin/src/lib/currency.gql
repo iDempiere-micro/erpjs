@@ -1,0 +1,5 @@
+query currencyById($id: Int!) {
+    currency(id: $id) {
+        ...CurrencyDetailParts
+    }
+}

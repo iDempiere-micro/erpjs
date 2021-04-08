@@ -18,6 +18,10 @@ import Countries from './pages/Countries.svelte';
 import AddCountry from './pages/AddCountry.svelte';
 import EditCountry from './pages/EditCountry.svelte';
 import CountryDetail from './pages/CountryDetail.svelte';
+import Currencies from './pages/Currencies.svelte';
+import AddCurrency from './pages/AddCurrency.svelte';
+import EditCurrency from './pages/EditCurrency.svelte';
+import CurrencyDetail from './pages/CurrencyDetail.svelte';
 
 export const routes = {
     // Exact path
@@ -56,3 +60,7 @@ addRoute(urls.countries.list, Countries);
 addRoute(urls.countries.edit, EditCountry);
 addRoute(urls.countries.add, AddCountry);
 addRoute(urls.countries.detail, CountryDetail);
+addRoute(urls.currencies.list, Currencies);
+addRoute(urls.currencies.edit, EditCurrency);
+addRoute(urls.currencies.add, AddCurrency);
+addRoute(urls.currencies.detail, CurrencyDetail);

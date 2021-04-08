@@ -240,6 +240,7 @@ export type Query = {
     countries: Array<Country>;
     country: Country;
     currencies: Array<Currency>;
+    currency: Currency;
     customer: Customer;
     customers: Array<Customer>;
     customersByArgs: Array<Customer>;
@@ -254,6 +255,10 @@ export type Query = {
 };
 
 export type QueryCountryArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryCurrencyArgs = {
     id: Scalars['Int'];
 };
 
@@ -415,6 +420,16 @@ export type SaveCountryMutation = { __typename?: 'Mutation' } & {
     saveCountry: { __typename?: 'Country' } & Pick<Country, 'id'>;
 };
 
+export type SaveCurrencyMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    displayName: Scalars['String'];
+    isoCode: Scalars['String'];
+}>;
+
+export type SaveCurrencyMutation = { __typename?: 'Mutation' } & {
+    saveCurrency: { __typename?: 'Currency' } & Pick<Currency, 'id'>;
+};
+
 export type CreateCustomerMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
@@ -506,6 +521,19 @@ export type CountryByIdQueryVariables = Exact<{
 
 export type CountryByIdQuery = { __typename?: 'Query' } & {
     country: { __typename?: 'Country' } & CountryDetailPartsFragment;
+};
+
+export type CurrencyDetailPartsFragment = { __typename?: 'Currency' } & Pick<
+    Currency,
+    'id' | 'displayName' | 'isoCode'
+>;
+
+export type CurrencyByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type CurrencyByIdQuery = { __typename?: 'Query' } & {
+    currency: { __typename?: 'Currency' } & CurrencyDetailPartsFragment;
 };
 
 export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<

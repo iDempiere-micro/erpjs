@@ -1,0 +1,62 @@
+<script lang="ts">
+    import { apollo, setClient } from '../lib/apollo';
+    import { getCurrencyBy } from '../lib/currency';
+    import { urls } from './pathAndSegment';
+    import { getError } from '../lib/util';
+    import { _ } from 'svelte-i18n';
+    import Page from '../Page.svelte';
+    import { segments } from './pathAndSegment';
+
+    export let params: any = {};
+    const id = parseInt('' + params.id);
+
+    const client = apollo(urls.currencies.detail + id);
+    setClient(client);
+
+    const currency = getCurrencyBy(id);
+</script>
+
+<Page
+    segment={segments.currencies}
+    name="page.currency.detail"
+    title={$_('page.currencies.detail.title')}
+>
+    <span slot="content">
+        {#if $currency.loading}
+            {$_('status.loading')}
+        {:else if $currency.error}
+            {$_('status.error')} {getError($currency.error)}
+        {:else if $currency?.data?.currency}
+            <!-- This example requires Tailwind CSS v2.0+ -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        {$_('page.currencies.detail.info')}
+                    </h3>
+                </div>
+                <div class="border-t border-gray-200">
+                    <dl>
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {$_('page.currencies.detail.displayName')}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {$currency?.data?.currency?.displayName}
+                            </dd>
+                        </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                {$_('page.currencies.detail.isoCode')}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {$currency?.data?.currency?.isoCode}
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        {:else}
+            {$_('status.error')}
+        {/if}
+    </span>
+</Page>
