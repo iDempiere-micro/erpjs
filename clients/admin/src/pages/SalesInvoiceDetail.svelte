@@ -26,19 +26,16 @@
 
     let salesInvoice = getSalesInvoiceBy(id);
 
-    let invoiceContent : string;
+    let invoiceContent: string;
 
     const loadInvoiceContent = async () => {
         const baseUrl = process.env.API_BASE_URL || throwOnUndefined();
-        const result = await fetch(
-            baseUrl.replace('graphql', 'file/sales-invoice/' + id),
-            {
-                headers: {
-                    'Content-Type': 'application/pdf',
-                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
-                },
+        const result = await fetch(baseUrl.replace('graphql', 'file/sales-invoice/' + id), {
+            headers: {
+                'Content-Type': 'application/pdf',
+                Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
             },
-        );
+        });
         const { data } = await result.json();
         invoiceContent = data;
     };
