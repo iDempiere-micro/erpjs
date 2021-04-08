@@ -16,5 +16,7 @@ export class InvoicesContent1609846660789 implements MigrationInterface {
     await salesInvoiceService.fixPrint(entityManager);
   }
 
-  public async down(): Promise<void> { /* intentionally left blank */ }
+  public async down(): Promise<void> {
+    /* intentionally left blank */
+  }
 }
