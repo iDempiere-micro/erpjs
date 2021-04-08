@@ -130,6 +130,25 @@
         "displayName": "Display Name",
         "isoCode": "ISO Code"
       }
+    },
+    "currencies": {
+      "title": "Currencies",
+      "nav": "Currencies",
+      "add": {
+        "title": "Add Currency",
+        "nav": "Add Currency"
+      },
+      "edit": {
+        "title": "Edit Currency",
+        "nav": "Add Currency"
+      },
+      "detail": {
+        "title": "Currency Detail",
+        "nav": "Currency Detail",
+        "info": "Currency information",
+        "displayName": "Display Name",
+        "isoCode": "ISO Code"
+      }
     }
   },
   "menu" : {

@@ -169,3 +169,11 @@ export const SALES_INVOICE_DETAIL_PARTS = gql`
         }
     }
 `;
+
+export const CURRENCY_DETAIL_PARTS = gql`
+    fragment CurrencyDetailParts on Currency {
+        id
+        displayName
+        isoCode
+    }
+`;
