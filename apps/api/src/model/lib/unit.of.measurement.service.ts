@@ -24,7 +24,7 @@ export class UnitOfMeasurementService extends BaseEntityService<
     currentUser: UserModel,
   ): Promise<UnitOfMeasurementModel> {
     entity.displayName = args.displayName;
-    return entity;
+    return transactionalEntityManager && currentUser && entity;
   }
 
   protected getRepository(

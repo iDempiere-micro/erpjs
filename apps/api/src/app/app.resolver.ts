@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { DateTimeScalarType } from './support/date.scalar';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../auth';
@@ -13,15 +13,11 @@ export class AppResolver {
 
   @Query(() => DateTimeScalarType)
   async now(@CurrentUser() user: UserModel): Promise<Date> {
-    return this.dateService.now(user);
+    return user && this.dateService.now();
   }
 
   @Mutation(() => DateTimeScalarType)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async keepAlive(
-    @CurrentUser() user: UserModel,
-    @Args({ name: 'clientId', type: () => String }) clientId: string,
-  ) {
-    return this.dateService.now(user);
+  async keepAlive(@CurrentUser() user: UserModel) {
+    return user && this.dateService.now();
   }
 }

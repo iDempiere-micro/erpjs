@@ -5,8 +5,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Currency } from './Currency';
-import { CurrencyRateModel } from '../../lib/currency.rate.model';
 import { User } from './User';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';

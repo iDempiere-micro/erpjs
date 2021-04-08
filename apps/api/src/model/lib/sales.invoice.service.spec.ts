@@ -15,7 +15,6 @@ import { CurrencyServiceKey } from './currency.service';
 import { ReportsServiceKey } from './reports.service';
 import { LanguagesServiceKey } from './languages.service';
 import { CurrencyModel } from './currency.model';
-import { OrganizationModel } from './organization.model';
 import { CurrencyRateServiceKey } from './currency.rate.service';
 import { SalesInvoiceVatServiceKey } from './sales.invoice.vat.service';
 import { DocumentNumberingServiceKey } from './document.numbering.service';
@@ -87,7 +86,6 @@ const mockCurrencyRateService = {
     transactionalEntityManager: EntityManager,
     transactionDate: Date,
     from: CurrencyModel,
-    org: OrganizationModel,
   ) => ({
     id: 0,
     displayName: '',

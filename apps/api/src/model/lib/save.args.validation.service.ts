@@ -7,9 +7,9 @@ export const SaveArgsValidationServiceKey = 'SaveArgsValidationService';
 @Injectable()
 export class SaveArgsValidationService {
   async checkIsSaveArgValid<T extends BaseSaveArgsModel>(
-    transactionalEntityManager: EntityManager,
-    typeName: string,
-    args: T,
+    _transactionalEntityManager: EntityManager,
+    _typeName: string,
+    _args: T,
   ): Promise<void> {
     /* left intentionally empty for the real validation engine */
   }

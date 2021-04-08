@@ -54,7 +54,7 @@ const messagesEN: LocalizedMessages = {
   buyer: '',
   dueDate: '',
   idNumber: '',
-  invoiceFooter: function(p1) {
+  invoiceFooter: function() {
     return '';
   },
   invoiceNumber: '',
@@ -71,7 +71,7 @@ const messagesEN: LocalizedMessages = {
     `You have ${unread === 0 ? 'no' : unread} unread message${
       unread === 1 ? '' : 's'
     }.`,
-  invoice: (vatRegistered: boolean) => `Invoice`,
+  invoice: () => `Invoice`,
 };
 const messagesCZDE: LocalizedMessages = {
   totalToBePaid: 'Celkem k úhradě / Insgesamt zu einzahlen',

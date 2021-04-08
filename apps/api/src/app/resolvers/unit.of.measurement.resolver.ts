@@ -1,9 +1,8 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
-import { CurrentUser, GqlAuthGuard } from '../../auth';
+import { GqlAuthGuard } from '../../auth';
 import { UnitOfMeasurement } from '../../model/generated/entities/UnitOfMeasurement';
 import {
-  UnitOfMeasurementModel,
   UnitOfMeasurementService,
   UnitOfMeasurementServiceKey,
 } from '../../model';

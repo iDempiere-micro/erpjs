@@ -25,7 +25,7 @@ export class FileController {
       invoiceId,
     );
     const buffer = (invoice.content as any) as Buffer;
-    if (buffer) {
+    if (user && buffer) {
       const data = buffer.toString('base64');
       return { data };
     }

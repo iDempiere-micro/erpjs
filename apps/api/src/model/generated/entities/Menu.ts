@@ -7,13 +7,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AccountingScheme } from './AccountingScheme';
-import { CurrencyRate } from './CurrencyRate';
-import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
-import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
 import { MenuItem } from './MenuItem';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
