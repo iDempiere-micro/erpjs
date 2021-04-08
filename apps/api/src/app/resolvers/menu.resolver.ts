@@ -7,8 +7,6 @@ import { getManager } from 'typeorm';
 @Resolver(() => Menu)
 @UseGuards(GqlAuthGuard)
 export class MenuResolver {
-  constructor() {}
-
   @Query(() => [Menu])
   async menu() {
     const manager = getManager();
