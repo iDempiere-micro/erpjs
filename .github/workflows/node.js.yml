@@ -38,6 +38,12 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn --frozen-lockfile
+      - run: yarn format:check
       - run: yarn build api
+      - run: yarn lint:check
       - run: yarn test api
-      - run: (cd clients/admin && yarn && yarn build && yarn svelte-check && yarn test)
+      - run: (cd clients/admin && yarn)
+      - run: (cd clients/admin && yarn build)
+      - run: (cd clients/admin && yarn prettier:check)
+      - run: (cd clients/admin && yarn svelte-check)
+      - run: (cd clients/admin && yarn test)
