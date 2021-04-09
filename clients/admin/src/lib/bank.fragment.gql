@@ -1,0 +1,11 @@
+fragment BankDetailParts on Bank {
+    id
+    displayName
+    bankIdentifierCode
+}
+
+fragment BankListParts on Bank {
+    id
+    displayName
+    bankIdentifierCode
+}

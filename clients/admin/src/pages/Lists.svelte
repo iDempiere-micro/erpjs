@@ -28,5 +28,11 @@
             class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >{$_('page.currencies.title')}</a
         >
+
+        <a
+            href="#/{urls.banks.list}"
+            class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >{$_('page.banks.title')}</a
+        >
     </span>
 </Page>

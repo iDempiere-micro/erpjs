@@ -1,0 +1,5 @@
+query bankById($id: Int!) {
+            bank(id: $id) {
+                ...BankDetailParts
+            }
+        }
