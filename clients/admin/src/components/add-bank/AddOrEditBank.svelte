@@ -63,7 +63,12 @@
                         id="displayName"
                     />
 
-                    <SimpleTextBox form={myForm} title="Identifier Code" bind:value={bankIdentifierCode} id="bankIdentifierCode" />
+                    <SimpleTextBox
+                        form={myForm}
+                        title="Identifier Code"
+                        bind:value={bankIdentifierCode}
+                        id="bankIdentifierCode"
+                    />
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
                         <button
