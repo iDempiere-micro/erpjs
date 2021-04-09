@@ -55,12 +55,24 @@ export class OrganizationService extends BaseEntityService<
       currentUser,
     );
     organization.idNumber = args.idNumber;
+
+    if (!(args.bankAccount || args.newBankAccount || args.bankAccountId)) {
+      throw new Error('Bank account not specified');
+    }
+
     organization.bankAccount =
       args.bankAccount ||
-      (await this.bankAccountService.loadEntityById(
-        transactionalEntityManager,
-        args.bankAccountId,
-      ));
+      (args.bankAccountId &&
+        (await this.bankAccountService.loadEntityById(
+          transactionalEntityManager,
+          args.bankAccountId,
+        ))) ||
+        (args.newBankAccount &&
+          (await this.bankAccountService.save(
+            transactionalEntityManager,
+            args.newBankAccount,
+            currentUser,
+          )));
     organization.accountingScheme =
       args.accountingScheme ||
       (await this.accountingSchemeService.loadEntityById(

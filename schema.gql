@@ -40,6 +40,15 @@ type BankAccount {
   updtTs: UniversalDateTime!
 }
 
+input BankAccountSaveArgs {
+  bankAccountCustomerPrintableNumber: String!
+  bankId: Float!
+  displayName: String!
+  iban: String!
+  id: Int
+  swift: String!
+}
+
 input BankSaveArgs {
   bankIdentifierCode: String!
   displayName: String!
@@ -169,13 +178,13 @@ type Organization {
 
 input OrganizationSaveArgs {
   accountingSchemeId: Float!
-  bankAccountId: Float!
   contact: String!
   displayName: String!
   id: Int
   idNumber: String!
   legalAddress: AddressSaveArgs!
   legalName: String!
+  newBankAccount: BankAccountSaveArgs!
   registration: String!
   vatNumber: String
 }
