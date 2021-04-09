@@ -21,6 +21,13 @@ input AddressSaveArgs {
   zipCode: String!
 }
 
+type Bank {
+  bankIdentifierCode: String!
+  displayName: String!
+  id: Float!
+  updtOp: User!
+}
+
 type BankAccount {
   bankAccountCustomerPrintableNumber: String!
   displayName: String!
@@ -31,6 +38,12 @@ type BankAccount {
   swift: String!
   updtOp: User!
   updtTs: UniversalDateTime!
+}
+
+input BankSaveArgs {
+  bankIdentifierCode: String!
+  displayName: String!
+  id: Int
 }
 
 input BaseSaveArgs {
@@ -133,6 +146,7 @@ type Mutation {
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
   keepAlive: UniversalDateTime!
+  saveBank(args: BankSaveArgs!): Bank!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
@@ -181,6 +195,8 @@ input ProductSaveArgs {
 }
 
 type Query {
+  bank(id: Int!): Bank!
+  banks: [Bank!]!
   countries: [Country!]!
   country(id: Int!): Country!
   currencies: [Currency!]!

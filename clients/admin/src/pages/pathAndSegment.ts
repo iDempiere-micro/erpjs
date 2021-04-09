@@ -35,6 +35,11 @@ export const urls = {
         edit: 'currency/:id',
         detail: 'currency-detail/:id',
     },
+    banks: {
+        list: 'banks',
+        add: 'add-bank',
+        edit: 'bank/:id',
+    },
 };
 
 export const segments = {
@@ -44,4 +49,5 @@ export const segments = {
     lists: urls.settings.list,
     countries: urls.countries.list,
     currencies: urls.currencies.list,
+    banks: urls.banks.list,
 };

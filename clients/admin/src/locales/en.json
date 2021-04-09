@@ -104,6 +104,18 @@
         "nav": "Add Product"
       }
     },
+    "banks": {
+      "title": "Banks",
+      "nav": "Banks",
+      "add": {
+        "title": "Add Bank",
+        "nav": "Add Bank"
+      },
+      "edit": {
+        "title": "Edit Bank",
+        "nav": "Add Bank"
+      }
+    },
     "settings": {
       "title": "Settings",
       "nav": "Settings"

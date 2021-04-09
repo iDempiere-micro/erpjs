@@ -22,6 +22,9 @@ import Currencies from './pages/Currencies.svelte';
 import AddCurrency from './pages/AddCurrency.svelte';
 import EditCurrency from './pages/EditCurrency.svelte';
 import CurrencyDetail from './pages/CurrencyDetail.svelte';
+import Banks from './pages/banks.svelte';
+import AddBank from './pages/AddBank.svelte';
+import EditBank from './pages/EditBank.svelte';
 
 export const routes = {
     // Exact path
@@ -64,3 +67,6 @@ addRoute(urls.currencies.list, Currencies);
 addRoute(urls.currencies.edit, EditCurrency);
 addRoute(urls.currencies.add, AddCurrency);
 addRoute(urls.currencies.detail, CurrencyDetail);
+addRoute(urls.banks.list, Banks);
+addRoute(urls.banks.edit, EditBank);
+addRoute(urls.banks.add, AddBank);

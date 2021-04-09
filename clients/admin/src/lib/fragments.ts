@@ -177,3 +177,19 @@ export const CURRENCY_DETAIL_PARTS = gql`
         isoCode
     }
 `;
+
+export const BANK_DETAIL_PARTS = gql`
+    fragment BankDetailParts on Bank {
+        id
+        displayName
+        bankIdentifierCode
+    }
+`;
+
+export const BANK_LIST_PARTS = gql`
+    fragment BankListParts on Bank {
+        id
+        displayName
+        bankIdentifierCode
+    }
+`;
