@@ -1,5 +1,6 @@
 # [MaeERP  - the headless serverless ERP and CRM for the cloud](https://github.com/iDempiere-micro/erpjs/wiki)
 
+## Introduction
 This is the source code of MaeERP, the headless serverless ERP and CRM for the cloud 
 written in TypeScript running on [Node.js](https://nodejs.org/en/) and 
 in a browser as an [Svelte](https://svelte.dev/) single page application. 
@@ -10,6 +11,10 @@ on Google Cloud, Microsoft Azure or IBM Cloud or even as a serverless function i
 [Keycloak](https://www.keycloak.org/), Open Source Identity and Access Management is used for the authentication 
 so you can even get advanced features such as User Federation, Identity Brokering and Social Login.
 
+## I want to quickly test by myself
+Cool! You can either use or [Quick Setup Guide](https://github.com/iDempiere-micro/erpjs/wiki/Quick-setup) or see the demo (once it is ready).
+
+## Benefits
 You can download the source code and own the ERP&CRM.
 You can explore the source code and find out how we used [NestJS](https://nestjs.com/), 
 [TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Svelte](https://svelte.dev/) 
