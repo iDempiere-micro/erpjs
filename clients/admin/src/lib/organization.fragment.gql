@@ -15,4 +15,7 @@ fragment OrganizationDetailParts on Organization {
             accountingScheme {
                 id
             }
+            documentNumberSequences {
+                current
+            }
 }

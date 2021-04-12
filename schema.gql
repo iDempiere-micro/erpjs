@@ -198,6 +198,7 @@ type Organization {
 input OrganizationSaveArgs {
   accountingSchemeId: Int!
   contact: String!
+  currentInvoiceDocumentNumber: Float!
   displayName: String!
   id: Int
   idNumber: String!

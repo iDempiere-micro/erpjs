@@ -255,6 +255,7 @@ export type Organization = {
 export type OrganizationSaveArgs = {
     accountingSchemeId: Scalars['Int'];
     contact: Scalars['String'];
+    currentInvoiceDocumentNumber: Scalars['Float'];
     displayName: Scalars['String'];
     id?: Maybe<Scalars['Int']>;
     idNumber: Scalars['String'];
@@ -549,6 +550,7 @@ export type SaveOrganizationMutationVariables = Exact<{
     newBankAccount: BankAccountSaveArgs;
     registration: Scalars['String'];
     vatNumber?: Maybe<Scalars['String']>;
+    currentInvoiceDocumentNumber: Scalars['Float'];
 }>;
 
 export type SaveOrganizationMutation = { __typename?: 'Mutation' } & {
@@ -670,6 +672,10 @@ export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & 
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         bankAccount: { __typename?: 'BankAccount' } & BankAccountListPartsFragment;
         accountingScheme: { __typename?: 'AccountingScheme' } & Pick<AccountingScheme, 'id'>;
+        documentNumberSequences: { __typename?: 'DocumentNumberSequence' } & Pick<
+            DocumentNumberSequence,
+            'current'
+        >;
     };
 
 export type OrganizationByIdQueryVariables = Exact<{

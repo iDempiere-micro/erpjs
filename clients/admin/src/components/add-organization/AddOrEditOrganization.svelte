@@ -17,6 +17,17 @@
     let idNumber = organization?.idNumber;
     let vatNumber = organization?.vatNumber;
     let accountingSchemeId = organization?.accountingScheme?.id || 0; //TODO: fixme
+    let currentInvoiceDocumentNumber = organization?.documentNumberSequences?.current;
+
+    let bankAccountCustomerPrintableNumber = organization?.bankAccount?.bankAccountCustomerPrintableNumber || ''; //TODO: fixme
+    let bankId = organization?.bankAccount?.bank?.id || 0; //TODO: fixme
+    let bankAccountDisplyName = organization?.bankAccount?.displayName || ''; //TODO: fixme
+    let iban = organization?.bankAccount?.iban || ''; //TODO: fixme
+    let swift = organization?.bankAccount?.swift || ''; //TODO: fixme
+    let city = organization?.legalAddress?.city || ''; //TODO: fixme
+    let countryIsoCode = organization?.legalAddress?.country?.isoCode || ''; //TODO: fixme
+    let line1 = organization?.legalAddress?.line1 || ''; //TODO: fixme
+    let zipCode = organization?.legalAddress?.zipCode || ''; //TODO: fixme
 
     const myForm = form(
         () => ({
@@ -44,6 +55,10 @@
                 value: vatNumber,
                 validators: [],
             },
+            currentInvoiceDocumentNumber: {
+                value: currentInvoiceDocumentNumber,
+                validators: ['required'],
+            },
         }),
         {
             initCheck: true,
@@ -59,7 +74,7 @@
     >(SAVE_ORGANIZATION);
 
     const saveOrganization = async () => {
-        if (displayName && contact && legalName && registration && idNumber) {
+        if (displayName && contact && legalName && registration && idNumber && currentInvoiceDocumentNumber) {
             const { data } = await saveOrganizationMutation({
                 variables: {
                     id: organization?.id,
@@ -70,6 +85,20 @@
                     idNumber,
                     vatNumber,
                     accountingSchemeId,
+                    currentInvoiceDocumentNumber,
+                    newBankAccount: {
+                        bankAccountCustomerPrintableNumber,
+                        bankId,
+                        displayName: bankAccountDisplyName,
+                        iban,
+                        swift,
+                    },
+                    legalAddress: {
+                        city,
+                        countryIsoCode,
+                        line1,
+                        zipCode,
+                    }
                 },
             });
             console.log('*** organization created', data?.saveOrganization?.id);
@@ -121,6 +150,14 @@
                         bind:value={vatNumber}
                         id="vatNumber"
                     />
+
+                    <SimpleTextBox
+                        form={myForm}
+                        title="Current Invoice Document Number"
+                        bind:value={currentInvoiceDocumentNumber}
+                        id="currentInvoiceDocumentNumber"
+                    />
+                    
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
                         <button
                             type="submit"

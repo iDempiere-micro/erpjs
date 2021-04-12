@@ -9,6 +9,7 @@ mutation SaveOrganization(
     $newBankAccount: BankAccountSaveArgs!
     $registration: String!
     $vatNumber: String
+    $currentInvoiceDocumentNumber: Float!
 ) { saveOrganization( args :
 {
     id: $id
@@ -21,6 +22,7 @@ mutation SaveOrganization(
     newBankAccount: $newBankAccount
     registration: $registration
     vatNumber: $vatNumber
+    currentInvoiceDocumentNumber: $currentInvoiceDocumentNumber
 }
 
 ) { id } }
