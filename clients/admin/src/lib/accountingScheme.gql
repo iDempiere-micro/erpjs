@@ -1,0 +1,5 @@
+query accountingSchemeById($id: Int!) {
+            accountingScheme(id: $id) {
+                ...AccountingSchemeDetailParts
+            }
+        }

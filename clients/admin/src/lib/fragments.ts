@@ -198,13 +198,13 @@ export const BANK_ACCOUNT_LIST_PARTS = gql`
     ${BANK_LIST_PARTS}
     fragment BankAccountListParts on BankAccount {
         id
-            displayName
-            bank {
-                ...BankListParts
-            }
-            bankAccountCustomerPrintableNumber
-            iban
-            swift
+        displayName
+        bank {
+            ...BankListParts
+        }
+        bankAccountCustomerPrintableNumber
+        iban
+        swift
     }
 `;
 

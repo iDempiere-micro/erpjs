@@ -25,7 +25,10 @@ export class OrganizationResolver {
 
   @Query(() => Organization)
   async organization(@Args('id', { type: () => Int }) id: number) {
-    const result = await this.organizationService.loadEntityById(getManager(), id);
+    const result = await this.organizationService.loadEntityById(
+      getManager(),
+      id,
+    );
     return result;
   }
 

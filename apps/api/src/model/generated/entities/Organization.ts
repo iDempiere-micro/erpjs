@@ -83,7 +83,7 @@ export class Organization implements OrganizationModel {
     () => DocumentNumberSequence,
     documentNumberSequence => documentNumberSequence.organization,
   )
-  @Field(()=>DocumentNumberSequence)
+  @Field(() => DocumentNumberSequence)
   documentNumberSequences: DocumentNumberSequence[];
 
   @ManyToOne(
@@ -92,7 +92,7 @@ export class Organization implements OrganizationModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'accountingSchemeId', referencedColumnName: 'id' }])
-  @Field(()=>AccountingScheme)
+  @Field(() => AccountingScheme)
   accountingScheme: AccountingSchemeModel;
 
   @ManyToOne(
@@ -101,7 +101,7 @@ export class Organization implements OrganizationModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
-  @Field(()=>BankAccount)
+  @Field(() => BankAccount)
   bankAccount: BankAccountModel;
 
   @ManyToOne(
@@ -110,7 +110,7 @@ export class Organization implements OrganizationModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'legalAddressId', referencedColumnName: 'id' }])
-  @Field(()=>Address)
+  @Field(() => Address)
   legalAddress: AddressModel;
 
   @OneToMany(

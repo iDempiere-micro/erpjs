@@ -21,7 +21,7 @@ import { OrganizationModel } from '../../lib/organization.model';
 @ObjectType()
 export class AccountingScheme implements AccountingSchemeModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
-  @Field(()=>Int)
+  @Field(() => Int)
   id: number;
 
   @Column('timestamp without time zone', {
@@ -55,7 +55,7 @@ export class AccountingScheme implements AccountingSchemeModel {
     { eager: true },
   )
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
-  @Field(()=>Currency)
+  @Field(() => Currency)
   currency: CurrencyModel;
 
   @OneToMany(

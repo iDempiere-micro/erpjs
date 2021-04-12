@@ -11,7 +11,7 @@ import { BankAccountSaveArgs } from './bank.account.save.args';
 @InputType()
 export class OrganizationSaveArgs extends BaseSaveArgs
   implements OrganizationSaveArgsModel {
-  @Field(()=>Int)
+  @Field(() => Int)
   accountingSchemeId: number;
   @Field(() => BankAccountSaveArgs)
   newBankAccount: BankAccountSaveArgsModel;

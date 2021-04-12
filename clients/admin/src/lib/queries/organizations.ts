@@ -19,7 +19,7 @@ export const ORGANIZATIONS = gql`
             bankAccount {
                 ...BankAccountListParts
             }
-    }
+        }
     }
 `;
 export const mock = {

@@ -15,7 +15,7 @@ import { UserModel } from '../../lib/user.model';
 @ObjectType()
 export class DocumentNumberSequence {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
-  @Field(()=>Int)
+  @Field(() => Int)
   id: number;
 
   @Column('timestamp without time zone', {
@@ -54,5 +54,3 @@ export class DocumentNumberSequence {
   @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
   organization: OrganizationModel;
 }
-
-

@@ -69,7 +69,7 @@ export class BankAccount {
     bank => bank.bankAccounts,
   )
   @JoinColumn([{ name: 'bankId', referencedColumnName: 'id' }])
-  @Field(()=>Bank)
+  @Field(() => Bank)
   bank: BankModel;
 
   @OneToMany(
