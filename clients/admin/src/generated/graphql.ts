@@ -14,6 +14,14 @@ export type Scalars = {
     UniversalDateTime: any;
 };
 
+export type AccountingScheme = {
+    __typename?: 'AccountingScheme';
+    currency: Currency;
+    displayName: Scalars['String'];
+    id: Scalars['Int'];
+    updtOp: User;
+};
+
 export type Address = {
     __typename?: 'Address';
     city: Scalars['String'];
@@ -44,6 +52,7 @@ export type Bank = {
 
 export type BankAccount = {
     __typename?: 'BankAccount';
+    bank: Bank;
     bankAccountCustomerPrintableNumber: Scalars['String'];
     displayName: Scalars['String'];
     iban: Scalars['String'];
@@ -53,6 +62,15 @@ export type BankAccount = {
     swift: Scalars['String'];
     updtOp: User;
     updtTs: Scalars['UniversalDateTime'];
+};
+
+export type BankAccountSaveArgs = {
+    bankAccountCustomerPrintableNumber: Scalars['String'];
+    bankId: Scalars['Float'];
+    displayName: Scalars['String'];
+    iban: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    swift: Scalars['String'];
 };
 
 export type BankSaveArgs = {
@@ -127,6 +145,14 @@ export type CustomerSaveArgs = {
     legalName: Scalars['String'];
     note?: Maybe<Scalars['String']>;
     vatNumber?: Maybe<Scalars['String']>;
+};
+
+export type DocumentNumberSequence = {
+    __typename?: 'DocumentNumberSequence';
+    current: Scalars['Float'];
+    forType: Scalars['String'];
+    id: Scalars['Int'];
+    updtOp: User;
 };
 
 export type IdAndNumber = {
@@ -209,12 +235,16 @@ export type MutationSaveProductArgs = {
 
 export type Organization = {
     __typename?: 'Organization';
+    accountingScheme: AccountingScheme;
+    bankAccount: BankAccount;
     contact: Scalars['String'];
     displayName: Scalars['String'];
+    documentNumberSequences: DocumentNumberSequence;
     id: Scalars['Float'];
     idNumber: Scalars['String'];
     isActive: Scalars['Boolean'];
     isCurrent: Scalars['Boolean'];
+    legalAddress: Address;
     legalName: Scalars['String'];
     registration: Scalars['String'];
     updtOp: User;
@@ -223,14 +253,14 @@ export type Organization = {
 };
 
 export type OrganizationSaveArgs = {
-    accountingSchemeId: Scalars['Float'];
-    bankAccountId: Scalars['Float'];
+    accountingSchemeId: Scalars['Int'];
     contact: Scalars['String'];
     displayName: Scalars['String'];
     id?: Maybe<Scalars['Int']>;
     idNumber: Scalars['String'];
     legalAddress: AddressSaveArgs;
     legalName: Scalars['String'];
+    newBankAccount: BankAccountSaveArgs;
     registration: Scalars['String'];
     vatNumber?: Maybe<Scalars['String']>;
 };
@@ -263,6 +293,7 @@ export type Query = {
     customersByArgs: Array<Customer>;
     menu: Array<Menu>;
     now: Scalars['UniversalDateTime'];
+    organization: Organization;
     organizations: Array<Organization>;
     product: Product;
     products: Array<Product>;
@@ -290,6 +321,10 @@ export type QueryCustomerArgs = {
 export type QueryCustomersByArgsArgs = {
     displayName?: Maybe<Scalars['String']>;
     legalName?: Maybe<Scalars['String']>;
+};
+
+export type QueryOrganizationArgs = {
+    id: Scalars['Int'];
 };
 
 export type QueryProductArgs = {
@@ -503,6 +538,23 @@ export type CreateMonthlyInvoiceMutation = { __typename?: 'Mutation' } & {
     createMonthlyInvoice: Array<{ __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>>;
 };
 
+export type SaveOrganizationMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    displayName: Scalars['String'];
+    accountingSchemeId: Scalars['Int'];
+    contact: Scalars['String'];
+    idNumber: Scalars['String'];
+    legalAddress: AddressSaveArgs;
+    legalName: Scalars['String'];
+    newBankAccount: BankAccountSaveArgs;
+    registration: Scalars['String'];
+    vatNumber?: Maybe<Scalars['String']>;
+}>;
+
+export type SaveOrganizationMutation = { __typename?: 'Mutation' } & {
+    saveOrganization: { __typename?: 'Organization' } & Pick<Organization, 'id'>;
+};
+
 export type SaveProductMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
@@ -540,6 +592,16 @@ export type SalesInvoicesInTimeQuery = { __typename?: 'Query' } & {
         >
     >;
 };
+
+export type BankAccountDetailPartsFragment = { __typename?: 'BankAccount' } & Pick<
+    BankAccount,
+    'id' | 'displayName' | 'bankAccountCustomerPrintableNumber' | 'iban' | 'swift'
+> & { bank: { __typename?: 'Bank' } & BankListPartsFragment };
+
+export type BankAccountListPartsFragment = { __typename?: 'BankAccount' } & Pick<
+    BankAccount,
+    'id' | 'displayName' | 'bankAccountCustomerPrintableNumber' | 'iban' | 'swift'
+> & { bank: { __typename?: 'Bank' } & BankListPartsFragment };
 
 export type BankDetailPartsFragment = { __typename?: 'Bank' } & Pick<
     Bank,
@@ -599,6 +661,23 @@ export type CustomerByIdQueryVariables = Exact<{
 
 export type CustomerByIdQuery = { __typename?: 'Query' } & {
     customer: { __typename?: 'Customer' } & CustomerDetailPartsFragment;
+};
+
+export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & Pick<
+    Organization,
+    'id' | 'displayName' | 'legalName' | 'registration' | 'contact' | 'idNumber' | 'vatNumber'
+> & {
+        legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
+        bankAccount: { __typename?: 'BankAccount' } & BankAccountListPartsFragment;
+        accountingScheme: { __typename?: 'AccountingScheme' } & Pick<AccountingScheme, 'id'>;
+    };
+
+export type OrganizationByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type OrganizationByIdQuery = { __typename?: 'Query' } & {
+    organization: { __typename?: 'Organization' } & OrganizationDetailPartsFragment;
 };
 
 export type ProductDetailPartsFragment = { __typename?: 'Product' } & Pick<

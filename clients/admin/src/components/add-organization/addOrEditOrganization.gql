@@ -1,0 +1,26 @@
+mutation SaveOrganization(
+    $id: Int
+    $displayName: String!
+    $accountingSchemeId: Int!
+    $contact: String!
+    $idNumber: String!
+    $legalAddress: AddressSaveArgs!
+    $legalName: String!
+    $newBankAccount: BankAccountSaveArgs!
+    $registration: String!
+    $vatNumber: String
+) { saveOrganization( args :
+{
+    id: $id
+    displayName: $displayName
+    accountingSchemeId: $accountingSchemeId
+    contact: $contact
+    idNumber: $idNumber
+    legalAddress: $legalAddress
+    legalName: $legalName
+    newBankAccount: $newBankAccount
+    registration: $registration
+    vatNumber: $vatNumber
+}
+
+) { id } }

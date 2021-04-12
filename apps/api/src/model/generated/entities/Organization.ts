@@ -18,6 +18,9 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { AddressModel } from '../../lib/address.model';
+import { BankAccountModel } from '../../lib/bank.account.model';
+import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
 
 @Index('IDX_4177d3499a2c7edb42ead3d916', ['displayName'], { unique: true })
 @Index('IDX_99ecb4de1fda7ee51fb91b3055', ['vatNumber'], { unique: true })
@@ -80,6 +83,7 @@ export class Organization implements OrganizationModel {
     () => DocumentNumberSequence,
     documentNumberSequence => documentNumberSequence.organization,
   )
+  @Field(()=>DocumentNumberSequence)
   documentNumberSequences: DocumentNumberSequence[];
 
   @ManyToOne(
@@ -88,7 +92,8 @@ export class Organization implements OrganizationModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'accountingSchemeId', referencedColumnName: 'id' }])
-  accountingScheme: AccountingScheme;
+  @Field(()=>AccountingScheme)
+  accountingScheme: AccountingSchemeModel;
 
   @ManyToOne(
     () => BankAccount,
@@ -96,7 +101,8 @@ export class Organization implements OrganizationModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
-  bankAccount: BankAccount;
+  @Field(()=>BankAccount)
+  bankAccount: BankAccountModel;
 
   @ManyToOne(
     () => Address,
@@ -104,7 +110,8 @@ export class Organization implements OrganizationModel {
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'legalAddressId', referencedColumnName: 'id' }])
-  legalAddress: Address;
+  @Field(()=>Address)
+  legalAddress: AddressModel;
 
   @OneToMany(
     () => SalesInvoice,

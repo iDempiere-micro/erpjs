@@ -193,3 +193,35 @@ export const BANK_LIST_PARTS = gql`
         bankIdentifierCode
     }
 `;
+
+export const BANK_ACCOUNT_LIST_PARTS = gql`
+    ${BANK_LIST_PARTS}
+    fragment BankAccountListParts on Bank {
+        id
+            displayName
+            bank {
+                ..BankListParts
+            }
+            bankAccountCustomerPrintableNumber
+            iban
+            swift
+    }
+`;
+
+export const ORGANIZATION_DETAIL_PARTS = gql`
+${ADDRESS_LIST_PARTS}
+${BANK_ACCOUNT_LIST_PARTS}
+            id
+            displayName
+            legalAddress {
+                ...AddressListParts
+            }
+            legalName
+            registration
+            contact
+            idNumber
+            vatNumber
+            bankAccount {
+                ...BankAccountListParts
+            }
+`;

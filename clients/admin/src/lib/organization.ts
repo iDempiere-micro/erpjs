@@ -3,6 +3,7 @@ import type { OrganizationListPartsFragment, OrganizationsQuery } from '../gener
 import { query } from 'svelte-apollo';
 import { store } from './store';
 import type { SelectItem } from './select';
+import { ORGANIZATION_DETAIL_PARTS } from './fragments';
 
 const ORGANIZATIONS = gql`
     {
@@ -43,3 +44,15 @@ export const mapOrganizations = (data: OrganizationListPartsFragment[]): SelectI
               label: displayName,
           }))
         : [];
+
+const GET_ORGANIZATION_BY_ID = gql`
+    ${ORGANIZATION_DETAIL_PARTS}
+    query organizationById($id: Int!) {
+        organization(id: $id) {
+            ...OrganizationDetailParts
+        }
+    }
+`;
+
+export const getOrganizationBy = (id: number) =>
+    query<OrganizationByIdQuery>(GET_ORGANIZATION_BY_ID, { variables: { id } });

@@ -8,12 +8,14 @@ import {
 import { Organization } from './Organization';
 import { OrganizationModel } from '../../lib/organization.model';
 import { User } from './User';
-import { Field } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
 
 @Entity('document_number_sequence', { schema: 'public' })
+@ObjectType()
 export class DocumentNumberSequence {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field(()=>Int)
   id: number;
 
   @Column('timestamp without time zone', {
@@ -38,9 +40,11 @@ export class DocumentNumberSequence {
   isCurrent: boolean;
 
   @Column('character varying', { name: 'forType' })
+  @Field()
   forType: string;
 
   @Column('integer', { name: 'current' })
+  @Field()
   current: number;
 
   @ManyToOne(
@@ -50,3 +54,5 @@ export class DocumentNumberSequence {
   @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
   organization: OrganizationModel;
 }
+
+

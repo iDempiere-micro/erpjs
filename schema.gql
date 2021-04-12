@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AccountingScheme {
+  currency: Currency!
+  displayName: String!
+  id: Int!
+  updtOp: User!
+}
+
 type Address {
   city: String!
   country: Country!
@@ -29,6 +36,7 @@ type Bank {
 }
 
 type BankAccount {
+  bank: Bank!
   bankAccountCustomerPrintableNumber: String!
   displayName: String!
   iban: String!
@@ -123,6 +131,13 @@ input CustomerSaveArgs {
 """Date custom scalar type"""
 scalar Date
 
+type DocumentNumberSequence {
+  current: Float!
+  forType: String!
+  id: Int!
+  updtOp: User!
+}
+
 input IdAndNumber {
   id: Float!
   value: Float!
@@ -163,12 +178,16 @@ type Mutation {
 }
 
 type Organization {
+  accountingScheme: AccountingScheme!
+  bankAccount: BankAccount!
   contact: String!
   displayName: String!
+  documentNumberSequences: DocumentNumberSequence!
   id: Float!
   idNumber: String!
   isActive: Boolean!
   isCurrent: Boolean!
+  legalAddress: Address!
   legalName: String!
   registration: String!
   updtOp: User!
@@ -177,7 +196,7 @@ type Organization {
 }
 
 input OrganizationSaveArgs {
-  accountingSchemeId: Float!
+  accountingSchemeId: Int!
   contact: String!
   displayName: String!
   id: Int
@@ -215,6 +234,7 @@ type Query {
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   menu: [Menu!]!
   now: UniversalDateTime!
+  organization(id: Int!): Organization!
   organizations: [Organization!]!
   product(id: Int!): Product!
   products: [Product!]!

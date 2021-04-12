@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { BaseSaveArgs } from './base.save.args';
 import {
   AddressSaveArgsModel,
@@ -11,7 +11,7 @@ import { BankAccountSaveArgs } from './bank.account.save.args';
 @InputType()
 export class OrganizationSaveArgs extends BaseSaveArgs
   implements OrganizationSaveArgsModel {
-  @Field()
+  @Field(()=>Int)
   accountingSchemeId: number;
   @Field(() => BankAccountSaveArgs)
   newBankAccount: BankAccountSaveArgsModel;
