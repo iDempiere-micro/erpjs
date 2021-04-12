@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Select from 'svelte-select';
     import type {
         OrganizationDetailPartsFragment,
         SaveOrganizationMutation,
@@ -8,6 +9,16 @@
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
+    import {
+        accountingSchemesStore,
+        ensureAccountingSchemesStore,
+        mapAccountingSchemes,
+    } from '../../lib/accountingScheme';
+    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import { mapBanks, ensureBanksStore, banksStore } from '../../lib/bank';
+    import { ensureCountriesStore, countriesStore, mapCountries } from '../../lib/country';
+    import { throwOnUndefined } from '../../lib/util';
+    import { _ } from 'svelte-i18n';
 
     export let organization: OrganizationDetailPartsFragment | undefined;
     let displayName = organization?.displayName;
@@ -16,19 +27,45 @@
     let registration = organization?.registration;
     let idNumber = organization?.idNumber;
     let vatNumber = organization?.vatNumber;
-    let accountingSchemeId = organization?.accountingScheme?.id || 0; //TODO: fixme
+    let accountingSchemeId = organization?.accountingScheme?.id;
     let currentInvoiceDocumentNumber = organization?.documentNumberSequences?.current;
 
     let bankAccountCustomerPrintableNumber =
-        organization?.bankAccount?.bankAccountCustomerPrintableNumber || ''; //TODO: fixme
-    let bankId = organization?.bankAccount?.bank?.id || 0; //TODO: fixme
-    let bankAccountDisplyName = organization?.bankAccount?.displayName || ''; //TODO: fixme
-    let iban = organization?.bankAccount?.iban || ''; //TODO: fixme
-    let swift = organization?.bankAccount?.swift || ''; //TODO: fixme
-    let city = organization?.legalAddress?.city || ''; //TODO: fixme
-    let countryIsoCode = organization?.legalAddress?.country?.isoCode || ''; //TODO: fixme
-    let line1 = organization?.legalAddress?.line1 || ''; //TODO: fixme
-    let zipCode = organization?.legalAddress?.zipCode || ''; //TODO: fixme
+        organization?.bankAccount?.bankAccountCustomerPrintableNumber;
+    let bankId = organization?.bankAccount?.bank?.id;
+    let bankAccountDisplayName = organization?.bankAccount?.displayName;
+    let iban = organization?.bankAccount?.iban;
+    let swift = organization?.bankAccount?.swift;
+    let city = organization?.legalAddress?.city;
+    let countryIsoCode = organization?.legalAddress?.country?.isoCode;
+    let line1 = organization?.legalAddress?.line1;
+    let zipCode = organization?.legalAddress?.zipCode;
+
+    ensureAccountingSchemesStore();
+    let selectedAccountingScheme: SelectItem | undefined;
+
+    const handleSelectAccountingScheme = (event: OnSelectParam) => {
+        accountingSchemeId = +event.detail.value;
+        myForm.validate();
+    };
+
+    ensureCountriesStore();
+
+    let selectedLegalAddressCountryValue: SelectItem | undefined;
+    const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
+        const countries = countriesStore.get().countries;
+        countryIsoCode =
+            countries?.find((x) => x.id === event.detail.value)?.isoCode || throwOnUndefined();
+        myForm.validate();
+    };
+
+    ensureBanksStore();
+    let selectedBank: SelectItem | undefined;
+
+    const handleSelectBank = (event: OnSelectParam) => {
+        bankId = +event.detail.value;
+        myForm.validate();
+    };
 
     const myForm = form(
         () => ({
@@ -56,8 +93,48 @@
                 value: vatNumber,
                 validators: [],
             },
+            accountingSchemeId: {
+                value: accountingSchemeId,
+                validators: ['required'],
+            },
             currentInvoiceDocumentNumber: {
                 value: currentInvoiceDocumentNumber,
+                validators: ['required'],
+            },
+            bankAccountCustomerPrintableNumber: {
+                value: bankAccountCustomerPrintableNumber,
+                validators: ['required'],
+            },
+            bankId: {
+                value: bankId,
+                validators: ['required'],
+            },
+            bankAccountDisplayName: {
+                value: bankAccountDisplayName,
+                validators: ['required'],
+            },
+            iban: {
+                value: iban,
+                validators: ['required'],
+            },
+            swift: {
+                value: swift,
+                validators: ['required'],
+            },
+            city: {
+                value: city,
+                validators: ['required'],
+            },
+            countryIsoCode: {
+                value: countryIsoCode,
+                validators: ['required'],
+            },
+            line1: {
+                value: line1,
+                validators: ['required'],
+            },
+            zipCode: {
+                value: zipCode,
                 validators: ['required'],
             },
         }),
@@ -75,14 +152,50 @@
     >(SAVE_ORGANIZATION);
 
     const saveOrganization = async () => {
+        console.log({
+            id: organization?.id,
+            displayName,
+            contact,
+            legalName,
+            registration,
+            idNumber,
+            vatNumber,
+            accountingSchemeId,
+            currentInvoiceDocumentNumber,
+            newBankAccount: {
+                bankAccountCustomerPrintableNumber,
+                bankId,
+                displayName: bankAccountDisplayName,
+                iban,
+                swift,
+            },
+            legalAddress: {
+                city,
+                countryIsoCode,
+                line1,
+                zipCode,
+            },
+        });
+
         if (
             displayName &&
             contact &&
             legalName &&
             registration &&
             idNumber &&
-            currentInvoiceDocumentNumber
+            currentInvoiceDocumentNumber &&
+            accountingSchemeId &&
+            bankAccountCustomerPrintableNumber &&
+            bankId &&
+            bankAccountDisplayName &&
+            iban &&
+            swift &&
+            city &&
+            countryIsoCode &&
+            line1 &&
+            zipCode
         ) {
+            currentInvoiceDocumentNumber = +currentInvoiceDocumentNumber;
             const { data } = await saveOrganizationMutation({
                 variables: {
                     id: organization?.id,
@@ -97,7 +210,7 @@
                     newBankAccount: {
                         bankAccountCustomerPrintableNumber,
                         bankId,
-                        displayName: bankAccountDisplyName,
+                        displayName: bankAccountDisplayName,
                         iban,
                         swift,
                     },
@@ -165,6 +278,91 @@
                         bind:value={currentInvoiceDocumentNumber}
                         id="currentInvoiceDocumentNumber"
                     />
+
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-4">
+                            <label
+                                for="accountingSchemes"
+                                class="block text-sm font-medium text-gray-700"
+                                >Accounting Schemes</label
+                            >
+                            {#if $myForm.fields.accountingSchemeId.errors.includes('required')}
+                                <label
+                                    for="accountingSchemes"
+                                    class="block text-sm font-small text-red-700">Required</label
+                                >
+                            {/if}
+                            <Select
+                                inputAttributes={{ id: 'accountingSchemes' }}
+                                items={mapAccountingSchemes(
+                                    $accountingSchemesStore?.accountingSchemes,
+                                )}
+                                selectedValue={selectedAccountingScheme}
+                                on:select={handleSelectAccountingScheme}
+                            />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-4">
+                            <label for="banks" class="block text-sm font-medium text-gray-700"
+                                >Banks</label
+                            >
+                            {#if $myForm.fields.bankId.errors.includes('required')}
+                                <label for="banks" class="block text-sm font-small text-red-700"
+                                    >Required</label
+                                >
+                            {/if}
+                            <Select
+                                inputAttributes={{ id: 'banks' }}
+                                items={mapBanks($banksStore?.banks)}
+                                selectedValue={selectedBank}
+                                on:select={handleSelectBank}
+                            />
+                        </div>
+                    </div>
+
+                    <SimpleTextBox
+                        form={myForm}
+                        title="Bank Account Display Name"
+                        bind:value={bankAccountDisplayName}
+                        id="bankAccountDisplayName"
+                    />
+
+                    <SimpleTextBox
+                        form={myForm}
+                        title="Bank Account Customer Printable Number"
+                        bind:value={bankAccountCustomerPrintableNumber}
+                        id="bankAccountCustomerPrintableNumber"
+                    />
+
+                    <SimpleTextBox form={myForm} title="IBAN" bind:value={iban} id="iban" />
+
+                    <SimpleTextBox form={myForm} title="SWIFT" bind:value={swift} id="swift" />
+
+                    <SimpleTextBox form={myForm} title="City" bind:value={city} id="city" />
+                    <SimpleTextBox form={myForm} title="Street" bind:value={line1} id="line1" />
+                    <SimpleTextBox
+                        form={myForm}
+                        title="Postal/ZIP Code"
+                        bind:value={zipCode}
+                        id="zipCode"
+                    />
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="country" class="block text-sm font-medium text-gray-700"
+                            >{$_('page.customers.add.country')}</label
+                        >
+                        <Select
+                            inputAttributes={{
+                                id: 'country',
+                                autocomplete: 'disabled',
+                            }}
+                            items={mapCountries($countriesStore?.countries)}
+                            selectedValue={selectedLegalAddressCountryValue}
+                            on:select={handleSelectLegalAddressCountry}
+                        />
+                    </div>
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
                         <button
