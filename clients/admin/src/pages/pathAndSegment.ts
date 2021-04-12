@@ -40,6 +40,11 @@ export const urls = {
         add: 'add-bank',
         edit: 'bank/:id',
     },
+    accountingSchemes: {
+        list: 'accountingSchemes',
+        add: 'add-accountingScheme',
+        edit: 'accountingScheme/:id',
+    },
 };
 
 export const segments = {
@@ -50,4 +55,5 @@ export const segments = {
     countries: urls.countries.list,
     currencies: urls.currencies.list,
     banks: urls.banks.list,
+    accountingSchemes: urls.accountingSchemes.list,
 };
