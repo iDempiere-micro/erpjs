@@ -14,6 +14,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { BankModel } from '../../lib/bank.model';
 
 @Index('IDX_d13847b5db0cf66c1ea23615eb', ['displayName'], { unique: true })
 @Entity('bank_account', { schema: 'public' })
@@ -68,7 +69,8 @@ export class BankAccount {
     bank => bank.bankAccounts,
   )
   @JoinColumn([{ name: 'bankId', referencedColumnName: 'id' }])
-  bank: Bank;
+  @Field(() => Bank)
+  bank: BankModel;
 
   @OneToMany(
     () => Organization,

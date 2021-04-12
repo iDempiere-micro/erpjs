@@ -5,7 +5,7 @@
 type AccountingScheme {
   currency: Currency!
   displayName: String!
-  id: Float!
+  id: Int!
   updtOp: User!
 }
 
@@ -42,6 +42,7 @@ type Bank {
 }
 
 type BankAccount {
+  bank: Bank!
   bankAccountCustomerPrintableNumber: String!
   displayName: String!
   iban: String!
@@ -51,6 +52,15 @@ type BankAccount {
   swift: String!
   updtOp: User!
   updtTs: UniversalDateTime!
+}
+
+input BankAccountSaveArgs {
+  bankAccountCustomerPrintableNumber: String!
+  bankId: Float!
+  displayName: String!
+  iban: String!
+  id: Int
+  swift: String!
 }
 
 input BankSaveArgs {
@@ -127,6 +137,13 @@ input CustomerSaveArgs {
 """Date custom scalar type"""
 scalar Date
 
+type DocumentNumberSequence {
+  current: Float!
+  forType: String!
+  id: Int!
+  updtOp: User!
+}
+
 input IdAndNumber {
   id: Float!
   value: Float!
@@ -168,12 +185,16 @@ type Mutation {
 }
 
 type Organization {
+  accountingScheme: AccountingScheme!
+  bankAccount: BankAccount!
   contact: String!
   displayName: String!
+  documentNumberSequences: DocumentNumberSequence!
   id: Float!
   idNumber: String!
   isActive: Boolean!
   isCurrent: Boolean!
+  legalAddress: Address!
   legalName: String!
   registration: String!
   updtOp: User!
@@ -182,14 +203,15 @@ type Organization {
 }
 
 input OrganizationSaveArgs {
-  accountingSchemeId: Float!
-  bankAccountId: Float!
+  accountingSchemeId: Int!
   contact: String!
+  currentInvoiceDocumentNumber: Float!
   displayName: String!
   id: Int
   idNumber: String!
   legalAddress: AddressSaveArgs!
   legalName: String!
+  newBankAccount: BankAccountSaveArgs!
   registration: String!
   vatNumber: String
 }
@@ -222,6 +244,7 @@ type Query {
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   menu: [Menu!]!
   now: UniversalDateTime!
+  organization(id: Int!): Organization!
   organizations: [Organization!]!
   product(id: Int!): Product!
   products: [Product!]!

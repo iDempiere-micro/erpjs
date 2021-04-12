@@ -11,7 +11,7 @@ import { Currency } from './Currency';
 import { Organization } from './Organization';
 import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
 import { User } from './User';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
 import { CurrencyModel } from '../../lib/currency.model';
 import { OrganizationModel } from '../../lib/organization.model';
@@ -21,7 +21,7 @@ import { OrganizationModel } from '../../lib/organization.model';
 @ObjectType()
 export class AccountingScheme implements AccountingSchemeModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
-  @Field()
+  @Field(() => Int)
   id: number;
 
   @Column('timestamp without time zone', {

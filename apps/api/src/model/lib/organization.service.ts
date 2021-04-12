@@ -14,6 +14,10 @@ import {
 } from './accounting.scheme.service';
 import { Organization } from '../generated/entities/Organization';
 import { UserModel } from './user.model';
+import {
+  DocumentNumberingService,
+  DocumentNumberingServiceKey,
+} from './document.numbering.service';
 
 export const OrganizationServiceKey = 'OrganizationService';
 
@@ -31,6 +35,8 @@ export class OrganizationService extends BaseEntityService<
     public readonly bankAccountService: BankAccountService,
     @Inject(AccountingSchemeServiceKey)
     public readonly accountingSchemeService: AccountingSchemeService,
+    @Inject(DocumentNumberingServiceKey)
+    public readonly documentNumberingService: DocumentNumberingService,
   ) {
     super();
   }
@@ -55,12 +61,24 @@ export class OrganizationService extends BaseEntityService<
       currentUser,
     );
     organization.idNumber = args.idNumber;
+
+    if (!(args.bankAccount || args.newBankAccount || args.bankAccountId)) {
+      throw new Error('Bank account not specified');
+    }
+
     organization.bankAccount =
       args.bankAccount ||
-      (await this.bankAccountService.loadEntityById(
-        transactionalEntityManager,
-        args.bankAccountId,
-      ));
+      (args.bankAccountId &&
+        (await this.bankAccountService.loadEntityById(
+          transactionalEntityManager,
+          args.bankAccountId,
+        ))) ||
+      (args.newBankAccount &&
+        (await this.bankAccountService.save(
+          transactionalEntityManager,
+          args.newBankAccount,
+          currentUser,
+        )));
     organization.accountingScheme =
       args.accountingScheme ||
       (await this.accountingSchemeService.loadEntityById(
@@ -69,7 +87,20 @@ export class OrganizationService extends BaseEntityService<
       ));
     organization.vatNumber = args.vatNumber;
 
-    return organization;
+    const org = await this.persist(
+      transactionalEntityManager,
+      organization,
+      currentUser,
+    );
+
+    await this.documentNumberingService.save(
+      transactionalEntityManager,
+      args.currentInvoiceDocumentNumber,
+      currentUser,
+      org,
+    );
+
+    return org;
   }
 
   protected getRepository(

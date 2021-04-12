@@ -116,6 +116,18 @@
         "nav": "Add Bank"
       }
     },
+    "organizations": {
+      "title": "Organizations",
+      "nav": "Organizations",
+      "add": {
+        "title": "Add Organization",
+        "nav": "Add Organization"
+      },
+      "edit": {
+        "title": "Edit Organization",
+        "nav": "Add Organization"
+      }
+    },
     "settings": {
       "title": "Settings",
       "nav": "Settings"
