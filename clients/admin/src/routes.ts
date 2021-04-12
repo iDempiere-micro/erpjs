@@ -22,9 +22,12 @@ import Currencies from './pages/Currencies.svelte';
 import AddCurrency from './pages/AddCurrency.svelte';
 import EditCurrency from './pages/EditCurrency.svelte';
 import CurrencyDetail from './pages/CurrencyDetail.svelte';
-import Banks from './pages/banks.svelte';
+import Banks from './pages/Banks.svelte';
 import AddBank from './pages/AddBank.svelte';
 import EditBank from './pages/EditBank.svelte';
+import Organizations from './pages/Organizations.svelte';
+import AddOrganization from './pages/AddOrganization.svelte';
+import EditOrganization from './pages/EditOrganization.svelte';
 
 export const routes = {
     // Exact path
@@ -70,3 +73,6 @@ addRoute(urls.currencies.detail, CurrencyDetail);
 addRoute(urls.banks.list, Banks);
 addRoute(urls.banks.edit, EditBank);
 addRoute(urls.banks.add, AddBank);
+addRoute(urls.organizations.list, Organizations);
+addRoute(urls.organizations.edit, EditOrganization);
+addRoute(urls.organizations.add, AddOrganization);
