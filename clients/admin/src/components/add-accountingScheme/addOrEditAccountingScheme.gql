@@ -1,0 +1,12 @@
+mutation SaveAccountingScheme(
+    $id: Int
+    $displayName: String!
+    $currencyIsoCode:  String!
+) { saveAccountingScheme( args :
+{
+    id: $id
+    displayName: $displayName
+    currencyIsoCode: $currencyIsoCode
+}
+
+) { id } }

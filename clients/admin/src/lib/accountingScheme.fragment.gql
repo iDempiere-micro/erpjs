@@ -1,0 +1,15 @@
+fragment AccountingSchemeDetailParts on AccountingScheme {
+    id
+    displayName
+    currency {
+        isoCode
+    }
+}
+
+fragment AccountingSchemeListParts on AccountingScheme {
+    id
+    displayName
+    currency {
+        isoCode
+    }
+}

@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AccountingScheme {
+  currency: Currency!
+  displayName: String!
+  id: Float!
+  updtOp: User!
+}
+
+input AccountingSchemeSaveArgs {
+  currencyIsoCode: String!
+  displayName: String!
+  id: Int
+}
+
 type Address {
   city: String!
   country: Country!
@@ -146,6 +159,7 @@ type Mutation {
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
   keepAlive: UniversalDateTime!
+  saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
   saveBank(args: BankSaveArgs!): Bank!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
@@ -195,6 +209,8 @@ input ProductSaveArgs {
 }
 
 type Query {
+  accountingScheme(id: Int!): AccountingScheme!
+  accountingSchemes: [AccountingScheme!]!
   bank(id: Int!): Bank!
   banks: [Bank!]!
   countries: [Country!]!
