@@ -11,13 +11,26 @@ import { AddressServiceKey } from './address.service';
 import { BankAccountServiceKey } from './bank.account.service';
 import { AccountingSchemeServiceKey } from './accounting.scheme.service';
 import { AccountingSchemeModel } from './accounting.scheme.model';
+import { DocumentNumberingServiceKey } from './document.numbering.service';
 
 let mockBankAccountServiceCalled = false;
+let mockDocumentNumberingServiceCalled = false;
+
+const mockDocumentNumberingService = {
+  save: x => {
+    mockDocumentNumberingServiceCalled = true;
+    return x;
+  },
+};
+export const mockDocumentNumberingServiceProvider = {
+  provide: DocumentNumberingServiceKey,
+  useValue: mockDocumentNumberingService,
+};
 
 const mockBankAccountService = {
-  save: (x) => {
+  save: x => {
     mockBankAccountServiceCalled = true;
-    return x
+    return x;
   },
 };
 export const mockBankAccountServiceProvider = {
@@ -25,7 +38,7 @@ export const mockBankAccountServiceProvider = {
   useValue: mockBankAccountService,
 };
 const mockAddressService = {
-  save: (x) => x,
+  save: x => x,
 };
 export const mockAddressServiceProvider = {
   provide: AddressServiceKey,
@@ -44,7 +57,7 @@ const mockEntityManager = {
 } as any;
 
 (global as any).moduleRef = {
-  get: token =>
+  get: () /*token*/ =>
     /*token === SalesInvoiceServiceKey
       ? mockSalesInvoiceService
       :*/ new SaveArgsValidationService(),
@@ -66,15 +79,16 @@ describe('OrganizationService', () => {
         mockAddressServiceProvider,
         saveArgsValidationServiceProvider,
         mockAccountingSchemeServiceProvider,
+        mockDocumentNumberingServiceProvider,
       ],
     }).compile();
 
     service = app.get<OrganizationService>(OrganizationService);
   });
 
-  it('will create a new bank account if needed', async () => {
+  it('will create a new bank account if needed and set the document numbering', async () => {
     mockBankAccountServiceCalled = false;
-    const org = await service.save(
+    await service.save(
       mockEntityManager,
       {
         displayName: '',
@@ -83,7 +97,7 @@ describe('OrganizationService', () => {
           city: '',
           line1: '',
           zipCode: '',
-          country: {} as CountryModel
+          country: {} as CountryModel,
         },
 
         newBankAccount: {
@@ -99,10 +113,13 @@ describe('OrganizationService', () => {
         registration: '',
         contact: '',
         idNumber: '',
-        vatNumber: null
+        vatNumber: null,
+
+        currentInvoiceDocumentNumber: 1000,
       },
       { id: 1 } as UserModel,
     );
     expect(mockBankAccountServiceCalled).toBeTruthy();
+    expect(mockDocumentNumberingServiceCalled).toBeTruthy();
   });
 });

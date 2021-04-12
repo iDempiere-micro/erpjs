@@ -29,4 +29,6 @@ export class OrganizationSaveArgs extends BaseSaveArgs
   registration: string;
   @Field({ nullable: true })
   vatNumber?: string;
+  @Field()
+  currentInvoiceDocumentNumber: number;
 }

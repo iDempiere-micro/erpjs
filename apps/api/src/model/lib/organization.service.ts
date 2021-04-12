@@ -14,6 +14,10 @@ import {
 } from './accounting.scheme.service';
 import { Organization } from '../generated/entities/Organization';
 import { UserModel } from './user.model';
+import {
+  DocumentNumberingService,
+  DocumentNumberingServiceKey,
+} from './document.numbering.service';
 
 export const OrganizationServiceKey = 'OrganizationService';
 
@@ -31,6 +35,8 @@ export class OrganizationService extends BaseEntityService<
     public readonly bankAccountService: BankAccountService,
     @Inject(AccountingSchemeServiceKey)
     public readonly accountingSchemeService: AccountingSchemeService,
+    @Inject(DocumentNumberingServiceKey)
+    public readonly documentNumberingService: DocumentNumberingService,
   ) {
     super();
   }
@@ -67,12 +73,12 @@ export class OrganizationService extends BaseEntityService<
           transactionalEntityManager,
           args.bankAccountId,
         ))) ||
-        (args.newBankAccount &&
-          (await this.bankAccountService.save(
-            transactionalEntityManager,
-            args.newBankAccount,
-            currentUser,
-          )));
+      (args.newBankAccount &&
+        (await this.bankAccountService.save(
+          transactionalEntityManager,
+          args.newBankAccount,
+          currentUser,
+        )));
     organization.accountingScheme =
       args.accountingScheme ||
       (await this.accountingSchemeService.loadEntityById(
@@ -81,7 +87,20 @@ export class OrganizationService extends BaseEntityService<
       ));
     organization.vatNumber = args.vatNumber;
 
-    return organization;
+    const org = await this.persist(
+      transactionalEntityManager,
+      organization,
+      currentUser,
+    );
+
+    await this.documentNumberingService.save(
+      transactionalEntityManager,
+      args.currentInvoiceDocumentNumber,
+      currentUser,
+      org,
+    );
+
+    return org;
   }
 
   protected getRepository(

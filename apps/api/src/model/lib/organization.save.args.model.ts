@@ -20,4 +20,6 @@ export interface OrganizationSaveArgsModel extends BaseSaveArgsModel {
   contact: string;
   idNumber: string;
   vatNumber?: string;
+
+  currentInvoiceDocumentNumber: number;
 }
