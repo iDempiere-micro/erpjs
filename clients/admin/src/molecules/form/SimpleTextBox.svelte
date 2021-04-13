@@ -54,18 +54,6 @@
         <div class="col-span-6 sm:col-span-4">
             <label for={id} class="block text-sm font-medium text-gray-700">{title}</label>
 
-            {#if $form.fields[id].errors.includes('required')}
-                <label for={id} class="block text-sm font-small text-red-700"
-                    >{$_('validator.required')}</label
-                >
-            {/if}
-
-            {#if $form.fields[id].errors.includes('min')}
-                <label for={id} class="block text-sm font-small text-red-700"
-                    >{$_('validator.minCharacters', { values: { min } })}</label
-                >
-            {/if}
-
             {#if !type || type === 'text'}
                 <input
                     type="text"
@@ -89,6 +77,18 @@
             {:else}
                 <p>unknown type</p>
             {/if}
+            {#if $form.fields[id].errors.includes('required')}
+                <label for={id} class="block text-sm font-small text-red-700"
+                    >{$_('validator.required')}</label
+                >
+            {/if}
+
+            {#if $form.fields[id].errors.includes('min')}
+                <label for={id} class="block text-sm font-small text-red-700"
+                    >{$_('validator.minCharacters', { values: { min } })}</label
+                >
+            {/if}
+
         </div>
     </div>
 {/if}
