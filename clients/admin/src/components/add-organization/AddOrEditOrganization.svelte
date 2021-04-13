@@ -423,7 +423,9 @@
                             <div class="col-span-6">
                                 <SimpleTextBox
                                     form={myForm}
-                                    title={$_('page.organizations.add.bankAccountCustomerPrintableNumber')}
+                                    title={$_(
+                                        'page.organizations.add.bankAccountCustomerPrintableNumber',
+                                    )}
                                     bind:value={bankAccountCustomerPrintableNumber}
                                     id="bankAccountCustomerPrintableNumber"
                                     hideWrapper={true}
@@ -502,6 +504,7 @@
                             title={$_('page.organizations.add.currentInvoiceDocumentNumber')}
                             bind:value={currentInvoiceDocumentNumber}
                             id="currentInvoiceDocumentNumber"
+                            type="number"
                         />
                     </div>
                 </div>
@@ -542,7 +545,7 @@
                                 }}
                                 disabled={false}
                             >
-                            {$_('page.organizations.add.save')}
+                                {$_('page.organizations.add.save')}
                             </button>
                         </div>
                     </div>
