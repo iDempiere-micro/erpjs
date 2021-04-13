@@ -121,7 +121,38 @@
       "nav": "Organizations",
       "add": {
         "title": "Add Organization",
-        "nav": "Add Organization"
+        "nav": "Add Organization",
+        "internalInformation": "Internal Information",
+        "legalInformation": "Legal Information",
+        "bankAccountInformation": "Bank Account Information",
+        "country": "Country",
+        "bank": "Bank",
+        "accountingInformation": "Accounting Information",
+        "contactInformation": "Contact Information",
+        "displayName": "Display Name",
+        "legalName": "Legal Name",
+        "registration": "Registration",
+        "idNumber": "ID Number",
+        "vatNumber": "VAT Number",
+        "line1": "Street",
+        "city": "City",
+        "zipCode": "ZIP Code",
+        "bankAccountDisplayName": "Bank Account Display Name",
+        "bankAccountCustomerPrintableNumber": "Bank Account Customer Printable Number",
+        "iban": "IBAN",
+        "swift": "SWIFT",
+        "accountingSchemes": "Accounting Scheme",
+        "currentInvoiceDocumentNumber": "Current Invoice Document Number",
+        "contact": "Contact",
+        "save": "Save",
+
+        "description": {
+          "internalInformation": "The information we use internally",
+          "legalInformation": "The legal information that will be e.g. on an invoice",
+          "bankAccountInformation": "Where the invoices should be paid to",
+          "accountingInformation": "How will we do the accounting",
+          "contactInformation": "What our contact information will be printed on an invoice"
+        }
       },
       "edit": {
         "title": "Edit Organization",
@@ -207,5 +238,9 @@
     "loading": "Loading...",
     "error": "Error",
     "refresh": "Refreshing..."
+  },
+  "validator":{
+    "required": "Required",
+    "minCharacters": "At least {min} characters"
   }
 }

@@ -6,7 +6,7 @@
         SaveOrganizationMutationVariables,
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { form } from 'svelte-forms';
+    import { form as svelteForm } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
     import {
@@ -19,6 +19,7 @@
     import { ensureCountriesStore, countriesStore, mapCountries } from '../../lib/country';
     import { throwOnUndefined } from '../../lib/util';
     import { _ } from 'svelte-i18n';
+    import Break from '../../molecules/form/Break.svelte';
 
     export let organization: OrganizationDetailPartsFragment | undefined;
     let displayName = organization?.displayName;
@@ -67,7 +68,7 @@
         myForm.validate();
     };
 
-    const myForm = form(
+    const myForm = svelteForm(
         () => ({
             displayName: {
                 value: displayName,
@@ -227,157 +228,329 @@
     };
 </script>
 
-<div class="mt-10 sm:mt-0">
-    <div class="md:gap-6">
-        <div class="mt-5 md:mt-0">
-            <div class="shadow overflow-hidden sm:rounded-md">
-                <div class="px-4 py-5 bg-white sm:p-6">
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Display name"
-                        bind:value={displayName}
-                        id="displayName"
-                    />
-
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Contact"
-                        bind:value={contact}
-                        id="contact"
-                    />
-
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Legal name"
-                        bind:value={legalName}
-                        id="legalName"
-                    />
-
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Registration"
-                        bind:value={registration}
-                        id="registration"
-                    />
-                    <SimpleTextBox
-                        form={myForm}
-                        title="ID Number"
-                        bind:value={idNumber}
-                        id="idNumber"
-                    />
-                    <SimpleTextBox
-                        form={myForm}
-                        title="VAT Number"
-                        bind:value={vatNumber}
-                        id="vatNumber"
-                    />
-
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Current Invoice Document Number"
-                        bind:value={currentInvoiceDocumentNumber}
-                        id="currentInvoiceDocumentNumber"
-                    />
-
-                    <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-4">
-                            <label
-                                for="accountingSchemes"
-                                class="block text-sm font-medium text-gray-700"
-                                >Accounting Schemes</label
-                            >
-                            {#if $myForm.fields.accountingSchemeId.errors.includes('required')}
-                                <label
-                                    for="accountingSchemes"
-                                    class="block text-sm font-small text-red-700">Required</label
-                                >
-                            {/if}
-                            <Select
-                                inputAttributes={{ id: 'accountingSchemes' }}
-                                items={mapAccountingSchemes(
-                                    $accountingSchemesStore?.accountingSchemes,
-                                )}
-                                selectedValue={selectedAccountingScheme}
-                                on:select={handleSelectAccountingScheme}
-                            />
+<form autocomplete="off">
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        {$_('page.organizations.add.internalInformation')}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {$_('page.organizations.add.description.internalInformation')}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.displayName')}
+                                    bind:value={displayName}
+                                    id="displayName"
+                                    hideWrapper={true}
+                                />
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-4">
-                            <label for="banks" class="block text-sm font-medium text-gray-700"
-                                >Banks</label
-                            >
-                            {#if $myForm.fields.bankId.errors.includes('required')}
-                                <label for="banks" class="block text-sm font-small text-red-700"
-                                    >Required</label
-                                >
-                            {/if}
-                            <Select
-                                inputAttributes={{ id: 'banks' }}
-                                items={mapBanks($banksStore?.banks)}
-                                selectedValue={selectedBank}
-                                on:select={handleSelectBank}
-                            />
-                        </div>
-                    </div>
-
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Bank Account Display Name"
-                        bind:value={bankAccountDisplayName}
-                        id="bankAccountDisplayName"
-                    />
-
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Bank Account Customer Printable Number"
-                        bind:value={bankAccountCustomerPrintableNumber}
-                        id="bankAccountCustomerPrintableNumber"
-                    />
-
-                    <SimpleTextBox form={myForm} title="IBAN" bind:value={iban} id="iban" />
-
-                    <SimpleTextBox form={myForm} title="SWIFT" bind:value={swift} id="swift" />
-
-                    <SimpleTextBox form={myForm} title="City" bind:value={city} id="city" />
-                    <SimpleTextBox form={myForm} title="Street" bind:value={line1} id="line1" />
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Postal/ZIP Code"
-                        bind:value={zipCode}
-                        id="zipCode"
-                    />
-
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="country" class="block text-sm font-medium text-gray-700"
-                            >{$_('page.customers.add.country')}</label
-                        >
-                        <Select
-                            inputAttributes={{
-                                id: 'country',
-                                autocomplete: 'disabled',
-                            }}
-                            items={mapCountries($countriesStore?.countries)}
-                            selectedValue={selectedLegalAddressCountryValue}
-                            on:select={handleSelectLegalAddressCountry}
-                        />
-                    </div>
-
-                    <div class="px-4 py-3 bg-white text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click|preventDefault={() => {
-                                saveOrganization();
-                            }}
-                            disabled={false}
-                        >
-                            Save
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <Break />
+
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        {$_('page.organizations.add.legalInformation')}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {$_('page.organizations.add.description.legalInformation')}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="country" class="block text-sm font-medium text-gray-700"
+                                    >{$_('page.organizations.add.country')}</label
+                                >
+                                <Select
+                                    inputAttributes={{
+                                        id: 'country',
+                                        autocomplete: 'disabled',
+                                    }}
+                                    items={mapCountries($countriesStore?.countries)}
+                                    selectedValue={selectedLegalAddressCountryValue}
+                                    on:select={handleSelectLegalAddressCountry}
+                                />
+                                {#if $myForm.fields.countryIsoCode.errors.includes('required')}
+                                    <label
+                                        for="country"
+                                        class="block text-sm font-small text-red-700"
+                                        >{$_('validator.required')}</label
+                                    >
+                                {/if}
+                            </div>
+
+                            <div class="col-span-6">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.legalName')}
+                                    bind:value={legalName}
+                                    id="legalName"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.registration')}
+                                    bind:value={registration}
+                                    id="registration"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.idNumber')}
+                                    bind:value={idNumber}
+                                    id="idNumber"
+                                    hideWrapper={true}
+                                />
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.vatNumber')}
+                                    bind:value={vatNumber}
+                                    id="vatNumber"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.line1')}
+                                    bind:value={line1}
+                                    id="line1"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.city')}
+                                    bind:value={city}
+                                    id="city"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.zipCode')}
+                                    bind:value={zipCode}
+                                    id="zipCode"
+                                    hideWrapper={true}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Break />
+
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        {$_('page.organizations.add.bankAccountInformation')}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {$_('page.organizations.add.description.bankAccountInformation')}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="banks" class="block text-sm font-medium text-gray-700"
+                                    >{$_('page.organizations.add.bank')}</label
+                                >
+                                <Select
+                                    inputAttributes={{ id: 'banks' }}
+                                    items={mapBanks($banksStore?.banks)}
+                                    selectedValue={selectedBank}
+                                    on:select={handleSelectBank}
+                                />
+                                {#if $myForm.fields.bankId.errors.includes('required')}
+                                    <label for="banks" class="block text-sm font-small text-red-700"
+                                        >{$_('validator.required')}</label
+                                    >
+                                {/if}
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.bankAccountDisplayName')}
+                                    bind:value={bankAccountDisplayName}
+                                    id="bankAccountDisplayName"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_(
+                                        'page.organizations.add.bankAccountCustomerPrintableNumber',
+                                    )}
+                                    bind:value={bankAccountCustomerPrintableNumber}
+                                    id="bankAccountCustomerPrintableNumber"
+                                    hideWrapper={true}
+                                />
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.iban')}
+                                    bind:value={iban}
+                                    id="iban"
+                                    hideWrapper={true}
+                                />
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.organizations.add.swift')}
+                                    bind:value={swift}
+                                    id="swift"
+                                    hideWrapper={true}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Break />
+
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        {$_('page.organizations.add.accountingInformation')}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {$_('page.organizations.add.description.accountingInformation')}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-4">
+                                <label
+                                    for="accountingSchemes"
+                                    class="block text-sm font-medium text-gray-700"
+                                    >{$_('page.organizations.add.accountingSchemes')}</label
+                                >
+                                <Select
+                                    inputAttributes={{ id: 'accountingSchemes' }}
+                                    items={mapAccountingSchemes(
+                                        $accountingSchemesStore?.accountingSchemes,
+                                    )}
+                                    selectedValue={selectedAccountingScheme}
+                                    on:select={handleSelectAccountingScheme}
+                                />
+                                {#if $myForm.fields.accountingSchemeId.errors.includes('required')}
+                                    <label
+                                        for="accountingSchemes"
+                                        class="block text-sm font-small text-red-700"
+                                        >{$_('validator.required')}</label
+                                    >
+                                {/if}
+                            </div>
+                        </div>
+
+                        <SimpleTextBox
+                            form={myForm}
+                            title={$_('page.organizations.add.currentInvoiceDocumentNumber')}
+                            bind:value={currentInvoiceDocumentNumber}
+                            id="currentInvoiceDocumentNumber"
+                            type="number"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Break />
+
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        {$_('page.organizations.add.contactInformation')}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {$_('page.organizations.add.description.contactInformation')}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <SimpleTextBox
+                            form={myForm}
+                            title={$_('page.organizations.add.contact')}
+                            bind:value={contact}
+                            id="contact"
+                        />
+
+                        <div class="px-4 py-3 bg-white text-right sm:px-6">
+                            <button
+                                type="submit"
+                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                on:click|preventDefault={() => {
+                                    saveOrganization();
+                                }}
+                                disabled={false}
+                            >
+                                {$_('page.organizations.add.save')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

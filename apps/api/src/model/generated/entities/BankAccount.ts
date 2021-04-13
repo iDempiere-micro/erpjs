@@ -67,6 +67,7 @@ export class BankAccount {
   @ManyToOne(
     () => Bank,
     bank => bank.bankAccounts,
+    { eager: true },
   )
   @JoinColumn([{ name: 'bankId', referencedColumnName: 'id' }])
   @Field(() => Bank)
