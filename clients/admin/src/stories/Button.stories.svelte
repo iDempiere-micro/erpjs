@@ -4,7 +4,7 @@
 </script>
 
 <Meta
-  title="Example/Button"
+  title="DSL/Button"
   component={Button}
   argTypes={{
     label: { control: "text" },
