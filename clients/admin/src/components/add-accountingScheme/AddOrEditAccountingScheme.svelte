@@ -95,7 +95,7 @@
                             {/if}
                             <Select
                                 inputAttributes={{ id: 'currencies' }}
-                                items={mapCurrencies($currenciesStore?.currencies)}
+                                items={mapCurrencies($currenciesStore.currencies)}
                                 selectedValue={selectedCurrencyValue}
                                 on:select={handleSelectCurrency}
                             />
