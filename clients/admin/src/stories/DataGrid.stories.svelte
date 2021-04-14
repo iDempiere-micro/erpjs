@@ -1,16 +1,10 @@
 <script>
-    import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-    import DataGrid from "../molecules/datagrid/Datagrid.svelte";
-    import DataGridFirstColumn from "./DataGridFirstColumn.svelte";
+    import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+    import DataGrid from '../molecules/datagrid/Datagrid.svelte';
+    import DataGridFirstColumn from './DataGridFirstColumn.svelte';
 </script>
 
-<Meta
-    title="Molecules/DataGrid"
-    component={DataGrid}
-    argTypes={{
-
-  }}
-/>
+<Meta title="Molecules/DataGrid" component={DataGrid} argTypes={{}} />
 
 <Template let:args>
     <DataGrid {...args} />
@@ -20,13 +14,11 @@
     name="Primary"
     args={{
         columns: [
-        {
-            name: 'First column',
-            cellComponent: DataGridFirstColumn,
-        },
+            {
+                name: 'First column',
+                cellComponent: DataGridFirstColumn,
+            },
         ],
-        rows: [
-            { firstLine: 'A', secondLine: 'B' }
-        ]
-  }}
+        rows: [{ firstLine: 'A', secondLine: 'B' }],
+    }}
 />

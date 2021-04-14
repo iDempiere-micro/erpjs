@@ -5,3 +5,7 @@
 /* purgecss end ignore */
 
 @tailwind utilities;
+
+:global(input.invalid) {
+    border-color: red;
+}

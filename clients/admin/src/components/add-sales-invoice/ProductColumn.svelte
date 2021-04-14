@@ -23,9 +23,3 @@
         {selectedValue}
     />
 </div>
-
-<style>
-    .listContainer {
-        z-index: 50;
-    }
-</style>

@@ -4,8 +4,8 @@ export const CURRENCIES = gql`
     {
         currencies {
             id
-            displayName
             isoCode
+            displayName
         }
     }
 `;

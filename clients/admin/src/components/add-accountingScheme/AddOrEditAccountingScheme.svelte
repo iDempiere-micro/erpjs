@@ -51,12 +51,6 @@
     >(SAVE_ACCOUNTING_SCHEME);
 
     const saveAccountingScheme = async () => {
-        console.log('****', {
-            id: accountingScheme?.id,
-            displayName,
-            currencyIsoCode,
-        });
-
         if (displayName && currencyIsoCode) {
             const { data } = await saveAccountingSchemeMutation({
                 variables: {

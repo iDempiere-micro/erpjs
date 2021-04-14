@@ -1,7 +1,7 @@
 <script lang="ts">
     import { routes } from './routes';
     import Router from 'svelte-spa-router';
-    import "./main.css";
+    import './main.css';
 
     export let url = '';
 

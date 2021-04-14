@@ -8,6 +8,7 @@ import {
     mock as mockSalesInvoicesInTime,
 } from './queries/salesInvoicesInTime';
 import { PRODUCTS, mock as mockProducts } from './queries/products';
+import { CURRENCIES, mock as mockCurrencies } from './queries/currencies';
 
 export interface ApolloMock {
     query: DocumentNode;
@@ -20,4 +21,5 @@ export const mocks: ApolloMock[] = [
     { query: SALES_INVOICES_IN_TIME, mock: mockSalesInvoicesInTime },
     { query: EVERYTHING, mock: mockSalesInvoices },
     { query: PRODUCTS, mock: mockProducts },
+    { query: CURRENCIES, mock: mockCurrencies },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));
