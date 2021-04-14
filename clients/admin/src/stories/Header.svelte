@@ -1,6 +1,6 @@
 <script>
   import './header.css';
-  import Button from './Button.svelte';
+  import Button from '../dsl/Button.svelte';
 
   import { createEventDispatcher } from 'svelte';
 

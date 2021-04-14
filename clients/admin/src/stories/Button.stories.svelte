@@ -1,6 +1,6 @@
 <script>
   import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-  import Button from "./Button.svelte";
+  import Button from "../dsl/Button.svelte";
 </script>
 
 <Meta
@@ -8,6 +8,7 @@
   component={Button}
   argTypes={{
     label: { control: "text" },
+    className: { control: "text" },
     primary: { control: "boolean" },
     backgroundColor: { control: "color" },
     size: {
@@ -26,6 +27,7 @@
   args={{
     primary: true,
     label: "Button",
+    className: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
   }}
 />
 
