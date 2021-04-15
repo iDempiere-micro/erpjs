@@ -18,4 +18,10 @@
     <AddOrEditAccountingScheme {...args} />
 </Template>
 
-<Story name="Primary" args={{}} />
+<Story name="Add" />
+<Story
+    name="Edit"
+    args={{
+        accountingScheme: { displayName: 'Accounting Scheme 1', currency: { isoCode: 'ABC' } },
+    }}
+/>

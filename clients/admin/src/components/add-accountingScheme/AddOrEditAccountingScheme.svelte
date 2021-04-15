@@ -14,6 +14,9 @@
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
 
+    /**
+     * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
+     */
     export let accountingScheme: AccountingSchemeDetailPartsFragment | undefined;
     let displayName = accountingScheme?.displayName;
     let currencyIsoCode = accountingScheme?.currency?.isoCode;
@@ -26,6 +29,15 @@
     };
 
     ensureCurrenciesStore();
+
+    $: {
+        if (currencyIsoCode) {
+            const found = $currenciesStore.currencies.find((x) => x?.isoCode === currencyIsoCode);
+            if (found) {
+                selectedCurrencyValue = mapCurrencies([found])[0];
+            }
+        }
+    }
 
     const myForm = form(
         () => ({
