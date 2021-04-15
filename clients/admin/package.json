@@ -6,7 +6,7 @@
     "generate": "graphql-codegen --config codegen.yml",
     "prettier": "prettier --write --plugin-search-dir=. \"src/**/*.svelte\" \"src/**/*.ts\"",
     "prettier:check": "prettier --check --plugin-search-dir=. \"src/**/*.svelte\" \"src/**/*.ts\"",
-    "svelte-check": "svelte-check",
+    "svelte-check": "svelte-check --ignore src/stories",
     "test": "cross-env MOCK=mock web-test-runner \"src/**/*.test.ts\"",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

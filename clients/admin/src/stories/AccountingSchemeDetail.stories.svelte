@@ -10,16 +10,14 @@
     setupLocales();
 </script>
 
-<Meta title="Components/Accounting Scheme" component={AccountingSchemeDetail} argTypes={{}} />
+<Meta
+    title="Components/Accounting Scheme/Detail"
+    component={AccountingSchemeDetail}
+    argTypes={{}}
+/>
 
 <Template let:args>
     <AccountingSchemeDetail {...args} {client} />
 </Template>
 
 <Story name="Detail" />
-<Story
-    name="Edit"
-    args={{
-        accountingScheme: mock1.data.accountingScheme,
-    }}
-/>

@@ -9,7 +9,11 @@
     setupLocales();
 </script>
 
-<Meta title="Components/Accounting Scheme" component={AddOrEditAccountingScheme} argTypes={{}} />
+<Meta
+    title="Components/Accounting Scheme/Add&Edit"
+    component={AddOrEditAccountingScheme}
+    argTypes={{}}
+/>
 
 <Template let:args>
     <AddOrEditAccountingScheme {...args} />
