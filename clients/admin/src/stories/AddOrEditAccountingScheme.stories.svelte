@@ -4,9 +4,7 @@
     import { apollo, setClient } from '../lib/apollo';
     import { setupLocales } from '../i18n';
 
-    const client = apollo('', true);
-    setClient(client);
-
+    setClient(apollo('', true));
     setupLocales();
 </script>
 

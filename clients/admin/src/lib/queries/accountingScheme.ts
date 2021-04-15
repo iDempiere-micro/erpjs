@@ -9,3 +9,11 @@ export const SAVE_ACCOUNTING_SCHEME = gql`
         }
     }
 `;
+
+export const mock = {
+    data: {
+        saveAccountingScheme: {
+            id: 999,
+        },
+    },
+};

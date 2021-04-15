@@ -22,6 +22,7 @@
             autocomplete="disabled"
             bind:value
             use:bindClass={{ form }}
+            data-testid={id}
             on:blur|preventDefault={() => form.validate()}
         />
     {:else if type === 'date'}
@@ -32,6 +33,7 @@
             autocomplete="disabled"
             bind:value
             use:bindClass={{ form }}
+            data-testid={id}
             on:blur|preventDefault={() => form.validate()}
         />
     {:else if type === 'number'}
@@ -42,6 +44,7 @@
             autocomplete="disabled"
             bind:value
             use:bindClass={{ form }}
+            data-testid={id}
             on:blur|preventDefault={() => form.validate()}
         />
     {:else}
@@ -72,6 +75,7 @@
                     autocomplete="disabled"
                     bind:value
                     use:bindClass={{ form }}
+                    data-testid={id}
                     on:blur|preventDefault={() => form.validate()}
                 />
             {:else if type === 'date'}
@@ -82,6 +86,7 @@
                     autocomplete="disabled"
                     bind:value
                     use:bindClass={{ form }}
+                    data-testid={id}
                     on:blur|preventDefault={() => form.validate()}
                 />
             {:else if type === 'number'}
@@ -92,6 +97,7 @@
                     autocomplete="disabled"
                     bind:value
                     use:bindClass={{ form }}
+                    data-testid={id}
                     on:blur|preventDefault={() => form.validate()}
                 />
             {:else}

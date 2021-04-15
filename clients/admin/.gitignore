@@ -5,3 +5,4 @@ node_modules
 coverage
 .env
 storybook-static
+localazy.keys.json

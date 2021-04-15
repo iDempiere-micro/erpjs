@@ -8,7 +8,8 @@
     "svelte-check": "svelte-check",
     "test": "cross-env MOCK=mock web-test-runner \"src/**/*.test.ts\"",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "localazy:upload": ""
   },
   "dependencies": {
     "svelte": "^3.24.0"
