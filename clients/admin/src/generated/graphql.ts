@@ -625,12 +625,12 @@ export type SalesInvoicesInTimeQuery = { __typename?: 'Query' } & {
 export type AccountingSchemeDetailPartsFragment = { __typename?: 'AccountingScheme' } & Pick<
     AccountingScheme,
     'id' | 'displayName'
-> & { currency: { __typename?: 'Currency' } & Pick<Currency, 'isoCode'> };
+> & { currency: { __typename?: 'Currency' } & Pick<Currency, 'id' | 'isoCode' | 'displayName'> };
 
 export type AccountingSchemeListPartsFragment = { __typename?: 'AccountingScheme' } & Pick<
     AccountingScheme,
     'id' | 'displayName'
-> & { currency: { __typename?: 'Currency' } & Pick<Currency, 'isoCode'> };
+> & { currency: { __typename?: 'Currency' } & Pick<Currency, 'id' | 'isoCode' | 'displayName'> };
 
 export type AccountingSchemeByIdQueryVariables = Exact<{
     id: Scalars['Int'];

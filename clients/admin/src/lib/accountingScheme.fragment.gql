@@ -2,7 +2,9 @@ fragment AccountingSchemeDetailParts on AccountingScheme {
     id
     displayName
     currency {
+        id
         isoCode
+        displayName
     }
 }
 
@@ -10,6 +12,8 @@ fragment AccountingSchemeListParts on AccountingScheme {
     id
     displayName
     currency {
+        id
         isoCode
+        displayName
     }
 }

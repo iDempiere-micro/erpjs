@@ -49,6 +49,7 @@ export const urls = {
         list: 'accountingSchemes',
         add: 'add-accountingScheme',
         edit: 'accountingScheme/:id',
+        detail: 'accountingScheme-detail/:id',
     },
 };
 

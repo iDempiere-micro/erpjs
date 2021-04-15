@@ -208,6 +208,11 @@
     "accountingSchemes": {
       "title": "Accounting Schemes",
       "nav": "Accounting Schemes",
+      "list": {
+        "column1": {
+          "title": "Accounting Scheme"
+        }
+      },
       "add": {
         "title": "Add Accounting Scheme",
         "nav": "Add Accounting Scheme",
@@ -250,6 +255,8 @@
     "minCharacters": "At least {min} characters"
   },
   "actions" : {
-    "save": "Save"
+    "save": "Save",
+    "edit": "Edit",
+    "detail": "Detail"
   }
 }

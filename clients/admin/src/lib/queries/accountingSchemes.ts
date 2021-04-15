@@ -1,13 +1,10 @@
 import gql from 'graphql-tag';
+import { ACCOUNTING_SCHEME_DETAIL_PARTS_RAW } from '../fragments';
 
 export const ACCOUNTING_SCHEMES = gql`
     {
         accountingSchemes {
-            id
-            displayName
-            currency {
-                isoCode
-            }
+            ${ACCOUNTING_SCHEME_DETAIL_PARTS_RAW}
         }
     }
 `;
@@ -17,12 +14,20 @@ export const mock = {
             {
                 id: 1,
                 displayName: 'Expert AccountingScheme',
-                currency: { isoCode: 'ABC' },
+                currency: {
+                    id: 1,
+                    isoCode: 'ABC',
+                    displayName: 'ABC Currency',
+                },
             },
             {
                 id: 2,
                 displayName: 'Software AccountingScheme',
-                currency: { isoCode: 'DEF' },
+                currency: {
+                    id: 2,
+                    isoCode: 'DEF',
+                    displayName: 'Currency DEF',
+                },
             },
         ],
     },

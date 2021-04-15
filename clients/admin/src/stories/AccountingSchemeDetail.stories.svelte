@@ -1,21 +1,22 @@
 <script>
     import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
-    import AddOrEditAccountingScheme from '../components/add-accountingScheme/AddOrEditAccountingScheme.svelte';
+    import AccountingSchemeDetail from '../pages/AccountingSchemeDetail.svelte';
     import { apollo, setClient } from '../lib/apollo';
     import { setupLocales } from '../i18n';
     import { mock1 } from '../lib/queries/accountingScheme';
 
-    setClient(apollo('', true));
+    const client = apollo('', true);
+    setClient(client);
     setupLocales();
 </script>
 
-<Meta title="Components/Accounting Scheme" component={AddOrEditAccountingScheme} argTypes={{}} />
+<Meta title="Components/Accounting Scheme" component={AccountingSchemeDetail} argTypes={{}} />
 
 <Template let:args>
-    <AddOrEditAccountingScheme {...args} />
+    <AccountingSchemeDetail {...args} {client} />
 </Template>
 
-<Story name="Add" />
+<Story name="Detail" />
 <Story
     name="Edit"
     args={{

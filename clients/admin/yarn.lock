@@ -10084,10 +10084,10 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-mock-apollo-client@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/mock-apollo-client/-/mock-apollo-client-1.0.0.tgz#412292a0119fd8da832eb13e7d3aefdbf1df2bae"
-  integrity sha512-WfBEp5kPqC4XUHjWu56tJ2MoNcUdQA6MIp0fV8EQ+qqbcluUDANbTflv55x7YUYQuQxkQT9qydOmmGeceTGjyw==
+mock-apollo-client@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mock-apollo-client/-/mock-apollo-client-1.1.0.tgz#0589ae458a2539518e870bb0c08961f30a9eaec1"
+  integrity sha512-OXCvwAwwHbieMMipcE3wGdPONPHC+f65EEiyC1XpYaS5Jk6/c7oBe9t8knwzAqyCQ9nZziHdR8UDqORPTfkcFw==
 
 modern-normalize@^1.0.0:
   version "1.0.0"

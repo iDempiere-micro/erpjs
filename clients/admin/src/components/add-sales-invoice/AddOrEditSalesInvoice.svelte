@@ -205,9 +205,7 @@
         {
             name: 'Remove',
             onclick: (row: SalesInvoiceLineSaveArgs) => {
-                console.log('*** row', row.lineOrder);
                 lines = lines.filter((x) => x.lineOrder !== row.lineOrder);
-                console.log('*** items', lines);
             },
         },
     ];

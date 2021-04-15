@@ -27,10 +27,15 @@
         currencyIsoCode = '' + event.detail.value;
         myForm.validate();
     };
+    const handleClearCurrency = () => {
+        currencyIsoCode = undefined;
+        myForm.validate();
+    };
 
     ensureCurrenciesStore();
 
     $: {
+        selectedCurrencyValue = undefined;
         if (currencyIsoCode) {
             const found = $currenciesStore.currencies.find((x) => x?.isoCode === currencyIsoCode);
             if (found) {
@@ -117,6 +122,7 @@
                                     items={mapCurrencies($currenciesStore.currencies)}
                                     selectedValue={selectedCurrencyValue}
                                     on:select={handleSelectCurrency}
+                                    on:clear={handleClearCurrency}
                                 />
                                 {#if $myForm.fields.currencyIsoCode.errors.includes('required')}
                                     <label

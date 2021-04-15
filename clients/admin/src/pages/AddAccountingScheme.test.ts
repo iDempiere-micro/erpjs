@@ -4,7 +4,7 @@ import AddAccountingScheme from './AddAccountingScheme.svelte';
 import { setupLocales } from '../i18n';
 import { mock as mockCurrencies } from '../lib/queries/currencies';
 
-describe('<AddOrEditAccountingScheme>', function () {
+describe('<AddAccountingScheme>', function () {
     before(() => {
         setupLocales();
     });

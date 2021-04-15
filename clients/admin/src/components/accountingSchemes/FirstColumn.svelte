@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { BankListPartsFragment } from '../../generated/graphql';
-    export let row: BankListPartsFragment;
+    import type { AccountingSchemeListPartsFragment } from '../../generated/graphql';
+    export let row: AccountingSchemeListPartsFragment;
 </script>
 
 <div class="flex items-center">
@@ -9,7 +9,7 @@
             {row.displayName}
         </div>
         <div class="text-sm text-gray-500">
-            {row.bankIdentifierCode}
+            {row.currency.displayName}
         </div>
     </div>
 </div>
