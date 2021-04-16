@@ -22,6 +22,9 @@
     let displayName = accountingScheme?.displayName;
     let currencyIsoCode = accountingScheme?.currency?.isoCode;
 
+    const navigateToTheDetail = () =>
+        accountingScheme && push(urls.accountingSchemes.detail, accountingScheme.id);
+
     let selectedCurrencyValue: SelectItem | undefined;
 
     const handleSelectCurrency = (event: OnSelectParam) => {
@@ -133,7 +136,7 @@
                                     >
                                 {/if}
                             </div>
-                            <div class="px-4 py-3 bg-white text-right sm:px-6">
+                            <div class="grid-cols-1">
                                 <Button
                                     on:click={() => {
                                         saveAccountingScheme();
@@ -141,6 +144,17 @@
                                     disabled={!$myForm.valid}
                                 />
                             </div>
+                            {#if accountingScheme}
+                                <div class="grid-cols-1">
+                                    <Button
+                                        label={$_('actions.cancel')}
+                                        primary={false}
+                                        on:click={() => {
+                                            navigateToTheDetail();
+                                        }}
+                                    />
+                                </div>
+                            {/if}
                         </div>
                     </div>
                 </div>
