@@ -7,7 +7,6 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
-    import gql from 'graphql-tag';
     import { SAVE_CURRENCY } from '../../lib/queries/currency';
 
     export let currency: CurrencyDetailPartsFragment | undefined;

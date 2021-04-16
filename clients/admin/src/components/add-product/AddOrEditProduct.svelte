@@ -7,7 +7,6 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
-    import gql from 'graphql-tag';
     import { SAVE_PRODUCT } from '../../lib/queries/product';
 
     export let product: ProductDetailPartsFragment | undefined;

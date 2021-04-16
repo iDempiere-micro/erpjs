@@ -1,6 +1,7 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 if (!process.env.API_BASE_URL) require('dotenv').config()
 module.exports = {
+  exclude: ['**/node_modules/**/*', '**/stories/**/*'],
   mount: {
     public: {url: '/', static: true},
     src: {url: '/dist'},

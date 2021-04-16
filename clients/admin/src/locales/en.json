@@ -208,9 +208,20 @@
     "accountingSchemes": {
       "title": "Accounting Schemes",
       "nav": "Accounting Schemes",
+      "list": {
+        "column1": {
+          "title": "Accounting Scheme"
+        }
+      },
       "add": {
         "title": "Add Accounting Scheme",
-        "nav": "Add Accounting Scheme"
+        "nav": "Add Accounting Scheme",
+        "internalInformation": "Internal Information",
+        "currency": "Currency",
+        "displayName": "Display Name",
+        "description": {
+          "internalInformation": "Internal Information"
+        }
       },
       "edit": {
         "title": "Edit Accounting Scheme",
@@ -242,5 +253,10 @@
   "validator":{
     "required": "Required",
     "minCharacters": "At least {min} characters"
+  },
+  "actions" : {
+    "save": "Save",
+    "edit": "Edit",
+    "detail": "Detail"
   }
 }

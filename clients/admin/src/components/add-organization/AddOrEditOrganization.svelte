@@ -9,17 +9,13 @@
     import { form as svelteForm } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
-    import {
-        accountingSchemesStore,
-        ensureAccountingSchemesStore,
-        mapAccountingSchemes,
-    } from '../../lib/accountingScheme';
     import type { OnSelectParam, SelectItem } from '../../lib/select';
     import { mapBanks, ensureBanksStore, banksStore } from '../../lib/bank';
     import { ensureCountriesStore, countriesStore, mapCountries } from '../../lib/country';
     import { throwOnUndefined } from '../../lib/util';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
+    import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
 
     export let organization: OrganizationDetailPartsFragment | undefined;
     let displayName = organization?.displayName;
@@ -42,11 +38,8 @@
     let line1 = organization?.legalAddress?.line1;
     let zipCode = organization?.legalAddress?.zipCode;
 
-    ensureAccountingSchemesStore();
-    let selectedAccountingScheme: SelectItem | undefined;
-
-    const handleSelectAccountingScheme = (event: OnSelectParam) => {
-        accountingSchemeId = +event.detail.value;
+    const handleSelectAccountingScheme = (id: number) => {
+        accountingSchemeId = id;
         myForm.validate();
     };
 
@@ -476,26 +469,13 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-4">
-                                <label
-                                    for="accountingSchemes"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.organizations.add.accountingSchemes')}</label
-                                >
-                                <Select
-                                    inputAttributes={{ id: 'accountingSchemes' }}
-                                    items={mapAccountingSchemes(
-                                        $accountingSchemesStore?.accountingSchemes,
-                                    )}
-                                    selectedValue={selectedAccountingScheme}
-                                    on:select={handleSelectAccountingScheme}
+                                <AccountingSchemeSelect
+                                    onSelect={handleSelectAccountingScheme}
+                                    id="accountingSchemeId"
+                                    label="Accounting Scheme"
+                                    {accountingSchemeId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.accountingSchemeId.errors.includes('required')}
-                                    <label
-                                        for="accountingSchemes"
-                                        class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
                         </div>
 

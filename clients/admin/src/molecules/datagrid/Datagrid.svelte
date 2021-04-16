@@ -58,7 +58,7 @@
                                     {:else}
                                         <button
                                             on:click|preventDefault={() => {
-                                                if (a?.onclick) a?.onclick(row);
+                                                if (a.onclick) a.onclick(row);
                                             }}>{a.name}</button
                                         >
                                     {/if}

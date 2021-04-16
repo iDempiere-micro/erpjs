@@ -10,9 +10,9 @@
 <Nav {segment} />
 <header class="bg-white shadow" on:click={() => profileMenuOpened.update(() => false)}>
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <slot name="header">
-            <h1 class="text-3xl font-bold leading-tight text-gray-900">{title}</h1>
-        </slot>
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">{title}</h1>
+        <br />
+        <slot name="header" />
     </div>
 </header>
 <main on:click={() => profileMenuOpened.update(() => false)}>

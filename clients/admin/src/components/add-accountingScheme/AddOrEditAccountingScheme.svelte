@@ -8,11 +8,16 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
-    import gql from 'graphql-tag';
     import { SAVE_ACCOUNTING_SCHEME } from '../../lib/queries/accountingScheme';
     import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/currency';
     import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import { _ } from 'svelte-i18n';
+    import Button from '../../dsl/Button.svelte';
+    import { push, urls } from '../../pages/pathAndSegment';
 
+    /**
+     * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
+     */
     export let accountingScheme: AccountingSchemeDetailPartsFragment | undefined;
     let displayName = accountingScheme?.displayName;
     let currencyIsoCode = accountingScheme?.currency?.isoCode;
@@ -23,8 +28,22 @@
         currencyIsoCode = '' + event.detail.value;
         myForm.validate();
     };
+    const handleClearCurrency = () => {
+        currencyIsoCode = undefined;
+        myForm.validate();
+    };
 
     ensureCurrenciesStore();
+
+    $: {
+        selectedCurrencyValue = undefined;
+        if (currencyIsoCode) {
+            const found = $currenciesStore.currencies.find((x) => x?.isoCode === currencyIsoCode);
+            if (found) {
+                selectedCurrencyValue = mapCurrencies([found])[0];
+            }
+        }
+    }
 
     const myForm = form(
         () => ({
@@ -51,12 +70,6 @@
     >(SAVE_ACCOUNTING_SCHEME);
 
     const saveAccountingScheme = async () => {
-        console.log('****', {
-            id: accountingScheme?.id,
-            displayName,
-            currencyIsoCode,
-        });
-
         if (displayName && currencyIsoCode) {
             const { data } = await saveAccountingSchemeMutation({
                 variables: {
@@ -65,57 +78,73 @@
                     currencyIsoCode,
                 },
             });
-            console.log('*** accountingScheme created', data?.saveAccountingScheme?.id);
+            await push(urls.accountingSchemes.detail, data?.saveAccountingScheme?.id);
         }
     };
 </script>
 
-<div class="mt-10 sm:mt-0">
-    <div class="md:gap-6">
-        <div class="mt-5 md:mt-0">
-            <div class="shadow overflow-hidden sm:rounded-md">
-                <div class="px-4 py-5 bg-white sm:p-6">
-                    <SimpleTextBox
-                        form={myForm}
-                        title="Display name"
-                        bind:value={displayName}
-                        id="displayName"
-                    />
-
-                    <div class="grid grid-cols-6 gap-6">
-                        <div class="col-span-6 sm:col-span-4">
-                            <label for="currencies" class="block text-sm font-medium text-gray-700"
-                                >Currencies</label
-                            >
-                            {#if $myForm.fields.currencyIsoCode.errors.includes('required')}
+<form autocomplete="off">
+    <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+            <div class="md:col-span-1">
+                <div class="px-4 sm:px-0">
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">
+                        {$_('page.accountingSchemes.add.internalInformation')}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {$_('page.accountingSchemes.add.description.internalInformation')}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-5 md:mt-0 md:col-span-2">
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6">
+                                <SimpleTextBox
+                                    form={myForm}
+                                    title={$_('page.accountingSchemes.add.displayName')}
+                                    bind:value={displayName}
+                                    id="displayName"
+                                    hideWrapper={true}
+                                />
+                            </div>
+                            <div class="col-span-6">
                                 <label
                                     for="currencies"
-                                    class="block text-sm font-small text-red-700">Required</label
+                                    class="block text-sm font-medium text-gray-700"
+                                    >{$_('page.accountingSchemes.add.currency')}</label
                                 >
-                            {/if}
-                            <Select
-                                inputAttributes={{ id: 'currencies' }}
-                                items={mapCurrencies($currenciesStore.currencies)}
-                                selectedValue={selectedCurrencyValue}
-                                on:select={handleSelectCurrency}
-                            />
+                                <Select
+                                    inputAttributes={{
+                                        id: 'currencies',
+                                        'data-testid': 'currencies',
+                                    }}
+                                    items={mapCurrencies($currenciesStore.currencies)}
+                                    selectedValue={selectedCurrencyValue}
+                                    on:select={handleSelectCurrency}
+                                    on:clear={handleClearCurrency}
+                                />
+                                {#if $myForm.fields.currencyIsoCode.errors.includes('required')}
+                                    <label
+                                        for="currencies"
+                                        class="block text-sm font-small text-red-700"
+                                        >{$_('validator.required')}</label
+                                    >
+                                {/if}
+                            </div>
+                            <div class="px-4 py-3 bg-white text-right sm:px-6">
+                                <Button
+                                    on:click={() => {
+                                        saveAccountingScheme();
+                                    }}
+                                    disabled={!$myForm.valid}
+                                />
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="px-4 py-3 bg-white text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click|preventDefault={() => {
-                                saveAccountingScheme();
-                            }}
-                            disabled={false}
-                        >
-                            Save
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>

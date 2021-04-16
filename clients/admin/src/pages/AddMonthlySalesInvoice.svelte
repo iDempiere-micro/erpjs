@@ -6,8 +6,7 @@
     import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
 
-    const client = apollo(urls.salesInvoices.monthly.add);
-    setClient(client);
+    setClient(apollo(urls.salesInvoices.monthly.add));
 </script>
 
 <Page
@@ -16,12 +15,6 @@
     name="page.salesInvoices.monthly.add.title"
 >
     <span slot="content">
-        <AddOrEditMonthlySalesInvoice {client} />
+        <AddOrEditMonthlySalesInvoice />
     </span>
 </Page>
-
-<style>
-    :global(input.invalid) {
-        border-color: red;
-    }
-</style>

@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import type {
     AccountingSchemeByIdQuery,
     AccountingSchemeListPartsFragment,
@@ -6,9 +5,9 @@ import type {
 } from '../generated/graphql';
 import { query } from 'svelte-apollo';
 import { store } from './store';
-import { BANK_DETAIL_PARTS, UNIT_OF_MEASUREMENT_DETAIL_PARTS } from './fragments';
 import { ACCOUNTING_SCHEMES } from './queries/accountingSchemes';
 import type { SelectItem } from './select';
+import { GET_ACCOUNTING_SCHEME_BY_ID } from './queries/accountingScheme';
 
 export interface WithAccountingSchemeListPartsFragment {
     loaded: boolean;
@@ -42,14 +41,5 @@ export const mapAccountingSchemes = (data: AccountingSchemeListPartsFragment[]):
           }))
         : [];
 
-const GET_BANK_BY_ID = gql`
-    ${BANK_DETAIL_PARTS}
-    query accountingSchemeById($id: Int!) {
-        accountingScheme(id: $id) {
-            ...AccountingSchemeDetailParts
-        }
-    }
-`;
-
 export const getAccountingSchemeBy = (id: number) =>
-    query<AccountingSchemeByIdQuery>(GET_BANK_BY_ID, { variables: { id } });
+    query<AccountingSchemeByIdQuery>(GET_ACCOUNTING_SCHEME_BY_ID, { variables: { id } });

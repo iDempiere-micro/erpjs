@@ -19,9 +19,3 @@
         <AddOrEditAccountingScheme accountingScheme={undefined} />
     </span>
 </Page>
-
-<style>
-    :global(input.invalid) {
-        border-color: red;
-    }
-</style>

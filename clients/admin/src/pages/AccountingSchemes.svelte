@@ -16,9 +16,9 @@
 </script>
 
 <Page
-    title={$_('page.accountingSchemes.title')}
     segment={segments.accountingSchemes}
     name="page.accountingSchemes"
+    title={$_('page.accountingSchemes.title')}
 >
     <span slot="content">
         {#if $accountingSchemes.loading}

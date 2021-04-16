@@ -3,23 +3,27 @@
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
     import type { AccountingSchemeListPartsFragment } from '../../generated/graphql';
+    import { _ } from 'svelte-i18n';
 
+    /**
+     * Array of the accounting schemes to display
+     */
     export let accountingSchemes: AccountingSchemeListPartsFragment[] | undefined;
 
     const columns = [
         {
-            name: 'Bla',
+            name: $_('page.accountingSchemes.list.column1.title'),
             cellComponent: FirstColumn,
         },
     ];
 
     const rowActions: RowAction[] = [
         {
-            name: 'edit',
+            name: $_('actions.edit'),
             url: 'accountingScheme/',
         },
         {
-            name: 'detail',
+            name: $_('actions.detail'),
             url: 'accountingScheme-detail/',
         },
     ];

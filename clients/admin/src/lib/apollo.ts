@@ -4,7 +4,6 @@ import { onError } from '@apollo/client/link/error';
 import { authStore } from './auth';
 import { setClient as apolloSetClient } from 'svelte-apollo';
 import { createMockClient } from 'mock-apollo-client';
-import { CUSTOMERS, mock } from './queries/customers';
 import { mocks } from './mocks';
 
 const httpLink = (uri: string) =>
@@ -46,8 +45,8 @@ const logoutLink = (nextUrl: string) =>
         });
     });
 
-export const apollo = (nextUrlIfLogout: string) => {
-    if (process.env.MOCK) {
+export const apollo = (nextUrlIfLogout: string, forceMock = false) => {
+    if (process.env.MOCK || forceMock) {
         const mockClient = createMockClient();
         mocks.forEach(({ query, handler }) => mockClient.setRequestHandler(query, handler));
         return mockClient;

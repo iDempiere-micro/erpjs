@@ -33,6 +33,7 @@ import EditOrganization from './pages/EditOrganization.svelte';
 import AccountingSchemes from './pages/AccountingSchemes.svelte';
 import AddAccountingScheme from './pages/AddAccountingScheme.svelte';
 import EditAccountingScheme from './pages/EditAccountingScheme.svelte';
+import AccountingSchemeDetail from './pages/AccountingSchemeDetail.svelte';
 
 export const routes = {
     // Exact path
@@ -84,3 +85,4 @@ addRoute(urls.organizations.add, AddOrganization);
 addRoute(urls.accountingSchemes.list, AccountingSchemes);
 addRoute(urls.accountingSchemes.edit, EditAccountingScheme);
 addRoute(urls.accountingSchemes.add, AddAccountingScheme);
+addRoute(urls.accountingSchemes.detail, AccountingSchemeDetail);

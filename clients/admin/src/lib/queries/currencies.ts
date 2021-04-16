@@ -4,8 +4,8 @@ export const CURRENCIES = gql`
     {
         currencies {
             id
-            displayName
             isoCode
+            displayName
         }
     }
 `;
@@ -14,12 +14,12 @@ export const mock = {
         currencies: [
             {
                 id: 1,
-                displayName: 'ABC',
+                displayName: 'ABC Currency',
                 isoCode: 'ABC',
             },
             {
                 id: 2,
-                displayName: 'DEF',
+                displayName: 'Currency DEF',
                 isoCode: 'DEF',
             },
         ],
