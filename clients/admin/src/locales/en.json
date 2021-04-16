@@ -257,6 +257,7 @@
   "actions" : {
     "save": "Save",
     "edit": "Edit",
-    "detail": "Detail"
+    "detail": "Detail",
+    "cancel": "Cancel"
   }
 }

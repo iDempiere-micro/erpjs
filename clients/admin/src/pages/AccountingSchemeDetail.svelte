@@ -1,13 +1,14 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/apollo';
     import { getAccountingSchemeBy } from '../lib/accountingScheme';
-    import { urls } from './pathAndSegment';
+    import { push, urls } from './pathAndSegment';
     import { getError } from '../lib/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { segments } from './pathAndSegment';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type { AccountingSchemeDetailPartsFragment } from '../generated/graphql';
+    import Button from '../dsl/Button.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
@@ -19,6 +20,8 @@
     let accountingScheme: AccountingSchemeDetailPartsFragment;
 
     const accountingSchemeResult = getAccountingSchemeBy(id);
+
+    const editAccountingScheme = () => push(urls.accountingSchemes.edit, id);
 
     $: {
         accountingScheme = $accountingSchemeResult?.data?.accountingScheme || ({} as any);
@@ -62,6 +65,14 @@
                             </dd>
                         </div>
                     </dl>
+                </div>
+                <div class="px-4 py-3 bg-white text-right sm:px-6">
+                    <Button
+                        label={$_('actions.edit')}
+                        on:click={() => {
+                            editAccountingScheme();
+                        }}
+                    />
                 </div>
             </div>
         {:else}
