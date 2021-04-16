@@ -3,23 +3,24 @@
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
     import type { CurrencyListPartsFragment } from '../../generated/graphql';
+    import { _ } from 'svelte-i18n';
 
     export let currencies: CurrencyListPartsFragment[] | undefined;
 
     const columns = [
         {
-            name: 'Bla',
+            name: $_('page.currencies.list.column1.title'),
             cellComponent: FirstColumn,
         },
     ];
 
     const rowActions: RowAction[] = [
         {
-            name: 'edit',
+            name: $_('actions.edit'),
             url: 'currency/',
         },
         {
-            name: 'detail',
+            name: $_('actions.detail'),
             url: 'currency-detail/',
         },
     ];

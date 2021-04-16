@@ -90,6 +90,11 @@
         "title": "Sales Invoice Detail",
         "nav": "Sales Invoice Detail",
         "confirm": "Confirm"
+      },
+      "list": {
+        "column1": {
+          "title": "Sales Invoice"
+        }
       }
     },
     "products": {
@@ -102,6 +107,11 @@
       "edit": {
         "title": "Edit Product",
         "nav": "Add Product"
+      },
+      "list": {
+        "column1": {
+          "title": "Product"
+        }
       }
     },
     "banks": {
@@ -114,6 +124,11 @@
       "edit": {
         "title": "Edit Bank",
         "nav": "Add Bank"
+      },
+      "list": {
+        "column1": {
+          "title": "Bank"
+        }
       }
     },
     "organizations": {
@@ -157,6 +172,11 @@
       "edit": {
         "title": "Edit Organization",
         "nav": "Add Organization"
+      },
+      "list": {
+        "column1": {
+          "title": "Organization"
+        }
       }
     },
     "settings": {
@@ -184,6 +204,11 @@
         "info": "Country information",
         "displayName": "Display Name",
         "isoCode": "ISO Code"
+      },
+      "list": {
+        "column1": {
+          "title": "Country"
+        }
       }
     },
     "currencies": {
@@ -203,6 +228,11 @@
         "info": "Currency information",
         "displayName": "Display Name",
         "isoCode": "ISO Code"
+      },
+      "list": {
+        "column1": {
+          "title": "Currency"
+        }
       }
     },
     "accountingSchemes": {

@@ -3,23 +3,24 @@
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
     import type { CountryListPartsFragment } from '../../generated/graphql';
+    import { _ } from 'svelte-i18n';
 
     export let countries: CountryListPartsFragment[] | undefined;
 
     const columns = [
         {
-            name: 'Bla',
+            name: $_('page.countries.list.column1.title'),
             cellComponent: FirstColumn,
         },
     ];
 
     const rowActions: RowAction[] = [
         {
-            name: 'edit',
+            name: $_('actions.edit'),
             url: 'country/',
         },
         {
-            name: 'detail',
+            name: $_('actions.detail'),
             url: 'country-detail/',
         },
     ];
