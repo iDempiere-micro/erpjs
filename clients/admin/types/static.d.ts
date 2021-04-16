@@ -59,3 +59,5 @@ declare module '*.png' {
 /* CUSTOM: ADD YOUR OWN HERE */
 declare module 'svelte-routing';
 declare module 'svelte-forms';
+
+declare module '@storybook/addon-svelte-csf';

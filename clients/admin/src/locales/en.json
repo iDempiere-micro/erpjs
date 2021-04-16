@@ -104,6 +104,61 @@
         "nav": "Add Product"
       }
     },
+    "banks": {
+      "title": "Banks",
+      "nav": "Banks",
+      "add": {
+        "title": "Add Bank",
+        "nav": "Add Bank"
+      },
+      "edit": {
+        "title": "Edit Bank",
+        "nav": "Add Bank"
+      }
+    },
+    "organizations": {
+      "title": "Organizations",
+      "nav": "Organizations",
+      "add": {
+        "title": "Add Organization",
+        "nav": "Add Organization",
+        "internalInformation": "Internal Information",
+        "legalInformation": "Legal Information",
+        "bankAccountInformation": "Bank Account Information",
+        "country": "Country",
+        "bank": "Bank",
+        "accountingInformation": "Accounting Information",
+        "contactInformation": "Contact Information",
+        "displayName": "Display Name",
+        "legalName": "Legal Name",
+        "registration": "Registration",
+        "idNumber": "ID Number",
+        "vatNumber": "VAT Number",
+        "line1": "Street",
+        "city": "City",
+        "zipCode": "ZIP Code",
+        "bankAccountDisplayName": "Bank Account Display Name",
+        "bankAccountCustomerPrintableNumber": "Bank Account Customer Printable Number",
+        "iban": "IBAN",
+        "swift": "SWIFT",
+        "accountingSchemes": "Accounting Scheme",
+        "currentInvoiceDocumentNumber": "Current Invoice Document Number",
+        "contact": "Contact",
+        "save": "Save",
+
+        "description": {
+          "internalInformation": "The information we use internally",
+          "legalInformation": "The legal information that will be e.g. on an invoice",
+          "bankAccountInformation": "Where the invoices should be paid to",
+          "accountingInformation": "How will we do the accounting",
+          "contactInformation": "What our contact information will be printed on an invoice"
+        }
+      },
+      "edit": {
+        "title": "Edit Organization",
+        "nav": "Add Organization"
+      }
+    },
     "settings": {
       "title": "Settings",
       "nav": "Settings"
@@ -149,6 +204,36 @@
         "displayName": "Display Name",
         "isoCode": "ISO Code"
       }
+    },
+    "accountingSchemes": {
+      "title": "Accounting Schemes",
+      "nav": "Accounting Schemes",
+      "list": {
+        "column1": {
+          "title": "Accounting Scheme"
+        }
+      },
+      "add": {
+        "title": "Add Accounting Scheme",
+        "nav": "Add Accounting Scheme",
+        "internalInformation": "Internal Information",
+        "currency": "Currency",
+        "displayName": "Display Name",
+        "description": {
+          "internalInformation": "Internal Information"
+        }
+      },
+      "edit": {
+        "title": "Edit Accounting Scheme",
+        "nav": "Add Accounting Scheme"
+      },
+      "detail": {
+        "title": "Accounting Scheme Detail",
+        "nav": "Accounting Scheme Detail",
+        "info": "Accounting Scheme information",
+        "displayName": "Display Name",
+        "currency": "Currency"
+      }
     }
   },
   "menu" : {
@@ -164,5 +249,15 @@
     "loading": "Loading...",
     "error": "Error",
     "refresh": "Refreshing..."
+  },
+  "validator":{
+    "required": "Required",
+    "minCharacters": "At least {min} characters"
+  },
+  "actions" : {
+    "save": "Save",
+    "edit": "Edit",
+    "detail": "Detail",
+    "cancel": "Cancel"
   }
 }

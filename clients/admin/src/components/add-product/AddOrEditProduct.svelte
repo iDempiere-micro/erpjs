@@ -7,15 +7,7 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
-    import gql from 'graphql-tag';
-
-    const SAVE_PRODUCT = gql`
-        mutation SaveProduct($id: Int, $displayName: String!, $sku: String!) {
-            saveProduct(args: { id: $id, displayName: $displayName, sku: $sku }) {
-                id
-            }
-        }
-    `;
+    import { SAVE_PRODUCT } from '../../lib/queries/product';
 
     export let product: ProductDetailPartsFragment | undefined;
     let displayName = product?.displayName;

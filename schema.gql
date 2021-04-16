@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AccountingScheme {
+  currency: Currency!
+  displayName: String!
+  id: Int!
+  updtOp: User!
+}
+
+input AccountingSchemeSaveArgs {
+  currencyIsoCode: String!
+  displayName: String!
+  id: Int
+}
+
 type Address {
   city: String!
   country: Country!
@@ -21,7 +34,15 @@ input AddressSaveArgs {
   zipCode: String!
 }
 
+type Bank {
+  bankIdentifierCode: String!
+  displayName: String!
+  id: Float!
+  updtOp: User!
+}
+
 type BankAccount {
+  bank: Bank!
   bankAccountCustomerPrintableNumber: String!
   displayName: String!
   iban: String!
@@ -31,6 +52,21 @@ type BankAccount {
   swift: String!
   updtOp: User!
   updtTs: UniversalDateTime!
+}
+
+input BankAccountSaveArgs {
+  bankAccountCustomerPrintableNumber: String!
+  bankId: Float!
+  displayName: String!
+  iban: String!
+  id: Int
+  swift: String!
+}
+
+input BankSaveArgs {
+  bankIdentifierCode: String!
+  displayName: String!
+  id: Int
 }
 
 input BaseSaveArgs {
@@ -101,6 +137,13 @@ input CustomerSaveArgs {
 """Date custom scalar type"""
 scalar Date
 
+type DocumentNumberSequence {
+  current: Float!
+  forType: String!
+  id: Int!
+  updtOp: User!
+}
+
 input IdAndNumber {
   id: Float!
   value: Float!
@@ -133,6 +176,8 @@ type Mutation {
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
   keepAlive: UniversalDateTime!
+  saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
+  saveBank(args: BankSaveArgs!): Bank!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
@@ -140,12 +185,16 @@ type Mutation {
 }
 
 type Organization {
+  accountingScheme: AccountingScheme!
+  bankAccount: BankAccount!
   contact: String!
   displayName: String!
+  documentNumberSequences: DocumentNumberSequence!
   id: Float!
   idNumber: String!
   isActive: Boolean!
   isCurrent: Boolean!
+  legalAddress: Address!
   legalName: String!
   registration: String!
   updtOp: User!
@@ -154,14 +203,15 @@ type Organization {
 }
 
 input OrganizationSaveArgs {
-  accountingSchemeId: Float!
-  bankAccountId: Float!
+  accountingSchemeId: Int!
   contact: String!
+  currentInvoiceDocumentNumber: Float!
   displayName: String!
   id: Int
   idNumber: String!
   legalAddress: AddressSaveArgs!
   legalName: String!
+  newBankAccount: BankAccountSaveArgs!
   registration: String!
   vatNumber: String
 }
@@ -181,6 +231,10 @@ input ProductSaveArgs {
 }
 
 type Query {
+  accountingScheme(id: Int!): AccountingScheme!
+  accountingSchemes: [AccountingScheme!]!
+  bank(id: Int!): Bank!
+  banks: [Bank!]!
   countries: [Country!]!
   country(id: Int!): Country!
   currencies: [Currency!]!
@@ -190,6 +244,7 @@ type Query {
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   menu: [Menu!]!
   now: UniversalDateTime!
+  organization(id: Int!): Organization!
   organizations: [Organization!]!
   product(id: Int!): Product!
   products: [Product!]!

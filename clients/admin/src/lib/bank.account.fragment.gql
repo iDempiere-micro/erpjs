@@ -1,0 +1,21 @@
+fragment BankAccountDetailParts on BankAccount {
+    id
+    displayName
+    bank {
+        ...BankListParts
+    }
+    bankAccountCustomerPrintableNumber
+    iban
+    swift
+}
+
+fragment BankAccountListParts on BankAccount {
+    id
+    displayName
+    bank {
+        ...BankListParts
+    }
+    bankAccountCustomerPrintableNumber
+    iban
+    swift
+}

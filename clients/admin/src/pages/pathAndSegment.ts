@@ -1,3 +1,5 @@
+import { push as pushToRouter } from 'svelte-spa-router';
+
 export const urls = {
     customer: {
         add: 'add-customer',
@@ -35,6 +37,22 @@ export const urls = {
         edit: 'currency/:id',
         detail: 'currency-detail/:id',
     },
+    banks: {
+        list: 'banks',
+        add: 'add-bank',
+        edit: 'bank/:id',
+    },
+    organizations: {
+        list: 'organizations',
+        add: 'add-organization',
+        edit: 'organization/:id',
+    },
+    accountingSchemes: {
+        list: 'accountingSchemes',
+        add: 'add-accountingScheme',
+        edit: 'accountingScheme/:id',
+        detail: 'accountingScheme-detail/:id',
+    },
 };
 
 export const segments = {
@@ -44,4 +62,10 @@ export const segments = {
     lists: urls.settings.list,
     countries: urls.countries.list,
     currencies: urls.currencies.list,
+    banks: urls.banks.list,
+    organizations: urls.organizations.list,
+    accountingSchemes: urls.accountingSchemes.list,
 };
+
+export const push = (urlPattern: string, id: number | undefined) =>
+    pushToRouter('/' + urlPattern.replace(':id', id ? id.toString() : ''));

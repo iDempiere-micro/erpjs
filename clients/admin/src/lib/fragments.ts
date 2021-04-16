@@ -170,10 +170,82 @@ export const SALES_INVOICE_DETAIL_PARTS = gql`
     }
 `;
 
-export const CURRENCY_DETAIL_PARTS = gql`
-    fragment CurrencyDetailParts on Currency {
+export const CURRENCY_DETAIL_PARTS_RAW = `
         id
         displayName
         isoCode
+`;
+
+export const CURRENCY_DETAIL_PARTS = gql`
+    fragment CurrencyDetailParts on Currency {
+        ${CURRENCY_DETAIL_PARTS_RAW}
+    }
+`;
+
+export const BANK_DETAIL_PARTS = gql`
+    fragment BankDetailParts on Bank {
+        id
+        displayName
+        bankIdentifierCode
+    }
+`;
+
+export const BANK_LIST_PARTS = gql`
+    fragment BankListParts on Bank {
+        id
+        displayName
+        bankIdentifierCode
+    }
+`;
+
+export const BANK_ACCOUNT_LIST_PARTS = gql`
+    ${BANK_LIST_PARTS}
+    fragment BankAccountListParts on BankAccount {
+        id
+        displayName
+        bank {
+            ...BankListParts
+        }
+        bankAccountCustomerPrintableNumber
+        iban
+        swift
+    }
+`;
+
+export const ACCOUNTING_SCHEME_DETAIL_PARTS_RAW = `
+    id
+    displayName
+    currency {
+        ${CURRENCY_DETAIL_PARTS_RAW}
+    }
+`;
+
+export const ACCOUNTING_SCHEME_DETAIL_PARTS = gql`
+    fragment AccountingSchemeDetailParts on AccountingScheme {
+        ${ACCOUNTING_SCHEME_DETAIL_PARTS_RAW}
+    }
+`;
+
+export const ORGANIZATION_DETAIL_PARTS = gql`
+    ${ADDRESS_LIST_PARTS}
+    ${BANK_ACCOUNT_LIST_PARTS}
+    ${ACCOUNTING_SCHEME_DETAIL_PARTS}
+    fragment OrganizationDetailParts on Organization {
+        id
+        displayName
+        legalAddress {
+            ...AddressListParts
+        }
+        legalName
+        registration
+        contact
+        idNumber
+        vatNumber
+        bankAccount {
+            ...BankAccountListParts
+        }
+        accountingScheme {
+            ...AccountingSchemeDetailParts
+        }
     }
 `;

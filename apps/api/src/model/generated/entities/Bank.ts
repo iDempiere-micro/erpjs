@@ -10,13 +10,15 @@ import {
 import { BankAccount } from './BankAccount';
 import { BankModel } from '../../lib/bank.model';
 import { User } from './User';
-import { Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
 
 @Index('IDX_1930777e62854add6a64f50d42', ['displayName'], { unique: true })
 @Entity('bank', { schema: 'public' })
+@ObjectType()
 export class Bank implements BankModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field()
   id: number;
 
   @Column('timestamp without time zone', {
@@ -41,9 +43,11 @@ export class Bank implements BankModel {
   isCurrent: boolean;
 
   @Column('character varying', { name: 'displayName' })
+  @Field()
   displayName: string;
 
   @Column('character varying', { name: 'bankIdentifierCode' })
+  @Field()
   bankIdentifierCode: string;
 
   @OneToMany(

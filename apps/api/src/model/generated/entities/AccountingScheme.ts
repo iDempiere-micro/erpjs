@@ -11,13 +11,17 @@ import { Currency } from './Currency';
 import { Organization } from './Organization';
 import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
 import { User } from './User';
-import { Field } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
+import { CurrencyModel } from '../../lib/currency.model';
+import { OrganizationModel } from '../../lib/organization.model';
 
 @Index('IDX_7f415d9c097ba5ef53afe8c39f', ['displayName'], { unique: true })
 @Entity('accounting_scheme', { schema: 'public' })
+@ObjectType()
 export class AccountingScheme implements AccountingSchemeModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field(() => Int)
   id: number;
 
   @Column('timestamp without time zone', {
@@ -42,6 +46,7 @@ export class AccountingScheme implements AccountingSchemeModel {
   isCurrent: boolean;
 
   @Column('character varying', { name: 'displayName' })
+  @Field()
   displayName: string;
 
   @ManyToOne(
@@ -50,11 +55,12 @@ export class AccountingScheme implements AccountingSchemeModel {
     { eager: true },
   )
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
-  currency: Currency;
+  @Field(() => Currency)
+  currency: CurrencyModel;
 
   @OneToMany(
     () => Organization,
     organization => organization.accountingScheme,
   )
-  organizations: Organization[];
+  organizations: OrganizationModel[];
 }

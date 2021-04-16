@@ -3,11 +3,9 @@
 
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
-    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
         CreateMonthlyInvoiceMutation,
         CreateMonthlyInvoiceMutationVariables,
-        SalesInvoice,
     } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { authStore } from '../../lib/auth';
@@ -42,8 +40,6 @@
         }
     `;
 
-    export let client: ApolloClient<NormalizedCacheObject>;
-    let invoices: SalesInvoice[] | null;
     let invoiceIds: number[] | undefined; // = [1,2,3];
 
     let totalHours: number;

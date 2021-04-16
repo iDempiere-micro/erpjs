@@ -22,6 +22,18 @@ import Currencies from './pages/Currencies.svelte';
 import AddCurrency from './pages/AddCurrency.svelte';
 import EditCurrency from './pages/EditCurrency.svelte';
 import CurrencyDetail from './pages/CurrencyDetail.svelte';
+import Banks from './pages/Banks.svelte';
+import AddBank from './pages/AddBank.svelte';
+import EditBank from './pages/EditBank.svelte';
+
+import Organizations from './pages/Organizations.svelte';
+import AddOrganization from './pages/AddOrganization.svelte';
+import EditOrganization from './pages/EditOrganization.svelte';
+
+import AccountingSchemes from './pages/AccountingSchemes.svelte';
+import AddAccountingScheme from './pages/AddAccountingScheme.svelte';
+import EditAccountingScheme from './pages/EditAccountingScheme.svelte';
+import AccountingSchemeDetail from './pages/AccountingSchemeDetail.svelte';
 
 export const routes = {
     // Exact path
@@ -64,3 +76,13 @@ addRoute(urls.currencies.list, Currencies);
 addRoute(urls.currencies.edit, EditCurrency);
 addRoute(urls.currencies.add, AddCurrency);
 addRoute(urls.currencies.detail, CurrencyDetail);
+addRoute(urls.banks.list, Banks);
+addRoute(urls.banks.edit, EditBank);
+addRoute(urls.banks.add, AddBank);
+addRoute(urls.organizations.list, Organizations);
+addRoute(urls.organizations.edit, EditOrganization);
+addRoute(urls.organizations.add, AddOrganization);
+addRoute(urls.accountingSchemes.list, AccountingSchemes);
+addRoute(urls.accountingSchemes.edit, EditAccountingScheme);
+addRoute(urls.accountingSchemes.add, AddAccountingScheme);
+addRoute(urls.accountingSchemes.detail, AccountingSchemeDetail);
