@@ -13,6 +13,7 @@
     import type { OnSelectParam, SelectItem } from '../../lib/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
+    import { push, urls } from '../../pages/pathAndSegment';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
@@ -77,7 +78,7 @@
                     currencyIsoCode,
                 },
             });
-            console.log('*** accountingScheme created', data?.saveAccountingScheme?.id);
+            await push(urls.accountingSchemes.detail, data?.saveAccountingScheme?.id);
         }
     };
 </script>
