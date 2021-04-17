@@ -2,12 +2,35 @@
     import { bindClass } from 'svelte-forms';
     import { _ } from 'svelte-i18n';
 
+    /**
+     * the corresponding label title
+     */
     export let title: string;
+    /**
+     * input type see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types
+     */
     export let type: string | null = null;
+    /**
+     * svelte-forms the input is living in see https://github.com/chainlist/svelte-forms.
+     * Please note you must pass `myForm` and not  `$myForm`
+     */
     export let form: any;
+    /**
+     * min input length
+     */
     export let min: number | null = null;
+    /**
+     * the svelte-forms form id for this input
+     */
     export let id: string;
+    /**
+     * input value
+     */
     export let value: any;
+    /**
+     * if to hide the input wrapper. Please note this will be turned on by default in the next version.
+     * and removed in the future
+     */
     export let hideWrapper: boolean | null = null;
 </script>
 

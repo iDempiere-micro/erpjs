@@ -31,6 +31,3 @@
     }}
 />
 
-<Story
-    name="Custom"
-/>
