@@ -3,20 +3,11 @@
     import Button from '../dsl/Button.svelte';
 </script>
 
-<Meta
-    title="DSL/Button"
-    component={Button}
-    argTypes={{
-        label: { control: 'text' },
-        className: { control: 'text' },
-        primary: { control: 'boolean' },
-        backgroundColor: { control: 'color' },
-        size: {
-            control: { type: 'select', options: ['small', 'medium', 'large'] },
-        },
-        onClick: { action: 'onClick' },
-    }}
-/>
+<Meta title="DSL/Button" component={Button} argTypes={{
+    label: { control: 'text' },
+    className: { control: 'text' },
+    classNameAdd: { control: 'text' },
+}} />
 
 <Template let:args>
     <Button {...args} on:click={args.onClick} />
@@ -39,18 +30,7 @@
         primary: false,
     }}
 />
-<Story
-    name="Large"
-    args={{
-        size: 'large',
-        label: 'Button',
-    }}
-/>
 
 <Story
-    name="Small"
-    args={{
-        size: 'small',
-        label: 'Button',
-    }}
+    name="Custom"
 />

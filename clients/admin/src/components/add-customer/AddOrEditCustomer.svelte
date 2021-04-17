@@ -154,7 +154,7 @@
                 </div>
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="shadow sm:rounded-md">
                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-4">
@@ -252,7 +252,7 @@
                 </div>
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="shadow sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-4">
@@ -417,7 +417,7 @@
                 </div>
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="shadow sm:rounded-md">
                     <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                         <div class="grid grid-cols-3 gap-6">
                             <div class="col-span-3 sm:col-span-2">
@@ -466,9 +466,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700"> Photo </label>
                             <div class="mt-2 flex items-center">
-                                <span
-                                    class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100"
-                                >
+                                <span class="inline-block h-12 w-12 rounded-full bg-gray-100">
                                     <svg
                                         class="h-full w-full text-gray-300"
                                         fill="currentColor"
@@ -550,7 +548,7 @@
                 </div>
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="shadow sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
