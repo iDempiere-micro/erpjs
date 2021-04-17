@@ -107,6 +107,7 @@ input CurrencySaveArgs {
 
 type Customer {
   address: Address
+  customerGroup: CustomerGroup!
   displayName: String!
   id: Float!
   idNumber: String!
@@ -120,6 +121,22 @@ type Customer {
   updtOp: User!
   updtTs: UniversalDateTime!
   vatNumber: String
+}
+
+type CustomerGroup {
+  customers: [Customer!]
+  displayName: String!
+  id: Int!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+type CustomerProductPrice {
+  id: Int!
+  product: Product!
+  sellingPrice: Float!
 }
 
 input CustomerSaveArgs {
@@ -217,6 +234,7 @@ input OrganizationSaveArgs {
 }
 
 type Product {
+  customerProductPrices: [CustomerProductPrice!]
   defaultUoM: UnitOfMeasurement
   displayName: String!
   id: Float!

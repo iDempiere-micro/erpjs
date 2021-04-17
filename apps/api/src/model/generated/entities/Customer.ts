@@ -15,6 +15,8 @@ import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { CustomerGroup } from './CustomerGroup';
+import { CustomerGroupModel } from '../../lib/customer.group.model';
 
 @Index('IDX_df529c45726940beb548906481', ['displayName'], { unique: true })
 @Index('IDX_71b54ec7502c83c7f503f57c64', ['legalName'], { unique: true })
@@ -98,4 +100,12 @@ export class Customer {
   @JoinColumn([{ name: 'addressId', referencedColumnName: 'id' }])
   @Field(() => Address, { nullable: true })
   address: AddressModel;
+
+  @Field(() => CustomerGroup)
+  @ManyToOne(
+    () => CustomerGroup,
+    customerGroup => customerGroup.customers,
+    { nullable: true, eager: true },
+  )
+  customerGroup: CustomerGroupModel;
 }
