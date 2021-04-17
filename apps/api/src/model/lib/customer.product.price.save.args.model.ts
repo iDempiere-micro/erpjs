@@ -6,5 +6,6 @@ export interface CustomerProductPriceSaveArgsModel extends BaseSaveArgsModel {
   product?: ProductModel;
   productSKU?: string;
   sellingPrice: number;
-  customerPriceList: CustomerPriceListModel;
+  customerPriceList?: CustomerPriceListModel;
+  customerPriceListDisplayName?: string;
 }

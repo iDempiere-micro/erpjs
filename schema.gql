@@ -133,9 +133,39 @@ type CustomerGroup {
   updtTs: UniversalDateTime!
 }
 
+input CustomerGroupSaveArgs {
+  displayName: String!
+  id: Int
+}
+
+type CustomerPriceList {
+  customerGroup: CustomerGroup!
+  displayName: String!
+  id: Int!
+  productPrices: [CustomerProductPrice!]
+  validFrom: Date
+  validTo: Date
+}
+
+input CustomerPriceListSaveArgs {
+  customerGroupDisplayName: String!
+  displayName: String!
+  id: Int
+  productPrices: [ProductPriceSaveArgs!]!
+  validFrom: Date!
+  validTo: Date!
+}
+
 type CustomerProductPrice {
   id: Int!
   product: Product!
+  sellingPrice: Float!
+}
+
+input CustomerProductPriceSaveArgs {
+  customerPriceListDisplayName: String!
+  id: Int
+  productSKU: String!
   sellingPrice: Float!
 }
 
@@ -197,6 +227,9 @@ type Mutation {
   saveBank(args: BankSaveArgs!): Bank!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
+  saveCustomerGroup(args: CustomerGroupSaveArgs!): CustomerGroup!
+  saveCustomerPriceList(args: CustomerPriceListSaveArgs!): CustomerPriceList!
+  saveCustomerProductPrice(args: CustomerProductPriceSaveArgs!): CustomerProductPrice!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
   saveProduct(args: ProductSaveArgs!): Product!
 }
@@ -242,6 +275,11 @@ type Product {
   updtOp: User!
 }
 
+input ProductPriceSaveArgs {
+  productSKU: String!
+  sellingPrice: Float!
+}
+
 input ProductSaveArgs {
   displayName: String!
   id: Int
@@ -258,6 +296,12 @@ type Query {
   currencies: [Currency!]!
   currency(id: Int!): Currency!
   customer(id: Int!): Customer!
+  customerGroup(id: Int!): CustomerGroup!
+  customerGroups: [CustomerGroup!]!
+  customerPriceList(id: Int!): CustomerPriceList!
+  customerPriceLists: [CustomerPriceList!]!
+  customerProductPrice(id: Int!): CustomerProductPrice!
+  customerProductPrices: [CustomerProductPrice!]!
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
   menu: [Menu!]!

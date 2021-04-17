@@ -3,7 +3,6 @@ import { BaseEntityService } from './base.entity.service';
 import { CustomerGroupModel } from './customer.group.model';
 import { CustomerGroupSaveArgsModel } from './customer.group.save.args.model';
 import { EntityManager, Repository } from 'typeorm';
-import { UserModel } from './user.model';
 import { CustomerGroup } from '../generated/entities/CustomerGroup';
 
 export const CustomerGroupServiceKey = 'CustomerGroupService';
