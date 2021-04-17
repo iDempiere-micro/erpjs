@@ -194,7 +194,7 @@ export class CreateDB1595508635320 implements MigrationInterface {
       `ALTER TABLE "public"."customer" ADD CONSTRAINT "FK_2c1aeb39925d1e1ace946ca2f21" FOREIGN KEY ("addressId") REFERENCES "public"."address"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `CREATE TABLE IF NOT EXISTS "public"."unit_of_measurement_conversion" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "currencyMultiplyingRate" double precision NOT NULL, "end" date NOT NULL, "start" date NOT NULL, "updtOpId" integer NOT NULL, "fromId" integer, "toId" integer, CONSTRAINT "PK_f8796ed806b216628b252bb3b4c" PRIMARY KEY ("id"))`,
+      `CREATE TABLE IF NOT EXISTS "public"."unit_of_measurement_conversion" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "currencyMultiplyingRate" double precision NOT NULL, "updtOpId" integer NOT NULL, "fromId" integer, "toId" integer, CONSTRAINT "PK_f8796ed806b216628b252bb3b4c" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE IF NOT EXISTS "public"."unit_of_measurement" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "displayName" character varying NOT NULL, "updtOpId" integer NOT NULL, CONSTRAINT "PK_f64cb86b321fc095bde6961d6da" PRIMARY KEY ("id"))`,

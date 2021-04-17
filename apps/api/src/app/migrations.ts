@@ -8,6 +8,7 @@ import { MenuContent1612983991735 } from './migrations/1612983991735-MenuContent
 import { EnhanceCustomer1615749063579 } from './migrations/1615749063579-EnhanceCustomer';
 import { MenuSettings1615961288134 } from './migrations/1615961288134-MenuSettings';
 import { UoM1616228731111 } from './migrations/1616228731111-UoM';
+import { CustomerPriceList1618661208366 } from './migrations/1618661208366-CustomerPriceList';
 
 export const migrations = [
   CreateDB1595508635320,
@@ -20,4 +21,5 @@ export const migrations = [
   EnhanceCustomer1615749063579,
   MenuSettings1615961288134,
   UoM1616228731111,
+  CustomerPriceList1618661208366,
 ];
