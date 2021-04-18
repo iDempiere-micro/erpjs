@@ -1,5 +1,6 @@
 import { BaseModel } from './base.model';
 import { AddressModel } from './address.model';
+import { CustomerGroupModel } from './customer.group.model';
 
 export interface CustomerModel extends BaseModel {
   legalAddress: AddressModel;
@@ -12,4 +13,6 @@ export interface CustomerModel extends BaseModel {
 
   address?: AddressModel;
   note?: string;
+
+  customerGroup?: CustomerGroupModel;
 }

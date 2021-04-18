@@ -40,6 +40,11 @@ import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
 import { UserModel } from './user.model';
 import { SalesInvoiceMonthlySaveArgsModel } from './sales.invoice.monthly.save.args.model';
+import {
+  CustomerPriceListService,
+  CustomerPriceListServiceKey,
+} from './customer.price.list.service';
+import { CustomerProductPriceModel } from './customer.product.price.model';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -111,7 +116,31 @@ export class SalesInvoiceLineService extends BaseEntityService<
         args.invoiceId,
       ));
     line.invoice = invoice;
-    await invoice.customer;
+
+    const customer = invoice.customer;
+    const customerPriceListService: CustomerPriceListService = getService(
+      CustomerPriceListServiceKey,
+    );
+    const customerGroup = customer.customerGroup;
+    const customerPriceListModel = customerGroup
+      ? await customerPriceListService.loadByCustomerGroupAndProduct(
+          transactionalEntityManager,
+          customerGroup,
+          line.product,
+        )
+      : null;
+    const customerProductPriceModel: CustomerProductPriceModel = customerPriceListModel
+      ? customerPriceListModel.productPrices.find(
+          x => x.product.id === line.product.id,
+        )
+      : null;
+
+    line.linePrice = customerProductPriceModel
+      ? customerProductPriceModel.sellingPrice * args.quantity
+      : args.linePrice;
+    line.quantity = args.quantity;
+    line.narration = args.narration;
+
     line.linePrice = args.linePrice;
     line.quantity = args.quantity;
     line.narration = args.narration;

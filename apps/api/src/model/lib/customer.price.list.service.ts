@@ -16,6 +16,8 @@ import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
 } from './customer.product.price.service';
+import { ProductModel } from './product.model';
+import { CustomerGroupModel } from './customer.group.model';
 
 export const CustomerPriceListServiceKey = 'CustomerPriceListService';
 
@@ -84,5 +86,28 @@ export class CustomerPriceListService extends BaseEntityService<
 
   typeName(): string {
     return CustomerPriceListServiceKey;
+  }
+
+  async loadByCustomerGroupAndProduct(
+    transactionalEntityManager: EntityManager,
+    customerGroup: CustomerGroupModel,
+    product: ProductModel,
+  ): Promise<CustomerPriceListModel> {
+    const productId = product.id;
+    const customerGroupId = customerGroup.id;
+    const result = await this.getRepository(transactionalEntityManager)
+      .createQueryBuilder('customerPriceList')
+      .leftJoinAndSelect('customerPriceList.customerGroup', 'customerGroup')
+      .leftJoinAndSelect(
+        'customerPriceList.productPrices',
+        'customerProductPriceModel',
+      )
+      .leftJoinAndSelect('customerProductPriceModel.product', 'product')
+      .where('product.id=:productId AND customerGroup.id=:customerGroupId', {
+        productId,
+        customerGroupId,
+      })
+      .getOne();
+    return result;
   }
 }

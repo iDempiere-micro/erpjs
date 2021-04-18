@@ -78,10 +78,14 @@ const mockEntityManager = {
 } as any;
 
 (global as any).moduleRef = {
-  get: token =>
-    token === SalesInvoiceServiceKey
-      ? mockSalesInvoiceService
-      : new SaveArgsValidationService(),
+  get: token => {
+    switch (token) {
+      case SalesInvoiceServiceKey:
+        return mockSalesInvoiceService;
+      default:
+        return new SaveArgsValidationService();
+    }
+  },
 };
 
 const saveArgsValidationServiceProvider = {
@@ -107,6 +111,23 @@ describe('SalesInvoiceLineService', () => {
   });
 
   it('line price is taken from the linePrice field (no calculation yet)', async () => {
+    const line = await service.save(
+      mockEntityManager,
+      {
+        narration: '',
+        linePrice: 2 * QUANTITY,
+        invoice,
+        lineOrder: 0,
+        quantity: QUANTITY,
+        lineTax: {} as any,
+        product,
+      },
+      { id: 1 } as UserModel,
+    );
+    expect(line.linePrice).toBe(2 * QUANTITY);
+  });
+
+  it('line price is taken from the customer group price list if that exists', async () => {
     const line = await service.save(
       mockEntityManager,
       {
