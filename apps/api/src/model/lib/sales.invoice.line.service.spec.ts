@@ -88,6 +88,30 @@ export const mockSalesInvoiceServiceProvider = {
   provide: SalesInvoiceServiceKey,
   useValue: mockSalesInvoiceService,
 };
+const mockCustomerPriceListService = {
+  loadByCustomerGroupAndProduct: (
+    transactionalEntityManager,
+    customerGroup,
+    product,
+  ): CustomerPriceListModel =>
+    product === product2 && customerGroup === customerGroup1
+      ? {
+          id: 1,
+          displayName: '',
+          customerGroup: customerGroup1,
+          productPrices: [
+            {
+              product: product2,
+              sellingPrice: PRODUCT_GROUP_PRICE,
+            } as CustomerProductPriceModel,
+          ],
+        }
+      : null,
+};
+const mockCustomerPriceListServiceProvider = {
+  provide: CustomerPriceListServiceKey,
+  useValue: mockCustomerPriceListService,
+};
 
 const customerPriceListModel: CustomerPriceListModel = {
   id: 1,
