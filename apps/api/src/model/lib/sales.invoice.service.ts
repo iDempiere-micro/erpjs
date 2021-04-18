@@ -76,6 +76,8 @@ export class SalesInvoiceLineService extends BaseEntityService<
   constructor(
     @Inject(TaxServiceKey) public readonly taxService: TaxService,
     @Inject(ProductServiceKey) public readonly productService: ProductService,
+    @Inject(CustomerPriceListServiceKey)
+    public readonly customerPriceListService: CustomerPriceListService,
   ) {
     super();
     this.salesInvoiceService = getService<SalesInvoiceService>(
@@ -118,12 +120,9 @@ export class SalesInvoiceLineService extends BaseEntityService<
     line.invoice = invoice;
 
     const customer = invoice.customer;
-    const customerPriceListService: CustomerPriceListService = getService(
-      CustomerPriceListServiceKey,
-    );
     const customerGroup = customer.customerGroup;
     const customerPriceListModel = customerGroup
-      ? await customerPriceListService.loadByCustomerGroupAndProduct(
+      ? await this.customerPriceListService.loadByCustomerGroupAndProduct(
           transactionalEntityManager,
           customerGroup,
           line.product,
@@ -138,10 +137,6 @@ export class SalesInvoiceLineService extends BaseEntityService<
     line.linePrice = customerProductPriceModel
       ? customerProductPriceModel.sellingPrice * args.quantity
       : args.linePrice;
-    line.quantity = args.quantity;
-    line.narration = args.narration;
-
-    line.linePrice = args.linePrice;
     line.quantity = args.quantity;
     line.narration = args.narration;
 
