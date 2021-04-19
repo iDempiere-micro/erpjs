@@ -126,6 +126,7 @@ export type CurrencySaveArgs = {
 export type Customer = {
     __typename?: 'Customer';
     address?: Maybe<Address>;
+    customerGroup: CustomerGroup;
     displayName: Scalars['String'];
     id: Scalars['Float'];
     idNumber: Scalars['String'];
@@ -139,6 +140,55 @@ export type Customer = {
     updtOp: User;
     updtTs: Scalars['UniversalDateTime'];
     vatNumber?: Maybe<Scalars['String']>;
+};
+
+export type CustomerGroup = {
+    __typename?: 'CustomerGroup';
+    customers?: Maybe<Array<Customer>>;
+    displayName: Scalars['String'];
+    id: Scalars['Int'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type CustomerGroupSaveArgs = {
+    displayName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+};
+
+export type CustomerPriceList = {
+    __typename?: 'CustomerPriceList';
+    customerGroup: CustomerGroup;
+    displayName: Scalars['String'];
+    id: Scalars['Int'];
+    productPrices?: Maybe<Array<CustomerProductPrice>>;
+    validFrom?: Maybe<Scalars['Date']>;
+    validTo?: Maybe<Scalars['Date']>;
+};
+
+export type CustomerPriceListSaveArgs = {
+    customerGroupDisplayName: Scalars['String'];
+    displayName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    productPrices: Array<ProductPriceSaveArgs>;
+    validFrom: Scalars['Date'];
+    validTo: Scalars['Date'];
+};
+
+export type CustomerProductPrice = {
+    __typename?: 'CustomerProductPrice';
+    id: Scalars['Int'];
+    product: Product;
+    sellingPrice: Scalars['Float'];
+};
+
+export type CustomerProductPriceSaveArgs = {
+    customerPriceListDisplayName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    productSKU: Scalars['String'];
+    sellingPrice: Scalars['Float'];
 };
 
 export type CustomerSaveArgs = {
@@ -200,6 +250,9 @@ export type Mutation = {
     saveBank: Bank;
     saveCountry: Country;
     saveCurrency: Currency;
+    saveCustomerGroup: CustomerGroup;
+    saveCustomerPriceList: CustomerPriceList;
+    saveCustomerProductPrice: CustomerProductPrice;
     saveOrganization: Organization;
     saveProduct: Product;
 };
@@ -234,6 +287,18 @@ export type MutationSaveCountryArgs = {
 
 export type MutationSaveCurrencyArgs = {
     args: CurrencySaveArgs;
+};
+
+export type MutationSaveCustomerGroupArgs = {
+    args: CustomerGroupSaveArgs;
+};
+
+export type MutationSaveCustomerPriceListArgs = {
+    args: CustomerPriceListSaveArgs;
+};
+
+export type MutationSaveCustomerProductPriceArgs = {
+    args: CustomerProductPriceSaveArgs;
 };
 
 export type MutationSaveOrganizationArgs = {
@@ -279,11 +344,17 @@ export type OrganizationSaveArgs = {
 
 export type Product = {
     __typename?: 'Product';
+    customerProductPrices?: Maybe<Array<CustomerProductPrice>>;
     defaultUoM?: Maybe<UnitOfMeasurement>;
     displayName: Scalars['String'];
     id: Scalars['Float'];
     sku: Scalars['String'];
     updtOp: User;
+};
+
+export type ProductPriceSaveArgs = {
+    productSKU: Scalars['String'];
+    sellingPrice: Scalars['Float'];
 };
 
 export type ProductSaveArgs = {
@@ -303,6 +374,12 @@ export type Query = {
     currencies: Array<Currency>;
     currency: Currency;
     customer: Customer;
+    customerGroup: CustomerGroup;
+    customerGroups: Array<CustomerGroup>;
+    customerPriceList: CustomerPriceList;
+    customerPriceLists: Array<CustomerPriceList>;
+    customerProductPrice: CustomerProductPrice;
+    customerProductPrices: Array<CustomerProductPrice>;
     customers: Array<Customer>;
     customersByArgs: Array<Customer>;
     menu: Array<Menu>;
@@ -333,6 +410,18 @@ export type QueryCurrencyArgs = {
 };
 
 export type QueryCustomerArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryCustomerGroupArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryCustomerPriceListArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryCustomerProductPriceArgs = {
     id: Scalars['Int'];
 };
 
@@ -551,6 +640,15 @@ export type CustomersByArgsQuery = { __typename?: 'Query' } & {
     customersByArgs: Array<{ __typename?: 'Customer' } & Pick<Customer, 'id'>>;
 };
 
+export type SaveCustomerGroupMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    displayName: Scalars['String'];
+}>;
+
+export type SaveCustomerGroupMutation = { __typename?: 'Mutation' } & {
+    saveCustomerGroup: { __typename?: 'CustomerGroup' } & Pick<CustomerGroup, 'id'>;
+};
+
 export type CreateMonthlyInvoiceMutationVariables = Exact<{
     totalHours: Scalars['Float'];
     dailyRate: Scalars['Float'];
@@ -708,6 +806,24 @@ export type CustomerByIdQueryVariables = Exact<{
 
 export type CustomerByIdQuery = { __typename?: 'Query' } & {
     customer: { __typename?: 'Customer' } & CustomerDetailPartsFragment;
+};
+
+export type CustomerGroupDetailPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
+    CustomerGroup,
+    'id' | 'displayName'
+> & { customers?: Maybe<Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>> };
+
+export type CustomerGroupListPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
+    CustomerGroup,
+    'id' | 'displayName'
+>;
+
+export type CustomerGroupByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type CustomerGroupByIdQuery = { __typename?: 'Query' } & {
+    customerGroup: { __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment;
 };
 
 export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & Pick<
@@ -886,6 +1002,14 @@ export type CustomerListPartsFragment = { __typename?: 'Customer' } & Pick<
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
     };
+
+export type CustomerGroupsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type CustomerGroupsQuery = { __typename?: 'Query' } & {
+    customerGroups: Array<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
+};
 
 export type CustomersQueryVariables = Exact<{
     dummy?: Maybe<Scalars['Int']>;

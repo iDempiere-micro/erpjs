@@ -16,6 +16,13 @@ import {
     GET_ACCOUNTING_SCHEME_BY_ID,
 } from './queries/accountingScheme';
 import { ACCOUNTING_SCHEMES, mock as mockAccountingSchemes } from './queries/accountingSchemes';
+import { CUSTOMER_GROUPS, mock as mockCustomerGroups } from './queries/customerGroups';
+import {
+    GET_CUSTOMER_GROUP_BY_ID,
+    mock1 as mockCustomerGroup,
+    SAVE_CUSTOMER_GROUP,
+    mock as mockSaveCustomerGroup,
+} from './queries/customerGroup';
 
 export interface ApolloMock {
     query: DocumentNode;
@@ -32,4 +39,7 @@ export const mocks: ApolloMock[] = [
     { query: SAVE_ACCOUNTING_SCHEME, mock: mockSaveAccountingScheme },
     { query: GET_ACCOUNTING_SCHEME_BY_ID, mock: mockGetAccountingSchemeById },
     { query: ACCOUNTING_SCHEMES, mock: mockAccountingSchemes },
+    { query: CUSTOMER_GROUPS, mock: mockCustomerGroups },
+    { query: GET_CUSTOMER_GROUP_BY_ID, mock: mockCustomerGroup },
+    { query: SAVE_CUSTOMER_GROUP, mock: mockSaveCustomerGroup },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));

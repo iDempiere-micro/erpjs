@@ -34,6 +34,10 @@ import AccountingSchemes from './pages/AccountingSchemes.svelte';
 import AddAccountingScheme from './pages/AddAccountingScheme.svelte';
 import EditAccountingScheme from './pages/EditAccountingScheme.svelte';
 import AccountingSchemeDetail from './pages/AccountingSchemeDetail.svelte';
+import CustomerGroups from './pages/CustomerGroups.svelte';
+import AddCustomerGroup from './pages/AddCustomerGroup.svelte';
+import EditCustomerGroup from './pages/EditCustomerGroup.svelte';
+import CustomerGroupDetail from './pages/CustomerGroupDetail.svelte';
 
 export const routes = {
     // Exact path
@@ -86,3 +90,7 @@ addRoute(urls.accountingSchemes.list, AccountingSchemes);
 addRoute(urls.accountingSchemes.edit, EditAccountingScheme);
 addRoute(urls.accountingSchemes.add, AddAccountingScheme);
 addRoute(urls.accountingSchemes.detail, AccountingSchemeDetail);
+addRoute(urls.customerGroups.list, CustomerGroups);
+addRoute(urls.customerGroups.edit, EditCustomerGroup);
+addRoute(urls.customerGroups.add, AddCustomerGroup);
+addRoute(urls.customerGroups.detail, CustomerGroupDetail);

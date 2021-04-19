@@ -1,0 +1,7 @@
+query CustomerGroups($dummy: Int)
+        {
+            customerGroups {
+                ...CustomerGroupListParts
+            }
+        }
+
