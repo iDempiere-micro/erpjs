@@ -121,18 +121,38 @@ export class SalesInvoiceLineService extends BaseEntityService<
 
     const customer = invoice.customer;
     const customerGroup = customer.customerGroup;
-    const customerPriceListModel = customerGroup
-      ? await this.customerPriceListService.loadByCustomerGroupAndProduct(
-          transactionalEntityManager,
-          customerGroup,
-          line.product,
+    const now = new Date();
+    const customerPriceListModels = customerGroup
+      ? (
+          await this.customerPriceListService.loadDateValidByCustomerGroupAndProduct(
+            transactionalEntityManager,
+            customerGroup,
+            line.product,
+          )
+        )?.filter(
+          x =>
+            (!x.validFrom || x.validFrom < now) &&
+            (!x.validTo || x.validTo > now),
         )
       : null;
-    const customerProductPriceModel: CustomerProductPriceModel = customerPriceListModel
-      ? customerPriceListModel.productPrices.find(
-          x => x.product.id === line.product.id,
-        )
-      : null;
+    if (customerPriceListModels) {
+      customerPriceListModels.sort((a, b) => {
+        if (!a.validFrom || a.validFrom < b.validFrom) {
+          return 1;
+        }
+        if (!b.validFrom || a.validFrom > b.validFrom) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+
+    const customerProductPriceModel: CustomerProductPriceModel =
+      customerPriceListModels && customerPriceListModels.length > 0
+        ? customerPriceListModels[0].productPrices.find(
+            x => x.product.id === line.product.id,
+          )
+        : null;
 
     line.linePrice = customerProductPriceModel
       ? customerProductPriceModel.sellingPrice * args.quantity

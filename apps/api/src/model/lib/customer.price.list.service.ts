@@ -88,11 +88,11 @@ export class CustomerPriceListService extends BaseEntityService<
     return CustomerPriceListServiceKey;
   }
 
-  async loadByCustomerGroupAndProduct(
+  async loadDateValidByCustomerGroupAndProduct(
     transactionalEntityManager: EntityManager,
     customerGroup: CustomerGroupModel,
     product: ProductModel,
-  ): Promise<CustomerPriceListModel> {
+  ): Promise<CustomerPriceListModel[]> {
     const productId = product.id;
     const customerGroupId = customerGroup.id;
     const result = await this.getRepository(transactionalEntityManager)
@@ -103,11 +103,18 @@ export class CustomerPriceListService extends BaseEntityService<
         'customerProductPriceModel',
       )
       .leftJoinAndSelect('customerProductPriceModel.product', 'product')
-      .where('product.id=:productId AND customerGroup.id=:customerGroupId', {
-        productId,
-        customerGroupId,
-      })
-      .getOne();
+      .where(
+        'product.id=:productId AND customerGroup.id=:customerGroupId AND ' +
+          ' ( now() > customerPriceList.validFrom OR customerPriceList.validFrom IS NULL )' +
+          ' ( now() < customerPriceList.validTo customerPriceList.validTo IS NULL )',
+        {
+          productId,
+          customerGroupId,
+        },
+      )
+      .orderBy('customerPriceList.validFrom', 'DESC')
+      .getMany();
+
     return result;
   }
 }

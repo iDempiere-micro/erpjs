@@ -18,6 +18,7 @@ import { CustomerPriceListServiceKey } from './customer.price.list.service';
 import { CustomerPriceListModel } from './customer.price.list.model';
 import { CustomerProductPriceModel } from './customer.product.price.model';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 const customerGroup1: CustomerGroupModel = {
   id: 0,
@@ -88,31 +89,6 @@ export const mockSalesInvoiceServiceProvider = {
   provide: SalesInvoiceServiceKey,
   useValue: mockSalesInvoiceService,
 };
-const mockCustomerPriceListService = {
-  loadByCustomerGroupAndProduct: (
-    transactionalEntityManager,
-    customerGroup,
-    product,
-  ): CustomerPriceListModel =>
-    product === product2 && customerGroup === customerGroup1
-      ? {
-          id: 1,
-          displayName: '',
-          customerGroup: customerGroup1,
-          productPrices: [
-            {
-              product: product2,
-              sellingPrice: PRODUCT_GROUP_PRICE,
-            } as CustomerProductPriceModel,
-          ],
-        }
-      : null,
-};
-const mockCustomerPriceListServiceProvider = {
-  provide: CustomerPriceListServiceKey,
-  useValue: mockCustomerPriceListService,
-};
-
 const customerPriceListModel: CustomerPriceListModel = {
   id: 1,
   displayName: '',
@@ -126,13 +102,13 @@ const customerPriceListModel: CustomerPriceListModel = {
 };
 
 const mockCustomerPriceListService = {
-  loadByCustomerGroupAndProduct: (
+  loadDateValidByCustomerGroupAndProduct: (
     transactionalEntityManager,
     customerGroup,
     product,
-  ): CustomerPriceListModel =>
+  ): CustomerPriceListModel[] | null =>
     product === product2 && customerGroup === customerGroup1
-      ? customerPriceListModel
+      ? [customerPriceListModel]
       : null,
 };
 const mockCustomerPriceListServiceProvider = {
@@ -218,7 +194,9 @@ describe('SalesInvoiceLineService', () => {
 
   it('line price is taken from the customer group price list if that exists and is valid', async () => {
     customerPriceListModel.validTo = null;
-    customerPriceListModel.validFrom = moment().add(1,'days').toDate();
+    customerPriceListModel.validFrom = moment()
+      .add(1, 'days')
+      .toDate();
     const line = await service.save(
       mockEntityManager,
       {
@@ -233,5 +211,46 @@ describe('SalesInvoiceLineService', () => {
       { id: 1 } as UserModel,
     );
     expect(line.linePrice).not.toBe(PRODUCT_GROUP_PRICE * QUANTITY);
+  });
+
+  it('line price is taken from the customer group price list that is with the newest start', async () => {
+    customerPriceListModel.validTo = null;
+    customerPriceListModel.validFrom = null;
+    const customerPriceListModel2: CustomerPriceListModel = _.cloneDeep(
+      customerPriceListModel,
+    );
+    customerPriceListModel2.validFrom = moment()
+      .add(-1, 'days')
+      .toDate();
+    customerPriceListModel2.productPrices[0].sellingPrice =
+      PRODUCT_GROUP_PRICE / 2;
+    const remember =
+      mockCustomerPriceListService.loadDateValidByCustomerGroupAndProduct;
+    mockCustomerPriceListService.loadDateValidByCustomerGroupAndProduct = (
+      transactionalEntityManager,
+      customerGroup,
+      product,
+    ): CustomerPriceListModel[] | null =>
+      product === product2 && customerGroup === customerGroup1
+        ? [customerPriceListModel, customerPriceListModel2]
+        : null;
+    try {
+      const line = await service.save(
+        mockEntityManager,
+        {
+          narration: '',
+          linePrice: 2 * QUANTITY,
+          invoice,
+          lineOrder: 0,
+          quantity: QUANTITY,
+          lineTax: {} as any,
+          product: product2,
+        },
+        { id: 1 } as UserModel,
+      );
+      expect(line.linePrice).toBe((PRODUCT_GROUP_PRICE / 2) * QUANTITY);
+    } finally {
+      mockCustomerPriceListService.loadDateValidByCustomerGroupAndProduct = remember;
+    }
   });
 });

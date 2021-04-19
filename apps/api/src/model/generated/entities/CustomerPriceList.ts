@@ -42,8 +42,11 @@ export class CustomerPriceList implements CustomerPriceListModel {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
+  @Index()
   validFrom: Date;
+
   @Field({ nullable: true })
   @Column({ nullable: true })
+  @Index()
   validTo: Date;
 }
