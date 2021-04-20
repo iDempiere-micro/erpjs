@@ -1,0 +1,12 @@
+fragment CustomerGroupDetailParts on CustomerGroup {
+    id
+    displayName
+    customers {
+        ...CustomerListParts
+    }
+}
+
+fragment CustomerGroupListParts on CustomerGroup {
+    id
+    displayName
+}

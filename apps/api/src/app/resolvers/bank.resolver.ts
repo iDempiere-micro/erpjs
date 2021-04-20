@@ -21,8 +21,7 @@ export class BankResolver {
 
   @Query(() => Bank)
   async bank(@Args('id', { type: () => Int }) id: number) {
-    const result = await this.bankService.loadEntityById(getManager(), id);
-    return result;
+    return await this.bankService.loadEntityById(getManager(), id);
   }
 
   @Mutation(() => Bank)

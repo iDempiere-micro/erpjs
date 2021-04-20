@@ -51,6 +51,18 @@ import {
   UnitOfMeasurementService,
   UnitOfMeasurementServiceKey,
 } from './lib/unit.of.measurement.service';
+import {
+  CustomerGroupService,
+  CustomerGroupServiceKey,
+} from './lib/customer.group.service';
+import {
+  CustomerPriceListService,
+  CustomerPriceListServiceKey,
+} from './lib/customer.price.list.service';
+import {
+  CustomerProductPriceService,
+  CustomerProductPriceServiceKey,
+} from './lib/customer.product.price.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -162,6 +174,21 @@ const unitOfMeasurementServiceProvider = {
   useClass: UnitOfMeasurementService,
 };
 
+const customerGroupServiceProvider = {
+  provide: CustomerGroupServiceKey,
+  useClass: CustomerGroupService,
+};
+
+const customerPriceListServiceProvider = {
+  provide: CustomerPriceListServiceKey,
+  useClass: CustomerPriceListService,
+};
+
+const customerProductPriceServiceProvider = {
+  provide: CustomerProductPriceServiceKey,
+  useClass: CustomerProductPriceService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -185,4 +212,7 @@ export const serviceProviders = [
   userServiceProvider,
   saveArgsValidationServiceProvider,
   unitOfMeasurementServiceProvider,
+  customerGroupServiceProvider,
+  customerPriceListServiceProvider,
+  customerProductPriceServiceProvider,
 ];

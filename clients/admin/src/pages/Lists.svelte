@@ -45,5 +45,10 @@
             class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >{$_('page.accountingSchemes.title')}</a
         >
+        <a
+            href="#/{urls.customerGroups.list}"
+            class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >{$_('page.customerGroups.title')}</a
+        >
     </span>
 </Page>

@@ -26,25 +26,49 @@ export const COUNTRY_DETAIL_PARTS = gql`
     }
 `;
 
-export const COUNTRY_LIST_PARTS = gql`
-    fragment CountryListParts on Country {
+export const COUNTRY_LIST_PARTS_RAW = `
         id
         displayName
         isoCode
+`;
+
+export const COUNTRY_LIST_PARTS = gql`
+    fragment CountryListParts on Country {
+        ${COUNTRY_LIST_PARTS_RAW}
     }
 `;
 
-export const ADDRESS_LIST_PARTS = gql`
-    ${COUNTRY_LIST_PARTS}
-    fragment AddressListParts on Address {
+export const ADDRESS_LIST_PARTS_RAW = `
         id
         city
         line1
         zipCode
         country {
-            ...CountryListParts
+            ${COUNTRY_LIST_PARTS_RAW}
         }
+`;
+
+export const ADDRESS_LIST_PARTS = gql`
+    ${COUNTRY_LIST_PARTS}
+    fragment AddressListParts on Address {
+        ${ADDRESS_LIST_PARTS_RAW}
     }
+`;
+
+export const CUSTOMER_DETAIL_PARTS_RAW = `    
+        id
+        legalName
+        displayName
+        vatNumber
+        idNumber
+        invoicingEmail
+        legalAddress {
+            ${ADDRESS_LIST_PARTS_RAW}
+        }
+        address {
+            ${ADDRESS_LIST_PARTS_RAW}
+        }
+        note
 `;
 
 export const CUSTOMER_DETAIL_PARTS = gql`
@@ -74,21 +98,25 @@ export const CURRENCY_LIST_PARTS = gql`
     }
 `;
 
-export const CUSTOMER_LIST_PARTS = gql`
-    ${ADDRESS_LIST_PARTS}
-    fragment CustomerListParts on Customer {
+export const CUSTOMER_LIST_PARTS_RAW = `
         id
         legalName
         displayName
         vatNumber
         invoicingEmail
         legalAddress {
-            ...AddressListParts
+            ${ADDRESS_LIST_PARTS_RAW}
         }
         address {
-            ...AddressListParts
+            ${ADDRESS_LIST_PARTS_RAW}
         }
         note
+`;
+
+export const CUSTOMER_LIST_PARTS = gql`
+    ${ADDRESS_LIST_PARTS}
+    fragment CustomerListParts on Customer {
+        ${CUSTOMER_LIST_PARTS_RAW}
     }
 `;
 export const SALES_INVOICE_LINE_DETAIL_PARTS = gql`
@@ -247,5 +275,19 @@ export const ORGANIZATION_DETAIL_PARTS = gql`
         accountingScheme {
             ...AccountingSchemeDetailParts
         }
+    }
+`;
+
+export const CUSTOMER_GROUP_DETAIL_PARTS_RAW = `
+    id
+    displayName
+    customers {
+        ${CUSTOMER_LIST_PARTS_RAW}
+    }
+`;
+
+export const CUSTOMER_GROUP_DETAIL_PARTS = gql`
+    fragment AccountingSchemeDetailParts on AccountingScheme {
+        ${CUSTOMER_GROUP_DETAIL_PARTS_RAW}
     }
 `;

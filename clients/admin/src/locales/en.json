@@ -264,6 +264,34 @@
         "displayName": "Display Name",
         "currency": "Currency"
       }
+    },
+    "customerGroups": {
+      "title": "Customer Groups",
+      "nav": "Customer Groups",
+      "list": {
+        "column1": {
+          "title": "Customer Group"
+        }
+      },
+      "add": {
+        "title": "Add Customer Group",
+        "nav": "Add Customer Group",
+        "internalInformation": "Internal Information",
+        "displayName": "Display Name",
+        "description": {
+          "internalInformation": "Internal Information"
+        }
+      },
+      "edit": {
+        "title": "Edit Customer Group",
+        "nav": "Add ACustomer Group"
+      },
+      "detail": {
+        "title": "Customer Group Detail",
+        "nav": "Customer Group Detail",
+        "info": "Customer Group information",
+        "displayName": "Display Name"
+      }
     }
   },
   "menu" : {

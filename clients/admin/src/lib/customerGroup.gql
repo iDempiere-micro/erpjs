@@ -1,0 +1,5 @@
+query customerGroupById($id: Int!) {
+            customerGroup(id: $id) {
+                ...CustomerGroupDetailParts
+            }
+        }

@@ -1,0 +1,10 @@
+mutation SaveCustomerGroup(
+    $id: Int
+    $displayName: String!
+) { saveCustomerGroup( args :
+{
+    id: $id
+    displayName: $displayName
+}
+
+) { id } }

@@ -13,6 +13,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
 import { UnitOfMeasurementModel } from '../../lib/unit.of.measurement.model';
 import { UnitOfMeasurement } from './UnitOfMeasurement';
+import { CustomerProductPrice } from './CustomerProductPrice';
+import { CustomerProductPriceModel } from '../../lib/customer.product.price.model';
 
 @Index('IDX_826d69dcc65d9650be67af6d48', ['displayName'], { unique: true })
 @Index('IDX_34f6ca1cd897cc926bdcca1ca3', ['sku'], { unique: true })
@@ -66,4 +68,11 @@ export class Product {
   @JoinColumn([{ name: 'uomId', referencedColumnName: 'id' }])
   @Field(() => UnitOfMeasurement, { nullable: true })
   defaultUoM: UnitOfMeasurementModel;
+
+  @Field(() => [CustomerProductPrice], { nullable: true })
+  @OneToMany(
+    () => CustomerProductPrice,
+    customerProductPrice => customerProductPrice.product,
+  )
+  customerProductPrices: Array<CustomerProductPriceModel>;
 }

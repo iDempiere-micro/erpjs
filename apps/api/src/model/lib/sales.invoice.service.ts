@@ -40,6 +40,11 @@ import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
 import { UserModel } from './user.model';
 import { SalesInvoiceMonthlySaveArgsModel } from './sales.invoice.monthly.save.args.model';
+import {
+  CustomerPriceListService,
+  CustomerPriceListServiceKey,
+} from './customer.price.list.service';
+import { CustomerProductPriceModel } from './customer.product.price.model';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -71,6 +76,8 @@ export class SalesInvoiceLineService extends BaseEntityService<
   constructor(
     @Inject(TaxServiceKey) public readonly taxService: TaxService,
     @Inject(ProductServiceKey) public readonly productService: ProductService,
+    @Inject(CustomerPriceListServiceKey)
+    public readonly customerPriceListService: CustomerPriceListService,
   ) {
     super();
     this.salesInvoiceService = getService<SalesInvoiceService>(
@@ -111,8 +118,45 @@ export class SalesInvoiceLineService extends BaseEntityService<
         args.invoiceId,
       ));
     line.invoice = invoice;
-    await invoice.customer;
-    line.linePrice = args.linePrice;
+
+    const customer = invoice.customer;
+    const customerGroup = customer.customerGroup;
+    const now = new Date();
+    const customerPriceListModels = customerGroup
+      ? (
+          await this.customerPriceListService.loadDateValidByCustomerGroupAndProduct(
+            transactionalEntityManager,
+            customerGroup,
+            line.product,
+          )
+        )?.filter(
+          x =>
+            (!x.validFrom || x.validFrom < now) &&
+            (!x.validTo || x.validTo > now),
+        )
+      : null;
+    if (customerPriceListModels) {
+      customerPriceListModels.sort((a, b) => {
+        if (!a.validFrom || a.validFrom < b.validFrom) {
+          return 1;
+        }
+        if (!b.validFrom || a.validFrom > b.validFrom) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+
+    const customerProductPriceModel: CustomerProductPriceModel =
+      customerPriceListModels && customerPriceListModels.length > 0
+        ? customerPriceListModels[0].productPrices.find(
+            x => x.product.id === line.product.id,
+          )
+        : null;
+
+    line.linePrice = customerProductPriceModel
+      ? customerProductPriceModel.sellingPrice * args.quantity
+      : args.linePrice;
     line.quantity = args.quantity;
     line.narration = args.narration;
 

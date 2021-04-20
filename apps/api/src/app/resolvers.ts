@@ -8,6 +8,9 @@ import { CurrencyResolver } from './resolvers/currency.resolver';
 import { CountryResolver } from './resolvers/country.resolver';
 import { BankResolver } from './resolvers/bank.resolver';
 import { AccountingSchemeResolver } from './resolvers/accounting.scheme.resolver';
+import { CustomerGroupResolver } from './resolvers/customer.group.resolver';
+import { CustomerPriceListResolver } from './resolvers/customer.price.list.resolver';
+import { CustomerProductPriceResolver } from './resolvers/customer.product.price.resolver';
 
 export const resolvers = [
   AppResolver,
@@ -21,4 +24,7 @@ export const resolvers = [
   CountryResolver,
   BankResolver,
   AccountingSchemeResolver,
+  CustomerGroupResolver,
+  CustomerPriceListResolver,
+  CustomerProductPriceResolver,
 ];

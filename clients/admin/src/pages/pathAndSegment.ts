@@ -53,6 +53,12 @@ export const urls = {
         edit: 'accountingScheme/:id',
         detail: 'accountingScheme-detail/:id',
     },
+    customerGroups: {
+        list: 'customerGroups',
+        add: 'add-customerGroup',
+        edit: 'customerGroup/:id',
+        detail: 'customerGroup-detail/:id',
+    },
 };
 
 export const segments = {
@@ -65,6 +71,7 @@ export const segments = {
     banks: urls.banks.list,
     organizations: urls.organizations.list,
     accountingSchemes: urls.accountingSchemes.list,
+    customerGroups: urls.customerGroups.list,
 };
 
 export const push = (urlPattern: string, id: number | undefined) =>

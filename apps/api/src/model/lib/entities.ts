@@ -21,6 +21,9 @@ import { MenuItem } from '../generated/entities/MenuItem';
 import { Menu } from '../generated/entities/Menu';
 import { UnitOfMeasurement } from '../generated/entities/UnitOfMeasurement';
 import { UnitOfMeasurementConversion } from '../generated/entities/UnitOfMeasurementConversion';
+import { CustomerGroup } from '../generated/entities/CustomerGroup';
+import { CustomerPriceList } from '../generated/entities/CustomerPriceList';
+import { CustomerProductPrice } from '../generated/entities/CustomerProductPrice';
 
 export const entities = [
   Address,
@@ -46,4 +49,7 @@ export const entities = [
   Menu,
   UnitOfMeasurement,
   UnitOfMeasurementConversion,
+  CustomerGroup,
+  CustomerPriceList,
+  CustomerProductPrice,
 ];
