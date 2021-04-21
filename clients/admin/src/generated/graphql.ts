@@ -89,6 +89,41 @@ export type BaseSaveArgs = {
     id?: Maybe<Scalars['Int']>;
 };
 
+export type ContactPerson = {
+    __typename?: 'ContactPerson';
+    contactPersonCompanyRelations?: Maybe<Array<ContactPersonCompanyRelation>>;
+    firstName: Scalars['String'];
+    id: Scalars['Int'];
+    lastName: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type ContactPersonCompanyRelation = {
+    __typename?: 'ContactPersonCompanyRelation';
+    contactPerson: ContactPerson;
+    customer: Customer;
+    id: Scalars['Int'];
+    isActive: Scalars['Boolean'];
+    role: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type ContactPersonCompanyRelationSaveArgs = {
+    contactPersonId: Scalars['Float'];
+    customerId: Scalars['Float'];
+    id?: Maybe<Scalars['Int']>;
+    isActive: Scalars['Boolean'];
+    role: Scalars['String'];
+};
+
+export type ContactPersonSaveArgs = {
+    firstName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    lastName: Scalars['String'];
+};
+
 export type Country = {
     __typename?: 'Country';
     displayName: Scalars['String'];
@@ -126,9 +161,10 @@ export type CurrencySaveArgs = {
 export type Customer = {
     __typename?: 'Customer';
     address?: Maybe<Address>;
+    contactPersonCompanyRelations?: Maybe<Array<ContactPersonCompanyRelation>>;
     customerGroup?: Maybe<CustomerGroup>;
     displayName: Scalars['String'];
-    id: Scalars['Float'];
+    id: Scalars['Int'];
     idNumber: Scalars['String'];
     invoicingEmail: Scalars['String'];
     isActive: Scalars['Boolean'];
@@ -136,10 +172,12 @@ export type Customer = {
     legalAddress: Address;
     legalName: Scalars['String'];
     note?: Maybe<Scalars['String']>;
+    publicNote?: Maybe<Scalars['String']>;
     salesInvoices: Array<SalesInvoice>;
     updtOp: User;
     updtTs: Scalars['UniversalDateTime'];
     vatNumber?: Maybe<Scalars['String']>;
+    www?: Maybe<Scalars['String']>;
 };
 
 export type CustomerGroup = {
@@ -249,6 +287,8 @@ export type Mutation = {
     keepAlive: Scalars['UniversalDateTime'];
     saveAccountingScheme: AccountingScheme;
     saveBank: Bank;
+    saveContactPerson: ContactPerson;
+    saveContactPersonCompanyRelation: ContactPersonCompanyRelation;
     saveCountry: Country;
     saveCurrency: Currency;
     saveCustomerGroup: CustomerGroup;
@@ -280,6 +320,14 @@ export type MutationSaveAccountingSchemeArgs = {
 
 export type MutationSaveBankArgs = {
     args: BankSaveArgs;
+};
+
+export type MutationSaveContactPersonArgs = {
+    args: ContactPersonSaveArgs;
+};
+
+export type MutationSaveContactPersonCompanyRelationArgs = {
+    args: ContactPersonCompanyRelationSaveArgs;
 };
 
 export type MutationSaveCountryArgs = {
@@ -370,6 +418,10 @@ export type Query = {
     accountingSchemes: Array<AccountingScheme>;
     bank: Bank;
     banks: Array<Bank>;
+    contactPerson: ContactPerson;
+    contactPersonCompanyRelation: ContactPersonCompanyRelation;
+    contactPersonCompanyRelations: Array<ContactPersonCompanyRelation>;
+    contactPersons: Array<ContactPerson>;
     countries: Array<Country>;
     country: Country;
     currencies: Array<Currency>;
@@ -399,6 +451,14 @@ export type QueryAccountingSchemeArgs = {
 };
 
 export type QueryBankArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryContactPersonArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryContactPersonCompanyRelationArgs = {
     id: Scalars['Int'];
 };
 
@@ -446,7 +506,6 @@ export type QuerySalesInvoiceArgs = {
 export type SalesInvoice = {
     __typename?: 'SalesInvoice';
     bankAccount: BankAccount;
-    content: Scalars['String'];
     currency: Currency;
     currencyMultiplyingRateToAccountingSchemeCurrency: Scalars['Float'];
     customer: Customer;

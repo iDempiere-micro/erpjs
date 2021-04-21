@@ -3,6 +3,7 @@ import {
     ADDRESS_LIST_PARTS,
     COUNTRY_LIST_PARTS,
     CUSTOMER_DETAIL_PARTS,
+    CUSTOMER_DETAIL_PARTS_RAW,
     CUSTOMER_GROUP_DETAIL_PARTS,
     CUSTOMER_GROUP_LIST_PARTS,
 } from '../fragments';
@@ -33,10 +34,9 @@ export const mock = {
 };
 
 export const GET_CUSTOMER_BY_ID = gql`
-    ${CUSTOMER_DETAIL_PARTS}
     query CustomerById($id: Int!) {
         customer(id: $id) {
-            ...CustomerDetailParts
+            ${CUSTOMER_DETAIL_PARTS_RAW}
         }
     }
 `;

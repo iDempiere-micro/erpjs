@@ -1,25 +1,16 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/erp3/src",
+  "sourceRoot": "apps/api/src",
   "monorepo": true,
-  "root": "apps/erp3",
+  "root": "apps/api",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "apps/erp3/tsconfig.app.json",
+    "tsConfigPath": "apps/api/tsconfig.app.json",
     "assets": [
       "**/assets/*.ttf"
     ]
   },
   "projects": {
-    "erp3": {
-      "type": "application",
-      "root": "apps/erp3",
-      "entryFile": "main",
-      "sourceRoot": "apps/erp3/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/erp3/tsconfig.app.json"
-      }
-    },
     "api": {
       "type": "application",
       "root": "apps/api",

@@ -121,7 +121,6 @@ export class SalesInvoice implements SalesInvoiceModel {
   printError: string | null;
 
   @Column('bytea', { name: 'content', nullable: true })
-  @Field()
   content: string;
 
   @Column('integer', { name: 'paymentTermInDays' })

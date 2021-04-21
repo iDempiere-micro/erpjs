@@ -1,15 +1,8 @@
 <script lang="ts">
-    import type {
-        AddressListPartsFragment,
-        CustomerListPartsFragment,
-    } from '../../generated/graphql';
+    import type { CustomerListPartsFragment } from '../../generated/graphql';
+    import { addressOneLiner } from '../../lib/address';
 
     export let row: CustomerListPartsFragment;
-
-    const addressOneLiner = (address: AddressListPartsFragment | undefined | null) =>
-        address
-            ? `${address.line1}, ${address.country.isoCode}-${address.zipCode} ${address.city}`
-            : '';
 </script>
 
 <div class="text-sm text-gray-900">{addressOneLiner(row.address)}</div>

@@ -27,6 +27,7 @@ const customerGroup1: CustomerGroupModel = {
 };
 
 const customer: CustomerModel = {
+  contactPersonCompanyRelations: [],
   invoicingEmail: '',
   idNumber: '',
   id: 0,
