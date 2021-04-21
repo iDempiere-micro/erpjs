@@ -53,6 +53,7 @@ export const ADD_CUSTOMER = gql`
         $legalAddressZipCode: String!
         $invoicingEmail: String!
         $vatNumber: String!
+        $customerGroupId: Int
     ) {
         createCustomer(
             args: {
@@ -69,6 +70,7 @@ export const ADD_CUSTOMER = gql`
                 }
                 note: $note
                 vatNumber: $vatNumber
+                customerGroupId: $customerGroupId
             }
         ) {
             id

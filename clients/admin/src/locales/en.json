@@ -24,6 +24,7 @@
         "nav": "Add Customer",
         "internalInformation": "Internal Information",
         "displayName": "Display Name",
+        "customerGroup": "Customer Group",
         "error" : {
           "displayNameRequired": "The display name is required",
           "displayNameMinLength": "The display name should be at least 6 characters",

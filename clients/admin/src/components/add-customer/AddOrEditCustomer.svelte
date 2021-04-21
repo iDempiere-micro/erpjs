@@ -16,6 +16,8 @@
     import Select from 'svelte-select';
     import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
     import { throwOnUndefined } from '../../lib/util';
+    import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
+    import { push, urls } from '../../pages/pathAndSegment';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
@@ -87,6 +89,7 @@
             legalAddressLine1: { value: legalAddressLine1, validators: ['required'] },
             legalZip: { value: legalAddressZipCode, validators: ['required'] },
             invoicingEmail: { value: invoicingEmail, validators: ['required'] },
+            customerGroupId: { value: customerGroupId, validators: [] },
         }),
         {
             initCheck: true,
@@ -120,6 +123,8 @@
             legalAddressCountryIsoCode &&
             invoicingEmail
         ) {
+            console.log('*** customerGroupId', customerGroupId);
+
             const { data } = await addCustomer({
                 variables: {
                     id: customer ? customer.id : null,
@@ -133,10 +138,10 @@
                     legalAddressZipCode,
                     invoicingEmail,
                     vatNumber,
+                    customerGroupId,
                 },
             });
-            const id = data?.createCustomer?.id;
-            console.log('*** customer created', id);
+            await push(urls.customer.detail, data?.createCustomer?.id);
         }
     };
 </script>
@@ -231,6 +236,17 @@
                             <p class="mt-2 text-sm text-gray-500">
                                 {$_('page.customers.add.description.note')}
                             </p>
+                        </div>
+                        <div>
+                            <CustomerGroupSelect
+                                id="customerGroupId"
+                                onSelect={(id) => {
+                                    customerGroupId = id;
+                                }}
+                                form={$myForm}
+                                {customerGroupId}
+                                label={$_('page.customers.add.customerGroup')}
+                            />
                         </div>
                     </div>
                 </div>
