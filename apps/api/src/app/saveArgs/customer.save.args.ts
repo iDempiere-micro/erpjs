@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { AddressSaveArgs } from './address.save.args';
 import { BaseSaveArgs } from './base.save.args';
 import { CustomerSaveArgsModel } from '../../model';
@@ -23,4 +23,6 @@ export class CustomerSaveArgs extends BaseSaveArgs
   idNumber: string;
   @Field({ nullable: true })
   note?: string;
+  @Field(() => Int, { nullable: true })
+  customerGroupId?: number;
 }

@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const CUSTOMER_GROUP_LIST_PARTS_RAW = `
+    id
+    displayName
+`;
+
+export const CUSTOMER_GROUP_LIST_PARTS = gql`
+    fragment CustomerGroupListParts on CustomerGroup {
+        ${CUSTOMER_GROUP_LIST_PARTS_RAW}
+    }
+`;
+
 export const UNIT_OF_MEASUREMENT_DETAIL_PARTS = gql`
     fragment UnitOfMeasurementDetailParts on UnitOfMeasurement {
         id
@@ -49,7 +60,6 @@ export const ADDRESS_LIST_PARTS_RAW = `
 `;
 
 export const ADDRESS_LIST_PARTS = gql`
-    ${COUNTRY_LIST_PARTS}
     fragment AddressListParts on Address {
         ${ADDRESS_LIST_PARTS_RAW}
     }
@@ -73,6 +83,7 @@ export const CUSTOMER_DETAIL_PARTS_RAW = `
 
 export const CUSTOMER_DETAIL_PARTS = gql`
     ${ADDRESS_LIST_PARTS}
+    ${CUSTOMER_GROUP_LIST_PARTS}
     fragment CustomerDetailParts on Customer {
         id
         legalName
@@ -87,6 +98,9 @@ export const CUSTOMER_DETAIL_PARTS = gql`
             ...AddressListParts
         }
         note
+        customerGroup {
+            ...CustomerGroupListParts
+        }
     }
 `;
 
@@ -287,7 +301,7 @@ export const CUSTOMER_GROUP_DETAIL_PARTS_RAW = `
 `;
 
 export const CUSTOMER_GROUP_DETAIL_PARTS = gql`
-    fragment AccountingSchemeDetailParts on AccountingScheme {
+    fragment CustomerGroupDetailParts on CustomerGroup {
         ${CUSTOMER_GROUP_DETAIL_PARTS_RAW}
     }
 `;

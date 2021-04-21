@@ -62,6 +62,7 @@
     let legalAddressLine1 = customer?.legalAddress?.line1;
     let legalAddressZipCode = customer?.legalAddress?.zipCode;
     let invoicingEmail = customer?.invoicingEmail;
+    let customerGroupId = customer?.customerGroup?.id;
 
     const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
         const countries = countriesStore.get().countries;

@@ -102,7 +102,7 @@ export class Customer implements CustomerModel {
   @Field(() => Address, { nullable: true })
   address: AddressModel;
 
-  @Field(() => CustomerGroup)
+  @Field(() => CustomerGroup, {nullable: true})
   @ManyToOne(
     () => CustomerGroup,
     customerGroup => customerGroup.customers,

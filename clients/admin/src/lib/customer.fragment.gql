@@ -12,4 +12,7 @@ fragment CustomerDetailParts on Customer {
         ...AddressListParts
     }
     note
+    customerGroup {
+        ...CustomerGroupListParts
+    }
 }

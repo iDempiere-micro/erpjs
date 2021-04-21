@@ -10,6 +10,7 @@ mutation CreateCustomer(
             $legalAddressZipCode: String!
             $invoicingEmail: String!
             $vatNumber: String
+            $customerGroupId: Int
         ) {
             createCustomer(
                 args: {
@@ -26,6 +27,7 @@ mutation CreateCustomer(
                     }
                     note: $note
                     vatNumber: $vatNumber
+                    customerGroupId: $customerGroupId
                 }
             ) {
                 id

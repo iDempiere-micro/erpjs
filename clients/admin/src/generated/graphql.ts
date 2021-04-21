@@ -126,7 +126,7 @@ export type CurrencySaveArgs = {
 export type Customer = {
     __typename?: 'Customer';
     address?: Maybe<Address>;
-    customerGroup: CustomerGroup;
+    customerGroup?: Maybe<CustomerGroup>;
     displayName: Scalars['String'];
     id: Scalars['Float'];
     idNumber: Scalars['String'];
@@ -193,6 +193,7 @@ export type CustomerProductPriceSaveArgs = {
 
 export type CustomerSaveArgs = {
     address?: Maybe<AddressSaveArgs>;
+    customerGroupId?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
     id?: Maybe<Scalars['Int']>;
     idNumber: Scalars['String'];
@@ -625,6 +626,7 @@ export type CreateCustomerMutationVariables = Exact<{
     legalAddressZipCode: Scalars['String'];
     invoicingEmail: Scalars['String'];
     vatNumber?: Maybe<Scalars['String']>;
+    customerGroupId?: Maybe<Scalars['Int']>;
 }>;
 
 export type CreateCustomerMutation = { __typename?: 'Mutation' } & {
@@ -798,6 +800,7 @@ export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
+        customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
     };
 
 export type CustomerByIdQueryVariables = Exact<{

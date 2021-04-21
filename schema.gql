@@ -107,7 +107,7 @@ input CurrencySaveArgs {
 
 type Customer {
   address: Address
-  customerGroup: CustomerGroup!
+  customerGroup: CustomerGroup
   displayName: String!
   id: Float!
   idNumber: String!
@@ -171,6 +171,7 @@ input CustomerProductPriceSaveArgs {
 
 input CustomerSaveArgs {
   address: AddressSaveArgs
+  customerGroupId: Int
   displayName: String!
   id: Int
   idNumber: String!

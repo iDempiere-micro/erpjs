@@ -1,11 +1,15 @@
 import { CustomerModel } from './customer.model';
 import { CustomerSaveArgsModel } from './customer.save.args.model';
 import { EntityManager, Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { BaseEntityService } from './base.entity.service';
-import { AddressService } from './address.service';
+import { AddressService, AddressServiceKey } from './address.service';
 import { Customer } from '../generated/entities/Customer';
 import { UserModel } from './user.model';
+import {
+  CustomerGroupService,
+  CustomerGroupServiceKey,
+} from './customer.group.service';
 
 export const CustomerServiceKey = 'CustomerService';
 
@@ -14,6 +18,15 @@ export class CustomerService extends BaseEntityService<
   CustomerModel,
   CustomerSaveArgsModel
 > {
+  constructor(
+    @Inject(AddressServiceKey)
+    protected readonly addressService: AddressService,
+    @Inject(CustomerGroupServiceKey)
+    protected readonly customerGroupService: CustomerGroupService,
+  ) {
+    super();
+  }
+
   createEntity(): CustomerModel {
     return new Customer();
   }
@@ -22,9 +35,6 @@ export class CustomerService extends BaseEntityService<
     transactionalEntityManager,
   ): Repository<CustomerModel> {
     return transactionalEntityManager.getRepository(Customer);
-  }
-  constructor(protected readonly addressService: AddressService) {
-    super();
   }
 
   protected async doSave(
@@ -53,6 +63,12 @@ export class CustomerService extends BaseEntityService<
     customer.address = address;
     customer.legalAddress = legalAddress;
     customer.idNumber = args.idNumber;
+    customer.customerGroup = args.customerGroupId
+      ? await this.customerGroupService.loadEntityById(
+          transactionalEntityManager,
+          args.customerGroupId,
+        )
+      : null;
     return customer;
   }
 

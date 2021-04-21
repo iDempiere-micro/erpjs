@@ -1,5 +1,11 @@
 import gql from 'graphql-tag';
-import { ADDRESS_LIST_PARTS, COUNTRY_LIST_PARTS, CUSTOMER_DETAIL_PARTS } from '../fragments';
+import {
+    ADDRESS_LIST_PARTS,
+    COUNTRY_LIST_PARTS,
+    CUSTOMER_DETAIL_PARTS,
+    CUSTOMER_GROUP_DETAIL_PARTS,
+    CUSTOMER_GROUP_LIST_PARTS,
+} from '../fragments';
 
 export const mock = {
     data: {
@@ -27,8 +33,6 @@ export const mock = {
 };
 
 export const GET_CUSTOMER_BY_ID = gql`
-    ${COUNTRY_LIST_PARTS}
-    ${ADDRESS_LIST_PARTS}
     ${CUSTOMER_DETAIL_PARTS}
     query CustomerById($id: Int!) {
         customer(id: $id) {

@@ -15,4 +15,6 @@ export interface CustomerSaveArgsModel extends BaseSaveArgsModel {
   idNumber: string;
 
   note?: string;
+
+  customerGroupId?: number;
 }
