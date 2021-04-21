@@ -79,6 +79,8 @@ export const CUSTOMER_DETAIL_PARTS_RAW = `
             ${ADDRESS_LIST_PARTS_RAW}
         }
         note
+        www
+        publicNote        
 `;
 
 export const CUSTOMER_DETAIL_PARTS = gql`

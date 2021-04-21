@@ -855,7 +855,15 @@ export type CurrencyByIdQuery = { __typename?: 'Query' } & {
 
 export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
     Customer,
-    'id' | 'legalName' | 'displayName' | 'vatNumber' | 'idNumber' | 'invoicingEmail' | 'note'
+    | 'id'
+    | 'legalName'
+    | 'displayName'
+    | 'vatNumber'
+    | 'idNumber'
+    | 'invoicingEmail'
+    | 'note'
+    | 'www'
+    | 'publicNote'
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;

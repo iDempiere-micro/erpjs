@@ -83,7 +83,9 @@
         "city": "City",
         "zip": "ZIP / Postal Code",
         "contactInformation": "Customer Contact Information",
-        "invoicingEmailAddress": "Invoicing Email Address"
+        "invoicingEmailAddress": "Invoicing Email Address",
+        "www": "Web Page",
+        "publicNote": "Public Info"
       }
     },
     "salesInvoices": {
