@@ -18,6 +18,7 @@
     import { throwOnUndefined } from '../../lib/util';
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import { authStore } from '../../lib/auth';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
@@ -109,6 +110,26 @@
         ])[0];
     }
 
+    let files: any[];
+    let dataFile = null;
+
+    async function upload() {
+        if (files.length === 0) return;
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        const baseUrl = process.env.API_BASE_URL || throwOnUndefined();
+        const upload = (
+            await fetch(baseUrl.replace('graphql', 'file/upload-customer-photo/' + customer?.id), {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
+                },
+            })
+        ).json();
+        console.log('**** upload', upload);
+    }
+
     const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
         ADD_CUSTOMER,
     );
@@ -141,7 +162,11 @@
                     customerGroupId,
                 },
             });
-            await push(urls.customer.detail, data?.createCustomer?.id);
+
+            customer = { id: data?.createCustomer?.id } as CustomerDetailPartsFragment;
+            await upload();
+
+            await push(urls.customer.detail, customer.id);
         }
     };
 </script>
@@ -538,6 +563,7 @@
                                                 name="file-upload"
                                                 type="file"
                                                 class="sr-only"
+                                                bind:files
                                             />
                                         </label>
                                         <p class="pl-1">or drag and drop</p>
