@@ -902,7 +902,7 @@ export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & 
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         bankAccount: { __typename?: 'BankAccount' } & BankAccountListPartsFragment;
-        accountingScheme: { __typename?: 'AccountingScheme' } & Pick<AccountingScheme, 'id'>;
+        accountingScheme: { __typename?: 'AccountingScheme' } & AccountingSchemeDetailPartsFragment;
         documentNumberSequences: { __typename?: 'DocumentNumberSequence' } & Pick<
             DocumentNumberSequence,
             'current'
@@ -959,7 +959,7 @@ export type SalesInvoiceDetailPartsFragment = { __typename?: 'SalesInvoice' } & 
         currency: { __typename?: 'Currency' } & CurrencyListPartsFragment;
         customer: { __typename?: 'Customer' } & CustomerListPartsFragment;
         lines: Array<{ __typename?: 'SalesInvoiceLine' } & SalesInvoiceLineDetailPartsFragment>;
-        organization: { __typename?: 'Organization' } & OrganizationListPartsFragment;
+        organization: { __typename?: 'Organization' } & OrganizationDetailPartsFragment;
         vatReport: Array<{ __typename?: 'SalesInvoiceVat' } & SalesInvoiceVatDetailPartsFragment>;
     };
 

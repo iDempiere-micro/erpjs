@@ -1,45 +1,30 @@
 <script lang="ts">
     import { apollo, setClient } from '../../lib/apollo';
-    import { getCustomerBy, loadCustomerPhotoContent } from '../../lib/customer';
     import { _ } from 'svelte-i18n';
     import { getError } from '../../lib/util';
-    import { addressOneLiner } from '../../lib/address';
     import { push, urls } from '../../pages/pathAndSegment.js';
+    import { getClient } from 'svelte-apollo';
+    import { getSalesInvoiceBy } from '../../lib/salesInvoices';
 
     let mobileMenu = false;
     export let id: number;
     id = parseInt('' + id);
 
-    setClient(apollo(urls.customer.detail + id));
+    setClient(apollo(urls.salesInvoices.detail + id));
 
-    const customer = getCustomerBy(id);
-
-    let customerPhotoContent: string;
-
-    loadCustomerPhotoContent(id).then((data) => {
-        customerPhotoContent = data;
-    });
+    const salesInvoice = getSalesInvoiceBy(id);
 </script>
 
-{#if $customer.loading}
+{#if $salesInvoice.loading}
     {$_('status.loading')}
-{:else if $customer.error}
-    {$_('status.error')} {getError($customer.error)}
-{:else if $customer.data?.customer}
+{:else if $salesInvoice.error}
+    {$_('status.error')} {getError($salesInvoice.error)}
+{:else if $salesInvoice.data?.salesInvoice}
     <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
                 <div class="flex flex-row">
-                    <div class="flex-shrink-0 h-10 w-10 mr-2">
-                        {#if customerPhotoContent}
-                            <img
-                                class="h-10 w-10 rounded-full"
-                                src={`data:image/png;base64,${customerPhotoContent}`}
-                                alt={$customer.data?.customer?.displayName}
-                            />
-                        {/if}
-                    </div>
-                    <div>{$customer.data?.customer?.displayName}</div>
+                    <div>{$salesInvoice.data?.salesInvoice?.documentNo}</div>
                 </div>
             </h2>
             <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
@@ -54,14 +39,11 @@
                     >
                         <path
                             fill-rule="evenodd"
-                            d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                             clip-rule="evenodd"
                         />
-                        <path
-                            d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"
-                        />
                     </svg>
-                    {$customer.data?.customer?.legalName}
+                    {!$salesInvoice.data?.salesInvoice?.isDraft ? 'Approved' : 'Draft'}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: location-marker -->
@@ -74,13 +56,11 @@
                     >
                         <path
                             fill-rule="evenodd"
-                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {addressOneLiner(
-                        $customer.data?.customer?.address || $customer.data?.customer?.legalAddress,
-                    )}
+                    {$salesInvoice.data?.salesInvoice?.dueDate}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: currency-dollar -->
@@ -100,8 +80,9 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {$customer.data?.customer?.customerGroup?.displayName ||
-                        $_('page.customers.detail.statuses.noCustomerGroup')}
+                    {$salesInvoice.data?.salesInvoice?.grandTotalAccountingSchemeCurrency}
+                    {$salesInvoice.data?.salesInvoice?.organization?.accountingScheme?.currency
+                        ?.displayName}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: calendar -->
@@ -114,11 +95,12 @@
                     >
                         <path
                             fill-rule="evenodd"
-                            d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 4a1 1 0 000 2 1 1 0 011 1v1H7a1 1 0 000 2h1v3a3 3 0 106 0v-1a1 1 0 10-2 0v1a1 1 0 11-2 0v-3h3a1 1 0 100-2h-3V7a3 3 0 00-3-3z"
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {$_('page.customers.detail.statuses.noActivityPlanned')}
+                    {$salesInvoice.data?.salesInvoice?.grandTotal}
+                    {$salesInvoice.data?.salesInvoice?.currency?.displayName}
                 </div>
             </div>
         </div>
@@ -175,7 +157,7 @@
                     type="button"
                     class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     on:click|preventDefault={() => {
-                        push(urls.customer.edit, id);
+                        push(urls.salesInvoices.edit, id);
                     }}
                 >
                     <svg
@@ -239,7 +221,7 @@
                     <a
                         href="#"
                         on:click|preventDefault={() => {
-                            push(urls.customer.edit, id);
+                            push(urls.salesInvoices.edit, id);
                         }}
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem">{$_('actions.edit')}</a

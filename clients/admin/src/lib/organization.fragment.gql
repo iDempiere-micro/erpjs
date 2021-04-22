@@ -13,7 +13,7 @@ fragment OrganizationDetailParts on Organization {
                 ...BankAccountListParts
             }
             accountingScheme {
-                id
+                ...AccountingSchemeDetailParts
             }
             documentNumberSequences {
                 current

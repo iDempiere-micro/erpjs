@@ -57,7 +57,7 @@ export const apollo = (nextUrlIfLogout: string, forceMock = false) => {
     if (!uri) throw new Error('API_BASE_URL must be specified');
     const redirect = nextUrlIfLogout.replace(':id', '');
     return new ApolloClient({
-        link: authLink(token!).concat(logoutLink(nextUrlIfLogout).concat(httpLink(uri!))),
+        link: authLink(token!).concat(logoutLink(redirect).concat(httpLink(uri!))),
         cache: new InMemoryCache(),
     });
 };

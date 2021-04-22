@@ -121,7 +121,16 @@
       "detail": {
         "title": "Sales Invoice Detail",
         "nav": "Sales Invoice Detail",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "internalInformation": "Invoice Information",
+        "documentNo": "Document Number",
+        "organization": "Seller",
+        "customer": "Buyer",
+        "transactionDate": "Transaction Date",
+        "totalLines": "Total Lines",
+        "description" : {
+          "internalInformation": "All the invoice information"
+        }
       },
       "list": {
         "column1": {

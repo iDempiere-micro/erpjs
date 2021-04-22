@@ -86,6 +86,11 @@ const GET_SALES_INVOICE_BY_ID = gql`
                 legalName
                 registration
                 vatNumber
+                accountingScheme {
+                    currency {
+                        displayName
+                    }
+                }
             }
             paymentTermInDays
             printDate
