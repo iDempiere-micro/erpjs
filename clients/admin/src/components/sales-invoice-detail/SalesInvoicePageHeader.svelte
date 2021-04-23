@@ -20,7 +20,7 @@
 {:else if $salesInvoice.error}
     {$_('status.error')} {getError($salesInvoice.error)}
 {:else if $salesInvoice.data?.salesInvoice}
-    <div class="lg:flex lg:items-center lg:justify-between">
+    <div class="lg:flex lg:items-center lg:justify-between bg-gray-50 pt-4 px-4 pb-3">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
                 <div class="flex flex-row">

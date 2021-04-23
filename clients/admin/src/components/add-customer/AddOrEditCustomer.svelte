@@ -110,7 +110,7 @@
         ])[0];
     }
 
-    let files: any[];
+    let files: any;
     let dataFile = null;
 
     async function upload() {

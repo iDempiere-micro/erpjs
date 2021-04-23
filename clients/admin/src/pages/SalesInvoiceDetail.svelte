@@ -60,9 +60,9 @@
 <Page segment={segments.salesInvoices} name="page.salesInvoices.detail">
     <span slot="header">
         {#if $salesInvoice?.data?.salesInvoice}
-            <CustomerDetailPageHeader id={$salesInvoice?.data?.salesInvoice?.customer?.id} />
+            <CustomerDetailPageHeader id={$salesInvoice?.data?.salesInvoice?.customer?.id || -1} />
             <Break />
-            <SalesInvoicePageHeader id={$salesInvoice?.data?.salesInvoice?.id} />
+            <SalesInvoicePageHeader id={$salesInvoice?.data?.salesInvoice?.id || -1} />
         {:else}
             {$_('page.salesInvoices.detail.title')}
         {/if}
@@ -123,6 +123,10 @@
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 {$salesInvoice?.data?.salesInvoice.totalLines}
                                 {$salesInvoice.data?.salesInvoice?.currency?.displayName}
+                                = {$salesInvoice?.data?.salesInvoice
+                                    .totalLinesAccountingSchemeCurrency}
+                                {$salesInvoice?.data?.salesInvoice.organization.accountingScheme
+                                    .currency.displayName}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
