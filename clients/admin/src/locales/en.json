@@ -65,11 +65,13 @@
         "displayName": "Display Name",
         "customerGroup": "Customer Group",
         "note": "About",
+        "priceListInformation": "Product Price List Information",
         "description": {
           "note": "Brief description of the customer esp. why is he buying from us.",
           "internalInformation": "This section is for us, fill in how we call the customer, what we know etc.",
           "legalInformation": "Use the legal information that can be used e.g. for billing.",
-          "contactInformation": "Use a permanent address where you can receive mail."
+          "contactInformation": "Use a permanent address where you can receive mail.",
+          "priceListInformation": "Product Prices for the Customer Group"
         },
         "placeholder": {
           "note": "They are very interested in..."
