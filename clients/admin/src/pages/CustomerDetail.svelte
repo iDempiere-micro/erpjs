@@ -10,33 +10,43 @@
     import Break from '../molecules/form/Break.svelte';
     import { printableString } from '../lib/util';
     import { getCustomerGroupBy } from '../lib/customerGroup';
+    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const client = apollo(urls.customer.detail + id);
+    export let client: ApolloClient<NormalizedCacheObject> = apollo(urls.customer.detail + id);
     setClient(client);
 
-    const customer = getCustomerBy(id);
-    let customerGroup;
+    const customerResult = getCustomerBy(id);
+    let customerGroupResult;
+    let customerGroup = {} as any;
+    let customer = {} as any;
+    let address = {} as any;
 
     $: {
-        if ($customer?.data?.customer?.customerGroup?.id && !customerGroup) {
-            customerGroup = getCustomerGroupBy($customer?.data?.customer?.customerGroup?.id || -1);
+        if ($customerResult.data?.customer && !customer.id) {
+            customer = $customerResult.data?.customer;
+            address = customer.address || {};
         }
-        if ($customerGroup?.data?.customerGroup?.id) {
-            console.log('*** $customerGroup', $customerGroup);
+        if (customer.customerGroup?.id && !customerGroupResult) {
+            customerGroupResult = getCustomerGroupBy(customer.customerGroup?.id || -1);
+        }
+        console.log('*** $customerGroupResult', $customerGroupResult);
+        if ($customerGroupResult?.data?.customerGroup && !customerGroup.id) {
+            customerGroup = $customerGroupResult.data?.customerGroup;
+            console.log('*** customerGroup', customerGroup);
         }
     }
 </script>
 
 <Page segment={segments.customers} name="page.customer.detail">
     <span slot="content">
-        {#if $customer.loading}
+        {#if $customerResult.loading}
             {$_('status.loading')}
-        {:else if $customer.error}
-            {$_('status.error')} {getError($customer.error)}
-        {:else if $customer?.data?.customer}
+        {:else if $customerResult.error}
+            {$_('status.error')} {getError($customerResult.error)}
+        {:else if $customerResult.data.customer}
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -53,7 +63,7 @@
                                 {$_('page.customers.detail.note')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.note)}
+                                {printableString(customer.note)}
                             </dd>
                         </div>
                     </dl>
@@ -78,7 +88,7 @@
                                 {$_('page.customers.detail.invoicingEmailAddress')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.invoicingEmail)}
+                                {printableString(customer.invoicingEmail)}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -86,7 +96,7 @@
                                 {$_('page.customers.detail.idNumber')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.idNumber)}
+                                {printableString(customer.idNumber)}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -94,7 +104,7 @@
                                 {$_('page.customers.detail.vatNumber')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.vatNumber)}
+                                {printableString(customer.vatNumber)}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -102,9 +112,7 @@
                                 {$_('page.customers.detail.country')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString(
-                                    $customer?.data?.customer?.legalAddress.country.displayName,
-                                )}
+                                {printableString(customer.legalAddress.country.displayName)}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -112,7 +120,7 @@
                                 {$_('page.customers.detail.line1')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.legalAddress.line1)}
+                                {printableString(customer.legalAddress.line1)}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -120,7 +128,7 @@
                                 {$_('page.customers.detail.city')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.legalAddress.city)}
+                                {printableString(customer.legalAddress.city)}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -128,7 +136,7 @@
                                 {$_('page.customers.detail.zip')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.legalAddress.zipCode)}
+                                {printableString(customer.legalAddress.zipCode)}
                             </dd>
                         </div>
                     </dl>
@@ -153,7 +161,7 @@
                                 {$_('page.customers.detail.www')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.www)}
+                                {printableString(customer.www)}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -161,7 +169,7 @@
                                 {$_('page.customers.detail.publicNote')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.publicNote)}
+                                {printableString(customer.publicNote)}
                             </dd>
                         </div>
                     </dl>
@@ -186,9 +194,7 @@
                                 {$_('page.customers.detail.country')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString(
-                                    $customer?.data?.customer?.address?.country.displayName,
-                                )}
+                                {printableString((address.country || {}).displayName)}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -196,7 +202,7 @@
                                 {$_('page.customers.detail.line1')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.address?.line1)}
+                                {printableString(address.line1)}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -204,7 +210,7 @@
                                 {$_('page.customers.detail.city')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.address?.city)}
+                                {printableString(address.city)}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -212,7 +218,7 @@
                                 {$_('page.customers.detail.zip')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {printableString($customer?.data?.customer?.address?.zipCode)}
+                                {printableString(address.zipCode)}
                             </dd>
                         </div>
                     </dl>
@@ -238,8 +244,8 @@
                                 <ul
                                     class="border border-gray-200 rounded-md divide-y divide-gray-200"
                                 >
-                                    {#if $customerGroup?.data?.customerGroup?.customerPriceLists?.length > 0}
-                                        {#each $customerGroup?.data?.customerGroup?.customerPriceLists[0]?.productPrices as productPrice}
+                                    {#if customerGroup.customerPriceLists && customerGroup.customerPriceLists.length > 0}
+                                        {#each customerGroup.customerPriceLists[0].productPrices as productPrice}
                                             <li
                                                 class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
                                             >
@@ -298,7 +304,7 @@
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt class="text-sm font-medium text-gray-500">Full name</dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$customer?.data?.customer?.legalName}
+                                {customer.legalName}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -408,6 +414,6 @@
         {/if}
     </span>
     <span slot="header">
-        <CustomerDetailPageHeader id={params.id} />
+        <CustomerDetailPageHeader id={params.id} client={client} />
     </span>
 </Page>

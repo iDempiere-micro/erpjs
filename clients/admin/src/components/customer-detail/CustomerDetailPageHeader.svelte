@@ -4,28 +4,37 @@
     import { _ } from 'svelte-i18n';
     import { getError } from '../../lib/util';
     import { addressOneLiner } from '../../lib/address';
-    import { push, urls } from '../../pages/pathAndSegment.js';
+    import { push, urls } from '../../pages/pathAndSegment';
+    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
 
     let mobileMenu = false;
     export let id: number;
     id = parseInt('' + id);
 
-    setClient(apollo(urls.customer.detail + id));
+    export let client: ApolloClient<NormalizedCacheObject> = apollo(urls.customer.detail + id);
+    setClient(client);
 
-    const customer = getCustomerBy(id);
+    const customerResult = getCustomerBy(id);
+    let customer = {} as any;
 
     let customerPhotoContent: string;
 
     loadCustomerPhotoContent(id).then((data) => {
         customerPhotoContent = data;
     });
+
+    $: {
+        if ($customerResult.data?.customer && !customer.id) {
+            customer = $customerResult.data?.customer;
+        }
+    }
 </script>
 
-{#if $customer.loading}
+{#if $customerResult.loading}
     {$_('status.loading')}
-{:else if $customer.error}
-    {$_('status.error')} {getError($customer.error)}
-{:else if $customer.data?.customer}
+{:else if $customerResult.error}
+    {$_('status.error')} {getError($customerResult.error)}
+{:else if $customerResult.data}
     <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
@@ -35,11 +44,11 @@
                             <img
                                 class="h-10 w-10 rounded-full"
                                 src={`data:image/png;base64,${customerPhotoContent}`}
-                                alt={$customer.data?.customer?.displayName}
+                                alt={customer.displayName}
                             />
                         {/if}
                     </div>
-                    <div>{$customer.data?.customer?.displayName}</div>
+                    <div>{customer.displayName}</div>
                 </div>
             </h2>
             <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
@@ -61,7 +70,7 @@
                             d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"
                         />
                     </svg>
-                    {$customer.data?.customer?.legalName}
+                    {customer.legalName}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: location-marker -->
@@ -78,9 +87,7 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {addressOneLiner(
-                        $customer.data?.customer?.address || $customer.data?.customer?.legalAddress,
-                    )}
+                    {addressOneLiner(customer.address || customer.legalAddress)}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: currency-dollar -->
@@ -100,7 +107,7 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {$customer.data?.customer?.customerGroup?.displayName ||
+                    {(customer.customerGroup || { displayName: undefined }).displayName ||
                         $_('page.customers.detail.statuses.noCustomerGroup')}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
@@ -174,7 +181,8 @@
                 <button
                     type="button"
                     class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    on:click|preventDefault={() => {
+                    on:click|preventDefault={
+ () => {
                         push(urls.customer.edit, id);
                     }}
                 >

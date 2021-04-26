@@ -1,0 +1,18 @@
+<script>
+    import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+    import CustomerDetail from '../pages/CustomerDetail.svelte';
+    import { apollo, setClient } from '../lib/apollo';
+    import { setupLocales } from '../i18n';
+
+    const client = apollo('', true);
+    setClient(client);
+    setupLocales();
+</script>
+
+<Meta title="Components/Customer/Detail" component={CustomerDetail} argTypes={{}} />
+
+<Template let:args>
+    <CustomerDetail {...args} {client} />
+</Template>
+
+<Story name="Detail" />
