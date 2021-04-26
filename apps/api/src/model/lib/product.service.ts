@@ -12,6 +12,10 @@ export class ProductService extends BaseEntityService<
   ProductModel,
   ProductSaveArgsModel
 > {
+  loadEntityByIdRelations(): string[] {
+    return [ 'defaultUoM' ];
+  }
+
   createEntity(): ProductModel {
     return new Product();
   }

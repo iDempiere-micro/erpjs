@@ -4,6 +4,9 @@ fragment CustomerGroupDetailParts on CustomerGroup {
     customers {
         ...CustomerListParts
     }
+    customerPriceLists {
+        ...CustomerPriceListParts
+    }
 }
 
 fragment CustomerGroupListParts on CustomerGroup {

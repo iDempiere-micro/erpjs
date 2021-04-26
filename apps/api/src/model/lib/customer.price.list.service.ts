@@ -62,13 +62,9 @@ export class CustomerPriceListService extends BaseEntityService<
           transactionalEntityManager,
           {
             sellingPrice: productPrice.sellingPrice,
-            product: productPrice.product
-              ? productPrice.product
-              : await productService.getProduct(
-                  transactionalEntityManager,
-                  productPrice.productSKU,
-                ),
+            productId: productPrice.productId,
             customerPriceList: entity,
+            currencyId: productPrice.currencyId,
           },
           currentUser,
         ),

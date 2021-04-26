@@ -79,6 +79,9 @@ export const CUSTOMER_DETAIL_PARTS_RAW = `
             ${ADDRESS_LIST_PARTS_RAW}
         }
         note
+        customerGroup {
+            ${CUSTOMER_GROUP_LIST_PARTS_RAW}
+        }        
         www
         publicNote        
 `;
@@ -294,11 +297,38 @@ export const ORGANIZATION_DETAIL_PARTS = gql`
     }
 `;
 
+export const PRODUCT_LIST_PARTS_RAW = `
+    id
+    sku
+    displayName
+`;
+
+export const PRODUCT_PRICES_LIST_PARTS_RAW = `
+    id
+    sellingPrice
+    product {
+        ${PRODUCT_LIST_PARTS_RAW}
+    }    
+`;
+
+export const CUSTOMER_PRICE_LIST_PARTS_RAW = `
+    id
+    displayName
+    validFrom
+    validTo
+    productPrices {
+        ${PRODUCT_PRICES_LIST_PARTS_RAW}
+    }    
+`;
+
 export const CUSTOMER_GROUP_DETAIL_PARTS_RAW = `
     id
     displayName
     customers {
         ${CUSTOMER_LIST_PARTS_RAW}
+    }
+    customerPriceLists {
+        ${CUSTOMER_PRICE_LIST_PARTS_RAW}
     }
 `;
 

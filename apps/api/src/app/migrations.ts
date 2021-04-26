@@ -10,6 +10,7 @@ import { MenuSettings1615961288134 } from './migrations/1615961288134-MenuSettin
 import { UoM1616228731111 } from './migrations/1616228731111-UoM';
 import { CustomerPriceList1618661208366 } from './migrations/1618661208366-CustomerPriceList';
 import { ContactPersons1619015192340 } from './migrations/1619015192340-ContactPersons';
+import { ProductPriceCurrency1619448004419 } from './migrations/1619448004419-ProductPriceCurrency';
 
 export const migrations = [
   CreateDB1595508635320,
@@ -24,4 +25,5 @@ export const migrations = [
   UoM1616228731111,
   CustomerPriceList1618661208366,
   ContactPersons1619015192340,
+  ProductPriceCurrency1619448004419,
 ];

@@ -182,6 +182,7 @@ export type Customer = {
 
 export type CustomerGroup = {
     __typename?: 'CustomerGroup';
+    customerPriceLists?: Maybe<Array<CustomerPriceList>>;
     customers?: Maybe<Array<Customer>>;
     displayName: Scalars['String'];
     id: Scalars['Int'];
@@ -217,15 +218,17 @@ export type CustomerPriceListSaveArgs = {
 
 export type CustomerProductPrice = {
     __typename?: 'CustomerProductPrice';
+    currency: Currency;
     id: Scalars['Int'];
     product: Product;
     sellingPrice: Scalars['Float'];
 };
 
 export type CustomerProductPriceSaveArgs = {
-    customerPriceListDisplayName: Scalars['String'];
+    currencyId: Scalars['Float'];
+    customerPriceListId: Scalars['Float'];
     id?: Maybe<Scalars['Int']>;
-    productSKU: Scalars['String'];
+    productId: Scalars['Float'];
     sellingPrice: Scalars['Float'];
 };
 
@@ -402,7 +405,8 @@ export type Product = {
 };
 
 export type ProductPriceSaveArgs = {
-    productSKU: Scalars['String'];
+    currencyId: Scalars['Float'];
+    productId: Scalars['Float'];
     sellingPrice: Scalars['Float'];
 };
 
@@ -881,7 +885,12 @@ export type CustomerByIdQuery = { __typename?: 'Query' } & {
 export type CustomerGroupDetailPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
     CustomerGroup,
     'id' | 'displayName'
-> & { customers?: Maybe<Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>> };
+> & {
+        customers?: Maybe<Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>>;
+        customerPriceLists?: Maybe<
+            Array<{ __typename?: 'CustomerPriceList' } & CustomerPriceListPartsFragment>
+        >;
+    };
 
 export type CustomerGroupListPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
     CustomerGroup,
@@ -1072,6 +1081,20 @@ export type CustomerListPartsFragment = { __typename?: 'Customer' } & Pick<
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
     };
+
+export type CustomerPriceListPartsFragment = { __typename?: 'CustomerPriceList' } & Pick<
+    CustomerPriceList,
+    'id' | 'displayName' | 'validFrom' | 'validTo'
+> & {
+        productPrices?: Maybe<
+            Array<{ __typename?: 'CustomerProductPrice' } & CustomerProductPriceListPartsFragment>
+        >;
+    };
+
+export type CustomerProductPriceListPartsFragment = { __typename?: 'CustomerProductPrice' } & Pick<
+    CustomerProductPrice,
+    'id' | 'sellingPrice'
+> & { product: { __typename?: 'Product' } & ProductListPartsFragment };
 
 export type CustomerGroupsQueryVariables = Exact<{
     dummy?: Maybe<Scalars['Int']>;

@@ -9,6 +9,7 @@
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
     import { printableString } from '../lib/util';
+    import { getCustomerGroupBy } from '../lib/customerGroup';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
@@ -17,6 +18,16 @@
     setClient(client);
 
     const customer = getCustomerBy(id);
+    let customerGroup;
+
+    $: {
+        if ($customer?.data?.customer?.customerGroup?.id && !customerGroup) {
+            customerGroup = getCustomerGroupBy($customer?.data?.customer?.customerGroup?.id || -1);
+        }
+        if ($customerGroup?.data?.customerGroup?.id) {
+            console.log('*** $customerGroup', $customerGroup);
+        }
+    }
 </script>
 
 <Page segment={segments.customers} name="page.customer.detail">
@@ -227,68 +238,42 @@
                                 <ul
                                     class="border border-gray-200 rounded-md divide-y divide-gray-200"
                                 >
-                                    <li
-                                        class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
-                                    >
-                                        <div class="w-0 flex-1 flex items-center">
-                                            <!-- Heroicon name: paper-clip -->
-                                            <svg
-                                                class="flex-shrink-0 h-5 w-5 text-gray-400"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                                aria-hidden="true"
+                                    {#if $customerGroup?.data?.customerGroup?.customerPriceLists?.length > 0}
+                                        {#each $customerGroup?.data?.customerGroup?.customerPriceLists[0]?.productPrices as productPrice}
+                                            <li
+                                                class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
                                             >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                                                    clip-rule="evenodd"
-                                                />
-                                            </svg>
-                                            <span class="ml-2 flex-1 w-0 truncate">
-                                                resume_back_end_developer.pdf
-                                            </span>
-                                        </div>
-                                        <div class="ml-4 flex-shrink-0">
-                                            <a
-                                                href="/"
-                                                class="font-medium text-indigo-600 hover:text-indigo-500"
-                                            >
-                                                Download
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li
-                                        class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
-                                    >
-                                        <div class="w-0 flex-1 flex items-center">
-                                            <!-- Heroicon name: paper-clip -->
-                                            <svg
-                                                class="flex-shrink-0 h-5 w-5 text-gray-400"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 20 20"
-                                                fill="currentColor"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
-                                                    clip-rule="evenodd"
-                                                />
-                                            </svg>
-                                            <span class="ml-2 flex-1 w-0 truncate">
-                                                coverletter_back_end_developer.pdf
-                                            </span>
-                                        </div>
-                                        <div class="ml-4 flex-shrink-0">
-                                            <a
-                                                class="font-medium text-indigo-600 hover:text-indigo-500"
-                                                href="/"
-                                            >
-                                                Download
-                                            </a>
-                                        </div>
-                                    </li>
+                                                <div class="w-0 flex-1 flex items-center">
+                                                    <!-- Heroicon name: paper-clip -->
+                                                    <svg
+                                                        class="flex-shrink-0 h-5 w-5 text-gray-400"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                        aria-hidden="true"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
+                                                    <span class="ml-2 flex-1 w-0 truncate">
+                                                        {productPrice.product.displayName}
+                                                        {productPrice.sellingPrice}
+                                                    </span>
+                                                </div>
+                                                <div class="ml-4 flex-shrink-0">
+                                                    <a
+                                                        href="/"
+                                                        class="font-medium text-indigo-600 hover:text-indigo-500"
+                                                    >
+                                                        Download
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        {/each}
+                                    {/if}
                                 </ul>
                             </dd>
                         </div>
@@ -296,7 +281,7 @@
                 </div>
             </div>
 
-           <Break />
+            <Break />
 
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">

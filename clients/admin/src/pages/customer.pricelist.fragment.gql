@@ -1,0 +1,9 @@
+fragment CustomerPriceListParts on CustomerPriceList {
+    id
+    displayName
+    validFrom
+    validTo
+    productPrices {
+        ...CustomerProductPriceListParts
+    }
+}

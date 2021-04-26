@@ -160,6 +160,7 @@ type Customer {
 }
 
 type CustomerGroup {
+  customerPriceLists: [CustomerPriceList!]
   customers: [Customer!]
   displayName: String!
   id: Int!
@@ -193,15 +194,17 @@ input CustomerPriceListSaveArgs {
 }
 
 type CustomerProductPrice {
+  currency: Currency!
   id: Int!
   product: Product!
   sellingPrice: Float!
 }
 
 input CustomerProductPriceSaveArgs {
-  customerPriceListDisplayName: String!
+  currencyId: Float!
+  customerPriceListId: Float!
   id: Int
-  productSKU: String!
+  productId: Float!
   sellingPrice: Float!
 }
 
@@ -315,7 +318,8 @@ type Product {
 }
 
 input ProductPriceSaveArgs {
-  productSKU: String!
+  currencyId: Float!
+  productId: Float!
   sellingPrice: Float!
 }
 
