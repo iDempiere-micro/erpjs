@@ -114,7 +114,7 @@
     let dataFile = null;
 
     async function upload() {
-        if (files.length === 0) return;
+        if (!files || files.length === 0) return;
         const formData = new FormData();
         formData.append('file', files[0]);
         const baseUrl = process.env.API_BASE_URL || throwOnUndefined();

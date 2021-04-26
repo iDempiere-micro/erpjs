@@ -13,7 +13,7 @@ export class CustomerGroupService extends BaseEntityService<
   CustomerGroupSaveArgsModel
 > {
   loadEntityByIdRelations(): string[] {
-    return [ 'customerPriceLists' ];
+    return ['customerPriceLists'];
   }
 
   createEntity(): CustomerGroupModel {

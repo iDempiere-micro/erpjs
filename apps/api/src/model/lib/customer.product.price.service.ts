@@ -20,9 +20,12 @@ export class CustomerProductPriceService extends BaseEntityService<
   CustomerProductPriceSaveArgsModel
 > {
   constructor(
-    @Inject(ProductServiceKey) protected readonly productService: ProductService,
-    @Inject(CustomerPriceListServiceKey) protected readonly customerPriceListService: CustomerPriceListService,
-    @Inject(CurrencyServiceKey) protected readonly currencyService: CurrencyService,
+    @Inject(ProductServiceKey)
+    protected readonly productService: ProductService,
+    @Inject(CustomerPriceListServiceKey)
+    protected readonly customerPriceListService: CustomerPriceListService,
+    @Inject(CurrencyServiceKey)
+    protected readonly currencyService: CurrencyService,
   ) {
     super();
   }
@@ -39,11 +42,19 @@ export class CustomerProductPriceService extends BaseEntityService<
     const customerPriceListService: CustomerPriceListService = getService(
       CustomerPriceListServiceKey,
     );
-    entity.product = await this.productService.loadEntityById(transactionalEntityManager, args.productId);
+    entity.product = await this.productService.loadEntityById(
+      transactionalEntityManager,
+      args.productId,
+    );
     entity.sellingPrice = args.sellingPrice;
-    entity.customerPriceList =
-      await customerPriceListService.loadEntityById(transactionalEntityManager, args.customerPriceListId)
-    entity.customerPriceList = await this.customerPriceListService.loadEntityById(transactionalEntityManager, args.customerPriceListId);
+    entity.customerPriceList = await customerPriceListService.loadEntityById(
+      transactionalEntityManager,
+      args.customerPriceListId,
+    );
+    entity.customerPriceList = await this.customerPriceListService.loadEntityById(
+      transactionalEntityManager,
+      args.customerPriceListId,
+    );
     return entity;
   }
 

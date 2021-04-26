@@ -4,4 +4,7 @@ fragment CustomerProductPriceListParts on CustomerProductPrice {
     product {
         ...ProductListParts
     }
+    currency {
+        ...CurrencyListParts
+    }
 }

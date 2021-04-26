@@ -1094,7 +1094,10 @@ export type CustomerPriceListPartsFragment = { __typename?: 'CustomerPriceList' 
 export type CustomerProductPriceListPartsFragment = { __typename?: 'CustomerProductPrice' } & Pick<
     CustomerProductPrice,
     'id' | 'sellingPrice'
-> & { product: { __typename?: 'Product' } & ProductListPartsFragment };
+> & {
+        product: { __typename?: 'Product' } & ProductListPartsFragment;
+        currency: { __typename?: 'Currency' } & CurrencyListPartsFragment;
+    };
 
 export type CustomerGroupsQueryVariables = Exact<{
     dummy?: Maybe<Scalars['Int']>;

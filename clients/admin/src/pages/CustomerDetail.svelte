@@ -261,6 +261,7 @@
                                                     <span class="ml-2 flex-1 w-0 truncate">
                                                         {productPrice.product.displayName}
                                                         {productPrice.sellingPrice}
+                                                        {productPrice.currency.displayName}
                                                     </span>
                                                 </div>
                                                 <div class="ml-4 flex-shrink-0">

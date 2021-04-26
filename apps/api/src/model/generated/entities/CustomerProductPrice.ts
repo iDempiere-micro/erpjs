@@ -1,5 +1,11 @@
 import { CustomerProductPriceModel } from '../../lib/customer.product.price.model';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Product } from './Product';
 import { ProductModel } from '../../lib/product.model';

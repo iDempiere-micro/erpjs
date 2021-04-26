@@ -109,11 +109,15 @@ export const CUSTOMER_DETAIL_PARTS = gql`
     }
 `;
 
-export const CURRENCY_LIST_PARTS = gql`
-    fragment CurrencyListParts on Currency {
+export const CURRENCY_LIST_PARTS_RAW = `
         id
         isoCode
         displayName
+`;
+
+export const CURRENCY_LIST_PARTS = gql`
+    fragment CurrencyListParts on Currency {
+        ${CURRENCY_LIST_PARTS_RAW}
     }
 `;
 
@@ -308,7 +312,10 @@ export const PRODUCT_PRICES_LIST_PARTS_RAW = `
     sellingPrice
     product {
         ${PRODUCT_LIST_PARTS_RAW}
-    }    
+    }
+    currency {
+        ${CURRENCY_LIST_PARTS_RAW}
+    }
 `;
 
 export const CUSTOMER_PRICE_LIST_PARTS_RAW = `
