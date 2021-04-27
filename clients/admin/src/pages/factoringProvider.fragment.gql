@@ -1,0 +1,6 @@
+fragment FactoringProviderListParts on FactoringProvider {
+    contact
+    displayName
+    id
+    legalName
+}

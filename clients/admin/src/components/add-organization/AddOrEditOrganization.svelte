@@ -16,6 +16,7 @@
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
+    import { push, urls } from '../../pages/pathAndSegment';
 
     export let organization: OrganizationDetailPartsFragment | undefined;
     let displayName = organization?.displayName;
@@ -146,31 +147,6 @@
     >(SAVE_ORGANIZATION);
 
     const saveOrganization = async () => {
-        console.log({
-            id: organization?.id,
-            displayName,
-            contact,
-            legalName,
-            registration,
-            idNumber,
-            vatNumber,
-            accountingSchemeId,
-            currentInvoiceDocumentNumber,
-            newBankAccount: {
-                bankAccountCustomerPrintableNumber,
-                bankId,
-                displayName: bankAccountDisplayName,
-                iban,
-                swift,
-            },
-            legalAddress: {
-                city,
-                countryIsoCode,
-                line1,
-                zipCode,
-            },
-        });
-
         if (
             displayName &&
             contact &&
@@ -216,7 +192,7 @@
                     },
                 },
             });
-            console.log('*** organization created', data?.saveOrganization?.id);
+            await push(urls.organizations.detail, data?.saveOrganization?.id);
         }
     };
 </script>

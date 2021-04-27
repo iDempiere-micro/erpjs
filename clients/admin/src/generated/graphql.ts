@@ -747,6 +747,18 @@ export type SaveCustomerGroupMutation = { __typename?: 'Mutation' } & {
     saveCustomerGroup: { __typename?: 'CustomerGroup' } & Pick<CustomerGroup, 'id'>;
 };
 
+export type SaveFactoringProviderMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    displayName: Scalars['String'];
+    contact: Scalars['String'];
+    legalName: Scalars['String'];
+    newBankAccount: BankAccountSaveArgs;
+}>;
+
+export type SaveFactoringProviderMutation = { __typename?: 'Mutation' } & {
+    saveFactoringProvider: { __typename?: 'FactoringProvider' } & Pick<FactoringProvider, 'id'>;
+};
+
 export type CreateMonthlyInvoiceMutationVariables = Exact<{
     totalHours: Scalars['Float'];
     dailyRate: Scalars['Float'];
@@ -936,6 +948,19 @@ export type CustomerGroupByIdQueryVariables = Exact<{
 
 export type CustomerGroupByIdQuery = { __typename?: 'Query' } & {
     customerGroup: { __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment;
+};
+
+export type FactoringProviderDetailPartsFragment = { __typename?: 'FactoringProvider' } & Pick<
+    FactoringProvider,
+    'id' | 'displayName' | 'legalName' | 'contact'
+> & { bankAccount: { __typename?: 'BankAccount' } & BankAccountListPartsFragment };
+
+export type FactoringProviderByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type FactoringProviderByIdQuery = { __typename?: 'Query' } & {
+    factoringProvider: { __typename?: 'FactoringProvider' } & FactoringProviderDetailPartsFragment;
 };
 
 export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & Pick<
@@ -1146,6 +1171,21 @@ export type CustomersQueryVariables = Exact<{
 
 export type CustomersQuery = { __typename?: 'Query' } & {
     customers: Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>;
+};
+
+export type FactoringProviderListPartsFragment = { __typename?: 'FactoringProvider' } & Pick<
+    FactoringProvider,
+    'contact' | 'displayName' | 'id' | 'legalName'
+>;
+
+export type FactoringProvidersQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type FactoringProvidersQuery = { __typename?: 'Query' } & {
+    factoringProviders: Array<
+        { __typename?: 'FactoringProvider' } & FactoringProviderListPartsFragment
+    >;
 };
 
 export type OrganizationListPartsFragment = { __typename?: 'Organization' } & Pick<

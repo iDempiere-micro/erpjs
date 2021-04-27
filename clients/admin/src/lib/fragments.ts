@@ -241,25 +241,32 @@ export const BANK_DETAIL_PARTS = gql`
     }
 `;
 
-export const BANK_LIST_PARTS = gql`
-    fragment BankListParts on Bank {
+export const BANK_LIST_PARTS_RAW = `
         id
         displayName
         bankIdentifierCode
+`;
+
+export const BANK_LIST_PARTS = gql`
+    fragment BankListParts on Bank {
+        ${BANK_LIST_PARTS_RAW}
     }
 `;
 
-export const BANK_ACCOUNT_LIST_PARTS = gql`
-    ${BANK_LIST_PARTS}
-    fragment BankAccountListParts on BankAccount {
+export const BANK_ACCOUNT_LIST_PARTS_RAW = `
         id
         displayName
         bank {
-            ...BankListParts
+            ${BANK_LIST_PARTS_RAW}
         }
         bankAccountCustomerPrintableNumber
         iban
         swift
+`;
+
+export const BANK_ACCOUNT_LIST_PARTS = gql`
+    fragment BankAccountListParts on BankAccount {
+        ${BANK_ACCOUNT_LIST_PARTS_RAW}
     }
 `;
 
@@ -343,4 +350,14 @@ export const CUSTOMER_GROUP_DETAIL_PARTS = gql`
     fragment CustomerGroupDetailParts on CustomerGroup {
         ${CUSTOMER_GROUP_DETAIL_PARTS_RAW}
     }
+`;
+
+export const FACTORING_PROVIDER_DETAIL_PARTS_RAW = `
+        id
+        displayName
+        legalName
+        contact
+        bankAccount {
+            ${BANK_ACCOUNT_LIST_PARTS_RAW}
+        }  
 `;

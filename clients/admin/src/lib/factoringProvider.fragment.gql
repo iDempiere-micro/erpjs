@@ -1,0 +1,9 @@
+fragment FactoringProviderDetailParts on FactoringProvider {
+            id
+            displayName
+            legalName
+            contact
+            bankAccount {
+                ...BankAccountListParts
+            }
+}

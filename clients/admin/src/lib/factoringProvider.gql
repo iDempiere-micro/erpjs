@@ -1,0 +1,5 @@
+query factoringProviderById($id: Int!) {
+            factoringProvider(id: $id) {
+                ...FactoringProviderDetailParts
+            }
+        }

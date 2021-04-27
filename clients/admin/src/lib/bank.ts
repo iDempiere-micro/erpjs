@@ -1,10 +1,9 @@
-import gql from 'graphql-tag';
 import type { BankByIdQuery, BankListPartsFragment, BanksQuery } from '../generated/graphql';
 import { query } from 'svelte-apollo';
 import { store } from './store';
-import { BANK_DETAIL_PARTS, UNIT_OF_MEASUREMENT_DETAIL_PARTS } from './fragments';
 import { BANKS } from './queries/banks';
 import type { SelectItem } from './select';
+import { GET_BANK_BY_ID } from './queries/bank';
 
 export interface WithBankListPartsFragment {
     loaded: boolean;
@@ -37,15 +36,6 @@ export const mapBanks = (data: BankListPartsFragment[]): SelectItem[] =>
               label: displayName,
           }))
         : [];
-
-const GET_BANK_BY_ID = gql`
-    ${BANK_DETAIL_PARTS}
-    query bankById($id: Int!) {
-        bank(id: $id) {
-            ...BankDetailParts
-        }
-    }
-`;
 
 export const getBankBy = (id: number) =>
     query<BankByIdQuery>(GET_BANK_BY_ID, { variables: { id } });

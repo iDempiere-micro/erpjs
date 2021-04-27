@@ -25,6 +25,11 @@ import {
 } from './queries/customerGroup';
 import { GET_CUSTOMER_BY_ID, mock as mockGetCustomerById } from './queries/customer';
 import { GET_SALES_INVOICE_BY_ID, mock1 as mockGetSalesInvoiceById } from './queries/salesInvoice';
+import { FACTORING_PROVIDERS, mock as mockFactoringProviders } from './queries/factoringProviders';
+import {
+    GET_FACTORING_PROVIDER_BY_ID,
+    mock1 as mockFactoringProvider,
+} from './queries/factoringProvider';
 
 export interface ApolloMock {
     query: DocumentNode;
@@ -46,4 +51,6 @@ export const mocks: ApolloMock[] = [
     { query: SAVE_CUSTOMER_GROUP, mock: mockSaveCustomerGroup },
     { query: GET_CUSTOMER_BY_ID, mock: mockGetCustomerById },
     { query: GET_SALES_INVOICE_BY_ID, mock: mockGetSalesInvoiceById },
+    { query: FACTORING_PROVIDERS, mock: mockFactoringProviders },
+    { query: GET_FACTORING_PROVIDER_BY_ID, mock: mockFactoringProvider },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));
