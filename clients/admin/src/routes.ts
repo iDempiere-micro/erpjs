@@ -39,6 +39,11 @@ import AddCustomerGroup from './pages/AddCustomerGroup.svelte';
 import EditCustomerGroup from './pages/EditCustomerGroup.svelte';
 import CustomerGroupDetail from './pages/CustomerGroupDetail.svelte';
 
+import FactoringProviders from './pages/FactoringProviders.svelte';
+import AddFactoringProvider from './pages/AddFactoringProvider.svelte';
+import EditFactoringProvider from './pages/EditFactoringProvider.svelte';
+import FactoringProviderDetail from './pages/FactoringProviderDetail.svelte';
+
 export const routes = {
     // Exact path
     '/': Home,
@@ -94,3 +99,7 @@ addRoute(urls.customerGroups.list, CustomerGroups);
 addRoute(urls.customerGroups.edit, EditCustomerGroup);
 addRoute(urls.customerGroups.add, AddCustomerGroup);
 addRoute(urls.customerGroups.detail, CustomerGroupDetail);
+addRoute(urls.factoringProviders.list, FactoringProviders);
+addRoute(urls.factoringProviders.edit, EditFactoringProvider);
+addRoute(urls.factoringProviders.add, AddFactoringProvider);
+addRoute(urls.factoringProviders.detail, FactoringProviderDetail);

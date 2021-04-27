@@ -28,13 +28,18 @@ export const mock = {
             {
                 id: 1,
                 displayName: 'Our org ltd.',
-                organizationIdentifierCode: 'OO1',
             },
             {
                 id: 2,
                 displayName: 'Other org llc',
-                organizationIdentifierCode: 'OO2',
             },
         ],
     },
 };
+export const ORGANIZATIONS_SIMPLE = gql`
+    {
+        organizations {
+            displayName
+        }
+    }
+`;

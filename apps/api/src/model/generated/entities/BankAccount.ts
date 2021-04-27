@@ -15,6 +15,10 @@ import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { BankModel } from '../../lib/bank.model';
+import { FactoringProviderModel } from '../../lib/factoring.provider.model';
+import { OrganizationModel } from '../../lib/organization.model';
+import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
+import { FactoringProvider } from './FactoringProvider';
 
 @Index('IDX_d13847b5db0cf66c1ea23615eb', ['displayName'], { unique: true })
 @Entity('bank_account', { schema: 'public' })
@@ -77,11 +81,17 @@ export class BankAccount {
     () => Organization,
     organization => organization.bankAccount,
   )
-  organizations: Organization[];
+  organizations: OrganizationModel[];
+
+  @OneToMany(
+    () => FactoringProvider,
+    factoringProvider => factoringProvider.bankAccount,
+  )
+  factoringProviders: FactoringProviderModel[];
 
   @OneToMany(
     () => SalesInvoice,
     salesInvoice => salesInvoice.bankAccount,
   )
-  salesInvoices: SalesInvoice[];
+  salesInvoices: SalesInvoiceModel[];
 }

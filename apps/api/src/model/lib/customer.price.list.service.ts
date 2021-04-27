@@ -2,16 +2,14 @@ import { BaseEntityService } from './base.entity.service';
 import { CustomerPriceListModel } from './customer.price.list.model';
 import { CustomerPriceListSaveArgsModel } from './customer.price.list.save.args.model';
 import { CustomerPriceList } from '../generated/entities/CustomerPriceList';
-import { EntityManager } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { UserModel } from './user.model';
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { getService } from './module.reference.service';
 import {
   CustomerGroupService,
   CustomerGroupServiceKey,
 } from './customer.group.service';
-import { ProductService, ProductServiceKey } from './product.service';
 import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
@@ -39,7 +37,6 @@ export class CustomerPriceListService extends BaseEntityService<
     const customerGroupService: CustomerGroupService = getService(
       CustomerGroupServiceKey,
     );
-    const productService: ProductService = getService(ProductServiceKey);
     const customerProductPriceService: CustomerProductPriceService = getService(
       CustomerProductPriceServiceKey,
     );
@@ -91,7 +88,7 @@ export class CustomerPriceListService extends BaseEntityService<
   ): Promise<CustomerPriceListModel[]> {
     const productId = product.id;
     const customerGroupId = customerGroup.id;
-    const result = await this.getRepository(transactionalEntityManager)
+    return await this.getRepository(transactionalEntityManager)
       .createQueryBuilder('customerPriceList')
       .leftJoinAndSelect('customerPriceList.customerGroup', 'customerGroup')
       .leftJoinAndSelect(
@@ -110,7 +107,5 @@ export class CustomerPriceListService extends BaseEntityService<
       )
       .orderBy('customerPriceList.validFrom', 'DESC')
       .getMany();
-
-    return result;
   }
 }

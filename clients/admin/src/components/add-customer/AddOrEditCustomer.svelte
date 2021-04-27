@@ -11,7 +11,6 @@
     } from 'src/generated/graphql';
     import { _ } from 'svelte-i18n';
     import { ADD_CUSTOMER } from '../../lib/queries/customer';
-    import { GET_CUSTOMERS_BY_ARGS } from '../../lib/customers';
     import type { OnSelectParam, SelectItem } from '../../lib/select';
     import Select from 'svelte-select';
     import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
@@ -19,6 +18,7 @@
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import { authStore } from '../../lib/auth';
+    import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;

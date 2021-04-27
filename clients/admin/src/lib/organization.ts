@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import type {
     OrganizationByIdQuery,
     OrganizationListPartsFragment,
@@ -7,15 +6,8 @@ import type {
 import { query } from 'svelte-apollo';
 import { store } from './store';
 import type { SelectItem } from './select';
-import { ORGANIZATION_DETAIL_PARTS } from './fragments';
-
-const ORGANIZATIONS = gql`
-    {
-        organizations {
-            displayName
-        }
-    }
-`;
+import { ORGANIZATIONS_SIMPLE } from './queries/organizations';
+import { GET_ORGANIZATION_BY_ID } from './queries/organization';
 
 export interface WithOrganizationListPartsFragment {
     loaded: boolean;
@@ -29,7 +21,7 @@ export const organizationsStore = store<WithOrganizationListPartsFragment>({
 export const ensureOrganizationsStore = () => {
     if (organizationsStore.get().loaded) return;
 
-    const organizationsResult = query<OrganizationsQuery>(ORGANIZATIONS);
+    const organizationsResult = query<OrganizationsQuery>(ORGANIZATIONS_SIMPLE);
     organizationsResult.subscribe((value) => {
         if (value?.data) {
             organizationsStore.update((x) => ({
@@ -48,15 +40,6 @@ export const mapOrganizations = (data: OrganizationListPartsFragment[]): SelectI
               label: displayName,
           }))
         : [];
-
-const GET_ORGANIZATION_BY_ID = gql`
-    ${ORGANIZATION_DETAIL_PARTS}
-    query organizationById($id: Int!) {
-        organization(id: $id) {
-            ...OrganizationDetailParts
-        }
-    }
-`;
 
 export const getOrganizationBy = (id: number) =>
     query<OrganizationByIdQuery>(GET_ORGANIZATION_BY_ID, { variables: { id } });

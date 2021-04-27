@@ -60,3 +60,10 @@ export const mock = {
         ],
     },
 };
+export const GET_CUSTOMERS_BY_ARGS = gql`
+    query CustomersByArgs($displayName: String, $legalName: String) {
+        customersByArgs(displayName: $displayName, legalName: $legalName) {
+            id
+        }
+    }
+`;

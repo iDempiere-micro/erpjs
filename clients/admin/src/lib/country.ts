@@ -1,14 +1,13 @@
-import gql from 'graphql-tag';
 import type {
+    CountriesQuery,
     CountryByIdQuery,
     CountryListPartsFragment,
-    CountriesQuery,
 } from '../generated/graphql';
 import { query } from 'svelte-apollo';
 import { store } from './store';
-import { COUNTRY_DETAIL_PARTS } from './fragments';
 import { COUNTRIES } from './queries/countries';
 import type { SelectItem } from './select';
+import { GET_COUNTRY_BY_ID } from './queries/country';
 
 export interface WithCountryListPartsFragment {
     loaded: boolean;
@@ -40,15 +39,6 @@ export const mapCountries = (data: CountryListPartsFragment[]): SelectItem[] =>
               label: displayName,
           }))
         : [];
-
-const GET_COUNTRY_BY_ID = gql`
-    ${COUNTRY_DETAIL_PARTS}
-    query countryById($id: Int!) {
-        country(id: $id) {
-            ...CountryDetailParts
-        }
-    }
-`;
 
 export const getCountryBy = (id: number) =>
     query<CountryByIdQuery>(GET_COUNTRY_BY_ID, { variables: { id } });

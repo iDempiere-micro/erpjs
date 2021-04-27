@@ -71,6 +71,10 @@ import {
   ContactPersonCompanyRelationService,
   ContactPersonCompanyRelationServiceKey,
 } from './lib/contact.person.company.relation.service';
+import {
+  FactoringProviderService,
+  FactoringProviderServiceKey,
+} from './lib/factoring.provider.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -207,6 +211,11 @@ const contactPersonCompanyRelationServiceProvider = {
   useClass: ContactPersonCompanyRelationService,
 };
 
+const factoringProviderServiceProvider = {
+  provide: FactoringProviderServiceKey,
+  useClass: FactoringProviderService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -235,4 +244,5 @@ export const serviceProviders = [
   customerProductPriceServiceProvider,
   contactPersonServiceProvider,
   contactPersonCompanyRelationServiceProvider,
+  factoringProviderServiceProvider,
 ];

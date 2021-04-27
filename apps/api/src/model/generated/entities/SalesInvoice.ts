@@ -24,6 +24,8 @@ import { OrganizationModel } from '../../lib/organization.model';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { FactoringProvider } from './FactoringProvider';
+import { FactoringProviderModel } from '../../lib/factoring.provider.model';
 
 @Entity('sales_invoice', { schema: 'public' })
 @ObjectType()
@@ -192,4 +194,13 @@ export class SalesInvoice implements SalesInvoiceModel {
   set printLanguage(value: LanguageModel) {
     this.printLanguageIsoCode = value.isoCode;
   }
+
+  @ManyToOne(
+    () => FactoringProvider,
+    factoringProvider => factoringProvider.salesInvoices,
+    { nullable: true },
+  )
+  @JoinColumn([{ name: 'factoringProviderId', referencedColumnName: 'id' }])
+  @Field(() => FactoringProvider)
+  factoringProvider: FactoringProviderModel;
 }
