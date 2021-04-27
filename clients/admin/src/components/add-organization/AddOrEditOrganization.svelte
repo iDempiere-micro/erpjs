@@ -178,6 +178,7 @@
                     accountingSchemeId,
                     currentInvoiceDocumentNumber,
                     newBankAccount: {
+                        id: organization?.bankAccount?.id,
                         bankAccountCustomerPrintableNumber,
                         bankId,
                         displayName: bankAccountDisplayName,

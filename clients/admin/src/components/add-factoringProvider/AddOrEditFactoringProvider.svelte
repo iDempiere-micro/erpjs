@@ -105,6 +105,7 @@
                     contact,
                     legalName,
                     newBankAccount: {
+                        id: factoringProvider?.bankAccount?.id,
                         bankAccountCustomerPrintableNumber,
                         bankId,
                         displayName: bankAccountDisplayName,
@@ -209,7 +210,7 @@
                                 >
                                 <Select
                                     inputAttributes={{ id: 'banks' }}
-                                    items={mapBanks($banksStore?.banks)}
+                                    items={mapBanks($banksStore.banks)}
                                     selectedValue={selectedBank}
                                     on:select={handleSelectBank}
                                 />
