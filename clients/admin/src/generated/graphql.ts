@@ -253,6 +253,27 @@ export type DocumentNumberSequence = {
     updtOp: User;
 };
 
+export type FactoringProvider = {
+    __typename?: 'FactoringProvider';
+    bankAccount: BankAccount;
+    contact: Scalars['String'];
+    displayName: Scalars['String'];
+    id: Scalars['Float'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    legalName: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type FactoringProviderSaveArgs = {
+    contact: Scalars['String'];
+    displayName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    legalName: Scalars['String'];
+    newBankAccount: BankAccountSaveArgs;
+};
+
 export type IdAndNumber = {
     id: Scalars['Float'];
     value: Scalars['Float'];
@@ -297,6 +318,7 @@ export type Mutation = {
     saveCustomerGroup: CustomerGroup;
     saveCustomerPriceList: CustomerPriceList;
     saveCustomerProductPrice: CustomerProductPrice;
+    saveFactoringProvider: FactoringProvider;
     saveOrganization: Organization;
     saveProduct: Product;
 };
@@ -351,6 +373,10 @@ export type MutationSaveCustomerPriceListArgs = {
 
 export type MutationSaveCustomerProductPriceArgs = {
     args: CustomerProductPriceSaveArgs;
+};
+
+export type MutationSaveFactoringProviderArgs = {
+    args: FactoringProviderSaveArgs;
 };
 
 export type MutationSaveOrganizationArgs = {
@@ -439,6 +465,8 @@ export type Query = {
     customerProductPrices: Array<CustomerProductPrice>;
     customers: Array<Customer>;
     customersByArgs: Array<Customer>;
+    factoringProvider: FactoringProvider;
+    factoringProviders: Array<FactoringProvider>;
     menu: Array<Menu>;
     now: Scalars['UniversalDateTime'];
     organization: Organization;
@@ -495,6 +523,10 @@ export type QueryCustomersByArgsArgs = {
     legalName?: Maybe<Scalars['String']>;
 };
 
+export type QueryFactoringProviderArgs = {
+    id: Scalars['Int'];
+};
+
 export type QueryOrganizationArgs = {
     id: Scalars['Int'];
 };
@@ -515,6 +547,7 @@ export type SalesInvoice = {
     customer: Customer;
     documentNo?: Maybe<Scalars['String']>;
     dueDate: Scalars['Date'];
+    factoringProvider: FactoringProvider;
     grandTotal: Scalars['Float'];
     grandTotalAccountingSchemeCurrency: Scalars['Float'];
     id: Scalars['Float'];

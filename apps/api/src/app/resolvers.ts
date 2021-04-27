@@ -13,6 +13,7 @@ import { CustomerPriceListResolver } from './resolvers/customer.price.list.resol
 import { CustomerProductPriceResolver } from './resolvers/customer.product.price.resolver';
 import { ContactPersonResolver } from './resolvers/contact.person.resolver';
 import { ContactPersonCompanyRelationResolver } from './resolvers/contact.person.company.relation.resolver';
+import { FactoringProviderResolver } from './resolvers/factoring.provider.resolver';
 
 export const resolvers = [
   AppResolver,
@@ -31,4 +32,5 @@ export const resolvers = [
   CustomerProductPriceResolver,
   ContactPersonCompanyRelationResolver,
   ContactPersonResolver,
+  FactoringProviderResolver,
 ];

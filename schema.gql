@@ -231,6 +231,26 @@ type DocumentNumberSequence {
   updtOp: User!
 }
 
+type FactoringProvider {
+  bankAccount: BankAccount!
+  contact: String!
+  displayName: String!
+  id: Float!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  legalName: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+input FactoringProviderSaveArgs {
+  contact: String!
+  displayName: String!
+  id: Int
+  legalName: String!
+  newBankAccount: BankAccountSaveArgs!
+}
+
 input IdAndNumber {
   id: Float!
   value: Float!
@@ -272,6 +292,7 @@ type Mutation {
   saveCustomerGroup(args: CustomerGroupSaveArgs!): CustomerGroup!
   saveCustomerPriceList(args: CustomerPriceListSaveArgs!): CustomerPriceList!
   saveCustomerProductPrice(args: CustomerProductPriceSaveArgs!): CustomerProductPrice!
+  saveFactoringProvider(args: FactoringProviderSaveArgs!): FactoringProvider!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
   saveProduct(args: ProductSaveArgs!): Product!
 }
@@ -351,6 +372,8 @@ type Query {
   customerProductPrices: [CustomerProductPrice!]!
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
+  factoringProvider(id: Int!): FactoringProvider!
+  factoringProviders: [FactoringProvider!]!
   menu: [Menu!]!
   now: UniversalDateTime!
   organization(id: Int!): Organization!
@@ -369,6 +392,7 @@ type SalesInvoice {
   customer: Customer!
   documentNo: String
   dueDate: Date!
+  factoringProvider: FactoringProvider!
   grandTotal: Float!
   grandTotalAccountingSchemeCurrency: Float!
   id: Float!

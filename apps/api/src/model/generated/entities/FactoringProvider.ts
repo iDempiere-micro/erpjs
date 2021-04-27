@@ -7,23 +7,19 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Bank } from './Bank';
-import { Organization } from './Organization';
+import { BankAccount } from './BankAccount';
 import { SalesInvoice } from './SalesInvoice';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
-import { BankModel } from '../../lib/bank.model';
+import { BankAccountModel } from '../../lib/bank.account.model';
 import { FactoringProviderModel } from '../../lib/factoring.provider.model';
-import { OrganizationModel } from '../../lib/organization.model';
-import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
-import { FactoringProvider } from './FactoringProvider';
 
-@Index('IDX_d13847b5db0cf66c1ea23615eb', ['displayName'], { unique: true })
-@Entity('bank_account', { schema: 'public' })
+@Index('IDX_factoringProvider_displayName', ['displayName'], { unique: true })
+@Entity('factoringProvider', { schema: 'public' })
 @ObjectType()
-export class BankAccount {
+export class FactoringProvider implements FactoringProviderModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   @Field()
   id: number;
@@ -56,42 +52,26 @@ export class BankAccount {
   @Field()
   displayName: string;
 
-  @Column('character varying', { name: 'iban' })
+  @Column('character varying', { name: 'contact' })
   @Field()
-  iban: string;
+  contact: string;
 
-  @Column('character varying', { name: 'swift' })
+  @Column('character varying', { name: 'legalName' })
   @Field()
-  swift: string;
-
-  @Column('character varying', { name: 'bankAccountCustomerPrintableNumber' })
-  @Field()
-  bankAccountCustomerPrintableNumber: string;
+  legalName: string;
 
   @ManyToOne(
-    () => Bank,
-    bank => bank.bankAccounts,
-    { eager: true },
+    () => BankAccount,
+    bankAccount => bankAccount.factoringProviders,
+    { nullable: false, eager: true },
   )
-  @JoinColumn([{ name: 'bankId', referencedColumnName: 'id' }])
-  @Field(() => Bank)
-  bank: BankModel;
-
-  @OneToMany(
-    () => Organization,
-    organization => organization.bankAccount,
-  )
-  organizations: OrganizationModel[];
-
-  @OneToMany(
-    () => FactoringProvider,
-    factoringProvider => factoringProvider.bankAccount,
-  )
-  factoringProviders: FactoringProviderModel[];
+  @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
+  @Field(() => BankAccount)
+  bankAccount: BankAccountModel;
 
   @OneToMany(
     () => SalesInvoice,
-    salesInvoice => salesInvoice.bankAccount,
+    salesInvoice => salesInvoice.factoringProvider,
   )
-  salesInvoices: SalesInvoiceModel[];
+  salesInvoices: SalesInvoice[];
 }
