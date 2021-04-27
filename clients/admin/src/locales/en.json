@@ -89,7 +89,8 @@
         "contactInformation": "Customer Contact Information",
         "invoicingEmailAddress": "Invoicing Email Address",
         "www": "Web Page",
-        "publicNote": "Public Info"
+        "publicNote": "Public Info",
+        "productPrices": "Product Prices in the Customer Group Price List"
       }
     },
     "salesInvoices": {
