@@ -41,6 +41,6 @@
     selectedValue={selectedCustomerGroup}
     on:select={handleSelectCustomerGroup}
 />
-{#if form && form.fields[id].errors.includes('required')}
+{#if form && form.fields[id] && form.fields[id].errors.includes('required')}
     <label for={id} class="block text-sm font-small text-red-700">{$_('validator.required')}</label>
 {/if}

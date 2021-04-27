@@ -9,7 +9,7 @@ describe('<CustomerGroupDetail>', function () {
         setupLocales();
     });
 
-    it('renders accounting scheme detail', function (done) {
+    it('renders customer group detail', function (done) {
         const { getByText } = render(CustomerGroupDetail, { params: { id: 1 } });
 
         setTimeout(() => {

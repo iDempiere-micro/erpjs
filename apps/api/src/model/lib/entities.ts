@@ -24,6 +24,8 @@ import { UnitOfMeasurementConversion } from '../generated/entities/UnitOfMeasure
 import { CustomerGroup } from '../generated/entities/CustomerGroup';
 import { CustomerPriceList } from '../generated/entities/CustomerPriceList';
 import { CustomerProductPrice } from '../generated/entities/CustomerProductPrice';
+import { ContactPerson } from '../generated/entities/ContactPerson';
+import { ContactPersonCompanyRelation } from '../generated/entities/ContactPersonCompanyRelation';
 
 export const entities = [
   Address,
@@ -52,4 +54,6 @@ export const entities = [
   CustomerGroup,
   CustomerPriceList,
   CustomerProductPrice,
+  ContactPerson,
+  ContactPersonCompanyRelation,
 ];

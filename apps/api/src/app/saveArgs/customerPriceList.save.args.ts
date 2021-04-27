@@ -5,7 +5,9 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class ProductPriceSaveArgs implements ProductPrice {
   @Field()
-  productSKU: string;
+  productId: number;
+  @Field()
+  currencyId: number;
   @Field()
   sellingPrice: number;
 }

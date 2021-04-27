@@ -24,6 +24,7 @@
         "nav": "Add Customer",
         "internalInformation": "Internal Information",
         "displayName": "Display Name",
+        "customerGroup": "Customer Group",
         "error" : {
           "displayNameRequired": "The display name is required",
           "displayNameMinLength": "The display name should be at least 6 characters",
@@ -54,6 +55,42 @@
       "edit" : {
         "title": "Edit Customer",
         "nav": "Edit Customer"
+      },
+      "detail": {
+        "statuses": {
+          "noCustomerGroup": "No Customer Group",
+          "noActivityPlanned": "No Activity Planned"
+        },
+        "internalInformation": "Internal Information",
+        "displayName": "Display Name",
+        "customerGroup": "Customer Group",
+        "note": "About",
+        "priceListInformation": "Product Price List Information",
+        "publicInformation": "Public Information",
+        "description": {
+          "note": "Brief description of the customer esp. why is he buying from us.",
+          "internalInformation": "This section is for us, fill in how we call the customer, what we know etc.",
+          "legalInformation": "Use the legal information that can be used e.g. for billing.",
+          "contactInformation": "Use a permanent address where you can receive mail.",
+          "priceListInformation": "Product Prices for the Customer Group",
+          "publicInformation": "Publicly available information about the customer"
+        },
+        "placeholder": {
+          "note": "They are very interested in..."
+        },
+        "legalInformation": "Legal Information",
+        "legalName": "Legal Name",
+        "idNumber": "ID Number",
+        "vatNumber": "VAT Number",
+        "country": "Country",
+        "line1": "Street address",
+        "city": "City",
+        "zip": "ZIP / Postal Code",
+        "contactInformation": "Customer Contact Information",
+        "invoicingEmailAddress": "Invoicing Email Address",
+        "www": "Web Page",
+        "publicNote": "Public Info",
+        "productPrices": "Product Prices in the Customer Group Price List"
       }
     },
     "salesInvoices": {
@@ -89,7 +126,16 @@
       "detail": {
         "title": "Sales Invoice Detail",
         "nav": "Sales Invoice Detail",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "internalInformation": "Invoice Information",
+        "documentNo": "Document Number",
+        "organization": "Seller",
+        "customer": "Buyer",
+        "transactionDate": "Transaction Date",
+        "totalLines": "Total Lines",
+        "description" : {
+          "internalInformation": "All the invoice information"
+        }
       },
       "list": {
         "column1": {
@@ -306,7 +352,8 @@
   "status": {
     "loading": "Loading...",
     "error": "Error",
-    "refresh": "Refreshing..."
+    "refresh": "Refreshing...",
+    "null": "N/A"
   },
   "validator":{
     "required": "Required",
@@ -316,6 +363,7 @@
     "save": "Save",
     "edit": "Edit",
     "detail": "Detail",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "more": "More"
   }
 }

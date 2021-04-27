@@ -19,7 +19,7 @@ fragment SalesInvoiceDetailParts on SalesInvoice {
         ...SalesInvoiceLineDetailParts
     }
     organization {
-        ...OrganizationListParts
+        ...OrganizationDetailParts
     }
     paymentTermInDays
     printDate

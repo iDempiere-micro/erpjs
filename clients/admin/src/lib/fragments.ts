@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const CUSTOMER_GROUP_LIST_PARTS_RAW = `
+    id
+    displayName
+`;
+
+export const CUSTOMER_GROUP_LIST_PARTS = gql`
+    fragment CustomerGroupListParts on CustomerGroup {
+        ${CUSTOMER_GROUP_LIST_PARTS_RAW}
+    }
+`;
+
 export const UNIT_OF_MEASUREMENT_DETAIL_PARTS = gql`
     fragment UnitOfMeasurementDetailParts on UnitOfMeasurement {
         id
@@ -49,7 +60,6 @@ export const ADDRESS_LIST_PARTS_RAW = `
 `;
 
 export const ADDRESS_LIST_PARTS = gql`
-    ${COUNTRY_LIST_PARTS}
     fragment AddressListParts on Address {
         ${ADDRESS_LIST_PARTS_RAW}
     }
@@ -69,10 +79,16 @@ export const CUSTOMER_DETAIL_PARTS_RAW = `
             ${ADDRESS_LIST_PARTS_RAW}
         }
         note
+        customerGroup {
+            ${CUSTOMER_GROUP_LIST_PARTS_RAW}
+        }        
+        www
+        publicNote        
 `;
 
 export const CUSTOMER_DETAIL_PARTS = gql`
     ${ADDRESS_LIST_PARTS}
+    ${CUSTOMER_GROUP_LIST_PARTS}
     fragment CustomerDetailParts on Customer {
         id
         legalName
@@ -87,14 +103,21 @@ export const CUSTOMER_DETAIL_PARTS = gql`
             ...AddressListParts
         }
         note
+        customerGroup {
+            ...CustomerGroupListParts
+        }
     }
+`;
+
+export const CURRENCY_LIST_PARTS_RAW = `
+        id
+        isoCode
+        displayName
 `;
 
 export const CURRENCY_LIST_PARTS = gql`
     fragment CurrencyListParts on Currency {
-        id
-        isoCode
-        displayName
+        ${CURRENCY_LIST_PARTS_RAW}
     }
 `;
 
@@ -278,16 +301,46 @@ export const ORGANIZATION_DETAIL_PARTS = gql`
     }
 `;
 
+export const PRODUCT_LIST_PARTS_RAW = `
+    id
+    sku
+    displayName
+`;
+
+export const PRODUCT_PRICES_LIST_PARTS_RAW = `
+    id
+    sellingPrice
+    product {
+        ${PRODUCT_LIST_PARTS_RAW}
+    }
+    currency {
+        ${CURRENCY_LIST_PARTS_RAW}
+    }
+`;
+
+export const CUSTOMER_PRICE_LIST_PARTS_RAW = `
+    id
+    displayName
+    validFrom
+    validTo
+    productPrices {
+        ${PRODUCT_PRICES_LIST_PARTS_RAW}
+    }    
+`;
+
 export const CUSTOMER_GROUP_DETAIL_PARTS_RAW = `
     id
     displayName
     customers {
         ${CUSTOMER_LIST_PARTS_RAW}
     }
+    customerPriceLists {
+        ${CUSTOMER_PRICE_LIST_PARTS_RAW}
+    }
 `;
 
 export const CUSTOMER_GROUP_DETAIL_PARTS = gql`
-    fragment AccountingSchemeDetailParts on AccountingScheme {
+    fragment CustomerGroupDetailParts on CustomerGroup {
         ${CUSTOMER_GROUP_DETAIL_PARTS_RAW}
     }
 `;

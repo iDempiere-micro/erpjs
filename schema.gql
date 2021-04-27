@@ -73,6 +73,39 @@ input BaseSaveArgs {
   id: Int
 }
 
+type ContactPerson {
+  contactPersonCompanyRelations: [ContactPersonCompanyRelation!]
+  firstName: String!
+  id: Int!
+  lastName: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+type ContactPersonCompanyRelation {
+  contactPerson: ContactPerson!
+  customer: Customer!
+  id: Int!
+  isActive: Boolean!
+  role: String!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+input ContactPersonCompanyRelationSaveArgs {
+  contactPersonId: Float!
+  customerId: Float!
+  id: Int
+  isActive: Boolean!
+  role: String!
+}
+
+input ContactPersonSaveArgs {
+  firstName: String!
+  id: Int
+  lastName: String!
+}
+
 type Country {
   displayName: String!
   id: Float!
@@ -107,9 +140,10 @@ input CurrencySaveArgs {
 
 type Customer {
   address: Address
-  customerGroup: CustomerGroup!
+  contactPersonCompanyRelations: [ContactPersonCompanyRelation!]
+  customerGroup: CustomerGroup
   displayName: String!
-  id: Float!
+  id: Int!
   idNumber: String!
   invoicingEmail: String!
   isActive: Boolean!
@@ -117,13 +151,16 @@ type Customer {
   legalAddress: Address!
   legalName: String!
   note: String
+  publicNote: String
   salesInvoices: [SalesInvoice!]!
   updtOp: User!
   updtTs: UniversalDateTime!
   vatNumber: String
+  www: String
 }
 
 type CustomerGroup {
+  customerPriceLists: [CustomerPriceList!]
   customers: [Customer!]
   displayName: String!
   id: Int!
@@ -157,20 +194,23 @@ input CustomerPriceListSaveArgs {
 }
 
 type CustomerProductPrice {
+  currency: Currency!
   id: Int!
   product: Product!
   sellingPrice: Float!
 }
 
 input CustomerProductPriceSaveArgs {
-  customerPriceListDisplayName: String!
+  currencyId: Float!
+  customerPriceListId: Float!
   id: Int
-  productSKU: String!
+  productId: Float!
   sellingPrice: Float!
 }
 
 input CustomerSaveArgs {
   address: AddressSaveArgs
+  customerGroupId: Int
   displayName: String!
   id: Int
   idNumber: String!
@@ -225,6 +265,8 @@ type Mutation {
   keepAlive: UniversalDateTime!
   saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
   saveBank(args: BankSaveArgs!): Bank!
+  saveContactPerson(args: ContactPersonSaveArgs!): ContactPerson!
+  saveContactPersonCompanyRelation(args: ContactPersonCompanyRelationSaveArgs!): ContactPersonCompanyRelation!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
   saveCustomerGroup(args: CustomerGroupSaveArgs!): CustomerGroup!
@@ -276,7 +318,8 @@ type Product {
 }
 
 input ProductPriceSaveArgs {
-  productSKU: String!
+  currencyId: Float!
+  productId: Float!
   sellingPrice: Float!
 }
 
@@ -291,6 +334,10 @@ type Query {
   accountingSchemes: [AccountingScheme!]!
   bank(id: Int!): Bank!
   banks: [Bank!]!
+  contactPerson(id: Int!): ContactPerson!
+  contactPersonCompanyRelation(id: Int!): ContactPersonCompanyRelation!
+  contactPersonCompanyRelations: [ContactPersonCompanyRelation!]!
+  contactPersons: [ContactPerson!]!
   countries: [Country!]!
   country(id: Int!): Country!
   currencies: [Currency!]!
@@ -317,7 +364,6 @@ type Query {
 
 type SalesInvoice {
   bankAccount: BankAccount!
-  content: String!
   currency: Currency!
   currencyMultiplyingRateToAccountingSchemeCurrency: Float!
   customer: Customer!

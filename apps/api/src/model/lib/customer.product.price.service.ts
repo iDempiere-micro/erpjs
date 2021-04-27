@@ -9,6 +9,9 @@ import {
   CustomerPriceListService,
   CustomerPriceListServiceKey,
 } from './customer.price.list.service';
+import { ProductService, ProductServiceKey } from './product.service';
+import { Inject } from '@nestjs/common';
+import { CurrencyService, CurrencyServiceKey } from './currency.service';
 
 export const CustomerProductPriceServiceKey = 'CustomerProductPriceServiceKey';
 
@@ -16,6 +19,17 @@ export class CustomerProductPriceService extends BaseEntityService<
   CustomerProductPriceModel,
   CustomerProductPriceSaveArgsModel
 > {
+  constructor(
+    @Inject(ProductServiceKey)
+    protected readonly productService: ProductService,
+    @Inject(CustomerPriceListServiceKey)
+    protected readonly customerPriceListService: CustomerPriceListService,
+    @Inject(CurrencyServiceKey)
+    protected readonly currencyService: CurrencyService,
+  ) {
+    super();
+  }
+
   createEntity(): CustomerProductPriceModel {
     return new CustomerProductPrice();
   }
@@ -28,13 +42,19 @@ export class CustomerProductPriceService extends BaseEntityService<
     const customerPriceListService: CustomerPriceListService = getService(
       CustomerPriceListServiceKey,
     );
-    entity.product = args.product;
+    entity.product = await this.productService.loadEntityById(
+      transactionalEntityManager,
+      args.productId,
+    );
     entity.sellingPrice = args.sellingPrice;
-    entity.customerPriceList =
-      args.customerPriceList ||
-      (await customerPriceListService.loadEntity(transactionalEntityManager, {
-        where: { displayName: args.customerPriceListDisplayName },
-      }));
+    entity.customerPriceList = await customerPriceListService.loadEntityById(
+      transactionalEntityManager,
+      args.customerPriceListId,
+    );
+    entity.customerPriceList = await this.customerPriceListService.loadEntityById(
+      transactionalEntityManager,
+      args.customerPriceListId,
+    );
     return entity;
   }
 

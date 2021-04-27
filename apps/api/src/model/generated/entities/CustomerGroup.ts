@@ -64,5 +64,6 @@ export class CustomerGroup implements CustomerGroupModel {
     () => CustomerPriceList,
     customerPriceList => customerPriceList.customerGroup,
   )
+  @Field(() => [CustomerPriceList], { nullable: true })
   customerPriceLists: Array<CustomerPriceListModel>;
 }

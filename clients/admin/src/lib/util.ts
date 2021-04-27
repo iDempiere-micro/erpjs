@@ -45,3 +45,5 @@ export const getError = (error: ApolloError | any): string => {
 export const throwOnUndefined = (): string => {
     throw new Error('Value was supposed to be defined');
 };
+
+export const printableString = (s: string | null | undefined): string => s || '';

@@ -16,6 +16,9 @@
     import Select from 'svelte-select';
     import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
     import { throwOnUndefined } from '../../lib/util';
+    import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
+    import { push, urls } from '../../pages/pathAndSegment';
+    import { authStore } from '../../lib/auth';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
@@ -62,6 +65,7 @@
     let legalAddressLine1 = customer?.legalAddress?.line1;
     let legalAddressZipCode = customer?.legalAddress?.zipCode;
     let invoicingEmail = customer?.invoicingEmail;
+    let customerGroupId = customer?.customerGroup?.id;
 
     const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
         const countries = countriesStore.get().countries;
@@ -86,6 +90,7 @@
             legalAddressLine1: { value: legalAddressLine1, validators: ['required'] },
             legalZip: { value: legalAddressZipCode, validators: ['required'] },
             invoicingEmail: { value: invoicingEmail, validators: ['required'] },
+            customerGroupId: { value: customerGroupId, validators: [] },
         }),
         {
             initCheck: true,
@@ -105,6 +110,26 @@
         ])[0];
     }
 
+    let files: any;
+    let dataFile = null;
+
+    async function upload() {
+        if (!files || files.length === 0) return;
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        const baseUrl = process.env.API_BASE_URL || throwOnUndefined();
+        const upload = (
+            await fetch(baseUrl.replace('graphql', 'file/upload-customer-photo/' + customer?.id), {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
+                },
+            })
+        ).json();
+        console.log('**** upload', upload);
+    }
+
     const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
         ADD_CUSTOMER,
     );
@@ -119,6 +144,8 @@
             legalAddressCountryIsoCode &&
             invoicingEmail
         ) {
+            console.log('*** customerGroupId', customerGroupId);
+
             const { data } = await addCustomer({
                 variables: {
                     id: customer ? customer.id : null,
@@ -132,10 +159,14 @@
                     legalAddressZipCode,
                     invoicingEmail,
                     vatNumber,
+                    customerGroupId,
                 },
             });
-            const id = data?.createCustomer?.id;
-            console.log('*** customer created', id);
+
+            customer = { id: data?.createCustomer?.id } as CustomerDetailPartsFragment;
+            await upload();
+
+            await push(urls.customer.detail, customer.id);
         }
     };
 </script>
@@ -230,6 +261,17 @@
                             <p class="mt-2 text-sm text-gray-500">
                                 {$_('page.customers.add.description.note')}
                             </p>
+                        </div>
+                        <div>
+                            <CustomerGroupSelect
+                                id="customerGroupId"
+                                onSelect={(id) => {
+                                    customerGroupId = id;
+                                }}
+                                form={$myForm}
+                                {customerGroupId}
+                                label={$_('page.customers.add.customerGroup')}
+                            />
                         </div>
                     </div>
                 </div>
@@ -521,6 +563,7 @@
                                                 name="file-upload"
                                                 type="file"
                                                 class="sr-only"
+                                                bind:files
                                             />
                                         </label>
                                         <p class="pl-1">or drag and drop</p>

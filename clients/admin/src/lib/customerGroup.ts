@@ -3,7 +3,7 @@ import type {
     CustomerGroupListPartsFragment,
     CustomerGroupsQuery,
 } from '../generated/graphql';
-import { query } from 'svelte-apollo';
+import { query, ReadableQuery } from 'svelte-apollo';
 import { store } from './store';
 import { CUSTOMER_GROUPS } from './queries/customerGroups';
 import type { SelectItem } from './select';
@@ -41,5 +41,5 @@ export const mapCustomerGroups = (data: CustomerGroupListPartsFragment[]): Selec
           }))
         : [];
 
-export const getCustomerGroupBy = (id: number) =>
+export const getCustomerGroupBy = (id: number): ReadableQuery<CustomerGroupByIdQuery> =>
     query<CustomerGroupByIdQuery>(GET_CUSTOMER_GROUP_BY_ID, { variables: { id } });

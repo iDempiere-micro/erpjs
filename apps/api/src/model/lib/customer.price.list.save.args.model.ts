@@ -1,10 +1,9 @@
 import { BaseSaveArgsModel } from './base.save.args.model';
-import { ProductModel } from './product.model';
 import { CustomerGroupModel } from './customer.group.model';
 
 export interface ProductPrice {
-  product?: ProductModel;
-  productSKU?: string;
+  productId: number;
+  currencyId: number;
   sellingPrice: number;
 }
 

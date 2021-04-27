@@ -89,6 +89,41 @@ export type BaseSaveArgs = {
     id?: Maybe<Scalars['Int']>;
 };
 
+export type ContactPerson = {
+    __typename?: 'ContactPerson';
+    contactPersonCompanyRelations?: Maybe<Array<ContactPersonCompanyRelation>>;
+    firstName: Scalars['String'];
+    id: Scalars['Int'];
+    lastName: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type ContactPersonCompanyRelation = {
+    __typename?: 'ContactPersonCompanyRelation';
+    contactPerson: ContactPerson;
+    customer: Customer;
+    id: Scalars['Int'];
+    isActive: Scalars['Boolean'];
+    role: Scalars['String'];
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type ContactPersonCompanyRelationSaveArgs = {
+    contactPersonId: Scalars['Float'];
+    customerId: Scalars['Float'];
+    id?: Maybe<Scalars['Int']>;
+    isActive: Scalars['Boolean'];
+    role: Scalars['String'];
+};
+
+export type ContactPersonSaveArgs = {
+    firstName: Scalars['String'];
+    id?: Maybe<Scalars['Int']>;
+    lastName: Scalars['String'];
+};
+
 export type Country = {
     __typename?: 'Country';
     displayName: Scalars['String'];
@@ -126,9 +161,10 @@ export type CurrencySaveArgs = {
 export type Customer = {
     __typename?: 'Customer';
     address?: Maybe<Address>;
-    customerGroup: CustomerGroup;
+    contactPersonCompanyRelations?: Maybe<Array<ContactPersonCompanyRelation>>;
+    customerGroup?: Maybe<CustomerGroup>;
     displayName: Scalars['String'];
-    id: Scalars['Float'];
+    id: Scalars['Int'];
     idNumber: Scalars['String'];
     invoicingEmail: Scalars['String'];
     isActive: Scalars['Boolean'];
@@ -136,14 +172,17 @@ export type Customer = {
     legalAddress: Address;
     legalName: Scalars['String'];
     note?: Maybe<Scalars['String']>;
+    publicNote?: Maybe<Scalars['String']>;
     salesInvoices: Array<SalesInvoice>;
     updtOp: User;
     updtTs: Scalars['UniversalDateTime'];
     vatNumber?: Maybe<Scalars['String']>;
+    www?: Maybe<Scalars['String']>;
 };
 
 export type CustomerGroup = {
     __typename?: 'CustomerGroup';
+    customerPriceLists?: Maybe<Array<CustomerPriceList>>;
     customers?: Maybe<Array<Customer>>;
     displayName: Scalars['String'];
     id: Scalars['Int'];
@@ -179,20 +218,23 @@ export type CustomerPriceListSaveArgs = {
 
 export type CustomerProductPrice = {
     __typename?: 'CustomerProductPrice';
+    currency: Currency;
     id: Scalars['Int'];
     product: Product;
     sellingPrice: Scalars['Float'];
 };
 
 export type CustomerProductPriceSaveArgs = {
-    customerPriceListDisplayName: Scalars['String'];
+    currencyId: Scalars['Float'];
+    customerPriceListId: Scalars['Float'];
     id?: Maybe<Scalars['Int']>;
-    productSKU: Scalars['String'];
+    productId: Scalars['Float'];
     sellingPrice: Scalars['Float'];
 };
 
 export type CustomerSaveArgs = {
     address?: Maybe<AddressSaveArgs>;
+    customerGroupId?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
     id?: Maybe<Scalars['Int']>;
     idNumber: Scalars['String'];
@@ -248,6 +290,8 @@ export type Mutation = {
     keepAlive: Scalars['UniversalDateTime'];
     saveAccountingScheme: AccountingScheme;
     saveBank: Bank;
+    saveContactPerson: ContactPerson;
+    saveContactPersonCompanyRelation: ContactPersonCompanyRelation;
     saveCountry: Country;
     saveCurrency: Currency;
     saveCustomerGroup: CustomerGroup;
@@ -279,6 +323,14 @@ export type MutationSaveAccountingSchemeArgs = {
 
 export type MutationSaveBankArgs = {
     args: BankSaveArgs;
+};
+
+export type MutationSaveContactPersonArgs = {
+    args: ContactPersonSaveArgs;
+};
+
+export type MutationSaveContactPersonCompanyRelationArgs = {
+    args: ContactPersonCompanyRelationSaveArgs;
 };
 
 export type MutationSaveCountryArgs = {
@@ -353,7 +405,8 @@ export type Product = {
 };
 
 export type ProductPriceSaveArgs = {
-    productSKU: Scalars['String'];
+    currencyId: Scalars['Float'];
+    productId: Scalars['Float'];
     sellingPrice: Scalars['Float'];
 };
 
@@ -369,6 +422,10 @@ export type Query = {
     accountingSchemes: Array<AccountingScheme>;
     bank: Bank;
     banks: Array<Bank>;
+    contactPerson: ContactPerson;
+    contactPersonCompanyRelation: ContactPersonCompanyRelation;
+    contactPersonCompanyRelations: Array<ContactPersonCompanyRelation>;
+    contactPersons: Array<ContactPerson>;
     countries: Array<Country>;
     country: Country;
     currencies: Array<Currency>;
@@ -398,6 +455,14 @@ export type QueryAccountingSchemeArgs = {
 };
 
 export type QueryBankArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryContactPersonArgs = {
+    id: Scalars['Int'];
+};
+
+export type QueryContactPersonCompanyRelationArgs = {
     id: Scalars['Int'];
 };
 
@@ -445,7 +510,6 @@ export type QuerySalesInvoiceArgs = {
 export type SalesInvoice = {
     __typename?: 'SalesInvoice';
     bankAccount: BankAccount;
-    content: Scalars['String'];
     currency: Currency;
     currencyMultiplyingRateToAccountingSchemeCurrency: Scalars['Float'];
     customer: Customer;
@@ -625,6 +689,7 @@ export type CreateCustomerMutationVariables = Exact<{
     legalAddressZipCode: Scalars['String'];
     invoicingEmail: Scalars['String'];
     vatNumber?: Maybe<Scalars['String']>;
+    customerGroupId?: Maybe<Scalars['Int']>;
 }>;
 
 export type CreateCustomerMutation = { __typename?: 'Mutation' } & {
@@ -794,10 +859,19 @@ export type CurrencyByIdQuery = { __typename?: 'Query' } & {
 
 export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
     Customer,
-    'id' | 'legalName' | 'displayName' | 'vatNumber' | 'idNumber' | 'invoicingEmail' | 'note'
+    | 'id'
+    | 'legalName'
+    | 'displayName'
+    | 'vatNumber'
+    | 'idNumber'
+    | 'invoicingEmail'
+    | 'note'
+    | 'www'
+    | 'publicNote'
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
+        customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
     };
 
 export type CustomerByIdQueryVariables = Exact<{
@@ -811,7 +885,12 @@ export type CustomerByIdQuery = { __typename?: 'Query' } & {
 export type CustomerGroupDetailPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
     CustomerGroup,
     'id' | 'displayName'
-> & { customers?: Maybe<Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>> };
+> & {
+        customers?: Maybe<Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>>;
+        customerPriceLists?: Maybe<
+            Array<{ __typename?: 'CustomerPriceList' } & CustomerPriceListPartsFragment>
+        >;
+    };
 
 export type CustomerGroupListPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
     CustomerGroup,
@@ -832,7 +911,7 @@ export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & 
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         bankAccount: { __typename?: 'BankAccount' } & BankAccountListPartsFragment;
-        accountingScheme: { __typename?: 'AccountingScheme' } & Pick<AccountingScheme, 'id'>;
+        accountingScheme: { __typename?: 'AccountingScheme' } & AccountingSchemeDetailPartsFragment;
         documentNumberSequences: { __typename?: 'DocumentNumberSequence' } & Pick<
             DocumentNumberSequence,
             'current'
@@ -889,7 +968,7 @@ export type SalesInvoiceDetailPartsFragment = { __typename?: 'SalesInvoice' } & 
         currency: { __typename?: 'Currency' } & CurrencyListPartsFragment;
         customer: { __typename?: 'Customer' } & CustomerListPartsFragment;
         lines: Array<{ __typename?: 'SalesInvoiceLine' } & SalesInvoiceLineDetailPartsFragment>;
-        organization: { __typename?: 'Organization' } & OrganizationListPartsFragment;
+        organization: { __typename?: 'Organization' } & OrganizationDetailPartsFragment;
         vatReport: Array<{ __typename?: 'SalesInvoiceVat' } & SalesInvoiceVatDetailPartsFragment>;
     };
 
@@ -1001,6 +1080,23 @@ export type CustomerListPartsFragment = { __typename?: 'Customer' } & Pick<
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
+    };
+
+export type CustomerPriceListPartsFragment = { __typename?: 'CustomerPriceList' } & Pick<
+    CustomerPriceList,
+    'id' | 'displayName' | 'validFrom' | 'validTo'
+> & {
+        productPrices?: Maybe<
+            Array<{ __typename?: 'CustomerProductPrice' } & CustomerProductPriceListPartsFragment>
+        >;
+    };
+
+export type CustomerProductPriceListPartsFragment = { __typename?: 'CustomerProductPrice' } & Pick<
+    CustomerProductPrice,
+    'id' | 'sellingPrice'
+> & {
+        product: { __typename?: 'Product' } & ProductListPartsFragment;
+        currency: { __typename?: 'Currency' } & CurrencyListPartsFragment;
     };
 
 export type CustomerGroupsQueryVariables = Exact<{

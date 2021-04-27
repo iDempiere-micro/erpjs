@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Address } from './Address';
 import { SalesInvoice } from './SalesInvoice';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { AddressModel } from '../../lib/address.model';
 import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { User } from './User';
@@ -18,6 +18,8 @@ import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { CustomerGroup } from './CustomerGroup';
 import { CustomerGroupModel } from '../../lib/customer.group.model';
 import { CustomerModel } from '../../lib/customer.model';
+import { ContactPersonCompanyRelationModel } from '../../lib/contact.person.company.relation.model';
+import { ContactPersonCompanyRelation } from './ContactPersonCompanyRelation';
 
 @Index('IDX_df529c45726940beb548906481', ['displayName'], { unique: true })
 @Index('IDX_71b54ec7502c83c7f503f57c64', ['legalName'], { unique: true })
@@ -26,7 +28,7 @@ import { CustomerModel } from '../../lib/customer.model';
 @ObjectType()
 export class Customer implements CustomerModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
-  @Field()
+  @Field(() => Int)
   id: number;
 
   @Column('timestamp without time zone', {
@@ -102,11 +104,30 @@ export class Customer implements CustomerModel {
   @Field(() => Address, { nullable: true })
   address: AddressModel;
 
-  @Field(() => CustomerGroup)
+  @Field(() => CustomerGroup, { nullable: true })
   @ManyToOne(
     () => CustomerGroup,
     customerGroup => customerGroup.customers,
     { nullable: true, eager: true },
   )
   customerGroup?: CustomerGroupModel;
+
+  @OneToMany(
+    () => ContactPersonCompanyRelation,
+    contactPersonCompanyRelation => contactPersonCompanyRelation.customer,
+    { eager: false },
+  )
+  @Field(() => [ContactPersonCompanyRelation], { nullable: true })
+  contactPersonCompanyRelations: ContactPersonCompanyRelationModel[];
+
+  @Column('character varying', { name: 'www', nullable: true })
+  @Field({ nullable: true })
+  www?: string;
+
+  @Column('character varying', { name: 'publicNote', nullable: true })
+  @Field({ nullable: true })
+  publicNote?: string;
+
+  @Column('bytea', { name: 'photo', nullable: true })
+  photo?: string;
 }

@@ -63,6 +63,14 @@ import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
 } from './lib/customer.product.price.service';
+import {
+  ContactPersonService,
+  ContactPersonServiceKey,
+} from './lib/contact.person.service';
+import {
+  ContactPersonCompanyRelationService,
+  ContactPersonCompanyRelationServiceKey,
+} from './lib/contact.person.company.relation.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -189,6 +197,16 @@ const customerProductPriceServiceProvider = {
   useClass: CustomerProductPriceService,
 };
 
+const contactPersonServiceProvider = {
+  provide: ContactPersonServiceKey,
+  useClass: ContactPersonService,
+};
+
+const contactPersonCompanyRelationServiceProvider = {
+  provide: ContactPersonCompanyRelationServiceKey,
+  useClass: ContactPersonCompanyRelationService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -215,4 +233,6 @@ export const serviceProviders = [
   customerGroupServiceProvider,
   customerPriceListServiceProvider,
   customerProductPriceServiceProvider,
+  contactPersonServiceProvider,
+  contactPersonCompanyRelationServiceProvider,
 ];

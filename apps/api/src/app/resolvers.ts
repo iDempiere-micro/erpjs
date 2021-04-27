@@ -11,6 +11,8 @@ import { AccountingSchemeResolver } from './resolvers/accounting.scheme.resolver
 import { CustomerGroupResolver } from './resolvers/customer.group.resolver';
 import { CustomerPriceListResolver } from './resolvers/customer.price.list.resolver';
 import { CustomerProductPriceResolver } from './resolvers/customer.product.price.resolver';
+import { ContactPersonResolver } from './resolvers/contact.person.resolver';
+import { ContactPersonCompanyRelationResolver } from './resolvers/contact.person.company.relation.resolver';
 
 export const resolvers = [
   AppResolver,
@@ -27,4 +29,6 @@ export const resolvers = [
   CustomerGroupResolver,
   CustomerPriceListResolver,
   CustomerProductPriceResolver,
+  ContactPersonCompanyRelationResolver,
+  ContactPersonResolver,
 ];

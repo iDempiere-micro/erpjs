@@ -63,7 +63,7 @@ export class Product {
   @ManyToOne(
     () => UnitOfMeasurement,
     uom => uom.products,
-    { nullable: true, eager: true },
+    { nullable: true },
   )
   @JoinColumn([{ name: 'uomId', referencedColumnName: 'id' }])
   @Field(() => UnitOfMeasurement, { nullable: true })
