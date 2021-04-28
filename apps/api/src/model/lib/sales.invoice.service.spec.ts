@@ -25,8 +25,13 @@ import {
 import { TaxModel } from './tax.model';
 import { SalesInvoiceLineModel } from './sales.invoice.line.model';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
+import { FactoringContractServiceKey } from './factoring.contract.service';
+import { FactoringProviderServiceKey } from './factoring.provider.service';
+import { FactoringContractModel } from './factoring.contract.model';
 
-const mockTaxService = {};
+const mockTaxService = {
+  getZeroTax: () => ({}),
+};
 export const mockTaxServiceProvider = {
   provide: TaxServiceKey,
   useValue: mockTaxService,
@@ -36,7 +41,9 @@ export const mockProductServiceProvider = {
   provide: ProductServiceKey,
   useValue: mockProductService,
 };
-const mockSalesInvoiceLineService = {};
+const mockSalesInvoiceLineService = {
+  save: x => x,
+};
 export const mockSalesInvoiceLineServiceProvider = {
   provide: SalesInvoiceLineServiceKey,
   useValue: mockSalesInvoiceLineService,
@@ -46,7 +53,9 @@ export const mockBankAccountServiceProvider = {
   provide: BankAccountServiceKey,
   useValue: mockBankAccountService,
 };
-const mockCustomerService = {};
+const mockCustomerService = {
+  getCustomer: () => ({ legalAddress: { country: { isoCode: 'undefined' } } }),
+};
 export const mockCustomerServiceProvider = {
   provide: CustomerServiceKey,
   useValue: mockCustomerService,
@@ -56,12 +65,15 @@ const mockOrganizationService = {
     { id: 1, displayName: 'NUCZ' },
     { id: 2, displayName: 'ABCD' },
   ],
+  getOrg: () => ({ legalAddress: { country: { isoCode: 'undefined' } } }),
 };
 export const mockOrganizationServiceProvider = {
   provide: OrganizationServiceKey,
   useValue: mockOrganizationService,
 };
-const mockCurrencyService = {};
+const mockCurrencyService = {
+  getCurrency: () => ({}),
+};
 export const mockCurrencyServiceProvider = {
   provide: CurrencyServiceKey,
   useValue: mockCurrencyService,
@@ -75,7 +87,9 @@ export const mockReportsServiceProvider = {
   provide: ReportsServiceKey,
   useValue: mockReportsService,
 };
-const mockLanguagesService = {};
+const mockLanguagesService = {
+  loadEntities: () => [{ isoCode: 'undefined' }],
+};
 export const mockLanguagesServiceProvider = {
   provide: LanguagesServiceKey,
   useValue: mockLanguagesService,
@@ -120,6 +134,37 @@ export const mockDocumentNumberingServiceProvider = {
 const saveArgsValidationServiceProvider = {
   provide: SaveArgsValidationServiceKey,
   useClass: SaveArgsValidationService,
+  useValue: new SaveArgsValidationService(),
+};
+const mockFactoringProvider = {
+  bankAccount: {
+    id: 8798,
+  },
+};
+const mockFactoringContract: FactoringContractModel = {
+  id: 1,
+  isActive: true,
+  factoringProvider: mockFactoringProvider as any,
+  customer: {} as any,
+  organization: {} as any,
+  invoicePrintNote: 'this should be printed',
+};
+const mockFactoringContractService = {
+  getFactoringContract: (_e, _o, provider) => ({
+    ...mockFactoringContract,
+    isActive: provider.id === 1,
+  }),
+};
+export const mockFactoringContractServiceProvider = {
+  provide: FactoringContractServiceKey,
+  useValue: mockFactoringContractService,
+};
+const mockFactoringProviderService = {
+  loadEntityById: (_manager, id) => ({ ...mockFactoringProvider, id }),
+};
+export const mockFactoringProviderServiceProvider = {
+  provide: FactoringProviderServiceKey,
+  useValue: mockFactoringProviderService,
 };
 
 const mockEntityManager = {
@@ -143,6 +188,8 @@ const providers = [
   mockSalesInvoiceVatServiceProvider,
   mockDocumentNumberingServiceProvider,
   saveArgsValidationServiceProvider,
+  mockFactoringContractServiceProvider,
+  mockFactoringProviderServiceProvider,
 ];
 
 (global as any).moduleRef = {
@@ -316,12 +363,6 @@ describe('SalesInvoiceService', () => {
     });
 
     it('monthly invoices are generated even for zero org divider', async () => {
-      let saveCount = 0;
-      (service as any).save = () => {
-        saveCount++;
-        return {};
-      };
-
       const result = await service.createMonthlyInvoice(
         mockEntityManager,
         {
@@ -345,8 +386,65 @@ describe('SalesInvoiceService', () => {
         },
         { id: 1 } as any,
       );
-      expect(saveCount).toBe(2);
       expect(result.length).toBe(2);
+    });
+
+    it('bankAccount and printNote should be taken from the valid factoring provider and should not be taken from an invalid factoring provider', async () => {
+      const result = await service.save(
+        mockEntityManager,
+        {
+          lines: [],
+          customer: {
+            legalAddress: {
+              country: {
+                isoCode: 'undefined',
+              },
+            },
+          },
+          organization: {
+            legalAddress: {
+              country: {
+                isoCode: 'undefined',
+              },
+            },
+            bankAccount: {},
+          },
+          currency: {},
+          factoringProviderId: 1,
+        } as any,
+        { id: 1 } as any,
+      );
+      expect(result.printNote).toEqual(mockFactoringContract.invoicePrintNote);
+      expect(result.bankAccount).toEqual(mockFactoringProvider.bankAccount);
+    });
+    it('bankAccount and printNote should not be taken from an invalid factoring provider', async () => {
+      const args = {
+        lines: [],
+        customer: {
+          legalAddress: {
+            country: {
+              isoCode: 'undefined',
+            },
+          },
+        },
+        organization: {
+          legalAddress: {
+            country: {
+              isoCode: 'undefined',
+            },
+          },
+          bankAccount: {
+            id: 18,
+          },
+        },
+        currency: {},
+        factoringProviderId: 2,
+      } as any;
+      const result = await service.save(mockEntityManager, args, {
+        id: 1,
+      } as any);
+      expect(result.printNote).toBeNull();
+      expect(result.bankAccount).toEqual(args.organization.bankAccount);
     });
   });
 });

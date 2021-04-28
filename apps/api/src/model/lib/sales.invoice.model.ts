@@ -6,6 +6,7 @@ import { CustomerModel } from './customer.model';
 import { BankAccountModel } from './bank.account.model';
 import { LanguageModel } from './language.model';
 import { OrganizationModel } from './organization.model';
+import { FactoringProviderModel } from './factoring.provider.model';
 
 export interface SalesInvoiceModel extends BaseModel {
   grandTotal: number;
@@ -32,4 +33,6 @@ export interface SalesInvoiceModel extends BaseModel {
   content?: string;
   printLanguage: LanguageModel;
   transactionDate: Date;
+  factoringProvider?: FactoringProviderModel;
+  printNote?: string;
 }

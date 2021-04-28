@@ -15,6 +15,7 @@ import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { BankAccountModel } from '../../lib/bank.account.model';
 import { FactoringProviderModel } from '../../lib/factoring.provider.model';
+import { FactoringContract } from './FactoringContract';
 
 @Index('IDX_factoringProvider_displayName', ['displayName'], { unique: true })
 @Entity('factoringProvider', { schema: 'public' })
@@ -74,4 +75,10 @@ export class FactoringProvider implements FactoringProviderModel {
     salesInvoice => salesInvoice.factoringProvider,
   )
   salesInvoices: SalesInvoice[];
+
+  @OneToMany(
+    () => FactoringContract,
+    factoringContract => factoringContract.factoringProvider,
+  )
+  factoringContracts: FactoringContract[];
 }

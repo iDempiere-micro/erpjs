@@ -15,4 +15,5 @@ export interface SalesInvoiceSaveArgsModel extends BaseSaveArgsModel {
   currency?: CurrencyModel;
   currencyIsoCode?: string;
   lines: Array<SalesInvoiceLineSaveArgsModel>;
+  factoringProviderId?: number;
 }

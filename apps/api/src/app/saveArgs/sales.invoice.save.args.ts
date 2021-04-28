@@ -26,4 +26,7 @@ export class SalesInvoiceSaveArgs extends BaseSaveArgs
 
   @Field()
   transactionDate: Date;
+
+  @Field({ nullable: true })
+  factoringProviderId?: number;
 }

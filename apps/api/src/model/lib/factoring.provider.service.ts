@@ -9,6 +9,8 @@ import {
 } from './bank.account.service';
 import { FactoringProvider } from '../generated/entities/FactoringProvider';
 import { UserModel } from './user.model';
+import { OrganizationModel } from './organization.model';
+import { CustomerModel } from './customer.model';
 
 export const FactoringProviderServiceKey = 'FactoringProviderService';
 
@@ -77,4 +79,25 @@ export class FactoringProviderService extends BaseEntityService<
       where: { displayName },
       relations,
     });
+
+  async getPossibleFactoringProviders(
+    transactionalEntityManager: EntityManager,
+    organization: OrganizationModel,
+    customer: CustomerModel,
+  ): Promise<FactoringProviderModel[]> {
+    return this.getRepository(transactionalEntityManager)
+      .createQueryBuilder('factoringProvider')
+      .innerJoinAndSelect(
+        'factoringProvider.factoringContracts',
+        'factoringContract',
+      )
+      .where(
+        `factoringContract.organization = :organizationId AND factoringContract.customer = :customerId AND factoringContract.isActive=true`,
+        {
+          organizationId: organization.id,
+          customerId: customer.id,
+        },
+      )
+      .getMany();
+  }
 }

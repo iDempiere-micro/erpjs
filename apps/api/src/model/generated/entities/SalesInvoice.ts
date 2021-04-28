@@ -201,6 +201,10 @@ export class SalesInvoice implements SalesInvoiceModel {
     { nullable: true },
   )
   @JoinColumn([{ name: 'factoringProviderId', referencedColumnName: 'id' }])
-  @Field(() => FactoringProvider)
+  @Field(() => FactoringProvider, { nullable: true })
   factoringProvider: FactoringProviderModel;
+
+  @Column('character varying', { name: 'printNote', nullable: true })
+  @Field({ nullable: true })
+  printNote?: string;
 }

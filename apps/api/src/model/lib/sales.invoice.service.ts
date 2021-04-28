@@ -45,6 +45,14 @@ import {
   CustomerPriceListServiceKey,
 } from './customer.price.list.service';
 import { CustomerProductPriceModel } from './customer.product.price.model';
+import {
+  FactoringContractService,
+  FactoringContractServiceKey,
+} from './factoring.contract.service';
+import {
+  FactoringProviderService,
+  FactoringProviderServiceKey,
+} from './factoring.provider.service';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -197,6 +205,10 @@ export class SalesInvoiceService extends BaseEntityService<
     protected readonly reportsService: ReportsService,
     @Inject(DocumentNumberingServiceKey)
     protected readonly documentNumberingServiceModel: DocumentNumberingService,
+    @Inject(FactoringContractServiceKey)
+    protected readonly factoringContractService: FactoringContractService,
+    @Inject(FactoringProviderServiceKey)
+    protected readonly factoringProviderService: FactoringProviderService,
   ) {
     super();
     this.salesInvoiceLineService = getService<SalesInvoiceLineService>(
@@ -258,8 +270,28 @@ export class SalesInvoiceService extends BaseEntityService<
       transactionalEntityManager,
       args,
     );
+
+    const factoringContract = args.factoringProviderId
+      ? await this.factoringContractService.getFactoringContract(
+          transactionalEntityManager,
+          organization,
+          await this.factoringProviderService.loadEntityById(
+            transactionalEntityManager,
+            args.factoringProviderId,
+          ),
+          invoice.customer,
+        )
+      : null;
+
     invoice.organization = organization;
-    invoice.bankAccount = organization.bankAccount;
+    invoice.bankAccount =
+      factoringContract && factoringContract.isActive
+        ? factoringContract.factoringProvider.bankAccount
+        : organization.bankAccount;
+    invoice.printNote =
+      factoringContract && factoringContract.isActive
+        ? factoringContract.invoicePrintNote
+        : null;
     invoice.issuedOn = moment(args.issuedOn)
       .startOf('day')
       .toDate();
