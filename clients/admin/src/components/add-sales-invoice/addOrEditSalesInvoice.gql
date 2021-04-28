@@ -1,20 +1,20 @@
 mutation CreateSalesInvoice(
     $id: Int
     $currencyIsoCode: String!
-    $customerDisplayName:  String!
+    $customerId:  Int!
     $issuedOn:  Date!
     $lines: [SalesInvoiceLineSaveArgs!]!,
-    $organizationDisplayName:  String!
+    $organizationId:  Int!
     $paymentTermInDays: Int!
     $transactionDate:  Date!
 ) { createSalesInvoice( args :
 {
     id: $id
     currencyIsoCode: $currencyIsoCode
-    customerDisplayName: $customerDisplayName
+    customerId: $customerId
     issuedOn: $issuedOn
     lines: $lines,
-    organizationDisplayName: $organizationDisplayName
+    organizationId: $organizationId
     paymentTermInDays: $paymentTermInDays
     transactionDate: $transactionDate
 }

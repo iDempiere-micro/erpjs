@@ -232,7 +232,8 @@ export class SalesInvoiceService extends BaseEntityService<
         args.organization) ||
       (await this.organizationService.getOrg(
         transactionalEntityManager,
-        args.organizationDisplayName || args.organization.displayName,
+        args.organizationId,
+        args.organizationDisplayName || args.organization?.displayName,
         [
           'legalAddress',
           'legalAddress.country',
@@ -263,7 +264,8 @@ export class SalesInvoiceService extends BaseEntityService<
         args.customer) ||
       (await this.customerService.getCustomer(
         transactionalEntityManager,
-        args.customerDisplayName || args.customer.displayName,
+        args.customerId,
+        args.customerDisplayName || args.customer?.displayName,
         ['legalAddress', 'legalAddress.country'],
       ));
     const organization = await this.getOrganization(
@@ -713,6 +715,7 @@ export class SalesInvoiceService extends BaseEntityService<
       .addGroupBy('EXTRACT(MONTH from salesInvoice.transactionDate)')
       .addGroupBy('salesInvoice.organization')
       .addGroupBy('organization.displayName')
+      .where('salesInvoice.isActive=true AND salesInvoice.isDraft=false')
       .getRawMany();
   }
 }

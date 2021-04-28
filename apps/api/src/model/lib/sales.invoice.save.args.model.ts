@@ -7,8 +7,10 @@ import { OrganizationModel } from './organization.model';
 export interface SalesInvoiceSaveArgsModel extends BaseSaveArgsModel {
   customer?: CustomerModel;
   customerDisplayName?: string;
+  customerId?: number;
   organization?: OrganizationModel;
   organizationDisplayName?: string;
+  organizationId?: number;
   paymentTermInDays: number;
   issuedOn: Date;
   transactionDate: Date;

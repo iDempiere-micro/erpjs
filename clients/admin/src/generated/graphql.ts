@@ -253,6 +253,27 @@ export type DocumentNumberSequence = {
     updtOp: User;
 };
 
+export type FactoringContract = {
+    __typename?: 'FactoringContract';
+    customer: Customer;
+    factoringProvider: FactoringProvider;
+    id: Scalars['Int'];
+    invoicePrintNote: Scalars['String'];
+    isActive: Scalars['Boolean'];
+    isCurrent: Scalars['Boolean'];
+    organization: Organization;
+    updtOp: User;
+    updtTs: Scalars['UniversalDateTime'];
+};
+
+export type FactoringContractSaveArgs = {
+    customerId: Scalars['Int'];
+    factoringProviderId: Scalars['Int'];
+    id?: Maybe<Scalars['Int']>;
+    invoicePrintNote: Scalars['String'];
+    organizationId: Scalars['Int'];
+};
+
 export type FactoringProvider = {
     __typename?: 'FactoringProvider';
     bankAccount: BankAccount;
@@ -318,6 +339,7 @@ export type Mutation = {
     saveCustomerGroup: CustomerGroup;
     saveCustomerPriceList: CustomerPriceList;
     saveCustomerProductPrice: CustomerProductPrice;
+    saveFactoringContract: FactoringContract;
     saveFactoringProvider: FactoringProvider;
     saveOrganization: Organization;
     saveProduct: Product;
@@ -373,6 +395,10 @@ export type MutationSaveCustomerPriceListArgs = {
 
 export type MutationSaveCustomerProductPriceArgs = {
     args: CustomerProductPriceSaveArgs;
+};
+
+export type MutationSaveFactoringContractArgs = {
+    args: FactoringContractSaveArgs;
 };
 
 export type MutationSaveFactoringProviderArgs = {
@@ -465,8 +491,11 @@ export type Query = {
     customerProductPrices: Array<CustomerProductPrice>;
     customers: Array<Customer>;
     customersByArgs: Array<Customer>;
+    factoringContract: FactoringContract;
+    factoringContracts: Array<FactoringContract>;
     factoringProvider: FactoringProvider;
     factoringProviders: Array<FactoringProvider>;
+    factoringProvidersForInvoice: Array<FactoringProvider>;
     menu: Array<Menu>;
     now: Scalars['UniversalDateTime'];
     organization: Organization;
@@ -523,8 +552,16 @@ export type QueryCustomersByArgsArgs = {
     legalName?: Maybe<Scalars['String']>;
 };
 
+export type QueryFactoringContractArgs = {
+    id: Scalars['Int'];
+};
+
 export type QueryFactoringProviderArgs = {
     id: Scalars['Int'];
+};
+
+export type QueryFactoringProvidersForInvoiceArgs = {
+    args: FactoringContractSaveArgs;
 };
 
 export type QueryOrganizationArgs = {
@@ -547,7 +584,7 @@ export type SalesInvoice = {
     customer: Customer;
     documentNo?: Maybe<Scalars['String']>;
     dueDate: Scalars['Date'];
-    factoringProvider: FactoringProvider;
+    factoringProvider?: Maybe<FactoringProvider>;
     grandTotal: Scalars['Float'];
     grandTotalAccountingSchemeCurrency: Scalars['Float'];
     id: Scalars['Float'];
@@ -562,6 +599,7 @@ export type SalesInvoice = {
     printDate?: Maybe<Scalars['Date']>;
     printError?: Maybe<Scalars['String']>;
     printLanguageIsoCode: Scalars['String'];
+    printNote?: Maybe<Scalars['String']>;
     printed: Scalars['Boolean'];
     reverseCharge: Scalars['Boolean'];
     totalLines: Scalars['Float'];
@@ -610,11 +648,12 @@ export type SalesInvoiceMonthlySaveArgs = {
 
 export type SalesInvoiceSaveArgs = {
     currencyIsoCode: Scalars['String'];
-    customerDisplayName: Scalars['String'];
+    customerId: Scalars['Int'];
+    factoringProviderId?: Maybe<Scalars['Float']>;
     id?: Maybe<Scalars['Int']>;
     issuedOn: Scalars['Date'];
     lines: Array<SalesInvoiceLineSaveArgs>;
-    organizationDisplayName: Scalars['String'];
+    organizationId: Scalars['Int'];
     paymentTermInDays: Scalars['Int'];
     transactionDate: Scalars['Date'];
 };
@@ -747,6 +786,18 @@ export type SaveCustomerGroupMutation = { __typename?: 'Mutation' } & {
     saveCustomerGroup: { __typename?: 'CustomerGroup' } & Pick<CustomerGroup, 'id'>;
 };
 
+export type SaveFactoringContractMutationVariables = Exact<{
+    id?: Maybe<Scalars['Int']>;
+    invoicePrintNote: Scalars['String'];
+    factoringProviderId: Scalars['Int'];
+    customerId: Scalars['Int'];
+    organizationId: Scalars['Int'];
+}>;
+
+export type SaveFactoringContractMutation = { __typename?: 'Mutation' } & {
+    saveFactoringContract: { __typename?: 'FactoringContract' } & Pick<FactoringContract, 'id'>;
+};
+
 export type SaveFactoringProviderMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
@@ -805,10 +856,10 @@ export type SaveProductMutation = { __typename?: 'Mutation' } & {
 export type CreateSalesInvoiceMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
     currencyIsoCode: Scalars['String'];
-    customerDisplayName: Scalars['String'];
+    customerId: Scalars['Int'];
     issuedOn: Scalars['Date'];
     lines: Array<SalesInvoiceLineSaveArgs> | SalesInvoiceLineSaveArgs;
-    organizationDisplayName: Scalars['String'];
+    organizationId: Scalars['Int'];
     paymentTermInDays: Scalars['Int'];
     transactionDate: Scalars['Date'];
 }>;
@@ -948,6 +999,36 @@ export type CustomerGroupByIdQueryVariables = Exact<{
 
 export type CustomerGroupByIdQuery = { __typename?: 'Query' } & {
     customerGroup: { __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment;
+};
+
+export type FactoringContractDetailPartsFragment = { __typename?: 'FactoringContract' } & Pick<
+    FactoringContract,
+    'id' | 'invoicePrintNote'
+> & {
+        customer: { __typename?: 'Customer' } & CustomerListPartsFragment;
+        organization: { __typename?: 'Organization' } & OrganizationListPartsFragment;
+        factoringProvider: {
+            __typename?: 'FactoringProvider';
+        } & FactoringProviderListPartsFragment;
+    };
+
+export type FactoringContractListPartsFragment = { __typename?: 'FactoringContract' } & Pick<
+    FactoringContract,
+    'id' | 'invoicePrintNote'
+> & {
+        customer: { __typename?: 'Customer' } & CustomerListPartsFragment;
+        organization: { __typename?: 'Organization' } & OrganizationListPartsFragment;
+        factoringProvider: {
+            __typename?: 'FactoringProvider';
+        } & FactoringProviderListPartsFragment;
+    };
+
+export type FactoringContractByIdQueryVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type FactoringContractByIdQuery = { __typename?: 'Query' } & {
+    factoringContract: { __typename?: 'FactoringContract' } & FactoringContractDetailPartsFragment;
 };
 
 export type FactoringProviderDetailPartsFragment = { __typename?: 'FactoringProvider' } & Pick<
@@ -1171,6 +1252,16 @@ export type CustomersQueryVariables = Exact<{
 
 export type CustomersQuery = { __typename?: 'Query' } & {
     customers: Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>;
+};
+
+export type FactoringContractsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type FactoringContractsQuery = { __typename?: 'Query' } & {
+    factoringContracts: Array<
+        { __typename?: 'FactoringContract' } & FactoringContractListPartsFragment
+    >;
 };
 
 export type FactoringProviderListPartsFragment = { __typename?: 'FactoringProvider' } & Pick<

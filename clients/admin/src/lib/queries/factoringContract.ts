@@ -1,0 +1,57 @@
+import gql from 'graphql-tag';
+import {
+    ACCOUNTING_SCHEME_DETAIL_PARTS_RAW,
+    FACTORING_CONTRACT_DETAIL_PARTS_RAW,
+} from '../fragments';
+import { mock as mockCurrencies } from './currencies';
+
+export const SAVE_FACTORING_CONTRACT = gql`
+    mutation SaveFactoringContract(
+        $id: Int
+        $invoicePrintNote: String!
+        $factoringProviderId: Int!
+        $customerId: Int!
+        $organizationId: Int!
+    ) {
+        saveFactoringContract(
+            args: {
+                id: $id
+                invoicePrintNote: $invoicePrintNote
+                factoringProviderId: $factoringProviderId
+                customerId: $customerId
+                organizationId: $organizationId
+            }
+        ) {
+            id
+        }
+    }
+`;
+
+export const mock = {
+    data: {
+        saveFactoringContract: {
+            id: 999,
+        },
+    },
+};
+
+export const GET_FACTORING_CONTRACT_BY_ID = gql`
+    query factoringContractById($id: Int!) {
+        factoringContract(id: $id) {
+            ${FACTORING_CONTRACT_DETAIL_PARTS_RAW}
+        }
+    }
+`;
+
+export const mock1 = {
+    data: {
+        bla: {
+            aaa: '123',
+        },
+        factoringContract: {
+            id: 999,
+            displayName: 'TestDisplayName123',
+            currency: mockCurrencies.data.currencies[0],
+        },
+    },
+};

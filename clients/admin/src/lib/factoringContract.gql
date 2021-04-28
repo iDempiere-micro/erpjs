@@ -1,0 +1,5 @@
+query factoringContractById($id: Int!) {
+            factoringContract(id: $id) {
+                ...FactoringContractDetailParts
+            }
+        }

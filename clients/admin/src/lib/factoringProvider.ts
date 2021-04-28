@@ -36,7 +36,7 @@ export const ensureFactoringProvidersStore = () => {
 export const mapFactoringProviders = (data: FactoringProviderListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
-              value: displayName,
+              value: id,
               label: displayName,
           }))
         : [];

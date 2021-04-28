@@ -34,10 +34,11 @@ export abstract class BaseEntityService<
   loadEntityById = async (
     transactionalEntityManager: EntityManager,
     id: number,
+    relations?: string[],
   ): Promise<T> =>
     await this.getRepository(transactionalEntityManager).findOne({
       where: { id },
-      relations: this.loadEntityByIdRelations(),
+      relations: relations || this.loadEntityByIdRelations(),
     });
 
   loadEntity = async (

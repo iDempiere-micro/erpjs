@@ -6,8 +6,8 @@ import type { SelectItem } from './select';
 
 export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data
-        ? data.map(({ displayName }) => ({
-              value: displayName,
+        ? data.map(({ id, displayName }) => ({
+              value: id,
               label: displayName,
           }))
         : [];

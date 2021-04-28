@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Currency } from './Currency';
 import { FactoringProvider } from './FactoringProvider';
 import { Customer } from './Customer';
 import { FactoringProviderModel } from '../../lib/factoring.provider.model';
@@ -71,7 +70,7 @@ export class FactoringContract implements FactoringContractModel {
     { nullable: false },
   )
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
-  @Field(() => Currency)
+  @Field(() => Organization)
   organization: OrganizationModel;
 
   @Column('character varying', { name: 'invoicePrintNote' })

@@ -55,5 +55,10 @@
             class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >{$_('page.factoringProviders.title')}</a
         >
+        <a
+            href="#/{urls.factoringContracts.list}"
+            class="text-blue-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >{$_('page.factoringContracts.title')}</a
+        >
     </span>
 </Page>

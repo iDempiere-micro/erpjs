@@ -155,8 +155,7 @@ export const SALES_INVOICE_LINE_DETAIL_PARTS = gql`
     }
 `;
 
-export const ORGANIZATION_LIST_PARTS = gql`
-    fragment OrganizationListParts on Organization {
+export const ORGANIZATION_LIST_PARTS_RAW = `
         contact
         displayName
         id
@@ -164,6 +163,10 @@ export const ORGANIZATION_LIST_PARTS = gql`
         legalName
         registration
         vatNumber
+    `;
+export const ORGANIZATION_LIST_PARTS = gql`
+    fragment OrganizationListParts on Organization {
+        ${ORGANIZATION_LIST_PARTS_RAW}
     }
 `;
 export const SALES_INVOICE_VAT_DETAIL_PARTS = gql`
@@ -360,4 +363,18 @@ export const FACTORING_PROVIDER_DETAIL_PARTS_RAW = `
         bankAccount {
             ${BANK_ACCOUNT_LIST_PARTS_RAW}
         }  
+`;
+
+export const FACTORING_CONTRACT_DETAIL_PARTS_RAW = `
+    id
+    customer {
+        ${CUSTOMER_LIST_PARTS_RAW}
+    }
+    organization {
+        ${ORGANIZATION_LIST_PARTS_RAW}
+    }
+    factoringProvider {
+        ${FACTORING_PROVIDER_DETAIL_PARTS_RAW}
+    }
+    invoicePrintNote
 `;

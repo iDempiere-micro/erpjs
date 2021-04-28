@@ -36,7 +36,7 @@ export const ensureOrganizationsStore = () => {
 export const mapOrganizations = (data: OrganizationListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
-              value: displayName,
+              value: id,
               label: displayName,
           }))
         : [];

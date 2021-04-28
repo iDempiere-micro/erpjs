@@ -128,7 +128,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
     doc
       .font('Cardo')
       .fontSize(5)
-      .text(messages.invoiceFooter(invoice), 50, 700, {
+      .text(invoice.footer || messages.invoiceFooter(invoice), 50, 700, {
         align: 'center',
         width: 500,
       });
@@ -396,6 +396,7 @@ export class ReportsService {
       buyerEmail: customer.invoicingEmail,
       sellerContact: organization.contact,
       reverseCharge: data.reverseCharge,
+      footer: data.printNote,
     };
 
     data.content = await this.printInvoice(converted);

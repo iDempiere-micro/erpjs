@@ -183,3 +183,30 @@ export const GET_SALES_INVOICE_BY_ID = gql`
         }
     }
 `;
+export const ADD_SALES_INVOICE = gql`
+    mutation CreateSalesInvoice(
+        $id: Int
+        $currencyIsoCode: String!
+        $customerId: Int!
+        $issuedOn: Date!
+        $lines: [SalesInvoiceLineSaveArgs!]!
+        $organizationId: Int!
+        $paymentTermInDays: Int!
+        $transactionDate: Date!
+    ) {
+        createSalesInvoice(
+            args: {
+                id: $id
+                currencyIsoCode: $currencyIsoCode
+                customerId: $customerId
+                issuedOn: $issuedOn
+                lines: $lines
+                organizationId: $organizationId
+                paymentTermInDays: $paymentTermInDays
+                transactionDate: $transactionDate
+            }
+        ) {
+            id
+        }
+    }
+`;

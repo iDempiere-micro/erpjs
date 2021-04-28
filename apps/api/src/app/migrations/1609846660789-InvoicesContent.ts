@@ -6,7 +6,7 @@ import {
   SalesInvoiceServiceKey,
 } from '../../model';
 
-export class InvoicesContent1609846660789 implements MigrationInterface {
+export class InvoicesContent9999999999999 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const entityManager = queryRunner.manager;
     await getTechnicalUser(entityManager);

@@ -39,6 +39,7 @@ export const mock = {
 export const ORGANIZATIONS_SIMPLE = gql`
     {
         organizations {
+            id
             displayName
         }
     }

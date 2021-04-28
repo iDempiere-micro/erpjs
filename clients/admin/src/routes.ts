@@ -44,6 +44,11 @@ import AddFactoringProvider from './pages/AddFactoringProvider.svelte';
 import EditFactoringProvider from './pages/EditFactoringProvider.svelte';
 import FactoringProviderDetail from './pages/FactoringProviderDetail.svelte';
 
+import FactoringContracts from './pages/FactoringContracts.svelte';
+import AddFactoringContract from './pages/AddFactoringContract.svelte';
+import EditFactoringContract from './pages/EditFactoringContract.svelte';
+import FactoringContractDetail from './pages/FactoringContractDetail.svelte';
+
 export const routes = {
     // Exact path
     '/': Home,
@@ -103,3 +108,7 @@ addRoute(urls.factoringProviders.list, FactoringProviders);
 addRoute(urls.factoringProviders.edit, EditFactoringProvider);
 addRoute(urls.factoringProviders.add, AddFactoringProvider);
 addRoute(urls.factoringProviders.detail, FactoringProviderDetail);
+addRoute(urls.factoringContracts.list, FactoringContracts);
+addRoute(urls.factoringContracts.edit, EditFactoringContract);
+addRoute(urls.factoringContracts.add, AddFactoringContract);
+addRoute(urls.factoringContracts.detail, FactoringContractDetail);

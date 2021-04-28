@@ -9,6 +9,7 @@ import {
 } from '../../model';
 import { getManager } from 'typeorm';
 import { FactoringProviderSaveArgs } from '../saveArgs/factoring.provider.save.args';
+import { FactoringContractSaveArgs } from '../saveArgs/factoring.contract.save.args';
 
 @Resolver(() => FactoringProvider)
 @UseGuards(GqlAuthGuard)
@@ -21,6 +22,20 @@ export class FactoringProviderResolver {
   @Query(() => [FactoringProvider])
   async factoringProviders() {
     return await this.factoringProviderService.loadEntities(getManager());
+  }
+
+  @Query(() => [FactoringProvider])
+  async factoringProvidersForInvoice(
+    @Args('args') objData: FactoringContractSaveArgs,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @CurrentUser() user,
+  ) {
+    const manager = getManager();
+    return await this.factoringProviderService.getPossibleFactoringProviders(
+      manager,
+      objData.organizationId,
+      objData.customerId,
+    );
   }
 
   @Query(() => FactoringProvider)

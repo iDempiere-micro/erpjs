@@ -1,0 +1,17 @@
+mutation SaveFactoringContract(
+    $id: Int
+    $invoicePrintNote: String!
+    $factoringProviderId: Int!
+    $customerId: Int!
+    $organizationId: Int!
+
+) { saveFactoringContract( args :
+{
+    id: $id
+    invoicePrintNote: $invoicePrintNote
+    factoringProviderId: $factoringProviderId
+    customerId: $customerId
+    organizationId: $organizationId
+}
+
+) { id } }

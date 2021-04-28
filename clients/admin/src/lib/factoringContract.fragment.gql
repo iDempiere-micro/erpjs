@@ -1,0 +1,27 @@
+fragment FactoringContractDetailParts on FactoringContract {
+    id
+    customer {
+        ...CustomerListParts
+    }
+    organization {
+        ...OrganizationListParts
+    }
+    factoringProvider {
+        ...FactoringProviderListParts
+    }
+    invoicePrintNote
+}
+
+fragment FactoringContractListParts on FactoringContract {
+    id
+    customer {
+        ...CustomerListParts
+    }
+    organization {
+        ...OrganizationListParts
+    }
+    factoringProvider {
+        ...FactoringProviderListParts
+    }
+    invoicePrintNote
+}

@@ -231,6 +231,26 @@ type DocumentNumberSequence {
   updtOp: User!
 }
 
+type FactoringContract {
+  customer: Customer!
+  factoringProvider: FactoringProvider!
+  id: Int!
+  invoicePrintNote: String!
+  isActive: Boolean!
+  isCurrent: Boolean!
+  organization: Organization!
+  updtOp: User!
+  updtTs: UniversalDateTime!
+}
+
+input FactoringContractSaveArgs {
+  customerId: Int!
+  factoringProviderId: Int!
+  id: Int
+  invoicePrintNote: String!
+  organizationId: Int!
+}
+
 type FactoringProvider {
   bankAccount: BankAccount!
   contact: String!
@@ -292,6 +312,7 @@ type Mutation {
   saveCustomerGroup(args: CustomerGroupSaveArgs!): CustomerGroup!
   saveCustomerPriceList(args: CustomerPriceListSaveArgs!): CustomerPriceList!
   saveCustomerProductPrice(args: CustomerProductPriceSaveArgs!): CustomerProductPrice!
+  saveFactoringContract(args: FactoringContractSaveArgs!): FactoringContract!
   saveFactoringProvider(args: FactoringProviderSaveArgs!): FactoringProvider!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
   saveProduct(args: ProductSaveArgs!): Product!
@@ -372,8 +393,11 @@ type Query {
   customerProductPrices: [CustomerProductPrice!]!
   customers: [Customer!]!
   customersByArgs(displayName: String, legalName: String): [Customer!]!
+  factoringContract(id: Int!): FactoringContract!
+  factoringContracts: [FactoringContract!]!
   factoringProvider(id: Int!): FactoringProvider!
   factoringProviders: [FactoringProvider!]!
+  factoringProvidersForInvoice(args: FactoringContractSaveArgs!): [FactoringProvider!]!
   menu: [Menu!]!
   now: UniversalDateTime!
   organization(id: Int!): Organization!
@@ -392,7 +416,7 @@ type SalesInvoice {
   customer: Customer!
   documentNo: String
   dueDate: Date!
-  factoringProvider: FactoringProvider!
+  factoringProvider: FactoringProvider
   grandTotal: Float!
   grandTotalAccountingSchemeCurrency: Float!
   id: Float!
@@ -407,6 +431,7 @@ type SalesInvoice {
   printDate: Date
   printError: String
   printLanguageIsoCode: String!
+  printNote: String
   printed: Boolean!
   reverseCharge: Boolean!
   totalLines: Float!
@@ -454,11 +479,12 @@ input SalesInvoiceMonthlySaveArgs {
 
 input SalesInvoiceSaveArgs {
   currencyIsoCode: String!
-  customerDisplayName: String!
+  customerId: Int!
+  factoringProviderId: Float
   id: Int
   issuedOn: Date!
   lines: [SalesInvoiceLineSaveArgs!]!
-  organizationDisplayName: String!
+  organizationId: Int!
   paymentTermInDays: Int!
   transactionDate: Date!
 }
