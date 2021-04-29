@@ -20,6 +20,7 @@ import { CustomerGroupModel } from '../../lib/customer.group.model';
 import { CustomerModel } from '../../lib/customer.model';
 import { ContactPersonCompanyRelationModel } from '../../lib/contact.person.company.relation.model';
 import { ContactPersonCompanyRelation } from './ContactPersonCompanyRelation';
+import { FactoringContract } from './FactoringContract';
 
 @Index('IDX_df529c45726940beb548906481', ['displayName'], { unique: true })
 @Index('IDX_71b54ec7502c83c7f503f57c64', ['legalName'], { unique: true })
@@ -130,4 +131,10 @@ export class Customer implements CustomerModel {
 
   @Column('bytea', { name: 'photo', nullable: true })
   photo?: string;
+
+  @OneToMany(
+    () => FactoringContract,
+    factoringContract => factoringContract.customer,
+  )
+  factoringContracts: FactoringContract[];
 }

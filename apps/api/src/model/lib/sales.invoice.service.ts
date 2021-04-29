@@ -45,6 +45,14 @@ import {
   CustomerPriceListServiceKey,
 } from './customer.price.list.service';
 import { CustomerProductPriceModel } from './customer.product.price.model';
+import {
+  FactoringContractService,
+  FactoringContractServiceKey,
+} from './factoring.contract.service';
+import {
+  FactoringProviderService,
+  FactoringProviderServiceKey,
+} from './factoring.provider.service';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -197,6 +205,10 @@ export class SalesInvoiceService extends BaseEntityService<
     protected readonly reportsService: ReportsService,
     @Inject(DocumentNumberingServiceKey)
     protected readonly documentNumberingServiceModel: DocumentNumberingService,
+    @Inject(FactoringContractServiceKey)
+    protected readonly factoringContractService: FactoringContractService,
+    @Inject(FactoringProviderServiceKey)
+    protected readonly factoringProviderService: FactoringProviderService,
   ) {
     super();
     this.salesInvoiceLineService = getService<SalesInvoiceLineService>(
@@ -220,7 +232,8 @@ export class SalesInvoiceService extends BaseEntityService<
         args.organization) ||
       (await this.organizationService.getOrg(
         transactionalEntityManager,
-        args.organizationDisplayName || args.organization.displayName,
+        args.organizationId,
+        args.organizationDisplayName || args.organization?.displayName,
         [
           'legalAddress',
           'legalAddress.country',
@@ -251,15 +264,36 @@ export class SalesInvoiceService extends BaseEntityService<
         args.customer) ||
       (await this.customerService.getCustomer(
         transactionalEntityManager,
-        args.customerDisplayName || args.customer.displayName,
+        args.customerId,
+        args.customerDisplayName || args.customer?.displayName,
         ['legalAddress', 'legalAddress.country'],
       ));
     const organization = await this.getOrganization(
       transactionalEntityManager,
       args,
     );
+
+    const factoringContract = args.factoringProviderId
+      ? await this.factoringContractService.getFactoringContract(
+          transactionalEntityManager,
+          organization,
+          await this.factoringProviderService.loadEntityById(
+            transactionalEntityManager,
+            args.factoringProviderId,
+          ),
+          invoice.customer,
+        )
+      : null;
+
     invoice.organization = organization;
-    invoice.bankAccount = organization.bankAccount;
+    invoice.bankAccount =
+      factoringContract && factoringContract.isActive
+        ? factoringContract.factoringProvider.bankAccount
+        : organization.bankAccount;
+    invoice.printNote =
+      factoringContract && factoringContract.isActive
+        ? factoringContract.invoicePrintNote
+        : null;
     invoice.issuedOn = moment(args.issuedOn)
       .startOf('day')
       .toDate();
@@ -681,6 +715,7 @@ export class SalesInvoiceService extends BaseEntityService<
       .addGroupBy('EXTRACT(MONTH from salesInvoice.transactionDate)')
       .addGroupBy('salesInvoice.organization')
       .addGroupBy('organization.displayName')
+      .where('salesInvoice.isActive=true AND salesInvoice.isDraft=false')
       .getRawMany();
   }
 }

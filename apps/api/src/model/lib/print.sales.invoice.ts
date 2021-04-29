@@ -25,6 +25,7 @@ export interface PrintSalesInvoice {
   buyerEmail: string;
   sellerContact: string;
   reverseCharge: boolean;
+  footer: string;
 }
 
 export interface PrintSalesInvoiceParty {

@@ -30,6 +30,18 @@ import {
     GET_FACTORING_PROVIDER_BY_ID,
     mock1 as mockFactoringProvider,
 } from './queries/factoringProvider';
+import { FACTORING_CONTRACTS, mock as mockFactoringContracts } from './queries/factoringContracts';
+import {
+    GET_FACTORING_CONTRACT_BY_ID,
+    mock1 as mockFactoringContract,
+} from './queries/factoringContract';
+import { COUNTRIES, mock as mockCountries } from './queries/countries';
+import { BANKS, mock as mockBanks } from './queries/banks';
+import {
+    ORGANIZATIONS,
+    mock as mockOrganizations,
+    ORGANIZATIONS_SIMPLE,
+} from './queries/organizations';
 
 export interface ApolloMock {
     query: DocumentNode;
@@ -53,4 +65,10 @@ export const mocks: ApolloMock[] = [
     { query: GET_SALES_INVOICE_BY_ID, mock: mockGetSalesInvoiceById },
     { query: FACTORING_PROVIDERS, mock: mockFactoringProviders },
     { query: GET_FACTORING_PROVIDER_BY_ID, mock: mockFactoringProvider },
+    { query: FACTORING_CONTRACTS, mock: mockFactoringContracts },
+    { query: GET_FACTORING_CONTRACT_BY_ID, mock: mockFactoringContract },
+    { query: COUNTRIES, mock: mockCountries },
+    { query: BANKS, mock: mockBanks },
+    { query: ORGANIZATIONS, mock: mockOrganizations },
+    { query: ORGANIZATIONS_SIMPLE, mock: mockOrganizations },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));

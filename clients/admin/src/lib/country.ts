@@ -23,6 +23,7 @@ export const ensureCountriesStore = () => {
 
     const countriesResult = query<CountriesQuery>(COUNTRIES);
     countriesResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             countriesStore.update((x) => ({
                 loaded: true,

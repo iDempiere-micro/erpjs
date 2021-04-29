@@ -27,6 +27,7 @@ import { CustomerProductPrice } from '../generated/entities/CustomerProductPrice
 import { ContactPerson } from '../generated/entities/ContactPerson';
 import { ContactPersonCompanyRelation } from '../generated/entities/ContactPersonCompanyRelation';
 import { FactoringProvider } from '../generated/entities/FactoringProvider';
+import { FactoringContract } from '../generated/entities/FactoringContract';
 
 export const entities = [
   Address,
@@ -58,4 +59,5 @@ export const entities = [
   ContactPerson,
   ContactPersonCompanyRelation,
   FactoringProvider,
+  FactoringContract,
 ];

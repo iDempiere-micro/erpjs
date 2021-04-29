@@ -3,10 +3,10 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import type {
-        SalesInvoiceDetailPartsFragment,
-        SalesInvoiceLineSaveArgs,
         CreateSalesInvoiceMutation,
         CreateSalesInvoiceMutationVariables,
+        SalesInvoiceDetailPartsFragment,
+        SalesInvoiceLineSaveArgs,
     } from '../../generated/graphql';
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import QuantityColumn from './QuantityColumn.svelte';
@@ -14,49 +14,21 @@
     import NarrationColumn from './NarrationColumn.svelte';
     import ProductColumn from './ProductColumn.svelte';
     import type { Column, RowAction } from '../../molecules/datagrid/types';
-    import { currenciesStore, ensureCurrenciesStore } from '../../lib/currency';
-    import { mapCurrencies } from '../../lib/currency';
+    import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/currency';
     import { ensureProductsStore } from '../../lib/product';
     import {
         ensureOrganizationsStore,
         mapOrganizations,
         organizationsStore,
     } from '../../lib/organization';
-    import gql from 'graphql-tag';
     import { mutation } from 'svelte-apollo';
     import * as R from 'ramda';
     import { customersStore, ensureCustomersStore, mapCustomers } from '../../lib/customers';
     import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import { ADD_SALES_INVOICE } from '../../lib/queries/salesInvoice';
+    import { push, urls } from '../../pages/pathAndSegment';
 
     export let salesInvoice: SalesInvoiceDetailPartsFragment | undefined;
-
-    const ADD_SALES_INVOICE = gql`
-        mutation CreateSalesInvoice(
-            $id: Int
-            $currencyIsoCode: String!
-            $customerDisplayName: String!
-            $issuedOn: Date!
-            $lines: [SalesInvoiceLineSaveArgs!]!
-            $organizationDisplayName: String!
-            $paymentTermInDays: Int!
-            $transactionDate: Date!
-        ) {
-            createSalesInvoice(
-                args: {
-                    id: $id
-                    currencyIsoCode: $currencyIsoCode
-                    customerDisplayName: $customerDisplayName
-                    issuedOn: $issuedOn
-                    lines: $lines
-                    organizationDisplayName: $organizationDisplayName
-                    paymentTermInDays: $paymentTermInDays
-                    transactionDate: $transactionDate
-                }
-            ) {
-                id
-            }
-        }
-    `;
 
     export const addSalesInvoice = mutation<
         CreateSalesInvoiceMutation,
@@ -64,18 +36,13 @@
     >(ADD_SALES_INVOICE);
 
     const createSalesInvoice = async () => {
-        if (
-            organizationDisplayName &&
-            customerDisplayName &&
-            currencyIsoCode &&
-            paymentTermInDays
-        ) {
+        if (organizationId && customerId && currencyIsoCode && paymentTermInDays) {
             paymentTermInDays = +paymentTermInDays;
             const { data } = await addSalesInvoice({
                 variables: {
                     id: salesInvoice?.id,
                     currencyIsoCode,
-                    customerDisplayName,
+                    customerId,
                     issuedOn,
                     lines: lines.map((line) => ({
                         lineOrder: line.lineOrder,
@@ -85,12 +52,12 @@
                         productId: line.productId,
                         quantity: line.quantity,
                     })),
-                    organizationDisplayName,
+                    organizationId,
                     paymentTermInDays,
                     transactionDate,
                 },
             });
-            console.log('*** invoice created', data?.createSalesInvoice?.id);
+            await push(urls.salesInvoices.detail, data?.createSalesInvoice?.id);
         }
     };
 
@@ -100,8 +67,8 @@
     ensureOrganizationsStore();
 
     let currencyIsoCode = salesInvoice?.currency?.isoCode;
-    let customerDisplayName = salesInvoice?.customer?.displayName;
-    let organizationDisplayName = salesInvoice?.organization?.displayName;
+    let customerId = salesInvoice?.customer?.id;
+    let organizationId = salesInvoice?.organization?.id;
     let issuedOn = salesInvoice?.issuedOn;
     let transactionDate = salesInvoice?.transactionDate;
     let paymentTermInDays: number | undefined = salesInvoice?.paymentTermInDays;
@@ -125,10 +92,10 @@
             (x) => x.value === currencyIsoCode,
         );
         selectedCustomerValue = mapCustomers($customersStore?.customers).find(
-            (x) => x.label === customerDisplayName,
+            (x) => x.value === customerId,
         );
         selectedOrganizationValue = mapOrganizations($organizationsStore?.organizations).find(
-            (x) => x.label === organizationDisplayName,
+            (x) => x.value === organizationId,
         );
     }
 
@@ -138,12 +105,12 @@
                 value: currencyIsoCode,
                 validators: ['required'],
             },
-            customerDisplayName: {
-                value: customerDisplayName,
+            customerId: {
+                value: customerId,
                 validators: ['required'],
             },
-            organizationDisplayName: {
-                value: organizationDisplayName,
+            organizationId: {
+                value: organizationId,
                 validators: ['required'],
             },
             issuedOn: {
@@ -175,11 +142,12 @@
         myForm.validate();
     };
     const handleSelectCustomer = (event: OnSelectParam) => {
-        customerDisplayName = '' + event.detail.value;
+        customerId = +event.detail.value;
         myForm.validate();
     };
     const handleSelectOrganization = (event: OnSelectParam) => {
-        organizationDisplayName = '' + event.detail.value;
+        console.log('*** event', event);
+        organizationId = +event.detail.value;
         myForm.validate();
     };
 
@@ -243,7 +211,7 @@
                             <label for="customers" class="block text-sm font-medium text-gray-700"
                                 >Customers</label
                             >
-                            {#if $myForm.fields.customerDisplayName.errors.includes('required')}
+                            {#if $myForm.fields.customerId.errors.includes('required')}
                                 <label for="customers" class="block text-sm font-small text-red-700"
                                     >Required</label
                                 >
@@ -263,7 +231,7 @@
                                 for="organizations"
                                 class="block text-sm font-medium text-gray-700">Organizations</label
                             >
-                            {#if $myForm.fields.organizationDisplayName.errors.includes('required')}
+                            {#if $myForm.fields.organizationId.errors.includes('required')}
                                 <label
                                     for="organizations"
                                     class="block text-sm font-small text-red-700">Required</label

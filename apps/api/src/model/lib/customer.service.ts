@@ -78,11 +78,14 @@ export class CustomerService extends BaseEntityService<
 
   getCustomer = (
     transactionalEntityManager: EntityManager,
+    id: number | null,
     displayName: string,
     relations?: string[],
   ) =>
-    this.getRepository(transactionalEntityManager).findOne({
-      where: { displayName },
-      relations,
-    });
+    id
+      ? this.loadEntityById(transactionalEntityManager, id, relations)
+      : this.getRepository(transactionalEntityManager).findOne({
+          where: { displayName },
+          relations,
+        });
 }

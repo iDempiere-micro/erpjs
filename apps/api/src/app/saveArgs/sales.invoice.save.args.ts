@@ -9,8 +9,8 @@ export class SalesInvoiceSaveArgs extends BaseSaveArgs
   @Field()
   currencyIsoCode: string;
 
-  @Field()
-  customerDisplayName: string;
+  @Field(() => Int)
+  customerId: number;
 
   @Field()
   issuedOn: Date;
@@ -18,12 +18,15 @@ export class SalesInvoiceSaveArgs extends BaseSaveArgs
   @Field(() => [SalesInvoiceLineSaveArgs])
   lines: Array<SalesInvoiceLineSaveArgs>;
 
-  @Field()
-  organizationDisplayName: string;
+  @Field(() => Int)
+  organizationId: number;
 
   @Field(() => Int)
   paymentTermInDays: number;
 
   @Field()
   transactionDate: Date;
+
+  @Field({ nullable: true })
+  factoringProviderId?: number;
 }

@@ -23,6 +23,7 @@ export const ensureOrganizationsStore = () => {
 
     const organizationsResult = query<OrganizationsQuery>(ORGANIZATIONS_SIMPLE);
     organizationsResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             organizationsStore.update((x) => ({
                 loaded: true,
@@ -36,7 +37,7 @@ export const ensureOrganizationsStore = () => {
 export const mapOrganizations = (data: OrganizationListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
-              value: displayName,
+              value: id,
               label: displayName,
           }))
         : [];

@@ -28,9 +28,6 @@ export const GET_CUSTOMER_GROUP_BY_ID = gql`
 
 export const mock1 = {
     data: {
-        bla: {
-            aaa: '123',
-        },
         customerGroup: {
             id: 999,
             displayName: 'TestDisplayName123',

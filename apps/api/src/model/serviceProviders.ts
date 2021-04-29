@@ -75,6 +75,10 @@ import {
   FactoringProviderService,
   FactoringProviderServiceKey,
 } from './lib/factoring.provider.service';
+import {
+  FactoringContractService,
+  FactoringContractServiceKey,
+} from './lib/factoring.contract.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -216,6 +220,11 @@ const factoringProviderServiceProvider = {
   useClass: FactoringProviderService,
 };
 
+const factoringContractServiceProvider = {
+  provide: FactoringContractServiceKey,
+  useClass: FactoringContractService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -245,4 +254,5 @@ export const serviceProviders = [
   contactPersonServiceProvider,
   contactPersonCompanyRelationServiceProvider,
   factoringProviderServiceProvider,
+  factoringContractServiceProvider,
 ];

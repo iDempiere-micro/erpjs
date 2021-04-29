@@ -23,6 +23,7 @@ export const ensureAccountingSchemesStore = () => {
 
     const accountingSchemesResult = query<AccountingSchemesQuery>(ACCOUNTING_SCHEMES);
     accountingSchemesResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             accountingSchemesStore.update((x) => ({
                 loaded: true,

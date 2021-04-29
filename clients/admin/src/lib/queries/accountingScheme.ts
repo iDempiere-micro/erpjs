@@ -30,9 +30,6 @@ export const GET_ACCOUNTING_SCHEME_BY_ID = gql`
 
 export const mock1 = {
     data: {
-        bla: {
-            aaa: '123',
-        },
         accountingScheme: {
             id: 999,
             displayName: 'TestDisplayName123',

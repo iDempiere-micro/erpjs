@@ -21,6 +21,7 @@ import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { AddressModel } from '../../lib/address.model';
 import { BankAccountModel } from '../../lib/bank.account.model';
 import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
+import { FactoringContract } from './FactoringContract';
 
 @Index('IDX_4177d3499a2c7edb42ead3d916', ['displayName'], { unique: true })
 @Index('IDX_99ecb4de1fda7ee51fb91b3055', ['vatNumber'], { unique: true })
@@ -124,4 +125,10 @@ export class Organization implements OrganizationModel {
     userToOrganization => userToOrganization.organization,
   )
   userToOrganizations: UserToOrganization[];
+
+  @OneToMany(
+    () => FactoringContract,
+    factoringContract => factoringContract.organization,
+  )
+  factoringContracts: FactoringContract[];
 }

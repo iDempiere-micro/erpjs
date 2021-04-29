@@ -66,6 +66,12 @@ export const urls = {
         edit: 'factoringProvider/:id',
         detail: 'factoringProvider-detail/:id',
     },
+    factoringContracts: {
+        list: 'factoringContracts',
+        add: 'add-factoringContract',
+        edit: 'factoringContract/:id',
+        detail: 'factoringContract-detail/:id',
+    },
 };
 
 export const segments = {
@@ -80,6 +86,7 @@ export const segments = {
     accountingSchemes: urls.accountingSchemes.list,
     customerGroups: urls.customerGroups.list,
     factoringProviders: urls.factoringProviders.list,
+    factoringContracts: urls.factoringContracts.list,
 };
 
 export const push = (urlPattern: string, id: number | undefined) =>

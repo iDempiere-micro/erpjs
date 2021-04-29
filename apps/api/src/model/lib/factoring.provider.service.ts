@@ -77,4 +77,25 @@ export class FactoringProviderService extends BaseEntityService<
       where: { displayName },
       relations,
     });
+
+  async getPossibleFactoringProviders(
+    transactionalEntityManager: EntityManager,
+    organizationId: number,
+    customerId: number,
+  ): Promise<FactoringProviderModel[]> {
+    return this.getRepository(transactionalEntityManager)
+      .createQueryBuilder('factoringProvider')
+      .innerJoinAndSelect(
+        'factoringProvider.factoringContracts',
+        'factoringContract',
+      )
+      .where(
+        `factoringContract.organization = :organizationId AND factoringContract.customer = :customerId AND factoringContract.isActive=true`,
+        {
+          organizationId: organizationId,
+          customerId: customerId,
+        },
+      )
+      .getMany();
+  }
 }

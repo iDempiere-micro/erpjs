@@ -6,8 +6,8 @@ import type { SelectItem } from './select';
 
 export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data
-        ? data.map(({ displayName }) => ({
-              value: displayName,
+        ? data.map(({ id, displayName }) => ({
+              value: id,
               label: displayName,
           }))
         : [];
@@ -26,6 +26,7 @@ export const ensureCustomersStore = () => {
 
     const productsResult = query<CustomersQuery>(CUSTOMERS);
     productsResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             customersStore.update((x) => ({
                 loaded: true,
