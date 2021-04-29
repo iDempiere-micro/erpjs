@@ -118,7 +118,7 @@
                             <div class="col-span-6">
                                 <SimpleTextBox
                                     form={myForm}
-                                    title={$_('page.factoringContracts.add.displayName')}
+                                    title={$_('page.factoringContracts.add.invoicePrintNote')}
                                     bind:value={invoicePrintNote}
                                     id="invoicePrintNote"
                                     hideWrapper={true}

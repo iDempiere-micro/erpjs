@@ -308,6 +308,10 @@
         "currentInvoiceDocumentNumber": "Current Invoice Document Number",
         "contact": "Contact",
         "save": "Save",
+        "invoicePrintNote": "Invoice Print Note",
+        "factoringProvider": "Factoring Provider",
+        "organization": "Organization",
+        "customer": "Customer",
 
         "description": {
           "internalInformation": "The information we use internally",
@@ -324,13 +328,20 @@
       "list": {
         "column1": {
           "title": "Factoring Contract"
+        },
+        "column2": {
+          "title": "Parties"
         }
       },
       "detail": {
         "title": "Factoring Contract",
         "info": "Factoring Contract General Information",
         "displayName": "Display Name",
-        "legalName": "Legal Name"
+        "legalName": "Legal Name",
+        "factoringProvider": "Factoring Provider",
+        "invoicePrintNote": "Invoice Print Note",
+        "customer": "Customer",
+        "organization": "Organization"
       }
     },
     "settings": {

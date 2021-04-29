@@ -11,7 +11,7 @@
 </script>
 
 <Meta
-    title="Components/Accounting Scheme/Detail"
+    title="Components/Factoring Contract/Detail"
     component={FactoringContractDetail}
     argTypes={{}}
 />

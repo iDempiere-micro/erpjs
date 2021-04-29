@@ -46,7 +46,9 @@ describe('<EditFactoringContract>', function () {
         expect(document.body.contains(currencyDisplayName));
         const orgDisplayName = getByText(mockOrganizations.data.organizations[0].displayName);
         expect(document.body.contains(orgDisplayName));
-        const fpDisplayName = getByText(mockFactoringProviders.data.factoringProviders[0].displayName);
+        const fpDisplayName = getByText(
+            mockFactoringProviders.data.factoringProviders[0].displayName,
+        );
         expect(document.body.contains(fpDisplayName));
     });
 

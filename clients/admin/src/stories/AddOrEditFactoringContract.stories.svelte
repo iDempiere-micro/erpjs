@@ -10,7 +10,7 @@
 </script>
 
 <Meta
-    title="Components/Accounting Scheme/Add&Edit"
+    title="Components/Factoring Contract/Add&Edit"
     component={AddOrEditFactoringContract}
     argTypes={{}}
 />

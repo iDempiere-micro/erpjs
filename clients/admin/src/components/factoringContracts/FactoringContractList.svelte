@@ -2,6 +2,7 @@
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
+    import SecondColumn from './SecondColumn.svelte';
     import type { FactoringContractListPartsFragment } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
 
@@ -14,6 +15,10 @@
         {
             name: $_('page.factoringContracts.list.column1.title'),
             cellComponent: FirstColumn,
+        },
+        {
+            name: $_('page.factoringContracts.list.column2.title'),
+            cellComponent: SecondColumn,
         },
     ];
 

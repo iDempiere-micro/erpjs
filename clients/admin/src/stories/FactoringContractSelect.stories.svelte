@@ -28,7 +28,7 @@
 </script>
 
 <Meta
-    title="Components/Accounting Scheme/Select"
+    title="Components/Factoring Contract/Select"
     component={FactoringContractSelect}
     argTypes={{}}
 />

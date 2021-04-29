@@ -13,8 +13,8 @@ describe('<FactoringContracts>', function () {
         const { getByText } = render(FactoringContracts);
 
         setTimeout(() => {
-            const customerName = getByText(mock.data.factoringContracts[0].id);
-            expect(document.body.contains(customerName));
+            const invoicePrintNote = getByText(mock.data.factoringContracts[0].invoicePrintNote);
+            expect(document.body.contains(invoicePrintNote));
             done();
         }, 200);
     });

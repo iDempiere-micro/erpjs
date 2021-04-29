@@ -9,7 +9,7 @@
     setupLocales();
 </script>
 
-<Meta title="Components/Accounting Scheme/List" component={FactoringContractList} argTypes={{}} />
+<Meta title="Components/Factoring Contract/List" component={FactoringContractList} argTypes={{}} />
 
 <Template let:args>
     <FactoringContractList {...args} />
