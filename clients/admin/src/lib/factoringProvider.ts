@@ -23,6 +23,7 @@ export const ensureFactoringProvidersStore = () => {
 
     const factoringProvidersResult = query<FactoringProvidersQuery>(FACTORING_PROVIDERS);
     factoringProvidersResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             factoringProvidersStore.update((x) => ({
                 loaded: true,

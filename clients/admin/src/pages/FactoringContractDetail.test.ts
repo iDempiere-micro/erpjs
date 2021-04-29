@@ -13,9 +13,11 @@ describe('<FactoringContractDetail>', function () {
         const { getByText } = render(FactoringContractDetail, { params: { id: 1 } });
 
         setTimeout(() => {
-            const displayName = getByText(mock1.data.factoringContract.displayName);
+            const displayName = getByText(
+                mock1.data.factoringContract.factoringProvider.displayName,
+            );
             expect(document.body.contains(displayName));
-            const currency = getByText(mock1.data.factoringContract.currency.displayName);
+            const currency = getByText(mock1.data.factoringContract.customer.displayName);
             expect(document.body.contains(currency));
             done();
         }, 200);

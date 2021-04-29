@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Select from 'svelte-select';
     import type {
         FactoringContractDetailPartsFragment,
         SaveFactoringContractMutation,
@@ -9,8 +8,6 @@
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_FACTORING_CONTRACT } from '../../lib/queries/factoringContract';
-    import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/currency';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
@@ -86,14 +83,6 @@
     };
 
     const saveFactoringContract = async () => {
-        console.log({
-            id: factoringContract?.id,
-            factoringProviderId,
-            customerId,
-            organizationId,
-            invoicePrintNote,
-        });
-
         if (factoringProviderId && customerId && organizationId && invoicePrintNote) {
             const { data } = await saveFactoringContractMutation({
                 variables: {

@@ -23,6 +23,7 @@ export const ensureCustomerGroupsStore = () => {
 
     const customerGroupsResult = query<CustomerGroupsQuery>(CUSTOMER_GROUPS);
     customerGroupsResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             customerGroupsStore.update((x) => ({
                 loaded: true,

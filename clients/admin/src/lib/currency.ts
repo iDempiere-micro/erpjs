@@ -19,6 +19,7 @@ export const ensureCurrenciesStore = () => {
 
     const currenciesResult = query<any>(CURRENCIES);
     currenciesResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             currenciesStore.update((x) => ({
                 loaded: true,

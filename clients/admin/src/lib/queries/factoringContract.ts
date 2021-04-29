@@ -1,9 +1,6 @@
 import gql from 'graphql-tag';
-import {
-    ACCOUNTING_SCHEME_DETAIL_PARTS_RAW,
-    FACTORING_CONTRACT_DETAIL_PARTS_RAW,
-} from '../fragments';
-import { mock as mockCurrencies } from './currencies';
+import { FACTORING_CONTRACT_DETAIL_PARTS_RAW } from '../fragments';
+import { mock as mockFactoringContracts } from './factoringContracts';
 
 export const SAVE_FACTORING_CONTRACT = gql`
     mutation SaveFactoringContract(
@@ -45,13 +42,6 @@ export const GET_FACTORING_CONTRACT_BY_ID = gql`
 
 export const mock1 = {
     data: {
-        bla: {
-            aaa: '123',
-        },
-        factoringContract: {
-            id: 999,
-            displayName: 'TestDisplayName123',
-            currency: mockCurrencies.data.currencies[0],
-        },
+        factoringContract: mockFactoringContracts.data.factoringContracts[0],
     },
 };

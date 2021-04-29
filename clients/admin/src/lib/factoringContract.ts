@@ -23,6 +23,7 @@ export const ensureFactoringContractsStore = () => {
 
     const factoringContractsResult = query<FactoringContractsQuery>(FACTORING_CONTRACTS);
     factoringContractsResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             factoringContractsStore.update((x) => ({
                 loaded: true,

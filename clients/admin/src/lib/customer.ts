@@ -36,6 +36,7 @@ export const ensureCustomersStore = () => {
 
     const customersResult = query<CustomersQuery>(CUSTOMERS);
     customersResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             customersStore.update((x) => ({
                 loaded: true,

@@ -19,6 +19,7 @@ export const ensureBanksStore = () => {
 
     const banksResult = query<BanksQuery>(BANKS);
     banksResult.subscribe((value) => {
+        if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             banksStore.update((x) => ({
                 loaded: true,

@@ -1,41 +1,53 @@
-import { fireEvent, render, RenderResult } from '@testing-library/svelte';
 import { expect } from 'chai';
 import EditFactoringContract from './EditFactoringContract.svelte';
 import { setupLocales } from '../i18n';
-import { mock as mockCurrencies } from '../lib/queries/currencies';
-import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
-import type { GetByBoundAttribute } from '@testing-library/dom/types/queries';
 import { mock1 } from '../lib/queries/factoringContract';
+import { getFormElements } from '../lib/testHelpers';
+import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
+import { mock as mockOrganizations } from '../lib/queries/organizations';
+import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
 
 describe('<EditFactoringContract>', function () {
     before(() => {
         setupLocales();
     });
 
-    const getDisplayNameAndCurrency = (renderResult: RenderResult) => {
-        const { getByTestId } = renderResult;
-        const displayName: HTMLInputElement = getByTestId('displayName') as HTMLInputElement;
-        const currency: HTMLInputElement = getByTestId('currencies') as HTMLInputElement;
-        const saveButton: HTMLButtonElement = getByTestId('saveButton') as HTMLButtonElement;
-        return { displayName, currency, saveButton };
-    };
+    const getElements = () =>
+        getFormElements(
+            EditFactoringContract,
+            [
+                'factoringProviderId',
+                'customerId',
+                'organizationId',
+                'invoicePrintNote',
+                'saveButton',
+            ],
+            { params: { id: 1 } },
+        );
 
-    it('display name and currency are rendered, form is enabled', function (done) {
-        const result = render(EditFactoringContract, { params: { id: 1 } });
-        setTimeout(() => {
-            const { displayName, currency, saveButton } = getDisplayNameAndCurrency(result);
-            expect(document.body.contains(displayName));
-            expect(document.body.contains(currency));
-            expect(document.body.contains(saveButton));
-            expect(!saveButton.disabled);
-            expect(displayName.value).to.equal(mock1.data.factoringContract.displayName);
-            const { getByText } = result;
-            const currencyDisplayName = getByText(
-                mock1.data.factoringContract.currency.displayName,
-            );
-            expect(document.body.contains(currencyDisplayName));
-            done();
-        }, 200);
+    it('display name and currency are rendered, form is enabled', async function () {
+        const { elements, renderResult } = await getElements();
+        const {
+            factoringProviderId,
+            customerId,
+            organizationId,
+            invoicePrintNote,
+            saveButton,
+        } = elements;
+        expect(document.body.contains(factoringProviderId));
+        expect(document.body.contains(customerId));
+        expect(document.body.contains(organizationId));
+        expect(document.body.contains(invoicePrintNote));
+        expect(document.body.contains(saveButton));
+        expect(!saveButton.disabled);
+        expect(invoicePrintNote.value).to.equal(mock1.data.factoringContract.invoicePrintNote);
+        const { getByText } = renderResult;
+        const currencyDisplayName = getByText(MOCKED_CUSTOMER_DISPLAY_NAME);
+        expect(document.body.contains(currencyDisplayName));
+        const orgDisplayName = getByText(mockOrganizations.data.organizations[0].displayName);
+        expect(document.body.contains(orgDisplayName));
+        const fpDisplayName = getByText(mockFactoringProviders.data.factoringProviders[0].displayName);
+        expect(document.body.contains(fpDisplayName));
     });
 
     /*it('after filling the form is enabled and is sent', function () {

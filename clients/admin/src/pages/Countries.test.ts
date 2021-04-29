@@ -1,19 +1,19 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import FactoringContracts from './FactoringContracts.svelte';
+import Countries from './Countries.svelte';
 import { setupLocales } from '../i18n';
-import { mock } from '../lib/queries/factoringContracts';
+import { mock } from '../lib/queries/countries';
 
-describe('<FactoringContracts>', function () {
+describe('<Countries>', function () {
     before(() => {
         setupLocales();
     });
 
     it('renders customers page', function (done) {
-        const { getByText } = render(FactoringContracts);
+        const { getByText } = render(Countries);
 
         setTimeout(() => {
-            const customerName = getByText(mock.data.factoringContracts[0].id);
+            const customerName = getByText(mock.data.countries[0].displayName);
             expect(document.body.contains(customerName));
             done();
         }, 200);
