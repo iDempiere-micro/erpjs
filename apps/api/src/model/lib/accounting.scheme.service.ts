@@ -43,6 +43,7 @@ export class AccountingSchemeService extends BaseEntityService<
       : await this.currencyService.getCurrency(
           transactionalEntityManager,
           newAccountingScheme.currencyIsoCode,
+          newAccountingScheme.currencyId,
         );
     return accountingScheme;
   }

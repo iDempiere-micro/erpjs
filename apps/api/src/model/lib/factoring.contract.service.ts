@@ -81,6 +81,11 @@ export class FactoringContractService extends BaseEntityService<
   ): Promise<FactoringContractModel> {
     return this.getRepository(transactionalEntityManager)
       .createQueryBuilder('factoringContract')
+      .leftJoinAndSelect(
+        'factoringContract.factoringProvider',
+        'factoringProvider',
+      )
+      .leftJoinAndSelect('factoringProvider.bankAccount', 'bankAccount')
       .where(
         `factoringContract.organization = :organizationId AND factoringContract.customer = :customerId AND factoringContract.factoringProvider = :factoringProviderId AND factoringContract.isActive=true`,
         {

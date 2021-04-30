@@ -73,7 +73,7 @@ export class CustomerResolver {
   }
 
   @Mutation(() => Customer)
-  async createCustomer(
+  async saveCustomer(
     @Args('args') objData: CustomerSaveArgs,
     @CurrentUser() user,
   ): Promise<CustomerModel> {

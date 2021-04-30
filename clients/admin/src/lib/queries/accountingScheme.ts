@@ -3,9 +3,9 @@ import { ACCOUNTING_SCHEME_DETAIL_PARTS_RAW } from '../fragments';
 import { mock as mockCurrencies } from './currencies';
 
 export const SAVE_ACCOUNTING_SCHEME = gql`
-    mutation SaveAccountingScheme($id: Int, $displayName: String!, $currencyIsoCode: String!) {
+    mutation SaveAccountingScheme($id: Int, $displayName: String!, $currencyId: Int!) {
         saveAccountingScheme(
-            args: { id: $id, displayName: $displayName, currencyIsoCode: $currencyIsoCode }
+            args: { id: $id, displayName: $displayName, currencyId: $currencyId }
         ) {
             id
         }

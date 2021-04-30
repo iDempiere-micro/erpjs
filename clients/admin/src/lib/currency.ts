@@ -30,8 +30,8 @@ export const ensureCurrenciesStore = () => {
 };
 export const mapCurrencies = (data: CurrencyListPartsFragment[]): SelectItem[] =>
     data
-        ? data.map(({ isoCode, displayName }) => ({
-              value: isoCode,
+        ? data.map(({ id, displayName }) => ({
+              value: id,
               label: displayName,
           }))
         : [];

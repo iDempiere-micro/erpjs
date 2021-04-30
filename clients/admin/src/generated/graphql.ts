@@ -23,7 +23,7 @@ export type AccountingScheme = {
 };
 
 export type AccountingSchemeSaveArgs = {
-    currencyIsoCode: Scalars['String'];
+    currencyId: Scalars['Int'];
     displayName: Scalars['String'];
     id?: Maybe<Scalars['Int']>;
 };
@@ -326,9 +326,7 @@ export type MenuItem = {
 export type Mutation = {
     __typename?: 'Mutation';
     confirmSalesInvoice: SalesInvoice;
-    createCustomer: Customer;
     createMonthlyInvoice: Array<SalesInvoice>;
-    createSalesInvoice: SalesInvoice;
     keepAlive: Scalars['UniversalDateTime'];
     saveAccountingScheme: AccountingScheme;
     saveBank: Bank;
@@ -336,6 +334,7 @@ export type Mutation = {
     saveContactPersonCompanyRelation: ContactPersonCompanyRelation;
     saveCountry: Country;
     saveCurrency: Currency;
+    saveCustomer: Customer;
     saveCustomerGroup: CustomerGroup;
     saveCustomerPriceList: CustomerPriceList;
     saveCustomerProductPrice: CustomerProductPrice;
@@ -343,22 +342,15 @@ export type Mutation = {
     saveFactoringProvider: FactoringProvider;
     saveOrganization: Organization;
     saveProduct: Product;
+    saveSalesInvoice: SalesInvoice;
 };
 
 export type MutationConfirmSalesInvoiceArgs = {
     args: BaseSaveArgs;
 };
 
-export type MutationCreateCustomerArgs = {
-    args: CustomerSaveArgs;
-};
-
 export type MutationCreateMonthlyInvoiceArgs = {
     args: SalesInvoiceMonthlySaveArgs;
-};
-
-export type MutationCreateSalesInvoiceArgs = {
-    args: SalesInvoiceSaveArgs;
 };
 
 export type MutationSaveAccountingSchemeArgs = {
@@ -383,6 +375,10 @@ export type MutationSaveCountryArgs = {
 
 export type MutationSaveCurrencyArgs = {
     args: CurrencySaveArgs;
+};
+
+export type MutationSaveCustomerArgs = {
+    args: CustomerSaveArgs;
 };
 
 export type MutationSaveCustomerGroupArgs = {
@@ -411,6 +407,10 @@ export type MutationSaveOrganizationArgs = {
 
 export type MutationSaveProductArgs = {
     args: ProductSaveArgs;
+};
+
+export type MutationSaveSalesInvoiceArgs = {
+    args: SalesInvoiceSaveArgs;
 };
 
 export type Organization = {
@@ -647,9 +647,9 @@ export type SalesInvoiceMonthlySaveArgs = {
 };
 
 export type SalesInvoiceSaveArgs = {
-    currencyIsoCode: Scalars['String'];
+    currencyId: Scalars['Int'];
     customerId: Scalars['Int'];
-    factoringProviderId?: Maybe<Scalars['Float']>;
+    factoringProviderId?: Maybe<Scalars['Int']>;
     id?: Maybe<Scalars['Int']>;
     issuedOn: Scalars['Date'];
     lines: Array<SalesInvoiceLineSaveArgs>;
@@ -712,7 +712,7 @@ export type User = {
 export type SaveAccountingSchemeMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
-    currencyIsoCode: Scalars['String'];
+    currencyId: Scalars['Int'];
 }>;
 
 export type SaveAccountingSchemeMutation = { __typename?: 'Mutation' } & {
@@ -749,7 +749,7 @@ export type SaveCurrencyMutation = { __typename?: 'Mutation' } & {
     saveCurrency: { __typename?: 'Currency' } & Pick<Currency, 'id'>;
 };
 
-export type CreateCustomerMutationVariables = Exact<{
+export type SaveCustomerMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
     displayName: Scalars['String'];
     legalName: Scalars['String'];
@@ -764,8 +764,8 @@ export type CreateCustomerMutationVariables = Exact<{
     customerGroupId?: Maybe<Scalars['Int']>;
 }>;
 
-export type CreateCustomerMutation = { __typename?: 'Mutation' } & {
-    createCustomer: { __typename?: 'Customer' } & Pick<Customer, 'id'>;
+export type SaveCustomerMutation = { __typename?: 'Mutation' } & {
+    saveCustomer: { __typename?: 'Customer' } & Pick<Customer, 'id'>;
 };
 
 export type CustomersByArgsQueryVariables = Exact<{
@@ -853,19 +853,31 @@ export type SaveProductMutation = { __typename?: 'Mutation' } & {
     saveProduct: { __typename?: 'Product' } & Pick<Product, 'id'>;
 };
 
-export type CreateSalesInvoiceMutationVariables = Exact<{
+export type SaveSalesInvoiceMutationVariables = Exact<{
     id?: Maybe<Scalars['Int']>;
-    currencyIsoCode: Scalars['String'];
+    currencyId: Scalars['Int'];
     customerId: Scalars['Int'];
     issuedOn: Scalars['Date'];
     lines: Array<SalesInvoiceLineSaveArgs> | SalesInvoiceLineSaveArgs;
     organizationId: Scalars['Int'];
     paymentTermInDays: Scalars['Int'];
     transactionDate: Scalars['Date'];
+    factoringProviderId?: Maybe<Scalars['Int']>;
 }>;
 
-export type CreateSalesInvoiceMutation = { __typename?: 'Mutation' } & {
-    createSalesInvoice: { __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>;
+export type SaveSalesInvoiceMutation = { __typename?: 'Mutation' } & {
+    saveSalesInvoice: { __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>;
+};
+
+export type FactoringProvidersForInvoiceQueryVariables = Exact<{
+    organizationId: Scalars['Int'];
+    customerId: Scalars['Int'];
+}>;
+
+export type FactoringProvidersForInvoiceQuery = { __typename?: 'Query' } & {
+    factoringProvidersForInvoice: Array<
+        { __typename?: 'FactoringProvider' } & FactoringProviderListPartsFragment
+    >;
 };
 
 export type SalesInvoicesInTimeQueryVariables = Exact<{
@@ -1109,6 +1121,9 @@ export type SalesInvoiceDetailPartsFragment = { __typename?: 'SalesInvoice' } & 
         lines: Array<{ __typename?: 'SalesInvoiceLine' } & SalesInvoiceLineDetailPartsFragment>;
         organization: { __typename?: 'Organization' } & OrganizationDetailPartsFragment;
         vatReport: Array<{ __typename?: 'SalesInvoiceVat' } & SalesInvoiceVatDetailPartsFragment>;
+        factoringProvider?: Maybe<
+            { __typename?: 'FactoringProvider' } & FactoringProviderListPartsFragment
+        >;
     };
 
 export type SalesInvoiceByIdQueryVariables = Exact<{

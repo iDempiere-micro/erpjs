@@ -1,0 +1,15 @@
+query FactoringProvidersForInvoice(
+    $organizationId: Int!
+    $customerId:  Int!
+) { factoringProvidersForInvoice( args :
+{
+    factoringProviderId: 0
+    customerId: $customerId
+    organizationId: $organizationId
+    invoicePrintNote: ""
+}
+
+) {
+    ...FactoringProviderListParts
+}
+}

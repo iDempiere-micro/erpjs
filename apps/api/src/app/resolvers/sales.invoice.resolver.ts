@@ -64,7 +64,7 @@ export class SalesInvoiceResolver {
   }
 
   @Mutation(() => SalesInvoice)
-  async createSalesInvoice(
+  async saveSalesInvoice(
     @Args('args') objData: SalesInvoiceSaveArgs,
     @CurrentUser() user,
   ): Promise<SalesInvoiceModel> {

@@ -273,17 +273,22 @@ export class SalesInvoiceService extends BaseEntityService<
       args,
     );
 
+    const factoringProvider = args.factoringProviderId
+      ? await this.factoringProviderService.loadEntityById(
+          transactionalEntityManager,
+          args.factoringProviderId,
+        )
+      : null;
+
     const factoringContract = args.factoringProviderId
       ? await this.factoringContractService.getFactoringContract(
           transactionalEntityManager,
           organization,
-          await this.factoringProviderService.loadEntityById(
-            transactionalEntityManager,
-            args.factoringProviderId,
-          ),
+          factoringProvider,
           invoice.customer,
         )
       : null;
+    invoice.factoringProvider = factoringContract ? factoringProvider : null;
 
     invoice.organization = organization;
     invoice.bankAccount =
@@ -313,6 +318,7 @@ export class SalesInvoiceService extends BaseEntityService<
       : await this.currencyService.getCurrency(
           transactionalEntityManager,
           args.currencyIsoCode,
+          args.currencyId,
         );
     invoice.currencyMultiplyingRateToAccountingSchemeCurrency = 0;
     invoice.isDraft = true;
@@ -561,7 +567,7 @@ export class SalesInvoiceService extends BaseEntityService<
   }
 
   loadEntityByIdRelations(): string[] {
-    return ['lines', 'vatReport'];
+    return ['lines', 'vatReport', 'factoringProvider'];
   }
 
   async createMonthlyInvoice(
@@ -587,6 +593,7 @@ export class SalesInvoiceService extends BaseEntityService<
       technicalUser: UserModel,
     ): Promise<SalesInvoiceModel[]> => {
       const result: SalesInvoiceModel[] = [];
+      if (hours === 0) return result;
 
       const issuedOn = new Date(objData.year, objData.month - 1, objData.day);
       if (NUCZPercentage > 0) {

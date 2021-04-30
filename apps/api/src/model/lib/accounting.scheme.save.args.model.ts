@@ -5,4 +5,5 @@ export interface AccountingSchemeSaveArgsModel extends BaseSaveArgsModel {
   displayName: string;
   currency?: CurrencyModel;
   currencyIsoCode?: string;
+  currencyId?: number;
 }

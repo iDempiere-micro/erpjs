@@ -20,10 +20,16 @@ export class CurrencyService extends BaseEntityService<
     return transactionalEntityManager.getRepository(Currency);
   }
 
-  getCurrency(transactionalEntityManager: EntityManager, isoCode: string) {
-    return this.getRepository(transactionalEntityManager).findOne({
-      where: { isoCode },
-    });
+  getCurrency(
+    transactionalEntityManager: EntityManager,
+    isoCode: string,
+    id?: number,
+  ) {
+    return id
+      ? this.loadEntityById(transactionalEntityManager, id)
+      : this.getRepository(transactionalEntityManager).findOne({
+          where: { isoCode },
+        });
   }
 
   protected async doSave(

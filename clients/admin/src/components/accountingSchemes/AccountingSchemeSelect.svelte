@@ -36,7 +36,7 @@
 
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
-    inputAttributes={{ id }}
+    inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
     items={mapAccountingSchemes($accountingSchemesStore.accountingSchemes)}
     selectedValue={selectedAccountingScheme}
     on:select={handleSelectAccountingScheme}

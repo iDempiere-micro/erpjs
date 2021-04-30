@@ -142,16 +142,27 @@ export const CUSTOMER_LIST_PARTS = gql`
         ${CUSTOMER_LIST_PARTS_RAW}
     }
 `;
+
+export const PRODUCT_LIST_PARTS_RAW = `
+    id
+    sku
+    displayName
+`;
+
+export const SALES_INVOICE_LINE_DETAIL_PARTS_RAW = `
+    id
+    lineOrder
+    linePrice
+    narration
+    quantity
+    product {
+        ${PRODUCT_LIST_PARTS_RAW}
+    }
+`;
+
 export const SALES_INVOICE_LINE_DETAIL_PARTS = gql`
     fragment SalesInvoiceLineDetailParts on SalesInvoiceLine {
-        id
-        lineOrder
-        linePrice
-        narration
-        quantity
-        product {
-            id
-        }
+        ${SALES_INVOICE_LINE_DETAIL_PARTS_RAW}
     }
 `;
 
@@ -169,6 +180,15 @@ export const ORGANIZATION_LIST_PARTS = gql`
         ${ORGANIZATION_LIST_PARTS_RAW}
     }
 `;
+
+export const SALES_INVOICE_VAT_DETAIL_PARTS_RAW = `
+        id
+        vatRatePercent
+        vatTotal
+        vatTotalAccountingSchemeCurrency
+        vatTotalAccountingSchemeCurrencyRaw
+        vatTotalRaw
+`;
 export const SALES_INVOICE_VAT_DETAIL_PARTS = gql`
     fragment SalesInvoiceVatDetailParts on SalesInvoiceVat {
         id
@@ -180,18 +200,69 @@ export const SALES_INVOICE_VAT_DETAIL_PARTS = gql`
     }
 `;
 
-export const SALES_INVOICE_DETAIL_PARTS = gql`
-    ${CURRENCY_LIST_PARTS}
-    ${CUSTOMER_LIST_PARTS}
-    ${SALES_INVOICE_LINE_DETAIL_PARTS}
-    ${ORGANIZATION_LIST_PARTS}
-    ${SALES_INVOICE_VAT_DETAIL_PARTS}
-    fragment SalesInvoiceDetailParts on SalesInvoice {
+export const BANK_LIST_PARTS_RAW = `
+        id
+        displayName
+        bankIdentifierCode
+`;
+
+export const BANK_ACCOUNT_LIST_PARTS_RAW = `
+        id
+        displayName
+        bank {
+            ${BANK_LIST_PARTS_RAW}
+        }
+        bankAccountCustomerPrintableNumber
+        iban
+        swift
+`;
+
+export const CURRENCY_DETAIL_PARTS_RAW = `
+        id
+        displayName
+        isoCode
+`;
+
+export const ACCOUNTING_SCHEME_DETAIL_PARTS_RAW = `
+    id
+    displayName
+    currency {
+        ${CURRENCY_DETAIL_PARTS_RAW}
+    }
+`;
+
+export const ORGANIZATION_DETAIL_PARTS_RAW = `
+        id
+        displayName
+        legalAddress {
+            ${ADDRESS_LIST_PARTS_RAW}
+        }
+        legalName
+        registration
+        contact
+        idNumber
+        vatNumber
+        bankAccount {
+            ${BANK_ACCOUNT_LIST_PARTS_RAW}
+        }
+        accountingScheme {
+            ${ACCOUNTING_SCHEME_DETAIL_PARTS_RAW}
+        }
+`;
+
+export const FACTORING_PROVIDER_LIST_PARTS_RAW = `
+        id
+        displayName
+        legalName
+        contact
+`;
+
+export const SALES_INVOICE_DETAIL_PARTS_RAW = `
         currency {
-            ...CurrencyListParts
+            ${CURRENCY_LIST_PARTS_RAW}
         }
         customer {
-            ...CustomerListParts
+            ${CUSTOMER_LIST_PARTS_RAW}
         }
         documentNo
         dueDate
@@ -204,10 +275,10 @@ export const SALES_INVOICE_DETAIL_PARTS = gql`
         isDraft
         issuedOn
         lines {
-            ...SalesInvoiceLineDetailParts
+            ${SALES_INVOICE_LINE_DETAIL_PARTS_RAW}
         }
         organization {
-            ...OrganizationListParts
+            ${ORGANIZATION_DETAIL_PARTS_RAW}
         }
         paymentTermInDays
         printDate
@@ -219,15 +290,17 @@ export const SALES_INVOICE_DETAIL_PARTS = gql`
         totalLinesAccountingSchemeCurrency
         transactionDate
         vatReport {
-            ...SalesInvoiceVatDetailParts
+            ${SALES_INVOICE_VAT_DETAIL_PARTS_RAW}
         }
-    }
+        factoringProvider {
+            ${FACTORING_PROVIDER_LIST_PARTS_RAW}
+        }        
 `;
 
-export const CURRENCY_DETAIL_PARTS_RAW = `
-        id
-        displayName
-        isoCode
+export const SALES_INVOICE_DETAIL_PARTS = gql`
+    fragment SalesInvoiceDetailParts on SalesInvoice {
+        ${SALES_INVOICE_DETAIL_PARTS_RAW}
+    }
 `;
 
 export const CURRENCY_DETAIL_PARTS = gql`
@@ -244,40 +317,15 @@ export const BANK_DETAIL_PARTS = gql`
     }
 `;
 
-export const BANK_LIST_PARTS_RAW = `
-        id
-        displayName
-        bankIdentifierCode
-`;
-
 export const BANK_LIST_PARTS = gql`
     fragment BankListParts on Bank {
         ${BANK_LIST_PARTS_RAW}
     }
 `;
 
-export const BANK_ACCOUNT_LIST_PARTS_RAW = `
-        id
-        displayName
-        bank {
-            ${BANK_LIST_PARTS_RAW}
-        }
-        bankAccountCustomerPrintableNumber
-        iban
-        swift
-`;
-
 export const BANK_ACCOUNT_LIST_PARTS = gql`
     fragment BankAccountListParts on BankAccount {
         ${BANK_ACCOUNT_LIST_PARTS_RAW}
-    }
-`;
-
-export const ACCOUNTING_SCHEME_DETAIL_PARTS_RAW = `
-    id
-    displayName
-    currency {
-        ${CURRENCY_DETAIL_PARTS_RAW}
     }
 `;
 
@@ -288,33 +336,9 @@ export const ACCOUNTING_SCHEME_DETAIL_PARTS = gql`
 `;
 
 export const ORGANIZATION_DETAIL_PARTS = gql`
-    ${ADDRESS_LIST_PARTS}
-    ${BANK_ACCOUNT_LIST_PARTS}
-    ${ACCOUNTING_SCHEME_DETAIL_PARTS}
     fragment OrganizationDetailParts on Organization {
-        id
-        displayName
-        legalAddress {
-            ...AddressListParts
-        }
-        legalName
-        registration
-        contact
-        idNumber
-        vatNumber
-        bankAccount {
-            ...BankAccountListParts
-        }
-        accountingScheme {
-            ...AccountingSchemeDetailParts
-        }
+        ${ORGANIZATION_DETAIL_PARTS_RAW}
     }
-`;
-
-export const PRODUCT_LIST_PARTS_RAW = `
-    id
-    sku
-    displayName
 `;
 
 export const PRODUCT_PRICES_LIST_PARTS_RAW = `

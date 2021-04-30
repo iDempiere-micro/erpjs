@@ -5,8 +5,8 @@
     import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
-        CreateCustomerMutation,
-        CreateCustomerMutationVariables,
+        SaveCustomerMutation,
+        SaveCustomerMutationVariables,
         CustomerDetailPartsFragment,
     } from 'src/generated/graphql';
     import { _ } from 'svelte-i18n';
@@ -130,10 +130,8 @@
         console.log('**** upload', upload);
     }
 
-    const addCustomer = mutation<CreateCustomerMutation, CreateCustomerMutationVariables>(
-        ADD_CUSTOMER,
-    );
-    const createCustomer = async () => {
+    const addCustomer = mutation<SaveCustomerMutation, SaveCustomerMutationVariables>(ADD_CUSTOMER);
+    const saveCustomer = async () => {
         if (
             displayName &&
             legalName &&
@@ -163,7 +161,7 @@
                 },
             });
 
-            customer = { id: data?.createCustomer?.id } as CustomerDetailPartsFragment;
+            customer = { id: data?.saveCustomer?.id } as CustomerDetailPartsFragment;
             await upload();
 
             await push(urls.customer.detail, customer.id);
@@ -721,7 +719,7 @@
         <button
             type="submit"
             class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            on:click|preventDefault={createCustomer}
+            on:click|preventDefault={saveCustomer}
         >
             Save
         </button>

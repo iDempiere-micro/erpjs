@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Select from 'svelte-select';
     import type {
         AccountingSchemeDetailPartsFragment,
         SaveAccountingSchemeMutation,
@@ -9,44 +8,32 @@
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_ACCOUNTING_SCHEME } from '../../lib/queries/accountingScheme';
-    import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/currency';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import type { SelectItem } from '../../lib/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import CurrencySelect from '../currencies/CurrencySelect.svelte';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
      */
     export let accountingScheme: AccountingSchemeDetailPartsFragment | undefined;
     let displayName = accountingScheme?.displayName;
-    let currencyIsoCode = accountingScheme?.currency?.isoCode;
+    let currencyId = accountingScheme?.currency?.id;
 
     const navigateToTheDetail = () =>
         accountingScheme && push(urls.accountingSchemes.detail, accountingScheme.id);
 
     let selectedCurrencyValue: SelectItem | undefined;
 
-    const handleSelectCurrency = (event: OnSelectParam) => {
-        currencyIsoCode = '' + event.detail.value;
+    const handleSelectCurrency = (id: number) => {
+        currencyId = id;
         myForm.validate();
     };
     const handleClearCurrency = () => {
-        currencyIsoCode = undefined;
+        currencyId = undefined;
         myForm.validate();
     };
-
-    ensureCurrenciesStore();
-
-    $: {
-        selectedCurrencyValue = undefined;
-        if (currencyIsoCode) {
-            const found = $currenciesStore.currencies.find((x) => x?.isoCode === currencyIsoCode);
-            if (found) {
-                selectedCurrencyValue = mapCurrencies([found])[0];
-            }
-        }
-    }
 
     const myForm = form(
         () => ({
@@ -54,8 +41,8 @@
                 value: displayName,
                 validators: ['required'],
             },
-            currencyIsoCode: {
-                value: currencyIsoCode,
+            currencyId: {
+                value: currencyId,
                 validators: ['required'],
             },
         }),
@@ -73,12 +60,12 @@
     >(SAVE_ACCOUNTING_SCHEME);
 
     const saveAccountingScheme = async () => {
-        if (displayName && currencyIsoCode) {
+        if (displayName && currencyId) {
             const { data } = await saveAccountingSchemeMutation({
                 variables: {
                     id: accountingScheme?.id,
                     displayName,
-                    currencyIsoCode,
+                    currencyId,
                 },
             });
             await push(urls.accountingSchemes.detail, data?.saveAccountingScheme?.id);
@@ -113,28 +100,13 @@
                                 />
                             </div>
                             <div class="col-span-6">
-                                <label
-                                    for="currencies"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.accountingSchemes.add.currency')}</label
-                                >
-                                <Select
-                                    inputAttributes={{
-                                        id: 'currencies',
-                                        'data-testid': 'currencies',
-                                    }}
-                                    items={mapCurrencies($currenciesStore.currencies)}
-                                    selectedValue={selectedCurrencyValue}
-                                    on:select={handleSelectCurrency}
-                                    on:clear={handleClearCurrency}
+                                <CurrencySelect
+                                    onSelect={handleSelectCurrency}
+                                    id="currencyId"
+                                    label={$_('page.accountingSchemes.add.currency')}
+                                    {currencyId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.currencyIsoCode.errors.includes('required')}
-                                    <label
-                                        for="currencies"
-                                        class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
                             <div class="grid-cols-1">
                                 <Button

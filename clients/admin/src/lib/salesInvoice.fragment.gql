@@ -33,4 +33,7 @@ fragment SalesInvoiceDetailParts on SalesInvoice {
     vatReport {
         ...SalesInvoiceVatDetailParts
     }
+    factoringProvider {
+        ...FactoringProviderListParts
+    }
 }

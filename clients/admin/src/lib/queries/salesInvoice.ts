@@ -1,12 +1,14 @@
 import gql from 'graphql-tag';
-import { SALES_INVOICE_DETAIL_PARTS } from '../fragments';
+import {
+    FACTORING_PROVIDER_DETAIL_PARTS_RAW,
+    FACTORING_PROVIDER_LIST_PARTS_RAW,
+    SALES_INVOICE_DETAIL_PARTS_RAW,
+} from '../fragments';
 
 export const CONFIRM_SALES_INVOICE = gql`
-    ${SALES_INVOICE_DETAIL_PARTS}
-
     mutation ConfirmSalesInvoice($id: Int!) {
         confirmSalesInvoice(args: { id: $id }) {
-            ...SalesInvoiceDetailParts
+            ${SALES_INVOICE_DETAIL_PARTS_RAW}
         }
     }
 `;
@@ -96,117 +98,54 @@ export const mock1 = {
 export const GET_SALES_INVOICE_BY_ID = gql`
     query SalesInvoiceById($id: Int!) {
         salesInvoice(id: $id) {
-            currency {
-                id
-                isoCode
-                displayName
-            }
-            customer {
-                id
-                legalName
-                displayName
-                vatNumber
-                invoicingEmail
-                legalAddress {
-                    id
-                    city
-                    line1
-                    zipCode
-                    country {
-                        id
-                        isoCode
-                    }
-                }
-                address {
-                    id
-                    city
-                    line1
-                    zipCode
-                    country {
-                        id
-                        isoCode
-                    }
-                }
-                note
-            }
-            documentNo
-            dueDate
-            grandTotal
-            grandTotalAccountingSchemeCurrency
-            id
-            isActive
-            isCalculated
-            isCurrent
-            isDraft
-            issuedOn
-            lines {
-                id
-                lineOrder
-                linePrice
-                narration
-                quantity
-                product {
-                    id
-                }
-            }
-            organization {
-                contact
-                displayName
-                id
-                idNumber
-                legalName
-                registration
-                vatNumber
-                accountingScheme {
-                    currency {
-                        displayName
-                    }
-                }
-            }
-            paymentTermInDays
-            printDate
-            printed
-            printError
-            printLanguageIsoCode
-            reverseCharge
-            totalLines
-            totalLinesAccountingSchemeCurrency
-            transactionDate
-            vatReport {
-                id
-                vatRatePercent
-                vatTotal
-                vatTotalAccountingSchemeCurrency
-                vatTotalAccountingSchemeCurrencyRaw
-                vatTotalRaw
-            }
+            ${SALES_INVOICE_DETAIL_PARTS_RAW}
         }
     }
 `;
 export const ADD_SALES_INVOICE = gql`
-    mutation CreateSalesInvoice(
+    mutation SaveSalesInvoice(
         $id: Int
-        $currencyIsoCode: String!
+        $currencyId: Int!
         $customerId: Int!
         $issuedOn: Date!
         $lines: [SalesInvoiceLineSaveArgs!]!
         $organizationId: Int!
         $paymentTermInDays: Int!
         $transactionDate: Date!
+        $factoringProviderId: Int
     ) {
-        createSalesInvoice(
+        saveSalesInvoice(
             args: {
                 id: $id
-                currencyIsoCode: $currencyIsoCode
+                currencyId: $currencyId
                 customerId: $customerId
                 issuedOn: $issuedOn
                 lines: $lines
                 organizationId: $organizationId
                 paymentTermInDays: $paymentTermInDays
                 transactionDate: $transactionDate
+                factoringProviderId: $factoringProviderId
             }
         ) {
             id
         }
+    }
+`;
+
+export const FACTORING_PROVIDER_FOR_INVOICE = gql`
+    query FactoringProvidersForInvoice(
+        $organizationId: Int!
+        $customerId:  Int!
+    ) { factoringProvidersForInvoice( args :
+    {
+        factoringProviderId: 0
+        customerId: $customerId
+        organizationId: $organizationId
+        invoicePrintNote: ""
+    }
+
+    ) {
+        ${FACTORING_PROVIDER_LIST_PARTS_RAW}
+    }
     }
 `;
