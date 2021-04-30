@@ -10,7 +10,7 @@ type AccountingScheme {
 }
 
 input AccountingSchemeSaveArgs {
-  currencyIsoCode: String!
+  currencyId: Int!
   displayName: String!
   id: Int
 }
@@ -299,9 +299,7 @@ type MenuItem {
 
 type Mutation {
   confirmSalesInvoice(args: BaseSaveArgs!): SalesInvoice!
-  createCustomer(args: CustomerSaveArgs!): Customer!
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
-  createSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
   keepAlive: UniversalDateTime!
   saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
   saveBank(args: BankSaveArgs!): Bank!
@@ -309,6 +307,7 @@ type Mutation {
   saveContactPersonCompanyRelation(args: ContactPersonCompanyRelationSaveArgs!): ContactPersonCompanyRelation!
   saveCountry(args: CountrySaveArgs!): Country!
   saveCurrency(args: CurrencySaveArgs!): Currency!
+  saveCustomer(args: CustomerSaveArgs!): Customer!
   saveCustomerGroup(args: CustomerGroupSaveArgs!): CustomerGroup!
   saveCustomerPriceList(args: CustomerPriceListSaveArgs!): CustomerPriceList!
   saveCustomerProductPrice(args: CustomerProductPriceSaveArgs!): CustomerProductPrice!
@@ -316,6 +315,7 @@ type Mutation {
   saveFactoringProvider(args: FactoringProviderSaveArgs!): FactoringProvider!
   saveOrganization(args: OrganizationSaveArgs!): Organization!
   saveProduct(args: ProductSaveArgs!): Product!
+  saveSalesInvoice(args: SalesInvoiceSaveArgs!): SalesInvoice!
 }
 
 type Organization {
@@ -478,9 +478,9 @@ input SalesInvoiceMonthlySaveArgs {
 }
 
 input SalesInvoiceSaveArgs {
-  currencyIsoCode: String!
+  currencyId: Int!
   customerId: Int!
-  factoringProviderId: Float
+  factoringProviderId: Int
   id: Int
   issuedOn: Date!
   lines: [SalesInvoiceLineSaveArgs!]!

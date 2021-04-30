@@ -1,4 +1,4 @@
-mutation CreateCustomer(
+mutation SaveCustomer(
             $id: Int
             $displayName: String!
             $legalName: String!
@@ -12,7 +12,7 @@ mutation CreateCustomer(
             $vatNumber: String
             $customerGroupId: Int
         ) {
-            createCustomer(
+            saveCustomer(
                 args: {
                     id: $id
                     displayName: $displayName

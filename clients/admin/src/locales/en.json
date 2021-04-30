@@ -117,7 +117,10 @@
       },
       "add": {
         "title": "Create Sales Invoice",
-        "nav": "Create Sales Invoice"
+        "nav": "Create Sales Invoice",
+        "currency": "Currency",
+        "customer": "Customer",
+        "organization": "Organization"
       },
       "edit": {
         "title": "Edit Sales Invoice",
@@ -133,6 +136,7 @@
         "customer": "Buyer",
         "transactionDate": "Transaction Date",
         "totalLines": "Total Lines",
+        "factoringProvider": "Factoring Provider",
         "description" : {
           "internalInformation": "All the invoice information"
         }

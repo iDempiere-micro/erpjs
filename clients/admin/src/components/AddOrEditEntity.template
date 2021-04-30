@@ -8,13 +8,13 @@
     import type { Customer } from 'src/generated/graphql';
 
     const ADD_CUSTOMER = gql`
-        mutation CreateCustomer(
+        mutation SaveCustomer(
             $id: Int
             $displayName: String!
             $legalName: String!
             $legalAddressCity: String!
         ) {
-            createCustomer(
+            saveCustomer(
                 args: {
                     id: $id
                     displayName: $displayName
@@ -97,7 +97,7 @@
         },
     );
 
-    const createCustomer = async () => {
+    const saveCustomer = async () => {
         const { data } = await addCustomer({
             variables: {
                 id: customer ? customer.id : null,
@@ -106,7 +106,7 @@
                 legalAddressCity,
             },
         });
-        const { id } = data.createCustomer;
+        const { id } = data.saveCustomer;
         console.log('*** customer created', id);
     };
 </script>
@@ -726,7 +726,7 @@
                     <button
                         type="submit"
                         class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        on:click|preventDefault={createCustomer}
+                        on:click|preventDefault={saveCustomer}
                         disabled={!$myForm.valid}
                     >
                         Save

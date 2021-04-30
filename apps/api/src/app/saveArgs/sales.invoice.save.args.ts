@@ -6,8 +6,8 @@ import { SalesInvoiceLineSaveArgs } from './sales.invoice.line.save.args';
 @InputType()
 export class SalesInvoiceSaveArgs extends BaseSaveArgs
   implements SalesInvoiceSaveArgsModel {
-  @Field()
-  currencyIsoCode: string;
+  @Field(() => Int)
+  currencyId: number;
 
   @Field(() => Int)
   customerId: number;
@@ -27,6 +27,6 @@ export class SalesInvoiceSaveArgs extends BaseSaveArgs
   @Field()
   transactionDate: Date;
 
-  @Field({ nullable: true })
+  @Field(() => Int, { nullable: true })
   factoringProviderId?: number;
 }

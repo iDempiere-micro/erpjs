@@ -41,7 +41,7 @@ export const GET_CUSTOMER_BY_ID = gql`
     }
 `;
 export const ADD_CUSTOMER = gql`
-    mutation CreateCustomer(
+    mutation SaveCustomer(
         $id: Int
         $displayName: String!
         $legalName: String!
@@ -55,7 +55,7 @@ export const ADD_CUSTOMER = gql`
         $vatNumber: String!
         $customerGroupId: Int
     ) {
-        createCustomer(
+        saveCustomer(
             args: {
                 id: $id
                 displayName: $displayName

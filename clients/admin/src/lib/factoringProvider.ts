@@ -34,7 +34,9 @@ export const ensureFactoringProvidersStore = () => {
     });
 };
 
-export const mapFactoringProviders = (data: FactoringProviderListPartsFragment[]): SelectItem[] =>
+export const mapFactoringProviders = (
+    data: FactoringProviderListPartsFragment[] | undefined,
+): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
               value: id,

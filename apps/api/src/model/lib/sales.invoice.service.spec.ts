@@ -388,6 +388,32 @@ describe('SalesInvoiceService', () => {
       );
       expect(result.length).toBe(2);
     });
+    it('monthly invoices are generated even for zero hours', async () => {
+      const result = await service.createMonthlyInvoice(
+        mockEntityManager,
+        {
+          totalHours: 0,
+          dailyRate: 1000,
+          organizationDivider: [
+            {
+              id: 1,
+              value: 0,
+            },
+            {
+              id: 1,
+              value: 1,
+            },
+          ],
+          narration: 'test',
+          year: 2021,
+          month: 3 - 1,
+          day: 31,
+          eurToCzkRate: 25,
+        },
+        { id: 1 } as any,
+      );
+      expect(result.length).toBe(1);
+    });
 
     it('bankAccount and printNote should be taken from the valid factoring provider and should not be taken from an invalid factoring provider', async () => {
       const result = await service.save(

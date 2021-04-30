@@ -30,13 +30,11 @@
             }
         }
     }
-
-    console.log('*** ', $organizationsStore.organizations);
 </script>
 
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
-    inputAttributes={{ id, 'data-testid': id }}
+    inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
     items={mapOrganizations($organizationsStore.organizations)}
     selectedValue={selectedOrganization}
     on:select={handleSelectOrganization}

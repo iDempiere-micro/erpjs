@@ -12,7 +12,7 @@ describe('<AddAccountingScheme>', function () {
     const getDisplayNameAndCurrency = () => {
         const { getByTestId } = render(AddAccountingScheme);
         const displayName = getByTestId('displayName');
-        const currency = getByTestId('currencies');
+        const currency = getByTestId('currencyId');
         const saveButton: HTMLButtonElement = getByTestId('saveButton') as HTMLButtonElement;
         return { displayName, currency, saveButton };
     };
