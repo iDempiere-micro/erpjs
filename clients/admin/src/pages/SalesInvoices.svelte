@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
     import type { SalesInvoicesQuery } from 'src/generated/graphql';
     import { apollo, setClient } from '../lib/support/apollo';
     import SalesInvoiceList from '../components/sales-invoices/SalesInvoiceList.svelte';
@@ -8,6 +7,7 @@
     import { EVERYTHING } from '../lib/queries/salesInvoices';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { query } from '../absorb/svelte-apollo';
 
     const client = apollo(urls.salesInvoices.list);
     setClient(client);

@@ -6,7 +6,7 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import { SAVE_FACTORING_CONTRACT } from '../../lib/queries/factoringContract';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
@@ -14,6 +14,7 @@
     import FactoringProviderSelect from '../factoringProviders/FactoringProviderSelect.svelte';
     import OrganizationSelect from '../organizations/OrganizationSelect.svelte';
     import CustomerSelect from '../customers/CustomerSelect.svelte';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme

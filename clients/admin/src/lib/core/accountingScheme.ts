@@ -1,13 +1,15 @@
 import type {
     AccountingSchemeByIdQuery,
     AccountingSchemesQuery,
+    SaveAccountingSchemeMutation,
+    SaveAccountingSchemeMutationVariables,
 } from '../../generated/graphql';
-import { query } from 'svelte-apollo';
 import { ACCOUNTING_SCHEMES } from '../queries/accountingSchemes';
 import type { SelectItem } from '../support/select';
-import { GET_ACCOUNTING_SCHEME_BY_ID } from '../queries/accountingScheme';
+import { GET_ACCOUNTING_SCHEME_BY_ID, SAVE_ACCOUNTING_SCHEME } from '../queries/accountingScheme';
 import type { AccountingSchemeRow } from '../model/accountingScheme';
 import { ensureEntityStore, init } from './entityStore';
+import { mutation, query } from '../../absorb/svelte-apollo';
 
 export const accountingSchemesStore = init<AccountingSchemeRow>();
 
@@ -15,7 +17,7 @@ export const ensureAccountingSchemesStore = () => {
     ensureEntityStore<AccountingSchemeRow, AccountingSchemesQuery>(
         accountingSchemesStore,
         ACCOUNTING_SCHEMES,
-        (value) => value?.accountingSchemes || []
+        (value) => value?.accountingSchemes || [],
     );
 };
 
@@ -29,3 +31,8 @@ export const mapAccountingSchemes = (data: AccountingSchemeRow[]): SelectItem[] 
 
 export const getAccountingSchemeBy = (id: number) =>
     query<AccountingSchemeByIdQuery>(GET_ACCOUNTING_SCHEME_BY_ID, { variables: { id } });
+
+export const saveAccountingSchemeMutation = () =>
+    mutation<SaveAccountingSchemeMutation, SaveAccountingSchemeMutationVariables>(
+        SAVE_ACCOUNTING_SCHEME,
+    );

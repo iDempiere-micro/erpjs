@@ -2,9 +2,9 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { authStore } from './auth';
-import { setClient as apolloSetClient } from 'svelte-apollo';
 import { createMockClient } from 'mock-apollo-client';
 import { mocks } from './mocks';
+import { setClient as apolloSetClient } from '../../absorb/svelte-apollo';
 
 const httpLink = (uri: string) =>
     createHttpLink({

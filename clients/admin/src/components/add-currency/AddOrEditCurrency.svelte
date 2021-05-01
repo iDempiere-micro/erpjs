@@ -6,11 +6,12 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import { SAVE_CURRENCY } from '../../lib/queries/currency';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
     import { _ } from 'svelte-i18n';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     export let currency: CurrencyDetailPartsFragment | undefined;
     let displayName = currency?.displayName;

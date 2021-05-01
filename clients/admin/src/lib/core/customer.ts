@@ -1,4 +1,3 @@
-import { query } from 'svelte-apollo';
 import type {
     CustomerByIdQuery,
     CustomerListPartsFragment,
@@ -10,6 +9,7 @@ import { authStore } from '../support/auth';
 import { store } from '../support/store';
 import { CUSTOMERS } from '../queries/customers';
 import type { SelectItem } from '../support/select';
+import { mutation, query } from '../../absorb/svelte-apollo';
 
 export const getCustomerBy = (id: number) =>
     query<CustomerByIdQuery>(GET_CUSTOMER_BY_ID, { variables: { id } });

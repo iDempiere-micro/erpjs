@@ -1,9 +1,9 @@
 import type { CustomerListPartsFragment, CustomersQuery } from '../../generated/graphql';
-import { query } from 'svelte-apollo';
+
 import { store } from '../support/store';
 import { CUSTOMERS } from '../queries/customers';
 import type { SelectItem } from '../support/select';
-
+import { mutation, query } from '../../absorb/svelte-apollo';
 export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({

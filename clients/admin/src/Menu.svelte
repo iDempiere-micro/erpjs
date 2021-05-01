@@ -1,7 +1,7 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import { authStore } from './lib/support/auth';
-    import { menuStore } from './lib/core/menu';
+    import { menuStore } from './lib/core';
     import { apollo } from './lib/support/apollo';
     import { onDestroy } from 'svelte';
     import { GET_MENU } from './lib/queries/menu';

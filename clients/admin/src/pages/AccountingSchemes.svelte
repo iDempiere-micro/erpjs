@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
     import type { AccountingSchemesQuery } from 'src/generated/graphql';
     import { apollo, setClient } from '../lib/support/apollo';
     import { getError } from '../lib/support/util';
@@ -8,6 +7,7 @@
     import { ACCOUNTING_SCHEMES } from '../lib/queries/accountingSchemes';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { query } from '../absorb/svelte-apollo';
 
     const client = apollo(urls.accountingSchemes.list);
     setClient(client);

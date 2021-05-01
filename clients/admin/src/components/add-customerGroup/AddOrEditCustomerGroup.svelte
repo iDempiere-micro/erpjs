@@ -6,12 +6,13 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import { SAVE_CUSTOMER_GROUP } from '../../lib/queries/customerGroup';
     import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme

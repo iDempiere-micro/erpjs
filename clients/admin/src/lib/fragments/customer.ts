@@ -51,4 +51,3 @@ export const CUSTOMER_DETAIL_PARTS_RAW = `
         www
         publicNote        
 `;
-

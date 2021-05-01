@@ -15,14 +15,9 @@
     import NarrationColumn from './NarrationColumn.svelte';
     import ProductColumn from './ProductColumn.svelte';
     import type { Column, RowAction } from '../../molecules/datagrid/types';
-    import { ensureProductsStore } from '../../lib/core/product';
-    import type { ReadableQuery } from 'svelte-apollo';
-    import { mutation, query } from 'svelte-apollo';
+    import { ensureProductsStore } from '../../lib/core';
     import * as R from 'ramda';
-    import {
-        ADD_SALES_INVOICE,
-        FACTORING_PROVIDER_FOR_INVOICE,
-    } from '../../lib/queries/salesInvoice';
+    import { ADD_SALES_INVOICE, FACTORING_PROVIDER_FOR_INVOICE } from '../../lib/queries/salesInvoice';
     import { push, urls } from '../../pages/pathAndSegment';
     import FactoringProviderSelect from '../factoringProviders/FactoringProviderSelect.svelte';
     import { _ } from 'svelte-i18n';
@@ -30,6 +25,8 @@
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
     import OrganizationSelect from '../organizations/OrganizationSelect.svelte';
     import Button from '../../dsl/Button.svelte';
+    import type { ReadableQuery } from '../../absorb/svelte-apollo';
+    import { mutation, query } from '../../absorb/svelte-apollo';
 
     export let salesInvoice: SalesInvoiceDetailPartsFragment | undefined;
 

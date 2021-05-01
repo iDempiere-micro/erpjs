@@ -1,12 +1,12 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/support/apollo';
-    import { getSalesInvoiceBy } from '../lib/core/salesInvoices';
+    import { getSalesInvoiceBy } from '../lib/core';
     import { getError, throwOnUndefined } from '../lib/support/util';
     import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { authStore } from '../lib/support/auth';
-    import { mutation } from 'svelte-apollo';
+
     import type {
         ConfirmSalesInvoiceMutation,
         ConfirmSalesInvoiceMutationVariables,
@@ -15,6 +15,7 @@
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import SalesInvoicePageHeader from '../components/sales-invoice-detail/SalesInvoicePageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
+    import { mutation } from '../absorb/svelte-apollo';
 
     export let params: any = {};
     const id = parseInt('' + params.id);

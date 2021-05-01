@@ -24,9 +24,7 @@
     $: {
         selectedAccountingScheme = undefined;
         if (accountingSchemeId) {
-            const found = $accountingSchemesStore.data.find(
-                (x) => x?.id === accountingSchemeId,
-            );
+            const found = $accountingSchemesStore.data.find((x) => x?.id === accountingSchemeId);
             if (found) {
                 selectedAccountingScheme = mapAccountingSchemes([found])[0];
             }

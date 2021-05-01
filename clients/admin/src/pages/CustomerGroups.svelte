@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
     import type { CustomerGroupsQuery } from 'src/generated/graphql';
     import { apollo, setClient } from '../lib/support/apollo';
     import { getError } from '../lib/support/util';
@@ -8,6 +7,7 @@
     import { CUSTOMER_GROUPS } from '../lib/queries/customerGroups';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { query } from '../absorb/svelte-apollo';
 
     const client = apollo(urls.customerGroups.list);
     setClient(client);

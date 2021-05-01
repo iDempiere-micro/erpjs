@@ -8,4 +8,3 @@ export const COUNTRY_DETAIL_PARTS_RAW = `
 id
 displayName
 isoCode`;
-

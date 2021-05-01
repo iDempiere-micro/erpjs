@@ -7,7 +7,7 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form as svelteForm } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
     import { banksStore, ensureBanksStore, mapBanks } from '../../lib/core/bank';
@@ -17,6 +17,7 @@
     import Break from '../../molecules/form/Break.svelte';
     import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     export let organization: OrganizationDetailPartsFragment | undefined;
     let displayName = organization?.displayName;

@@ -1,19 +1,18 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/support/apollo';
-    import { getCustomerBy } from '../lib/core/customer';
+    import { getCustomerBy, getCustomerGroupBy } from '../lib/core';
     import { segments, urls } from './pathAndSegment';
     import { getError, printableString } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
-    import { getCustomerGroupBy } from '../lib/core/customerGroup';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-    import type { ReadableQuery } from 'svelte-apollo';
     import type {
         CustomerGroupByIdQuery,
         CustomerGroupDetailPartsFragment,
     } from '../generated/graphql';
+    import type { ReadableQuery } from '../absorb/svelte-apollo';
 
     export let params: any = {};
     const id = parseInt('' + params.id);

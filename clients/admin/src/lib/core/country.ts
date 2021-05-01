@@ -3,11 +3,12 @@ import type {
     CountryByIdQuery,
     CountryListPartsFragment,
 } from '../../generated/graphql';
-import { query } from 'svelte-apollo';
+
 import { store } from '../support/store';
 import { COUNTRIES } from '../queries/countries';
 import type { SelectItem } from '../support/select';
 import { GET_COUNTRY_BY_ID } from '../queries/country';
+import { mutation, query } from '../../absorb/svelte-apollo';
 
 export interface WithCountryListPartsFragment {
     loaded: boolean;

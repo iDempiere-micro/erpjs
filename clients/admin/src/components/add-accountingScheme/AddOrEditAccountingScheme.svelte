@@ -1,18 +1,13 @@
 <script lang="ts">
-    import type {
-        SaveAccountingSchemeMutation,
-        SaveAccountingSchemeMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_ACCOUNTING_SCHEME } from '../../lib/queries/accountingScheme';
     import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
     import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
+    import { saveAccountingSchemeMutation } from '../../lib/core';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
@@ -54,14 +49,12 @@
         },
     );
 
-    export const saveAccountingSchemeMutation = mutation<
-        SaveAccountingSchemeMutation,
-        SaveAccountingSchemeMutationVariables
-    >(SAVE_ACCOUNTING_SCHEME);
-
-    const saveAccountingScheme = async () => {
+    const saveAccountingScheme = async (
+        displayName: string | undefined,
+        currencyId: number | undefined,
+    ) => {
         if (displayName && currencyId) {
-            const { data } = await saveAccountingSchemeMutation({
+            const { data } = await saveAccountingSchemeMutation()({
                 variables: {
                     id: accountingScheme?.id,
                     displayName,
@@ -110,8 +103,8 @@
                             </div>
                             <div class="grid-cols-1">
                                 <Button
-                                    on:click={() => {
-                                        saveAccountingScheme();
+                                    on:click={async () => {
+                                        await saveAccountingScheme(displayName, currencyId);
                                     }}
                                     disabled={!$myForm.valid}
                                 />

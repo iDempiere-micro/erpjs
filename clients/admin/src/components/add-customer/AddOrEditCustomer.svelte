@@ -2,7 +2,7 @@
     import Break from '../../molecules/form/Break.svelte';
 
     import { bindClass, form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
         CustomerDetailPartsFragment,
@@ -19,6 +19,7 @@
     import { push, urls } from '../../pages/pathAndSegment';
     import { authStore } from '../../lib/support/auth';
     import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;

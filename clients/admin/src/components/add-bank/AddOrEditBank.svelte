@@ -6,11 +6,11 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
     import { SAVE_BANK } from '../../lib/queries/bank';
     import { _ } from 'svelte-i18n';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     export let bank: BankDetailPartsFragment | undefined;
     let displayName = bank?.displayName;

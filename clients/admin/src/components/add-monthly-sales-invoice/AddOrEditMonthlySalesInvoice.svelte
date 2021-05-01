@@ -2,15 +2,13 @@
     import gql from 'graphql-tag';
 
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import type {
-        CreateMonthlyInvoiceMutation,
-        CreateMonthlyInvoiceMutationVariables,
-    } from 'src/generated/graphql';
+
+    import type { CreateMonthlyInvoiceMutation, CreateMonthlyInvoiceMutationVariables } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { authStore } from '../../lib/support/auth';
     import { downloadInvoice } from '../../lib/core/salesInvoices';
     import { _ } from 'svelte-i18n';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     const ADD_MONTHLY_SALES_INVOICE = gql`
         mutation CreateMonthlyInvoice(

@@ -66,7 +66,6 @@
     "ramda": "^0.27.1",
     "snowpack": "^3.0.1",
     "snowpack-plugin-replace": "^1.0.4",
-    "svelte-apollo": "^0.4.0",
     "svelte-check": "^1.1.28",
     "svelte-forms": "^1.1.2",
     "svelte-i18n": "^3.3.0",

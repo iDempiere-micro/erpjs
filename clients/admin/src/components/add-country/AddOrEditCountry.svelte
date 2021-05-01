@@ -6,11 +6,12 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import gql from 'graphql-tag';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     const SAVE_PRODUCT = gql`
         mutation SaveCountry($id: Int, $displayName: String!, $isoCode: String!) {

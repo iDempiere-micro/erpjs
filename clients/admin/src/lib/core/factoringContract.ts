@@ -3,11 +3,12 @@ import type {
     FactoringContractListPartsFragment,
     FactoringContractsQuery,
 } from '../../generated/graphql';
-import { query } from 'svelte-apollo';
+
 import { store } from '../support/store';
 import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
 import type { SelectItem } from '../support/select';
 import { GET_FACTORING_CONTRACT_BY_ID } from '../queries/factoringContract';
+import { query } from '../../absorb/svelte-apollo';
 
 export interface WithFactoringContractListPartsFragment {
     loaded: boolean;

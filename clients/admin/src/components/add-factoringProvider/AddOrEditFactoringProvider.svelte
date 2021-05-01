@@ -7,7 +7,7 @@
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form as svelteForm } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import { SAVE_FACTORING_PROVIDER } from '../../lib/queries/factoringProvider';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
     import { banksStore, ensureBanksStore, mapBanks } from '../../lib/core/bank';
@@ -15,6 +15,7 @@
     import Break from '../../molecules/form/Break.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     export let factoringProvider: FactoringProviderDetailPartsFragment | undefined;
     let displayName = factoringProvider?.displayName;

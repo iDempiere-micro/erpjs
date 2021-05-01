@@ -3,11 +3,12 @@ import type {
     ProductListPartsFragment,
     ProductsQuery,
 } from '../../generated/graphql';
-import { query } from 'svelte-apollo';
+
 import { store } from '../support/store';
 import { PRODUCTS } from '../queries/products';
 import type { SelectItem } from '../support/select';
 import { GET_PRODUCT_BY_ID } from '../queries/product';
+import { query } from '../../absorb/svelte-apollo';
 
 export interface WithProductListPartsFragment {
     loaded: boolean;
