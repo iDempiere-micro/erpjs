@@ -1,8 +1,8 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
     import type { AccountingSchemesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getError } from '../lib/support/util';
     import AccountingSchemeList from '../components/accountingSchemes/AccountingSchemeList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { ACCOUNTING_SCHEMES } from '../lib/queries/accountingSchemes';

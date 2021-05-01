@@ -9,10 +9,10 @@
     import { form as svelteForm } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
-    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/bank';
-    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
-    import { throwOnUndefined } from '../../lib/util';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/core/bank';
+    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/core/country';
+    import { throwOnUndefined } from '../../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';

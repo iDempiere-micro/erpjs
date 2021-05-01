@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import FactoringProviderSelect from '../components/factoringProviders/FactoringProviderSelect.svelte';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/factoringProviders';
 

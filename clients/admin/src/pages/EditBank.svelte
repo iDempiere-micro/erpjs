@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getBankBy } from '../lib/bank';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getBankBy } from '../lib/core/bank';
     import AddOrEditBank from '../components/add-bank/AddOrEditBank.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

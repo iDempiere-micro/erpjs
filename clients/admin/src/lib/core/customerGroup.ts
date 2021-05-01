@@ -2,12 +2,12 @@ import type {
     CustomerGroupByIdQuery,
     CustomerGroupListPartsFragment,
     CustomerGroupsQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { query, ReadableQuery } from 'svelte-apollo';
-import { store } from './store';
-import { CUSTOMER_GROUPS } from './queries/customerGroups';
-import type { SelectItem } from './select';
-import { GET_CUSTOMER_GROUP_BY_ID } from './queries/customerGroup';
+import { store } from '../support/store';
+import { CUSTOMER_GROUPS } from '../queries/customerGroups';
+import type { SelectItem } from '../support/select';
+import { GET_CUSTOMER_GROUP_BY_ID } from '../queries/customerGroup';
 
 export interface WithCustomerGroupListPartsFragment {
     loaded: boolean;

@@ -1,7 +1,7 @@
 import type { ApolloError } from '@apollo/client/core';
 import { authStore } from './auth';
 import { push } from 'svelte-spa-router';
-import { urls } from '../pages/pathAndSegment';
+import { urls } from '../../pages/pathAndSegment';
 
 const errorHandlers = [
     {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import Nav from './Nav.svelte';
-    import { profileMenuOpened } from './lib/menu';
+    import { profileMenuOpened } from './lib/core/menu';
 
     export let title: string | undefined = undefined;
     export let segment: string;

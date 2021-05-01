@@ -1,6 +1,6 @@
 import Keycloak from 'keycloak-js';
 import { replace } from 'svelte-spa-router';
-import { authStore } from './lib/auth';
+import { authStore } from './lib/support/auth';
 
 const checkRedirect = () => {
     if (window.location.href.indexOf('/#nextUrl=') >= 0) {

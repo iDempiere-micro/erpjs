@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../../lib/apollo';
+    import { apollo, setClient } from '../../lib/support/apollo';
     import { _ } from 'svelte-i18n';
-    import { getError } from '../../lib/util';
+    import { getError } from '../../lib/support/util';
     import { push, urls } from '../../pages/pathAndSegment.js';
-    import { getSalesInvoiceBy } from '../../lib/salesInvoices';
+    import { getSalesInvoiceBy } from '../../lib/core/salesInvoices';
 
     let mobileMenu = false;
     export let id: number;

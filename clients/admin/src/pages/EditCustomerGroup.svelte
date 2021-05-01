@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getCustomerGroupBy } from '../lib/customerGroup';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getCustomerGroupBy } from '../lib/core/customerGroup';
     import AddOrEditCustomerGroup from '../components/add-customerGroup/AddOrEditCustomerGroup.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

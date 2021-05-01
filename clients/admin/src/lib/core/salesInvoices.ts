@@ -1,6 +1,6 @@
 import { query } from 'svelte-apollo';
-import type { SalesInvoiceByIdQuery } from '../generated/graphql';
-import { GET_SALES_INVOICE_BY_ID } from './queries/salesInvoice';
+import type { SalesInvoiceByIdQuery } from '../../generated/graphql';
+import { GET_SALES_INVOICE_BY_ID } from '../queries/salesInvoice';
 
 export const downloadInvoice = (
     baseUrl: string | undefined,

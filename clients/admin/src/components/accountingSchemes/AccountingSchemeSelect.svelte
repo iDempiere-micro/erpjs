@@ -5,8 +5,8 @@
         accountingSchemesStore,
         ensureAccountingSchemesStore,
         mapAccountingSchemes,
-    } from '../../lib/accountingScheme';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    } from '../../lib/core/accountingScheme';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureAccountingSchemesStore();
     let selectedAccountingScheme: SelectItem | undefined;

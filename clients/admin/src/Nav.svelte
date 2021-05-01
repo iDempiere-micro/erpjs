@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { profileMenuOpened } from './lib/menu';
+    import { profileMenuOpened } from './lib/core/menu';
     import { _ } from 'svelte-i18n';
     import Menu from './Menu.svelte';
 

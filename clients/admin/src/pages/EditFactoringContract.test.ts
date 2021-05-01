@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import EditFactoringContract from './EditFactoringContract.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/factoringContract';
-import { getFormElements } from '../lib/testHelpers';
+import { getFormElements } from '../lib/support/testHelpers';
 import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
 import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';

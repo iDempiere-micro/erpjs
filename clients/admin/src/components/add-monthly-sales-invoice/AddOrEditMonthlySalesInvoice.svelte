@@ -8,8 +8,8 @@
         CreateMonthlyInvoiceMutationVariables,
     } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { authStore } from '../../lib/auth';
-    import { downloadInvoice } from '../../lib/salesInvoices';
+    import { authStore } from '../../lib/support/auth';
+    import { downloadInvoice } from '../../lib/core/salesInvoices';
     import { _ } from 'svelte-i18n';
 
     const ADD_MONTHLY_SALES_INVOICE = gql`

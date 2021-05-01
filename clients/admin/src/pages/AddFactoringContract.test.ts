@@ -5,7 +5,7 @@ import { setupLocales } from '../i18n';
 import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
 import { mock as mockCustomers } from '../lib/queries/customers';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
-import { getFormElements } from '../lib/testHelpers';
+import { getFormElements } from '../lib/support/testHelpers';
 
 describe('<AddFactoringContract>', function () {
     before(() => {

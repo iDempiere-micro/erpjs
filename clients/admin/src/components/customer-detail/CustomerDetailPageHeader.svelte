@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../../lib/apollo';
-    import { getCustomerBy, loadCustomerPhotoContent } from '../../lib/customer';
+    import { apollo, setClient } from '../../lib/support/apollo';
+    import { getCustomerBy, loadCustomerPhotoContent } from '../../lib/core/customer';
     import { _ } from 'svelte-i18n';
-    import { getError } from '../../lib/util';
-    import { addressOneLiner } from '../../lib/address';
+    import { getError } from '../../lib/support/util';
+    import { addressOneLiner } from '../../lib/core/address';
     import { push, urls } from '../../pages/pathAndSegment';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
 

@@ -2,12 +2,12 @@ import type {
     OrganizationByIdQuery,
     OrganizationListPartsFragment,
     OrganizationsQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from './store';
-import type { SelectItem } from './select';
-import { ORGANIZATIONS_SIMPLE } from './queries/organizations';
-import { GET_ORGANIZATION_BY_ID } from './queries/organization';
+import { store } from '../support/store';
+import type { SelectItem } from '../support/select';
+import { ORGANIZATIONS_SIMPLE } from '../queries/organizations';
+import { GET_ORGANIZATION_BY_ID } from '../queries/organization';
 
 export interface WithOrganizationListPartsFragment {
     loaded: boolean;

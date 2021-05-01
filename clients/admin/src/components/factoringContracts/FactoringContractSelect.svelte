@@ -5,8 +5,8 @@
         ensureFactoringContractsStore,
         factoringContractsStore,
         mapFactoringContracts,
-    } from '../../lib/factoringContract';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    } from '../../lib/core/factoringContract';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureFactoringContractsStore();
     let selectedFactoringContract: SelectItem | undefined;

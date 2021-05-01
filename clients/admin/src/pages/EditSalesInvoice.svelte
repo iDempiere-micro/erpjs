@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import AddOrEditSalesInvoice from '../components/add-sales-invoice/AddOrEditSalesInvoice.svelte';
-    import { getSalesInvoiceBy } from '../lib/salesInvoices';
-    import { getError } from '../lib/util';
+    import { getSalesInvoiceBy } from '../lib/core/salesInvoices';
+    import { getError } from '../lib/support/util';
     import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';

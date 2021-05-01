@@ -1,8 +1,8 @@
-import type { CustomerListPartsFragment, CustomersQuery } from '../generated/graphql';
+import type { CustomerListPartsFragment, CustomersQuery } from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from './store';
-import { CUSTOMERS } from './queries/customers';
-import type { SelectItem } from './select';
+import { store } from '../support/store';
+import { CUSTOMERS } from '../queries/customers';
+import type { SelectItem } from '../support/select';
 
 export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data

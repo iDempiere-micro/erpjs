@@ -1,7 +1,7 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import AddOrEditCustomerGroup from '../components/add-customerGroup/AddOrEditCustomerGroup.svelte';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
     import { mock1 } from '../lib/queries/customerGroup';
 

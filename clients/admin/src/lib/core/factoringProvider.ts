@@ -2,12 +2,12 @@ import type {
     FactoringProviderByIdQuery,
     FactoringProviderListPartsFragment,
     FactoringProvidersQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from './store';
-import type { SelectItem } from './select';
-import { FACTORING_PROVIDERS } from './queries/factoringProviders';
-import { GET_FACTORING_PROVIDER_BY_ID } from './queries/factoringProvider';
+import { store } from '../support/store';
+import type { SelectItem } from '../support/select';
+import { FACTORING_PROVIDERS } from '../queries/factoringProviders';
+import { GET_FACTORING_PROVIDER_BY_ID } from '../queries/factoringProvider';
 
 export interface WithFactoringProviderListPartsFragment {
     loaded: boolean;

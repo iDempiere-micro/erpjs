@@ -9,8 +9,8 @@
     import { form as svelteForm } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_FACTORING_PROVIDER } from '../../lib/queries/factoringProvider';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
-    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/bank';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/core/bank';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import { push, urls } from '../../pages/pathAndSegment';

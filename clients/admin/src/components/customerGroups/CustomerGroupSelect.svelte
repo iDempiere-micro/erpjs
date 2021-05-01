@@ -5,8 +5,8 @@
         customerGroupsStore,
         ensureCustomerGroupsStore,
         mapCustomerGroups,
-    } from '../../lib/customerGroup';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    } from '../../lib/core/customerGroup';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureCustomerGroupsStore();
     let selectedCustomerGroup: SelectItem | undefined;

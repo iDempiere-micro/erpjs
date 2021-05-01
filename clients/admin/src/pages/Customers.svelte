@@ -1,8 +1,8 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import CustomerList from '../components/customers/CustomerList.svelte';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import type { CustomersQuery } from 'src/generated/graphql';
     import { segments, urls } from './pathAndSegment';
     import { CUSTOMERS } from '../lib/queries/customers';

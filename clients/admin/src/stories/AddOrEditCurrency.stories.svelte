@@ -1,7 +1,7 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import AddOrEditCurrency from '../components/add-currency/AddOrEditCurrency.svelte';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/currencies';
 

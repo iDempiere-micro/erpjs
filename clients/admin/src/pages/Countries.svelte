@@ -1,8 +1,8 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
     import type { CountriesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getError } from '../lib/support/util';
     import CountryList from '../components/countries/CountryList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { COUNTRIES } from '../lib/queries/countries';

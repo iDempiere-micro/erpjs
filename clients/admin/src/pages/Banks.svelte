@@ -1,8 +1,8 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
     import type { BanksQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getError } from '../lib/support/util';
     import BankList from '../components/banks/BankList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { BANKS } from '../lib/queries/banks';

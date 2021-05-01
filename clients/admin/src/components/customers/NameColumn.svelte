@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { CustomerDetailPartsFragment } from '../../generated/graphql';
-    import { loadCustomerPhotoContent } from '../../lib/customer';
+    import { loadCustomerPhotoContent } from '../../lib/core/customer';
 
     export let row: CustomerDetailPartsFragment;
     let customerPhotoContent: string;

@@ -1,8 +1,8 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
     import type { OrganizationsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getError } from '../lib/support/util';
     import OrganizationList from '../components/organizations/OrganizationList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { ORGANIZATIONS } from '../lib/queries/organizations';

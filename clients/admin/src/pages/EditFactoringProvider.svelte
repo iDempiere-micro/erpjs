@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getFactoringProviderBy } from '../lib/factoringProvider';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getFactoringProviderBy } from '../lib/core/factoringProvider';
     import AddOrEditFactoringProvider from '../components/add-factoringProvider/AddOrEditFactoringProvider.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

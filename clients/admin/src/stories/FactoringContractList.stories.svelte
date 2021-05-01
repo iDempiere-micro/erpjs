@@ -1,7 +1,7 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import FactoringContractList from '../components/factoringContracts/FactoringContractList.svelte';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/factoringContracts';
 

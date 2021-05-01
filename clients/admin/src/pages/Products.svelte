@@ -1,8 +1,8 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
     import type { ProductsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getError } from '../lib/support/util';
     import ProductList from '../components/products/ProductList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { PRODUCTS } from '../lib/queries/products';

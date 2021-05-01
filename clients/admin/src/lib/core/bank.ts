@@ -1,9 +1,9 @@
-import type { BankByIdQuery, BankListPartsFragment, BanksQuery } from '../generated/graphql';
+import type { BankByIdQuery, BankListPartsFragment, BanksQuery } from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from './store';
-import { BANKS } from './queries/banks';
-import type { SelectItem } from './select';
-import { GET_BANK_BY_ID } from './queries/bank';
+import { store } from '../support/store';
+import { BANKS } from '../queries/banks';
+import type { SelectItem } from '../support/select';
+import { GET_BANK_BY_ID } from '../queries/bank';
 
 export interface WithBankListPartsFragment {
     loaded: boolean;

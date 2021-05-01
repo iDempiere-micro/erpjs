@@ -1,8 +1,8 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/currency';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/core/currency';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureCurrenciesStore();
     let selectedCurrency: SelectItem | undefined;

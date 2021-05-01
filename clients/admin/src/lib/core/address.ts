@@ -1,4 +1,4 @@
-import type { AddressListPartsFragment } from '../generated/graphql';
+import type { AddressListPartsFragment } from '../../generated/graphql';
 
 export const addressOneLiner = (address: AddressListPartsFragment | undefined | null) =>
     address

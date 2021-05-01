@@ -1,47 +1,47 @@
 import type { DocumentNode } from '@apollo/client/core';
 import type { RequestHandler } from 'mock-apollo-client/dist/mockClient';
-import { CUSTOMERS, mock as mockCustomers } from './queries/customers';
-import { GET_MENU, mock as mockMenu } from './queries/menu';
-import { EVERYTHING, mock as mockSalesInvoices } from './queries/salesInvoices';
+import { CUSTOMERS, mock as mockCustomers } from '../queries/customers';
+import { GET_MENU, mock as mockMenu } from '../queries/menu';
+import { EVERYTHING, mock as mockSalesInvoices } from '../queries/salesInvoices';
 import {
     mock as mockSalesInvoicesInTime,
     QUERY as SALES_INVOICES_IN_TIME,
-} from './queries/salesInvoicesInTime';
-import { mock as mockProducts, PRODUCTS } from './queries/products';
-import { CURRENCIES, mock as mockCurrencies } from './queries/currencies';
+} from '../queries/salesInvoicesInTime';
+import { mock as mockProducts, PRODUCTS } from '../queries/products';
+import { CURRENCIES, mock as mockCurrencies } from '../queries/currencies';
 import {
     GET_ACCOUNTING_SCHEME_BY_ID,
     mock as mockSaveAccountingScheme,
     mock1 as mockGetAccountingSchemeById,
     SAVE_ACCOUNTING_SCHEME,
-} from './queries/accountingScheme';
-import { ACCOUNTING_SCHEMES, mock as mockAccountingSchemes } from './queries/accountingSchemes';
-import { CUSTOMER_GROUPS, mock as mockCustomerGroups } from './queries/customerGroups';
+} from '../queries/accountingScheme';
+import { ACCOUNTING_SCHEMES, mock as mockAccountingSchemes } from '../queries/accountingSchemes';
+import { CUSTOMER_GROUPS, mock as mockCustomerGroups } from '../queries/customerGroups';
 import {
     GET_CUSTOMER_GROUP_BY_ID,
     mock as mockSaveCustomerGroup,
     mock1 as mockCustomerGroup,
     SAVE_CUSTOMER_GROUP,
-} from './queries/customerGroup';
-import { GET_CUSTOMER_BY_ID, mock as mockGetCustomerById } from './queries/customer';
-import { GET_SALES_INVOICE_BY_ID, mock1 as mockGetSalesInvoiceById } from './queries/salesInvoice';
-import { FACTORING_PROVIDERS, mock as mockFactoringProviders } from './queries/factoringProviders';
+} from '../queries/customerGroup';
+import { GET_CUSTOMER_BY_ID, mock as mockGetCustomerById } from '../queries/customer';
+import { GET_SALES_INVOICE_BY_ID, mock1 as mockGetSalesInvoiceById } from '../queries/salesInvoice';
+import { FACTORING_PROVIDERS, mock as mockFactoringProviders } from '../queries/factoringProviders';
 import {
     GET_FACTORING_PROVIDER_BY_ID,
     mock1 as mockFactoringProvider,
-} from './queries/factoringProvider';
-import { FACTORING_CONTRACTS, mock as mockFactoringContracts } from './queries/factoringContracts';
+} from '../queries/factoringProvider';
+import { FACTORING_CONTRACTS, mock as mockFactoringContracts } from '../queries/factoringContracts';
 import {
     GET_FACTORING_CONTRACT_BY_ID,
     mock1 as mockFactoringContract,
-} from './queries/factoringContract';
-import { COUNTRIES, mock as mockCountries } from './queries/countries';
-import { BANKS, mock as mockBanks } from './queries/banks';
+} from '../queries/factoringContract';
+import { COUNTRIES, mock as mockCountries } from '../queries/countries';
+import { BANKS, mock as mockBanks } from '../queries/banks';
 import {
     mock as mockOrganizations,
     ORGANIZATIONS,
     ORGANIZATIONS_SIMPLE,
-} from './queries/organizations';
+} from '../queries/organizations';
 
 export interface ApolloMock {
     query: DocumentNode;

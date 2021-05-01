@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getOrganizationBy } from '../lib/organization';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getOrganizationBy } from '../lib/core/organization';
     import AddOrEditOrganization from '../components/add-organization/AddOrEditOrganization.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

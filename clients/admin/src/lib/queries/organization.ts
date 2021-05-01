@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { ORGANIZATION_DETAIL_PARTS } from '../fragments';
+import { ORGANIZATION_DETAIL_PARTS_RAW } from '../fragments/organization';
 
 export const SAVE_ORGANIZATION = gql`
     mutation SaveOrganization(
@@ -35,10 +35,9 @@ export const SAVE_ORGANIZATION = gql`
     }
 `;
 export const GET_ORGANIZATION_BY_ID = gql`
-    ${ORGANIZATION_DETAIL_PARTS}
     query organizationById($id: Int!) {
         organization(id: $id) {
-            ...OrganizationDetailParts
+            ${ORGANIZATION_DETAIL_PARTS_RAW}
         }
     }
 `;

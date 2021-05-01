@@ -1,9 +1,9 @@
 <script lang="ts">
     import { query } from 'svelte-apollo';
     import type { SalesInvoicesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import SalesInvoiceList from '../components/sales-invoices/SalesInvoiceList.svelte';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import { segments, urls } from './pathAndSegment';
     import { EVERYTHING } from '../lib/queries/salesInvoices';
     import { _ } from 'svelte-i18n';

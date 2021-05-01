@@ -2,12 +2,12 @@ import type {
     FactoringContractByIdQuery,
     FactoringContractListPartsFragment,
     FactoringContractsQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from './store';
-import { FACTORING_CONTRACTS } from './queries/factoringContracts';
-import type { SelectItem } from './select';
-import { GET_FACTORING_CONTRACT_BY_ID } from './queries/factoringContract';
+import { store } from '../support/store';
+import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
+import type { SelectItem } from '../support/select';
+import { GET_FACTORING_CONTRACT_BY_ID } from '../queries/factoringContract';
 
 export interface WithFactoringContractListPartsFragment {
     loaded: boolean;

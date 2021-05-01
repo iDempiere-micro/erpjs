@@ -2,12 +2,12 @@ import type {
     AccountingSchemeByIdQuery,
     AccountingSchemeListPartsFragment,
     AccountingSchemesQuery,
-} from '../generated/graphql';
+} from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from './store';
-import { ACCOUNTING_SCHEMES } from './queries/accountingSchemes';
-import type { SelectItem } from './select';
-import { GET_ACCOUNTING_SCHEME_BY_ID } from './queries/accountingScheme';
+import { store } from '../support/store';
+import { ACCOUNTING_SCHEMES } from '../queries/accountingSchemes';
+import type { SelectItem } from '../support/select';
+import { GET_ACCOUNTING_SCHEME_BY_ID } from '../queries/accountingScheme';
 
 export interface WithAccountingSchemeListPartsFragment {
     loaded: boolean;

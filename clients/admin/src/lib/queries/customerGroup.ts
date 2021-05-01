@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { CUSTOMER_GROUP_DETAIL_PARTS_RAW } from '../fragments';
 import { mock as mockCustomers } from './customers';
+import { CUSTOMER_GROUP_DETAIL_PARTS_RAW } from '../fragments';
 
 export const SAVE_CUSTOMER_GROUP = gql`
     mutation SaveCustomerGroup($id: Int, $displayName: String!) {

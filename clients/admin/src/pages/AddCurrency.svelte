@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import AddOrEditCurrency from '../components/add-currency/AddOrEditCurrency.svelte';
     import { segments, urls } from './pathAndSegment';
     import Page from '../Page.svelte';

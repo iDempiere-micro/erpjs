@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { SalesInvoiceLineSaveArgs } from '../../generated/graphql';
-    import { mapProducts, productsStore } from '../../lib/product';
+    import { mapProducts, productsStore } from '../../lib/core/product';
     import Select from 'svelte-select';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     export let row: SalesInvoiceLineSaveArgs;
     let selectedValue: SelectItem | undefined;

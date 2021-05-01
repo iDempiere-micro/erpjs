@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getSalesInvoiceBy } from '../lib/salesInvoices';
-    import { getError, throwOnUndefined } from '../lib/util';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getSalesInvoiceBy } from '../lib/core/salesInvoices';
+    import { getError, throwOnUndefined } from '../lib/support/util';
     import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { authStore } from '../lib/auth';
+    import { authStore } from '../lib/support/auth';
     import { mutation } from 'svelte-apollo';
     import type {
         ConfirmSalesInvoiceMutation,

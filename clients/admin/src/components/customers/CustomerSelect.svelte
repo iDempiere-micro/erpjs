@@ -1,8 +1,8 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import { customersStore, ensureCustomersStore, mapCustomers } from '../../lib/customer';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import { customersStore, ensureCustomersStore, mapCustomers } from '../../lib/core';
 
     ensureCustomersStore();
     let selectedCustomer: SelectItem | undefined;

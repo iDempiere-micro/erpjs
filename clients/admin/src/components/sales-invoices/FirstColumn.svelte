@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { SalesInvoiceListPartsFragment } from '../../generated/graphql';
-    import { downloadInvoice } from '../../lib/salesInvoices';
-    import { authStore } from '../../lib/auth';
+    import { downloadInvoice } from '../../lib/core/salesInvoices';
+    import { authStore } from '../../lib/support/auth';
 
     export let row: SalesInvoiceListPartsFragment;
 

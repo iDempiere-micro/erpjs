@@ -5,8 +5,8 @@
         ensureFactoringProvidersStore,
         factoringProvidersStore,
         mapFactoringProviders,
-    } from '../../lib/factoringProvider';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    } from '../../lib/core/factoringProvider';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
     import type { FactoringProviderListPartsFragment } from '../../generated/graphql';
 
     ensureFactoringProvidersStore();

@@ -5,8 +5,8 @@
         ensureOrganizationsStore,
         mapOrganizations,
         organizationsStore,
-    } from '../../lib/organization';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    } from '../../lib/core/organization';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureOrganizationsStore();
     let selectedOrganization: SelectItem | undefined;

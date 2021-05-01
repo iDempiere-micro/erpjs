@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getAccountingSchemeBy } from '../lib/accountingScheme';
+    import { apollo, setClient } from '../lib/support/apollo';
+    import { getAccountingSchemeBy } from '../lib/core/accountingScheme';
     import AddOrEditAccountingScheme from '../components/add-accountingScheme/AddOrEditAccountingScheme.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
