@@ -4,10 +4,9 @@
     import CustomerList from '../components/customers/CustomerList.svelte';
     import { getError } from '../lib/util';
     import type { CustomersQuery } from 'src/generated/graphql';
-    import { segments } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { CUSTOMERS } from '../lib/queries/customers';
     import { _ } from 'svelte-i18n';
-    import { urls } from './pathAndSegment';
     import Page from '../Page.svelte';
 
     const client = apollo(segments.customers);

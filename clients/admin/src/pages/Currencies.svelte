@@ -4,11 +4,10 @@
     import { apollo, setClient } from '../lib/apollo';
     import { getError } from '../lib/util';
     import CurrencyList from '../components/currencies/CurrencyList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { CURRENCIES } from '../lib/queries/currencies';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     const client = apollo(urls.currencies.list);
     setClient(client);

@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { ProductListPartsFragment } from '../../generated/graphql';
+
     export let row: ProductListPartsFragment;
 </script>
 

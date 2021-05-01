@@ -1,10 +1,7 @@
-import { fireEvent, render, RenderResult } from '@testing-library/svelte';
+import { render, RenderResult } from '@testing-library/svelte';
 import { expect } from 'chai';
 import EditCustomerGroup from './EditCustomerGroup.svelte';
 import { setupLocales } from '../i18n';
-import { mock as mockCurrencies } from '../lib/queries/currencies';
-import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
-import type { GetByBoundAttribute } from '@testing-library/dom/types/queries';
 import { mock1 } from '../lib/queries/customerGroup';
 
 describe('<EditCustomerGroup>', function () {

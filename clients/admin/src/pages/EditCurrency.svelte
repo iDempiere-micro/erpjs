@@ -2,11 +2,10 @@
     import { apollo, setClient } from '../lib/apollo';
     import { getCurrencyBy } from '../lib/currency';
     import AddOrEditCurrency from '../components/add-currency/AddOrEditCurrency.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { getError } from '../lib/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);

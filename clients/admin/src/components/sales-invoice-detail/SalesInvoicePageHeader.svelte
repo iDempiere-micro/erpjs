@@ -3,7 +3,6 @@
     import { _ } from 'svelte-i18n';
     import { getError } from '../../lib/util';
     import { push, urls } from '../../pages/pathAndSegment.js';
-    import { getClient } from 'svelte-apollo';
     import { getSalesInvoiceBy } from '../../lib/salesInvoices';
 
     let mobileMenu = false;

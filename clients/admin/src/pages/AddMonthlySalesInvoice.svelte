@@ -1,9 +1,8 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/apollo';
     import AddOrEditMonthlySalesInvoice from '../components/add-monthly-sales-invoice/AddOrEditMonthlySalesInvoice.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
 
     setClient(apollo(urls.salesInvoices.monthly.add));

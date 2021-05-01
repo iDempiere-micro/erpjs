@@ -2,6 +2,7 @@
     import type { SalesInvoiceListPartsFragment } from '../../generated/graphql';
     import { downloadInvoice } from '../../lib/salesInvoices';
     import { authStore } from '../../lib/auth';
+
     export let row: SalesInvoiceListPartsFragment;
 
     const download = (id: number) =>

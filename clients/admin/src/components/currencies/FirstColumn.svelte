@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { CurrencyListPartsFragment } from '../../generated/graphql';
+
     export let row: CurrencyListPartsFragment;
 </script>
 

@@ -1,4 +1,4 @@
-import { Readable, Writable, writable } from 'svelte/store';
+import { Writable, writable } from 'svelte/store';
 
 export type Store<T> = Writable<T> & { get(): T };
 

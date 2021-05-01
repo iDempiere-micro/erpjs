@@ -2,8 +2,8 @@
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
     import {
-        factoringContractsStore,
         ensureFactoringContractsStore,
+        factoringContractsStore,
         mapFactoringContracts,
     } from '../../lib/factoringContract';
     import type { OnSelectParam, SelectItem } from '../../lib/select';

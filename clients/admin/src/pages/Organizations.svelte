@@ -4,11 +4,10 @@
     import { apollo, setClient } from '../lib/apollo';
     import { getError } from '../lib/util';
     import OrganizationList from '../components/organizations/OrganizationList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { ORGANIZATIONS } from '../lib/queries/organizations';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     const client = apollo(urls.organizations.list);
     setClient(client);

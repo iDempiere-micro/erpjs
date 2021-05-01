@@ -3,10 +3,9 @@
     import AddOrEditSalesInvoice from '../components/add-sales-invoice/AddOrEditSalesInvoice.svelte';
     import { getSalesInvoiceBy } from '../lib/salesInvoices';
     import { getError } from '../lib/util';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);

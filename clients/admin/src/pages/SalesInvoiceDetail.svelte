@@ -2,10 +2,9 @@
     import { apollo, setClient } from '../lib/apollo';
     import { getSalesInvoiceBy } from '../lib/salesInvoices';
     import { getError, throwOnUndefined } from '../lib/util';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
     import { authStore } from '../lib/auth';
     import { mutation } from 'svelte-apollo';
     import type {

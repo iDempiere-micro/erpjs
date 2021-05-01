@@ -1,11 +1,10 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/apollo';
     import { getFactoringContractBy } from '../lib/factoringContract';
-    import { push, urls } from './pathAndSegment';
+    import { push, segments, urls } from './pathAndSegment';
     import { getError } from '../lib/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type { FactoringContractDetailPartsFragment } from '../generated/graphql';
     import Button from '../dsl/Button.svelte';

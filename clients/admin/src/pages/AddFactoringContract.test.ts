@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/svelte';
+import { fireEvent } from '@testing-library/svelte';
 import { expect } from 'chai';
 import AddFactoringContract from './AddFactoringContract.svelte';
 import { setupLocales } from '../i18n';

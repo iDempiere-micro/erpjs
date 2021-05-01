@@ -1,9 +1,5 @@
 import gql from 'graphql-tag';
-import {
-    ADDRESS_LIST_PARTS_RAW,
-    BANK_ACCOUNT_LIST_PARTS_RAW,
-    BANK_LIST_PARTS_RAW,
-} from '../fragments';
+import { ADDRESS_LIST_PARTS_RAW, BANK_ACCOUNT_LIST_PARTS_RAW } from '../fragments';
 import { mock as mockCountries } from './countries';
 import { mock as mockBanks } from './banks';
 

@@ -1,5 +1,5 @@
 <script>
-    import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+    import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import DataGrid from '../molecules/datagrid/Datagrid.svelte';
     import DataGridFirstColumn from './DataGridFirstColumn.svelte';
 </script>

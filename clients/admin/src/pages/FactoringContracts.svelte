@@ -4,11 +4,10 @@
     import { apollo, setClient } from '../lib/apollo';
     import { getError } from '../lib/util';
     import FactoringContractList from '../components/factoringContracts/FactoringContractList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { FACTORING_CONTRACTS } from '../lib/queries/factoringContracts';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     const client = apollo(urls.factoringContracts.list);
     setClient(client);

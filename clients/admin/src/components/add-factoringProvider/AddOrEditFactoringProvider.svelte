@@ -10,12 +10,9 @@
     import { mutation } from 'svelte-apollo';
     import { SAVE_FACTORING_PROVIDER } from '../../lib/queries/factoringProvider';
     import type { OnSelectParam, SelectItem } from '../../lib/select';
-    import { mapBanks, ensureBanksStore, banksStore } from '../../lib/bank';
-    import { ensureCountriesStore, countriesStore, mapCountries } from '../../lib/country';
-    import { throwOnUndefined } from '../../lib/util';
+    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/bank';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
-    import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
 

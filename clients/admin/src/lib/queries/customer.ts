@@ -1,12 +1,5 @@
 import gql from 'graphql-tag';
-import {
-    ADDRESS_LIST_PARTS,
-    COUNTRY_LIST_PARTS,
-    CUSTOMER_DETAIL_PARTS,
-    CUSTOMER_DETAIL_PARTS_RAW,
-    CUSTOMER_GROUP_DETAIL_PARTS,
-    CUSTOMER_GROUP_LIST_PARTS,
-} from '../fragments';
+import { CUSTOMER_DETAIL_PARTS_RAW } from '../fragments';
 
 export const mock = {
     data: {

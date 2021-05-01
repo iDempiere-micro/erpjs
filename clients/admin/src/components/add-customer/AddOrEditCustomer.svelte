@@ -5,9 +5,9 @@
     import { mutation } from 'svelte-apollo';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
+        CustomerDetailPartsFragment,
         SaveCustomerMutation,
         SaveCustomerMutationVariables,
-        CustomerDetailPartsFragment,
     } from 'src/generated/graphql';
     import { _ } from 'svelte-i18n';
     import { ADD_CUSTOMER } from '../../lib/queries/customer';

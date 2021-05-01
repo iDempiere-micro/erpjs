@@ -4,24 +4,24 @@ import { CUSTOMERS, mock as mockCustomers } from './queries/customers';
 import { GET_MENU, mock as mockMenu } from './queries/menu';
 import { EVERYTHING, mock as mockSalesInvoices } from './queries/salesInvoices';
 import {
-    QUERY as SALES_INVOICES_IN_TIME,
     mock as mockSalesInvoicesInTime,
+    QUERY as SALES_INVOICES_IN_TIME,
 } from './queries/salesInvoicesInTime';
-import { PRODUCTS, mock as mockProducts } from './queries/products';
+import { mock as mockProducts, PRODUCTS } from './queries/products';
 import { CURRENCIES, mock as mockCurrencies } from './queries/currencies';
 import {
-    SAVE_ACCOUNTING_SCHEME,
+    GET_ACCOUNTING_SCHEME_BY_ID,
     mock as mockSaveAccountingScheme,
     mock1 as mockGetAccountingSchemeById,
-    GET_ACCOUNTING_SCHEME_BY_ID,
+    SAVE_ACCOUNTING_SCHEME,
 } from './queries/accountingScheme';
 import { ACCOUNTING_SCHEMES, mock as mockAccountingSchemes } from './queries/accountingSchemes';
 import { CUSTOMER_GROUPS, mock as mockCustomerGroups } from './queries/customerGroups';
 import {
     GET_CUSTOMER_GROUP_BY_ID,
+    mock as mockSaveCustomerGroup,
     mock1 as mockCustomerGroup,
     SAVE_CUSTOMER_GROUP,
-    mock as mockSaveCustomerGroup,
 } from './queries/customerGroup';
 import { GET_CUSTOMER_BY_ID, mock as mockGetCustomerById } from './queries/customer';
 import { GET_SALES_INVOICE_BY_ID, mock1 as mockGetSalesInvoiceById } from './queries/salesInvoice';
@@ -38,8 +38,8 @@ import {
 import { COUNTRIES, mock as mockCountries } from './queries/countries';
 import { BANKS, mock as mockBanks } from './queries/banks';
 import {
-    ORGANIZATIONS,
     mock as mockOrganizations,
+    ORGANIZATIONS,
     ORGANIZATIONS_SIMPLE,
 } from './queries/organizations';
 

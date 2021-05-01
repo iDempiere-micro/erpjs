@@ -26,9 +26,8 @@ export const ensureAccountingSchemesStore = () => {
         if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             accountingSchemesStore.update((x) => ({
-                loaded: true,
-                // @ts-ignore
-                accountingSchemes: value.data.accountingSchemes,
+                loaded: (value?.data?.accountingSchemes?.length || 0) > 0,
+                accountingSchemes: value?.data?.accountingSchemes || [],
             }));
         }
     });

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Select from 'svelte-select';
     import type {
         CustomerGroupDetailPartsFragment,
         SaveCustomerGroupMutation,
@@ -9,7 +8,7 @@
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import { SAVE_CUSTOMER_GROUP } from '../../lib/queries/customerGroup';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import type { SelectItem } from '../../lib/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';

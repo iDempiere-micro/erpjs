@@ -4,11 +4,10 @@
     import { apollo, setClient } from '../lib/apollo';
     import SalesInvoiceList from '../components/sales-invoices/SalesInvoiceList.svelte';
     import { getError } from '../lib/util';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { EVERYTHING } from '../lib/queries/salesInvoices';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     const client = apollo(urls.salesInvoices.list);
     setClient(client);

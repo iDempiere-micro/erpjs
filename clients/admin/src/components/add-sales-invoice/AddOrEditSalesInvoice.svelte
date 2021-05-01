@@ -16,8 +16,8 @@
     import ProductColumn from './ProductColumn.svelte';
     import type { Column, RowAction } from '../../molecules/datagrid/types';
     import { ensureProductsStore } from '../../lib/product';
-    import { mutation, query } from 'svelte-apollo';
     import type { ReadableQuery } from 'svelte-apollo';
+    import { mutation, query } from 'svelte-apollo';
     import * as R from 'ramda';
     import {
         ADD_SALES_INVOICE,

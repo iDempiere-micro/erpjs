@@ -1,11 +1,11 @@
 <script lang="ts">
     import { profileMenuOpened } from './lib/menu';
+    import { _ } from 'svelte-i18n';
+    import Menu from './Menu.svelte';
 
     let mobileMenuOpened: boolean;
-    import { _ } from 'svelte-i18n';
     const accountManagementUrl = `${process.env.KEYCLOAK_BASE_URL}/realms/${process.env.KEYCLOAK_REALM}/account`;
 
-    import Menu from './Menu.svelte';
     export let segment: string;
 </script>
 

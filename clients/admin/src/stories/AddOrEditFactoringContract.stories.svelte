@@ -1,5 +1,5 @@
 <script>
-    import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+    import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import AddOrEditFactoringContract from '../components/add-factoringContract/AddOrEditFactoringContract.svelte';
     import { apollo, setClient } from '../lib/apollo';
     import { setupLocales } from '../i18n';

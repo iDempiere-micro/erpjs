@@ -2,11 +2,10 @@
     import { apollo, setClient } from '../lib/apollo';
     import { getFactoringProviderBy } from '../lib/factoringProvider';
     import AddOrEditFactoringProvider from '../components/add-factoringProvider/AddOrEditFactoringProvider.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { getError } from '../lib/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
