@@ -1,10 +1,19 @@
 import { query, Result } from 'svelte-apollo';
 import type { Store } from '../support/store';
 import type { DocumentNode } from '@apollo/client/core';
+import { store } from '../support/store';
+import { AccountingSchemeRow } from '../model/accountingScheme';
 
 export interface WithEntityRow<T> {
     loaded: boolean;
     data: T[];
+}
+
+export function init<T>() : Store<WithEntityRow<T>> {
+    return store<WithEntityRow<T>>({
+        loaded: false,
+        data: [],
+    });
 }
 
 export function ensureEntityStore<T, Q> (

@@ -24,7 +24,7 @@
     $: {
         selectedAccountingScheme = undefined;
         if (accountingSchemeId) {
-            const found = $accountingSchemesStore.accountingSchemes.find(
+            const found = $accountingSchemesStore.data.find(
                 (x) => x?.id === accountingSchemeId,
             );
             if (found) {
@@ -37,7 +37,7 @@
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
-    items={mapAccountingSchemes($accountingSchemesStore.accountingSchemes)}
+    items={mapAccountingSchemes($accountingSchemesStore.data)}
     selectedValue={selectedAccountingScheme}
     on:select={handleSelectAccountingScheme}
 />

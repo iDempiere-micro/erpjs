@@ -3,34 +3,20 @@ import type {
     AccountingSchemesQuery,
 } from '../../generated/graphql';
 import { query } from 'svelte-apollo';
-import { store } from '../support/store';
 import { ACCOUNTING_SCHEMES } from '../queries/accountingSchemes';
 import type { SelectItem } from '../support/select';
 import { GET_ACCOUNTING_SCHEME_BY_ID } from '../queries/accountingScheme';
 import type { AccountingSchemeRow } from '../model/accountingScheme';
+import { ensureEntityStore, init } from './entityStore';
 
-export interface WithAccountingSchemeRow {
-    loaded: boolean;
-    accountingSchemes: AccountingSchemeRow[];
-}
+export const accountingSchemesStore = init<AccountingSchemeRow>();
 
-export const accountingSchemesStore = store<WithAccountingSchemeRow>({
-    loaded: false,
-    accountingSchemes: [],
-});
 export const ensureAccountingSchemesStore = () => {
-    if (accountingSchemesStore.get().loaded) return;
-
-    const accountingSchemesResult = query<AccountingSchemesQuery>(ACCOUNTING_SCHEMES);
-    accountingSchemesResult.subscribe((value) => {
-        if (value?.error) throw new Error(`${value?.error}`);
-        if (value?.data) {
-            accountingSchemesStore.update((x) => ({
-                loaded: (value?.data?.accountingSchemes?.length || 0) > 0,
-                accountingSchemes: value?.data?.accountingSchemes || [],
-            }));
-        }
-    });
+    ensureEntityStore<AccountingSchemeRow, AccountingSchemesQuery>(
+        accountingSchemesStore,
+        ACCOUNTING_SCHEMES,
+        (value) => value?.accountingSchemes || []
+    );
 };
 
 export const mapAccountingSchemes = (data: AccountingSchemeRow[]): SelectItem[] =>
