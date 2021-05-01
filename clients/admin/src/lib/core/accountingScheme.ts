@@ -1,6 +1,5 @@
 import type {
     AccountingSchemeByIdQuery,
-    AccountingSchemeListPartsFragment,
     AccountingSchemesQuery,
 } from '../../generated/graphql';
 import { query } from 'svelte-apollo';
@@ -8,13 +7,14 @@ import { store } from '../support/store';
 import { ACCOUNTING_SCHEMES } from '../queries/accountingSchemes';
 import type { SelectItem } from '../support/select';
 import { GET_ACCOUNTING_SCHEME_BY_ID } from '../queries/accountingScheme';
+import type { AccountingSchemeRow } from '../model/accountingScheme';
 
-export interface WithAccountingSchemeListPartsFragment {
+export interface WithAccountingSchemeRow {
     loaded: boolean;
-    accountingSchemes: AccountingSchemeListPartsFragment[];
+    accountingSchemes: AccountingSchemeRow[];
 }
 
-export const accountingSchemesStore = store<WithAccountingSchemeListPartsFragment>({
+export const accountingSchemesStore = store<WithAccountingSchemeRow>({
     loaded: false,
     accountingSchemes: [],
 });
@@ -33,7 +33,7 @@ export const ensureAccountingSchemesStore = () => {
     });
 };
 
-export const mapAccountingSchemes = (data: AccountingSchemeListPartsFragment[]): SelectItem[] =>
+export const mapAccountingSchemes = (data: AccountingSchemeRow[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
               value: id,

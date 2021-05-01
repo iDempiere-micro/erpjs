@@ -2,7 +2,3 @@ import type { AccountingSchemeDetailPartsFragment, AccountingSchemeListPartsFrag
 
 export type AccountingSchemeDetail = AccountingSchemeDetailPartsFragment;
 export type AccountingSchemeRow = AccountingSchemeListPartsFragment;
-
-export class AccountingSchemeService {
-
-}

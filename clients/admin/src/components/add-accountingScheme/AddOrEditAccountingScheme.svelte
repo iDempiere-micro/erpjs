@@ -1,6 +1,5 @@
 <script lang="ts">
     import type {
-        AccountingSchemeDetailPartsFragment,
         SaveAccountingSchemeMutation,
         SaveAccountingSchemeMutationVariables,
     } from '../../generated/graphql';
@@ -13,11 +12,12 @@
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
+    import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
      */
-    export let accountingScheme: AccountingSchemeDetailPartsFragment | undefined;
+    export let accountingScheme: AccountingSchemeDetail | undefined;
     let displayName = accountingScheme?.displayName;
     let currencyId = accountingScheme?.currency?.id;
 

@@ -1,13 +1,13 @@
 <script lang="ts">
     import { apollo, setClient } from '../lib/support/apollo';
-    import { getAccountingSchemeBy } from '../lib/core/accountingScheme';
+    import { getAccountingSchemeBy } from '../lib/core';
     import { push, segments, urls } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-    import type { AccountingSchemeDetailPartsFragment } from '../generated/graphql';
     import Button from '../dsl/Button.svelte';
+    import type { AccountingSchemeDetail } from '../lib/model/accountingScheme';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
@@ -16,7 +16,7 @@
         urls.accountingSchemes.detail + id,
     );
     setClient(client);
-    let accountingScheme: AccountingSchemeDetailPartsFragment;
+    let accountingScheme: AccountingSchemeDetail;
 
     const accountingSchemeResult = getAccountingSchemeBy(id);
 
