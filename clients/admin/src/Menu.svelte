@@ -10,7 +10,7 @@
 
     let menuResult;
     setTimeout(() => {
-        if ((window as any).token && !menuResult) {
+        if ( (process.env.MOCK || (window as any).token) && !menuResult) {
             menuResult = query<MenuQuery>(GET_MENU);
         }
     }, 1000);
