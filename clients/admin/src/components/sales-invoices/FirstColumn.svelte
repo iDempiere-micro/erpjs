@@ -1,14 +1,13 @@
 <script lang="ts">
     import type { SalesInvoiceListPartsFragment } from '../../generated/graphql';
-    import { downloadInvoice } from '../../lib/core/salesInvoices';
-    import { authStore } from '../../lib/support/auth';
+    import { downloadInvoice } from '../../lib/core';
 
     export let row: SalesInvoiceListPartsFragment;
 
     const download = (id: number) =>
         process.env.API_BASE_URL &&
-        authStore?.get()?.token &&
-        downloadInvoice(process.env.API_BASE_URL, authStore?.get()?.token || '', id);
+        (window as any).token &&
+        downloadInvoice(process.env.API_BASE_URL, (window as any).token || '', id);
 </script>
 
 <div class="flex items-center">

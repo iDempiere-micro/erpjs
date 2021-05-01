@@ -1,18 +1,12 @@
 <script lang="ts">
-    import { apollo, setClient } from '../../lib/support/apollo';
-    import { getCustomerBy, loadCustomerPhotoContent } from '../../lib/core/customer';
+    import { addressOneLiner, getCustomerBy, loadCustomerPhotoContent } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import { getError } from '../../lib/support/util';
-    import { addressOneLiner } from '../../lib/core/address';
     import { push, urls } from '../../pages/pathAndSegment';
-    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
 
     let mobileMenu = false;
     export let id: number;
     id = parseInt('' + id);
-
-    export let client: ApolloClient<NormalizedCacheObject> = apollo(urls.customer.detail + id);
-    setClient(client);
 
     const customerResult = getCustomerBy(id);
     let customer = {} as any;

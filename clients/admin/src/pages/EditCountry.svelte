@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import { getCountryBy } from '../lib/core/country';
     import AddOrEditCountry from '../components/add-country/AddOrEditCountry.svelte';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
-
-    const client = apollo(urls.countries.edit + +id);
-    setClient(client);
 
     const country = getCountryBy(id);
 </script>

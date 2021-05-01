@@ -1,6 +1,6 @@
 import type { Store } from '../support/store';
-import type { DocumentNode } from '@apollo/client/core';
 import { store } from '../support/store';
+import type { DocumentNode } from '@apollo/client/core';
 import { query } from '../../absorb/svelte-apollo';
 
 export interface WithEntityRow<T> {

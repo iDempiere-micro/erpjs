@@ -1,12 +1,8 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import AddOrEditCustomerGroup from '../components/add-customerGroup/AddOrEditCustomerGroup.svelte';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import Page from '../Page.svelte';
     import { _ } from 'svelte-i18n';
-
-    const client = apollo(urls.customerGroups.add);
-    setClient(client);
 </script>
 
 <Page

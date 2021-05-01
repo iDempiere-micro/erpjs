@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { ProductsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import type { ProductsQuery } from '../generated/graphql';
     import { getError } from '../lib/support/util';
     import ProductList from '../components/products/ProductList.svelte';
     import { segments, urls } from './pathAndSegment';
@@ -9,8 +8,6 @@
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.products.list);
-    setClient(client);
     const products = query<ProductsQuery, any>(PRODUCTS);
 </script>
 

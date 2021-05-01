@@ -1,21 +1,15 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import { getFactoringProviderBy } from '../lib/core/factoringProvider';
     import { push, segments, urls } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type { FactoringProviderDetailPartsFragment } from '../generated/graphql';
     import Button from '../dsl/Button.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    export let client: ApolloClient<NormalizedCacheObject> = apollo(
-        urls.factoringProviders.detail + id,
-    );
-    setClient(client);
     let FactoringProvider: FactoringProviderDetailPartsFragment;
 
     const FactoringProviderResult = getFactoringProviderBy(id);

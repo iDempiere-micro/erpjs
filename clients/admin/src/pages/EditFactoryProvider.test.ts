@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import EditFactoringProvider from './EditFactoringProvider.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/factoringProvider';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<EditFactoringProvider>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     const getDisplayNameAndCurrency = (renderResult: RenderResult) => {

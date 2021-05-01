@@ -1,11 +1,9 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import { getSalesInvoiceBy } from '../lib/core';
     import { getError, throwOnUndefined } from '../lib/support/util';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { authStore } from '../lib/support/auth';
 
     import type {
         ConfirmSalesInvoiceMutation,
@@ -20,8 +18,6 @@
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const client = apollo(urls.customer.edit + id);
-    setClient(client);
     const confirmSalesInvoice = mutation<
         ConfirmSalesInvoiceMutation,
         ConfirmSalesInvoiceMutationVariables
@@ -36,7 +32,7 @@
         const result = await fetch(baseUrl.replace('graphql', 'file/sales-invoice/' + id), {
             headers: {
                 'Content-Type': 'application/pdf',
-                Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
+                Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || (window as any).token),
             },
         });
         const { data } = await result.json();

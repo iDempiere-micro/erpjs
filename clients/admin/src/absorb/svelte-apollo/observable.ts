@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client/core';
 import type { FetchResult, Observable, ObservableQuery } from '@apollo/client';
-import { readable } from 'svelte/store';
 import type { Readable } from 'svelte/store';
+import { readable } from 'svelte/store';
 
 // Match Apollo's hook approach, by returning a result with three states:
 // loading, error, or data (where data could be null / undefined)

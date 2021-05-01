@@ -4,7 +4,7 @@ import { store } from '../support/store';
 import type { SelectItem } from '../support/select';
 import { CURRENCIES } from '../queries/currencies';
 import { GET_CURRENCY_BY_ID } from '../queries/currency';
-import { mutation, query } from '../../absorb/svelte-apollo';
+import { query } from '../../absorb/svelte-apollo';
 
 export interface WithCurrencyListPartsFragmentArray {
     loaded: boolean;

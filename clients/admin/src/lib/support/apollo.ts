@@ -1,10 +1,9 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { authStore } from './auth';
 import { createMockClient } from 'mock-apollo-client';
 import { mocks } from './mocks';
-import { getClient, setClient as apolloSetClient } from '../../absorb/svelte-apollo';
+import { setClient as apolloSetClient } from '../../absorb/svelte-apollo';
 
 const httpLink = (uri: string) =>
     createHttpLink({
@@ -13,7 +12,6 @@ const httpLink = (uri: string) =>
 
 const authLink = (token: string) =>
     setContext((_, { headers }) => {
-
         return {
             headers: {
                 ...headers,
@@ -25,14 +23,13 @@ const authLink = (token: string) =>
 const errorHandlers = [
     {
         error: 'Request failed with status code 401',
-        handler: (nextUrl: string) => {
-            authStore.set(null);
-            window.location.replace('/#nextUrl=' + nextUrl);
+        handler: () => {
+            (window as any).token = null;
         },
     },
 ];
 
-const logoutLink = (nextUrl: string) =>
+const logoutLink = () =>
     onError(({ response }) => {
         errorHandlers.forEach(({ error, handler }) => {
             if (
@@ -40,39 +37,26 @@ const logoutLink = (nextUrl: string) =>
                 response.errors.length > 0 &&
                 response.errors[0].message.indexOf(error) >= 0
             ) {
-                handler(nextUrl);
+                handler();
             }
         });
     });
 
-export const apollo = (nextUrlIfLogout: string, forceMock = false) => {
+export const apollo = (forceMock = false) => {
     if (process.env.MOCK || forceMock) {
         const mockClient = createMockClient();
         mocks.forEach(({ query, handler }) => mockClient.setRequestHandler(query, handler));
         return mockClient;
     }
 
-    let client;
-    try {
-        client = getClient();
-    } catch (e) {
-        // nothing to do, will create a new instance, client is not set probably
-    }
-    const token = process.env.FAKE_TOKEN || authStore?.get()?.token;
-    console.log('*** apollo token', token, client);
+    const token = process.env.FAKE_TOKEN || (window as any).token;
     const uri = process.env.API_BASE_URL;
     if (!uri) throw new Error('API_BASE_URL must be specified');
-    const redirect = nextUrlIfLogout.replace(':id', '');
-    const link = authLink(token!).concat(logoutLink(redirect).concat(httpLink(uri!)));
-    if (client) {
-        client.link = link;
-        return client;
-    } else {
-        return new ApolloClient({
-            link,
-            cache: new InMemoryCache(),
-        });
-    }
+    const link = authLink(token!).concat(logoutLink().concat(httpLink(uri!)));
+    return new ApolloClient({
+        link,
+        cache: new InMemoryCache(),
+    });
 };
 
 export function setClient<TCache = any>(client: ApolloClient<TCache>): void {

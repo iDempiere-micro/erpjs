@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import { getCustomerBy, getCustomerGroupBy } from '../lib/core';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import { getError, printableString } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
-    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
         CustomerGroupByIdQuery,
         CustomerGroupDetailPartsFragment,
@@ -16,9 +14,6 @@
 
     export let params: any = {};
     const id = parseInt('' + params.id);
-
-    export let client: ApolloClient<NormalizedCacheObject> = apollo(urls.customer.detail + id);
-    setClient(client);
 
     const customerResult = getCustomerBy(id);
     let customerGroupResult: ReadableQuery<CustomerGroupByIdQuery>;
@@ -296,6 +291,6 @@
         {/if}
     </span>
     <span slot="header">
-        <CustomerDetailPageHeader id={params.id} {client} />
+        <CustomerDetailPageHeader id={params.id} />
     </span>
 </Page>

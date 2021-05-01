@@ -3,7 +3,8 @@ import type { CustomerListPartsFragment, CustomersQuery } from '../../generated/
 import { store } from '../support/store';
 import { CUSTOMERS } from '../queries/customers';
 import type { SelectItem } from '../support/select';
-import { mutation, query } from '../../absorb/svelte-apollo';
+import { query } from '../../absorb/svelte-apollo';
+
 export const mapCustomers = (data: CustomerListPartsFragment[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({

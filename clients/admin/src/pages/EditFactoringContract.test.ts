@@ -6,10 +6,12 @@ import { getFormElements } from '../lib/support/testHelpers';
 import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
 import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<EditFactoringContract>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     const getElements = () =>

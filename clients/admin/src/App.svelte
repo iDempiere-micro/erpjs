@@ -10,11 +10,10 @@
 
     setupLocales();
 
-    const client = apollo('/');
-    setClient(client);
-
     $: {
-        authenticate();
+        authenticate(() => {
+            setClient(apollo());
+        });
     }
 </script>
 

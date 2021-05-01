@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import CustomerDetail from './CustomerDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/customer';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<CustomerDetail>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders customer detail', function (done) {

@@ -2,10 +2,12 @@ import { fireEvent, render } from '@testing-library/svelte';
 import { expect } from 'chai';
 import AddCustomerGroup from './AddCustomerGroup.svelte';
 import { setupLocales } from '../i18n';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<AddCustomerGroup>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     const getDisplayName = () => {

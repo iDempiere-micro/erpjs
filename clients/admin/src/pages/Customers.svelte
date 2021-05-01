@@ -1,16 +1,13 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import CustomerList from '../components/customers/CustomerList.svelte';
     import { getError } from '../lib/support/util';
-    import type { CustomersQuery } from 'src/generated/graphql';
+    import type { CustomersQuery } from '../generated/graphql';
     import { segments, urls } from './pathAndSegment';
     import { CUSTOMERS } from '../lib/queries/customers';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(segments.customers);
-    setClient(client);
     const customers = query<CustomersQuery>(CUSTOMERS);
 </script>
 

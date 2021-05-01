@@ -1,11 +1,11 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import FactoringContractDetail from '../pages/FactoringContractDetail.svelte';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import { apollo } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
 
-    const client = apollo('', true);
-    setClient(client);
+    const client = apollo(true);
+
     setupLocales();
 </script>
 
@@ -16,7 +16,7 @@
 />
 
 <Template let:args>
-    <FactoringContractDetail {...args} {client} />
+    <FactoringContractDetail {...args} />
 </Template>
 
 <Story name="Detail" />

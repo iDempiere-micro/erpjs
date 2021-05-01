@@ -8,7 +8,7 @@ import { store } from '../support/store';
 import type { SelectItem } from '../support/select';
 import { ORGANIZATIONS_SIMPLE } from '../queries/organizations';
 import { GET_ORGANIZATION_BY_ID } from '../queries/organization';
-import { mutation, query } from '../../absorb/svelte-apollo';
+import { query } from '../../absorb/svelte-apollo';
 
 export interface WithOrganizationListPartsFragment {
     loaded: boolean;

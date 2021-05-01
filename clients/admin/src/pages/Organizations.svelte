@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { OrganizationsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import type { OrganizationsQuery } from '../generated/graphql';
     import { getError } from '../lib/support/util';
     import OrganizationList from '../components/organizations/OrganizationList.svelte';
     import { segments, urls } from './pathAndSegment';
@@ -9,8 +8,6 @@
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.organizations.list);
-    setClient(client);
     const organizations = query<OrganizationsQuery, any>(ORGANIZATIONS);
 </script>
 

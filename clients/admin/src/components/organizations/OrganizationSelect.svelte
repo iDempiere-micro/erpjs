@@ -1,7 +1,11 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import { ensureOrganizationsStore, mapOrganizations, organizationsStore } from '../../lib/core/organization';
+    import {
+        ensureOrganizationsStore,
+        mapOrganizations,
+        organizationsStore,
+    } from '../../lib/core/organization';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureOrganizationsStore();

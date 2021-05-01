@@ -8,7 +8,7 @@ import { store } from '../support/store';
 import type { SelectItem } from '../support/select';
 import { FACTORING_PROVIDERS } from '../queries/factoringProviders';
 import { GET_FACTORING_PROVIDER_BY_ID } from '../queries/factoringProvider';
-import { mutation, query } from '../../absorb/svelte-apollo';
+import { query } from '../../absorb/svelte-apollo';
 
 export interface WithFactoringProviderListPartsFragment {
     loaded: boolean;

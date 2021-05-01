@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { FactoringProvidersQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import type { FactoringProvidersQuery } from '../generated/graphql';
     import { getError } from '../lib/support/util';
     import FactoringProviderList from '../components/factoringProviders/FactoringProviderList.svelte';
     import { segments, urls } from './pathAndSegment';
@@ -9,8 +8,6 @@
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.factoringProviders.list);
-    setClient(client);
     const factoringProviders = query<FactoringProvidersQuery, any>(FACTORING_PROVIDERS);
 </script>
 

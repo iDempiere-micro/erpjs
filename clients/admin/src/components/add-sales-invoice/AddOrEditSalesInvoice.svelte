@@ -17,7 +17,10 @@
     import type { Column, RowAction } from '../../molecules/datagrid/types';
     import { ensureProductsStore } from '../../lib/core';
     import * as R from 'ramda';
-    import { ADD_SALES_INVOICE, FACTORING_PROVIDER_FOR_INVOICE } from '../../lib/queries/salesInvoice';
+    import {
+        ADD_SALES_INVOICE,
+        FACTORING_PROVIDER_FOR_INVOICE,
+    } from '../../lib/queries/salesInvoice';
     import { push, urls } from '../../pages/pathAndSegment';
     import FactoringProviderSelect from '../factoringProviders/FactoringProviderSelect.svelte';
     import { _ } from 'svelte-i18n';

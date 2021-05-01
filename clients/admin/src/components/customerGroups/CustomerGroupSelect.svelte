@@ -1,7 +1,11 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import { customerGroupsStore, ensureCustomerGroupsStore, mapCustomerGroups } from '../../lib/core/customerGroup';
+    import {
+        customerGroupsStore,
+        ensureCustomerGroupsStore,
+        mapCustomerGroups,
+    } from '../../lib/core/customerGroup';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
     ensureCustomerGroupsStore();

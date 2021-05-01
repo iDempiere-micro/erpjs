@@ -1,12 +1,8 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import AddOrEditAccountingScheme from '../components/add-accountingScheme/AddOrEditAccountingScheme.svelte';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import Page from '../Page.svelte';
     import { _ } from 'svelte-i18n';
-
-    const client = apollo(urls.accountingSchemes.add);
-    setClient(client);
 </script>
 
 <Page

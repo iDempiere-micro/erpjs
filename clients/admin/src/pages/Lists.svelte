@@ -1,11 +1,7 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-
-    const client = apollo(urls.products.list);
-    setClient(client);
 </script>
 
 <Page title={$_('page.lists.title')} segment={segments.lists} name="page.lists">

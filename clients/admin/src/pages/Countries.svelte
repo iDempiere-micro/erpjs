@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { CountriesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import type { CountriesQuery } from '../generated/graphql';
     import { getError } from '../lib/support/util';
     import CountryList from '../components/countries/CountryList.svelte';
     import { segments, urls } from './pathAndSegment';
@@ -9,8 +8,6 @@
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.countries.list);
-    setClient(client);
     const countries = query<CountriesQuery, any>(COUNTRIES);
 </script>
 

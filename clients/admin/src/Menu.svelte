@@ -1,28 +1,24 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
-    import { authStore } from './lib/support/auth';
     import { menuStore } from './lib/core';
-    import { apollo } from './lib/support/apollo';
-    import { onDestroy } from 'svelte';
-    import { GET_MENU } from './lib/queries/menu';
+    import { query } from './absorb/svelte-apollo';
     import type { MenuQuery } from './generated/graphql';
+    import { GET_MENU } from './lib/queries/menu';
 
     export let segment: string;
     export let mobile: boolean | null;
 
-    const loadMenu = async (token: string | undefined) => {
-        if (token && !menuStore.get()) {
-            const client = apollo('/');
-            $menuStore = (await client.query<MenuQuery>({ query: GET_MENU })).data.menu[0];
+    let menuResult;
+    setTimeout(() => {
+        if ((window as any).token && !menuResult) {
+            menuResult = query<MenuQuery>(GET_MENU);
         }
-    };
-
-    const unsubscribe = authStore.subscribe((value) => {
-        console.log('*** Menu', value);
-        loadMenu(value?.token);
-    });
-    onDestroy(unsubscribe);
-    loadMenu($authStore?.token);
+    }, 1000);
+    $: {
+        if (menuResult && $menuResult.data) {
+            $menuStore = $menuResult.data.menu[0];
+        }
+    }
 </script>
 
 <div class="ml-10 flex items-baseline space-x-4">

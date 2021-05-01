@@ -1,12 +1,8 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import AddOrEditBank from '../components/add-bank/AddOrEditBank.svelte';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import Page from '../Page.svelte';
     import { _ } from 'svelte-i18n';
-
-    const client = apollo(urls.banks.add);
-    setClient(client);
 </script>
 
 <Page title={$_('page.banks.add.title')} segment={segments.banks} name="page.banks.add.title">

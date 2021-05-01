@@ -1,16 +1,12 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import { getCurrencyBy } from '../lib/core/currency';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
-
-    const client = apollo(urls.currencies.detail + id);
-    setClient(client);
 
     const currency = getCurrencyBy(id);
 </script>

@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import AccountingSchemeDetail from './AccountingSchemeDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/accountingScheme';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<AccountingSchemeDetail>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders accounting scheme detail', function (done) {

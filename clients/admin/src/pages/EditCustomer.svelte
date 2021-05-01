@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/support/apollo';
     import AddOrEditCustomer from '../components/add-customer/AddOrEditCustomer.svelte';
     import { getCustomerBy } from '../lib/core/customer';
-    import { segments, urls } from './pathAndSegment';
+    import { segments } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
-
-    const client = apollo(urls.customer.edit + id);
-    setClient(client);
 
     const customer = getCustomerBy(id);
 </script>
@@ -27,7 +23,7 @@
         {:else if $customer.error}
             {$_('status.error')} {getError($customer.error)}
         {:else if $customer?.data?.customer}
-            <AddOrEditCustomer {client} customer={$customer?.data?.customer} />
+            <AddOrEditCustomer customer={$customer?.data?.customer} />
         {:else}
             {$_('status.error')}
         {/if}

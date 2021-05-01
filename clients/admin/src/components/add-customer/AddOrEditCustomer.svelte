@@ -5,23 +5,21 @@
 
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
-        CustomerDetailPartsFragment,
+        CustomerDetailPartsFragment, CustomersByArgsQuery,
         SaveCustomerMutation,
-        SaveCustomerMutationVariables,
-    } from 'src/generated/graphql';
+        SaveCustomerMutationVariables, CustomersByArgsQueryVariables
+    } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
     import { ADD_CUSTOMER } from '../../lib/queries/customer';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
     import Select from 'svelte-select';
-    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/core/country';
+    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/core';
     import { throwOnUndefined } from '../../lib/support/util';
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
-    import { authStore } from '../../lib/support/auth';
     import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
-    import { mutation } from '../../absorb/svelte-apollo';
+    import { mutation, query } from '../../absorb/svelte-apollo';
 
-    export let client: ApolloClient<NormalizedCacheObject>;
     export let customer: CustomerDetailPartsFragment | undefined;
 
     ensureCountriesStore();
@@ -29,15 +27,9 @@
     const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
         !customer ? ids : ids.filter(({ id }) => id != customer!.id);
     const getCustomersByDisplayName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { displayName },
-        });
+        query<CustomersByArgsQuery, CustomersByArgsQueryVariables>(GET_CUSTOMERS_BY_ARGS, { variables: { displayName } });
     const getCustomersByLegalName = () =>
-        client.query({
-            query: GET_CUSTOMERS_BY_ARGS,
-            variables: { legalName },
-        });
+        query<CustomersByArgsQuery, CustomersByArgsQueryVariables>(GET_CUSTOMERS_BY_ARGS, { variables: { legalName } });
     const validateDisplayName = async () => {
         const { data } = await getCustomersByDisplayName();
 
@@ -124,7 +116,7 @@
                 method: 'POST',
                 body: formData,
                 headers: {
-                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
+                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || (window as any).token),
                 },
             })
         ).json();

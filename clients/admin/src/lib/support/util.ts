@@ -1,13 +1,10 @@
 import type { ApolloError } from '@apollo/client/core';
-import { authStore } from './auth';
-import { push } from 'svelte-spa-router';
-import { urls } from '../../pages/pathAndSegment';
 
 const errorHandlers = [
     {
         error: 'Unexpected token < in JSON at position 0',
         handler: (): string => {
-            authStore.set(null);
+            (window as any).token = null;
             return 'Keyclock probably not setup';
         },
     },

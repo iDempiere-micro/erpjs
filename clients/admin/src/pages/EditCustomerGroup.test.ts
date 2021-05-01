@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import EditCustomerGroup from './EditCustomerGroup.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/customerGroup';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<EditCustomerGroup>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     const getDisplayNameAndCurrency = (renderResult: RenderResult) => {

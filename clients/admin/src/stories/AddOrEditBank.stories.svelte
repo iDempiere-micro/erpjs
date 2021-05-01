@@ -5,7 +5,7 @@
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/banks';
 
-    setClient(apollo('', true));
+    setClient(apollo(true));
     setupLocales();
 </script>
 

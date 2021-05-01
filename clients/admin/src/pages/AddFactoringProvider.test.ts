@@ -2,10 +2,12 @@ import { fireEvent, render } from '@testing-library/svelte';
 import { expect } from 'chai';
 import AddFactoringProvider from './AddFactoringProvider.svelte';
 import { setupLocales } from '../i18n';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<AddFactoringProvider>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     const getDisplayNameAndCurrency = () => {

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { apollo, setClient } from '../../lib/support/apollo';
     import { _ } from 'svelte-i18n';
     import { getError } from '../../lib/support/util';
     import { push, urls } from '../../pages/pathAndSegment.js';
@@ -8,8 +7,6 @@
     let mobileMenu = false;
     export let id: number;
     id = parseInt('' + id);
-
-    setClient(apollo(urls.salesInvoices.detail + id));
 
     const salesInvoice = getSalesInvoiceBy(id);
 </script>
