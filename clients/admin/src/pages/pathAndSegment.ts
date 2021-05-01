@@ -24,7 +24,6 @@ export const urls = {
     settings: {
         list: 'settings',
     },
-    refresh: 'refresh',
     countries: {
         list: 'countries',
         add: 'add-country',

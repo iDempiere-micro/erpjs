@@ -1,7 +1,6 @@
 import Home from './pages/Home.svelte';
 import Customers from './pages/Customers.svelte';
 import AddCustomer from './pages/AddCustomer.svelte';
-import Refresh from './pages/Refresh.svelte';
 import AddMonthlySalesInvoice from './pages/AddMonthlySalesInvoice.svelte';
 import EditCustomer from './pages/EditCustomer.svelte';
 import CustomerDetail from './pages/CustomerDetail.svelte';
@@ -70,7 +69,6 @@ const addRoute = (path: string, component: any) => {
 
 addRoute(segments.customers, Customers);
 addRoute(urls.customer.add, AddCustomer);
-addRoute(urls.refresh, Refresh);
 addRoute(urls.salesInvoices.monthly.add, AddMonthlySalesInvoice);
 addRoute(urls.customer.edit, EditCustomer);
 addRoute(urls.customer.detail, CustomerDetail);

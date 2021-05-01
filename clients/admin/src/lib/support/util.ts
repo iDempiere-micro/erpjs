@@ -14,7 +14,6 @@ const errorHandlers = [
     {
         error: 'Authorization: Bearer <token> header missing',
         handler: (): string => {
-            setTimeout(() => push('/' + urls.refresh), 100);
             return 'Refreshing the page...';
         },
     },

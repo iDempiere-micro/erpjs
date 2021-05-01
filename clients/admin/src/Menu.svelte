@@ -11,13 +11,14 @@
     export let mobile: boolean | null;
 
     const loadMenu = async (token: string | undefined) => {
-        if (token && !$menuStore) {
+        if (token && !menuStore.get()) {
             const client = apollo('/');
             $menuStore = (await client.query<MenuQuery>({ query: GET_MENU })).data.menu[0];
         }
     };
 
     const unsubscribe = authStore.subscribe((value) => {
+        console.log('*** Menu', value);
         loadMenu(value?.token);
     });
     onDestroy(unsubscribe);
