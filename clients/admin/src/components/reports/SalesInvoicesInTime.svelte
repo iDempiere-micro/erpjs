@@ -7,8 +7,9 @@
     import { _ } from 'svelte-i18n';
     import { ScaleTypes } from '@carbon/charts/interfaces';
     import { query } from '../../absorb/svelte-apollo';
+    import type { ReadableQuery } from '../../absorb/svelte-apollo';
 
-    let data;
+    let data: ReadableQuery<SalesInvoicesInTimeQuery>;
     setTimeout(() => {
         if ((window as any).token && !data) {
             data = query<SalesInvoicesInTimeQuery>(QUERY);

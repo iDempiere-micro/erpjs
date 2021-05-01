@@ -5,9 +5,11 @@
 
     import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
     import type {
-        CustomerDetailPartsFragment, CustomersByArgsQuery,
+        CustomerDetailPartsFragment,
+        CustomersByArgsQuery,
         SaveCustomerMutation,
-        SaveCustomerMutationVariables, CustomersByArgsQueryVariables
+        SaveCustomerMutationVariables,
+        CustomersByArgsQueryVariables,
     } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
     import { ADD_CUSTOMER } from '../../lib/queries/customer';
@@ -18,7 +20,7 @@
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
-    import { mutation, query } from '../../absorb/svelte-apollo';
+    import { getClient, mutation, query } from '../../absorb/svelte-apollo';
 
     export let customer: CustomerDetailPartsFragment | undefined;
 
@@ -27,9 +29,15 @@
     const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
         !customer ? ids : ids.filter(({ id }) => id != customer!.id);
     const getCustomersByDisplayName = () =>
-        query<CustomersByArgsQuery, CustomersByArgsQueryVariables>(GET_CUSTOMERS_BY_ARGS, { variables: { displayName } });
+        getClient().query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { displayName },
+        });
     const getCustomersByLegalName = () =>
-        query<CustomersByArgsQuery, CustomersByArgsQueryVariables>(GET_CUSTOMERS_BY_ARGS, { variables: { legalName } });
+        getClient().query({
+            query: GET_CUSTOMERS_BY_ARGS,
+            variables: { legalName },
+        });
     const validateDisplayName = async () => {
         const { data } = await getCustomersByDisplayName();
 
