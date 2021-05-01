@@ -169,7 +169,9 @@
       "nav": "Banks",
       "add": {
         "title": "Add Bank",
-        "nav": "Add Bank"
+        "nav": "Add Bank",
+        "displayName": "Display Name",
+        "bankIdentifierCode": "Bank Identifier Code"
       },
       "edit": {
         "title": "Edit Bank",
@@ -361,7 +363,9 @@
       "nav": "Countries",
       "add": {
         "title": "Add Country",
-        "nav": "Add Country"
+        "nav": "Add Country",
+        "displayName": "Display Name",
+        "isoCode": "Country ISO Code"
       },
       "edit": {
         "title": "Edit Country",
@@ -385,7 +389,9 @@
       "nav": "Currencies",
       "add": {
         "title": "Add Currency",
-        "nav": "Add Currency"
+        "nav": "Add Currency",
+        "displayName": "Display Name",
+        "isoCode": "ISO Code"
       },
       "edit": {
         "title": "Edit Currency",

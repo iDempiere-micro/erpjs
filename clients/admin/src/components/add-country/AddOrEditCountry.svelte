@@ -8,6 +8,9 @@
     import { form } from 'svelte-forms';
     import { mutation } from 'svelte-apollo';
     import gql from 'graphql-tag';
+    import { _ } from 'svelte-i18n';
+    import Button from '../../dsl/Button.svelte';
+    import { push, urls } from '../../pages/pathAndSegment';
 
     const SAVE_PRODUCT = gql`
         mutation SaveCountry($id: Int, $displayName: String!, $isoCode: String!) {
@@ -53,7 +56,7 @@
                     isoCode,
                 },
             });
-            console.log('*** country created', data?.saveCountry?.id);
+            await push(urls.countries.detail, data?.saveCountry?.id);
         }
     };
 </script>
@@ -65,24 +68,25 @@
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <SimpleTextBox
                         form={myForm}
-                        title="Display name"
+                        title={$_('page.countries.add.displayName')}
                         bind:value={displayName}
                         id="displayName"
                     />
 
-                    <SimpleTextBox form={myForm} title="SKU" bind:value={isoCode} id="isoCode" />
+                    <SimpleTextBox
+                        form={myForm}
+                        title={$_('page.countries.add.isoCode')}
+                        bind:value={isoCode}
+                        id="isoCode"
+                    />
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click|preventDefault={() => {
+                        <Button
+                            on:click={() => {
                                 saveCountry();
                             }}
-                            disabled={false}
-                        >
-                            Save
-                        </button>
+                            disabled={!$myForm.valid}
+                        />
                     </div>
                 </div>
             </div>

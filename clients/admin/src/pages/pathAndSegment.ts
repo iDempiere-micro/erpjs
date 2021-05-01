@@ -41,6 +41,7 @@ export const urls = {
         list: 'banks',
         add: 'add-bank',
         edit: 'bank/:id',
+        detail: 'bank-detail/:id',
     },
     organizations: {
         list: 'organizations',
