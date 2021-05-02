@@ -7,7 +7,7 @@
     import { push, urls } from '../../pages/pathAndSegment';
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
     import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
-    import { saveAccountingSchemeMutation } from '../../lib/core';
+    import { accountingSchemeService } from '../../lib/core';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
@@ -49,20 +49,15 @@
         },
     );
 
-    const saveAccountingScheme = async (
-        displayName: string | undefined,
-        currencyId: number | undefined,
-    ) => {
+    const saveAccountingScheme = async () => {
         if (displayName && currencyId) {
-            const { data } = await saveAccountingSchemeMutation()({
-                variables: {
-                    id: accountingScheme?.id,
-                    displayName,
-                    currencyId,
-                },
+            const { data } = await accountingSchemeService.save({
+                id: accountingScheme?.id,
+                displayName,
+                currencyId,
             });
             await push(urls.accountingSchemes.detail, data?.saveAccountingScheme?.id);
-        }
+        } else console.error('saveAccountingScheme called with invalid parameters');
     };
 </script>
 
@@ -102,12 +97,7 @@
                                 />
                             </div>
                             <div class="grid-cols-1">
-                                <Button
-                                    on:click={async () => {
-                                        await saveAccountingScheme(displayName, currencyId);
-                                    }}
-                                    disabled={!$myForm.valid}
-                                />
+                                <Button on:click={saveAccountingScheme} disabled={!$myForm.valid} />
                             </div>
                             {#if accountingScheme}
                                 <div class="grid-cols-1">

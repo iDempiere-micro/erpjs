@@ -1,12 +1,20 @@
 import type { Store } from '../support/store';
 import type { WithEntity, WithEntityRow } from '../core/entityStore';
 import type { FetchResult } from '@apollo/client';
+import type { Maybe, Scalars } from '../../generated/graphql';
 
 /**
  * Entity Detail base type
  */
 export interface EntityDetail {
     id: number;
+}
+
+/**
+ * Entity Detail base type with displayName
+ */
+export interface EntityDetailDisplayable extends EntityDetail {
+    displayName: string;
 }
 
 /**
@@ -18,7 +26,7 @@ export type EntityRow = unknown;
  * Entity save args
  */
 export interface EntitySaveArgs {
-    id?: number;
+    id?: Maybe<Scalars['Int']>;
 }
 
 export interface ServiceStores<T extends EntityDetail, L extends EntityRow> {

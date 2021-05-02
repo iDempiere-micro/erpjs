@@ -1,24 +1,17 @@
 <script lang="ts">
-    import { getAccountingSchemeBy } from '../lib/core';
+    import { accountingSchemeService } from '../lib/core';
     import { push, segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import Button from '../dsl/Button.svelte';
-    import type { AccountingSchemeDetail } from '../lib/model/accountingScheme';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    let accountingScheme: AccountingSchemeDetail;
-
-    const accountingSchemeResult = getAccountingSchemeBy(id);
+    accountingSchemeService.load(id);
+    const store = accountingSchemeService.stores.detail;
 
     const editAccountingScheme = () => push(urls.accountingSchemes.edit, id);
-
-    $: {
-        accountingScheme = $accountingSchemeResult?.data?.accountingScheme || ({} as any);
-    }
 </script>
 
 <Page
@@ -27,12 +20,7 @@
     title={$_('page.accountingSchemes.detail.title')}
 >
     <span slot="content">
-        {#if $accountingSchemeResult.loading}
-            {$_('status.loading')}
-        {:else if $accountingSchemeResult.error}
-            {$_('status.error')} {getError($accountingSchemeResult.error)}
-        {:else if $accountingSchemeResult.data}
-            <!-- This example requires Tailwind CSS v2.0+ -->
+        {#if $store.loaded}
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -46,7 +34,7 @@
                                 {$_('page.accountingSchemes.detail.displayName')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {accountingScheme.displayName}
+                                {$store.data.displayName}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -54,7 +42,7 @@
                                 {$_('page.accountingSchemes.detail.currency')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {accountingScheme.currency.displayName}
+                                {$store.data.currency.displayName}
                             </dd>
                         </div>
                     </dl>
@@ -69,7 +57,7 @@
                 </div>
             </div>
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

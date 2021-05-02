@@ -1,15 +1,16 @@
 <script lang="ts">
-    import { getAccountingSchemeBy } from '../lib/core/accountingScheme';
+    import { accountingSchemeService } from '../lib/core';
     import AddOrEditAccountingScheme from '../components/add-accountingScheme/AddOrEditAccountingScheme.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const accountingScheme = getAccountingSchemeBy(id);
+    accountingSchemeService.load(id);
+
+    const store = accountingSchemeService.stores.detail;
 </script>
 
 <Page
@@ -18,16 +19,10 @@
     name="page.accountingSchemes.edit"
 >
     <span slot="content">
-        {#if $accountingScheme.loading}
-            {$_('status.loading')}
-        {:else if $accountingScheme.error}
-            {$_('status.error')} {getError($accountingScheme.error)}
-        {:else if $accountingScheme?.data?.accountingScheme}
-            <AddOrEditAccountingScheme
-                accountingScheme={$accountingScheme?.data?.accountingScheme}
-            />
+        {#if $store.loaded}
+            <AddOrEditAccountingScheme accountingScheme={$store.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

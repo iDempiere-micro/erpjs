@@ -10,6 +10,8 @@ import type {
     ServiceStores,
 } from '../model/model';
 import type { FetchResult } from '@apollo/client';
+import { onDestroy } from 'svelte';
+import type { RefetchQueryDescription } from '@apollo/client/core/watchQueryOptions';
 
 /**
  * Content of the store for list of items
@@ -93,19 +95,28 @@ export function ensureEntityRowStore<T, Q>(
  * @param storeInstance - the entity detail store
  * @param gql - the GQL document to use for loading
  * @param convert - the conversion function to convert the raw query result to the entity`Detail` type
+ * @param id - the entity id to load
  */
 export function ensureEntityStore<T, Q>(
     storeInstance: Store<WithEntity<T>>,
     gql: DocumentNode,
     convert: (result: Q) => T,
+    id: number,
 ) {
+    console.log('*** store', storeInstance.get());
+
     if (storeInstance.get().loaded) return;
 
-    const loadResult = query<Q>(gql);
+    const loadResult = query<Q>(gql, { variables: { id } });
     loadResult.subscribe((value) => {
         if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             const data = convert(value.data);
+
+            console.log('*** updating the store with ', {
+                loaded: !!data,
+                data,
+            });
 
             storeInstance.update(() => ({
                 loaded: !!data,
@@ -170,11 +181,18 @@ export abstract class BaseEntityService<
      * Load the item detail to the `stores.detail`
      */
     load(id: number): void {
+        if (!id) return;
+
         ensureEntityStore<T, TQueryById>(
             this.stores.detail,
             this.getDetailByIdGql(),
             this.convertDetail,
+            id,
         );
+        onDestroy(() => {
+            console.log('destroying...');
+            destroy(this.stores.detail);
+        });
     }
 
     /**
@@ -182,7 +200,23 @@ export abstract class BaseEntityService<
      * @param s - the entity save parameters
      */
     save(s: S): Promise<FetchResult<TSaveMutation>> {
-        const result = mutation<TSaveMutation, S>(this.getSaveGql())({ variables: s });
+        const refetchQueries:
+            | ((result: FetchResult<T>) => RefetchQueryDescription)
+            | RefetchQueryDescription = [
+            {
+                query: this.getListGql(),
+            },
+        ];
+        if (s.id) {
+            refetchQueries.push({
+                query: this.getDetailByIdGql(),
+                variables: { id: s.id },
+            });
+        }
+        const result = mutation<TSaveMutation, S>(this.getSaveGql())({
+            variables: s,
+            refetchQueries,
+        });
         invalidate(this.stores.list);
         return result;
     }
