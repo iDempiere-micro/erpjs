@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { CountryListPartsFragment } from '../../generated/graphql';
+    import type { CountryRow } from '../../lib/model/country';
 
-    export let row: CountryListPartsFragment;
+    export let row: CountryRow;
 </script>
 
 <div class="flex items-center">

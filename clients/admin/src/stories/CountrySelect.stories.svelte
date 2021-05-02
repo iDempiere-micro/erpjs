@@ -1,25 +1,25 @@
 <script lang="ts">
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-    import BankSelect from '../components/banks/BankSelect.svelte';
+    import CountrySelect from '../components/countries/CountrySelect.svelte';
     import { apollo, setClient } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
-    import { mock } from '../lib/queries/banks';
+    import { mock } from '../lib/queries/countries';
 
     setClient(apollo(true));
     setupLocales();
 
     const defaultArgs = {
-        onSelect: (bankId) => {
-            console.log('onSelect', bankId);
+        onSelect: (countryId) => {
+            console.log('onSelect', countryId);
         },
-        id: 'bankId',
-        label: 'Bank',
-        bankId: mock.data.banks[0].id,
+        id: 'countryId',
+        label: 'Country',
+        countryId: mock.data.countries[0].id,
     };
     const requiredError = {
         form: {
             fields: {
-                bankId: {
+                countryId: {
                     errors: ['required'],
                 },
             },
@@ -27,10 +27,10 @@
     };
 </script>
 
-<Meta title="Components/Bank/Select" component={BankSelect} argTypes={{}} />
+<Meta title="Components/Country/Select" component={CountrySelect} argTypes={{}} />
 
 <Template let:args>
-    <BankSelect {...args} />
+    <CountrySelect {...args} />
 </Template>
 
 <Story name="Select" args={defaultArgs} />

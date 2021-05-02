@@ -1,6 +1,11 @@
 import type { DocumentNode } from '@apollo/client/core';
 import type { RequestHandler } from 'mock-apollo-client/dist/mockClient';
-import { CUSTOMERS, mock as mockCustomers } from '../queries/customers';
+import {
+    CUSTOMERS,
+    GET_CUSTOMERS_BY_ARGS,
+    mock as mockCustomers,
+    mock2 as mockCustomersByArgs,
+} from '../queries/customers';
 import { GET_MENU, mock as mockMenu } from '../queries/menu';
 import { EVERYTHING, mock as mockSalesInvoices } from '../queries/salesInvoices';
 import {
@@ -73,4 +78,5 @@ export const mocks: ApolloMock[] = [
     { query: ORGANIZATIONS, mock: mockOrganizations },
     { query: ORGANIZATIONS_SIMPLE, mock: mockOrganizations },
     { query: GET_BANK_BY_ID, mock: mockBank },
+    { query: GET_CUSTOMERS_BY_ARGS, mock: mockCustomersByArgs },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));

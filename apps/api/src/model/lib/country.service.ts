@@ -35,8 +35,10 @@ export class CountryService extends BaseEntityService<
   getCountry = async (
     transactionalEntityManager: EntityManager,
     isoCode: string,
+    id?: number
   ) =>
-    this.getRepository(transactionalEntityManager).findOne({
+    id ? this.loadEntityById(transactionalEntityManager, id)
+    : this.getRepository(transactionalEntityManager).findOne({
       where: { isoCode },
     });
 

@@ -23,6 +23,7 @@ module.exports = {
         }
     ],
     "rules": {
+        "no-console": 2
     },
     settings: {
         'svelte3/typescript': require('typescript'),

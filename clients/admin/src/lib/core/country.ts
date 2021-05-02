@@ -1,46 +1,46 @@
+import { GET_COUNTRY_BY_ID, SAVE_COUNTRY } from '../queries/country';
+import type { CountryDetail, CountryRow } from '../model/country';
+import { BaseEntityService } from './entityStore';
+import type { DocumentNode } from '@apollo/client/core';
+import { COUNTRIES } from '../queries/countries';
 import type {
     CountriesQuery,
     CountryByIdQuery,
-    CountryListPartsFragment,
+    SaveCountryMutation,
+    SaveCountryMutationVariables,
 } from '../../generated/graphql';
 
-import { store } from '../support/store';
-import { COUNTRIES } from '../queries/countries';
-import type { SelectItem } from '../support/select';
-import { GET_COUNTRY_BY_ID } from '../queries/country';
-import { query } from '../../absorb/svelte-apollo';
+class CountryService extends BaseEntityService<
+    CountryDetail,
+    CountryRow,
+    SaveCountryMutationVariables,
+    CountryByIdQuery,
+    CountriesQuery,
+    SaveCountryMutation
+> {
+    protected convertDetail(q: CountryByIdQuery): CountryDetail {
+        return q.country;
+    }
 
-export interface WithCountryListPartsFragment {
-    loaded: boolean;
-    countries: CountryListPartsFragment[];
+    protected convertListItem(q: CountriesQuery): CountryRow[] {
+        return q.countries;
+    }
+
+    protected getDetailByIdGql(): DocumentNode {
+        return GET_COUNTRY_BY_ID;
+    }
+
+    getDetailSafeEntity(): CountryDetail {
+        return { currency: {} } as any;
+    }
+
+    protected getListGql(): DocumentNode {
+        return COUNTRIES;
+    }
+
+    protected getSaveGql(): DocumentNode {
+        return SAVE_COUNTRY;
+    }
 }
 
-export const countriesStore = store<WithCountryListPartsFragment>({
-    loaded: false,
-    countries: [],
-});
-export const ensureCountriesStore = () => {
-    if (countriesStore.get().loaded) return;
-
-    const countriesResult = query<CountriesQuery>(COUNTRIES);
-    countriesResult.subscribe((value) => {
-        if (value?.error) throw new Error(`${value?.error}`);
-        if (value?.data) {
-            countriesStore.update((x) => ({
-                loaded: true,
-                countries: value?.data?.countries || [],
-            }));
-        }
-    });
-};
-
-export const mapCountries = (data: CountryListPartsFragment[]): SelectItem[] =>
-    data
-        ? data.map(({ id, displayName }) => ({
-              value: id,
-              label: displayName,
-          }))
-        : [];
-
-export const getCountryBy = (id: number) =>
-    query<CountryByIdQuery>(GET_COUNTRY_BY_ID, { variables: { id } });
+export const countryService: CountryService = new CountryService();

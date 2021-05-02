@@ -67,3 +67,9 @@ export const GET_CUSTOMERS_BY_ARGS = gql`
         }
     }
 `;
+
+export const mock2 = {
+    data: {
+        customersByArgs: [],
+    },
+};

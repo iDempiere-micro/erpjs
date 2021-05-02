@@ -7,4 +7,5 @@ export interface AddressSaveArgsModel extends BaseSaveArgsModel {
   zipCode: string;
   countryIsoCode?: string;
   country?: CountryModel;
+  countryId? : number;
 }

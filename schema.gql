@@ -29,7 +29,7 @@ type Address {
 
 input AddressSaveArgs {
   city: String!
-  countryIsoCode: String!
+  countryId: Int!
   line1: String!
   zipCode: String!
 }

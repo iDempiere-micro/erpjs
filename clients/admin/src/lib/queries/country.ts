@@ -9,3 +9,10 @@ export const GET_COUNTRY_BY_ID = gql`
         }
     }
 `;
+export const SAVE_COUNTRY = gql`
+    mutation SaveCountry($id: Int, $displayName: String!, $isoCode: String!) {
+        saveCountry(args: { id: $id, displayName: $displayName, isoCode: $isoCode }) {
+            id
+        }
+    }
+`;

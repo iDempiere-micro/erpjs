@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { CUSTOMER_DETAIL_PARTS_RAW } from '../fragments/customer';
+import { CUSTOMER_DETAIL_PARTS_RAW } from '../fragments';
 
 export const mock = {
     data: {
@@ -41,11 +41,11 @@ export const ADD_CUSTOMER = gql`
         $legalAddressCity: String!
         $note: String
         $idNumber: String!
-        $legalAddressCountryIsoCode: String!
+        $legalAddressCountryId: Int!
         $legalAddressLine1: String!
         $legalAddressZipCode: String!
         $invoicingEmail: String!
-        $vatNumber: String!
+        $vatNumber: String
         $customerGroupId: Int
     ) {
         saveCustomer(
@@ -57,7 +57,7 @@ export const ADD_CUSTOMER = gql`
                 idNumber: $idNumber
                 legalAddress: {
                     city: $legalAddressCity
-                    countryIsoCode: $legalAddressCountryIsoCode
+                    countryId: $legalAddressCountryId
                     line1: $legalAddressLine1
                     zipCode: $legalAddressZipCode
                 }

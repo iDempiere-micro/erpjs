@@ -1,27 +1,13 @@
 <script lang="ts">
-    import type {
-        CountryDetailPartsFragment,
-        SaveCountryMutation,
-        SaveCountryMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-
-    import gql from 'graphql-tag';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
-    import { mutation } from '../../absorb/svelte-apollo';
+    import type { CountryDetail } from '../../lib/model/country';
+    import { countryService } from '../../lib/core';
 
-    const SAVE_PRODUCT = gql`
-        mutation SaveCountry($id: Int, $displayName: String!, $isoCode: String!) {
-            saveCountry(args: { id: $id, displayName: $displayName, isoCode: $isoCode }) {
-                id
-            }
-        }
-    `;
-
-    export let country: CountryDetailPartsFragment | undefined;
+    export let country: CountryDetail | undefined;
     let displayName = country?.displayName;
     let isoCode = country?.isoCode;
 
@@ -44,18 +30,12 @@
         },
     );
 
-    export const saveCountryMutation = mutation<SaveCountryMutation, SaveCountryMutationVariables>(
-        SAVE_PRODUCT,
-    );
-
     const saveCountry = async () => {
         if (displayName && isoCode) {
-            const { data } = await saveCountryMutation({
-                variables: {
-                    id: country?.id,
-                    displayName,
-                    isoCode,
-                },
+            const { data } = await countryService.save({
+                id: country?.id,
+                displayName,
+                isoCode,
             });
             await push(urls.countries.detail, data?.saveCountry?.id);
         }

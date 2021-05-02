@@ -2,10 +2,10 @@
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
-    import type { CountryListPartsFragment } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
+    import type { CountryRow } from '../../lib/model/country';
 
-    export let countries: CountryListPartsFragment[] | undefined;
+    export let countries: CountryRow[] | undefined;
 
     const columns = [
         {
