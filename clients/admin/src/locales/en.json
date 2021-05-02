@@ -181,6 +181,10 @@
         "column1": {
           "title": "Bank"
         }
+      },
+      "detail": {
+        "displayName": "Display Name",
+        "bankIdentifierCode": "Bank Identifier Code (BIC)"
       }
     },
     "organizations": {

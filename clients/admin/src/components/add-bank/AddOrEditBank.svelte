@@ -1,9 +1,5 @@
 <script lang="ts">
-    import type {
-        BankDetailPartsFragment,
-        SaveBankMutation,
-        SaveBankMutationVariables,
-    } from '../../generated/graphql';
+    import type { SaveBankMutation, SaveBankMutationVariables } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import { SAVE_BANK } from '../../lib/queries/bank';
@@ -11,8 +7,9 @@
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
     import { mutation } from '../../absorb/svelte-apollo';
+    import type { BankDetail } from '../../lib/model/bank';
 
-    export let bank: BankDetailPartsFragment | undefined;
+    export let bank: BankDetail | undefined;
     let displayName = bank?.displayName;
     let bankIdentifierCode = bank?.bankIdentifierCode;
 

@@ -30,7 +30,7 @@ class AccountingSchemeService extends BaseEntityService<
         return GET_ACCOUNTING_SCHEME_BY_ID;
     }
 
-    protected getDetailSafeEntity(): AccountingSchemeDetail {
+    getDetailSafeEntity(): AccountingSchemeDetail {
         return { currency: {} } as any;
     }
 

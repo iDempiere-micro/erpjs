@@ -10,14 +10,19 @@
 
     import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
-    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/core/bank';
-    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/core/country';
+    import {
+        bankService,
+        countriesStore,
+        ensureCountriesStore,
+        mapCountries,
+    } from '../../lib/core';
     import { throwOnUndefined } from '../../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import { mutation } from '../../absorb/svelte-apollo';
+    import BankSelect from '../banks/BankSelect.svelte';
 
     export let organization: OrganizationDetailPartsFragment | undefined;
     let displayName = organization?.displayName;
@@ -55,11 +60,10 @@
         myForm.validate();
     };
 
-    ensureBanksStore();
-    let selectedBank: SelectItem | undefined;
+    bankService.loadList();
 
-    const handleSelectBank = (event: OnSelectParam) => {
-        bankId = +event.detail.value;
+    const handleSelectBank = (id: number) => {
+        bankId = id;
         myForm.validate();
     };
 
@@ -366,20 +370,13 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="banks" class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.organizations.add.bank')}</label
-                                >
-                                <Select
-                                    inputAttributes={{ id: 'banks' }}
-                                    items={mapBanks($banksStore?.banks)}
-                                    selectedValue={selectedBank}
-                                    on:select={handleSelectBank}
+                                <BankSelect
+                                    onSelect={handleSelectBank}
+                                    id="bankId"
+                                    label={$_('page.organizations.add.bank')}
+                                    {bankId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.bankId.errors.includes('required')}
-                                    <label for="banks" class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <SimpleTextBox
@@ -450,7 +447,7 @@
                                 <AccountingSchemeSelect
                                     onSelect={handleSelectAccountingScheme}
                                     id="accountingSchemeId"
-                                    label="Accounting Scheme"
+                                    label={$_('page.organizations.add.accountingScheme')}
                                     {accountingSchemeId}
                                     form={$myForm}
                                 />

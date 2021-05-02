@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Select from 'svelte-select';
     import type {
         FactoringProviderDetailPartsFragment,
         SaveFactoringProviderMutation,
@@ -9,13 +8,13 @@
     import { form as svelteForm } from 'svelte-forms';
 
     import { SAVE_FACTORING_PROVIDER } from '../../lib/queries/factoringProvider';
-    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
-    import { banksStore, ensureBanksStore, mapBanks } from '../../lib/core/bank';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
     import { mutation } from '../../absorb/svelte-apollo';
+    import BankSelect from '../banks/BankSelect.svelte';
+    import { bankService } from '../../lib/core';
 
     export let factoringProvider: FactoringProviderDetailPartsFragment | undefined;
     let displayName = factoringProvider?.displayName;
@@ -29,11 +28,10 @@
     let iban = factoringProvider?.bankAccount?.iban;
     let swift = factoringProvider?.bankAccount?.swift;
 
-    ensureBanksStore();
-    let selectedBank: SelectItem | undefined;
+    bankService.loadList();
 
-    const handleSelectBank = (event: OnSelectParam) => {
-        bankId = +event.detail.value;
+    const handleSelectBank = (id: number) => {
+        bankId = id;
         myForm.validate();
     };
 
@@ -203,20 +201,13 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="banks" class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.factoringProviders.add.bank')}</label
-                                >
-                                <Select
-                                    inputAttributes={{ id: 'banks' }}
-                                    items={mapBanks($banksStore.banks)}
-                                    selectedValue={selectedBank}
-                                    on:select={handleSelectBank}
+                                <BankSelect
+                                    onSelect={handleSelectBank}
+                                    id="bankId"
+                                    label={$_('page.factoringProviders.add.bank')}
+                                    {bankId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.bankId.errors.includes('required')}
-                                    <label for="banks" class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <SimpleTextBox

@@ -228,7 +228,7 @@ export abstract class BaseEntityService<
         destroy(this.stores.detail);
     }
 
-    protected abstract getDetailSafeEntity(): T;
+    abstract getDetailSafeEntity(): T;
     protected abstract getDetailByIdGql(): DocumentNode;
     protected abstract getListGql(): DocumentNode;
     protected abstract getSaveGql(): DocumentNode;

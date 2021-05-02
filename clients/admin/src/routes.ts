@@ -24,6 +24,7 @@ import CurrencyDetail from './pages/CurrencyDetail.svelte';
 import Banks from './pages/Banks.svelte';
 import AddBank from './pages/AddBank.svelte';
 import EditBank from './pages/EditBank.svelte';
+import BankDetail from './pages/BankDetail.svelte';
 
 import Organizations from './pages/Organizations.svelte';
 import AddOrganization from './pages/AddOrganization.svelte';
@@ -91,6 +92,7 @@ addRoute(urls.currencies.detail, CurrencyDetail);
 addRoute(urls.banks.list, Banks);
 addRoute(urls.banks.edit, EditBank);
 addRoute(urls.banks.add, AddBank);
+addRoute(urls.banks.detail, BankDetail);
 addRoute(urls.organizations.list, Organizations);
 addRoute(urls.organizations.edit, EditOrganization);
 addRoute(urls.organizations.add, AddOrganization);

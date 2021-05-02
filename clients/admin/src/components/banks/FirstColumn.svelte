@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { BankListPartsFragment } from '../../generated/graphql';
+    import type { BankRow } from '../../lib/model/bank';
 
-    export let row: BankListPartsFragment;
+    export let row: BankRow;
 </script>
 
 <div class="flex items-center">

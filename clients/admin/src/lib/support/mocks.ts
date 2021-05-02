@@ -42,6 +42,7 @@ import {
     ORGANIZATIONS,
     ORGANIZATIONS_SIMPLE,
 } from '../queries/organizations';
+import { GET_BANK_BY_ID, mock1 as mockBank } from '../queries/bank';
 
 export interface ApolloMock {
     query: DocumentNode;
@@ -71,4 +72,5 @@ export const mocks: ApolloMock[] = [
     { query: BANKS, mock: mockBanks },
     { query: ORGANIZATIONS, mock: mockOrganizations },
     { query: ORGANIZATIONS_SIMPLE, mock: mockOrganizations },
+    { query: GET_BANK_BY_ID, mock: mockBank },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));
