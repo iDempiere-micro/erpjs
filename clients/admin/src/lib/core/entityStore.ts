@@ -1,8 +1,15 @@
 import type { Store } from '../support/store';
 import { store } from '../support/store';
 import type { DocumentNode } from '@apollo/client/core';
-import { query } from '../../absorb/svelte-apollo';
-import type { EntityRow } from '../model/model';
+import { mutation, query } from '../../absorb/svelte-apollo';
+import type {
+    EntityDetail,
+    EntityRow,
+    EntitySaveArgs,
+    Service,
+    ServiceStores,
+} from '../model/model';
+import type { FetchResult } from '@apollo/client';
 
 /**
  * Content of the store for list of items
@@ -120,4 +127,77 @@ export function destroy<T>(storeInstance: Store<WithEntity<T>>) {
     // but in case the entity detail is not shown anymore so we want everyone that would expect that
     // to fail
     storeInstance.update(() => ({ loaded: false, data: undefined as any }));
+}
+
+/**
+ * Entity service class having all the stores and methods at one place
+ */
+export abstract class BaseEntityService<
+    T extends EntityDetail,
+    L extends EntityRow,
+    S extends EntitySaveArgs,
+    TQueryById,
+    TQueryList,
+    TSaveMutation
+> implements Service<T, L, S, TSaveMutation> {
+    /**
+     * Access to the stores with the list of the items (list) and an item detail (detail)
+     */
+    stores: ServiceStores<T, L> = {
+        /**
+         * List of the items. Get filled by calling `loadList`
+         */
+        list: initRows(),
+        /**
+         * Item detail. Get filled by calling `load`. Do not forget to clean it in `onDestroy`
+         * of the detail page.
+         */
+        detail: initDetail(this.getDetailSafeEntity()),
+    };
+
+    /**
+     * Load the item list to the `stores.list`
+     */
+    loadList(): void {
+        ensureEntityRowStore<L, TQueryList>(
+            this.stores.list,
+            this.getListGql(),
+            this.convertListItem,
+        );
+    }
+
+    /**
+     * Load the item detail to the `stores.detail`
+     */
+    load(id: number): void {
+        ensureEntityStore<T, TQueryById>(
+            this.stores.detail,
+            this.getDetailByIdGql(),
+            this.convertDetail,
+        );
+    }
+
+    /**
+     * Saves the item, invalidates `stores.list`
+     * @param s - the entity save parameters
+     */
+    save(s: S): Promise<FetchResult<TSaveMutation>> {
+        const result = mutation<TSaveMutation, S>(this.getSaveGql())({ variables: s });
+        invalidate(this.stores.list);
+        return result;
+    }
+
+    /**
+     * Needs to be called in the `onDestroy` lifecycle method of the entity detail
+     */
+    destroyDetail(): void {
+        destroy(this.stores.detail);
+    }
+
+    protected abstract getDetailSafeEntity(): T;
+    protected abstract getDetailByIdGql(): DocumentNode;
+    protected abstract getListGql(): DocumentNode;
+    protected abstract getSaveGql(): DocumentNode;
+    protected abstract convertDetail(q: TQueryById): T;
+    protected abstract convertListItem(q: TQueryList): L[];
 }
