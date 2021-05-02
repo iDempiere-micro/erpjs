@@ -12,13 +12,9 @@ import { ensureEntityRowStore, initRows } from './entityStore';
 import { mutation, query, ReadableQuery } from '../../absorb/svelte-apollo';
 import type { Mutate } from '../../absorb/svelte-apollo/mutation';
 
-export const accountingSchemesService = {
-
-}
-
 export const accountingSchemesStore = initRows<AccountingSchemeRow>();
 
-export const ensureAccountingSchemesStore = () => {
+export const ensureAccountingSchemesStore = (): void => {
     ensureEntityRowStore<AccountingSchemeRow, AccountingSchemesQuery>(
         accountingSchemesStore,
         ACCOUNTING_SCHEMES,
@@ -34,10 +30,13 @@ export const mapAccountingSchemes = (data: AccountingSchemeRow[]): SelectItem[] 
           }))
         : [];
 
-export const getAccountingSchemeBy = (id: number) : ReadableQuery<AccountingSchemeByIdQuery> =>
+export const getAccountingSchemeBy = (id: number): ReadableQuery<AccountingSchemeByIdQuery> =>
     query<AccountingSchemeByIdQuery>(GET_ACCOUNTING_SCHEME_BY_ID, { variables: { id } });
 
-export const saveAccountingSchemeMutation = () : Mutate<SaveAccountingSchemeMutation, SaveAccountingSchemeMutationVariables> =>
+export const saveAccountingSchemeMutation = (): Mutate<
+    SaveAccountingSchemeMutation,
+    SaveAccountingSchemeMutationVariables
+> =>
     mutation<SaveAccountingSchemeMutation, SaveAccountingSchemeMutationVariables>(
         SAVE_ACCOUNTING_SCHEME,
     );

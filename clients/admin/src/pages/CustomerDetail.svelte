@@ -29,10 +29,8 @@
         if (customer.customerGroup?.id && !customerGroupResult) {
             customerGroupResult = getCustomerGroupBy(customer.customerGroup?.id || -1);
         }
-        console.log('*** $customerGroupResult', $customerGroupResult);
         if ($customerGroupResult?.data?.customerGroup && !customerGroup.id) {
             customerGroup = $customerGroupResult.data?.customerGroup || ({} as any);
-            console.log('*** customerGroup', customerGroup);
         }
     }
 </script>
