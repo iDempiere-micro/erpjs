@@ -14,8 +14,6 @@
     export let countryId: number | undefined;
     const store = countryService.stores.list;
 
-    console.log('*** ', form, id);
-
     const handleSelectCountry = (event: OnSelectParam) => {
         countryId = +event.detail.value;
         onSelect(countryId);

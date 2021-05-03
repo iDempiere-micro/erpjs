@@ -103,8 +103,6 @@ export function ensureEntityStore<T, Q>(
     convert: (result: Q) => T,
     id: number,
 ) {
-    console.log('*** store', storeInstance.get());
-
     if (storeInstance.get().loaded) return;
 
     const loadResult = query<Q>(gql, { variables: { id } });
@@ -112,11 +110,6 @@ export function ensureEntityStore<T, Q>(
         if (value?.error) throw new Error(`${value?.error}`);
         if (value?.data) {
             const data = convert(value.data);
-
-            console.log('*** updating the store with ', {
-                loaded: !!data,
-                data,
-            });
 
             storeInstance.update(() => ({
                 loaded: !!data,
@@ -190,7 +183,6 @@ export abstract class BaseEntityService<
             id,
         );
         onDestroy(() => {
-            console.log('destroying...');
             destroy(this.stores.detail);
         });
     }

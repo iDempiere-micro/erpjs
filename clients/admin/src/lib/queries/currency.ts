@@ -19,6 +19,6 @@ export const GET_CURRENCY_BY_ID = gql`
 
 export const mock1 = {
     data: {
-        currency: mock.data.currencies[0]
-    }
+        currency: mock.data.currencies[0],
+    },
 };

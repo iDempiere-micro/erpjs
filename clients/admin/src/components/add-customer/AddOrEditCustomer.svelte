@@ -114,7 +114,6 @@
                 },
             })
         ).json();
-        console.log('**** upload', upload);
     }
 
     const addCustomer = mutation<SaveCustomerMutation, SaveCustomerMutationVariables>(ADD_CUSTOMER);
@@ -129,8 +128,6 @@
             legalAddressCountryId &&
             invoicingEmail
         ) {
-            console.log('*** customerGroupId', customerGroupId);
-
             const { data } = await addCustomer({
                 variables: {
                     id: customer ? customer.id : null,

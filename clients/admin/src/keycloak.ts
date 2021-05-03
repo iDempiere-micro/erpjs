@@ -1,4 +1,5 @@
 import Keycloak from 'keycloak-js';
+import { logInternal } from './lib/support/util';
 
 export const authenticate = (callback: () => void): void => {
     if (!process.env.MOCK && !process.env.FAKE_TOKEN && !(window as any).token) {
@@ -11,7 +12,7 @@ export const authenticate = (callback: () => void): void => {
         keycloak
             .init({})
             .then(function (authenticated) {
-                console.log(authenticated ? 'authenticated' : 'not authenticated');
+                logInternal(authenticated ? 'authenticated' : 'not authenticated');
                 if (!authenticated) {
                     keycloak.login({
                         redirectUri: process.env.URL,
@@ -25,6 +26,7 @@ export const authenticate = (callback: () => void): void => {
                 }
             })
             .catch(function (f) {
+                // eslint-disable-next-line no-console
                 console.error('Keycloak login failed', f);
             });
     }

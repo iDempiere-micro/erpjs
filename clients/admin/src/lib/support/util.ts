@@ -26,7 +26,9 @@ const errorHandlers = [
 ];
 
 export const getError = (error: ApolloError | any): string => {
-    const message: string = error.hasOwnProperty('message') ? error.message : error.toString();
+    const message: string = Object.prototype.hasOwnProperty.call(error, 'message')
+        ? error.message
+        : error.toString();
     let userMessage;
     for (const errorHandler of errorHandlers) {
         if (message.includes(errorHandler.error)) {
@@ -36,7 +38,7 @@ export const getError = (error: ApolloError | any): string => {
     }
     if (userMessage) return userMessage;
 
-    console.error('*** getError', error);
+    logInternal('*** getError', error);
     return message;
 };
 
@@ -56,4 +58,6 @@ export const mapDisplayableToSelectItem = (data: EntityDetailDisplayable[]): Sel
 
 export const logInternal = (message?: any, ...optionalParams: any[]): void => {
     const logs = (window as any).logs || [];
-}
+    logs.push({ message, ...optionalParams });
+    (window as any).logs = logs;
+};

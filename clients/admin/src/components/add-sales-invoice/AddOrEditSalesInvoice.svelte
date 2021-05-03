@@ -193,7 +193,6 @@
     let factoringProviders: FactoringProviderListPartsFragment[] | undefined;
     $: {
         factoringProviders = $factoringProvidersResult?.data?.factoringProvidersForInvoice;
-        console.log('*** ', $factoringProvidersResult);
     }
     const getLineOrder: (x: SalesInvoiceLineSaveArgs) => number = (x) => x.lineOrder;
 </script>

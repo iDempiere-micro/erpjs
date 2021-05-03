@@ -106,7 +106,6 @@
             },
         });
         invoiceIds = data?.createMonthlyInvoice?.map((x) => x.id);
-        console.log('*** invoices created', invoiceIds);
     };
 
     const download = (id: number) =>
