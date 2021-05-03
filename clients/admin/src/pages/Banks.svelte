@@ -1,24 +1,21 @@
 <script lang="ts">
-    import type { BanksQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
     import BankList from '../components/banks/BankList.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { BANKS } from '../lib/queries/banks';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
+    import { bankService } from '../lib/core';
 
-    const banks = query<BanksQuery, any>(BANKS);
+    bankService.loadList();
+
+    const banks = bankService.stores.list;
 </script>
 
 <Page title={$_('page.banks.title')} segment={segments.banks} name="page.banks">
     <span slot="content">
-        {#if $banks.loading}
-            {$_('status.loading')}
-        {:else if $banks.error}
-            {$_('status.error')} {getError($banks.error)}
+        {#if $banks.loaded}
+            <BankList banks={$banks.data} />
         {:else}
-            <BankList banks={$banks.data?.banks} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

@@ -1,24 +1,21 @@
 <script lang="ts">
-    import type { CountriesQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
     import CountryList from '../components/countries/CountryList.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { COUNTRIES } from '../lib/queries/countries';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
+    import { countryService } from '../lib/core';
 
-    const countries = query<CountriesQuery, any>(COUNTRIES);
+    countryService.loadList();
+
+    const countries = countryService.stores.list;
 </script>
 
 <Page title={$_('page.countries.title')} segment={segments.countries} name="page.countries">
     <span slot="content">
-        {#if $countries.loading}
-            {$_('status.loading')}
-        {:else if $countries.error}
-            {$_('status.error')} {getError($countries.error)}
+        {#if $countries.loaded}
+            <CountryList countries={$countries.data} />
         {:else}
-            <CountryList countries={$countries.data?.countries} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

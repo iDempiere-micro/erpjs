@@ -979,7 +979,7 @@ export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
-        customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
+        customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment>;
     };
 
 export type CustomerByIdQueryVariables = Exact<{

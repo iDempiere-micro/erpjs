@@ -1,14 +1,13 @@
 <script lang="ts">
-    import type { AccountingSchemesQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
     import AccountingSchemeList from '../components/accountingSchemes/AccountingSchemeList.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { ACCOUNTING_SCHEMES } from '../lib/queries/accountingSchemes';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
+    import { accountingSchemeService } from '../lib/core';
 
-    const accountingSchemes = query<AccountingSchemesQuery, any>(ACCOUNTING_SCHEMES);
+    accountingSchemeService.loadList();
+
+    const accountingSchemes = accountingSchemeService.stores.list;
 </script>
 
 <Page
@@ -17,12 +16,9 @@
     title={$_('page.accountingSchemes.title')}
 >
     <span slot="content">
-        {#if $accountingSchemes.loading}
+        {#if $accountingSchemes.loaded}
+            <AccountingSchemeList accountingSchemes={$accountingSchemes.data} />
             {$_('status.loading')}
-        {:else if $accountingSchemes.error}
-            {$_('status.error')} {getError($accountingSchemes.error)}
-        {:else}
-            <AccountingSchemeList accountingSchemes={$accountingSchemes.data?.accountingSchemes} />
         {/if}
     </span>
     <span slot="header">

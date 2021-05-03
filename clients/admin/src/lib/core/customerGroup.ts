@@ -1,47 +1,46 @@
 import type {
     CustomerGroupByIdQuery,
-    CustomerGroupListPartsFragment,
     CustomerGroupsQuery,
+    SaveCustomerGroupMutation,
+    SaveCustomerGroupMutationVariables,
 } from '../../generated/graphql';
-
-import { store } from '../support/store';
 import { CUSTOMER_GROUPS } from '../queries/customerGroups';
-import type { SelectItem } from '../support/select';
-import { GET_CUSTOMER_GROUP_BY_ID } from '../queries/customerGroup';
-import { query, ReadableQuery } from '../../absorb/svelte-apollo';
+import { GET_CUSTOMER_GROUP_BY_ID, SAVE_CUSTOMER_GROUP } from '../queries/customerGroup';
+import type { CustomerGroupDetail, CustomerGroupRow } from '../model/customerGroup';
+import { BaseEntityService } from './entityStore';
+import type { DocumentNode } from '@apollo/client/core';
 
-export interface WithCustomerGroupListPartsFragment {
-    loaded: boolean;
-    customerGroups: CustomerGroupListPartsFragment[];
+class CustomerGroupService extends BaseEntityService<
+    CustomerGroupDetail,
+    CustomerGroupRow,
+    SaveCustomerGroupMutationVariables,
+    CustomerGroupByIdQuery,
+    CustomerGroupsQuery,
+    SaveCustomerGroupMutation
+> {
+    protected convertDetail(q: CustomerGroupByIdQuery): CustomerGroupDetail {
+        return q.customerGroup;
+    }
+
+    protected convertListItem(q: CustomerGroupsQuery): CustomerGroupRow[] {
+        return q.customerGroups;
+    }
+
+    protected getDetailByIdGql(): DocumentNode {
+        return GET_CUSTOMER_GROUP_BY_ID;
+    }
+
+    getDetailSafeEntity(): CustomerGroupDetail {
+        return {} as any;
+    }
+
+    protected getListGql(): DocumentNode {
+        return CUSTOMER_GROUPS;
+    }
+
+    protected getSaveGql(): DocumentNode {
+        return SAVE_CUSTOMER_GROUP;
+    }
 }
 
-export const customerGroupsStore = store<WithCustomerGroupListPartsFragment>({
-    loaded: false,
-    customerGroups: [],
-});
-export const ensureCustomerGroupsStore = () => {
-    if (customerGroupsStore.get().loaded) return;
-
-    const customerGroupsResult = query<CustomerGroupsQuery>(CUSTOMER_GROUPS);
-    customerGroupsResult.subscribe((value) => {
-        if (value?.error) throw new Error(`${value?.error}`);
-        if (value?.data) {
-            customerGroupsStore.update((x) => ({
-                loaded: true,
-                // @ts-ignore
-                customerGroups: value.data.customerGroups,
-            }));
-        }
-    });
-};
-
-export const mapCustomerGroups = (data: CustomerGroupListPartsFragment[]): SelectItem[] =>
-    data
-        ? data.map(({ id, displayName }) => ({
-              value: id,
-              label: displayName,
-          }))
-        : [];
-
-export const getCustomerGroupBy = (id: number): ReadableQuery<CustomerGroupByIdQuery> =>
-    query<CustomerGroupByIdQuery>(GET_CUSTOMER_GROUP_BY_ID, { variables: { id } });
+export const customerGroupService: CustomerGroupService = new CustomerGroupService();

@@ -37,7 +37,6 @@ export class CustomerPriceList implements CustomerPriceListModel {
   @OneToMany(
     () => CustomerProductPrice,
     customerProductPrice => customerProductPrice.customerPriceList,
-    { eager: true },
   )
   productPrices: Array<CustomerProductPriceModel>;
 

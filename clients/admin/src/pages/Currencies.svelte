@@ -7,18 +7,18 @@
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
+    import { currencyService } from '../lib/core';
 
-    const currencies = query<CurrenciesQuery, any>(CURRENCIES);
+    currencyService.loadList();
+    const currencies = currencyService.stores.list;
 </script>
 
 <Page title={$_('page.currencies.title')} segment={segments.currencies} name="page.currencies">
     <span slot="content">
-        {#if $currencies.loading}
-            {$_('status.loading')}
-        {:else if $currencies.error}
-            {$_('status.error')} {getError($currencies.error)}
+        {#if $currencies.loaded}
+            <CurrencyList currencies={$currencies.data} />
         {:else}
-            <CurrencyList currencies={$currencies.data?.currencies} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

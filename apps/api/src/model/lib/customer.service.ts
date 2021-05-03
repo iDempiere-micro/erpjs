@@ -27,6 +27,15 @@ export class CustomerService extends BaseEntityService<
     super();
   }
 
+  loadEntityByIdRelations(): string[] {
+    return [
+      'customerGroup',
+      'customerGroup.customerPriceLists',
+      'customerGroup.customerPriceLists.productPrices',
+      'customerGroup.customerPriceLists.productPrices.product',
+    ];
+  }
+
   createEntity(): CustomerModel {
     return new Customer();
   }

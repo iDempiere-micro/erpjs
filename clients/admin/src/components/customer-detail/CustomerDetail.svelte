@@ -7,6 +7,7 @@
 
     export let customer: CustomerDetail = customerService.getDetailSafeEntity();
 </script>
+
 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -23,7 +24,7 @@
                     {$_('page.customers.detail.note')}
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {printableString(customer.note)}
+                    {printableString(customer.note)}
                 </dd>
             </div>
         </dl>
@@ -203,11 +204,9 @@
                     {$_('page.customers.detail.productPrices')}
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <ul
-                        class="border border-gray-200 rounded-md divide-y divide-gray-200"
-                    >
-                        {#if customerGroup.customerPriceLists && (customerGroup.customerPriceLists || []).length > 0}
-                            {#each customerGroup.customerPriceLists[0].productPrices || [] as productPrice}
+                    <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+                        {#if customer.safeCustomerGroup.customerPriceLists && customer.safeCustomerGroup.customerPriceLists.length > 0}
+                            {#each customer.safeCustomerGroup.customerPriceLists[0].productPrices || [] as productPrice}
                                 <li
                                     class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
                                 >
@@ -227,10 +226,10 @@
                                             />
                                         </svg>
                                         <span class="ml-2 flex-1 w-0 truncate">
-                                                        {productPrice.product.displayName}
+                                            {productPrice.product.displayName}
                                             {productPrice.sellingPrice}
                                             {productPrice.currency.displayName}
-                                                    </span>
+                                        </span>
                                     </div>
                                     <div class="ml-4 flex-shrink-0">
                                         <a

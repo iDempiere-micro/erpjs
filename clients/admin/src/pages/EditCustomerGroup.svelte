@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { getCustomerGroupBy } from '../lib/core/customerGroup';
+    import { customerGroupService } from '../lib/core/customerGroup';
     import AddOrEditCustomerGroup from '../components/add-customerGroup/AddOrEditCustomerGroup.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    customerGroupService.load(id);
 
-    const CustomerGroup = getCustomerGroupBy(id);
+    const CustomerGroup = customerGroupService.stores.detail;
 </script>
 
 <Page
@@ -18,14 +18,10 @@
     name="page.customerGroups.edit"
 >
     <span slot="content">
-        {#if $CustomerGroup.loading}
-            {$_('status.loading')}
-        {:else if $CustomerGroup.error}
-            {$_('status.error')} {getError($CustomerGroup.error)}
-        {:else if $CustomerGroup?.data?.customerGroup}
-            <AddOrEditCustomerGroup customerGroup={$CustomerGroup?.data?.customerGroup} />
+        {#if $CustomerGroup.loaded}
+            <AddOrEditCustomerGroup customerGroup={$CustomerGroup?.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

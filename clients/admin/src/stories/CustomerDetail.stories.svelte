@@ -1,8 +1,8 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-    import CustomerDetail from '../pages/CustomerDetail.svelte';
     import { apollo } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
+    import CustomerDetail from '../components/customer-detail/CustomerDetail.svelte';
 
     const client = apollo(true);
 

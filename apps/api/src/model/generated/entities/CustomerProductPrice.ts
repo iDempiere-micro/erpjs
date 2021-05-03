@@ -25,7 +25,7 @@ export class CustomerProductPrice implements CustomerProductPriceModel {
   @ManyToOne(
     () => Product,
     product => product.customerProductPrices,
-    { nullable: false, eager: true },
+    { nullable: false },
   )
   product: ProductModel;
 
@@ -43,7 +43,6 @@ export class CustomerProductPrice implements CustomerProductPriceModel {
   @ManyToOne(
     () => Currency,
     currency => currency.accountingSchemes,
-    { eager: true },
   )
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
   @Field(() => Currency)

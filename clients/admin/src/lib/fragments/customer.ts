@@ -46,7 +46,7 @@ export const CUSTOMER_DETAIL_PARTS_RAW = `
         }
         note
         customerGroup {
-            ${CUSTOMER_GROUP_LIST_PARTS_RAW}
+            ${CUSTOMER_GROUP_DETAIL_PARTS_RAW}
         }        
         www
         publicNote        

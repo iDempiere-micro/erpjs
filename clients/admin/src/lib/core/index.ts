@@ -5,7 +5,6 @@ export * from './country';
 export * from './currency';
 export * from './customer';
 export * from './customerGroup';
-export * from './customers';
 export * from './factoringContract';
 export * from './factoringProvider';
 export * from './menu';

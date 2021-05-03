@@ -1,14 +1,12 @@
 <script lang="ts">
-    import type { CustomerGroupsQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
     import CustomerGroupList from '../components/customerGroups/CustomerGroupList.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { CUSTOMER_GROUPS } from '../lib/queries/customerGroups';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
+    import { customerGroupService } from '../lib/core';
 
-    const CustomerGroups = query<CustomerGroupsQuery, any>(CUSTOMER_GROUPS);
+    customerGroupService.loadList();
+    const customerGroups = customerGroupService.stores.list;
 </script>
 
 <Page
@@ -17,12 +15,10 @@
     title={$_('page.customerGroups.title')}
 >
     <span slot="content">
-        {#if $CustomerGroups.loading}
-            {$_('status.loading')}
-        {:else if $CustomerGroups.error}
-            {$_('status.error')} {getError($CustomerGroups.error)}
+        {#if $customerGroups.loaded}
+            <CustomerGroupList customerGroups={$customerGroups.data} />
         {:else}
-            <CustomerGroupList customerGroups={$CustomerGroups.data?.customerGroups} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

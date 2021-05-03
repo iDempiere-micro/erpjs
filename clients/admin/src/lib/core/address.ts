@@ -9,5 +9,5 @@ export const addressOneLiner = (address: AddressListPartsFragment | undefined | 
 export const addressService = {
     getDetailSafeEntity: (): AddressRow => {
         return { country: {} } as any;
-    }
+    },
 };

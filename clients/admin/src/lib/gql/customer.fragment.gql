@@ -13,7 +13,7 @@ fragment CustomerDetailParts on Customer {
     }
     note
     customerGroup {
-        ...CustomerGroupListParts
+        ...CustomerGroupDetailParts
     }
     www
     publicNote

@@ -109,7 +109,7 @@ export class Customer implements CustomerModel {
   @ManyToOne(
     () => CustomerGroup,
     customerGroup => customerGroup.customers,
-    { nullable: true, eager: true },
+    { nullable: true },
   )
   customerGroup?: CustomerGroupModel;
 

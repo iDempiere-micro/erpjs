@@ -1,14 +1,11 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import {
-        customerGroupsStore,
-        ensureCustomerGroupsStore,
-        mapCustomerGroups,
-    } from '../../lib/core/customerGroup';
+    import { customerGroupService } from '../../lib/core';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import { mapDisplayableToSelectItem } from '../../lib/support/util';
 
-    ensureCustomerGroupsStore();
+    customerGroupService.loadList();
     let selectedCustomerGroup: SelectItem | undefined;
     export let onSelect: (customerGroupId: number) => void = (customerGroupId) => {};
     export let id: string;
@@ -21,14 +18,14 @@
         onSelect(customerGroupId);
     };
 
+    const store = customerGroupService.stores.list;
+
     $: {
         selectedCustomerGroup = undefined;
-        if (customerGroupId) {
-            const found = $customerGroupsStore.customerGroups.find(
-                (x) => x?.id === customerGroupId,
-            );
+        if (customerGroupId && $store.loaded) {
+            const found = $store.data.find((x) => x?.id === customerGroupId);
             if (found) {
-                selectedCustomerGroup = mapCustomerGroups([found])[0];
+                selectedCustomerGroup = mapDisplayableToSelectItem([found])[0];
             }
         }
     }
@@ -37,7 +34,7 @@
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
-    items={mapCustomerGroups($customerGroupsStore.customerGroups)}
+    items={mapDisplayableToSelectItem($store.data)}
     selectedValue={selectedCustomerGroup}
     on:select={handleSelectCustomerGroup}
 />

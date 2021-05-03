@@ -5,7 +5,7 @@ import { AddressSaveArgsModel } from '../../model';
 export class AddressSaveArgs implements AddressSaveArgsModel {
   @Field()
   city: string;
-  @Field(()=>Int)
+  @Field(() => Int)
   countryId: number;
   @Field()
   line1: string;

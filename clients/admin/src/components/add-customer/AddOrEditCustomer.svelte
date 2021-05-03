@@ -121,7 +121,7 @@
             });
 
             customer = { id: data?.saveCustomer?.id } as CustomerDetail;
-            await customerService.upload(files);
+            await customerService.upload(files, customer.id);
 
             await push(urls.customer.detail, customer.id);
         }

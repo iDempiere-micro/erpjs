@@ -11,6 +11,7 @@ import type { DocumentNode } from '@apollo/client/core';
 import type { CustomerDetail, CustomerRow } from '../model/customer';
 import { CUSTOMERS } from '../queries/customers';
 import { addressService } from './address';
+import { customerGroupService } from './customerGroup';
 
 class CustomerService extends BaseEntityService<
     CustomerDetail,
@@ -21,7 +22,12 @@ class CustomerService extends BaseEntityService<
     SaveCustomerMutation
 > {
     protected convertDetail(q: CustomerByIdQuery): CustomerDetail {
-        return { ...q.customer, safeAddress: q.customer.address || addressService.getDetailSafeEntity() };
+        return {
+            ...q.customer,
+            safeAddress: q.customer.address || addressService.getDetailSafeEntity(),
+            safeCustomerGroup:
+                q.customer.customerGroup || customerGroupService.getDetailSafeEntity(),
+        };
     }
 
     protected convertListItem(q: CustomersQuery): CustomerRow[] {
@@ -33,7 +39,13 @@ class CustomerService extends BaseEntityService<
     }
 
     getDetailSafeEntity(): CustomerDetail {
-        return { address: addressService.getDetailSafeEntity() } as any;
+        return {
+            address: addressService.getDetailSafeEntity(),
+            legalAddress: addressService.getDetailSafeEntity(),
+            safeAddress: addressService.getDetailSafeEntity(),
+            customerGroup: customerGroupService.getDetailSafeEntity(),
+            safeCustomerGroup: customerGroupService.getDetailSafeEntity(),
+        } as any;
     }
 
     protected getListGql(): DocumentNode {

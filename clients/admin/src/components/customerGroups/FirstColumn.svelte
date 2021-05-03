@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { CustomerGroupListPartsFragment } from '../../generated/graphql';
+    import type { CustomerGroupRow } from '../../lib/model/customerGroup';
 
-    export let row: CustomerGroupListPartsFragment;
+    export let row: CustomerGroupRow;
 </script>
 
 <div class="flex items-center">

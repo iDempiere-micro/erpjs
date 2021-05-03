@@ -1,3 +1,3 @@
 import type { AddressListPartsFragment } from '../../generated/graphql';
 
-export type  AddressRow = AddressListPartsFragment;
+export type AddressRow = AddressListPartsFragment;
