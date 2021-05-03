@@ -1,19 +1,14 @@
 <script lang="ts">
-    import type {
-        CurrencyDetailPartsFragment,
-        SaveCurrencyMutation,
-        SaveCurrencyMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
 
-    import { SAVE_CURRENCY } from '../../lib/queries/currency';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
     import { _ } from 'svelte-i18n';
-    import { mutation } from '../../absorb/svelte-apollo';
+    import type { CurrencyDetail } from '../../lib/model/currency';
+    import { currencyService } from '../../lib/core';
 
-    export let currency: CurrencyDetailPartsFragment | undefined;
+    export let currency: CurrencyDetail | undefined;
     let displayName = currency?.displayName;
     let isoCode = currency?.isoCode;
 
@@ -36,19 +31,12 @@
         },
     );
 
-    export const saveCurrencyMutation = mutation<
-        SaveCurrencyMutation,
-        SaveCurrencyMutationVariables
-    >(SAVE_CURRENCY);
-
     const saveCurrency = async () => {
         if (displayName && isoCode) {
-            const { data } = await saveCurrencyMutation({
-                variables: {
-                    id: currency?.id,
-                    displayName,
-                    isoCode,
-                },
+            const { data } = await currencyService.save({
+                id: currency?.id,
+                displayName,
+                isoCode,
             });
             await push(urls.currencies.detail, data?.saveCurrency?.id);
         }

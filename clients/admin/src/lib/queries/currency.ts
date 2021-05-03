@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { CURRENCY_DETAIL_PARTS_RAW } from '../fragments';
+import { mock } from './currencies';
 
 export const SAVE_CURRENCY = gql`
     mutation SaveCurrency($id: Int, $displayName: String!, $isoCode: String!) {
@@ -15,3 +16,9 @@ export const GET_CURRENCY_BY_ID = gql`
         }
     }
 `;
+
+export const mock1 = {
+    data: {
+        currency: mock.data.currencies[0]
+    }
+};

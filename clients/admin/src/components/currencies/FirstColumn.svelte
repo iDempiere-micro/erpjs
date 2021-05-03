@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { CurrencyListPartsFragment } from '../../generated/graphql';
+    import type { CurrencyRow } from '../../lib/model/currency';
 
-    export let row: CurrencyListPartsFragment;
+    export let row: CurrencyRow;
 </script>
 
 <div class="flex items-center">

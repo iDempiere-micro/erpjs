@@ -53,3 +53,7 @@ export const mapDisplayableToSelectItem = (data: EntityDetailDisplayable[]): Sel
               label: displayName,
           }))
         : [];
+
+export const logInternal = (message?: any, ...optionalParams: any[]): void => {
+    const logs = (window as any).logs || [];
+}

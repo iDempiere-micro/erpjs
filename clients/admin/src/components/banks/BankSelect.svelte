@@ -21,7 +21,7 @@
 
     $: {
         selectedBank = undefined;
-        if (bankId) {
+        if (bankId && $store.loaded) {
             const found = $store.data.find((x) => x?.id === bankId);
             if (found) {
                 selectedBank = mapDisplayableToSelectItem([found])[0];

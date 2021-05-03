@@ -1,15 +1,16 @@
 <script lang="ts">
-    import { getCurrencyBy } from '../lib/core/currency';
     import AddOrEditCurrency from '../components/add-currency/AddOrEditCurrency.svelte';
     import { segments } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { currencyService } from '../lib/core';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    currencyService.load(id);
 
-    const currency = getCurrencyBy(id);
+    const currency = currencyService.stores.detail;
 </script>
 
 <Page
@@ -18,14 +19,10 @@
     name="page.currencies.edit"
 >
     <span slot="content">
-        {#if $currency.loading}
-            {$_('status.loading')}
-        {:else if $currency.error}
-            {$_('status.error')} {getError($currency.error)}
-        {:else if $currency?.data?.currency}
-            <AddOrEditCurrency currency={$currency?.data?.currency} />
+        {#if $currency.loaded}
+            <AddOrEditCurrency currency={$currency.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>
