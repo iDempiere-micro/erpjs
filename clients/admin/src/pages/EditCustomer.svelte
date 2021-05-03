@@ -1,6 +1,6 @@
 <script lang="ts">
     import AddOrEditCustomer from '../components/add-customer/AddOrEditCustomer.svelte';
-    import { getCustomerBy } from '../lib/core/customer';
+    import { customerService } from '../lib/core/customer';
     import { segments } from './pathAndSegment';
     import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
@@ -8,8 +8,9 @@
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    customerService.load(id);
 
-    const customer = getCustomerBy(id);
+    const customer = customerService.stores.detail;
 </script>
 
 <Page
@@ -18,14 +19,10 @@
     name="page.customers.edit"
 >
     <span slot="content">
-        {#if $customer.loading}
-            {$_('status.loading')}
-        {:else if $customer.error}
-            {$_('status.error')} {getError($customer.error)}
-        {:else if $customer?.data?.customer}
-            <AddOrEditCustomer customer={$customer?.data?.customer} />
+        {#if $customer.loaded}
+            <AddOrEditCustomer customer={$customer.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

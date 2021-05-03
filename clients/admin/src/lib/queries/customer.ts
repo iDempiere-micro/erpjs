@@ -33,7 +33,7 @@ export const GET_CUSTOMER_BY_ID = gql`
         }
     }
 `;
-export const ADD_CUSTOMER = gql`
+export const SAVE_CUSTOMER = gql`
     mutation SaveCustomer(
         $id: Int
         $displayName: String!

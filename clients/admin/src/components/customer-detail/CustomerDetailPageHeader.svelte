@@ -1,34 +1,33 @@
 <script lang="ts">
-    import { addressOneLiner, getCustomerBy, loadCustomerPhotoContent } from '../../lib/core';
+    import { addressOneLiner, customerService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
-    import { getError } from '../../lib/support/util';
     import { push, urls } from '../../pages/pathAndSegment';
+    import type { CustomerDetail } from '../../lib/model/customer';
 
     let mobileMenu = false;
     export let id: number;
     id = parseInt('' + id);
 
-    const customerResult = getCustomerBy(id);
-    let customer = {} as any;
+    export let customer: CustomerDetail = customerService.getDetailSafeEntity();
+
+    if (!customer.id) {
+        customerService.load(id);
+    }
+    const store = customerService.stores.detail;
 
     let customerPhotoContent: string;
-
-    loadCustomerPhotoContent(id).then((data) => {
+    customerService.loadCustomerPhotoContent(id).then((data) => {
         customerPhotoContent = data;
     });
 
     $: {
-        if ($customerResult.data?.customer && !customer.id) {
-            customer = $customerResult.data?.customer;
+        if (!customer.id && $store.loaded) {
+            customer = $store.data;
         }
     }
 </script>
 
-{#if $customerResult.loading}
-    {$_('status.loading')}
-{:else if $customerResult.error}
-    {$_('status.error')} {getError($customerResult.error)}
-{:else if $customerResult.data}
+{#if customer.id}
     <div class="lg:flex lg:items-center lg:justify-between">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
@@ -255,5 +254,5 @@
         </div>
     </div>
 {:else}
-    {$_('status.error')}
+    {$_('status.loading')}
 {/if}

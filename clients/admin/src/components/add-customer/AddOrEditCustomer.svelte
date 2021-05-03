@@ -2,24 +2,18 @@
     import Break from '../../molecules/form/Break.svelte';
 
     import { bindClass, form } from 'svelte-forms';
-    import type {
-        CustomerDetailPartsFragment,
-        SaveCustomerMutation,
-        SaveCustomerMutationVariables,
-    } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
-    import { ADD_CUSTOMER } from '../../lib/queries/customer';
     import type { SelectItem } from '../../lib/support/select';
-    import { throwOnUndefined } from '../../lib/support/util';
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
-    import { getClient, mutation } from '../../absorb/svelte-apollo';
-    import { countryService } from '../../lib/core';
+    import { getClient } from '../../absorb/svelte-apollo';
+    import { countryService, customerService } from '../../lib/core';
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
+    import type { CustomerDetail } from '../../lib/model/customer';
 
-    export let customer: CustomerDetailPartsFragment | undefined;
+    export let customer: CustomerDetail | undefined;
 
     countryService.loadList();
 
@@ -100,23 +94,6 @@
     let files: any;
     let dataFile = null;
 
-    async function upload() {
-        if (!files || files.length === 0) return;
-        const formData = new FormData();
-        formData.append('file', files[0]);
-        const baseUrl = process.env.API_BASE_URL || throwOnUndefined();
-        const upload = (
-            await fetch(baseUrl.replace('graphql', 'file/upload-customer-photo/' + customer?.id), {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || (window as any).token),
-                },
-            })
-        ).json();
-    }
-
-    const addCustomer = mutation<SaveCustomerMutation, SaveCustomerMutationVariables>(ADD_CUSTOMER);
     const saveCustomer = async () => {
         if (
             displayName &&
@@ -128,25 +105,23 @@
             legalAddressCountryId &&
             invoicingEmail
         ) {
-            const { data } = await addCustomer({
-                variables: {
-                    id: customer ? customer.id : null,
-                    displayName,
-                    legalName,
-                    legalAddressCity,
-                    note,
-                    idNumber,
-                    legalAddressCountryId,
-                    legalAddressLine1,
-                    legalAddressZipCode,
-                    invoicingEmail,
-                    vatNumber,
-                    customerGroupId,
-                },
+            const { data } = await customerService.save({
+                id: customer ? customer.id : null,
+                displayName,
+                legalName,
+                legalAddressCity,
+                note,
+                idNumber,
+                legalAddressCountryId,
+                legalAddressLine1,
+                legalAddressZipCode,
+                invoicingEmail,
+                vatNumber,
+                customerGroupId,
             });
 
-            customer = { id: data?.saveCustomer?.id } as CustomerDetailPartsFragment;
-            await upload();
+            customer = { id: data?.saveCustomer?.id } as CustomerDetail;
+            await customerService.upload(files);
 
             await push(urls.customer.detail, customer.id);
         }
