@@ -1,25 +1,19 @@
 <script lang="ts">
-    import type {
-        FactoringContractDetailPartsFragment,
-        SaveFactoringContractMutation,
-        SaveFactoringContractMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-
-    import { SAVE_FACTORING_CONTRACT } from '../../lib/queries/factoringContract';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import FactoringProviderSelect from '../factoringProviders/FactoringProviderSelect.svelte';
     import OrganizationSelect from '../organizations/OrganizationSelect.svelte';
     import CustomerSelect from '../customers/CustomerSelect.svelte';
-    import { mutation } from '../../absorb/svelte-apollo';
+    import type { FactoringContractDetail } from '../../lib/model/factoringContract';
+    import { factoringContractService } from '../../lib/core';
 
     /**
-     * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
+     * The factoring contract to be edit or `undefined` if adding a new factoring contract
      */
-    export let factoringContract: FactoringContractDetailPartsFragment | undefined;
+    export let factoringContract: FactoringContractDetail | undefined;
     let factoringProviderId = factoringContract?.factoringProvider?.id;
     let customerId = factoringContract?.customer?.id;
     let organizationId = factoringContract?.organization?.id;
@@ -65,11 +59,6 @@
         },
     );
 
-    export const saveFactoringContractMutation = mutation<
-        SaveFactoringContractMutation,
-        SaveFactoringContractMutationVariables
-    >(SAVE_FACTORING_CONTRACT);
-
     const handleSelectFactoringProvider = (id: number) => {
         factoringProviderId = id;
         myForm.validate();
@@ -85,14 +74,12 @@
 
     const saveFactoringContract = async () => {
         if (factoringProviderId && customerId && organizationId && invoicePrintNote) {
-            const { data } = await saveFactoringContractMutation({
-                variables: {
-                    id: factoringContract?.id,
-                    factoringProviderId,
-                    customerId,
-                    organizationId,
-                    invoicePrintNote,
-                },
+            const { data } = await factoringContractService.save({
+                id: factoringContract?.id,
+                factoringProviderId,
+                customerId,
+                organizationId,
+                invoicePrintNote,
             });
             await push(urls.factoringContracts.detail, data?.saveFactoringContract?.id);
         }

@@ -1,24 +1,18 @@
 <script lang="ts">
-    import { getFactoringProviderBy } from '../lib/core/factoringProvider';
+    import { factoringProviderService } from '../lib/core';
     import { push, segments, urls } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import type { FactoringProviderDetailPartsFragment } from '../generated/graphql';
     import Button from '../dsl/Button.svelte';
+    import FactoringProviderDetail from '../components/factoringProvider-detail/FactoringProviderDetail.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    factoringProviderService.load(id);
 
-    let FactoringProvider: FactoringProviderDetailPartsFragment;
-
-    const FactoringProviderResult = getFactoringProviderBy(id);
+    const factoringProvider = factoringProviderService.stores.detail;
 
     const editFactoringProvider = () => push(urls.factoringProviders.edit, id);
-
-    $: {
-        FactoringProvider = $FactoringProviderResult?.data?.factoringProvider || ({} as any);
-    }
 </script>
 
 <Page
@@ -27,38 +21,16 @@
     title={$_('page.factoringProviders.detail.title')}
 >
     <span slot="content">
-        {#if $FactoringProviderResult.loading}
-            {$_('status.loading')}
-        {:else if $FactoringProviderResult.error}
-            {$_('status.error')} {getError($FactoringProviderResult.error)}
-        {:else if $FactoringProviderResult.data}
-            <!-- This example requires Tailwind CSS v2.0+ -->
+        {#if $factoringProvider.loaded}
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
                         {$_('page.factoringProviders.detail.info')}
                     </h3>
                 </div>
-                <div class="border-t border-gray-200">
-                    <dl>
-                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">
-                                {$_('page.factoringProviders.detail.displayName')}
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {FactoringProvider.displayName}
-                            </dd>
-                        </div>
-                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">
-                                {$_('page.factoringProviders.detail.legalName')}
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {FactoringProvider.legalName}
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
+
+                <FactoringProviderDetail factoringProvider={$factoringProvider.data} />
+
                 <div class="px-4 py-3 bg-white text-right sm:px-6">
                     <Button
                         label={$_('actions.edit')}
@@ -69,7 +41,7 @@
                 </div>
             </div>
         {:else}
-            {$_('status.error')}
+           {$_('status.loading')}
         {/if}
     </span>
 </Page>

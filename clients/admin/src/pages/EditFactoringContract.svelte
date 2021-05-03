@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { getFactoringContractBy } from '../lib/core/factoringContract';
     import AddOrEditFactoringContract from '../components/add-factoringContract/AddOrEditFactoringContract.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { factoringContractService } from '../lib/core';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    factoringContractService.load(id);
 
-    const factoringContract = getFactoringContractBy(id);
+    const factoringContract = factoringContractService.stores.detail;
 </script>
 
 <Page
@@ -18,16 +18,10 @@
     name="page.factoringContracts.edit"
 >
     <span slot="content">
-        {#if $factoringContract.loading}
-            {$_('status.loading')}
-        {:else if $factoringContract.error}
-            {$_('status.error')} {getError($factoringContract.error)}
-        {:else if $factoringContract?.data?.factoringContract}
-            <AddOrEditFactoringContract
-                factoringContract={$factoringContract?.data?.factoringContract}
-            />
+        {#if $factoringContract.loaded}
+            <AddOrEditFactoringContract factoringContract={$factoringContract.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

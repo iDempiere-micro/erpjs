@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { FactoringContractListPartsFragment } from '../../generated/graphql';
+    import type { FactoringContractRow } from '../../lib/model/factoringContract';
 
-    export let row: FactoringContractListPartsFragment;
+    export let row: FactoringContractRow;
 </script>
 
 <div class="flex items-center">

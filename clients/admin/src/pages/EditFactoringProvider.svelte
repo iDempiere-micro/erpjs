@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { getFactoringProviderBy } from '../lib/core/factoringProvider';
+    import { factoringProviderService } from '../lib/core';
     import AddOrEditFactoringProvider from '../components/add-factoringProvider/AddOrEditFactoringProvider.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    factoringProviderService.load(id);
 
-    const factoringProvider = getFactoringProviderBy(id);
+    const factoringProvider = factoringProviderService.stores.detail;
 </script>
 
 <Page
@@ -18,16 +18,12 @@
     name="page.factoringProviders.edit"
 >
     <span slot="content">
-        {#if $factoringProvider.loading}
-            {$_('status.loading')}
-        {:else if $factoringProvider.error}
-            {$_('status.error')} {getError($factoringProvider.error)}
-        {:else if $factoringProvider?.data?.factoringProvider}
+        {#if $factoringProvider.loaded}
             <AddOrEditFactoringProvider
                 factoringProvider={$factoringProvider?.data?.factoringProvider}
             />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

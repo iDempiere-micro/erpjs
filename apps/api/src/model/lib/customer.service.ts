@@ -33,6 +33,7 @@ export class CustomerService extends BaseEntityService<
       'customerGroup.customerPriceLists',
       'customerGroup.customerPriceLists.productPrices',
       'customerGroup.customerPriceLists.productPrices.product',
+      'customerGroup.customerPriceLists.productPrices.currency',
     ];
   }
 

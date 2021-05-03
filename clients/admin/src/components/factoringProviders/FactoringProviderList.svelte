@@ -2,10 +2,10 @@
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
-    import type { FactoringProviderListPartsFragment } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
+    import type { FactoringProviderRow } from '../../lib/model/factoringProvider';
 
-    export let factoringProviders: FactoringProviderListPartsFragment[] | undefined;
+    export let factoringProviders: FactoringProviderRow[] | undefined;
 
     const columns = [
         {

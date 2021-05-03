@@ -2,7 +2,6 @@
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
     import type {
-        FactoringProviderListPartsFragment,
         FactoringProvidersForInvoiceQuery,
         SalesInvoiceDetailPartsFragment,
         SalesInvoiceLineSaveArgs,
@@ -30,6 +29,7 @@
     import Button from '../../dsl/Button.svelte';
     import type { ReadableQuery } from '../../absorb/svelte-apollo';
     import { mutation, query } from '../../absorb/svelte-apollo';
+    import type { FactoringProviderRow } from '../../lib/model/factoringProvider';
 
     export let salesInvoice: SalesInvoiceDetailPartsFragment | undefined;
 
@@ -190,7 +190,7 @@
             },
         );
     };
-    let factoringProviders: FactoringProviderListPartsFragment[] | undefined;
+    let factoringProviders: FactoringProviderRow[] | undefined;
     $: {
         factoringProviders = $factoringProvidersResult?.data?.factoringProvidersForInvoice;
     }

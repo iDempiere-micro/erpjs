@@ -1,22 +1,15 @@
 <script lang="ts">
-    import type {
-        FactoringProviderDetailPartsFragment,
-        SaveFactoringProviderMutation,
-        SaveFactoringProviderMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form as svelteForm } from 'svelte-forms';
-
-    import { SAVE_FACTORING_PROVIDER } from '../../lib/queries/factoringProvider';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
-    import { mutation } from '../../absorb/svelte-apollo';
     import BankSelect from '../banks/BankSelect.svelte';
-    import { bankService } from '../../lib/core';
+    import { bankService, factoringProviderService } from '../../lib/core';
+    import type { FactoringProviderDetail } from '../../lib/model/factoringProvider';
 
-    export let factoringProvider: FactoringProviderDetailPartsFragment | undefined;
+    export let factoringProvider: FactoringProviderDetail | undefined;
     let displayName = factoringProvider?.displayName;
     let contact = factoringProvider?.contact;
     let legalName = factoringProvider?.legalName;
@@ -78,11 +71,6 @@
         },
     );
 
-    export const saveFactoringProviderMutation = mutation<
-        SaveFactoringProviderMutation,
-        SaveFactoringProviderMutationVariables
-    >(SAVE_FACTORING_PROVIDER);
-
     const saveFactoringProvider = async () => {
         if (
             displayName &&
@@ -94,20 +82,18 @@
             iban &&
             swift
         ) {
-            const { data } = await saveFactoringProviderMutation({
-                variables: {
-                    id: factoringProvider?.id,
-                    displayName,
-                    contact,
-                    legalName,
-                    newBankAccount: {
-                        id: factoringProvider?.bankAccount?.id,
-                        bankAccountCustomerPrintableNumber,
-                        bankId,
-                        displayName: bankAccountDisplayName,
-                        iban,
-                        swift,
-                    },
+            const { data } = await factoringProviderService.save({
+                id: factoringProvider?.id,
+                displayName,
+                contact,
+                legalName,
+                newBankAccount: {
+                    id: factoringProvider?.bankAccount?.id,
+                    bankAccountCustomerPrintableNumber,
+                    bankId,
+                    displayName: bankAccountDisplayName,
+                    iban,
+                    swift,
                 },
             });
             await push(urls.factoringProviders.detail, data?.saveFactoringProvider?.id);

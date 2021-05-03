@@ -1,47 +1,62 @@
 import type {
     FactoringContractByIdQuery,
-    FactoringContractListPartsFragment,
     FactoringContractsQuery,
+    SaveFactoringContractMutation,
+    SaveFactoringContractMutationVariables,
 } from '../../generated/graphql';
-
-import { store } from '../support/store';
-import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
 import type { SelectItem } from '../support/select';
-import { GET_FACTORING_CONTRACT_BY_ID } from '../queries/factoringContract';
-import { query } from '../../absorb/svelte-apollo';
+import type { FactoringContractDetail, FactoringContractRow } from '../model/factoringContract';
+import { BaseEntityService } from './entityStore';
+import type { DocumentNode } from '@apollo/client/core';
+import {
+    GET_FACTORING_CONTRACT_BY_ID,
+    SAVE_FACTORING_CONTRACT,
+} from '../queries/factoringContract';
+import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
 
-export interface WithFactoringContractListPartsFragment {
-    loaded: boolean;
-    factoringContracts: FactoringContractListPartsFragment[];
+class FactoringContractService extends BaseEntityService<
+    FactoringContractDetail,
+    FactoringContractRow,
+    SaveFactoringContractMutationVariables,
+    FactoringContractByIdQuery,
+    FactoringContractsQuery,
+    SaveFactoringContractMutation
+> {
+    protected convertDetail(q: FactoringContractByIdQuery): FactoringContractDetail {
+        return q.factoringContract;
+    }
+
+    protected convertListItem(q: FactoringContractsQuery): FactoringContractRow[] {
+        return q.factoringContracts;
+    }
+
+    protected getDetailByIdGql(): DocumentNode {
+        return GET_FACTORING_CONTRACT_BY_ID;
+    }
+
+    getDetailSafeEntity(): FactoringContractDetail {
+        return {
+            customer: {},
+            organization: {},
+            factoringProvider: {},
+        } as any;
+    }
+
+    protected getListGql(): DocumentNode {
+        return FACTORING_CONTRACTS;
+    }
+
+    protected getSaveGql(): DocumentNode {
+        return SAVE_FACTORING_CONTRACT;
+    }
+
+    mapFactoringContracts = (data: FactoringContractRow[]): SelectItem[] =>
+        data
+            ? data.map(({ id, customer, organization, factoringProvider }) => ({
+                  value: id,
+                  label: `${customer.displayName} -> ${factoringProvider.displayName} -> ${organization.displayName}`,
+              }))
+            : [];
 }
 
-export const factoringContractsStore = store<WithFactoringContractListPartsFragment>({
-    loaded: false,
-    factoringContracts: [],
-});
-export const ensureFactoringContractsStore = () => {
-    if (factoringContractsStore.get().loaded) return;
-
-    const factoringContractsResult = query<FactoringContractsQuery>(FACTORING_CONTRACTS);
-    factoringContractsResult.subscribe((value) => {
-        if (value?.error) throw new Error(`${value?.error}`);
-        if (value?.data) {
-            factoringContractsStore.update((x) => ({
-                loaded: true,
-                // @ts-ignore
-                factoringContracts: value.data.factoringContracts,
-            }));
-        }
-    });
-};
-
-export const mapFactoringContracts = (data: FactoringContractListPartsFragment[]): SelectItem[] =>
-    data
-        ? data.map(({ id, customer, organization, factoringProvider }) => ({
-              value: id,
-              label: `${customer.displayName} -> ${factoringProvider.displayName} -> ${organization.displayName}`,
-          }))
-        : [];
-
-export const getFactoringContractBy = (id: number) =>
-    query<FactoringContractByIdQuery>(GET_FACTORING_CONTRACT_BY_ID, { variables: { id } });
+export const factoringContractService: FactoringContractService = new FactoringContractService();
