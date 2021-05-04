@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { ProductListPartsFragment } from '../../generated/graphql';
+    import type { ProductRow } from '../../lib/model/product';
 
-    export let row: ProductListPartsFragment;
+    export let row: ProductRow;
 </script>
 
 <div class="flex items-center">

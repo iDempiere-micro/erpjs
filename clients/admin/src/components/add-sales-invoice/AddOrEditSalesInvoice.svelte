@@ -3,10 +3,7 @@
     import { form } from 'svelte-forms';
     import type {
         FactoringProvidersForInvoiceQuery,
-        SalesInvoiceDetailPartsFragment,
         SalesInvoiceLineSaveArgs,
-        SaveSalesInvoiceMutation,
-        SaveSalesInvoiceMutationVariables,
     } from '../../generated/graphql';
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import QuantityColumn from './QuantityColumn.svelte';
@@ -14,12 +11,7 @@
     import NarrationColumn from './NarrationColumn.svelte';
     import ProductColumn from './ProductColumn.svelte';
     import type { Column, RowAction } from '../../molecules/datagrid/types';
-    import { ensureProductsStore } from '../../lib/core';
     import * as R from 'ramda';
-    import {
-        ADD_SALES_INVOICE,
-        FACTORING_PROVIDER_FOR_INVOICE,
-    } from '../../lib/queries/salesInvoice';
     import { push, urls } from '../../pages/pathAndSegment';
     import FactoringProviderSelect from '../factoringProviders/FactoringProviderSelect.svelte';
     import { _ } from 'svelte-i18n';
@@ -28,48 +20,40 @@
     import OrganizationSelect from '../organizations/OrganizationSelect.svelte';
     import Button from '../../dsl/Button.svelte';
     import type { ReadableQuery } from '../../absorb/svelte-apollo';
-    import { mutation, query } from '../../absorb/svelte-apollo';
     import type { FactoringProviderRow } from '../../lib/model/factoringProvider';
+    import { factoringProviderService, salesInvoiceService } from '../../lib/core';
+    import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
 
-    export let salesInvoice: SalesInvoiceDetailPartsFragment | undefined;
+    export let salesInvoice: SalesInvoiceDetail | undefined;
 
     if (salesInvoice && !salesInvoice?.isDraft) {
         push(urls.salesInvoices.detail, salesInvoice.id);
     }
 
-    export const addSalesInvoice = mutation<
-        SaveSalesInvoiceMutation,
-        SaveSalesInvoiceMutationVariables
-    >(ADD_SALES_INVOICE);
-
     const saveSalesInvoice = async () => {
         if (organizationId && customerId && currencyId && paymentTermInDays) {
             paymentTermInDays = +paymentTermInDays;
-            const { data } = await addSalesInvoice({
-                variables: {
-                    id: salesInvoice?.id,
-                    currencyId,
-                    customerId,
-                    issuedOn,
-                    lines: lines.map((line) => ({
-                        lineOrder: line.lineOrder,
-                        linePrice: line.linePrice,
-                        lineTaxIsStandard: true,
-                        narration: line.narration,
-                        productId: line.productId,
-                        quantity: line.quantity,
-                    })),
-                    organizationId,
-                    paymentTermInDays,
-                    transactionDate,
-                    factoringProviderId,
-                },
+            const { data } = await salesInvoiceService.save({
+                id: salesInvoice?.id,
+                currencyId,
+                customerId,
+                issuedOn,
+                lines: lines.map((line) => ({
+                    lineOrder: line.lineOrder,
+                    linePrice: line.linePrice,
+                    lineTaxIsStandard: true,
+                    narration: line.narration,
+                    productId: line.productId,
+                    quantity: line.quantity,
+                })),
+                organizationId,
+                paymentTermInDays,
+                transactionDate,
+                factoringProviderId,
             });
             await push(urls.salesInvoices.detail, data?.saveSalesInvoice?.id);
         }
     };
-
-    ensureProductsStore();
 
     let currencyId = salesInvoice?.currency?.id;
     let customerId = salesInvoice?.customer?.id;
@@ -183,12 +167,7 @@
     const reGetFactoringProvidersResult = () => {
         if (!customerId || !organizationId) return;
 
-        factoringProvidersResult = query<FactoringProvidersForInvoiceQuery, any>(
-            FACTORING_PROVIDER_FOR_INVOICE,
-            {
-                variables: { customerId, organizationId },
-            },
-        );
+        factoringProvidersResult = factoringProviderService.forInvoice(customerId, organizationId);
     };
     let factoringProviders: FactoringProviderRow[] | undefined;
     $: {

@@ -12,6 +12,10 @@ import {
 import type { FactoringProviderDetail, FactoringProviderRow } from '../model/factoringProvider';
 import { BaseEntityService } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
+import type { ReadableQuery } from '../../absorb/svelte-apollo';
+import type { FactoringProvidersForInvoiceQuery } from '../../generated/graphql';
+import { query } from '../../absorb/svelte-apollo';
+import { FACTORING_PROVIDER_FOR_INVOICE } from '../queries/salesInvoice';
 
 class FactoringProviderService extends BaseEntityService<
     FactoringProviderDetail,
@@ -47,6 +51,15 @@ class FactoringProviderService extends BaseEntityService<
 
     protected getSaveGql(): DocumentNode {
         return SAVE_FACTORING_PROVIDER;
+    }
+
+    forInvoice(
+        customerId: number,
+        organizationId: number,
+    ): ReadableQuery<FactoringProvidersForInvoiceQuery> {
+        return query<FactoringProvidersForInvoiceQuery, any>(FACTORING_PROVIDER_FOR_INVOICE, {
+            variables: { customerId, organizationId },
+        });
     }
 }
 

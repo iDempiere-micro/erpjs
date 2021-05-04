@@ -1,14 +1,11 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import {
-        ensureOrganizationsStore,
-        mapOrganizations,
-        organizationsStore,
-    } from '../../lib/core/organization';
+    import { organizationService } from '../../lib/core';
     import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import { mapDisplayableToSelectItem } from '../../lib/support/util';
 
-    ensureOrganizationsStore();
+    organizationService.loadList();
     let selectedOrganization: SelectItem | undefined;
     export let onSelect: (organizationId: number) => void = (organizationId) => {};
     export let id: string;
@@ -21,12 +18,14 @@
         onSelect(organizationId);
     };
 
+    const organizationsStore = organizationService.stores.list;
+
     $: {
         selectedOrganization = undefined;
         if (organizationId) {
-            const found = $organizationsStore.organizations.find((x) => x?.id === organizationId);
+            const found = $organizationsStore.data.find((x) => x?.id === organizationId);
             if (found) {
-                selectedOrganization = mapOrganizations([found])[0];
+                selectedOrganization = mapDisplayableToSelectItem([found])[0];
             }
         }
     }
@@ -35,7 +34,7 @@
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
-    items={mapOrganizations($organizationsStore.organizations)}
+    items={mapDisplayableToSelectItem($organizationsStore.data)}
     selectedValue={selectedOrganization}
     on:select={handleSelectOrganization}
 />

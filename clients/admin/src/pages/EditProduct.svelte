@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getProductBy } from '../lib/core/product';
+    import { productService } from '../lib/core/product';
     import AddOrEditProduct from '../components/add-product/AddOrEditProduct.svelte';
     import { segments } from './pathAndSegment';
     import { getError } from '../lib/support/util';
@@ -8,20 +8,17 @@
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    productService.load(id);
 
-    const product = getProductBy(id);
+    const product = productService.stores.detail;
 </script>
 
 <Page title={$_('page.products.edit.title')} segment={segments.products} name="page.products.edit">
     <span slot="content">
-        {#if $product.loading}
-            {$_('status.loading')}
-        {:else if $product.error}
-            {$_('status.error')} {getError($product.error)}
-        {:else if $product?.data?.product}
-            <AddOrEditProduct product={$product?.data?.product} />
+        {#if $product.loaded}
+            <AddOrEditProduct product={$product.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

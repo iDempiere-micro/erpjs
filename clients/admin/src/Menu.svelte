@@ -1,10 +1,11 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import { menuStore } from './lib/core';
-    import { query } from './absorb/svelte-apollo';
+    import { getClient, query } from './absorb/svelte-apollo';
     import type { ReadableQuery } from './absorb/svelte-apollo';
     import type { MenuQuery } from './generated/graphql';
     import { GET_MENU } from './lib/queries/menu';
+    import { apollo, setClient } from './lib/support/apollo';
 
     export let segment: string;
     export let mobile: boolean | null;
@@ -12,6 +13,12 @@
     let menuResult: ReadableQuery<MenuQuery>;
     setTimeout(() => {
         if ((process.env.MOCK || (window as any).token) && !menuResult) {
+            try {
+                getClient();
+            } catch {
+                setClient(apollo());
+            }
+
             menuResult = query<MenuQuery>(GET_MENU);
         }
     }, 1000);

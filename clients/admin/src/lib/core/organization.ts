@@ -1,47 +1,47 @@
 import type {
     OrganizationByIdQuery,
-    OrganizationListPartsFragment,
     OrganizationsQuery,
+    SaveOrganizationMutation,
+    SaveOrganizationMutationVariables,
 } from '../../generated/graphql';
+import { ORGANIZATIONS } from '../queries/organizations';
+import { GET_ORGANIZATION_BY_ID, SAVE_ORGANIZATION } from '../queries/organization';
+import type { OrganizationDetail, OrganizationRow } from '../model/organization';
+import { BaseEntityService } from './entityStore';
+import type { DocumentNode } from '@apollo/client/core';
+import { addressService } from './address';
 
-import { store } from '../support/store';
-import type { SelectItem } from '../support/select';
-import { ORGANIZATIONS_SIMPLE } from '../queries/organizations';
-import { GET_ORGANIZATION_BY_ID } from '../queries/organization';
-import { query } from '../../absorb/svelte-apollo';
+class OrganizationService extends BaseEntityService<
+    OrganizationDetail,
+    OrganizationRow,
+    SaveOrganizationMutationVariables,
+    OrganizationByIdQuery,
+    OrganizationsQuery,
+    SaveOrganizationMutation
+> {
+    protected convertDetail(q: OrganizationByIdQuery): OrganizationDetail {
+        return q.organization;
+    }
 
-export interface WithOrganizationListPartsFragment {
-    loaded: boolean;
-    organizations: OrganizationListPartsFragment[];
+    protected convertListItem(q: OrganizationsQuery): OrganizationRow[] {
+        return q.organizations;
+    }
+
+    protected getDetailByIdGql(): DocumentNode {
+        return GET_ORGANIZATION_BY_ID;
+    }
+
+    getDetailSafeEntity(): OrganizationDetail {
+        return { legalAddress: addressService.getDetailSafeEntity() } as any;
+    }
+
+    protected getListGql(): DocumentNode {
+        return ORGANIZATIONS;
+    }
+
+    protected getSaveGql(): DocumentNode {
+        return SAVE_ORGANIZATION;
+    }
 }
 
-export const organizationsStore = store<WithOrganizationListPartsFragment>({
-    loaded: false,
-    organizations: [],
-});
-export const ensureOrganizationsStore = () => {
-    if (organizationsStore.get().loaded) return;
-
-    const organizationsResult = query<OrganizationsQuery>(ORGANIZATIONS_SIMPLE);
-    organizationsResult.subscribe((value) => {
-        if (value?.error) throw new Error(`${value?.error}`);
-        if (value?.data) {
-            organizationsStore.update((x) => ({
-                loaded: true,
-                // @ts-ignore
-                organizations: value.data.organizations,
-            }));
-        }
-    });
-};
-
-export const mapOrganizations = (data: OrganizationListPartsFragment[]): SelectItem[] =>
-    data
-        ? data.map(({ id, displayName }) => ({
-              value: id,
-              label: displayName,
-          }))
-        : [];
-
-export const getOrganizationBy = (id: number) =>
-    query<OrganizationByIdQuery>(GET_ORGANIZATION_BY_ID, { variables: { id } });
+export const organizationService: OrganizationService = new OrganizationService();

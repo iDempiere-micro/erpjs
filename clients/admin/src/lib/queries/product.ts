@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { PRODUCT_DETAIL_PARTS_RAW } from '../fragments';
+import { mock } from './products';
 
 export const SAVE_PRODUCT = gql`
     mutation SaveProduct($id: Int, $displayName: String!, $sku: String!) {
@@ -15,3 +16,9 @@ export const GET_PRODUCT_BY_ID = gql`
         }
     }
 `;
+
+export const mock1 = {
+    data: {
+        product: mock.data.products[0],
+    },
+};

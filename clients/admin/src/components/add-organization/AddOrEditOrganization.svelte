@@ -1,24 +1,17 @@
 <script lang="ts">
-    import type {
-        OrganizationDetailPartsFragment,
-        SaveOrganizationMutation,
-        SaveOrganizationMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form as svelteForm } from 'svelte-forms';
-
-    import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
-    import { bankService } from '../../lib/core';
+    import { bankService, organizationService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
-    import { mutation } from '../../absorb/svelte-apollo';
     import BankSelect from '../banks/BankSelect.svelte';
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
+    import type { OrganizationDetail } from '../../lib/model/organization';
 
-    export let organization: OrganizationDetailPartsFragment | undefined;
+    export let organization: OrganizationDetail | undefined;
     let displayName = organization?.displayName;
     let contact = organization?.contact;
     let legalName = organization?.legalName;
@@ -135,11 +128,6 @@
         },
     );
 
-    export const saveOrganizationMutation = mutation<
-        SaveOrganizationMutation,
-        SaveOrganizationMutationVariables
-    >(SAVE_ORGANIZATION);
-
     const saveOrganization = async () => {
         if (
             displayName &&
@@ -160,31 +148,29 @@
             zipCode
         ) {
             currentInvoiceDocumentNumber = +currentInvoiceDocumentNumber;
-            const { data } = await saveOrganizationMutation({
-                variables: {
-                    id: organization?.id,
-                    displayName,
-                    contact,
-                    legalName,
-                    registration,
-                    idNumber,
-                    vatNumber,
-                    accountingSchemeId,
-                    currentInvoiceDocumentNumber,
-                    newBankAccount: {
-                        id: organization?.bankAccount?.id,
-                        bankAccountCustomerPrintableNumber,
-                        bankId,
-                        displayName: bankAccountDisplayName,
-                        iban,
-                        swift,
-                    },
-                    legalAddress: {
-                        city,
-                        countryId,
-                        line1,
-                        zipCode,
-                    },
+            const { data } = await organizationService.save({
+                id: organization?.id,
+                displayName,
+                contact,
+                legalName,
+                registration,
+                idNumber,
+                vatNumber,
+                accountingSchemeId,
+                currentInvoiceDocumentNumber,
+                newBankAccount: {
+                    id: organization?.bankAccount?.id,
+                    bankAccountCustomerPrintableNumber,
+                    bankId,
+                    displayName: bankAccountDisplayName,
+                    iban,
+                    swift,
+                },
+                legalAddress: {
+                    city,
+                    countryId,
+                    line1,
+                    zipCode,
                 },
             });
             await push(urls.organizations.detail, data?.saveOrganization?.id);

@@ -1,13 +1,11 @@
 <script lang="ts">
-    import type { SaveBankMutation, SaveBankMutationVariables } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { SAVE_BANK } from '../../lib/queries/bank';
     import { _ } from 'svelte-i18n';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
-    import { mutation } from '../../absorb/svelte-apollo';
     import type { BankDetail } from '../../lib/model/bank';
+    import { bankService } from '../../lib/core';
 
     export let bank: BankDetail | undefined;
     let displayName = bank?.displayName;
@@ -32,18 +30,12 @@
         },
     );
 
-    export const saveBankMutation = mutation<SaveBankMutation, SaveBankMutationVariables>(
-        SAVE_BANK,
-    );
-
     const saveBank = async () => {
         if (displayName && bankIdentifierCode) {
-            const { data } = await saveBankMutation({
-                variables: {
-                    id: bank?.id,
-                    displayName,
-                    bankIdentifierCode,
-                },
+            const { data } = await bankService.save({
+                id: bank?.id,
+                displayName,
+                bankIdentifierCode,
             });
             await push(urls.banks.detail, data?.saveBank?.id);
         }

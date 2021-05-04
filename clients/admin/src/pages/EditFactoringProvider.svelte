@@ -19,9 +19,7 @@
 >
     <span slot="content">
         {#if $factoringProvider.loaded}
-            <AddOrEditFactoringProvider
-                factoringProvider={$factoringProvider?.data?.factoringProvider}
-            />
+            <AddOrEditFactoringProvider factoringProvider={$factoringProvider.data} />
         {:else}
             {$_('status.loading')}
         {/if}

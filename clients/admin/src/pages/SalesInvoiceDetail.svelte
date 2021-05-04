@@ -14,6 +14,7 @@
     import SalesInvoicePageHeader from '../components/sales-invoice-detail/SalesInvoicePageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
     import { mutation } from '../absorb/svelte-apollo';
+    import OrganizationDetailPageHeader from '../components/organization-detail/OrganizationDetailPageHeader.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
@@ -59,6 +60,10 @@
             <CustomerDetailPageHeader id={$salesInvoice?.data?.salesInvoice?.customer?.id || -1} />
             <Break />
             <SalesInvoicePageHeader id={$salesInvoice?.data?.salesInvoice?.id || -1} />
+            <Break />
+            <OrganizationDetailPageHeader
+                id={$salesInvoice?.data?.salesInvoice?.organization?.id || -1}
+            />
         {:else}
             {$_('page.salesInvoices.detail.title')}
         {/if}

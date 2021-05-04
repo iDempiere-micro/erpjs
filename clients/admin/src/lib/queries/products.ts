@@ -5,6 +5,7 @@ export const PRODUCTS = gql`
         products {
             id
             displayName
+            sku
         }
     }
 `;
@@ -14,10 +15,12 @@ export const mock = {
             {
                 id: 1,
                 displayName: 'Expert Work',
+                sku: 'EX',
             },
             {
                 id: 2,
                 displayName: 'Software Leasing Service',
+                sku: 'SLS',
             },
         ],
     },

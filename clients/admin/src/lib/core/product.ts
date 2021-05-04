@@ -1,47 +1,46 @@
 import type {
     ProductByIdQuery,
-    ProductListPartsFragment,
     ProductsQuery,
+    SaveProductMutation,
+    SaveProductMutationVariables,
 } from '../../generated/graphql';
-
-import { store } from '../support/store';
 import { PRODUCTS } from '../queries/products';
-import type { SelectItem } from '../support/select';
-import { GET_PRODUCT_BY_ID } from '../queries/product';
-import { query } from '../../absorb/svelte-apollo';
+import { GET_PRODUCT_BY_ID, SAVE_PRODUCT } from '../queries/product';
+import type { ProductDetail, ProductRow } from '../model/product';
+import { BaseEntityService } from './entityStore';
+import type { DocumentNode } from '@apollo/client/core';
 
-export interface WithProductListPartsFragment {
-    loaded: boolean;
-    products: ProductListPartsFragment[];
+class ProductService extends BaseEntityService<
+    ProductDetail,
+    ProductRow,
+    SaveProductMutationVariables,
+    ProductByIdQuery,
+    ProductsQuery,
+    SaveProductMutation
+> {
+    protected convertDetail(q: ProductByIdQuery): ProductDetail {
+        return q.product;
+    }
+
+    protected convertListItem(q: ProductsQuery): ProductRow[] {
+        return q.products;
+    }
+
+    protected getDetailByIdGql(): DocumentNode {
+        return GET_PRODUCT_BY_ID;
+    }
+
+    getDetailSafeEntity(): ProductDetail {
+        return { currency: {} } as any;
+    }
+
+    protected getListGql(): DocumentNode {
+        return PRODUCTS;
+    }
+
+    protected getSaveGql(): DocumentNode {
+        return SAVE_PRODUCT;
+    }
 }
 
-export const productsStore = store<WithProductListPartsFragment>({
-    loaded: false,
-    products: [],
-});
-export const ensureProductsStore = () => {
-    if (productsStore.get().loaded) return;
-
-    const productsResult = query<ProductsQuery>(PRODUCTS);
-    productsResult.subscribe((value) => {
-        if (value?.error) throw new Error(`${value?.error}`);
-        if (value?.data) {
-            productsStore.update((x) => ({
-                loaded: true,
-                // @ts-ignore
-                products: value.data.products,
-            }));
-        }
-    });
-};
-
-export const mapProducts = (data: ProductListPartsFragment[]): SelectItem[] =>
-    data
-        ? data.map(({ id, displayName }) => ({
-              value: id,
-              label: displayName,
-          }))
-        : [];
-
-export const getProductBy = (id: number) =>
-    query<ProductByIdQuery>(GET_PRODUCT_BY_ID, { variables: { id } });
+export const productService: ProductService = new ProductService();

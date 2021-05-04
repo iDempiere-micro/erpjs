@@ -50,6 +50,8 @@ import {
 import { GET_BANK_BY_ID, mock1 as mockBank } from '../queries/bank';
 import { GET_COUNTRY_BY_ID, mock1 as mockCountryById } from '../queries/country';
 import { GET_CURRENCY_BY_ID, mock1 as mockCurrencyById } from '../queries/currency';
+import { GET_ORGANIZATION_BY_ID, mock as mockOrganization } from '../queries/organization';
+import { GET_PRODUCT_BY_ID, mock1 as mockProduct } from '../queries/product';
 
 export interface ApolloMock {
     query: DocumentNode;
@@ -83,4 +85,6 @@ export const mocks: ApolloMock[] = [
     { query: GET_CUSTOMERS_BY_ARGS, mock: mockCustomersByArgs },
     { query: GET_COUNTRY_BY_ID, mock: mockCountryById },
     { query: GET_CURRENCY_BY_ID, mock: mockCurrencyById },
+    { query: GET_ORGANIZATION_BY_ID, mock: mockOrganization },
+    { query: GET_PRODUCT_BY_ID, mock: mockProduct },
 ].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));

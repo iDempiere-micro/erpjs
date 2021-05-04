@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { ORGANIZATION_DETAIL_PARTS_RAW } from '../fragments/organization';
+import { mock as mockOrganizations } from './organizations';
 
 export const SAVE_ORGANIZATION = gql`
     mutation SaveOrganization(
@@ -41,3 +42,9 @@ export const GET_ORGANIZATION_BY_ID = gql`
         }
     }
 `;
+
+export const mock = {
+    data: {
+        organization: mockOrganizations.data.organizations[0]
+    }
+};

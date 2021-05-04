@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { OrganizationListPartsFragment } from '../../generated/graphql';
+    import type { OrganizationRow } from '../../lib/model/organization';
 
-    export let row: OrganizationListPartsFragment;
+    export let row: OrganizationRow;
 </script>
 
 <div class="flex items-center">

@@ -20,6 +20,7 @@ export const urls = {
         list: 'products',
         add: 'add-product',
         edit: 'product/:id',
+        detail: 'product-detail/:id',
     },
     settings: {
         list: 'settings',
