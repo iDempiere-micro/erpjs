@@ -40,7 +40,7 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn format:check
       - run: yarn build api
-      - run: yarn lint:check
+      - run: ( mv clients/admin/.eslintrc.js  clients/admin/.eslintrc__.js && yarn lint:check && mv clients/admin/.eslintrc__.js clients/admin/.eslintrc.js )
       - run: yarn test api
       - run: (cd clients/admin && yarn)
       - run: (cd clients/admin && yarn build)
