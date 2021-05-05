@@ -2,16 +2,18 @@
     import { routes } from './routes';
     import Router from 'svelte-spa-router';
     import './main.css';
-
-    export let url = '';
-
     import { setupLocales } from './i18n';
     import { authenticate } from './keycloak';
+    import { apollo, setClient } from './lib/support/apollo';
+
+    export let url = '';
 
     setupLocales();
 
     $: {
-        authenticate();
+        authenticate(() => {
+            setClient(apollo());
+        });
     }
 </script>
 

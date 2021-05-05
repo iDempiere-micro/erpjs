@@ -1,13 +1,10 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getSalesInvoiceBy } from '../lib/salesInvoices';
-    import { getError, throwOnUndefined } from '../lib/util';
-    import { urls } from './pathAndSegment';
+    import { getSalesInvoiceBy } from '../lib/core';
+    import { getError, throwOnUndefined } from '../lib/support/util';
+    import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
-    import { authStore } from '../lib/auth';
-    import { mutation } from 'svelte-apollo';
+
     import type {
         ConfirmSalesInvoiceMutation,
         ConfirmSalesInvoiceMutationVariables,
@@ -16,12 +13,12 @@
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import SalesInvoicePageHeader from '../components/sales-invoice-detail/SalesInvoicePageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
+    import { mutation } from '../absorb/svelte-apollo';
+    import OrganizationDetailPageHeader from '../components/organization-detail/OrganizationDetailPageHeader.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const client = apollo(urls.customer.edit + id);
-    setClient(client);
     const confirmSalesInvoice = mutation<
         ConfirmSalesInvoiceMutation,
         ConfirmSalesInvoiceMutationVariables
@@ -36,7 +33,7 @@
         const result = await fetch(baseUrl.replace('graphql', 'file/sales-invoice/' + id), {
             headers: {
                 'Content-Type': 'application/pdf',
-                Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
+                Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || (window as any).token),
             },
         });
         const { data } = await result.json();
@@ -63,6 +60,10 @@
             <CustomerDetailPageHeader id={$salesInvoice?.data?.salesInvoice?.customer?.id || -1} />
             <Break />
             <SalesInvoicePageHeader id={$salesInvoice?.data?.salesInvoice?.id || -1} />
+            <Break />
+            <OrganizationDetailPageHeader
+                id={$salesInvoice?.data?.salesInvoice?.organization?.id || -1}
+            />
         {:else}
             {$_('page.salesInvoices.detail.title')}
         {/if}

@@ -4,10 +4,12 @@ import SalesInvoiceDetail from './SalesInvoiceDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/salesInvoice';
 import { mock as customerMock } from '../lib/queries/customer';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<SalesInvoiceDetail>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders sales invoice detail', function (done) {

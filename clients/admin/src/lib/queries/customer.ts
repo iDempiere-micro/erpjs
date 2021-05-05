@@ -1,12 +1,5 @@
 import gql from 'graphql-tag';
-import {
-    ADDRESS_LIST_PARTS,
-    COUNTRY_LIST_PARTS,
-    CUSTOMER_DETAIL_PARTS,
-    CUSTOMER_DETAIL_PARTS_RAW,
-    CUSTOMER_GROUP_DETAIL_PARTS,
-    CUSTOMER_GROUP_LIST_PARTS,
-} from '../fragments';
+import { CUSTOMER_DETAIL_PARTS_RAW } from '../fragments';
 
 export const mock = {
     data: {
@@ -40,7 +33,7 @@ export const GET_CUSTOMER_BY_ID = gql`
         }
     }
 `;
-export const ADD_CUSTOMER = gql`
+export const SAVE_CUSTOMER = gql`
     mutation SaveCustomer(
         $id: Int
         $displayName: String!
@@ -48,11 +41,11 @@ export const ADD_CUSTOMER = gql`
         $legalAddressCity: String!
         $note: String
         $idNumber: String!
-        $legalAddressCountryIsoCode: String!
+        $legalAddressCountryId: Int!
         $legalAddressLine1: String!
         $legalAddressZipCode: String!
         $invoicingEmail: String!
-        $vatNumber: String!
+        $vatNumber: String
         $customerGroupId: Int
     ) {
         saveCustomer(
@@ -64,7 +57,7 @@ export const ADD_CUSTOMER = gql`
                 idNumber: $idNumber
                 legalAddress: {
                     city: $legalAddressCity
-                    countryIsoCode: $legalAddressCountryIsoCode
+                    countryId: $legalAddressCountryId
                     line1: $legalAddressLine1
                     zipCode: $legalAddressZipCode
                 }

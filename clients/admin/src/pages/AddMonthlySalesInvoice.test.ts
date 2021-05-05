@@ -1,15 +1,14 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import App from '../App.svelte';
 import { segments } from './pathAndSegment';
 import AddMonthlySalesInvoice from './AddMonthlySalesInvoice.svelte';
-import { addMessages, init, getLocaleFromNavigator } from 'svelte-i18n';
-import en from '../locales/en.json';
 import { setupLocales } from '../i18n';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<AddMonthlySalesInvoice>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders the required fields', function (done) {

@@ -1,28 +1,24 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { CurrenciesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import type { CurrenciesQuery } from '../generated/graphql';
+    import { getError } from '../lib/support/util';
     import CurrencyList from '../components/currencies/CurrencyList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { CURRENCIES } from '../lib/queries/currencies';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { query } from '../absorb/svelte-apollo';
+    import { currencyService } from '../lib/core';
 
-    const client = apollo(urls.currencies.list);
-    setClient(client);
-    const currencies = query<CurrenciesQuery, any>(CURRENCIES);
+    currencyService.loadList();
+    const currencies = currencyService.stores.list;
 </script>
 
 <Page title={$_('page.currencies.title')} segment={segments.currencies} name="page.currencies">
     <span slot="content">
-        {#if $currencies.loading}
-            {$_('status.loading')}
-        {:else if $currencies.error}
-            {$_('status.error')} {getError($currencies.error)}
+        {#if $currencies.loaded}
+            <CurrencyList currencies={$currencies.data} />
         {:else}
-            <CurrencyList currencies={$currencies.data?.currencies} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

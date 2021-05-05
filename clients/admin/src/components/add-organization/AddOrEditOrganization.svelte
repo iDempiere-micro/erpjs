@@ -1,24 +1,17 @@
 <script lang="ts">
-    import Select from 'svelte-select';
-    import type {
-        OrganizationDetailPartsFragment,
-        SaveOrganizationMutation,
-        SaveOrganizationMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form as svelteForm } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_ORGANIZATION } from '../../lib/queries/organization';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
-    import { mapBanks, ensureBanksStore, banksStore } from '../../lib/bank';
-    import { ensureCountriesStore, countriesStore, mapCountries } from '../../lib/country';
-    import { throwOnUndefined } from '../../lib/util';
+    import { bankService, organizationService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import BankSelect from '../banks/BankSelect.svelte';
+    import CountrySelect from '../countries/CountrySelect.svelte';
+    import Button from '../../dsl/Button.svelte';
+    import type { OrganizationDetail } from '../../lib/model/organization';
 
-    export let organization: OrganizationDetailPartsFragment | undefined;
+    export let organization: OrganizationDetail | undefined;
     let displayName = organization?.displayName;
     let contact = organization?.contact;
     let legalName = organization?.legalName;
@@ -35,7 +28,7 @@
     let iban = organization?.bankAccount?.iban;
     let swift = organization?.bankAccount?.swift;
     let city = organization?.legalAddress?.city;
-    let countryIsoCode = organization?.legalAddress?.country?.isoCode;
+    let countryId = organization?.legalAddress?.country?.id;
     let line1 = organization?.legalAddress?.line1;
     let zipCode = organization?.legalAddress?.zipCode;
 
@@ -44,21 +37,15 @@
         myForm.validate();
     };
 
-    ensureCountriesStore();
-
-    let selectedLegalAddressCountryValue: SelectItem | undefined;
-    const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
-        const countries = countriesStore.get().countries;
-        countryIsoCode =
-            countries?.find((x) => x.id === event.detail.value)?.isoCode || throwOnUndefined();
+    const handleSelectLegalAddressCountry = (id: number) => {
+        countryId = id;
         myForm.validate();
     };
 
-    ensureBanksStore();
-    let selectedBank: SelectItem | undefined;
+    bankService.loadList();
 
-    const handleSelectBank = (event: OnSelectParam) => {
-        bankId = +event.detail.value;
+    const handleSelectBank = (id: number) => {
+        bankId = id;
         myForm.validate();
     };
 
@@ -120,8 +107,8 @@
                 value: city,
                 validators: ['required'],
             },
-            countryIsoCode: {
-                value: countryIsoCode,
+            countryId: {
+                value: countryId,
                 validators: ['required'],
             },
             line1: {
@@ -141,11 +128,6 @@
         },
     );
 
-    export const saveOrganizationMutation = mutation<
-        SaveOrganizationMutation,
-        SaveOrganizationMutationVariables
-    >(SAVE_ORGANIZATION);
-
     const saveOrganization = async () => {
         if (
             displayName &&
@@ -161,36 +143,34 @@
             iban &&
             swift &&
             city &&
-            countryIsoCode &&
+            countryId &&
             line1 &&
             zipCode
         ) {
             currentInvoiceDocumentNumber = +currentInvoiceDocumentNumber;
-            const { data } = await saveOrganizationMutation({
-                variables: {
-                    id: organization?.id,
-                    displayName,
-                    contact,
-                    legalName,
-                    registration,
-                    idNumber,
-                    vatNumber,
-                    accountingSchemeId,
-                    currentInvoiceDocumentNumber,
-                    newBankAccount: {
-                        id: organization?.bankAccount?.id,
-                        bankAccountCustomerPrintableNumber,
-                        bankId,
-                        displayName: bankAccountDisplayName,
-                        iban,
-                        swift,
-                    },
-                    legalAddress: {
-                        city,
-                        countryIsoCode,
-                        line1,
-                        zipCode,
-                    },
+            const { data } = await organizationService.save({
+                id: organization?.id,
+                displayName,
+                contact,
+                legalName,
+                registration,
+                idNumber,
+                vatNumber,
+                accountingSchemeId,
+                currentInvoiceDocumentNumber,
+                newBankAccount: {
+                    id: organization?.bankAccount?.id,
+                    bankAccountCustomerPrintableNumber,
+                    bankId,
+                    displayName: bankAccountDisplayName,
+                    iban,
+                    swift,
+                },
+                legalAddress: {
+                    city,
+                    countryId,
+                    line1,
+                    zipCode,
                 },
             });
             await push(urls.organizations.detail, data?.saveOrganization?.id);
@@ -250,25 +230,13 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="country" class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.organizations.add.country')}</label
-                                >
-                                <Select
-                                    inputAttributes={{
-                                        id: 'country',
-                                        autocomplete: 'disabled',
-                                    }}
-                                    items={mapCountries($countriesStore?.countries)}
-                                    selectedValue={selectedLegalAddressCountryValue}
-                                    on:select={handleSelectLegalAddressCountry}
+                                <CountrySelect
+                                    onSelect={handleSelectLegalAddressCountry}
+                                    id="countryId"
+                                    label={$_('page.organizations.add.country')}
+                                    {countryId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.countryIsoCode.errors.includes('required')}
-                                    <label
-                                        for="country"
-                                        class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
 
                             <div class="col-span-6">
@@ -365,20 +333,13 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="banks" class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.organizations.add.bank')}</label
-                                >
-                                <Select
-                                    inputAttributes={{ id: 'banks' }}
-                                    items={mapBanks($banksStore?.banks)}
-                                    selectedValue={selectedBank}
-                                    on:select={handleSelectBank}
+                                <BankSelect
+                                    onSelect={handleSelectBank}
+                                    id="bankId"
+                                    label={$_('page.organizations.add.bank')}
+                                    {bankId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.bankId.errors.includes('required')}
-                                    <label for="banks" class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <SimpleTextBox
@@ -449,7 +410,7 @@
                                 <AccountingSchemeSelect
                                     onSelect={handleSelectAccountingScheme}
                                     id="accountingSchemeId"
-                                    label="Accounting Scheme"
+                                    label={$_('page.organizations.add.accountingScheme')}
                                     {accountingSchemeId}
                                     form={$myForm}
                                 />
@@ -494,16 +455,7 @@
                         />
 
                         <div class="px-4 py-3 bg-white text-right sm:px-6">
-                            <button
-                                type="submit"
-                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                on:click|preventDefault={() => {
-                                    saveOrganization();
-                                }}
-                                disabled={false}
-                            >
-                                {$_('page.organizations.add.save')}
-                            </button>
+                            <Button on:click={saveOrganization} disabled={!$myForm.valid} />
                         </div>
                     </div>
                 </div>

@@ -1,25 +1,15 @@
 <script lang="ts">
-    import Select from 'svelte-select';
-    import type {
-        FactoringProviderDetailPartsFragment,
-        SaveFactoringProviderMutation,
-        SaveFactoringProviderMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form as svelteForm } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_FACTORING_PROVIDER } from '../../lib/queries/factoringProvider';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
-    import { mapBanks, ensureBanksStore, banksStore } from '../../lib/bank';
-    import { ensureCountriesStore, countriesStore, mapCountries } from '../../lib/country';
-    import { throwOnUndefined } from '../../lib/util';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
-    import AccountingSchemeSelect from '../accountingSchemes/AccountingSchemeSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import Button from '../../dsl/Button.svelte';
+    import BankSelect from '../banks/BankSelect.svelte';
+    import { bankService, factoringProviderService } from '../../lib/core';
+    import type { FactoringProviderDetail } from '../../lib/model/factoringProvider';
 
-    export let factoringProvider: FactoringProviderDetailPartsFragment | undefined;
+    export let factoringProvider: FactoringProviderDetail | undefined;
     let displayName = factoringProvider?.displayName;
     let contact = factoringProvider?.contact;
     let legalName = factoringProvider?.legalName;
@@ -31,11 +21,10 @@
     let iban = factoringProvider?.bankAccount?.iban;
     let swift = factoringProvider?.bankAccount?.swift;
 
-    ensureBanksStore();
-    let selectedBank: SelectItem | undefined;
+    bankService.loadList();
 
-    const handleSelectBank = (event: OnSelectParam) => {
-        bankId = +event.detail.value;
+    const handleSelectBank = (id: number) => {
+        bankId = id;
         myForm.validate();
     };
 
@@ -82,11 +71,6 @@
         },
     );
 
-    export const saveFactoringProviderMutation = mutation<
-        SaveFactoringProviderMutation,
-        SaveFactoringProviderMutationVariables
-    >(SAVE_FACTORING_PROVIDER);
-
     const saveFactoringProvider = async () => {
         if (
             displayName &&
@@ -98,20 +82,18 @@
             iban &&
             swift
         ) {
-            const { data } = await saveFactoringProviderMutation({
-                variables: {
-                    id: factoringProvider?.id,
-                    displayName,
-                    contact,
-                    legalName,
-                    newBankAccount: {
-                        id: factoringProvider?.bankAccount?.id,
-                        bankAccountCustomerPrintableNumber,
-                        bankId,
-                        displayName: bankAccountDisplayName,
-                        iban,
-                        swift,
-                    },
+            const { data } = await factoringProviderService.save({
+                id: factoringProvider?.id,
+                displayName,
+                contact,
+                legalName,
+                newBankAccount: {
+                    id: factoringProvider?.bankAccount?.id,
+                    bankAccountCustomerPrintableNumber,
+                    bankId,
+                    displayName: bankAccountDisplayName,
+                    iban,
+                    swift,
                 },
             });
             await push(urls.factoringProviders.detail, data?.saveFactoringProvider?.id);
@@ -205,20 +187,13 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="banks" class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.factoringProviders.add.bank')}</label
-                                >
-                                <Select
-                                    inputAttributes={{ id: 'banks' }}
-                                    items={mapBanks($banksStore.banks)}
-                                    selectedValue={selectedBank}
-                                    on:select={handleSelectBank}
+                                <BankSelect
+                                    onSelect={handleSelectBank}
+                                    id="bankId"
+                                    label={$_('page.factoringProviders.add.bank')}
+                                    {bankId}
+                                    form={$myForm}
                                 />
-                                {#if $myForm.fields.bankId.errors.includes('required')}
-                                    <label for="banks" class="block text-sm font-small text-red-700"
-                                        >{$_('validator.required')}</label
-                                    >
-                                {/if}
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <SimpleTextBox

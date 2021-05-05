@@ -1,13 +1,8 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
     import AddOrEditFactoringProvider from '../components/add-factoringProvider/AddOrEditFactoringProvider.svelte';
-    import { urls } from './pathAndSegment';
-    import Page from '../Page.svelte';
     import { segments } from './pathAndSegment';
+    import Page from '../Page.svelte';
     import { _ } from 'svelte-i18n';
-
-    const client = apollo(urls.factoringProviders.add);
-    setClient(client);
 </script>
 
 <Page

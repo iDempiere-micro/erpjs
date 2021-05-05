@@ -1,18 +1,12 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { CustomerGroupsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
     import CustomerGroupList from '../components/customerGroups/CustomerGroupList.svelte';
-    import { urls } from './pathAndSegment';
-    import { CUSTOMER_GROUPS } from '../lib/queries/customerGroups';
+    import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { customerGroupService } from '../lib/core';
 
-    const client = apollo(urls.customerGroups.list);
-    setClient(client);
-    const CustomerGroups = query<CustomerGroupsQuery, any>(CUSTOMER_GROUPS);
+    customerGroupService.loadList();
+    const customerGroups = customerGroupService.stores.list;
 </script>
 
 <Page
@@ -21,12 +15,10 @@
     title={$_('page.customerGroups.title')}
 >
     <span slot="content">
-        {#if $CustomerGroups.loading}
-            {$_('status.loading')}
-        {:else if $CustomerGroups.error}
-            {$_('status.error')} {getError($CustomerGroups.error)}
+        {#if $customerGroups.loaded}
+            <CustomerGroupList customerGroups={$customerGroups.data} />
         {:else}
-            <CustomerGroupList customerGroups={$CustomerGroups.data?.customerGroups} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

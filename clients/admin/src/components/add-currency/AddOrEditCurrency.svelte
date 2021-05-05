@@ -1,15 +1,14 @@
 <script lang="ts">
-    import type {
-        CurrencyDetailPartsFragment,
-        SaveCurrencyMutation,
-        SaveCurrencyMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_CURRENCY } from '../../lib/queries/currency';
 
-    export let currency: CurrencyDetailPartsFragment | undefined;
+    import { push, urls } from '../../pages/pathAndSegment';
+    import Button from '../../dsl/Button.svelte';
+    import { _ } from 'svelte-i18n';
+    import type { CurrencyDetail } from '../../lib/model/currency';
+    import { currencyService } from '../../lib/core';
+
+    export let currency: CurrencyDetail | undefined;
     let displayName = currency?.displayName;
     let isoCode = currency?.isoCode;
 
@@ -32,21 +31,14 @@
         },
     );
 
-    export const saveCurrencyMutation = mutation<
-        SaveCurrencyMutation,
-        SaveCurrencyMutationVariables
-    >(SAVE_CURRENCY);
-
     const saveCurrency = async () => {
         if (displayName && isoCode) {
-            const { data } = await saveCurrencyMutation({
-                variables: {
-                    id: currency?.id,
-                    displayName,
-                    isoCode,
-                },
+            const { data } = await currencyService.save({
+                id: currency?.id,
+                displayName,
+                isoCode,
             });
-            console.log('*** currency created', data?.saveCurrency?.id);
+            await push(urls.currencies.detail, data?.saveCurrency?.id);
         }
     };
 </script>
@@ -58,24 +50,25 @@
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <SimpleTextBox
                         form={myForm}
-                        title="Display name"
+                        title={$_('page.currencies.add.displayName')}
                         bind:value={displayName}
                         id="displayName"
                     />
 
-                    <SimpleTextBox form={myForm} title="SKU" bind:value={isoCode} id="isoCode" />
+                    <SimpleTextBox
+                        form={myForm}
+                        title={$_('page.currencies.add.isoCode')}
+                        bind:value={isoCode}
+                        id="isoCode"
+                    />
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click|preventDefault={() => {
+                        <Button
+                            on:click={() => {
                                 saveCurrency();
                             }}
-                            disabled={false}
-                        >
-                            Save
-                        </button>
+                            disabled={!$myForm.valid}
+                        />
                     </div>
                 </div>
             </div>

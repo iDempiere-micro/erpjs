@@ -1,0 +1,20 @@
+fragment CustomerDetailParts on Customer {
+    id
+    legalName
+    displayName
+    vatNumber
+    idNumber
+    invoicingEmail
+    legalAddress {
+        ...AddressListParts
+    }
+    address {
+        ...AddressListParts
+    }
+    note
+    customerGroup {
+        ...CustomerGroupDetailParts
+    }
+    www
+    publicNote
+}

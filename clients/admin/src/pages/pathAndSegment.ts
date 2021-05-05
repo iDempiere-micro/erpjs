@@ -20,11 +20,11 @@ export const urls = {
         list: 'products',
         add: 'add-product',
         edit: 'product/:id',
+        detail: 'product-detail/:id',
     },
     settings: {
         list: 'settings',
     },
-    refresh: 'refresh',
     countries: {
         list: 'countries',
         add: 'add-country',
@@ -41,6 +41,7 @@ export const urls = {
         list: 'banks',
         add: 'add-bank',
         edit: 'bank/:id',
+        detail: 'bank-detail/:id',
     },
     organizations: {
         list: 'organizations',

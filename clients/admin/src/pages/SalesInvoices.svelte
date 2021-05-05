@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { SalesInvoicesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
+    import type { SalesInvoicesQuery } from '../generated/graphql';
     import SalesInvoiceList from '../components/sales-invoices/SalesInvoiceList.svelte';
-    import { getError } from '../lib/util';
-    import { urls } from './pathAndSegment';
+    import { getError } from '../lib/support/util';
+    import { segments, urls } from './pathAndSegment';
     import { EVERYTHING } from '../lib/queries/salesInvoices';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.salesInvoices.list);
-    setClient(client);
     const salesInvoices = query<SalesInvoicesQuery, any>(EVERYTHING);
 </script>
 

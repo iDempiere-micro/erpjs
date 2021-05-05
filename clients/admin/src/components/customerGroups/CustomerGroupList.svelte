@@ -2,13 +2,13 @@
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
-    import type { CustomerGroupListPartsFragment } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
+    import type { CustomerGroupRow } from '../../lib/model/customerGroup';
 
     /**
      * Array of the accounting schemes to display
      */
-    export let customerGroups: CustomerGroupListPartsFragment[] | undefined;
+    export let customerGroups: CustomerGroupRow[] | undefined;
 
     const columns = [
         {

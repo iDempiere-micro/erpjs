@@ -2,15 +2,15 @@
     import gql from 'graphql-tag';
 
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import type {
         CreateMonthlyInvoiceMutation,
         CreateMonthlyInvoiceMutationVariables,
     } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { authStore } from '../../lib/auth';
-    import { downloadInvoice } from '../../lib/salesInvoices';
+    import { downloadInvoice } from '../../lib/core';
     import { _ } from 'svelte-i18n';
+    import { mutation } from '../../absorb/svelte-apollo';
 
     const ADD_MONTHLY_SALES_INVOICE = gql`
         mutation CreateMonthlyInvoice(
@@ -106,11 +106,10 @@
             },
         });
         invoiceIds = data?.createMonthlyInvoice?.map((x) => x.id);
-        console.log('*** invoices created', invoiceIds);
     };
 
     const download = (id: number) =>
-        downloadInvoice(process.env.API_BASE_URL, $authStore?.token, id);
+        downloadInvoice(process.env.API_BASE_URL, (window as any).token, id);
 </script>
 
 <div class="mt-10 sm:mt-0">

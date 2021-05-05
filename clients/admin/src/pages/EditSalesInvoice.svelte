@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
     import AddOrEditSalesInvoice from '../components/add-sales-invoice/AddOrEditSalesInvoice.svelte';
-    import { getSalesInvoiceBy } from '../lib/salesInvoices';
-    import { getError } from '../lib/util';
-    import { urls } from './pathAndSegment';
+    import { getSalesInvoiceBy } from '../lib/core/salesInvoices';
+    import { getError } from '../lib/support/util';
+    import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
-
-    setClient(apollo(urls.customer.edit + id));
 
     const salesInvoice = getSalesInvoiceBy(id);
 </script>

@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import Menu from './Menu.svelte';
 import { urls } from './pages/pathAndSegment';
 import { setupLocales } from './i18n';
+import { apollo, setClient } from './lib/support/apollo';
 
 describe('<Menu>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders menu on the homepage', function (done) {
@@ -16,6 +18,6 @@ describe('<Menu>', function () {
             expect(document.body.contains(menu2));
             expect((menu2 as any).href).to.include('/' + urls.customer.list);
             done();
-        }, 200);
+        }, 1000);
     });
 });

@@ -1,20 +1,16 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getAccountingSchemeBy } from '../lib/accountingScheme';
+    import { accountingSchemeService } from '../lib/core';
     import AddOrEditAccountingScheme from '../components/add-accountingScheme/AddOrEditAccountingScheme.svelte';
-    import { urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const client = apollo(urls.accountingSchemes.edit + +id);
-    setClient(client);
+    accountingSchemeService.load(id);
 
-    const accountingScheme = getAccountingSchemeBy(id);
+    const store = accountingSchemeService.stores.detail;
 </script>
 
 <Page
@@ -23,16 +19,10 @@
     name="page.accountingSchemes.edit"
 >
     <span slot="content">
-        {#if $accountingScheme.loading}
-            {$_('status.loading')}
-        {:else if $accountingScheme.error}
-            {$_('status.error')} {getError($accountingScheme.error)}
-        {:else if $accountingScheme?.data?.accountingScheme}
-            <AddOrEditAccountingScheme
-                accountingScheme={$accountingScheme?.data?.accountingScheme}
-            />
+        {#if $store.loaded}
+            <AddOrEditAccountingScheme accountingScheme={$store.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

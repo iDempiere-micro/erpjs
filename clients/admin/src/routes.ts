@@ -1,7 +1,6 @@
 import Home from './pages/Home.svelte';
 import Customers from './pages/Customers.svelte';
 import AddCustomer from './pages/AddCustomer.svelte';
-import Refresh from './pages/Refresh.svelte';
 import AddMonthlySalesInvoice from './pages/AddMonthlySalesInvoice.svelte';
 import EditCustomer from './pages/EditCustomer.svelte';
 import CustomerDetail from './pages/CustomerDetail.svelte';
@@ -11,6 +10,7 @@ import SalesInvoiceDetail from './pages/SalesInvoiceDetail.svelte';
 import Products from './pages/Products.svelte';
 import AddProduct from './pages/AddProduct.svelte';
 import EditProduct from './pages/EditProduct.svelte';
+import ProductDetail from './pages/ProductDetail.svelte';
 import Lists from './pages/Lists.svelte';
 import AddSalesInvoice from './pages/AddSalesInvoice.svelte';
 import { segments, urls } from './pages/pathAndSegment';
@@ -25,10 +25,12 @@ import CurrencyDetail from './pages/CurrencyDetail.svelte';
 import Banks from './pages/Banks.svelte';
 import AddBank from './pages/AddBank.svelte';
 import EditBank from './pages/EditBank.svelte';
+import BankDetail from './pages/BankDetail.svelte';
 
 import Organizations from './pages/Organizations.svelte';
 import AddOrganization from './pages/AddOrganization.svelte';
 import EditOrganization from './pages/EditOrganization.svelte';
+import OrganizationDetail from './pages/OrganizationDetail.svelte';
 
 import AccountingSchemes from './pages/AccountingSchemes.svelte';
 import AddAccountingScheme from './pages/AddAccountingScheme.svelte';
@@ -70,7 +72,6 @@ const addRoute = (path: string, component: any) => {
 
 addRoute(segments.customers, Customers);
 addRoute(urls.customer.add, AddCustomer);
-addRoute(urls.refresh, Refresh);
 addRoute(urls.salesInvoices.monthly.add, AddMonthlySalesInvoice);
 addRoute(urls.customer.edit, EditCustomer);
 addRoute(urls.customer.detail, CustomerDetail);
@@ -81,6 +82,7 @@ addRoute(urls.settings.list, Lists);
 addRoute(urls.products.list, Products);
 addRoute(urls.products.edit, EditProduct);
 addRoute(urls.products.add, AddProduct);
+addRoute(urls.products.detail, ProductDetail);
 addRoute(urls.salesInvoices.add, AddSalesInvoice);
 addRoute(urls.countries.list, Countries);
 addRoute(urls.countries.edit, EditCountry);
@@ -93,9 +95,11 @@ addRoute(urls.currencies.detail, CurrencyDetail);
 addRoute(urls.banks.list, Banks);
 addRoute(urls.banks.edit, EditBank);
 addRoute(urls.banks.add, AddBank);
+addRoute(urls.banks.detail, BankDetail);
 addRoute(urls.organizations.list, Organizations);
 addRoute(urls.organizations.edit, EditOrganization);
 addRoute(urls.organizations.add, AddOrganization);
+addRoute(urls.organizations.detail, OrganizationDetail);
 addRoute(urls.accountingSchemes.list, AccountingSchemes);
 addRoute(urls.accountingSchemes.edit, EditAccountingScheme);
 addRoute(urls.accountingSchemes.add, AddAccountingScheme);

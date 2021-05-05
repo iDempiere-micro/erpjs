@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+    import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import FactoringContractSelect from '../components/factoringContracts/FactoringContractSelect.svelte';
-    import { apollo, setClient } from '../lib/apollo';
+    import { apollo, setClient } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/factoringContracts';
 
-    setClient(apollo('', true));
+    setClient(apollo(true));
     setupLocales();
 
     const defaultArgs = {

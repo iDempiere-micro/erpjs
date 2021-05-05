@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { BANK_ACCOUNT_LIST_PARTS_RAW } from '../fragments';
+import { BANK_ACCOUNT_LIST_PARTS_RAW } from '../fragments/bankAccount';
 
 export const FACTORING_PROVIDERS = gql`
     {

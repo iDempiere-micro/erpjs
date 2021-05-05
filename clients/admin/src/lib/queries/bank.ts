@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
-import { BANK_DETAIL_PARTS } from '../fragments';
+import { BANK_DETAIL_PARTS_RAW } from '../fragments';
+import { mock } from './banks';
 
 export const SAVE_BANK = gql`
     mutation SaveBank($id: Int, $displayName: String!, $bankIdentifierCode: String!) {
@@ -11,10 +12,15 @@ export const SAVE_BANK = gql`
     }
 `;
 export const GET_BANK_BY_ID = gql`
-    ${BANK_DETAIL_PARTS}
     query bankById($id: Int!) {
         bank(id: $id) {
-            ...BankDetailParts
+            ${BANK_DETAIL_PARTS_RAW}
         }
     }
 `;
+
+export const mock1 = {
+    data: {
+        bank: mock.data.banks[0],
+    },
+};

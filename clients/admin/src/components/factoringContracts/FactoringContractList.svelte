@@ -3,13 +3,13 @@
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
     import SecondColumn from './SecondColumn.svelte';
-    import type { FactoringContractListPartsFragment } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
+    import type { FactoringContractRow } from '../../lib/model/factoringContract';
 
     /**
      * Array of the accounting schemes to display
      */
-    export let factoringContracts: FactoringContractListPartsFragment[] | undefined;
+    export let factoringContracts: FactoringContractRow[] | undefined;
 
     const columns = [
         {

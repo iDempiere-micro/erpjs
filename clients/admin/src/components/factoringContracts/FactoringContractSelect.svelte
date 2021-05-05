@@ -1,14 +1,10 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import {
-        factoringContractsStore,
-        ensureFactoringContractsStore,
-        mapFactoringContracts,
-    } from '../../lib/factoringContract';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import { factoringContractService } from '../../lib/core';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
 
-    ensureFactoringContractsStore();
+    factoringContractService.loadList();
     let selectedFactoringContract: SelectItem | undefined;
     export let onSelect: (factoringContractId: number) => void = (factoringContractId) => {};
     export let id: string;
@@ -21,14 +17,16 @@
         onSelect(factoringContractId);
     };
 
+    const factoringContractsStore = factoringContractService.stores.list;
+
     $: {
         selectedFactoringContract = undefined;
-        if (factoringContractId) {
-            const found = $factoringContractsStore.factoringContracts.find(
-                (x) => x?.id === factoringContractId,
-            );
+        if (factoringContractId && $factoringContractsStore.loaded) {
+            const found = $factoringContractsStore.data.find((x) => x?.id === factoringContractId);
             if (found) {
-                selectedFactoringContract = mapFactoringContracts([found])[0];
+                selectedFactoringContract = factoringContractService.mapFactoringContracts([
+                    found,
+                ])[0];
             }
         }
     }
@@ -37,7 +35,7 @@
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
-    items={mapFactoringContracts($factoringContractsStore.factoringContracts)}
+    items={factoringContractService.mapFactoringContracts($factoringContractsStore.data)}
     selectedValue={selectedFactoringContract}
     on:select={handleSelectFactoringContract}
 />

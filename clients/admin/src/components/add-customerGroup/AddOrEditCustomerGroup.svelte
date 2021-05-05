@@ -1,23 +1,24 @@
 <script lang="ts">
-    import Select from 'svelte-select';
     import type {
-        CustomerGroupDetailPartsFragment,
         SaveCustomerGroupMutation,
         SaveCustomerGroupMutationVariables,
     } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
+
     import { SAVE_CUSTOMER_GROUP } from '../../lib/queries/customerGroup';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
+    import { mutation } from '../../absorb/svelte-apollo';
+    import type { CustomerGroupDetail } from '../../lib/model/customerGroup';
+    import { customerGroupService } from '../../lib/core';
 
     /**
-     * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
+     * The customer group to be edit or `undefined` if adding a new customer group
      */
-    export let customerGroup: CustomerGroupDetailPartsFragment | undefined;
+    export let customerGroup: CustomerGroupDetail | undefined;
     let displayName = customerGroup?.displayName;
 
     const navigateToTheDetail = () =>
@@ -40,18 +41,11 @@
         },
     );
 
-    export const saveCustomerGroupMutation = mutation<
-        SaveCustomerGroupMutation,
-        SaveCustomerGroupMutationVariables
-    >(SAVE_CUSTOMER_GROUP);
-
     const saveCustomerGroup = async () => {
         if (displayName) {
-            const { data } = await saveCustomerGroupMutation({
-                variables: {
-                    id: customerGroup?.id,
-                    displayName,
-                },
+            const { data } = await customerGroupService.save({
+                id: customerGroup?.id,
+                displayName,
             });
             await push(urls.customerGroups.detail, data?.saveCustomerGroup?.id);
         }

@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { MENU_DETAIL_PARTS_RAW } from '../fragments/menu';
 
 export const mock = {
     data: {
@@ -35,13 +36,7 @@ export const mock = {
 export const GET_MENU = gql`
     {
         menu {
-            id
-            displayName
-            items {
-                id
-                to
-                displayName
-            }
+            ${MENU_DETAIL_PARTS_RAW}
         }
     }
 `;

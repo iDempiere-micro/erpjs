@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import SalesInvoices from './SalesInvoices.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/salesInvoices';
+import { apollo, setClient } from '../lib/support/apollo';
 
 describe('<SalesInvoices>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders sales invoices page', function (done) {

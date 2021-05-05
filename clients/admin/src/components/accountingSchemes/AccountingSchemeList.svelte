@@ -2,13 +2,13 @@
     import DataGrid from '../../molecules/datagrid/Datagrid.svelte';
     import type { RowAction } from 'src/molecules/datagrid/types';
     import FirstColumn from './FirstColumn.svelte';
-    import type { AccountingSchemeListPartsFragment } from '../../generated/graphql';
     import { _ } from 'svelte-i18n';
+    import type { AccountingSchemeRow } from '../../lib/model/accountingScheme';
 
     /**
      * Array of the accounting schemes to display
      */
-    export let accountingSchemes: AccountingSchemeListPartsFragment[] | undefined;
+    export let accountingSchemes: AccountingSchemeRow[] | undefined;
 
     const columns = [
         {

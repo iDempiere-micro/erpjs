@@ -3,10 +3,12 @@ import { expect } from 'chai';
 import Nav from './Nav.svelte';
 import { setViewport } from '@web/test-runner-commands';
 import { setupLocales } from './i18n';
+import { apollo, setClient } from './lib/support/apollo';
 
 describe('<Nav>', function () {
     before(() => {
         setupLocales();
+        setClient(apollo(true));
     });
 
     it('renders desktop menu on the homepage by default', function (done) {
@@ -15,7 +17,7 @@ describe('<Nav>', function () {
             const menu1 = getByTestId('menu-1-desktop');
             expect(document.body.contains(menu1));
             done();
-        }, 200);
+        }, 1000);
     });
 
     it('renders mobile menu on the homepage on smaller screen', function (done) {
@@ -25,7 +27,7 @@ describe('<Nav>', function () {
                 const menu1 = getByTestId('menu-1-mobile');
                 expect(document.body.contains(menu1));
                 done();
-            }, 200);
+            }, 1000);
         });
     });
 });

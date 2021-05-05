@@ -1,16 +1,8 @@
 import Keycloak from 'keycloak-js';
-import { replace } from 'svelte-spa-router';
-import { authStore } from './lib/auth';
+import { logInternal } from './lib/support/util';
 
-const checkRedirect = () => {
-    if (window.location.href.indexOf('/#nextUrl=') >= 0) {
-        const redirectUri = window.location.href.split('/#nextUrl=')[1];
-        replace(redirectUri);
-    }
-};
-
-export const authenticate = (): void => {
-    if (!process.env.MOCK && !process.env.FAKE_TOKEN && !authStore?.get()?.token) {
+export const authenticate = (callback: () => void): void => {
+    if (!process.env.MOCK && !process.env.FAKE_TOKEN && !(window as any).token) {
         const keycloak = Keycloak({
             url: process.env.KEYCLOAK_BASE_URL,
             realm: process.env.KEYCLOAK_REALM || 'erpjs',
@@ -20,29 +12,22 @@ export const authenticate = (): void => {
         keycloak
             .init({})
             .then(function (authenticated) {
-                console.log(authenticated ? 'authenticated' : 'not authenticated');
+                logInternal(authenticated ? 'authenticated' : 'not authenticated');
                 if (!authenticated) {
-                    let redirectUri = process.env.URL;
-                    if (window.location.href.indexOf('/#nextUrl=') >= 0) {
-                        redirectUri = window.location.href;
-                    }
-
                     keycloak.login({
-                        redirectUri,
+                        redirectUri: process.env.URL,
                     });
                 } else {
                     const { token } = keycloak;
                     if (token) {
-                        authStore.update((x) => ({ token: token }));
-
-                        checkRedirect();
+                        (window as any).token = token;
+                        callback();
                     }
                 }
             })
             .catch(function (f) {
+                // eslint-disable-next-line no-console
                 console.error('Keycloak login failed', f);
             });
-    } else {
-        checkRedirect();
     }
 };

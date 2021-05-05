@@ -1,10 +1,11 @@
 <script lang="ts">
-    import type { CustomerDetailPartsFragment } from '../../generated/graphql';
-    import { loadCustomerPhotoContent } from '../../lib/customer';
-    export let row: CustomerDetailPartsFragment;
+    import type { CustomerDetail } from '../../lib/model/customer';
+    import { customerService } from '../../lib/core';
+
+    export let row: CustomerDetail;
     let customerPhotoContent: string;
 
-    loadCustomerPhotoContent(row.id).then((data) => {
+    customerService.loadCustomerPhotoContent(row.id).then((data) => {
         customerPhotoContent = data;
     });
 </script>

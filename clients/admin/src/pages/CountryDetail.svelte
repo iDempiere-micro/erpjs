@@ -1,19 +1,17 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getCountryBy } from '../lib/country';
-    import { urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { push, segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import CountryDetail from '../components/country-detail/CountryDetail.svelte';
+    import { countryService } from '../lib/core';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const client = apollo(urls.countries.detail + id);
-    setClient(client);
+    countryService.load(id);
+    const store = countryService.stores.detail;
 
-    const country = getCountryBy(id);
+    const editCountry = () => push(urls.countries.edit, id);
 </script>
 
 <Page
@@ -22,41 +20,17 @@
     title={$_('page.countries.detail.title')}
 >
     <span slot="content">
-        {#if $country.loading}
-            {$_('status.loading')}
-        {:else if $country.error}
-            {$_('status.error')} {getError($country.error)}
-        {:else if $country?.data?.country}
-            <!-- This example requires Tailwind CSS v2.0+ -->
+        {#if $store.loaded}
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
                         {$_('page.countries.detail.info')}
                     </h3>
                 </div>
-                <div class="border-t border-gray-200">
-                    <dl>
-                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">
-                                {$_('page.countries.detail.displayName')}
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$country?.data?.country?.displayName}
-                            </dd>
-                        </div>
-                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">
-                                {$_('page.countries.detail.isoCode')}
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$country?.data?.country?.isoCode}
-                            </dd>
-                        </div>
-                    </dl>
-                </div>
+                <CountryDetail data={$store.data} />
             </div>
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

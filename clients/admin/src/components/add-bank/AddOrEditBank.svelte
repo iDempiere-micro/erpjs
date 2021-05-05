@@ -1,15 +1,13 @@
 <script lang="ts">
-    import type {
-        BankDetailPartsFragment,
-        SaveBankMutation,
-        SaveBankMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_BANK } from '../../lib/queries/bank';
+    import { _ } from 'svelte-i18n';
+    import { push, urls } from '../../pages/pathAndSegment';
+    import Button from '../../dsl/Button.svelte';
+    import type { BankDetail } from '../../lib/model/bank';
+    import { bankService } from '../../lib/core';
 
-    export let bank: BankDetailPartsFragment | undefined;
+    export let bank: BankDetail | undefined;
     let displayName = bank?.displayName;
     let bankIdentifierCode = bank?.bankIdentifierCode;
 
@@ -32,20 +30,14 @@
         },
     );
 
-    export const saveBankMutation = mutation<SaveBankMutation, SaveBankMutationVariables>(
-        SAVE_BANK,
-    );
-
     const saveBank = async () => {
         if (displayName && bankIdentifierCode) {
-            const { data } = await saveBankMutation({
-                variables: {
-                    id: bank?.id,
-                    displayName,
-                    bankIdentifierCode,
-                },
+            const { data } = await bankService.save({
+                id: bank?.id,
+                displayName,
+                bankIdentifierCode,
             });
-            console.log('*** bank created', data?.saveBank?.id);
+            await push(urls.banks.detail, data?.saveBank?.id);
         }
     };
 </script>
@@ -57,29 +49,25 @@
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <SimpleTextBox
                         form={myForm}
-                        title="Display name"
+                        title={$_('page.banks.add.displayName')}
                         bind:value={displayName}
                         id="displayName"
                     />
 
                     <SimpleTextBox
                         form={myForm}
-                        title="Identifier Code"
+                        title={$_('page.banks.add.bankIdentifierCode')}
                         bind:value={bankIdentifierCode}
                         id="bankIdentifierCode"
                     />
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click|preventDefault={() => {
+                        <Button
+                            on:click={() => {
                                 saveBank();
                             }}
-                            disabled={false}
-                        >
-                            Save
-                        </button>
+                            disabled={!$myForm.valid}
+                        />
                     </div>
                 </div>
             </div>

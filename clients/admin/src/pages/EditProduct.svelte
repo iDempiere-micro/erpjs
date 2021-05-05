@@ -1,32 +1,24 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getProductBy } from '../lib/product';
+    import { productService } from '../lib/core/product';
     import AddOrEditProduct from '../components/add-product/AddOrEditProduct.svelte';
-    import { urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { segments } from './pathAndSegment';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    productService.load(id);
 
-    const client = apollo(urls.products.edit + +id);
-    setClient(client);
-
-    const product = getProductBy(id);
+    const product = productService.stores.detail;
 </script>
 
 <Page title={$_('page.products.edit.title')} segment={segments.products} name="page.products.edit">
     <span slot="content">
-        {#if $product.loading}
-            {$_('status.loading')}
-        {:else if $product.error}
-            {$_('status.error')} {getError($product.error)}
-        {:else if $product?.data?.product}
-            <AddOrEditProduct product={$product?.data?.product} />
+        {#if $product.loaded}
+            <AddOrEditProduct product={$product.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

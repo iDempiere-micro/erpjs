@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { FactoringContractsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import type { FactoringContractsQuery } from '../generated/graphql';
+    import { getError } from '../lib/support/util';
     import FactoringContractList from '../components/factoringContracts/FactoringContractList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { FACTORING_CONTRACTS } from '../lib/queries/factoringContracts';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.factoringContracts.list);
-    setClient(client);
     const factoringContracts = query<FactoringContractsQuery, any>(FACTORING_CONTRACTS);
 </script>
 

@@ -1,9 +1,6 @@
 import gql from 'graphql-tag';
-import {
-    FACTORING_PROVIDER_DETAIL_PARTS_RAW,
-    FACTORING_PROVIDER_LIST_PARTS_RAW,
-    SALES_INVOICE_DETAIL_PARTS_RAW,
-} from '../fragments';
+import { FACTORING_PROVIDER_LIST_PARTS_RAW } from '../fragments/factoringProvider';
+import { SALES_INVOICE_DETAIL_PARTS_RAW } from '../fragments/salesInvoice';
 
 export const CONFIRM_SALES_INVOICE = gql`
     mutation ConfirmSalesInvoice($id: Int!) {

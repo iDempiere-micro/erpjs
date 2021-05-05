@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { FactoringProvidersQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import type { FactoringProvidersQuery } from '../generated/graphql';
+    import { getError } from '../lib/support/util';
     import FactoringProviderList from '../components/factoringProviders/FactoringProviderList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { FACTORING_PROVIDERS } from '../lib/queries/factoringProviders';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.factoringProviders.list);
-    setClient(client);
     const factoringProviders = query<FactoringProvidersQuery, any>(FACTORING_PROVIDERS);
 </script>
 

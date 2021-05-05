@@ -1,18 +1,13 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { AccountingSchemesQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
     import AccountingSchemeList from '../components/accountingSchemes/AccountingSchemeList.svelte';
-    import { urls } from './pathAndSegment';
-    import { ACCOUNTING_SCHEMES } from '../lib/queries/accountingSchemes';
+    import { segments, urls } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { accountingSchemeService } from '../lib/core';
 
-    const client = apollo(urls.accountingSchemes.list);
-    setClient(client);
-    const accountingSchemes = query<AccountingSchemesQuery, any>(ACCOUNTING_SCHEMES);
+    accountingSchemeService.loadList();
+
+    const accountingSchemes = accountingSchemeService.stores.list;
 </script>
 
 <Page
@@ -21,12 +16,9 @@
     title={$_('page.accountingSchemes.title')}
 >
     <span slot="content">
-        {#if $accountingSchemes.loading}
+        {#if $accountingSchemes.loaded}
+            <AccountingSchemeList accountingSchemes={$accountingSchemes.data} />
             {$_('status.loading')}
-        {:else if $accountingSchemes.error}
-            {$_('status.error')} {getError($accountingSchemes.error)}
-        {:else}
-            <AccountingSchemeList accountingSchemes={$accountingSchemes.data?.accountingSchemes} />
         {/if}
     </span>
     <span slot="header">

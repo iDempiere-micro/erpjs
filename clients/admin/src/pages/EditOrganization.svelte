@@ -1,20 +1,16 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getOrganizationBy } from '../lib/organization';
+    import { organizationService } from '../lib/core';
     import AddOrEditOrganization from '../components/add-organization/AddOrEditOrganization.svelte';
-    import { urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { segments } from './pathAndSegment';
+    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    organizationService.load(id);
 
-    const client = apollo(urls.organizations.edit + +id);
-    setClient(client);
-
-    const organization = getOrganizationBy(id);
+    const organization = organizationService.stores.detail;
 </script>
 
 <Page
@@ -23,14 +19,10 @@
     name="page.organizations.edit"
 >
     <span slot="content">
-        {#if $organization.loading}
-            {$_('status.loading')}
-        {:else if $organization.error}
-            {$_('status.error')} {getError($organization.error)}
-        {:else if $organization?.data?.organization}
-            <AddOrEditOrganization organization={$organization?.data?.organization} />
+        {#if $organization.loaded}
+            <AddOrEditOrganization organization={$organization.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

@@ -1,10 +1,11 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
-    import { currenciesStore, ensureCurrenciesStore, mapCurrencies } from '../../lib/currency';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
+    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import { currencyService } from '../../lib/core';
+    import { mapDisplayableToSelectItem } from '../../lib/support/util';
 
-    ensureCurrenciesStore();
+    currencyService.loadList();
     let selectedCurrency: SelectItem | undefined;
     export let onSelect: (currencyId: number) => void = (currencyId) => {};
     export let id: string;
@@ -17,12 +18,14 @@
         onSelect(currencyId);
     };
 
+    const store = currencyService.stores.list;
+
     $: {
         selectedCurrency = undefined;
-        if (currencyId) {
-            const found = $currenciesStore.currencies.find((x) => x?.id === currencyId);
+        if (currencyId && $store.loaded) {
+            const found = $store.data.find((x) => x?.id === currencyId);
             if (found) {
-                selectedCurrency = mapCurrencies([found])[0];
+                selectedCurrency = mapDisplayableToSelectItem([found])[0];
             }
         }
     }
@@ -31,7 +34,7 @@
 <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
-    items={mapCurrencies($currenciesStore.currencies)}
+    items={mapDisplayableToSelectItem($store.data)}
     selectedValue={selectedCurrency}
     on:select={handleSelectCurrency}
 />

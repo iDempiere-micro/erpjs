@@ -1,27 +1,32 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
-    import { authStore } from './lib/auth';
-    import { menuStore } from './lib/menu';
-    import { apollo } from './lib/apollo';
-    import { onDestroy } from 'svelte';
-    import { GET_MENU } from './lib/queries/menu';
+    import { menuStore } from './lib/core';
+    import { getClient, query } from './absorb/svelte-apollo';
+    import type { ReadableQuery } from './absorb/svelte-apollo';
     import type { MenuQuery } from './generated/graphql';
+    import { GET_MENU } from './lib/queries/menu';
+    import { apollo, setClient } from './lib/support/apollo';
 
     export let segment: string;
     export let mobile: boolean | null;
 
-    const loadMenu = async (token: string | undefined) => {
-        if (token && !$menuStore) {
-            const client = apollo('/');
-            $menuStore = (await client.query<MenuQuery>({ query: GET_MENU })).data.menu[0];
-        }
-    };
+    let menuResult: ReadableQuery<MenuQuery>;
+    setTimeout(() => {
+        if ((process.env.MOCK || (window as any).token) && !menuResult) {
+            try {
+                getClient();
+            } catch {
+                setClient(apollo());
+            }
 
-    const unsubscribe = authStore.subscribe((value) => {
-        loadMenu(value?.token);
-    });
-    onDestroy(unsubscribe);
-    loadMenu($authStore?.token);
+            menuResult = query<MenuQuery>(GET_MENU);
+        }
+    }, 1000);
+    $: {
+        if (menuResult && $menuResult.data) {
+            $menuStore = $menuResult?.data?.menu[0];
+        }
+    }
 </script>
 
 <div class="ml-10 flex items-baseline space-x-4">

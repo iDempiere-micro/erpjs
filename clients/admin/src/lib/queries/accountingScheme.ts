@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { ACCOUNTING_SCHEME_DETAIL_PARTS_RAW } from '../fragments';
 import { mock as mockCurrencies } from './currencies';
+import { ACCOUNTING_SCHEME_DETAIL_PARTS_RAW } from '../fragments';
 
 export const SAVE_ACCOUNTING_SCHEME = gql`
     mutation SaveAccountingScheme($id: Int, $displayName: String!, $currencyId: Int!) {

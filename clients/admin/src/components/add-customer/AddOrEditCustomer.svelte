@@ -2,38 +2,30 @@
     import Break from '../../molecules/form/Break.svelte';
 
     import { bindClass, form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import type { ApolloClient, NormalizedCacheObject } from '@apollo/client/core';
-    import type {
-        SaveCustomerMutation,
-        SaveCustomerMutationVariables,
-        CustomerDetailPartsFragment,
-    } from 'src/generated/graphql';
     import { _ } from 'svelte-i18n';
-    import { ADD_CUSTOMER } from '../../lib/queries/customer';
-    import type { OnSelectParam, SelectItem } from '../../lib/select';
-    import Select from 'svelte-select';
-    import { countriesStore, ensureCountriesStore, mapCountries } from '../../lib/country';
-    import { throwOnUndefined } from '../../lib/util';
+    import type { SelectItem } from '../../lib/support/select';
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
-    import { authStore } from '../../lib/auth';
     import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
+    import { getClient } from '../../absorb/svelte-apollo';
+    import { countryService, customerService } from '../../lib/core';
+    import CountrySelect from '../countries/CountrySelect.svelte';
+    import Button from '../../dsl/Button.svelte';
+    import type { CustomerDetail } from '../../lib/model/customer';
 
-    export let client: ApolloClient<NormalizedCacheObject>;
-    export let customer: CustomerDetailPartsFragment | undefined;
+    export let customer: CustomerDetail | undefined;
 
-    ensureCountriesStore();
+    countryService.loadList();
 
     const removeCustomerIdIfAny = (ids: { id: number }[]): { id: number }[] =>
         !customer ? ids : ids.filter(({ id }) => id != customer!.id);
     const getCustomersByDisplayName = () =>
-        client.query({
+        getClient().query({
             query: GET_CUSTOMERS_BY_ARGS,
             variables: { displayName },
         });
     const getCustomersByLegalName = () =>
-        client.query({
+        getClient().query({
             query: GET_CUSTOMERS_BY_ARGS,
             variables: { legalName },
         });
@@ -54,23 +46,21 @@
         };
     };
 
-    let displayName = customer?.displayName;
+    let displayName = customer?.displayName || '';
     let legalAddressCity = customer?.legalAddress.city;
-    let legalName = customer?.legalName;
+    let legalName = customer?.legalName || '';
     let note = customer?.note || undefined;
     let idNumber = customer?.idNumber;
     let vatNumber = customer?.vatNumber || undefined;
-    let legalAddressCountryIsoCode = customer?.legalAddress?.country?.isoCode;
+    let legalAddressCountryId = customer?.legalAddress?.country?.id;
     let selectedLegalAddressCountryValue: SelectItem | undefined;
     let legalAddressLine1 = customer?.legalAddress?.line1;
     let legalAddressZipCode = customer?.legalAddress?.zipCode;
     let invoicingEmail = customer?.invoicingEmail;
     let customerGroupId = customer?.customerGroup?.id;
 
-    const handleSelectLegalAddressCountry = (event: OnSelectParam) => {
-        const countries = countriesStore.get().countries;
-        legalAddressCountryIsoCode =
-            countries?.find((x) => x.id === event.detail.value)?.isoCode || throwOnUndefined();
+    const handleSelectLegalAddressCountry = (id: number) => {
+        legalAddressCountryId = id;
         myForm.validate();
     };
 
@@ -86,51 +76,24 @@
             note: { value: note, validators: [] },
 
             idNumber: { value: idNumber, validators: ['required'] },
-            vatNumber: { value: vatNumber, validators: ['required'] },
+            vatNumber: { value: vatNumber, validators: [] },
             legalAddressLine1: { value: legalAddressLine1, validators: ['required'] },
             legalZip: { value: legalAddressZipCode, validators: ['required'] },
             invoicingEmail: { value: invoicingEmail, validators: ['required'] },
             customerGroupId: { value: customerGroupId, validators: [] },
+            legalAddressCountryId: { value: legalAddressCountryId, validators: ['required'] },
         }),
         {
             initCheck: true,
             validateOnChange: false,
-            stopAtFirstError: true,
-            stopAtFirstFieldError: true,
+            stopAtFirstError: false,
+            stopAtFirstFieldError: false,
         },
     );
-
-    $: {
-        selectedLegalAddressCountryValue = mapCountries([
-            $countriesStore?.countries.find((x) => x.isoCode === legalAddressCountryIsoCode) || {
-                id: -1,
-                displayName: '',
-                isoCode: '',
-            },
-        ])[0];
-    }
 
     let files: any;
     let dataFile = null;
 
-    async function upload() {
-        if (!files || files.length === 0) return;
-        const formData = new FormData();
-        formData.append('file', files[0]);
-        const baseUrl = process.env.API_BASE_URL || throwOnUndefined();
-        const upload = (
-            await fetch(baseUrl.replace('graphql', 'file/upload-customer-photo/' + customer?.id), {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    Authorization: 'Bearer ' + (process.env.FAKE_TOKEN || authStore?.get()?.token),
-                },
-            })
-        ).json();
-        console.log('**** upload', upload);
-    }
-
-    const addCustomer = mutation<SaveCustomerMutation, SaveCustomerMutationVariables>(ADD_CUSTOMER);
     const saveCustomer = async () => {
         if (
             displayName &&
@@ -139,30 +102,26 @@
             idNumber &&
             legalAddressZipCode &&
             legalAddressLine1 &&
-            legalAddressCountryIsoCode &&
+            legalAddressCountryId &&
             invoicingEmail
         ) {
-            console.log('*** customerGroupId', customerGroupId);
-
-            const { data } = await addCustomer({
-                variables: {
-                    id: customer ? customer.id : null,
-                    displayName,
-                    legalName,
-                    legalAddressCity,
-                    note,
-                    idNumber,
-                    legalAddressCountryIsoCode,
-                    legalAddressLine1,
-                    legalAddressZipCode,
-                    invoicingEmail,
-                    vatNumber,
-                    customerGroupId,
-                },
+            const { data } = await customerService.save({
+                id: customer ? customer.id : null,
+                displayName,
+                legalName,
+                legalAddressCity,
+                note,
+                idNumber,
+                legalAddressCountryId,
+                legalAddressLine1,
+                legalAddressZipCode,
+                invoicingEmail,
+                vatNumber,
+                customerGroupId,
             });
 
-            customer = { id: data?.saveCustomer?.id } as CustomerDetailPartsFragment;
-            await upload();
+            customer = { id: data?.saveCustomer?.id } as CustomerDetail;
+            await customerService.upload(files, customer.id);
 
             await push(urls.customer.detail, customer.id);
         }
@@ -368,19 +327,12 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label
-                                    for="billing_country"
-                                    class="block text-sm font-medium text-gray-700"
-                                    >{$_('page.customers.add.country')}</label
-                                >
-                                <Select
-                                    inputAttributes={{
-                                        id: 'billing_country',
-                                        autocomplete: 'disabled',
-                                    }}
-                                    items={mapCountries($countriesStore?.countries)}
-                                    selectedValue={selectedLegalAddressCountryValue}
-                                    on:select={handleSelectLegalAddressCountry}
+                                <CountrySelect
+                                    onSelect={handleSelectLegalAddressCountry}
+                                    id="legalAddressCountryId"
+                                    label={$_('page.customers.add.country')}
+                                    countryId={legalAddressCountryId}
+                                    form={$myForm}
                                 />
                             </div>
 
@@ -716,12 +668,6 @@
     </div>
 
     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-        <button
-            type="submit"
-            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            on:click|preventDefault={saveCustomer}
-        >
-            Save
-        </button>
+        <Button on:click={saveCustomer} disabled={!$myForm.valid} />
     </div>
 </form>

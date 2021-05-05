@@ -1,15 +1,13 @@
 <script lang="ts">
-    import type {
-        ProductDetailPartsFragment,
-        SaveProductMutation,
-        SaveProductMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_PRODUCT } from '../../lib/queries/product';
 
-    export let product: ProductDetailPartsFragment | undefined;
+    import type { ProductDetail } from '../../lib/model/product';
+    import { productService } from '../../lib/core';
+    import { push, urls } from '../../pages/pathAndSegment';
+    import Button from '../../dsl/Button.svelte';
+
+    export let product: ProductDetail | undefined;
     let displayName = product?.displayName;
     let sku = product?.sku;
 
@@ -32,20 +30,14 @@
         },
     );
 
-    export const saveProductMutation = mutation<SaveProductMutation, SaveProductMutationVariables>(
-        SAVE_PRODUCT,
-    );
-
     const saveProduct = async () => {
         if (displayName && sku) {
-            const { data } = await saveProductMutation({
-                variables: {
-                    id: product?.id,
-                    displayName,
-                    sku,
-                },
+            const { data } = await productService.save({
+                id: product?.id,
+                displayName,
+                sku,
             });
-            console.log('*** product created', data?.saveProduct?.id);
+            await push(urls.products.detail, data?.saveProduct?.id);
         }
     };
 </script>
@@ -65,16 +57,12 @@
                     <SimpleTextBox form={myForm} title="SKU" bind:value={sku} id="sku" />
 
                     <div class="px-4 py-3 bg-white text-right sm:px-6">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            on:click|preventDefault={() => {
+                        <Button
+                            on:click={() => {
                                 saveProduct();
                             }}
-                            disabled={false}
-                        >
-                            Save
-                        </button>
+                            disabled={!$myForm.valid}
+                        />
                     </div>
                 </div>
             </div>

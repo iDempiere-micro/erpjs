@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { OrganizationsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import type { OrganizationsQuery } from '../generated/graphql';
+    import { getError } from '../lib/support/util';
     import OrganizationList from '../components/organizations/OrganizationList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { ORGANIZATIONS } from '../lib/queries/organizations';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.organizations.list);
-    setClient(client);
     const organizations = query<OrganizationsQuery, any>(ORGANIZATIONS);
 </script>
 

@@ -55,6 +55,7 @@ export class AddressService extends BaseEntityService<
         address.country = await this.countryService.getCountry(
           transactionalEntityManager,
           newAddress.countryIsoCode,
+          newAddress.countryId,
         );
       }
 

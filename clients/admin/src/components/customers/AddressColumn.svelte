@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { CustomerListPartsFragment } from '../../generated/graphql';
-    import { addressOneLiner } from '../../lib/address';
+    import { addressOneLiner } from '../../lib/core';
+    import type { CustomerRow } from '../../lib/model/customer';
 
-    export let row: CustomerListPartsFragment;
+    export let row: CustomerRow;
 </script>
 
 <div class="text-sm text-gray-900">{addressOneLiner(row.address)}</div>

@@ -43,7 +43,7 @@ export type Address = {
 
 export type AddressSaveArgs = {
     city: Scalars['String'];
-    countryIsoCode: Scalars['String'];
+    countryId: Scalars['Int'];
     line1: Scalars['String'];
     zipCode: Scalars['String'];
 };
@@ -756,7 +756,7 @@ export type SaveCustomerMutationVariables = Exact<{
     legalAddressCity: Scalars['String'];
     note?: Maybe<Scalars['String']>;
     idNumber: Scalars['String'];
-    legalAddressCountryIsoCode: Scalars['String'];
+    legalAddressCountryId: Scalars['Int'];
     legalAddressLine1: Scalars['String'];
     legalAddressZipCode: Scalars['String'];
     invoicingEmail: Scalars['String'];
@@ -979,7 +979,7 @@ export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
 > & {
         legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
         address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
-        customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
+        customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment>;
     };
 
 export type CustomerByIdQueryVariables = Exact<{

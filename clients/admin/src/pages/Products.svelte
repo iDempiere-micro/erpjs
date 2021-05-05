@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { query } from 'svelte-apollo';
-    import type { ProductsQuery } from 'src/generated/graphql';
-    import { apollo, setClient } from '../lib/apollo';
-    import { getError } from '../lib/util';
+    import type { ProductsQuery } from '../generated/graphql';
+    import { getError } from '../lib/support/util';
     import ProductList from '../components/products/ProductList.svelte';
-    import { urls } from './pathAndSegment';
+    import { segments, urls } from './pathAndSegment';
     import { PRODUCTS } from '../lib/queries/products';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
+    import { query } from '../absorb/svelte-apollo';
 
-    const client = apollo(urls.products.list);
-    setClient(client);
     const products = query<ProductsQuery, any>(PRODUCTS);
 </script>
 

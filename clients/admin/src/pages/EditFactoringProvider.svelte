@@ -1,20 +1,15 @@
 <script lang="ts">
-    import { apollo, setClient } from '../lib/apollo';
-    import { getFactoringProviderBy } from '../lib/factoringProvider';
+    import { factoringProviderService } from '../lib/core';
     import AddOrEditFactoringProvider from '../components/add-factoringProvider/AddOrEditFactoringProvider.svelte';
-    import { urls } from './pathAndSegment';
-    import { getError } from '../lib/util';
+    import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { segments } from './pathAndSegment';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
+    factoringProviderService.load(id);
 
-    const client = apollo(urls.factoringProviders.edit + +id);
-    setClient(client);
-
-    const factoringProvider = getFactoringProviderBy(id);
+    const factoringProvider = factoringProviderService.stores.detail;
 </script>
 
 <Page
@@ -23,16 +18,10 @@
     name="page.factoringProviders.edit"
 >
     <span slot="content">
-        {#if $factoringProvider.loading}
-            {$_('status.loading')}
-        {:else if $factoringProvider.error}
-            {$_('status.error')} {getError($factoringProvider.error)}
-        {:else if $factoringProvider?.data?.factoringProvider}
-            <AddOrEditFactoringProvider
-                factoringProvider={$factoringProvider?.data?.factoringProvider}
-            />
+        {#if $factoringProvider.loaded}
+            <AddOrEditFactoringProvider factoringProvider={$factoringProvider.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

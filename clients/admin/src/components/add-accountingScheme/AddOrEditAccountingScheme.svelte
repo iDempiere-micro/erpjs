@@ -1,23 +1,18 @@
 <script lang="ts">
-    import type {
-        AccountingSchemeDetailPartsFragment,
-        SaveAccountingSchemeMutation,
-        SaveAccountingSchemeMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-    import { mutation } from 'svelte-apollo';
-    import { SAVE_ACCOUNTING_SCHEME } from '../../lib/queries/accountingScheme';
-    import type { SelectItem } from '../../lib/select';
+    import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
+    import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
+    import { accountingSchemeService } from '../../lib/core';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
      */
-    export let accountingScheme: AccountingSchemeDetailPartsFragment | undefined;
+    export let accountingScheme: AccountingSchemeDetail | undefined;
     let displayName = accountingScheme?.displayName;
     let currencyId = accountingScheme?.currency?.id;
 
@@ -54,22 +49,15 @@
         },
     );
 
-    export const saveAccountingSchemeMutation = mutation<
-        SaveAccountingSchemeMutation,
-        SaveAccountingSchemeMutationVariables
-    >(SAVE_ACCOUNTING_SCHEME);
-
     const saveAccountingScheme = async () => {
         if (displayName && currencyId) {
-            const { data } = await saveAccountingSchemeMutation({
-                variables: {
-                    id: accountingScheme?.id,
-                    displayName,
-                    currencyId,
-                },
+            const { data } = await accountingSchemeService.save({
+                id: accountingScheme?.id,
+                displayName,
+                currencyId,
             });
             await push(urls.accountingSchemes.detail, data?.saveAccountingScheme?.id);
-        }
+        } else console.error('saveAccountingScheme called with invalid parameters');
     };
 </script>
 
@@ -109,12 +97,7 @@
                                 />
                             </div>
                             <div class="grid-cols-1">
-                                <Button
-                                    on:click={() => {
-                                        saveAccountingScheme();
-                                    }}
-                                    disabled={!$myForm.valid}
-                                />
+                                <Button on:click={saveAccountingScheme} disabled={!$myForm.valid} />
                             </div>
                             {#if accountingScheme}
                                 <div class="grid-cols-1">

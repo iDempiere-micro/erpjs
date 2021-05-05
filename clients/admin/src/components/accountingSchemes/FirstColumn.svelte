@@ -1,6 +1,7 @@
 <script lang="ts">
-    import type { AccountingSchemeListPartsFragment } from '../../generated/graphql';
-    export let row: AccountingSchemeListPartsFragment;
+    import type { AccountingSchemeRow } from '../../lib/model/accountingScheme';
+
+    export let row: AccountingSchemeRow;
 </script>
 
 <div class="flex items-center">
