@@ -1,7 +1,7 @@
-# [MaeERP  - the headless serverless ERP and CRM for the cloud](https://github.com/iDempiere-micro/erpjs/wiki)
+# [EolERP  - the headless serverless ERP and CRM for the cloud](https://github.com/iDempiere-micro/erpjs/wiki)
 
 ## Introduction
-This is the source code of MaeERP, the headless serverless ERP and CRM for the cloud 
+This is the source code of [EolERP](https://github.com/iDempiere-micro/erpjs/wiki), the headless serverless ERP and CRM for the cloud 
 written in TypeScript running on [Node.js](https://nodejs.org/en/) and 
 in a browser as an [Svelte](https://svelte.dev/) single page application. 
 
