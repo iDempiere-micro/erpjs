@@ -45,6 +45,6 @@ export const GET_ORGANIZATION_BY_ID = gql`
 
 export const mock = {
     data: {
-        organization: mockOrganizations.data.organizations[0]
-    }
+        organization: mockOrganizations.data.organizations[0],
+    },
 };
