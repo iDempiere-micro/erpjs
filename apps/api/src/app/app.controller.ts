@@ -11,8 +11,7 @@ export class AppController {
   ) {}
 
   @Get()
-  getData() {
-    this.mailService.sendTestEmail();
+  async getData() {
     return this.appService.getData();
   }
 }

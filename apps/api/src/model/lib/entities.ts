@@ -29,6 +29,7 @@ import { ContactPersonCompanyRelation } from '../generated/entities/ContactPerso
 import { FactoringProvider } from '../generated/entities/FactoringProvider';
 import { FactoringContract } from '../generated/entities/FactoringContract';
 import { EventLog } from '../generated/entities/EventLog';
+import { Config } from '../generated/entities/Config';
 
 export const entities = [
   Address,
@@ -62,4 +63,5 @@ export const entities = [
   FactoringProvider,
   FactoringContract,
   EventLog,
+  Config,
 ];
