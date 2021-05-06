@@ -40,6 +40,7 @@
     "@nestjs/graphql": "^7.10.3",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/typeorm": "^7.1.5",
+    "@smcloudstore/aws-s3": "^0.2.1",
     "apollo-server-express": "^2.18.2",
     "cls-hooked": "^4.2.2",
     "deep-equal": "^2.0.4",
@@ -53,6 +54,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
+    "smcloudstore": "^0.2.1",
     "typeorm": "^0.2.28"
   },
   "devDependencies": {

@@ -14,6 +14,7 @@ import { FactoringProvider1619502927022 } from './migrations/1619502927022-Facto
 import { FactoringInvoicePrinting1619613873925 } from './migrations/1619613873925-FactoringInvoicePrinting';
 import { EventLog1620224070916 } from './migrations/1620224070916-EventLog';
 import { Config1620291421007 } from './migrations/1620291421007-Config';
+import { Attachment1620312048836 } from './migrations/1620312048836-Attachment';
 
 export const migrations = [
   CreateDB1595508635320,
@@ -32,4 +33,5 @@ export const migrations = [
   FactoringInvoicePrinting1619613873925,
   EventLog1620224070916,
   Config1620291421007,
+  Attachment1620312048836,
 ];
