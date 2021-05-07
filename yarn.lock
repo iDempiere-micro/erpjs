@@ -1527,19 +1527,6 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@smcloudstore/aws-s3@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@smcloudstore/aws-s3/-/aws-s3-0.2.1.tgz#0eee94690b63ce57de69439859d132c5ea8552a5"
-  integrity sha512-QoOyGh82tPrpsrFOqR/iMY4/UNSGjCCuttY0QvePcwppAxjOJB4hqmOkd1tkZGps8dogn6/Olzj+843cxB0Qxg==
-  dependencies:
-    "@smcloudstore/core" "^0.2.0"
-    aws-sdk "^2.388.0"
-
-"@smcloudstore/core@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@smcloudstore/core/-/core-0.2.0.tgz#a1b5f59bbabdbb3a8a2ea2eb59ece196192e08c2"
-  integrity sha512-ank0NymMLB55t18OCJ8D9/vEYCXOsWDZhtFyB+h3OCcR3Sa1BmPKOnIhrY+HPVeJgVcV47FNI44mByaYCbuF/A==
-
 "@sqltools/formatter@^1.2.2":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@sqltools/formatter/-/formatter-1.2.3.tgz#1185726610acc37317ddab11c3c7f9066966bd20"
@@ -2705,9 +2692,9 @@ available-typed-arrays@^1.0.2:
     array-filter "^1.0.0"
 
 aws-sdk@^2.388.0:
-  version "2.901.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.901.0.tgz#96b387778cf2b3537383fba04994e815f1fab4d4"
-  integrity sha512-prmUjg4mjguamnwaXMdm/g1xtnT9515cjSaV/MhBsMUVzhe66EX7dLwiA7Jo8qUlwFMyCVIcp/2T+6KwJ9sQgQ==
+  version "2.902.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.902.0.tgz#6e71f02b02ccbecf88e8e3c7f24e940ebdc6655e"
+  integrity sha512-tbX2DaaPwQyETCdYVImp7euTyF0bXLKUmicaD64Xb2v/firEG4t+yRFADiQ/ZetkmvOPN8O3jqXIAz6I6EbnuA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -8910,13 +8897,6 @@ smart-buffer@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.1.0.tgz#91605c25d91652f4661ea69ccf45f1b331ca21ba"
   integrity sha512-iVICrxOzCynf/SNaBQCw34eM9jROU/s5rzIhpOvzhzuYHfJR/DhZfDkXiZSgKXfgv26HT3Yni3AV/DGw0cGnnw==
-
-smcloudstore@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/smcloudstore/-/smcloudstore-0.2.1.tgz#abd217f58b5fee43167790b3989aad1f28794057"
-  integrity sha512-7gLqwhYtlwRWCef629utl8Isgj2HgU/LTu0b6m8k6CCShgKXkjM1LXr34DbcT5qz8Hr5zBUcVWeH8qQlksPmCQ==
-  dependencies:
-    "@smcloudstore/core" "^0.2.0"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

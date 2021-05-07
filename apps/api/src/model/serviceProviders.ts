@@ -82,6 +82,10 @@ import {
 import { MailService, MailServiceKey } from './lib/mail.service';
 import { EventLogService, EventLogServiceKey } from './lib/eventLog.service';
 import { ConfigService, ConfigServiceKey } from './lib/config.service';
+import {
+  AttachmentService,
+  AttachmentServiceKey,
+} from './lib/attachment.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -243,6 +247,11 @@ const configServiceProvider = {
   useClass: ConfigService,
 };
 
+const attachmentServiceProvider = {
+  provide: AttachmentServiceKey,
+  useClass: AttachmentService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -276,4 +285,5 @@ export const serviceProviders = [
   mailServiceProvider,
   eventLogServiceProvider,
   configServiceProvider,
+  attachmentServiceProvider,
 ];
