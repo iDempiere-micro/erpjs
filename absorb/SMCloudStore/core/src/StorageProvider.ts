@@ -45,10 +45,16 @@ export abstract class StorageProvider {
 
     /**
      * Initializes a new storage provider
-     * 
+     *
      * @param connection - Connection options
      */
-    constructor(connection: any) {
+    protected constructor(
+      protected readonly connection: any
+    ) {
+        if (!connection || !Object.keys(connection).length) {
+            throw new Error('Connection argument is empty')
+        }
+
         this._client = null
         this._provider = null
     }
@@ -71,7 +77,7 @@ export abstract class StorageProvider {
 
     /**
      * Creates a container on the server.
-     * 
+     *
      * @param container - Name of the container
      * @param options - Dictionary with options for creating the container; some providers might require some options.
      * @returns Promise that resolves once the container has been created. The promise doesn't contain any meaningful return value.
@@ -81,7 +87,7 @@ export abstract class StorageProvider {
 
     /**
      * Checks if a container exists.
-     * 
+     *
      * @param container - Name of the container
      * @returns Promises that resolves with a boolean indicating if the container exists.
      * @async
@@ -90,7 +96,7 @@ export abstract class StorageProvider {
 
     /**
      * Creates a container on the server if it doesn't already exist.
-     * 
+     *
      * @param container - Name of the container
      * @param options - Dictionary with options for creating the container; some providers might require some options.
      * @returns Promise that resolves once the container has been created
@@ -100,7 +106,7 @@ export abstract class StorageProvider {
 
     /**
      * Lists all containers belonging to the user
-     * 
+     *
      * @returns Promise that resolves with an array of all the containers
      * @async
      */
@@ -108,7 +114,7 @@ export abstract class StorageProvider {
 
     /**
      * Removes a container from the server
-     * 
+     *
      * @param container - Name of the container
      * @returns Promise that resolves once the container has been removed
      * @async
@@ -117,7 +123,7 @@ export abstract class StorageProvider {
 
     /**
      * Uploads a stream to the object storage server
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path where to store the object, inside the container
      * @param data - Object data or stream. Can be a Stream (Readable Stream), Buffer or string.
@@ -129,7 +135,7 @@ export abstract class StorageProvider {
 
     /**
      * Requests an object from the server. The method returns a Promise that resolves to a Readable Stream containing the data.
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path of the object, inside the container
      * @returns Readable Stream containing the object's data
@@ -139,7 +145,7 @@ export abstract class StorageProvider {
 
     /**
      * Requests an object from the server. The method returns a Promise that resolves to a Buffer object containing the data from the server.
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path of the object, inside the container
      * @returns Buffer containing the object's data
@@ -154,7 +160,7 @@ export abstract class StorageProvider {
 
     /**
      * Requests an object from the server. The method returns a Promise that resolves to a string containing the data from the server.
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path of the object, inside the container
      * @param encoding - Optional encoding for the string; defaults to utf8
@@ -170,7 +176,7 @@ export abstract class StorageProvider {
 
     /**
      * Returns a list of objects with a given prefix (folder). The list is not recursive, so prefixes (folders) are returned as such.
-     * 
+     *
      * @param container - Name of the container
      * @param prefix - Prefix (folder) inside which to list objects
      * @returns List of elements returned by the server
@@ -180,7 +186,7 @@ export abstract class StorageProvider {
 
     /**
      * Removes an object from the server
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path of the object, inside the container
      * @returns Promise that resolves once the object has been removed
@@ -190,7 +196,7 @@ export abstract class StorageProvider {
 
     /**
      * Returns a URL that clients (e.g. browsers) can use to request an object from the server with a GET request, even if the object is private.
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path of the object, inside the container
      * @param ttl - Expiry time of the URL, in seconds (default: 1 day)
@@ -201,7 +207,7 @@ export abstract class StorageProvider {
 
     /**
      * Returns a URL that clients (e.g. browsers) can use for PUT operations on an object in the server, even if the object is private.
-     * 
+     *
      * @param container - Name of the container
      * @param path - Path where to store the object, inside the container
      * @param options - Key-value pair of options used by providers, including the `metadata` dictionary

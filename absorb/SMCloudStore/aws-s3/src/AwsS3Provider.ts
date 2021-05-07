@@ -9,6 +9,7 @@ import {
     PutObjectOptions,
     StorageProvider,
 } from '../../core/src/StorageProvider';
+import { SMCloudStoreFactories } from '../../smcloudstore/src/SMCloudStore';
 
 // Note: when using the AWS SDK, do not use arrow functions as callbacks, as many methods need access to the "this" context the callbacks provide
 
@@ -155,12 +156,9 @@ export class AwsS3Provider extends StorageProvider {
      * Initializes a new client to interact with AWS S3.
      *
      * @param connection - Dictionary with connection options.
+     * @param factories - factory functions to use when creating new instances
      */
-    constructor(connection: AwsS3ConnectionOptions) {
-        if (!connection || !Object.keys(connection).length) {
-            throw new Error('Connection argument is empty')
-        }
-
+    constructor(connection: AwsS3ConnectionOptions, protected readonly factories : SMCloudStoreFactories) {
         super(connection)
 
         // Provider name
@@ -370,8 +368,9 @@ export class AwsS3Provider extends StorageProvider {
      * @returns List of elements returned by the server
      * @async
      */
-    listObjects(container: string, prefix?: string): Promise<ListResults> {
-        const list = [] as ListResults
+    listObjects = (container: string, prefix?: string): Promise<ListResults> => {
+        const list = [] as ListResults;
+        const { createListItemPrefix, createListItemObject } = this.factories;
         const makeRequest = (continuationToken?: string): Promise<ListResults> => {
             return new Promise((resolve, reject) => {
                 const methodOptions = {
@@ -388,11 +387,10 @@ export class AwsS3Provider extends StorageProvider {
 
                     // Add all objects
                     for (const el of data.Contents) {
-                        const add = {
-                            lastModified: el.LastModified,
-                            path: el.Key,
-                            size: el.Size
-                        } as ListItemObject
+                        const add = createListItemObject();
+                        add.lastModified = el.LastModified;
+                        add.path = el.Key;
+                        add.size = el.Size;
 
                         // Check if the ETag is the MD5 of the file (this is the case for files that weren't uploaded in multiple parts, in which case there's a dash in the ETag)
                         if (el.ETag.indexOf('-') >= 0) {
@@ -404,9 +402,9 @@ export class AwsS3Provider extends StorageProvider {
 
                     // Add all prefixes
                     for (const el of data.CommonPrefixes) {
-                        list.push({
-                            prefix: el.Prefix
-                        } as ListItemPrefix)
+                        const dir = createListItemPrefix();
+                        dir.prefix = el.Prefix;
+                        list.push(dir);
                     }
 
                     // Check if we have to make another request

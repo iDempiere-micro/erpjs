@@ -34,6 +34,12 @@ input AddressSaveArgs {
   zipCode: String!
 }
 
+type Attachment {
+  contentUrl: String!
+  displayName: String!
+  id: Float!
+}
+
 type Bank {
   bankIdentifierCode: String!
   displayName: String!
@@ -71,6 +77,20 @@ input BankSaveArgs {
 
 input BaseSaveArgs {
   id: Int
+}
+
+type CloudFile {
+  contentMD5: String!
+  contentSHA1: String!
+  contentType: String!
+  creationTime: Date!
+  lastModified: Date!
+  path: String!
+  size: Float!
+}
+
+type CloudFolder {
+  prefix: String!
 }
 
 type ContactPerson {
@@ -374,6 +394,7 @@ input ProductSaveArgs {
 type Query {
   accountingScheme(id: Int!): AccountingScheme!
   accountingSchemes: [AccountingScheme!]!
+  attachments: [Attachment!]!
   bank(id: Int!): Bank!
   banks: [Bank!]!
   contactPerson(id: Int!): ContactPerson!
@@ -398,6 +419,8 @@ type Query {
   factoringProvider(id: Int!): FactoringProvider!
   factoringProviders: [FactoringProvider!]!
   factoringProvidersForInvoice(args: FactoringContractSaveArgs!): [FactoringProvider!]!
+  files: [CloudFile!]!
+  folders: [CloudFolder!]!
   menu: [Menu!]!
   now: UniversalDateTime!
   organization(id: Int!): Organization!
