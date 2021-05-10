@@ -3,8 +3,6 @@
 import S3 = require('aws-sdk/clients/s3')
 import {Stream} from 'stream'
 import {
-    ListItemObject,
-    ListItemPrefix,
     ListResults,
     PutObjectOptions,
     StorageProvider,
@@ -369,7 +367,8 @@ export class AwsS3Provider extends StorageProvider {
      * @async
      */
     listObjects = (container: string, prefix?: string): Promise<ListResults> => {
-        const list = [] as ListResults;
+        const files = [];
+        const folders = [];
         const { createListItemPrefix, createListItemObject } = this.factories;
         const makeRequest = (continuationToken?: string): Promise<ListResults> => {
             return new Promise((resolve, reject) => {
@@ -397,14 +396,14 @@ export class AwsS3Provider extends StorageProvider {
                             add.contentMD5 = el.ETag
                         }
 
-                        list.push(add)
+                        files.push(add)
                     }
 
                     // Add all prefixes
                     for (const el of data.CommonPrefixes) {
                         const dir = createListItemPrefix();
                         dir.prefix = el.Prefix;
-                        list.push(dir);
+                        folders.push(dir);
                     }
 
                     // Check if we have to make another request
@@ -412,7 +411,7 @@ export class AwsS3Provider extends StorageProvider {
                         resolve(makeRequest(data.ContinuationToken))
                     }
                     else {
-                        resolve(list)
+                        resolve({files, folders})
                     }
                 })
             })

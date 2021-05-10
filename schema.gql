@@ -93,6 +93,11 @@ type CloudFolder {
   prefix: String!
 }
 
+type CloudListResults {
+  files: [CloudFile!]!
+  folders: [CloudFolder!]!
+}
+
 type ContactPerson {
   contactPersonCompanyRelations: [ContactPersonCompanyRelation!]
   firstName: String!
@@ -419,8 +424,7 @@ type Query {
   factoringProvider(id: Int!): FactoringProvider!
   factoringProviders: [FactoringProvider!]!
   factoringProvidersForInvoice(args: FactoringContractSaveArgs!): [FactoringProvider!]!
-  files: [CloudFile!]!
-  folders: [CloudFolder!]!
+  filesAndFolders: CloudListResults!
   menu: [Menu!]!
   now: UniversalDateTime!
   organization(id: Int!): Organization!

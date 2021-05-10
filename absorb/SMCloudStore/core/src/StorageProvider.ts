@@ -34,7 +34,10 @@ export interface ListItemPrefix {
 }
 
 /** The `listObjects` method returns an array with a mix of objects of type `ListItemObject` and `ListItemPrefix` */
-export type ListResults = Array<ListItemObject|ListItemPrefix>
+export interface ListResults {
+    files: Array<ListItemObject>;
+    folders: Array<ListItemPrefix>
+}
 
 /**
  * Base class for all storage providers.

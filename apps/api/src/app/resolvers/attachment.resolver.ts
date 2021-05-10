@@ -1,9 +1,15 @@
 import { Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../auth';
-import { Attachment, CloudFile, CloudFolder } from '../../model/generated/entities/Attachment';
+import {
+  Attachment,
+  CloudListResults,
+} from '../../model/generated/entities/Attachment';
 import { getManager } from 'typeorm';
-import { AttachmentService, AttachmentServiceKey } from '../../model/lib/attachment.service';
+import {
+  AttachmentService,
+  AttachmentServiceKey,
+} from '../../model/lib/attachment.service';
 
 @Resolver(() => Attachment)
 @UseGuards(GqlAuthGuard)
@@ -18,14 +24,8 @@ export class AttachmentResolver {
     return await this.attachmentService.loadEntities(getManager());
   }
 
-  @Query(() => [CloudFile])
-  async files() {
+  @Query(() => CloudListResults)
+  async filesAndFolders() {
     return await this.attachmentService.listCloudContent();
   }
-
-  @Query(() => [CloudFolder])
-  async folders() {
-    return await this.attachmentService.listCloudContent();
-  }
-
 }
