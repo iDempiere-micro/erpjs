@@ -3,3 +3,8 @@ fragment CurrencyDetailParts on Currency {
     displayName
     isoCode
 }
+fragment CurrencyListParts on Currency {
+    id
+    isoCode
+    displayName
+}

@@ -35,9 +35,18 @@ input AddressSaveArgs {
 }
 
 type Attachment {
-  contentUrl: String!
+  contentType: String!
+  creationTime: Date!
   displayName: String!
-  id: Float!
+  id: String!
+  isFolder: Boolean!
+  lastModified: Date!
+  size: Float!
+}
+
+input AttachmentSaveArgs {
+  displayName: String!
+  id: String
 }
 
 type Bank {
@@ -91,11 +100,6 @@ type CloudFile {
 
 type CloudFolder {
   prefix: String!
-}
-
-type CloudListResults {
-  files: [CloudFile!]!
-  folders: [CloudFolder!]!
 }
 
 type ContactPerson {
@@ -327,6 +331,7 @@ type Mutation {
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   keepAlive: UniversalDateTime!
   saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
+  saveAttachment(args: AttachmentSaveArgs!): Attachment!
   saveBank(args: BankSaveArgs!): Bank!
   saveContactPerson(args: ContactPersonSaveArgs!): ContactPerson!
   saveContactPersonCompanyRelation(args: ContactPersonCompanyRelationSaveArgs!): ContactPersonCompanyRelation!
@@ -399,6 +404,7 @@ input ProductSaveArgs {
 type Query {
   accountingScheme(id: Int!): AccountingScheme!
   accountingSchemes: [AccountingScheme!]!
+  attachment(id: String!): Attachment!
   attachments: [Attachment!]!
   bank(id: Int!): Bank!
   banks: [Bank!]!
@@ -424,7 +430,6 @@ type Query {
   factoringProvider(id: Int!): FactoringProvider!
   factoringProviders: [FactoringProvider!]!
   factoringProvidersForInvoice(args: FactoringContractSaveArgs!): [FactoringProvider!]!
-  filesAndFolders: CloudListResults!
   menu: [Menu!]!
   now: UniversalDateTime!
   organization(id: Int!): Organization!

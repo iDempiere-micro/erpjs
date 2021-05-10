@@ -32,29 +32,61 @@ export class CloudFolder implements ListItemPrefix {
 
 @ObjectType()
 export class CloudListResults {
-  @Field(()=>[CloudFile])
+  @Field(() => [CloudFile])
   files: Array<ListItemObject>;
-  @Field(()=>[CloudFolder])
-  folders: Array<ListItemPrefix>
+  @Field(() => [CloudFolder])
+  folders: Array<ListItemPrefix>;
 }
-
 
 /**
  * This is just the link between a real attachment and our entity
+ * To simplify frontend development we also map the cloud entities
+ * to this class so that we do not have to return two different sets of data.
  */
 @Entity('attachment', { schema: 'public' })
 @ObjectType()
 export class Attachment implements AttachmentModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
-  @Field()
+  @Field(()=>String)
   id: number;
 
   @Column('character varying', { name: 'contentUrl' })
-  @Field()
   @Index()
   contentUrl: string;
 
-  content: any;
+  /**
+   * The real content from the cloud document when needed
+   */
+  content?: any;
+
+  /**
+   * Again, to make it simpler we return folders as same type of data
+   */
+  @Field()
+  isFolder: boolean;
+
+  /**
+   * Cloud file creation time
+   */
+  @Field()
+  creationTime?: Date;
+  /**
+   * Cloud file last modified
+   */
+  @Field()
+  lastModified?: Date;
+
+  /**
+   * Cloud file content type
+   */
+  @Field()
+  contentType?: string;
+
+  /**
+   * Cloud file size
+   */
+  @Field()
+  size?: number;
 
   @Column('character varying', { name: 'displayName' })
   @Field()

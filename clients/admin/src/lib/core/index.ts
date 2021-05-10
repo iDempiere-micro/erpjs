@@ -1,5 +1,6 @@
 export * from './accountingScheme';
 export * from './address';
+export * from './attachment';
 export * from './bank';
 export * from './country';
 export * from './currency';

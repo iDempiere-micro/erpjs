@@ -1,3 +1,3 @@
 export interface BaseSaveArgsModel {
-  id?: number;
+  id?: any;
 }

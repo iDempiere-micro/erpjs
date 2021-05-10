@@ -7,7 +7,7 @@ import type { Maybe, Scalars } from '../../generated/graphql';
  * Entity Detail base type
  */
 export interface EntityDetail {
-    id: number;
+    id: number | string;
 }
 
 /**

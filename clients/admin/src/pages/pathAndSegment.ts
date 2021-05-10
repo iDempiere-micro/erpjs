@@ -73,6 +73,12 @@ export const urls = {
         edit: 'factoringContract/:id',
         detail: 'factoringContract-detail/:id',
     },
+    attachments: {
+        list: 'attachments',
+        add: 'add-attachments',
+        edit: 'attachment/:id',
+        detail: 'attachment-detail/:id',
+    },
 };
 
 export const segments = {
@@ -88,7 +94,8 @@ export const segments = {
     customerGroups: urls.customerGroups.list,
     factoringProviders: urls.factoringProviders.list,
     factoringContracts: urls.factoringContracts.list,
+    attachments: urls.attachments.list,
 };
 
-export const push = (urlPattern: string, id: number | undefined) =>
+export const push = (urlPattern: string, id: number | string | undefined) =>
     pushToRouter('/' + urlPattern.replace(':id', id ? id.toString() : ''));
