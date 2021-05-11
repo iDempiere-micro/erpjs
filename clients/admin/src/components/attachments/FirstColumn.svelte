@@ -9,7 +9,6 @@
         <div class="text-sm font-medium text-gray-900">
             {row.displayName}
         </div>
-        <div class="text-sm text-gray-500">
-        </div>
+        <div class="text-sm text-gray-500" />
     </div>
 </div>

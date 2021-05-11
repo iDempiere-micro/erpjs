@@ -6,3 +6,7 @@ export interface SelectItem {
 export interface OnSelectParam {
     detail: SelectItem;
 }
+
+export interface OnSelectMultiParam {
+    detail: SelectItem[];
+}

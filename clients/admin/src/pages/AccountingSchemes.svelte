@@ -18,6 +18,7 @@
     <span slot="content">
         {#if $accountingSchemes.loaded}
             <AccountingSchemeList accountingSchemes={$accountingSchemes.data} />
+        {:else}
             {$_('status.loading')}
         {/if}
     </span>

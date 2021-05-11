@@ -13,7 +13,7 @@
             console.log('onSelect', attachmentId);
         },
         id: 'attachmentId',
-        label: 'Accounting Scheme',
+        label: 'Attachment',
         attachmentId: mock.data.attachments[0].id,
     };
     const requiredError = {
@@ -34,3 +34,4 @@
 </Template>
 
 <Story name="Select" args={defaultArgs} />
+<Story name="Multi" args={{ ...defaultArgs, isMulti: true }} />

@@ -2,26 +2,40 @@
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
     import { attachmentService } from '../../lib/core';
-    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
+    import type { OnSelectParam, SelectItem, OnSelectMultiParam } from '../../lib/support/select';
     import { mapDisplayableToSelectItem } from '../../lib/support/util';
 
     attachmentService.loadList();
     let selectedAttachment: SelectItem | undefined;
+    let selectedAttachments: SelectItem[] | undefined;
     export let onSelect: (attachmentId: string) => void = (attachmentId) => {};
     export let id: string;
     export let form: any;
     export let label: string;
     export let attachmentId: string | undefined;
+    export let attachmentIds: string[] | undefined;
+    export let isMulti: boolean = false;
     const store = attachmentService.stores.list;
 
-    const handleSelectAttachment = (event: OnSelectParam) => {
-        attachmentId = event.detail.value.toString();
-        onSelect(attachmentId);
+    const handleSelectAttachment = (e: any) => {
+        if (!isMulti) {
+            const event = e as OnSelectParam;
+            attachmentId = (event.detail as SelectItem).value.toString();
+            onSelect(attachmentId);
+        } else {
+            const event = e as OnSelectMultiParam;
+            attachmentIds = event.detail.map((x) => x.value.toString());
+        }
     };
 
     $: {
         selectedAttachment = undefined;
-        if (attachmentId) {
+        if (isMulti && attachmentIds) {
+            const found = $store.data.filter((x) => attachmentIds.includes(x?.id));
+            if (found) {
+                selectedAttachments = mapDisplayableToSelectItem(found);
+            }
+        } else if (!isMulti && attachmentId) {
             const found = $store.data.find((x) => x?.id === attachmentId);
             if (found) {
                 selectedAttachment = mapDisplayableToSelectItem([found])[0];
@@ -34,7 +48,8 @@
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
     items={mapDisplayableToSelectItem($store.data)}
-    selectedValue={selectedAttachment}
+    selectedValue={isMulti ? selectedAttachments : selectedAttachment}
+    {isMulti}
     on:select={handleSelectAttachment}
 />
 {#if form && form.fields[id].errors.includes('required')}

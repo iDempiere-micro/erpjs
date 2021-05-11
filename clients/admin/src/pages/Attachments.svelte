@@ -14,6 +14,7 @@
     <span slot="content">
         {#if $attachments.loaded}
             <AttachmentList attachments={$attachments.data} />
+        {:else}
             {$_('status.loading')}
         {/if}
     </span>

@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Attachment } from '../../model/generated/entities/Attachment';
@@ -24,7 +24,11 @@ export class AttachmentResolver {
     // const links = await this.attachmentService.loadEntities(getManager());
     return [
       ...files.map(x => ({ id: x.path, isFolder: false, displayName: x.path })),
-      ...folders.map(x => ({ id: x.prefix, isFolder: true, displayName: x.prefix })),
+      ...folders.map(x => ({
+        id: x.prefix,
+        isFolder: true,
+        displayName: x.prefix,
+      })),
     ];
   }
 
@@ -37,9 +41,8 @@ export class AttachmentResolver {
       ...folders.map(x => ({ id: x.prefix, isFolder: true, displayName: x.prefix })),
     ];
     */
-    return { id } as any
+    return { id } as any;
   }
-
 
   @Mutation(() => Attachment)
   async saveAttachment(

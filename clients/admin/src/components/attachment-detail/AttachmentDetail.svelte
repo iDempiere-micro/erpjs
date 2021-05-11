@@ -20,8 +20,7 @@
             <dt class="text-sm font-medium text-gray-500">
                 {$_('page.attachments.detail.currency')}
             </dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            </dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" />
         </div>
     </dl>
 </div>

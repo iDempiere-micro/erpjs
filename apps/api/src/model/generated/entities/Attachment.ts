@@ -47,7 +47,7 @@ export class CloudListResults {
 @ObjectType()
 export class Attachment implements AttachmentModel {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
-  @Field(()=>String)
+  @Field(() => String)
   id: number;
 
   @Column('character varying', { name: 'contentUrl' })

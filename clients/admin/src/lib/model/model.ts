@@ -26,7 +26,7 @@ export type EntityRow = unknown;
  * Entity save args
  */
 export interface EntitySaveArgs {
-    id?: Maybe<Scalars['Int']>;
+    id?: Maybe<Scalars['Int']> | Maybe<Scalars['String']>;
 }
 
 export interface ServiceStores<T extends EntityDetail, L extends EntityRow> {
