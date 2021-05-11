@@ -99,7 +99,7 @@ export const GET_SALES_INVOICE_BY_ID = gql`
         }
     }
 `;
-export const ADD_SALES_INVOICE = gql`
+export const SAVE_SALES_INVOICE = gql`
     mutation SaveSalesInvoice(
         $id: Int
         $currencyId: Int!

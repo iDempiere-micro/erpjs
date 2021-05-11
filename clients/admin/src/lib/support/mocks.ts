@@ -7,7 +7,7 @@ import {
     mock2 as mockCustomersByArgs,
 } from '../queries/customers';
 import { GET_MENU, mock as mockMenu } from '../queries/menu';
-import { EVERYTHING, mock as mockSalesInvoices } from '../queries/salesInvoices';
+import { SALES_INVOICES, mock as mockSalesInvoices } from '../queries/salesInvoices';
 import {
     mock as mockSalesInvoicesInTime,
     QUERY as SALES_INVOICES_IN_TIME,
@@ -63,7 +63,7 @@ export const mocks: ApolloMock[] = [
     { query: CUSTOMERS, mock: mockCustomers },
     { query: GET_MENU, mock: mockMenu },
     { query: SALES_INVOICES_IN_TIME, mock: mockSalesInvoicesInTime },
-    { query: EVERYTHING, mock: mockSalesInvoices },
+    { query: SALES_INVOICES, mock: mockSalesInvoices },
     { query: PRODUCTS, mock: mockProducts },
     { query: CURRENCIES, mock: mockCurrencies },
     { query: SAVE_ACCOUNTING_SCHEME, mock: mockSaveAccountingScheme },

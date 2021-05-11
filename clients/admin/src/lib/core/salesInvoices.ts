@@ -4,13 +4,22 @@ import type {
     SaveSalesInvoiceMutation,
     SaveSalesInvoiceMutationVariables,
 } from '../../generated/graphql';
-import { GET_SALES_INVOICE_BY_ID } from '../queries/salesInvoice';
-import { query } from '../../absorb/svelte-apollo';
-import { BaseEntityService } from './entityStore';
+import {
+    CONFIRM_SALES_INVOICE,
+    GET_SALES_INVOICE_BY_ID,
+    SAVE_SALES_INVOICE,
+} from '../queries/salesInvoice';
+import { mutation, query } from '../../absorb/svelte-apollo';
+import { BaseEntityService, initDetail, invalidate } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
-import { GET_BANK_BY_ID, SAVE_BANK } from '../queries/bank';
-import { BANKS } from '../queries/banks';
 import type { SalesInvoiceDetail, SalesInvoiceRow } from '../model/salesInvoice';
+import type { FetchResult } from '@apollo/client';
+import type { RefetchQueryDescription } from '@apollo/client/core/watchQueryOptions';
+import type {
+    ConfirmSalesInvoiceMutation,
+    ConfirmSalesInvoiceMutationVariables,
+} from '../../generated/graphql';
+import { SALES_INVOICES } from '../queries/salesInvoices';
 
 export const downloadInvoice = (
     baseUrl: string | undefined,
@@ -32,9 +41,6 @@ export const downloadInvoice = (
         });
 };
 
-export const getSalesInvoiceBy = (id: number) =>
-    query<SalesInvoiceByIdQuery>(GET_SALES_INVOICE_BY_ID, { variables: { id } });
-
 class SalesInvoiceService extends BaseEntityService<
     SalesInvoiceDetail,
     SalesInvoiceRow,
@@ -52,7 +58,7 @@ class SalesInvoiceService extends BaseEntityService<
     }
 
     protected getDetailByIdGql(): DocumentNode {
-        return GET_BANK_BY_ID;
+        return GET_SALES_INVOICE_BY_ID;
     }
 
     getDetailSafeEntity(): SalesInvoiceDetail {
@@ -60,11 +66,40 @@ class SalesInvoiceService extends BaseEntityService<
     }
 
     protected getListGql(): DocumentNode {
-        return BANKS;
+        return SALES_INVOICES;
     }
 
     protected getSaveGql(): DocumentNode {
-        return SAVE_BANK;
+        return SAVE_SALES_INVOICE;
+    }
+
+    /**
+     * Saves the item, invalidates `stores.list`
+     * @params id - the invoice id
+     */
+    confirm(id: number) {
+        const refetchQueries = [
+            {
+                query: this.getListGql(),
+            },
+            {
+                query: this.getDetailByIdGql(),
+                variables: { id },
+            },
+        ];
+        const confirmSalesInvoice = mutation<
+            ConfirmSalesInvoiceMutation,
+            ConfirmSalesInvoiceMutationVariables
+        >(CONFIRM_SALES_INVOICE);
+
+        const result = confirmSalesInvoice({
+            variables: {
+                id,
+            },
+            refetchQueries,
+        });
+        invalidate(this.stores.list);
+        initDetail(this.stores.detail);
     }
 }
 

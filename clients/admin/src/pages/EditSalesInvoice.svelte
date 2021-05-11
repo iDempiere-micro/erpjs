@@ -1,15 +1,15 @@
 <script lang="ts">
     import AddOrEditSalesInvoice from '../components/add-sales-invoice/AddOrEditSalesInvoice.svelte';
-    import { getSalesInvoiceBy } from '../lib/core/salesInvoices';
-    import { getError } from '../lib/support/util';
     import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { salesInvoiceService } from '../lib/core';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const salesInvoice = getSalesInvoiceBy(id);
+    salesInvoiceService.load(id);
+    const salesInvoice = salesInvoiceService.stores.detail;
 </script>
 
 <Page
@@ -18,14 +18,10 @@
     name="page.salesInvoices.edit"
 >
     <span slot="content">
-        {#if $salesInvoice.loading}
-            {$_('status.loading')}
-        {:else if $salesInvoice.error}
-            {$_('status.error')} {getError($salesInvoice.error)}
-        {:else if $salesInvoice?.data?.salesInvoice}
-            <AddOrEditSalesInvoice salesInvoice={$salesInvoice?.data?.salesInvoice} />
+        {#if $salesInvoice.loaded}
+            <AddOrEditSalesInvoice salesInvoice={$salesInvoice.data} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
     </span>
 </Page>

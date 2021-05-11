@@ -1,30 +1,19 @@
 <script lang="ts">
-    import { getSalesInvoiceBy } from '../lib/core';
-    import { getError, throwOnUndefined } from '../lib/support/util';
+    import { salesInvoiceService } from '../lib/core';
+    import { throwOnUndefined } from '../lib/support/util';
     import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-
-    import type {
-        ConfirmSalesInvoiceMutation,
-        ConfirmSalesInvoiceMutationVariables,
-    } from '../generated/graphql';
-    import { CONFIRM_SALES_INVOICE } from '../lib/queries/salesInvoice';
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import SalesInvoicePageHeader from '../components/sales-invoice-detail/SalesInvoicePageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
-    import { mutation } from '../absorb/svelte-apollo';
     import OrganizationDetailPageHeader from '../components/organization-detail/OrganizationDetailPageHeader.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
 
-    const confirmSalesInvoice = mutation<
-        ConfirmSalesInvoiceMutation,
-        ConfirmSalesInvoiceMutationVariables
-    >(CONFIRM_SALES_INVOICE);
-
-    let salesInvoice = getSalesInvoiceBy(id);
+    salesInvoiceService.load(id);
+    const salesInvoice = salesInvoiceService.stores.detail;
 
     let invoiceContent: string;
 
@@ -43,37 +32,25 @@
     loadInvoiceContent();
 
     const confirmSalesInvoiceClick = async () => {
-        const data = await confirmSalesInvoice({
-            variables: {
-                id,
-            },
-        });
+        await salesInvoiceService.confirm(id);
         await loadInvoiceContent();
-        // TODO: fix typings so we do not have to reload everything
-        salesInvoice = getSalesInvoiceBy(id);
     };
 </script>
 
 <Page segment={segments.salesInvoices} name="page.salesInvoices.detail">
     <span slot="header">
-        {#if $salesInvoice?.data?.salesInvoice}
-            <CustomerDetailPageHeader id={$salesInvoice?.data?.salesInvoice?.customer?.id || -1} />
+        {#if $salesInvoice.data.id}
+            <CustomerDetailPageHeader id={$salesInvoice.data.customer?.id || -1} />
             <Break />
-            <SalesInvoicePageHeader id={$salesInvoice?.data?.salesInvoice?.id || -1} />
+            <SalesInvoicePageHeader id={$salesInvoice.data.id || -1} />
             <Break />
-            <OrganizationDetailPageHeader
-                id={$salesInvoice?.data?.salesInvoice?.organization?.id || -1}
-            />
+            <OrganizationDetailPageHeader id={$salesInvoice.data.organization?.id || -1} />
         {:else}
             {$_('page.salesInvoices.detail.title')}
         {/if}
     </span>
     <span slot="content">
-        {#if $salesInvoice.loading}
-            {$_('status.loading')}
-        {:else if $salesInvoice.error}
-            {$_('status.error')} {getError($salesInvoice.error)}
-        {:else if $salesInvoice?.data?.salesInvoice}
+        {#if $salesInvoice.loaded}
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -90,7 +67,7 @@
                                 {$_('page.salesInvoices.detail.documentNo')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$salesInvoice?.data?.salesInvoice.documentNo}
+                                {$salesInvoice.data.documentNo}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -98,7 +75,7 @@
                                 {$_('page.salesInvoices.detail.organization')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$salesInvoice?.data?.salesInvoice.organization.displayName}
+                                {$salesInvoice.data.organization.displayName}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -106,10 +83,10 @@
                                 {$_('page.salesInvoices.detail.customer')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$salesInvoice?.data?.salesInvoice.customer.displayName}
+                                {$salesInvoice.data.customer.displayName}
                             </dd>
                         </div>
-                        {#if $salesInvoice?.data?.salesInvoice.factoringProvider}
+                        {#if $salesInvoice.data.factoringProvider}
                             <div
                                 class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                             >
@@ -117,8 +94,7 @@
                                     {$_('page.salesInvoices.detail.factoringProvider')}
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {$salesInvoice?.data?.salesInvoice.factoringProvider
-                                        ?.displayName}
+                                    {$salesInvoice.data.factoringProvider?.displayName}
                                 </dd>
                             </div>
                         {/if}
@@ -127,7 +103,7 @@
                                 {$_('page.salesInvoices.detail.transactionDate')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$salesInvoice?.data?.salesInvoice.transactionDate}
+                                {$salesInvoice.data.transactionDate}
                             </dd>
                         </div>
                         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -135,12 +111,11 @@
                                 {$_('page.salesInvoices.detail.totalLines')}
                             </dt>
                             <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {$salesInvoice?.data?.salesInvoice.totalLines}
-                                {$salesInvoice.data?.salesInvoice?.currency?.displayName}
-                                = {$salesInvoice?.data?.salesInvoice
-                                    .totalLinesAccountingSchemeCurrency}
-                                {$salesInvoice?.data?.salesInvoice.organization.accountingScheme
-                                    .currency.displayName}
+                                {$salesInvoice.data.totalLines}
+                                {$salesInvoice.data.currency.displayName}
+                                = {$salesInvoice.data.totalLinesAccountingSchemeCurrency}
+                                {$salesInvoice.data.organization.accountingScheme.currency
+                                    .displayName}
                             </dd>
                         </div>
                         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -220,10 +195,10 @@
 
             <iframe style="width:100%;" src={`data:application/pdf;base64,${invoiceContent}`} />
         {:else}
-            {$_('status.error')}
+            {$_('status.loading')}
         {/if}
 
-        {#if $salesInvoice?.data?.salesInvoice.isDraft}
+        {#if $salesInvoice.data.isDraft}
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                     type="submit"

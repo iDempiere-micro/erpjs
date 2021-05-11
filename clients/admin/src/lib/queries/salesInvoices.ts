@@ -17,7 +17,7 @@ export const mock = {
     },
 };
 
-export const EVERYTHING = gql`
+export const SALES_INVOICES = gql`
     {
         salesInvoices {
             id

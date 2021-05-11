@@ -2,7 +2,7 @@
     import { _ } from 'svelte-i18n';
     import Select from 'svelte-select';
     import { attachmentService } from '../../lib/core';
-    import type { OnSelectParam, SelectItem, OnSelectMultiParam } from '../../lib/support/select';
+    import type { OnSelectMultiParam, OnSelectParam, SelectItem } from '../../lib/support/select';
     import { mapDisplayableToSelectItem } from '../../lib/support/util';
 
     attachmentService.loadList();
@@ -31,7 +31,7 @@
     $: {
         selectedAttachment = undefined;
         if (isMulti && attachmentIds) {
-            const found = $store.data.filter((x) => attachmentIds.includes(x?.id));
+            const found = $store.data.filter((x) => attachmentIds!!.includes(x?.id));
             if (found) {
                 selectedAttachments = mapDisplayableToSelectItem(found);
             }
