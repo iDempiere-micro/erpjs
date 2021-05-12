@@ -1,4 +1,6 @@
 import type {
+    ConfirmSalesInvoiceMutation,
+    ConfirmSalesInvoiceMutationVariables,
     SalesInvoiceByIdQuery,
     SalesInvoicesQuery,
     SaveSalesInvoiceMutation,
@@ -9,37 +11,11 @@ import {
     GET_SALES_INVOICE_BY_ID,
     SAVE_SALES_INVOICE,
 } from '../queries/salesInvoice';
-import { mutation, query } from '../../absorb/svelte-apollo';
+import { mutation } from '../../absorb/svelte-apollo';
 import { BaseEntityService, initDetail, invalidate } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
 import type { SalesInvoiceDetail, SalesInvoiceRow } from '../model/salesInvoice';
-import type { FetchResult } from '@apollo/client';
-import type { RefetchQueryDescription } from '@apollo/client/core/watchQueryOptions';
-import type {
-    ConfirmSalesInvoiceMutation,
-    ConfirmSalesInvoiceMutationVariables,
-} from '../../generated/graphql';
 import { SALES_INVOICES } from '../queries/salesInvoices';
-
-export const downloadInvoice = (
-    baseUrl: string | undefined,
-    token: string | undefined,
-    id: number,
-) => {
-    if (!baseUrl) throw new Error('baseUrl must be specified');
-    fetch(baseUrl + '/../file/sales-invoice/' + id, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
-        .then((res) => res.json())
-        .then((json) => {
-            const a = document.createElement('a');
-            a.href = `data:application/pdf;base64,${json.data}`;
-            a.setAttribute('download', id + '.pdf');
-            a.click();
-        });
-};
 
 class SalesInvoiceService extends BaseEntityService<
     SalesInvoiceDetail,
@@ -77,7 +53,7 @@ class SalesInvoiceService extends BaseEntityService<
      * Saves the item, invalidates `stores.list`
      * @params id - the invoice id
      */
-    confirm(id: number) {
+    async confirm(id: number) {
         const refetchQueries = [
             {
                 query: this.getListGql(),
@@ -92,14 +68,29 @@ class SalesInvoiceService extends BaseEntityService<
             ConfirmSalesInvoiceMutationVariables
         >(CONFIRM_SALES_INVOICE);
 
-        const result = confirmSalesInvoice({
+        const result = await confirmSalesInvoice({
             variables: {
                 id,
             },
             refetchQueries,
         });
-        invalidate(this.stores.list);
+        if (result.errors) invalidate(this.stores.list);
         initDetail(this.stores.detail);
+    }
+
+    async downloadInvoice(baseUrl: string | undefined, token: string | undefined, id: number) {
+        if (!baseUrl) throw new Error('baseUrl must be specified');
+        const json = await (
+            await fetch(baseUrl + '/../file/sales-invoice/' + id, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+        ).json();
+        const a = document.createElement('a');
+        a.href = `data:application/pdf;base64,${json.data}`;
+        a.setAttribute('download', id + '.pdf');
+        a.click();
     }
 }
 

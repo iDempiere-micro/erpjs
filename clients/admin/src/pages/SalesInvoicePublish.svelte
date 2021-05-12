@@ -8,7 +8,7 @@
     import SalesInvoicePageHeader from '../components/sales-invoice-detail/SalesInvoicePageHeader.svelte';
     import Break from '../molecules/form/Break.svelte';
     import OrganizationDetailPageHeader from '../components/organization-detail/OrganizationDetailPageHeader.svelte';
-    import SalesInvoiceDetail from '../components/sales-invoice-detail/SalesInvoiceDetail.svelte';
+    import SalesInvoicePublish from '../components/sales-invoice-detail/SalesInvoicePublish.svelte';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
@@ -52,14 +52,14 @@
     </span>
     <span slot="content">
         {#if $salesInvoice.loaded}
-            <SalesInvoiceDetail data={$salesInvoice.data} />
+            <SalesInvoicePublish data={$salesInvoice.data} />
 
             <iframe style="width:100%;" src={`data:application/pdf;base64,${invoiceContent}`} />
         {:else}
             {$_('status.loading')}
         {/if}
 
-        {#if $salesInvoice.data.isDraft}
+        {#if $salesInvoice.loaded && $salesInvoice.data.isDraft}
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                     type="submit"

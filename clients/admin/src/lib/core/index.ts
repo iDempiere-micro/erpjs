@@ -11,4 +11,4 @@ export * from './factoringProvider';
 export * from './menu';
 export * from './organization';
 export * from './product';
-export * from './salesInvoices';
+export * from './salesInvoice';

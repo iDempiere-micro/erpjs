@@ -1,13 +1,17 @@
 <script lang="ts">
-    import { downloadInvoice } from '../../lib/core';
     import type { SalesInvoiceRow } from '../../lib/model/salesInvoice';
+    import { salesInvoiceService } from '../../lib/core/salesInvoice';
 
     export let row: SalesInvoiceRow;
 
     const download = (id: number) =>
         process.env.API_BASE_URL &&
         (window as any).token &&
-        downloadInvoice(process.env.API_BASE_URL, (window as any).token || '', id);
+        salesInvoiceService.downloadInvoice(
+            process.env.API_BASE_URL,
+            (window as any).token || '',
+            id,
+        );
 </script>
 
 <div class="flex items-center">

@@ -8,9 +8,9 @@
         CreateMonthlyInvoiceMutationVariables,
     } from 'src/generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { downloadInvoice } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import { mutation } from '../../absorb/svelte-apollo';
+    import { salesInvoiceService } from '../../lib/core/salesInvoice';
 
     const ADD_MONTHLY_SALES_INVOICE = gql`
         mutation CreateMonthlyInvoice(
@@ -109,7 +109,7 @@
     };
 
     const download = (id: number) =>
-        downloadInvoice(process.env.API_BASE_URL, (window as any).token, id);
+        salesInvoiceService.downloadInvoice(process.env.API_BASE_URL, (window as any).token, id);
 </script>
 
 <div class="mt-10 sm:mt-0">

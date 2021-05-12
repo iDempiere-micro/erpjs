@@ -29,6 +29,15 @@ export class MailService {
     private readonly configService: ConfigService<MailConfiguration>,
   ) {}
 
+  async senderEmail() {
+    const manager = getManager();
+    return (
+      await this.configService.loadEntity(manager, {
+        where: { displayName: 'MailConfiguration' },
+      })
+    )?.content?.from || process.env.MAIL_USER;
+  }
+
   async send(
     to: Address,
     bcc: Address,
@@ -45,12 +54,7 @@ export class MailService {
         to,
         bcc,
         // sender address
-        from:
-          (
-            await this.configService.loadEntity(manager, {
-              where: { displayName: 'MailConfiguration' },
-            })
-          )?.content?.from || process.env.MAIL_USER,
+        from: await this.senderEmail(),
         subject, // Subject line
         text,
         html,

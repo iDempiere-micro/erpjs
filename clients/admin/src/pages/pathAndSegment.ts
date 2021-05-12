@@ -15,6 +15,7 @@ export const urls = {
         monthly: {
             add: 'add-monthly-sales-invoice',
         },
+        publish: 'sales-invoice-publish/:id',
     },
     products: {
         list: 'products',

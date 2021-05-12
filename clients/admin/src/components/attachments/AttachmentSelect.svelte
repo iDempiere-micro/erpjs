@@ -44,7 +44,9 @@
     }
 </script>
 
-<label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
+{#if label}
+    <label for={id} class="block text-sm font-medium text-gray-700">{label}</label>
+{/if}
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
     items={mapDisplayableToSelectItem($store.data)}

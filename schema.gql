@@ -430,6 +430,7 @@ type Query {
   factoringProvider(id: Int!): FactoringProvider!
   factoringProviders: [FactoringProvider!]!
   factoringProvidersForInvoice(args: FactoringContractSaveArgs!): [FactoringProvider!]!
+  mailSentFrom: String!
   menu: [Menu!]!
   now: UniversalDateTime!
   organization(id: Int!): Organization!
