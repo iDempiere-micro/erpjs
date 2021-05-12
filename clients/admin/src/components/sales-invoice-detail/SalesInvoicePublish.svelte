@@ -1,10 +1,11 @@
 <script lang="ts">
     import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
-    import { salesInvoiceService } from '../../lib/core';
+    import { salesInvoiceService, mailService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import AttachmentSelect from '../attachments/AttachmentSelect.svelte';
 
     export let data: SalesInvoiceDetail = salesInvoiceService.getDetailSafeEntity();
+    const mailSentFrom = mailService.getSentFrom();
 </script>
 
 <div class="bg-white shadow sm:rounded-lg">
@@ -23,7 +24,9 @@
                     {$_('page.salesInvoices.publish.sender')}
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {data.documentNo}
+                    {#if $mailSentFrom.data}
+                    {$mailSentFrom.data.mailSentFrom}
+                    {/if}
                 </dd>
             </div>
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

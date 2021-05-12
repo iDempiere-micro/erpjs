@@ -37,7 +37,7 @@ export function observableToReadable<TData = unknown>(
         error: undefined,
     },
 ): ReadableResult<TData> {
-    const store = readable<Result<TData>>(initialValue, (set) => {
+    return readable<Result<TData>>(initialValue, (set) => {
         const skipDuplicate = initialValue?.data !== undefined;
         let skipped = false;
 
@@ -60,8 +60,6 @@ export function observableToReadable<TData = unknown>(
 
         return () => subscription.unsubscribe();
     });
-
-    return store;
 }
 
 // For live queries, ObservableQuery is used, adding methods like refetch
