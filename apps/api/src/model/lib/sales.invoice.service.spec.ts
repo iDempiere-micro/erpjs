@@ -167,9 +167,33 @@ export const mockFactoringProviderServiceProvider = {
   useValue: mockFactoringProviderService,
 };
 
+const mockSalesInvoice =  {
+  lines: [],
+  customer: {
+    legalAddress: {
+      country: {
+        isoCode: 'undefined',
+      },
+    },
+  },
+  organization: {
+    legalAddress: {
+      country: {
+        isoCode: 'undefined',
+      },
+    },
+    bankAccount: {
+      id: 18,
+    },
+  },
+  currency: {},
+  factoringProviderId: 2,
+} as any;
+
 const mockEntityManager = {
   getRepository: () => ({
     save: x => x,
+    findOne: () => mockSalesInvoice
   }),
 } as any;
 
@@ -472,5 +496,15 @@ describe('SalesInvoiceService', () => {
       expect(result.printNote).toBeNull();
       expect(result.bankAccount).toEqual(args.organization.bankAccount);
     });
+
+    it('duplicate creates a draft', async () => {
+      const result = await service.duplicate(
+        mockEntityManager,
+        1,
+        { id: 1 } as any,
+      );
+      expect(result.isDraft).toBeTruthy();
+    });
+
   });
 });

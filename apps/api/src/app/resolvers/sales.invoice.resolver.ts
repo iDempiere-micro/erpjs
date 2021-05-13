@@ -34,6 +34,14 @@ export class SalesInvoiceResolver {
     return await this.salesInvoiceService.loadEntityById(getManager(), id);
   }
 
+  @Mutation(() => SalesInvoice)
+  async duplicateSalesInvoice(
+    @Args('id', { type: () => Int }) id: number,
+    @CurrentUser() user,
+  ) {
+    return await this.salesInvoiceService.duplicate(getManager(), id, user);
+  }
+
   @Query(() => [SalesInvoicesInTime])
   async salesInvoicesReport() {
     const result = await this.salesInvoiceService.salesInvoicesReport(

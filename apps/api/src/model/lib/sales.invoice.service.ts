@@ -725,4 +725,13 @@ export class SalesInvoiceService extends BaseEntityService<
       .where('salesInvoice.isActive=true AND salesInvoice.isDraft=false')
       .getRawMany();
   }
+
+  duplicate = async (
+    transactionalEntityManager: EntityManager,
+    id: number,
+    currentUser: UserModel,
+  ): Promise<SalesInvoiceModel> => {
+    const source = await this.loadEntityById(transactionalEntityManager, id);
+    return this.save(transactionalEntityManager, source, currentUser);
+  }
 }

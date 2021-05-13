@@ -329,6 +329,7 @@ type MenuItem {
 type Mutation {
   confirmSalesInvoice(args: BaseSaveArgs!): SalesInvoice!
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
+  duplicateSalesInvoice(id: Int!): SalesInvoice!
   keepAlive: UniversalDateTime!
   saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
   saveAttachment(args: AttachmentSaveArgs!): Attachment!
