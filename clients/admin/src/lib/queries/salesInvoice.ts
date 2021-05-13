@@ -10,6 +10,14 @@ export const CONFIRM_SALES_INVOICE = gql`
     }
 `;
 
+export const DUPLICATE_SALES_INVOICE = gql`
+    mutation DuplicateSalesInvoice($id: Int!) {
+        duplicateSalesInvoice(id: $id) {
+            id
+        }
+    }
+`;
+
 export const mock1 = {
     data: {
         salesInvoice: {

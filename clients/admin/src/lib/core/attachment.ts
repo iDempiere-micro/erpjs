@@ -42,6 +42,21 @@ class AttachmentService extends BaseEntityService<
     protected getSaveGql(): DocumentNode {
         return SAVE_ATTACHMENT;
     }
+
+    async download(baseUrl: string | undefined, token: string | undefined, id: string) {
+        if (!baseUrl) throw new Error('baseUrl must be specified');
+        const json = await (
+            await fetch(baseUrl + '/../file/attachment/' + id, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+        ).json();
+        const a = document.createElement('a');
+        a.href = `data:application/octet-stream;base64,${json.data}`;
+        a.setAttribute('download', id);
+        a.click();
+    }
 }
 
 export const attachmentService: AttachmentService = new AttachmentService();

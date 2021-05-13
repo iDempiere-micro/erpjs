@@ -145,6 +145,7 @@ export abstract class StorageProvider {
      * @async
      */
     abstract getObject(container: string, path: string): Promise<Stream>
+    abstract getObjectBase64(container: string, path: string): Promise<string>
 
     /**
      * Requests an object from the server. The method returns a Promise that resolves to a Buffer object containing the data from the server.

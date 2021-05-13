@@ -3,3 +3,9 @@ query SalesInvoiceById($id: Int!) {
         ...SalesInvoiceDetailParts
     }
 }
+
+mutation DuplicateSalesInvoice($id: Int!) {
+    duplicateSalesInvoice(id: $id) {
+        id
+    }
+}

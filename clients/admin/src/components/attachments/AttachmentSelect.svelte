@@ -9,6 +9,7 @@
     let selectedAttachment: SelectItem | undefined;
     let selectedAttachments: SelectItem[] | undefined;
     export let onSelect: (attachmentId: string) => void = (attachmentId) => {};
+    export let onSelectMulti: (attachmentIds: string[]) => void = (attachmentIds) => {};
     export let id: string;
     export let form: any;
     export let label: string;
@@ -21,10 +22,11 @@
         if (!isMulti) {
             const event = e as OnSelectParam;
             attachmentId = (event.detail as SelectItem).value.toString();
-            onSelect(attachmentId);
+            onSelect && onSelect(attachmentId);
         } else {
             const event = e as OnSelectMultiParam;
-            attachmentIds = event.detail.map((x) => x.value.toString());
+            attachmentIds = event.detail ? event.detail.map((x) => x.value.toString()) : [];
+            onSelectMulti && onSelectMulti(attachmentIds);
         }
     };
 

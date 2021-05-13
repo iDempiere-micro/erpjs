@@ -17,10 +17,19 @@ import {
 } from '../../model';
 import { getManager } from 'typeorm';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AttachmentService, AttachmentServiceKey } from '../../model/lib/attachment.service';
 
 type DownloadedFile = {
   data?: string;
 };
+
+async function readableToString2(readable): Promise<Buffer> {
+  const chunks = []
+  for await (const chunk of readable) {
+    chunks.push(chunk)
+  }
+  return Buffer.concat(chunks);
+}
 
 @UseGuards(GqlAuthGuard)
 @Controller('file')
@@ -30,6 +39,8 @@ export class FileController {
     protected readonly salesInvoiceService: SalesInvoiceService,
     @Inject(CustomerServiceKey)
     protected readonly customerService: CustomerService,
+    @Inject(AttachmentServiceKey)
+    protected readonly attachmentService: AttachmentService,
   ) {}
 
   @Get('sales-invoice/:invoiceId')
@@ -37,6 +48,10 @@ export class FileController {
     @Param('invoiceId') invoiceId,
     @CurrentUser() user,
   ): Promise<DownloadedFile> {
+    if (!user) {
+      return { data: null };
+    }
+
     const invoice = await this.salesInvoiceService.loadEntityById(
       getManager(),
       invoiceId,
@@ -56,6 +71,10 @@ export class FileController {
     @Param('customerId') customerId,
     @CurrentUser() user,
   ) {
+    if (!user) {
+      return { success: false };
+    }
+
     const manager = getManager();
     console.log('*** file upload', customerId, file);
     const { buffer } = file;
@@ -71,10 +90,13 @@ export class FileController {
   }
 
   @Get('customer-photo/:customerId')
-  async downloadCustomerPhone(
+  async downloadCustomerPhoto(
     @Param('customerId') customerId,
     @CurrentUser() user,
   ): Promise<DownloadedFile> {
+    if (!user) {
+      return { data: null };
+    }
     const invoice = await this.customerService.loadEntityById(
       getManager(),
       customerId,
@@ -82,6 +104,23 @@ export class FileController {
     const buffer = (invoice.photo as any) as Buffer;
     if (user && buffer) {
       const data = buffer.toString('base64');
+      return { data };
+    }
+    return { data: null };
+  }
+
+  @Get('attachment/:attachmentId')
+  async downloadAttachment(
+    @Param('attachmentId') attachmentId,
+    @CurrentUser() user,
+  ): Promise<DownloadedFile> {
+    if (!user) {
+      return { data: null };
+    }
+
+    const data = await this.attachmentService.getFile(attachmentId);
+    console.log('****data', data);
+    if (user && data) {
       return { data };
     }
     return { data: null };

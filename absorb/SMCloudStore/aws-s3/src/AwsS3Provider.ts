@@ -8,6 +8,8 @@ import {
     StorageProvider,
 } from '../../core/src/StorageProvider';
 import { SMCloudStoreFactories } from '../../smcloudstore/src/SMCloudStore';
+import { PromiseResult } from 'aws-sdk/lib/request';
+import { AWSError } from 'aws-sdk';
 
 // Note: when using the AWS SDK, do not use arrow functions as callbacks, as many methods need access to the "this" context the callbacks provide
 
@@ -356,6 +358,24 @@ export class AwsS3Provider extends StorageProvider {
 
         const stream = this._client.getObject(methodOptions).createReadStream()
         return Promise.resolve(stream)
+    }
+
+    /**
+     * Requests an object from the server. The method returns a Promise that resolves to a Readable Stream containing the data.
+     *
+     * @param container - Name of the container
+     * @param path - Path of the object, inside the container
+     * @returns Readable Stream containing the object's data
+     * @async
+     */
+    async getObjectBase64(container: string, path: string): Promise<string> {
+        const methodOptions = {
+            Bucket: container,
+            Key: path
+        } as S3.GetObjectRequest
+
+        const data = await this._client.getObject(methodOptions).promise();
+        return data.Body.toString('base64');
     }
 
     /**

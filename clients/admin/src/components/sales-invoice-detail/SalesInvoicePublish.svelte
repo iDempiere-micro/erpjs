@@ -1,11 +1,21 @@
 <script lang="ts">
     import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
-    import { salesInvoiceService, mailService } from '../../lib/core';
+    import { salesInvoiceService, mailService, attachmentService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import AttachmentSelect from '../attachments/AttachmentSelect.svelte';
 
     export let data: SalesInvoiceDetail = salesInvoiceService.getDetailSafeEntity();
     const mailSentFrom = mailService.getSentFrom();
+
+    const download = (id: string) =>
+        attachmentService.download(process.env.API_BASE_URL, (window as any).token, id);
+
+    const onSelectAttachments = (ids: string[]) => {
+        console.log('*** onSelectAttachments', ids);
+        if (ids.length === 0) return;
+
+        download(ids[0]);
+    };
 </script>
 
 <div class="bg-white shadow sm:rounded-lg">
@@ -25,7 +35,7 @@
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                     {#if $mailSentFrom.data}
-                    {$mailSentFrom.data.mailSentFrom}
+                        {$mailSentFrom.data.mailSentFrom}
                     {/if}
                 </dd>
             </div>
@@ -79,7 +89,11 @@
                     {$_('page.salesInvoices.publish.attachments')}
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    <AttachmentSelect id="attachments" isMulti={true} />
+                    <AttachmentSelect
+                        id="attachments"
+                        isMulti={true}
+                        onSelectMulti={onSelectAttachments}
+                    />
                 </dd>
             </div>
         </dl>

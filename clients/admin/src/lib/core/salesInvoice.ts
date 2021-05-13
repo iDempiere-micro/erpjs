@@ -8,6 +8,7 @@ import type {
 } from '../../generated/graphql';
 import {
     CONFIRM_SALES_INVOICE,
+    DUPLICATE_SALES_INVOICE,
     GET_SALES_INVOICE_BY_ID,
     SAVE_SALES_INVOICE,
 } from '../queries/salesInvoice';
@@ -49,11 +50,10 @@ class SalesInvoiceService extends BaseEntityService<
         return SAVE_SALES_INVOICE;
     }
 
-    /**
-     * Saves the item, invalidates `stores.list`
-     * @params id - the invoice id
-     */
-    async confirm(id: number) {
+    async makeSimpleCall<Q>(
+        id: number | string,
+        query: DocumentNode,
+    ): Promise<number | string | undefined> {
         const refetchQueries = [
             {
                 query: this.getListGql(),
@@ -63,10 +63,7 @@ class SalesInvoiceService extends BaseEntityService<
                 variables: { id },
             },
         ];
-        const confirmSalesInvoice = mutation<
-            ConfirmSalesInvoiceMutation,
-            ConfirmSalesInvoiceMutationVariables
-        >(CONFIRM_SALES_INVOICE);
+        const confirmSalesInvoice = mutation<Q>(query);
 
         const result = await confirmSalesInvoice({
             variables: {
@@ -76,6 +73,23 @@ class SalesInvoiceService extends BaseEntityService<
         });
         if (result.errors) invalidate(this.stores.list);
         initDetail(this.stores.detail);
+        return (result?.data || ({} as any)).id;
+    }
+
+    /**
+     * Confirms the item, invalidates `stores.list`
+     * @params id - the invoice id
+     */
+    async confirm(id: number) {
+        return this.makeSimpleCall<ConfirmSalesInvoiceMutation>(id, CONFIRM_SALES_INVOICE);
+    }
+
+    /**
+     * Duplicates the item, invalidates `stores.list`
+     * @params id - the invoice id
+     */
+    async duplicate(id: number) {
+        return this.makeSimpleCall<ConfirmSalesInvoiceMutation>(id, DUPLICATE_SALES_INVOICE);
     }
 
     async downloadInvoice(baseUrl: string | undefined, token: string | undefined, id: number) {
