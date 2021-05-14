@@ -10,16 +10,12 @@
     import type { FactoringProviderDetail } from '../../lib/model/factoringProvider';
 
     export let factoringProvider: FactoringProviderDetail | undefined;
-    let displayName = factoringProvider?.displayName;
-    let contact = factoringProvider?.contact;
-    let legalName = factoringProvider?.legalName;
+    let { id, displayName, contact, legalName, bankAccount } = factoringProvider || {};
 
-    let bankAccountCustomerPrintableNumber =
-        factoringProvider?.bankAccount?.bankAccountCustomerPrintableNumber;
-    let bankId = factoringProvider?.bankAccount?.bank?.id;
-    let bankAccountDisplayName = factoringProvider?.bankAccount?.displayName;
-    let iban = factoringProvider?.bankAccount?.iban;
-    let swift = factoringProvider?.bankAccount?.swift;
+    let { bankAccountCustomerPrintableNumber, bank, iban, swift } = bankAccount || {};
+    let bankId = (bank || {}).id;
+    let bankAccountDisplayName = (bankAccount || {}).displayName;
+    let bankAccountId = (bankAccount || {}).id;
 
     bankService.loadList();
 
@@ -83,12 +79,12 @@
             swift
         ) {
             const { data } = await factoringProviderService.save({
-                id: factoringProvider?.id,
+                id,
                 displayName,
                 contact,
                 legalName,
                 newBankAccount: {
-                    id: factoringProvider?.bankAccount?.id,
+                    id: bankAccountId,
                     bankAccountCustomerPrintableNumber,
                     bankId,
                     displayName: bankAccountDisplayName,
@@ -96,7 +92,7 @@
                     swift,
                 },
             });
-            await push(urls.factoringProviders.detail, data?.saveFactoringProvider?.id);
+            await push(urls.factoringProviders.detail, data.saveFactoringProvider.id);
         }
     };
 </script>

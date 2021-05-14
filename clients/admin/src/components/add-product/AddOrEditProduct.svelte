@@ -8,8 +8,7 @@
     import Button from '../../dsl/Button.svelte';
 
     export let product: ProductDetail | undefined;
-    let displayName = product?.displayName;
-    let sku = product?.sku;
+    let { displayName, sku } = product || {};
 
     const myForm = form(
         () => ({
@@ -37,7 +36,7 @@
                 displayName,
                 sku,
             });
-            await push(urls.products.detail, data?.saveProduct?.id);
+            await push(urls.products.detail, data.saveProduct.id);
         }
     };
 </script>

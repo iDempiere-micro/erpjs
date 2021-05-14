@@ -8,8 +8,7 @@
     import { bankService } from '../../lib/core';
 
     export let bank: BankDetail | undefined;
-    let displayName = bank?.displayName;
-    let bankIdentifierCode = bank?.bankIdentifierCode;
+    let { displayName, bankIdentifierCode } = bank || {};
 
     const myForm = form(
         () => ({
@@ -37,7 +36,7 @@
                 displayName,
                 bankIdentifierCode,
             });
-            await push(urls.banks.detail, data?.saveBank?.id);
+            await push(urls.banks.detail, data.saveBank.id);
         }
     };
 </script>

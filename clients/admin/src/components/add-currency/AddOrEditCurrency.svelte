@@ -9,8 +9,7 @@
     import { currencyService } from '../../lib/core';
 
     export let currency: CurrencyDetail | undefined;
-    let displayName = currency?.displayName;
-    let isoCode = currency?.isoCode;
+    let { displayName, isoCode } = currency || {};
 
     const myForm = form(
         () => ({
@@ -38,7 +37,7 @@
                 displayName,
                 isoCode,
             });
-            await push(urls.currencies.detail, data?.saveCurrency?.id);
+            await push(urls.currencies.detail, data.saveCurrency.id);
         }
     };
 </script>

@@ -8,8 +8,7 @@
     import { countryService } from '../../lib/core';
 
     export let country: CountryDetail | undefined;
-    let displayName = country?.displayName;
-    let isoCode = country?.isoCode;
+    let { displayName, isoCode } = country || {};
 
     const myForm = form(
         () => ({
@@ -37,7 +36,7 @@
                 displayName,
                 isoCode,
             });
-            await push(urls.countries.detail, data?.saveCountry?.id);
+            await push(urls.countries.detail, data.saveCountry.id);
         }
     };
 </script>

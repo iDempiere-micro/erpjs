@@ -25,8 +25,19 @@
     import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
 
     export let salesInvoice: SalesInvoiceDetail | undefined;
+    let {
+        id,
+        currency,
+        customer,
+        organization,
+        issuedOn,
+        transactionDate,
+        paymentTermInDays,
+        factoringProvider,
+    } = salesInvoice || {};
+    let factoringProviderId = (factoringProvider || {}).id;
 
-    if (salesInvoice && !salesInvoice?.isDraft) {
+    if (salesInvoice && !salesInvoice.isDraft) {
         push(urls.salesInvoices.detail, salesInvoice.id);
     }
 
@@ -34,7 +45,7 @@
         if (organizationId && customerId && currencyId && paymentTermInDays) {
             paymentTermInDays = +paymentTermInDays;
             const { data } = await salesInvoiceService.save({
-                id: salesInvoice?.id,
+                id,
                 currencyId,
                 customerId,
                 issuedOn,
@@ -51,23 +62,21 @@
                 transactionDate,
                 factoringProviderId,
             });
-            await push(urls.salesInvoices.detail, data?.saveSalesInvoice?.id);
+            await push(urls.salesInvoices.detail, data.saveSalesInvoice.id);
         }
     };
 
-    let currencyId = salesInvoice?.currency?.id;
-    let customerId = salesInvoice?.customer?.id;
-    let organizationId = salesInvoice?.organization?.id;
-    let issuedOn = salesInvoice?.issuedOn;
-    let transactionDate = salesInvoice?.transactionDate;
-    let paymentTermInDays: number | undefined = salesInvoice?.paymentTermInDays;
+    let currencyId = (currency || {}).id;
+    let customerId = (customer || {}).id;
+    let organizationId = (organization || {}).id;
     let itemsOk = true;
-    let lines: SalesInvoiceLineSaveArgs[] = R.clone(salesInvoice?.lines || []).map((x) => ({
+    let lines: SalesInvoiceLineSaveArgs[] = R.clone(
+        (salesInvoice || { lines: [] }).lines || [],
+    ).map((x) => ({
         ...x,
         productId: x.product.id,
         lineTaxIsStandard: true,
     }));
-    let factoringProviderId = salesInvoice?.factoringProvider?.id;
     const emptyItem = () =>
         ({
             lineOrder: lines.length === 0 ? 10 : Math.max(...lines.map((x) => x.lineOrder)) + 10,
@@ -171,7 +180,8 @@
     };
     let factoringProviders: FactoringProviderRow[] | undefined;
     $: {
-        factoringProviders = $factoringProvidersResult?.data?.factoringProvidersForInvoice;
+        if ($factoringProvidersResult && !$factoringProvidersResult.loading)
+            factoringProviders = $factoringProvidersResult.data.factoringProvidersForInvoice;
     }
     const getLineOrder: (x: SalesInvoiceLineSaveArgs) => number = (x) => x.lineOrder;
 </script>
