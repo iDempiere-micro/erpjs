@@ -16,7 +16,12 @@ export interface MailConfiguration extends ConfigData {
 
 export interface MailAttachment {
   filename: string;
+  /**
+   * This can be Buffer or Stream directly. If it is a base64 string returned from S3,
+   * you must also include `encoding: 'base64'`
+   */
   content?: any;
+  encoding?: string;
 }
 
 @Injectable()
@@ -32,10 +37,12 @@ export class MailService {
   async senderEmail() {
     const manager = getManager();
     return (
-      await this.configService.loadEntity(manager, {
-        where: { displayName: 'MailConfiguration' },
-      })
-    )?.content?.from || process.env.MAIL_USER;
+      (
+        await this.configService.loadEntity(manager, {
+          where: { displayName: 'MailConfiguration' },
+        })
+      )?.content?.from || process.env.MAIL_USER
+    );
   }
 
   async send(

@@ -7,14 +7,10 @@
     export let data: SalesInvoiceDetail = salesInvoiceService.getDetailSafeEntity();
     const mailSentFrom = mailService.getSentFrom();
 
-    const download = (id: string) =>
-        attachmentService.download(process.env.API_BASE_URL, (window as any).token, id);
+    let attachmentIds = [];
 
     const onSelectAttachments = (ids: string[]) => {
-        console.log('*** onSelectAttachments', ids);
-        if (ids.length === 0) return;
-
-        download(ids[0]);
+        attachmentIds = ids;
     };
 </script>
 

@@ -38,5 +38,5 @@ export const resolvers = [
   FactoringProviderResolver,
   FactoringContractResolver,
   AttachmentResolver,
-  MailResolver
+  MailResolver,
 ];

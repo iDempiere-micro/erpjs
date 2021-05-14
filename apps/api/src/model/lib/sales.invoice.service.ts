@@ -53,6 +53,8 @@ import {
   FactoringProviderService,
   FactoringProviderServiceKey,
 } from './factoring.provider.service';
+import { SalesInvoicePublishArgsModel } from './sales.invoice.vat.save.args.model';
+import { MailService, MailServiceKey } from './mail.service';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -85,7 +87,7 @@ export class SalesInvoiceLineService extends BaseEntityService<
     @Inject(TaxServiceKey) public readonly taxService: TaxService,
     @Inject(ProductServiceKey) public readonly productService: ProductService,
     @Inject(CustomerPriceListServiceKey)
-    public readonly customerPriceListService: CustomerPriceListService,
+    public readonly customerPriceListService: CustomerPriceListService
   ) {
     super();
     this.salesInvoiceService = getService<SalesInvoiceService>(
@@ -209,6 +211,7 @@ export class SalesInvoiceService extends BaseEntityService<
     protected readonly factoringContractService: FactoringContractService,
     @Inject(FactoringProviderServiceKey)
     protected readonly factoringProviderService: FactoringProviderService,
+    @Inject(MailServiceKey) public readonly mailService: MailService,
   ) {
     super();
     this.salesInvoiceLineService = getService<SalesInvoiceLineService>(
@@ -733,5 +736,21 @@ export class SalesInvoiceService extends BaseEntityService<
   ): Promise<SalesInvoiceModel> => {
     const source = await this.loadEntityById(transactionalEntityManager, id);
     return this.save(transactionalEntityManager, source, currentUser);
-  }
+  };
+
+  publish = async (
+    transactionalEntityManager: EntityManager,
+    args: SalesInvoicePublishArgsModel,
+    currentUser: UserModel,
+  ): Promise<SalesInvoiceModel> => {
+    const source = await this.loadEntityById(
+      transactionalEntityManager,
+      args.id,
+    );
+    this.mailService.send(
+
+    );
+
+    return this.save(transactionalEntityManager, source, currentUser);
+  };
 }

@@ -7,9 +7,8 @@ import { MailService, MailServiceKey } from '../../model/lib/mail.service';
 @UseGuards(GqlAuthGuard)
 export class MailResolver {
   constructor(
-    @Inject(MailServiceKey) protected readonly mailService: MailService
-  ) {
-  }
+    @Inject(MailServiceKey) protected readonly mailService: MailService,
+  ) {}
 
   @Query(() => String)
   async mailSentFrom() {

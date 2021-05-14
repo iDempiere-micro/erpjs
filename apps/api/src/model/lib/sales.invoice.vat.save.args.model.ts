@@ -9,3 +9,8 @@ export interface SalesInvoiceVatSaveArgsModel extends BaseSaveArgsModel {
   vatTotalAccountingSchemeCurrency: number;
   invoice: SalesInvoiceModel;
 }
+
+export interface SalesInvoicePublishArgsModel {
+  id?: any;
+  attachmentIds: string[];
+}

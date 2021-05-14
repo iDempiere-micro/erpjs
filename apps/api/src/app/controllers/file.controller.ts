@@ -17,19 +17,14 @@ import {
 } from '../../model';
 import { getManager } from 'typeorm';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AttachmentService, AttachmentServiceKey } from '../../model/lib/attachment.service';
+import {
+  AttachmentService,
+  AttachmentServiceKey,
+} from '../../model/lib/attachment.service';
 
 type DownloadedFile = {
   data?: string;
 };
-
-async function readableToString2(readable): Promise<Buffer> {
-  const chunks = []
-  for await (const chunk of readable) {
-    chunks.push(chunk)
-  }
-  return Buffer.concat(chunks);
-}
 
 @UseGuards(GqlAuthGuard)
 @Controller('file')

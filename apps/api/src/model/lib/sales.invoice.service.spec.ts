@@ -167,7 +167,7 @@ export const mockFactoringProviderServiceProvider = {
   useValue: mockFactoringProviderService,
 };
 
-const mockSalesInvoice =  {
+const mockSalesInvoice = {
   lines: [],
   customer: {
     legalAddress: {
@@ -193,7 +193,7 @@ const mockSalesInvoice =  {
 const mockEntityManager = {
   getRepository: () => ({
     save: x => x,
-    findOne: () => mockSalesInvoice
+    findOne: () => mockSalesInvoice,
   }),
 } as any;
 
@@ -498,13 +498,10 @@ describe('SalesInvoiceService', () => {
     });
 
     it('duplicate creates a draft', async () => {
-      const result = await service.duplicate(
-        mockEntityManager,
-        1,
-        { id: 1 } as any,
-      );
+      const result = await service.duplicate(mockEntityManager, 1, {
+        id: 1,
+      } as any);
       expect(result.isDraft).toBeTruthy();
     });
-
   });
 });
