@@ -6,13 +6,13 @@ import {Readable, Stream} from 'stream'
 
 /**
  * Manages the upload of objects to Backblaze B2.
- * 
+ *
  * This supports using Buffers and strings with the "simple APIs". It supports streams too, using either the "simple APIs" if the stream is less than `chunkSize`, or the large file APIs otherwise. The selection happens automatically.
  */
 class B2Upload {
     /**
      * Size of each chunk that is uploaded when using B2's large file APIs, in bytes. Minimum value is 5MB; default is 9MB.
-     * 
+     *
      * Note: there seems to be a bug in the current version of the backblaze-b2 package when the request body upload is > 10 MB, because of a downstream dependency on axios@0.17; once backblaze-b2 updates its dependency on axios, this might be fixed.
      */
     static chunkSize = 9 * 1024 * 1024
@@ -40,7 +40,7 @@ class B2Upload {
 
     /**
      * Initializes a new B2Upload class
-     * 
+     *
      * @param client - Instance of the B2 client library. It's expected authorization to be completed already, so auth data is stored in the library.
      * @param bucketId - Id of the target bucket
      * @param path - Path where to store the object, inside the container
@@ -60,7 +60,7 @@ class B2Upload {
 
     /**
      * Start the upload of the object
-     * 
+     *
      * @returns Promise that resolves when the object has been uploaded
      * @async
      */
@@ -119,7 +119,7 @@ class B2Upload {
 
     /**
      * Uploads a single file, when data is a Buffer or string.
-     * 
+     *
      * @param data - Data to upload, as Buffer. If not specified, will use `this.data`
      * @returns Promise that resolves when the object has been uploaded
      * @async
@@ -179,7 +179,7 @@ class B2Upload {
                             }
 
                             // Ensure the key is valid
-                            if (!key.match('^[A-Za-z0-9\-]+$')) {
+                            if (!key.match('^[A-Za-z0-9-]+$')) {
                                 throw Error('Invalid header format: must be A-Za-z0-9')
                             }
 
@@ -220,7 +220,7 @@ class B2Upload {
 
     /**
      * Uploads a Readable Stream.
-     * 
+     *
      * @param stream - Readable Stream containing the data to upload
      * @returns Promise that resolves when the object has been uploaded
      * @async
@@ -355,7 +355,7 @@ class B2Upload {
 
     /**
      * Uploads a single part of a large file.
-     * 
+     *
      * @param fileId - ID of the large file that is being uploaded
      * @param partNumber - Number of the part, starting from 1
      * @param data - Data to upload, in a Buffer

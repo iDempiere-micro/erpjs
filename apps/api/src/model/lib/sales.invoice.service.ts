@@ -223,7 +223,9 @@ export class SalesInvoiceService extends BaseEntityService<
   }
 
   createEntity(): SalesInvoiceModel {
-    return new SalesInvoice();
+    const result = new SalesInvoice();
+    result.isDraft = true;
+    return result;
   }
 
   protected async getOrganization(

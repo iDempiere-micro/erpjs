@@ -9,16 +9,10 @@ import {
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    @Inject(MailServiceKey) private readonly mailService: MailService,
-    @Inject(AttachmentServiceKey)
-    private readonly attachmentService: AttachmentService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   async getData() {
-    // return this.appService.getData();
-    // return await this.attachmentService.listCloudContent();
+    return this.appService.getData();
   }
 }
