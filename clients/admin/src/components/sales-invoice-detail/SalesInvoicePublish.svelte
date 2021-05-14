@@ -3,6 +3,7 @@
     import { salesInvoiceService, mailService, attachmentService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import AttachmentSelect from '../attachments/AttachmentSelect.svelte';
+    import Button from '../../dsl/Button.svelte';
 
     export let data: SalesInvoiceDetail = salesInvoiceService.getDetailSafeEntity();
     const mailSentFrom = mailService.getSentFrom();
@@ -12,6 +13,8 @@
     const onSelectAttachments = (ids: string[]) => {
         attachmentIds = ids;
     };
+
+    const publish = () => salesInvoiceService.publish(data.id, attachmentIds);
 </script>
 
 <div class="bg-white shadow sm:rounded-lg">
@@ -91,6 +94,9 @@
                         onSelectMulti={onSelectAttachments}
                     />
                 </dd>
+            </div>
+            <div class="grid-cols-1">
+                <Button on:click={publish} />
             </div>
         </dl>
     </div>

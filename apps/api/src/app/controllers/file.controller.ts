@@ -113,7 +113,7 @@ export class FileController {
       return { data: null };
     }
 
-    const data = await this.attachmentService.getFile(attachmentId);
+    const data = await this.attachmentService.getFileAsBase64(attachmentId);
     console.log('****data', data);
     if (user && data) {
       return { data };

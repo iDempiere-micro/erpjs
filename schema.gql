@@ -331,6 +331,7 @@ type Mutation {
   createMonthlyInvoice(args: SalesInvoiceMonthlySaveArgs!): [SalesInvoice!]!
   duplicateSalesInvoice(id: Int!): SalesInvoice!
   keepAlive: UniversalDateTime!
+  publishSalesInvoice(args: SalesInvoicePublishArgs!): SalesInvoice!
   saveAccountingScheme(args: AccountingSchemeSaveArgs!): AccountingScheme!
   saveAttachment(args: AttachmentSaveArgs!): Attachment!
   saveBank(args: BankSaveArgs!): Bank!
@@ -509,6 +510,11 @@ input SalesInvoiceMonthlySaveArgs {
   organizationDivider: [IdAndNumber!]!
   totalHours: Float!
   year: Int!
+}
+
+input SalesInvoicePublishArgs {
+  attachmentIds: [String!]!
+  id: Int!
 }
 
 input SalesInvoiceSaveArgs {

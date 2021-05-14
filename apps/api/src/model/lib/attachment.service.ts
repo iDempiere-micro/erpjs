@@ -57,9 +57,13 @@ export class AttachmentService extends BaseEntityService<
     return await this.storage.listObjects(process.env.ATT_CONTAINER);
   }
 
-  async getFile(id: string) {
+  async getFileAsBase64(id: string) {
     await this.ensureContainer();
     return await this.storage.getObjectBase64(process.env.ATT_CONTAINER, id);
+  }
+  async getFileAsStream(id: string) {
+    await this.ensureContainer();
+    return await this.storage.getObject(process.env.ATT_CONTAINER, id);
   }
 
   typeName(): string {

@@ -43,8 +43,8 @@ export class SalesInvoiceMonthlySaveArgs
 
 @InputType()
 export class SalesInvoicePublishArgs implements SalesInvoicePublishArgsModel {
-  @Field()
-  id: any;
+  @Field(()=>Int)
+  id: number;
   @Field(() => [String])
   attachmentIds: string[];
 }

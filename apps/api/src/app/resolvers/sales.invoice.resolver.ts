@@ -9,7 +9,10 @@ import {
   SalesInvoiceServiceKey,
 } from '../../model';
 import { getManager } from 'typeorm';
-import { SalesInvoiceMonthlySaveArgs, SalesInvoicePublishArgs } from '../saveArgs/sales.invoice.monthly.save.args';
+import {
+  SalesInvoiceMonthlySaveArgs,
+  SalesInvoicePublishArgs,
+} from '../saveArgs/sales.invoice.monthly.save.args';
 import { SalesInvoiceSaveArgs } from '../saveArgs/sales.invoice.save.args';
 import { SalesInvoicesInTime } from '../dto/SalesInvoicesInTime';
 import * as moment from 'moment';

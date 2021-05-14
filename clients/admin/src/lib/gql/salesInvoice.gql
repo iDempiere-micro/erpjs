@@ -9,3 +9,17 @@ mutation DuplicateSalesInvoice($id: Int!) {
         id
     }
 }
+
+mutation PublishSalesInvoice(
+    $id: Int!
+    $attachmentIds: [String!]!
+) {
+    publishSalesInvoice(
+        args: {
+            id: $id
+            attachmentIds: $attachmentIds
+        }
+    ) {
+        id
+    }
+}

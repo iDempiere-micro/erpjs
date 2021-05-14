@@ -361,6 +361,7 @@ export type Mutation = {
     createMonthlyInvoice: Array<SalesInvoice>;
     duplicateSalesInvoice: SalesInvoice;
     keepAlive: Scalars['UniversalDateTime'];
+    publishSalesInvoice: SalesInvoice;
     saveAccountingScheme: AccountingScheme;
     saveAttachment: Attachment;
     saveBank: Bank;
@@ -389,6 +390,10 @@ export type MutationCreateMonthlyInvoiceArgs = {
 
 export type MutationDuplicateSalesInvoiceArgs = {
     id: Scalars['Int'];
+};
+
+export type MutationPublishSalesInvoiceArgs = {
+    args: SalesInvoicePublishArgs;
 };
 
 export type MutationSaveAccountingSchemeArgs = {
@@ -693,6 +698,11 @@ export type SalesInvoiceMonthlySaveArgs = {
     organizationDivider: Array<IdAndNumber>;
     totalHours: Scalars['Float'];
     year: Scalars['Int'];
+};
+
+export type SalesInvoicePublishArgs = {
+    attachmentIds: Array<Scalars['String']>;
+    id: Scalars['Int'];
 };
 
 export type SalesInvoiceSaveArgs = {
@@ -1381,6 +1391,15 @@ export type DuplicateSalesInvoiceMutationVariables = Exact<{
 
 export type DuplicateSalesInvoiceMutation = { __typename?: 'Mutation' } & {
     duplicateSalesInvoice: { __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>;
+};
+
+export type PublishSalesInvoiceMutationVariables = Exact<{
+    id: Scalars['Int'];
+    attachmentIds: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+export type PublishSalesInvoiceMutation = { __typename?: 'Mutation' } & {
+    publishSalesInvoice: { __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>;
 };
 
 export type SalesInvoiceLineDetailPartsFragment = { __typename?: 'SalesInvoiceLine' } & Pick<
