@@ -22,7 +22,7 @@
     $: {
         selectedCountry = undefined;
         if (countryId && $store.data) {
-            const found = $store.data.find((x) => x?.id === countryId);
+            const found = $store.data.find((x) => x.id === countryId);
             if (found) {
                 selectedCountry = mapDisplayableToSelectItem([found])[0];
             }

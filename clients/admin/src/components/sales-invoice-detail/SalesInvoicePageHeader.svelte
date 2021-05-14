@@ -2,25 +2,22 @@
     import { _ } from 'svelte-i18n';
     import { getError } from '../../lib/support/util';
     import { push, urls } from '../../pages/pathAndSegment.js';
-    import { getSalesInvoiceBy } from '../../lib/core/salesInvoices';
+    import { salesInvoiceService } from '../../lib/core';
 
     let mobileMenu = false;
     export let id: number;
     id = parseInt('' + id);
+    salesInvoiceService.load(id);
 
-    const salesInvoice = getSalesInvoiceBy(id);
+    const salesInvoice = salesInvoiceService.stores.detail;
 </script>
 
-{#if $salesInvoice.loading}
-    {$_('status.loading')}
-{:else if $salesInvoice.error}
-    {$_('status.error')} {getError($salesInvoice.error)}
-{:else if $salesInvoice.data?.salesInvoice}
+{#if $salesInvoice.loaded}
     <div class="lg:flex lg:items-center lg:justify-between bg-gray-50 pt-4 px-4 pb-3">
         <div class="flex-1 min-w-0">
             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
                 <div class="flex flex-row">
-                    <div>{$salesInvoice.data?.salesInvoice?.documentNo}</div>
+                    <div>{$salesInvoice.data.documentNo}</div>
                 </div>
             </h2>
             <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
@@ -39,7 +36,7 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {!$salesInvoice.data?.salesInvoice?.isDraft ? 'Approved' : 'Draft'}
+                    {!$salesInvoice.data.isDraft ? 'Approved' : 'Draft'}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: location-marker -->
@@ -56,7 +53,7 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {$salesInvoice.data?.salesInvoice?.dueDate}
+                    {$salesInvoice.data.dueDate}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: currency-dollar -->
@@ -76,9 +73,8 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {$salesInvoice.data?.salesInvoice?.grandTotalAccountingSchemeCurrency}
-                    {$salesInvoice.data?.salesInvoice?.organization?.accountingScheme?.currency
-                        ?.displayName}
+                    {$salesInvoice.data.grandTotalAccountingSchemeCurrency}
+                    {$salesInvoice.data.organization.accountingScheme.currency.displayName}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: calendar -->
@@ -95,8 +91,8 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    {$salesInvoice.data?.salesInvoice?.grandTotal}
-                    {$salesInvoice.data?.salesInvoice?.currency?.displayName}
+                    {$salesInvoice.data.grandTotal}
+                    {$salesInvoice.data.currency.displayName}
                 </div>
             </div>
         </div>
@@ -148,7 +144,7 @@
                 </button>
             </span>
 -->
-            {#if $salesInvoice?.data?.salesInvoice?.isDraft}
+            {#if $salesInvoice.data.isDraft}
                 <span class="sm:ml-3">
                     <button
                         type="button"
@@ -234,5 +230,5 @@
         </div>
     </div>
 {:else}
-    {$_('status.error')}
+    {$_('status.loading')}
 {/if}

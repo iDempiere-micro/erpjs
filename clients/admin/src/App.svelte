@@ -5,6 +5,7 @@
     import { setupLocales } from './i18n';
     import { authenticate } from './keycloak';
     import { apollo, setClient } from './lib/support/apollo';
+    import './smelte.copy.css';
 
     export let url = '';
 

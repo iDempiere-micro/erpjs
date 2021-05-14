@@ -15,6 +15,11 @@
             data = query<SalesInvoicesInTimeQuery>(QUERY);
         }
     }, 1000);
+
+    const reload = () =>
+        setTimeout(() => {
+            if (!(window as any).token) location.reload();
+        }, 1000);
 </script>
 
 <svelte:head>
@@ -26,9 +31,9 @@
 {:else if $data && $data.error}
     Error:
     {getError($data.error)}
-{:else}
+{:else if $data && $data.data}
     <StackedAreaChart
-        data={$data?.data?.salesInvoicesReport}
+        data={($data.data || {}).salesInvoicesReport}
         options={{
             title: 'Sales Invoices Amount in Time',
             axes: {
@@ -46,4 +51,6 @@
             height: '400px',
         }}
     />
+{:else}
+    {reload()}
 {/if}

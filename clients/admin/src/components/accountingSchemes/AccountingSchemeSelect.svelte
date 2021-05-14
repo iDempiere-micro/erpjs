@@ -22,7 +22,7 @@
     $: {
         selectedAccountingScheme = undefined;
         if (accountingSchemeId) {
-            const found = $store.data.find((x) => x?.id === accountingSchemeId);
+            const found = $store.data.find((x) => x.id === accountingSchemeId);
             if (found) {
                 selectedAccountingScheme = mapDisplayableToSelectItem([found])[0];
             }
