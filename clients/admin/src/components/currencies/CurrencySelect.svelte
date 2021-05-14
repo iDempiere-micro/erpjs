@@ -23,7 +23,7 @@
     $: {
         selectedCurrency = undefined;
         if (currencyId && $store.loaded) {
-            const found = $store.data.find((x) => x?.id === currencyId);
+            const found = $store.data.find((x) => x.id === currencyId);
             if (found) {
                 selectedCurrency = mapDisplayableToSelectItem([found])[0];
             }

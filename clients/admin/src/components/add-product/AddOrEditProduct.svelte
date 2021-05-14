@@ -8,8 +8,7 @@
     import Button from '../../dsl/Button.svelte';
 
     export let product: ProductDetail | undefined;
-    let displayName = product?.displayName;
-    let sku = product?.sku;
+    let { id, displayName, sku } = product || {};
 
     const myForm = form(
         () => ({
@@ -33,11 +32,11 @@
     const saveProduct = async () => {
         if (displayName && sku) {
             const { data } = await productService.save({
-                id: product?.id,
+                id,
                 displayName,
                 sku,
             });
-            await push(urls.products.detail, data?.saveProduct?.id);
+            if (data && data.saveProduct) await push(urls.products.detail, data.saveProduct.id);
         }
     };
 </script>

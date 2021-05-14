@@ -26,7 +26,7 @@
     $: {
         selectedFactoringProvider = undefined;
         if (factoringProviderId) {
-            const found = $store.data.find((x) => x?.id === factoringProviderId);
+            const found = $store.data.find((x) => x.id === factoringProviderId);
             if (found) {
                 selectedFactoringProvider = mapDisplayableToSelectItem([found])[0];
             }

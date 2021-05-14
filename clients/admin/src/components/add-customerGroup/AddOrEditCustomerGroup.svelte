@@ -19,7 +19,7 @@
      * The customer group to be edit or `undefined` if adding a new customer group
      */
     export let customerGroup: CustomerGroupDetail | undefined;
-    let displayName = customerGroup?.displayName;
+    let { id, displayName } = customerGroup || {};
 
     const navigateToTheDetail = () =>
         customerGroup && push(urls.customerGroups.detail, customerGroup.id);
@@ -44,10 +44,11 @@
     const saveCustomerGroup = async () => {
         if (displayName) {
             const { data } = await customerGroupService.save({
-                id: customerGroup?.id,
+                id,
                 displayName,
             });
-            await push(urls.customerGroups.detail, data?.saveCustomerGroup?.id);
+            if (data && data.saveCustomerGroup)
+                await push(urls.customerGroups.detail, data.saveCustomerGroup.id);
         }
     };
 </script>

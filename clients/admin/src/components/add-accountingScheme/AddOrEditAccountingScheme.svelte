@@ -13,8 +13,8 @@
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
      */
     export let accountingScheme: AccountingSchemeDetail | undefined;
-    let displayName = accountingScheme?.displayName;
-    let currencyId = accountingScheme?.currency?.id;
+    let { id, displayName, currency } = accountingScheme || {};
+    let currencyId = (currency || {}).id;
 
     const navigateToTheDetail = () =>
         accountingScheme && push(urls.accountingSchemes.detail, accountingScheme.id);
@@ -52,11 +52,12 @@
     const saveAccountingScheme = async () => {
         if (displayName && currencyId) {
             const { data } = await accountingSchemeService.save({
-                id: accountingScheme?.id,
+                id,
                 displayName,
                 currencyId,
             });
-            await push(urls.accountingSchemes.detail, data?.saveAccountingScheme?.id);
+            if (data && data.saveAccountingScheme)
+                await push(urls.accountingSchemes.detail, data.saveAccountingScheme.id);
         } else console.error('saveAccountingScheme called with invalid parameters');
     };
 </script>

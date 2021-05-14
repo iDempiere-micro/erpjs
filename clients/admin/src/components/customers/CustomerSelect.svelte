@@ -23,7 +23,7 @@
     $: {
         selectedCustomer = undefined;
         if (customerId && $customersStore.loaded) {
-            const found = $customersStore.data.find((x) => x?.id === customerId);
+            const found = $customersStore.data.find((x) => x.id === customerId);
             if (found) {
                 selectedCustomer = mapDisplayableToSelectItem([found])[0];
             }

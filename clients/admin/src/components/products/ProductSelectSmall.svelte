@@ -19,7 +19,7 @@
     $: {
         selectedProduct = undefined;
         if (productId && $store.loaded) {
-            const found = $store.data.find((x) => x?.id === productId);
+            const found = $store.data.find((x) => x.id === productId);
             if (found) {
                 selectedProduct = mapDisplayableToSelectItem([found])[0];
             }

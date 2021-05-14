@@ -45,19 +45,22 @@
             valid: !removeCustomerIdIfAny(data.customersByArgs).length,
         };
     };
-
-    let displayName = customer?.displayName || '';
-    let legalAddressCity = customer?.legalAddress.city;
-    let legalName = customer?.legalName || '';
-    let note = customer?.note || undefined;
-    let idNumber = customer?.idNumber;
-    let vatNumber = customer?.vatNumber || undefined;
-    let legalAddressCountryId = customer?.legalAddress?.country?.id;
     let selectedLegalAddressCountryValue: SelectItem | undefined;
-    let legalAddressLine1 = customer?.legalAddress?.line1;
-    let legalAddressZipCode = customer?.legalAddress?.zipCode;
-    let invoicingEmail = customer?.invoicingEmail;
-    let customerGroupId = customer?.customerGroup?.id;
+
+    let { displayName, legalName, idNumber, invoicingEmail, customerGroup, legalAddress } =
+        customer || {};
+    displayName = displayName || '';
+    legalName = legalName || '';
+    let note = (customer || {}).note || undefined;
+    let vatNumber = (customer || {}).vatNumber || undefined;
+
+    let customerGroupId = (customerGroup || {}).id;
+
+    let { country } = legalAddress || {};
+    let legalAddressCity = (legalAddress || {}).city;
+    let legalAddressCountryId = (country || {}).id;
+    let legalAddressLine1 = (legalAddress || {}).line1;
+    let legalAddressZipCode = (legalAddress || {}).zipCode;
 
     const handleSelectLegalAddressCountry = (id: number) => {
         legalAddressCountryId = id;
@@ -120,10 +123,12 @@
                 customerGroupId,
             });
 
-            customer = { id: data?.saveCustomer?.id } as CustomerDetail;
-            await customerService.upload(files, customer.id);
+            if (data && data.saveCustomer) {
+                customer = { id: data.saveCustomer.id } as CustomerDetail;
+                await customerService.upload(files, customer.id);
 
-            await push(urls.customer.detail, customer.id);
+                await push(urls.customer.detail, customer.id);
+            }
         }
     };
 </script>

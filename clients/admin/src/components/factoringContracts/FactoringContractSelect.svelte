@@ -22,7 +22,7 @@
     $: {
         selectedFactoringContract = undefined;
         if (factoringContractId && $factoringContractsStore.loaded) {
-            const found = $factoringContractsStore.data.find((x) => x?.id === factoringContractId);
+            const found = $factoringContractsStore.data.find((x) => x.id === factoringContractId);
             if (found) {
                 selectedFactoringContract = factoringContractService.mapFactoringContracts([
                     found,
