@@ -12,7 +12,7 @@
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
      */
     export let attachment: AttachmentDetail | undefined;
-    let displayName = attachment?.displayName;
+    let { id, displayName } = attachment || {};
 
     const navigateToTheDetail = () => attachment && push(urls.attachments.detail, attachment.id);
 
@@ -36,10 +36,11 @@
     const saveAttachment = async () => {
         if (displayName) {
             const { data } = await attachmentService.save({
-                id: attachment?.id,
+                id,
                 displayName,
             });
-            await push(urls.attachments.detail, data?.saveAttachment?.id);
+            if (data && data.saveAttachment)
+                await push(urls.attachments.detail, data.saveAttachment.id);
         } else console.error('saveAttachment called with invalid parameters');
     };
 </script>

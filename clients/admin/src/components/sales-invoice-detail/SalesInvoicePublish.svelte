@@ -60,7 +60,7 @@
                         {$_('page.salesInvoices.publish.factoringProvider')}
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {data.factoringProvider?.displayName}
+                        {data.factoringProvider.displayName}
                     </dd>
                 </div>
             {/if}
