@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
-    import { salesInvoiceService, mailService, attachmentService } from '../../lib/core';
+    import { mailService, salesInvoiceService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import AttachmentSelect from '../attachments/AttachmentSelect.svelte';
     import Button from '../../dsl/Button.svelte';

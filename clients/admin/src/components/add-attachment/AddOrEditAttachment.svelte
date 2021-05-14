@@ -5,7 +5,6 @@
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
-    import CurrencySelect from '../currencies/CurrencySelect.svelte';
     import type { AttachmentDetail } from '../../lib/model/attachment';
     import { attachmentService } from '../../lib/core';
 

@@ -2,7 +2,6 @@
     import { organizationService } from '../lib/core';
     import AddOrEditOrganization from '../components/add-organization/AddOrEditOrganization.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

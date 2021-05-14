@@ -2,7 +2,6 @@
     import { productService } from '../lib/core/product';
     import AddOrEditProduct from '../components/add-product/AddOrEditProduct.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

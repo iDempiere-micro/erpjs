@@ -7,7 +7,7 @@ import {
     mock2 as mockCustomersByArgs,
 } from '../queries/customers';
 import { GET_MENU, mock as mockMenu } from '../queries/menu';
-import { SALES_INVOICES, mock as mockSalesInvoices } from '../queries/salesInvoices';
+import { mock as mockSalesInvoices, SALES_INVOICES } from '../queries/salesInvoices';
 import {
     mock as mockSalesInvoicesInTime,
     QUERY as SALES_INVOICES_IN_TIME,

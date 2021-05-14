@@ -1,5 +1,6 @@
 import type {
     FactoringProviderByIdQuery,
+    FactoringProvidersForInvoiceQuery,
     FactoringProvidersQuery,
     SaveFactoringProviderMutation,
     SaveFactoringProviderMutationVariables,
@@ -13,7 +14,6 @@ import type { FactoringProviderDetail, FactoringProviderRow } from '../model/fac
 import { BaseEntityService } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
 import type { ReadableQuery } from '../../absorb/svelte-apollo';
-import type { FactoringProvidersForInvoiceQuery } from '../../generated/graphql';
 import { query } from '../../absorb/svelte-apollo';
 import { FACTORING_PROVIDER_FOR_INVOICE } from '../queries/salesInvoice';
 

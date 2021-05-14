@@ -1,6 +1,5 @@
 import type {
     ConfirmSalesInvoiceMutation,
-    ConfirmSalesInvoiceMutationVariables,
     PublishSalesInvoiceMutation,
     PublishSalesInvoiceMutationVariables,
     SalesInvoiceByIdQuery,
