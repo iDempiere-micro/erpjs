@@ -1,6 +1,8 @@
 import type {
     ConfirmSalesInvoiceMutation,
-    ConfirmSalesInvoiceMutationVariables, PublishSalesInvoiceMutation, PublishSalesInvoiceMutationVariables,
+    ConfirmSalesInvoiceMutationVariables,
+    PublishSalesInvoiceMutation,
+    PublishSalesInvoiceMutationVariables,
     SalesInvoiceByIdQuery,
     SalesInvoicesQuery,
     SaveSalesInvoiceMutation,
@@ -9,7 +11,8 @@ import type {
 import {
     CONFIRM_SALES_INVOICE,
     DUPLICATE_SALES_INVOICE,
-    GET_SALES_INVOICE_BY_ID, PUBLISH_SALES_INVOICE,
+    GET_SALES_INVOICE_BY_ID,
+    PUBLISH_SALES_INVOICE,
     SAVE_SALES_INVOICE,
 } from '../queries/salesInvoice';
 import { mutation } from '../../absorb/svelte-apollo';
@@ -97,12 +100,15 @@ class SalesInvoiceService extends BaseEntityService<
      * @params id - the invoice id
      */
     async publish(id: number, attachmentIds: string[]) {
-        const publishSalesInvoice = mutation<PublishSalesInvoiceMutation, PublishSalesInvoiceMutationVariables>(PUBLISH_SALES_INVOICE);
+        const publishSalesInvoice = mutation<
+            PublishSalesInvoiceMutation,
+            PublishSalesInvoiceMutationVariables
+        >(PUBLISH_SALES_INVOICE);
         await publishSalesInvoice({
             variables: {
                 id,
-                attachmentIds
-            }
+                attachmentIds,
+            },
         });
     }
 

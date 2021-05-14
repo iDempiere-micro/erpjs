@@ -73,7 +73,7 @@
                         />
                     </svg>
                     {$salesInvoice.data.grandTotalAccountingSchemeCurrency}
-                    {$salesInvoice.data.organization?.accountingScheme?.currency?.displayName}
+                    {$salesInvoice.data.organization.accountingScheme.currency.displayName}
                 </div>
                 <div class="mt-2 flex items-center text-sm text-gray-500">
                     <!-- Heroicon name: calendar -->
@@ -91,7 +91,7 @@
                         />
                     </svg>
                     {$salesInvoice.data.grandTotal}
-                    {$salesInvoice.data.currency?.displayName}
+                    {$salesInvoice.data.currency.displayName}
                 </div>
             </div>
         </div>

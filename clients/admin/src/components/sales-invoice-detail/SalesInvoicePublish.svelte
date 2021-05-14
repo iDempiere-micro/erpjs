@@ -8,7 +8,7 @@
     export let data: SalesInvoiceDetail = salesInvoiceService.getDetailSafeEntity();
     const mailSentFrom = mailService.getSentFrom();
 
-    let attachmentIds = [];
+    let attachmentIds: string[] = [];
 
     const onSelectAttachments = (ids: string[]) => {
         attachmentIds = ids;
@@ -34,7 +34,7 @@
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                     {#if $mailSentFrom.data}
-                        {$mailSentFrom.data.mailSentFrom}
+                        {($mailSentFrom.data || {}).mailSentFrom}
                     {/if}
                 </dd>
             </div>

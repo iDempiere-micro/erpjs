@@ -14,25 +14,20 @@ describe('<AddAttachment>', function () {
     const getDisplayNameAndCurrency = () => {
         const { getByTestId } = render(AddAttachment);
         const displayName = getByTestId('displayName');
-        const currency = getByTestId('currencyId');
         const saveButton: HTMLButtonElement = getByTestId('saveButton') as HTMLButtonElement;
-        return { displayName, currency, saveButton };
+        return { displayName, saveButton };
     };
 
     it('display name and currency are rendered, form is disabled', function () {
-        const { displayName, currency, saveButton } = getDisplayNameAndCurrency();
+        const { displayName, saveButton } = getDisplayNameAndCurrency();
         expect(document.body.contains(displayName));
-        expect(document.body.contains(currency));
         expect(document.body.contains(saveButton));
         expect(saveButton.disabled);
     });
 
     it('after filling the form is enabled and is sent', function () {
-        const { displayName, currency, saveButton } = getDisplayNameAndCurrency();
+        const { displayName, saveButton } = getDisplayNameAndCurrency();
         fireEvent.change(displayName, { target: { value: '23' } });
-        fireEvent.change(currency, {
-            target: { value: mockCurrencies.data.currencies[0].displayName },
-        });
         expect(!saveButton.disabled);
         fireEvent.click(saveButton);
     });

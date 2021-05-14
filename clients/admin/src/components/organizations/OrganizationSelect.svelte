@@ -23,7 +23,7 @@
     $: {
         selectedOrganization = undefined;
         if (organizationId) {
-            const found = $organizationsStore.data.find((x) => x?.id === organizationId);
+            const found = $organizationsStore.data.find((x) => x.id === organizationId);
             if (found) {
                 selectedOrganization = mapDisplayableToSelectItem([found])[0];
             }

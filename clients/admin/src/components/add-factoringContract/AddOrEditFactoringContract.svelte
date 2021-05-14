@@ -14,23 +14,14 @@
      * The factoring contract to be edit or `undefined` if adding a new factoring contract
      */
     export let factoringContract: FactoringContractDetail | undefined;
-    let factoringProviderId = factoringContract?.factoringProvider?.id;
-    let customerId = factoringContract?.customer?.id;
-    let organizationId = factoringContract?.organization?.id;
-    let invoicePrintNote = factoringContract?.invoicePrintNote;
+
+    let factoringProviderId = ((factoringContract || {}).factoringProvider || {}).id;
+    let customerId = ((factoringContract || {}).customer || {}).id;
+    let organizationId = ((factoringContract || {}).organization || {}).id;
+    let { id, invoicePrintNote } = factoringContract || {};
 
     const navigateToTheDetail = () =>
         factoringContract && push(urls.factoringContracts.detail, factoringContract.id);
-
-    /*    $: {
-        selectedCurrencyValue = undefined;
-        if (currencyIsoCode) {
-            const found = $currenciesStore.currencies.find((x) => x?.isoCode === currencyIsoCode);
-            if (found) {
-                selectedCurrencyValue = mapCurrencies([found])[0];
-            }
-        }
-    } */
 
     const myForm = form(
         () => ({
@@ -75,13 +66,14 @@
     const saveFactoringContract = async () => {
         if (factoringProviderId && customerId && organizationId && invoicePrintNote) {
             const { data } = await factoringContractService.save({
-                id: factoringContract?.id,
+                id,
                 factoringProviderId,
                 customerId,
                 organizationId,
                 invoicePrintNote,
             });
-            await push(urls.factoringContracts.detail, data?.saveFactoringContract?.id);
+            if (data && data.saveFactoringContract)
+                await push(urls.factoringContracts.detail, data.saveFactoringContract.id);
         }
     };
 </script>

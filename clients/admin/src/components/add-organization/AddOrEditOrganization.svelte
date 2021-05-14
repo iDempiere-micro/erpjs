@@ -12,25 +12,29 @@
     import type { OrganizationDetail } from '../../lib/model/organization';
 
     export let organization: OrganizationDetail | undefined;
-    let displayName = organization?.displayName;
-    let contact = organization?.contact;
-    let legalName = organization?.legalName;
-    let registration = organization?.registration;
-    let idNumber = organization?.idNumber;
-    let vatNumber = organization?.vatNumber;
-    let accountingSchemeId = organization?.accountingScheme?.id;
-    let currentInvoiceDocumentNumber = organization?.documentNumberSequences?.current;
+    let {
+        id,
+        displayName,
+        contact,
+        legalName,
+        registration,
+        idNumber,
+        vatNumber,
+        accountingScheme,
+        documentNumberSequences,
+        bankAccount,
+        legalAddress,
+    } = organization || {};
 
-    let bankAccountCustomerPrintableNumber =
-        organization?.bankAccount?.bankAccountCustomerPrintableNumber;
-    let bankId = organization?.bankAccount?.bank?.id;
-    let bankAccountDisplayName = organization?.bankAccount?.displayName;
-    let iban = organization?.bankAccount?.iban;
-    let swift = organization?.bankAccount?.swift;
-    let city = organization?.legalAddress?.city;
-    let countryId = organization?.legalAddress?.country?.id;
-    let line1 = organization?.legalAddress?.line1;
-    let zipCode = organization?.legalAddress?.zipCode;
+    let accountingSchemeId = (accountingScheme || {}).id;
+    let currentInvoiceDocumentNumber = (documentNumberSequences || {}).current;
+
+    let { bankAccountCustomerPrintableNumber, bank } = bankAccount || {};
+    let bankId = (bank || {}).id;
+    let bankAccountDisplayName = (bankAccount || {}).displayName;
+    let { iban, swift } = bankAccount || {};
+    let { city, line1, zipCode, country } = legalAddress || {};
+    let countryId = (country || {}).id;
 
     const handleSelectAccountingScheme = (id: number) => {
         accountingSchemeId = id;
@@ -149,7 +153,7 @@
         ) {
             currentInvoiceDocumentNumber = +currentInvoiceDocumentNumber;
             const { data } = await organizationService.save({
-                id: organization?.id,
+                id,
                 displayName,
                 contact,
                 legalName,
@@ -159,7 +163,7 @@
                 accountingSchemeId,
                 currentInvoiceDocumentNumber,
                 newBankAccount: {
-                    id: organization?.bankAccount?.id,
+                    id: (bankAccount || {}).id,
                     bankAccountCustomerPrintableNumber,
                     bankId,
                     displayName: bankAccountDisplayName,
@@ -173,7 +177,8 @@
                     zipCode,
                 },
             });
-            await push(urls.organizations.detail, data?.saveOrganization?.id);
+            if (data && data.saveOrganization)
+                await push(urls.organizations.detail, data.saveOrganization.id);
         }
     };
 </script>

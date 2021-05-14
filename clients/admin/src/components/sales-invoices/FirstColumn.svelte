@@ -1,6 +1,6 @@
 <script lang="ts">
+    import { salesInvoiceService } from '../../lib/core';
     import type { SalesInvoiceRow } from '../../lib/model/salesInvoice';
-    import { salesInvoiceService } from '../../lib/core/salesInvoice';
 
     export let row: SalesInvoiceRow;
 

@@ -263,7 +263,7 @@ export class SalesInvoiceService extends BaseEntityService<
     invoice: SalesInvoiceModel,
     currentUser: UserModel,
   ): Promise<SalesInvoiceModel> {
-    if (!invoice.isDraft) throw new Error("Cannot modify an approved invoice");
+    if (!invoice.isDraft) throw new Error('Cannot modify an approved invoice');
 
     invoice.customer =
       (args.customer &&
@@ -753,11 +753,11 @@ export class SalesInvoiceService extends BaseEntityService<
       transactionalEntityManager,
       args.id,
     );
-    const attachments : MailAttachment[] = [
+    const attachments: MailAttachment[] = [
       {
         filename: `Invoice${source.documentNo}.pdf`,
-        content:  source.content
-      }
+        content: source.content,
+      },
     ];
     for (const filename of args.attachmentIds) {
       attachments.push({
@@ -772,9 +772,7 @@ export class SalesInvoiceService extends BaseEntityService<
       },
       undefined,
       'Invoice ' + source.documentNo,
-      'Hello, sending invoice ' +
-        source.documentNo +
-        '. Thanks, ABC Team',
+      'Hello, sending invoice ' + source.documentNo + '. Thanks, ABC Team',
       '<p>Hello,</p><p>sending invoice ' +
         source.documentNo +
         '.</p><p>Thanks, ABC Team</p>',

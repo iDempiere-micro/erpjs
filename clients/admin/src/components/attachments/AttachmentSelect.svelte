@@ -11,10 +11,10 @@
     export let onSelect: (attachmentId: string) => void = (attachmentId) => {};
     export let onSelectMulti: (attachmentIds: string[]) => void = (attachmentIds) => {};
     export let id: string;
-    export let form: any;
-    export let label: string;
-    export let attachmentId: string | undefined;
-    export let attachmentIds: string[] | undefined;
+    export let form: any = undefined;
+    export let label: string | undefined = undefined;
+    export let attachmentId: string | undefined = undefined;
+    export let attachmentIds: string[] | undefined = undefined;
     export let isMulti: boolean = false;
     const store = attachmentService.stores.list;
 
@@ -33,12 +33,12 @@
     $: {
         selectedAttachment = undefined;
         if (isMulti && attachmentIds) {
-            const found = $store.data.filter((x) => attachmentIds!!.includes(x?.id));
+            const found = $store.data.filter((x) => attachmentIds!!.includes(x.id));
             if (found) {
                 selectedAttachments = mapDisplayableToSelectItem(found);
             }
         } else if (!isMulti && attachmentId) {
-            const found = $store.data.find((x) => x?.id === attachmentId);
+            const found = $store.data.find((x) => x.id === attachmentId);
             if (found) {
                 selectedAttachment = mapDisplayableToSelectItem([found])[0];
             }

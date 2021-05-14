@@ -9,8 +9,7 @@
     import { currencyService } from '../../lib/core';
 
     export let currency: CurrencyDetail | undefined;
-    let displayName = currency?.displayName;
-    let isoCode = currency?.isoCode;
+    let { id, displayName, isoCode } = currency || {};
 
     const myForm = form(
         () => ({
@@ -34,11 +33,11 @@
     const saveCurrency = async () => {
         if (displayName && isoCode) {
             const { data } = await currencyService.save({
-                id: currency?.id,
+                id,
                 displayName,
                 isoCode,
             });
-            await push(urls.currencies.detail, data?.saveCurrency?.id);
+            if (data && data.saveCurrency) await push(urls.currencies.detail, data.saveCurrency.id);
         }
     };
 </script>
