@@ -1,19 +1,27 @@
-const production = !process.env.ROLLUP_WATCH; // or some other env var like NODE_ENV
+const smelteTailwind = require('smelte/tailwind.config');
 module.exports = {
-  future: { // for tailwind 2.0 compat
-    purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true,
-  },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-  ],
+  ...smelteTailwind({
+    //README config taken from https://smeltejs.com doc
+    colors: {
+      primary: "#b027b0",
+      secondary: "#009688",
+      error: "#f44336",
+      success: "#4caf50",
+      alert: "#ff9800",
+      blue: "#2196f3",
+      dark: "#212121"
+    }, // Object of colors to generate a palette from, and then all the utility classes
+    darkMode: true,
+  }),
   purge: {
-    content: [
-      "./src/**/*.svelte",
-      // may also want to include base index.html
-    ],
-    enabled: production // disable purge in dev
+    enabled: process.env.NODE_ENV === 'production',
+    content: ['./src/**/*.svelte'],
+    options: {
+      extractors: [{
+        extractor: require('smelte/src/utils/css-extractor.js'),
+        extensions: ['svelte']
+      },],
+    },
   },
   variants: {
     extend: {

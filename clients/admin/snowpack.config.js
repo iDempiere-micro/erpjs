@@ -10,7 +10,8 @@ module.exports = {
     '@snowpack/plugin-svelte',
     '@snowpack/plugin-dotenv',
     '@snowpack/plugin-typescript',
-    "@snowpack/plugin-postcss",[
+    ["@snowpack/plugin-build-script", { cmd: "postcss", input: [".css"], output: [".css"] },],
+    [
       'snowpack-plugin-replace',
       {
         list: [
