@@ -62,7 +62,8 @@
                 transactionDate,
                 factoringProviderId,
             });
-            await push(urls.salesInvoices.detail, data.saveSalesInvoice.id);
+            if (data && data.saveSalesInvoice)
+                await push(urls.salesInvoices.detail, data.saveSalesInvoice.id);
         }
     };
 
@@ -70,9 +71,7 @@
     let customerId = (customer || {}).id;
     let organizationId = (organization || {}).id;
     let itemsOk = true;
-    let lines: SalesInvoiceLineSaveArgs[] = R.clone(
-        (salesInvoice || { lines: [] }).lines || [],
-    ).map((x) => ({
+    let lines: SalesInvoiceLineSaveArgs[] = R.clone((salesInvoice || {}).lines || []).map((x) => ({
         ...x,
         productId: x.product.id,
         lineTaxIsStandard: true,
@@ -180,8 +179,13 @@
     };
     let factoringProviders: FactoringProviderRow[] | undefined;
     $: {
-        if ($factoringProvidersResult && !$factoringProvidersResult.loading)
-            factoringProviders = $factoringProvidersResult.data.factoringProvidersForInvoice;
+        if (
+            $factoringProvidersResult &&
+            !$factoringProvidersResult.loading &&
+            $factoringProvidersResult.data
+        )
+            factoringProviders = ($factoringProvidersResult.data || {})
+                .factoringProvidersForInvoice;
     }
     const getLineOrder: (x: SalesInvoiceLineSaveArgs) => number = (x) => x.lineOrder;
 </script>

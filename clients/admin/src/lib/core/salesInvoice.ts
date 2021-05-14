@@ -5,7 +5,11 @@ import type {
     SaveSalesInvoiceMutation,
     SaveSalesInvoiceMutationVariables,
 } from '../../generated/graphql';
-import { CONFIRM_SALES_INVOICE, GET_SALES_INVOICE_BY_ID, SAVE_SALES_INVOICE } from '../queries/salesInvoice';
+import {
+    CONFIRM_SALES_INVOICE,
+    GET_SALES_INVOICE_BY_ID,
+    SAVE_SALES_INVOICE,
+} from '../queries/salesInvoice';
 import { mutation } from '../../absorb/svelte-apollo';
 import { BaseEntityService, initDetail, invalidate } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
@@ -19,7 +23,7 @@ class SalesInvoiceService extends BaseEntityService<
     SalesInvoiceByIdQuery,
     SalesInvoicesQuery,
     SaveSalesInvoiceMutation
-    > {
+> {
     protected convertDetail(q: SalesInvoiceByIdQuery): SalesInvoiceDetail {
         return q.salesInvoice;
     }

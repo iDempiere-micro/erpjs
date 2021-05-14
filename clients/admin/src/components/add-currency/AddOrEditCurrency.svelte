@@ -37,7 +37,7 @@
                 displayName,
                 isoCode,
             });
-            await push(urls.currencies.detail, data.saveCurrency.id);
+            if (data && data.saveCurrency) await push(urls.currencies.detail, data.saveCurrency.id);
         }
     };
 </script>

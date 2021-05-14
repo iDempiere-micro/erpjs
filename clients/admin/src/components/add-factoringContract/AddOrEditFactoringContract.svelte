@@ -72,7 +72,8 @@
                 organizationId,
                 invoicePrintNote,
             });
-            await push(urls.factoringContracts.detail, data.saveFactoringContract.id);
+            if (data && data.saveFactoringContract)
+                await push(urls.factoringContracts.detail, data.saveFactoringContract.id);
         }
     };
 </script>

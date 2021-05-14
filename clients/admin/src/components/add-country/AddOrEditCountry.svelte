@@ -36,7 +36,7 @@
                 displayName,
                 isoCode,
             });
-            await push(urls.countries.detail, data.saveCountry.id);
+            if (data && data.saveCountry) await push(urls.countries.detail, data.saveCountry.id);
         }
     };
 </script>

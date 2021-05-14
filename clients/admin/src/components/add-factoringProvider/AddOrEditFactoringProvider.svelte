@@ -92,7 +92,8 @@
                     swift,
                 },
             });
-            await push(urls.factoringProviders.detail, data.saveFactoringProvider.id);
+            if (data && data.saveFactoringProvider)
+                await push(urls.factoringProviders.detail, data.saveFactoringProvider.id);
         }
     };
 </script>

@@ -47,7 +47,8 @@
                 id,
                 displayName,
             });
-            await push(urls.customerGroups.detail, data.saveCustomerGroup.id);
+            if (data && data.saveCustomerGroup)
+                await push(urls.customerGroups.detail, data.saveCustomerGroup.id);
         }
     };
 </script>

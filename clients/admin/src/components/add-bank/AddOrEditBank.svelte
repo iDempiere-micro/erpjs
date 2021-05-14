@@ -36,7 +36,7 @@
                 displayName,
                 bankIdentifierCode,
             });
-            await push(urls.banks.detail, data.saveBank.id);
+            if (data && data.saveBank) await push(urls.banks.detail, data.saveBank.id);
         }
     };
 </script>

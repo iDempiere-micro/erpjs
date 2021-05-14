@@ -17,10 +17,9 @@
     }, 1000);
 
     const reload = () =>
-    setTimeout(() => {
-        if ( !(window as any).token )
-            location.reload();
-    }, 1000);
+        setTimeout(() => {
+            if (!(window as any).token) location.reload();
+        }, 1000);
 </script>
 
 <svelte:head>
@@ -34,7 +33,7 @@
     {getError($data.error)}
 {:else if $data && $data.data}
     <StackedAreaChart
-        data={$data.data.salesInvoicesReport}
+        data={($data.data || {}).salesInvoicesReport}
         options={{
             title: 'Sales Invoices Amount in Time',
             axes: {

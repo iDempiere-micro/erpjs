@@ -56,7 +56,8 @@
                 displayName,
                 currencyId,
             });
-            await push(urls.accountingSchemes.detail, data.saveAccountingScheme.id);
+            if (data && data.saveAccountingScheme)
+                await push(urls.accountingSchemes.detail, data.saveAccountingScheme.id);
         } else console.error('saveAccountingScheme called with invalid parameters');
     };
 </script>

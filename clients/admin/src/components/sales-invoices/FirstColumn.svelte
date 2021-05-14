@@ -7,7 +7,11 @@
     const download = (id: number) =>
         process.env.API_BASE_URL &&
         (window as any).token &&
-        salesInvoiceService.download(process.env.API_BASE_URL, (window as any).token || '', id);
+        salesInvoiceService.downloadInvoice(
+            process.env.API_BASE_URL,
+            (window as any).token || '',
+            id,
+        );
 </script>
 
 <div class="flex items-center">

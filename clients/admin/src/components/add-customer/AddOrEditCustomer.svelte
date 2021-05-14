@@ -47,18 +47,12 @@
     };
     let selectedLegalAddressCountryValue: SelectItem | undefined;
 
-    let {
-        displayName,
-        legalName,
-        note,
-        idNumber,
-        vatNumber,
-        invoicingEmail,
-        customerGroup,
-        legalAddress,
-    } = customer || {};
+    let { displayName, legalName, idNumber, invoicingEmail, customerGroup, legalAddress } =
+        customer || {};
     displayName = displayName || '';
     legalName = legalName || '';
+    let note = (customer || {}).note || undefined;
+    let vatNumber = (customer || {}).vatNumber || undefined;
 
     let customerGroupId = (customerGroup || {}).id;
 
@@ -129,10 +123,12 @@
                 customerGroupId,
             });
 
-            customer = { id: data.saveCustomer.id } as CustomerDetail;
-            await customerService.upload(files, customer.id);
+            if (data && data.saveCustomer) {
+                customer = { id: data.saveCustomer.id } as CustomerDetail;
+                await customerService.upload(files, customer.id);
 
-            await push(urls.customer.detail, customer.id);
+                await push(urls.customer.detail, customer.id);
+            }
         }
     };
 </script>

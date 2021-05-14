@@ -36,7 +36,7 @@
                 displayName,
                 sku,
             });
-            await push(urls.products.detail, data.saveProduct.id);
+            if (data && data.saveProduct) await push(urls.products.detail, data.saveProduct.id);
         }
     };
 </script>

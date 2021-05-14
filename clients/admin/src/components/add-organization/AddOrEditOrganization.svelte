@@ -177,7 +177,8 @@
                     zipCode,
                 },
             });
-            await push(urls.organizations.detail, data.saveOrganization.id);
+            if (data && data.saveOrganization)
+                await push(urls.organizations.detail, data.saveOrganization.id);
         }
     };
 </script>
