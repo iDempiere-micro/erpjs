@@ -23,7 +23,7 @@
     $: {
         selectedCustomerGroup = undefined;
         if (customerGroupId && $store.loaded) {
-            const found = $store.data.find((x) => x?.id === customerGroupId);
+            const found = $store.data.find((x) => x.id === customerGroupId);
             if (found) {
                 selectedCustomerGroup = mapDisplayableToSelectItem([found])[0];
             }

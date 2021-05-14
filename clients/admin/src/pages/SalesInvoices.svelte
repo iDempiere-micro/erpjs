@@ -3,12 +3,12 @@
     import SalesInvoiceList from '../components/sales-invoices/SalesInvoiceList.svelte';
     import { getError } from '../lib/support/util';
     import { segments, urls } from './pathAndSegment';
-    import { EVERYTHING } from '../lib/queries/salesInvoices';
+    import { SALES_INVOICES } from '../lib/queries/salesInvoices';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { query } from '../absorb/svelte-apollo';
 
-    const salesInvoices = query<SalesInvoicesQuery, any>(EVERYTHING);
+    const salesInvoices = query<SalesInvoicesQuery, any>(SALES_INVOICES);
 </script>
 
 <Page

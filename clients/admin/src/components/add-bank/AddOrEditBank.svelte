@@ -8,7 +8,7 @@
     import { bankService } from '../../lib/core';
 
     export let bank: BankDetail | undefined;
-    let { displayName, bankIdentifierCode } = bank || {};
+    let { id, displayName, bankIdentifierCode } = bank || {};
 
     const myForm = form(
         () => ({
@@ -32,7 +32,7 @@
     const saveBank = async () => {
         if (displayName && bankIdentifierCode) {
             const { data } = await bankService.save({
-                id: bank?.id,
+                id,
                 displayName,
                 bankIdentifierCode,
             });

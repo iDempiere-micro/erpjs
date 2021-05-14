@@ -8,7 +8,7 @@
     import { countryService } from '../../lib/core';
 
     export let country: CountryDetail | undefined;
-    let { displayName, isoCode } = country || {};
+    let { id, displayName, isoCode } = country || {};
 
     const myForm = form(
         () => ({
@@ -32,7 +32,7 @@
     const saveCountry = async () => {
         if (displayName && isoCode) {
             const { data } = await countryService.save({
-                id: country?.id,
+                id,
                 displayName,
                 isoCode,
             });
