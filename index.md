@@ -1,37 +1,25 @@
-## Welcome to EolERP!
+# [EolERP  - the headless serverless ERP and CRM for the cloud](https://github.com/iDempiere-micro/erpjs/wiki)
 
-You can use the [editor on GitHub](https://github.com/iDempiere-micro/erpjs/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Introduction
+[EolERP](https://github.com/iDempiere-micro/erpjs/wiki) is the headless serverless ERP and CRM for the cloud
+written in TypeScript running on [Node.js](https://nodejs.org/en/) and
+in a browser as an [Svelte](https://svelte.dev/) single page application.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+It can run on your local computer, in a containerized environment like Kubernetes (K8)
+on Google Cloud, Microsoft Azure or IBM Cloud or even as a serverless function in AWS.
 
-### Markdown
+[Keycloak](https://www.keycloak.org/), Open Source Identity and Access Management is used for the authentication
+so you can even get advanced features such as User Federation, Identity Brokering and Social Login.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## I want to quickly test by myself
+Cool! You can either use or [Quick Setup Guide](https://github.com/iDempiere-micro/erpjs/wiki/Quick-setup) or see the demo (once it is ready).
 
-```markdown
-Syntax highlighted code block
+## Benefits
+You can download the source code and own the ERP&CRM.
+You can explore the source code and find out how we used [NestJS](https://nestjs.com/),
+[TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Svelte](https://svelte.dev/)
+to both build the backend that can run in [AWS Lambda](https://aws.amazon.com/lambda/) and
+a sample frontend application that can be immediately used to run a business.
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/iDempiere-micro/erpjs/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+You can run the ERP&CRM in your own cloud provided by AWS and both keep your data safe and prevent bad things
+happening by having all your important data on your laptop or own server.
