@@ -37,3 +37,9 @@ fragment SalesInvoiceDetailParts on SalesInvoice {
         ...FactoringProviderListParts
     }
 }
+
+fragment SalesInvoiceListParts on SalesInvoice {
+    id
+    documentNo
+    grandTotalAccountingSchemeCurrency
+}

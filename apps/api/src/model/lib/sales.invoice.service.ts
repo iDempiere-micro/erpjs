@@ -53,6 +53,9 @@ import {
   FactoringProviderService,
   FactoringProviderServiceKey,
 } from './factoring.provider.service';
+import { SalesInvoicePublishArgsModel } from './sales.invoice.vat.save.args.model';
+import { MailAttachment, MailService, MailServiceKey } from './mail.service';
+import { AttachmentService, AttachmentServiceKey } from './attachment.service';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -209,6 +212,9 @@ export class SalesInvoiceService extends BaseEntityService<
     protected readonly factoringContractService: FactoringContractService,
     @Inject(FactoringProviderServiceKey)
     protected readonly factoringProviderService: FactoringProviderService,
+    @Inject(MailServiceKey) public readonly mailService: MailService,
+    @Inject(AttachmentServiceKey)
+    public readonly attachmentService: AttachmentService,
   ) {
     super();
     this.salesInvoiceLineService = getService<SalesInvoiceLineService>(
@@ -217,7 +223,9 @@ export class SalesInvoiceService extends BaseEntityService<
   }
 
   createEntity(): SalesInvoiceModel {
-    return new SalesInvoice();
+    const result = new SalesInvoice();
+    result.isDraft = true;
+    return result;
   }
 
   protected async getOrganization(
@@ -257,6 +265,8 @@ export class SalesInvoiceService extends BaseEntityService<
     invoice: SalesInvoiceModel,
     currentUser: UserModel,
   ): Promise<SalesInvoiceModel> {
+    if (!invoice.isDraft) throw new Error('Cannot modify an approved invoice');
+
     invoice.customer =
       (args.customer &&
         args.customer.legalAddress &&
@@ -725,4 +735,53 @@ export class SalesInvoiceService extends BaseEntityService<
       .where('salesInvoice.isActive=true AND salesInvoice.isDraft=false')
       .getRawMany();
   }
+
+  duplicate = async (
+    transactionalEntityManager: EntityManager,
+    id: number,
+    currentUser: UserModel,
+  ): Promise<SalesInvoiceModel> => {
+    const source = await this.loadEntityById(transactionalEntityManager, id);
+    source.isDraft = true;
+    return this.save(transactionalEntityManager, source, currentUser);
+  };
+
+  publish = async (
+    transactionalEntityManager: EntityManager,
+    args: SalesInvoicePublishArgsModel,
+    currentUser: UserModel,
+  ): Promise<SalesInvoiceModel> => {
+    const source = await this.loadEntityById(
+      transactionalEntityManager,
+      args.id,
+    );
+    const attachments: MailAttachment[] = [
+      {
+        filename: `Invoice${source.documentNo}.pdf`,
+        content: source.content,
+      },
+    ];
+    for (const filename of args.attachmentIds) {
+      attachments.push({
+        filename,
+        content: await this.attachmentService.getFileAsStream(filename),
+      });
+    }
+    await this.mailService.send(
+      {
+        name: 'ABC',
+        address: 'abc@xyz.com',
+      },
+      undefined,
+      'Invoice ' + source.documentNo,
+      'Hello, sending invoice ' + source.documentNo + '. Thanks, ABC Team',
+      '<p>Hello,</p><p>sending invoice ' +
+        source.documentNo +
+        '.</p><p>Thanks, ABC Team</p>',
+      undefined,
+      attachments,
+    );
+
+    return source;
+  };
 }

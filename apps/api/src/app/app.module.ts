@@ -15,6 +15,8 @@ import { ModelModule, ModuleReferenceService } from '../model';
 import { AuthModule } from '../auth';
 import { FileController } from './controllers/file.controller';
 import { DateScalar } from './support/date.scalar';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({
@@ -72,6 +74,28 @@ import { DateScalar } from './support/date.scalar';
           context: ({ req }) => ({ req }),
           sortSchema: true,
         };
+      },
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.MAIL_HOST,
+        port: +process.env.MAIL_PORT,
+        secure: process.env.MAIL_SECURE === 'true',
+        debug: true,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASSWORD,
+        },
+      },
+      defaults: {
+        from: '"nest-modules" <modules@nestjs.com>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new HandlebarsAdapter(), // or new PugAdapter()
+        options: {
+          strict: true,
+        },
       },
     }),
     ModelModule,

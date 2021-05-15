@@ -1,14 +1,12 @@
 <script lang="ts">
-    import type { SalesInvoicesQuery } from '../generated/graphql';
     import SalesInvoiceList from '../components/sales-invoices/SalesInvoiceList.svelte';
-    import { getError } from '../lib/support/util';
     import { segments, urls } from './pathAndSegment';
-    import { SALES_INVOICES } from '../lib/queries/salesInvoices';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
+    import { salesInvoiceService } from '../lib/core';
 
-    const salesInvoices = query<SalesInvoicesQuery, any>(SALES_INVOICES);
+    salesInvoiceService.loadList();
+    const salesInvoices = salesInvoiceService.stores.list;
 </script>
 
 <Page
@@ -17,12 +15,10 @@
     name="page.salesInvoices"
 >
     <span slot="content">
-        {#if $salesInvoices.loading}
-            {$_('status.loading')}
-        {:else if $salesInvoices.error}
-            {$_('status.error')} {getError($salesInvoices.error)}
+        {#if $salesInvoices.loaded}
+            <SalesInvoiceList salesInvoices={$salesInvoices.data} />
         {:else}
-            <SalesInvoiceList salesInvoices={$salesInvoices.data?.salesInvoices} />
+            {$_('status.loading')}
         {/if}
     </span>
     <span slot="header">

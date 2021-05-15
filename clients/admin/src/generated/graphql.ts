@@ -48,6 +48,22 @@ export type AddressSaveArgs = {
     zipCode: Scalars['String'];
 };
 
+export type Attachment = {
+    __typename?: 'Attachment';
+    contentType: Scalars['String'];
+    creationTime: Scalars['Date'];
+    displayName: Scalars['String'];
+    id: Scalars['String'];
+    isFolder: Scalars['Boolean'];
+    lastModified: Scalars['Date'];
+    size: Scalars['Float'];
+};
+
+export type AttachmentSaveArgs = {
+    displayName: Scalars['String'];
+    id?: Maybe<Scalars['String']>;
+};
+
 export type Bank = {
     __typename?: 'Bank';
     bankIdentifierCode: Scalars['String'];
@@ -87,6 +103,22 @@ export type BankSaveArgs = {
 
 export type BaseSaveArgs = {
     id?: Maybe<Scalars['Int']>;
+};
+
+export type CloudFile = {
+    __typename?: 'CloudFile';
+    contentMD5: Scalars['String'];
+    contentSHA1: Scalars['String'];
+    contentType: Scalars['String'];
+    creationTime: Scalars['Date'];
+    lastModified: Scalars['Date'];
+    path: Scalars['String'];
+    size: Scalars['Float'];
+};
+
+export type CloudFolder = {
+    __typename?: 'CloudFolder';
+    prefix: Scalars['String'];
 };
 
 export type ContactPerson = {
@@ -327,8 +359,11 @@ export type Mutation = {
     __typename?: 'Mutation';
     confirmSalesInvoice: SalesInvoice;
     createMonthlyInvoice: Array<SalesInvoice>;
+    duplicateSalesInvoice: SalesInvoice;
     keepAlive: Scalars['UniversalDateTime'];
+    publishSalesInvoice: SalesInvoice;
     saveAccountingScheme: AccountingScheme;
+    saveAttachment: Attachment;
     saveBank: Bank;
     saveContactPerson: ContactPerson;
     saveContactPersonCompanyRelation: ContactPersonCompanyRelation;
@@ -353,8 +388,20 @@ export type MutationCreateMonthlyInvoiceArgs = {
     args: SalesInvoiceMonthlySaveArgs;
 };
 
+export type MutationDuplicateSalesInvoiceArgs = {
+    id: Scalars['Int'];
+};
+
+export type MutationPublishSalesInvoiceArgs = {
+    args: SalesInvoicePublishArgs;
+};
+
 export type MutationSaveAccountingSchemeArgs = {
     args: AccountingSchemeSaveArgs;
+};
+
+export type MutationSaveAttachmentArgs = {
+    args: AttachmentSaveArgs;
 };
 
 export type MutationSaveBankArgs = {
@@ -472,6 +519,8 @@ export type Query = {
     __typename?: 'Query';
     accountingScheme: AccountingScheme;
     accountingSchemes: Array<AccountingScheme>;
+    attachment: Attachment;
+    attachments: Array<Attachment>;
     bank: Bank;
     banks: Array<Bank>;
     contactPerson: ContactPerson;
@@ -496,6 +545,7 @@ export type Query = {
     factoringProvider: FactoringProvider;
     factoringProviders: Array<FactoringProvider>;
     factoringProvidersForInvoice: Array<FactoringProvider>;
+    mailSentFrom: Scalars['String'];
     menu: Array<Menu>;
     now: Scalars['UniversalDateTime'];
     organization: Organization;
@@ -509,6 +559,10 @@ export type Query = {
 
 export type QueryAccountingSchemeArgs = {
     id: Scalars['Int'];
+};
+
+export type QueryAttachmentArgs = {
+    id: Scalars['String'];
 };
 
 export type QueryBankArgs = {
@@ -646,6 +700,11 @@ export type SalesInvoiceMonthlySaveArgs = {
     year: Scalars['Int'];
 };
 
+export type SalesInvoicePublishArgs = {
+    attachmentIds: Array<Scalars['String']>;
+    id: Scalars['Int'];
+};
+
 export type SalesInvoiceSaveArgs = {
     currencyId: Scalars['Int'];
     customerId: Scalars['Int'];
@@ -717,6 +776,15 @@ export type SaveAccountingSchemeMutationVariables = Exact<{
 
 export type SaveAccountingSchemeMutation = { __typename?: 'Mutation' } & {
     saveAccountingScheme: { __typename?: 'AccountingScheme' } & Pick<AccountingScheme, 'id'>;
+};
+
+export type SaveAttachmentMutationVariables = Exact<{
+    id?: Maybe<Scalars['String']>;
+    displayName: Scalars['String'];
+}>;
+
+export type SaveAttachmentMutation = { __typename?: 'Mutation' } & {
+    saveAttachment: { __typename?: 'Attachment' } & Pick<Attachment, 'id'>;
 };
 
 export type SaveBankMutationVariables = Exact<{
@@ -911,6 +979,46 @@ export type AccountingSchemeByIdQuery = { __typename?: 'Query' } & {
     accountingScheme: { __typename?: 'AccountingScheme' } & AccountingSchemeDetailPartsFragment;
 };
 
+export type AccountingSchemesQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type AccountingSchemesQuery = { __typename?: 'Query' } & {
+    accountingSchemes: Array<
+        { __typename?: 'AccountingScheme' } & AccountingSchemeListPartsFragment
+    >;
+};
+
+export type AddressListPartsFragment = { __typename?: 'Address' } & Pick<
+    Address,
+    'id' | 'city' | 'line1' | 'zipCode'
+> & { country: { __typename?: 'Country' } & CountryListPartsFragment };
+
+export type AttachmentListPartsFragment = { __typename?: 'Attachment' } & Pick<
+    Attachment,
+    'id' | 'displayName' | 'isFolder' | 'size' | 'lastModified'
+>;
+
+export type AttachmentDetailPartsFragment = {
+    __typename?: 'Attachment';
+} & AttachmentListPartsFragment;
+
+export type AttachmentByIdQueryVariables = Exact<{
+    id: Scalars['String'];
+}>;
+
+export type AttachmentByIdQuery = { __typename?: 'Query' } & {
+    attachment: { __typename?: 'Attachment' } & AttachmentListPartsFragment;
+};
+
+export type AttachmentsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type AttachmentsQuery = { __typename?: 'Query' } & {
+    attachments: Array<{ __typename?: 'Attachment' } & AttachmentListPartsFragment>;
+};
+
 export type BankAccountDetailPartsFragment = { __typename?: 'BankAccount' } & Pick<
     BankAccount,
     'id' | 'displayName' | 'bankAccountCustomerPrintableNumber' | 'iban' | 'swift'
@@ -939,7 +1047,36 @@ export type BankByIdQuery = { __typename?: 'Query' } & {
     bank: { __typename?: 'Bank' } & BankDetailPartsFragment;
 };
 
+export type BanksQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type BanksQuery = { __typename?: 'Query' } & {
+    banks: Array<{ __typename?: 'Bank' } & BankListPartsFragment>;
+};
+
+export type ConfirmSalesInvoiceMutationVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type ConfirmSalesInvoiceMutation = { __typename?: 'Mutation' } & {
+    confirmSalesInvoice: { __typename?: 'SalesInvoice' } & SalesInvoiceDetailPartsFragment;
+};
+
+export type CountriesQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type CountriesQuery = { __typename?: 'Query' } & {
+    countries: Array<{ __typename?: 'Country' } & CountryListPartsFragment>;
+};
+
 export type CountryDetailPartsFragment = { __typename?: 'Country' } & Pick<
+    Country,
+    'id' | 'displayName' | 'isoCode'
+>;
+
+export type CountryListPartsFragment = { __typename?: 'Country' } & Pick<
     Country,
     'id' | 'displayName' | 'isoCode'
 >;
@@ -952,9 +1089,22 @@ export type CountryByIdQuery = { __typename?: 'Query' } & {
     country: { __typename?: 'Country' } & CountryDetailPartsFragment;
 };
 
+export type CurrenciesQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type CurrenciesQuery = { __typename?: 'Query' } & {
+    currencies: Array<{ __typename?: 'Currency' } & CurrencyListPartsFragment>;
+};
+
 export type CurrencyDetailPartsFragment = { __typename?: 'Currency' } & Pick<
     Currency,
     'id' | 'displayName' | 'isoCode'
+>;
+
+export type CurrencyListPartsFragment = { __typename?: 'Currency' } & Pick<
+    Currency,
+    'id' | 'isoCode' | 'displayName'
 >;
 
 export type CurrencyByIdQueryVariables = Exact<{
@@ -982,6 +1132,14 @@ export type CustomerDetailPartsFragment = { __typename?: 'Customer' } & Pick<
         customerGroup?: Maybe<{ __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment>;
     };
 
+export type CustomerListPartsFragment = { __typename?: 'Customer' } & Pick<
+    Customer,
+    'id' | 'legalName' | 'displayName' | 'vatNumber' | 'invoicingEmail' | 'note'
+> & {
+        legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
+        address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
+    };
+
 export type CustomerByIdQueryVariables = Exact<{
     id: Scalars['Int'];
 }>;
@@ -989,6 +1147,23 @@ export type CustomerByIdQueryVariables = Exact<{
 export type CustomerByIdQuery = { __typename?: 'Query' } & {
     customer: { __typename?: 'Customer' } & CustomerDetailPartsFragment;
 };
+
+export type CustomerPriceListPartsFragment = { __typename?: 'CustomerPriceList' } & Pick<
+    CustomerPriceList,
+    'id' | 'displayName' | 'validFrom' | 'validTo'
+> & {
+        productPrices?: Maybe<
+            Array<{ __typename?: 'CustomerProductPrice' } & CustomerProductPriceListPartsFragment>
+        >;
+    };
+
+export type CustomerProductPriceListPartsFragment = { __typename?: 'CustomerProductPrice' } & Pick<
+    CustomerProductPrice,
+    'id' | 'sellingPrice'
+> & {
+        product: { __typename?: 'Product' } & ProductListPartsFragment;
+        currency: { __typename?: 'Currency' } & CurrencyListPartsFragment;
+    };
 
 export type CustomerGroupDetailPartsFragment = { __typename?: 'CustomerGroup' } & Pick<
     CustomerGroup,
@@ -1011,6 +1186,22 @@ export type CustomerGroupByIdQueryVariables = Exact<{
 
 export type CustomerGroupByIdQuery = { __typename?: 'Query' } & {
     customerGroup: { __typename?: 'CustomerGroup' } & CustomerGroupDetailPartsFragment;
+};
+
+export type CustomerGroupsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type CustomerGroupsQuery = { __typename?: 'Query' } & {
+    customerGroups: Array<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
+};
+
+export type CustomersQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type CustomersQuery = { __typename?: 'Query' } & {
+    customers: Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>;
 };
 
 export type FactoringContractDetailPartsFragment = { __typename?: 'FactoringContract' } & Pick<
@@ -1043,10 +1234,25 @@ export type FactoringContractByIdQuery = { __typename?: 'Query' } & {
     factoringContract: { __typename?: 'FactoringContract' } & FactoringContractDetailPartsFragment;
 };
 
+export type FactoringContractsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type FactoringContractsQuery = { __typename?: 'Query' } & {
+    factoringContracts: Array<
+        { __typename?: 'FactoringContract' } & FactoringContractListPartsFragment
+    >;
+};
+
 export type FactoringProviderDetailPartsFragment = { __typename?: 'FactoringProvider' } & Pick<
     FactoringProvider,
     'id' | 'displayName' | 'legalName' | 'contact'
 > & { bankAccount: { __typename?: 'BankAccount' } & BankAccountListPartsFragment };
+
+export type FactoringProviderListPartsFragment = { __typename?: 'FactoringProvider' } & Pick<
+    FactoringProvider,
+    'contact' | 'displayName' | 'id' | 'legalName'
+>;
 
 export type FactoringProviderByIdQueryVariables = Exact<{
     id: Scalars['Int'];
@@ -1055,6 +1261,20 @@ export type FactoringProviderByIdQueryVariables = Exact<{
 export type FactoringProviderByIdQuery = { __typename?: 'Query' } & {
     factoringProvider: { __typename?: 'FactoringProvider' } & FactoringProviderDetailPartsFragment;
 };
+
+export type FactoringProvidersQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type FactoringProvidersQuery = { __typename?: 'Query' } & {
+    factoringProviders: Array<
+        { __typename?: 'FactoringProvider' } & FactoringProviderListPartsFragment
+    >;
+};
+
+export type MailSentFromQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MailSentFromQuery = { __typename?: 'Query' } & Pick<Query, 'mailSentFrom'>;
 
 export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & Pick<
     Organization,
@@ -1069,12 +1289,25 @@ export type OrganizationDetailPartsFragment = { __typename?: 'Organization' } & 
         >;
     };
 
+export type OrganizationListPartsFragment = { __typename?: 'Organization' } & Pick<
+    Organization,
+    'contact' | 'displayName' | 'id' | 'idNumber' | 'legalName' | 'registration' | 'vatNumber'
+>;
+
 export type OrganizationByIdQueryVariables = Exact<{
     id: Scalars['Int'];
 }>;
 
 export type OrganizationByIdQuery = { __typename?: 'Query' } & {
     organization: { __typename?: 'Organization' } & OrganizationDetailPartsFragment;
+};
+
+export type OrganizationsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type OrganizationsQuery = { __typename?: 'Query' } & {
+    organizations: Array<{ __typename?: 'Organization' } & OrganizationListPartsFragment>;
 };
 
 export type ProductDetailPartsFragment = { __typename?: 'Product' } & Pick<
@@ -1086,12 +1319,25 @@ export type ProductDetailPartsFragment = { __typename?: 'Product' } & Pick<
         >;
     };
 
+export type ProductListPartsFragment = { __typename?: 'Product' } & Pick<
+    Product,
+    'id' | 'sku' | 'displayName'
+>;
+
 export type ProductByIdQueryVariables = Exact<{
     id: Scalars['Int'];
 }>;
 
 export type ProductByIdQuery = { __typename?: 'Query' } & {
     product: { __typename?: 'Product' } & ProductDetailPartsFragment;
+};
+
+export type ProductsQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type ProductsQuery = { __typename?: 'Query' } & {
+    products: Array<{ __typename?: 'Product' } & ProductListPartsFragment>;
 };
 
 export type SalesInvoiceDetailPartsFragment = { __typename?: 'SalesInvoice' } & Pick<
@@ -1126,12 +1372,34 @@ export type SalesInvoiceDetailPartsFragment = { __typename?: 'SalesInvoice' } & 
         >;
     };
 
+export type SalesInvoiceListPartsFragment = { __typename?: 'SalesInvoice' } & Pick<
+    SalesInvoice,
+    'id' | 'documentNo' | 'grandTotalAccountingSchemeCurrency'
+>;
+
 export type SalesInvoiceByIdQueryVariables = Exact<{
     id: Scalars['Int'];
 }>;
 
 export type SalesInvoiceByIdQuery = { __typename?: 'Query' } & {
     salesInvoice: { __typename?: 'SalesInvoice' } & SalesInvoiceDetailPartsFragment;
+};
+
+export type DuplicateSalesInvoiceMutationVariables = Exact<{
+    id: Scalars['Int'];
+}>;
+
+export type DuplicateSalesInvoiceMutation = { __typename?: 'Mutation' } & {
+    duplicateSalesInvoice: { __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>;
+};
+
+export type PublishSalesInvoiceMutationVariables = Exact<{
+    id: Scalars['Int'];
+    attachmentIds: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+export type PublishSalesInvoiceMutation = { __typename?: 'Mutation' } & {
+    publishSalesInvoice: { __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>;
 };
 
 export type SalesInvoiceLineDetailPartsFragment = { __typename?: 'SalesInvoiceLine' } & Pick<
@@ -1148,6 +1416,14 @@ export type SalesInvoiceVatDetailPartsFragment = { __typename?: 'SalesInvoiceVat
     | 'vatTotalAccountingSchemeCurrencyRaw'
     | 'vatTotalRaw'
 >;
+
+export type SalesInvoicesQueryVariables = Exact<{
+    dummy?: Maybe<Scalars['Int']>;
+}>;
+
+export type SalesInvoicesQuery = { __typename?: 'Query' } & {
+    salesInvoices: Array<{ __typename?: 'SalesInvoice' } & SalesInvoiceListPartsFragment>;
+};
 
 export type UnitOfMeasurementDetailPartsFragment = { __typename?: 'UnitOfMeasurement' } & Pick<
     UnitOfMeasurement,
@@ -1170,165 +1446,3 @@ export type MenuItemListPartsFragment = { __typename?: 'MenuItem' } & Pick<
     MenuItem,
     'id' | 'to' | 'displayName'
 >;
-
-export type AccountingSchemesQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type AccountingSchemesQuery = { __typename?: 'Query' } & {
-    accountingSchemes: Array<
-        { __typename?: 'AccountingScheme' } & AccountingSchemeListPartsFragment
-    >;
-};
-
-export type AddressListPartsFragment = { __typename?: 'Address' } & Pick<
-    Address,
-    'id' | 'city' | 'line1' | 'zipCode'
-> & { country: { __typename?: 'Country' } & CountryListPartsFragment };
-
-export type BanksQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type BanksQuery = { __typename?: 'Query' } & {
-    banks: Array<{ __typename?: 'Bank' } & BankListPartsFragment>;
-};
-
-export type ConfirmSalesInvoiceMutationVariables = Exact<{
-    id: Scalars['Int'];
-}>;
-
-export type ConfirmSalesInvoiceMutation = { __typename?: 'Mutation' } & {
-    confirmSalesInvoice: { __typename?: 'SalesInvoice' } & SalesInvoiceDetailPartsFragment;
-};
-
-export type CountriesQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type CountriesQuery = { __typename?: 'Query' } & {
-    countries: Array<{ __typename?: 'Country' } & CountryListPartsFragment>;
-};
-
-export type CountryListPartsFragment = { __typename?: 'Country' } & Pick<
-    Country,
-    'id' | 'displayName' | 'isoCode'
->;
-
-export type CurrenciesQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type CurrenciesQuery = { __typename?: 'Query' } & {
-    currencies: Array<{ __typename?: 'Currency' } & CurrencyListPartsFragment>;
-};
-
-export type CurrencyListPartsFragment = { __typename?: 'Currency' } & Pick<
-    Currency,
-    'id' | 'isoCode' | 'displayName'
->;
-
-export type CustomerListPartsFragment = { __typename?: 'Customer' } & Pick<
-    Customer,
-    'id' | 'legalName' | 'displayName' | 'vatNumber' | 'invoicingEmail' | 'note'
-> & {
-        legalAddress: { __typename?: 'Address' } & AddressListPartsFragment;
-        address?: Maybe<{ __typename?: 'Address' } & AddressListPartsFragment>;
-    };
-
-export type CustomerPriceListPartsFragment = { __typename?: 'CustomerPriceList' } & Pick<
-    CustomerPriceList,
-    'id' | 'displayName' | 'validFrom' | 'validTo'
-> & {
-        productPrices?: Maybe<
-            Array<{ __typename?: 'CustomerProductPrice' } & CustomerProductPriceListPartsFragment>
-        >;
-    };
-
-export type CustomerProductPriceListPartsFragment = { __typename?: 'CustomerProductPrice' } & Pick<
-    CustomerProductPrice,
-    'id' | 'sellingPrice'
-> & {
-        product: { __typename?: 'Product' } & ProductListPartsFragment;
-        currency: { __typename?: 'Currency' } & CurrencyListPartsFragment;
-    };
-
-export type CustomerGroupsQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type CustomerGroupsQuery = { __typename?: 'Query' } & {
-    customerGroups: Array<{ __typename?: 'CustomerGroup' } & CustomerGroupListPartsFragment>;
-};
-
-export type CustomersQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type CustomersQuery = { __typename?: 'Query' } & {
-    customers: Array<{ __typename?: 'Customer' } & CustomerListPartsFragment>;
-};
-
-export type FactoringContractsQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type FactoringContractsQuery = { __typename?: 'Query' } & {
-    factoringContracts: Array<
-        { __typename?: 'FactoringContract' } & FactoringContractListPartsFragment
-    >;
-};
-
-export type FactoringProviderListPartsFragment = { __typename?: 'FactoringProvider' } & Pick<
-    FactoringProvider,
-    'contact' | 'displayName' | 'id' | 'legalName'
->;
-
-export type FactoringProvidersQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type FactoringProvidersQuery = { __typename?: 'Query' } & {
-    factoringProviders: Array<
-        { __typename?: 'FactoringProvider' } & FactoringProviderListPartsFragment
-    >;
-};
-
-export type OrganizationListPartsFragment = { __typename?: 'Organization' } & Pick<
-    Organization,
-    'contact' | 'displayName' | 'id' | 'idNumber' | 'legalName' | 'registration' | 'vatNumber'
->;
-
-export type OrganizationsQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type OrganizationsQuery = { __typename?: 'Query' } & {
-    organizations: Array<{ __typename?: 'Organization' } & OrganizationListPartsFragment>;
-};
-
-export type ProductListPartsFragment = { __typename?: 'Product' } & Pick<
-    Product,
-    'id' | 'sku' | 'displayName'
->;
-
-export type ProductsQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type ProductsQuery = { __typename?: 'Query' } & {
-    products: Array<{ __typename?: 'Product' } & ProductListPartsFragment>;
-};
-
-export type SalesInvoiceListPartsFragment = { __typename?: 'SalesInvoice' } & Pick<
-    SalesInvoice,
-    'id' | 'documentNo' | 'grandTotalAccountingSchemeCurrency'
->;
-
-export type SalesInvoicesQueryVariables = Exact<{
-    dummy?: Maybe<Scalars['Int']>;
-}>;
-
-export type SalesInvoicesQuery = { __typename?: 'Query' } & {
-    salesInvoices: Array<{ __typename?: 'SalesInvoice' } & SalesInvoiceListPartsFragment>;
-};

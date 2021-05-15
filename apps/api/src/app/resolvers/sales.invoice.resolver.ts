@@ -4,11 +4,15 @@ import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { SalesInvoice } from '../../model/generated/entities/SalesInvoice';
 import {
   SalesInvoiceModel,
+  SalesInvoicePublishArgsModel,
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
 import { getManager } from 'typeorm';
-import { SalesInvoiceMonthlySaveArgs } from '../saveArgs/sales.invoice.monthly.save.args';
+import {
+  SalesInvoiceMonthlySaveArgs,
+  SalesInvoicePublishArgs,
+} from '../saveArgs/sales.invoice.monthly.save.args';
 import { SalesInvoiceSaveArgs } from '../saveArgs/sales.invoice.save.args';
 import { SalesInvoicesInTime } from '../dto/SalesInvoicesInTime';
 import * as moment from 'moment';
@@ -32,6 +36,14 @@ export class SalesInvoiceResolver {
   @Query(() => SalesInvoice)
   async salesInvoice(@Args('id', { type: () => Int }) id: number) {
     return await this.salesInvoiceService.loadEntityById(getManager(), id);
+  }
+
+  @Mutation(() => SalesInvoice)
+  async duplicateSalesInvoice(
+    @Args('id', { type: () => Int }) id: number,
+    @CurrentUser() user,
+  ) {
+    return await this.salesInvoiceService.duplicate(getManager(), id, user);
   }
 
   @Query(() => [SalesInvoicesInTime])
@@ -82,5 +94,13 @@ export class SalesInvoiceResolver {
       id,
     );
     return await this.salesInvoiceService.confirm(getManager(), invoice, user);
+  }
+
+  @Mutation(() => SalesInvoice)
+  async publishSalesInvoice(
+    @Args('args') objData: SalesInvoicePublishArgs,
+    @CurrentUser() user,
+  ): Promise<SalesInvoiceModel> {
+    return await this.salesInvoiceService.publish(getManager(), objData, user);
   }
 }

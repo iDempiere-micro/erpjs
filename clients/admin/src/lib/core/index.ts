@@ -1,5 +1,6 @@
 export * from './accountingScheme';
 export * from './address';
+export * from './attachment';
 export * from './bank';
 export * from './country';
 export * from './currency';
@@ -7,6 +8,7 @@ export * from './customer';
 export * from './customerGroup';
 export * from './factoringContract';
 export * from './factoringProvider';
+export * from './mail';
 export * from './menu';
 export * from './organization';
 export * from './product';

@@ -18,3 +18,18 @@ fragment CustomerDetailParts on Customer {
     www
     publicNote
 }
+
+fragment CustomerListParts on Customer {
+    id
+    legalName
+    displayName
+    vatNumber
+    invoicingEmail
+    legalAddress {
+        ...AddressListParts
+    }
+    address {
+        ...AddressListParts
+    }
+    note
+}

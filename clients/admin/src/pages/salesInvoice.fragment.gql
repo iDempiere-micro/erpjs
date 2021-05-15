@@ -1,5 +1,0 @@
-fragment SalesInvoiceListParts on SalesInvoice {
-    id
-    documentNo
-    grandTotalAccountingSchemeCurrency
-}

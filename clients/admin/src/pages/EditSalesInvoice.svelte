@@ -1,15 +1,14 @@
 <script lang="ts">
     import AddOrEditSalesInvoice from '../components/add-sales-invoice/AddOrEditSalesInvoice.svelte';
-    import { salesInvoiceService } from '../lib/core';
-    import { getError } from '../lib/support/util';
     import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
+    import { salesInvoiceService } from '../lib/core';
 
     export let params: any = {};
     const id = parseInt('' + params.id);
-    salesInvoiceService.load(id);
 
+    salesInvoiceService.load(id);
     const salesInvoice = salesInvoiceService.stores.detail;
 </script>
 

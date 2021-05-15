@@ -2,7 +2,6 @@
     import AddOrEditCustomer from '../components/add-customer/AddOrEditCustomer.svelte';
     import { customerService } from '../lib/core/customer';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
 

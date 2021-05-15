@@ -1,7 +1,6 @@
 <script lang="ts">
     import AddOrEditCurrency from '../components/add-currency/AddOrEditCurrency.svelte';
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import { currencyService } from '../lib/core';

@@ -1,6 +1,5 @@
 <script lang="ts">
     import { segments } from './pathAndSegment';
-    import { getError } from '../lib/support/util';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
     import CurrencyDetail from '../components/currency-detail/CurrencyDetail.svelte';

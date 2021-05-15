@@ -1,0 +1,12 @@
+fragment AttachmentListParts on Attachment {
+    id
+    displayName
+    isFolder
+    size
+    lastModified
+}
+
+fragment AttachmentDetailParts on Attachment {
+    ...AttachmentListParts
+}
+

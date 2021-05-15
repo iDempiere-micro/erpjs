@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Break from '../../molecules/form/Break.svelte';
     import { _ } from 'svelte-i18n';
     import { organizationService } from '../../lib/core';
     import type { OrganizationDetail } from '../../lib/model/organization';

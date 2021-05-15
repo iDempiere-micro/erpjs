@@ -1,12 +1,8 @@
 <script lang="ts">
     import CustomerList from '../components/customers/CustomerList.svelte';
-    import { getError } from '../lib/support/util';
-    import type { CustomersQuery } from '../generated/graphql';
     import { segments, urls } from './pathAndSegment';
-    import { CUSTOMERS } from '../lib/queries/customers';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
     import { customerService } from '../lib/core';
 
     customerService.loadList();
