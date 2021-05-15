@@ -1,5 +1,0 @@
-fragment ProductListParts on Product {
-    id
-    sku
-    displayName
-}

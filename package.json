@@ -33,6 +33,7 @@
     "web:dev": "(cd clients/web/ && yarn dev)"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.6.0",
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
@@ -40,11 +41,14 @@
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/typeorm": "^7.1.5",
     "apollo-server-express": "^2.18.2",
+    "aws-sdk": "^2.388.0",
     "cls-hooked": "^4.2.2",
     "deep-equal": "^2.0.4",
     "graphql": "^15.3.0",
     "graphql-tools": "^6.2.6",
+    "handlebars": "^4.7.7",
     "moment": "^2.29.1",
+    "nodemailer": "^6.6.0",
     "pdfkit": "^0.11.0",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",

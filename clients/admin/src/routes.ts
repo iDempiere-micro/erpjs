@@ -6,6 +6,7 @@ import CustomerDetail from './pages/CustomerDetail.svelte';
 import SalesInvoices from './pages/SalesInvoices.svelte';
 import EditSalesInvoice from './pages/EditSalesInvoice.svelte';
 import SalesInvoiceDetail from './pages/SalesInvoiceDetail.svelte';
+import SalesInvoicePublish from './pages/SalesInvoicePublish.svelte';
 import Products from './pages/Products.svelte';
 import AddProduct from './pages/AddProduct.svelte';
 import EditProduct from './pages/EditProduct.svelte';
@@ -50,6 +51,11 @@ import AddFactoringContract from './pages/AddFactoringContract.svelte';
 import EditFactoringContract from './pages/EditFactoringContract.svelte';
 import FactoringContractDetail from './pages/FactoringContractDetail.svelte';
 
+import Attachments from './pages/Attachments.svelte';
+import AddAttachment from './pages/AddAttachment.svelte';
+import EditAttachment from './pages/EditAttachment.svelte';
+import AttachmentDetail from './pages/AttachmentDetail.svelte';
+
 export const routes = {
     // Exact path
     '/': Home,
@@ -76,6 +82,7 @@ addRoute(urls.customer.detail, CustomerDetail);
 addRoute(urls.salesInvoices.list, SalesInvoices);
 addRoute(urls.salesInvoices.edit, EditSalesInvoice);
 addRoute(urls.salesInvoices.detail, SalesInvoiceDetail);
+addRoute(urls.salesInvoices.publish, SalesInvoicePublish);
 addRoute(urls.settings.list, Lists);
 addRoute(urls.products.list, Products);
 addRoute(urls.products.edit, EditProduct);
@@ -114,3 +121,7 @@ addRoute(urls.factoringContracts.list, FactoringContracts);
 addRoute(urls.factoringContracts.edit, EditFactoringContract);
 addRoute(urls.factoringContracts.add, AddFactoringContract);
 addRoute(urls.factoringContracts.detail, FactoringContractDetail);
+addRoute(urls.attachments.list, Attachments);
+addRoute(urls.attachments.edit, EditAttachment);
+addRoute(urls.attachments.add, AddAttachment);
+addRoute(urls.attachments.detail, AttachmentDetail);

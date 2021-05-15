@@ -1,5 +1,7 @@
 import type {
     ConfirmSalesInvoiceMutation,
+    PublishSalesInvoiceMutation,
+    PublishSalesInvoiceMutationVariables,
     SalesInvoiceByIdQuery,
     SalesInvoicesQuery,
     SaveSalesInvoiceMutation,
@@ -7,7 +9,9 @@ import type {
 } from '../../generated/graphql';
 import {
     CONFIRM_SALES_INVOICE,
+    DUPLICATE_SALES_INVOICE,
     GET_SALES_INVOICE_BY_ID,
+    PUBLISH_SALES_INVOICE,
     SAVE_SALES_INVOICE,
 } from '../queries/salesInvoice';
 import { mutation } from '../../absorb/svelte-apollo';
@@ -80,6 +84,31 @@ class SalesInvoiceService extends BaseEntityService<
      */
     async confirm(id: number) {
         return this.makeSimpleCall<ConfirmSalesInvoiceMutation>(id, CONFIRM_SALES_INVOICE);
+    }
+
+    /**
+     * Duplicates the item, invalidates `stores.list`
+     * @params id - the invoice id
+     */
+    async duplicate(id: number) {
+        return this.makeSimpleCall<ConfirmSalesInvoiceMutation>(id, DUPLICATE_SALES_INVOICE);
+    }
+
+    /**
+     * Duplicates the item, invalidates `stores.list`
+     * @params id - the invoice id
+     */
+    async publish(id: number, attachmentIds: string[]) {
+        const publishSalesInvoice = mutation<
+            PublishSalesInvoiceMutation,
+            PublishSalesInvoiceMutationVariables
+        >(PUBLISH_SALES_INVOICE);
+        await publishSalesInvoice({
+            variables: {
+                id,
+                attachmentIds,
+            },
+        });
     }
 
     async downloadInvoice(baseUrl: string | undefined, token: string | undefined, id: number) {

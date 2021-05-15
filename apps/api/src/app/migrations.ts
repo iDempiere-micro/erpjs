@@ -12,6 +12,9 @@ import { ContactPersons1619015192340 } from './migrations/1619015192340-ContactP
 import { ProductPriceCurrency1619448004419 } from './migrations/1619448004419-ProductPriceCurrency';
 import { FactoringProvider1619502927022 } from './migrations/1619502927022-FactoringProvider';
 import { FactoringInvoicePrinting1619613873925 } from './migrations/1619613873925-FactoringInvoicePrinting';
+import { EventLog1620224070916 } from './migrations/1620224070916-EventLog';
+import { Config1620291421007 } from './migrations/1620291421007-Config';
+import { Attachment1620312048836 } from './migrations/1620312048836-Attachment';
 
 export const migrations = [
   CreateDB1595508635320,
@@ -28,4 +31,7 @@ export const migrations = [
   ProductPriceCurrency1619448004419,
   FactoringProvider1619502927022,
   FactoringInvoicePrinting1619613873925,
+  EventLog1620224070916,
+  Config1620291421007,
+  Attachment1620312048836,
 ];

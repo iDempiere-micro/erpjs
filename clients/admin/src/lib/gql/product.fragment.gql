@@ -6,3 +6,9 @@ fragment ProductDetailParts on Product {
         ...UnitOfMeasurementDetailParts
     }
 }
+
+fragment ProductListParts on Product {
+    id
+    sku
+    displayName
+}

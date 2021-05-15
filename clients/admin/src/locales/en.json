@@ -520,7 +520,8 @@
       "Dashboard": "Dashboard",
       "Customers": "Customers",
       "SalesInvoices": "Sales Invoices",
-      "Settings": "List Admin"
+      "Settings": "List Admin",
+      "Attachments": "Attachments"
     }
   },
   "status": {
@@ -538,6 +539,7 @@
     "edit": "Edit",
     "detail": "Detail",
     "cancel": "Cancel",
-    "more": "More"
+    "more": "More",
+    "publish": "Publish"
   }
 }

@@ -3,3 +3,9 @@ fragment CountryDetailParts on Country {
     displayName
     isoCode
 }
+
+fragment CountryListParts on Country {
+    id
+    displayName
+    isoCode
+}

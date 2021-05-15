@@ -79,6 +79,13 @@ import {
   FactoringContractService,
   FactoringContractServiceKey,
 } from './lib/factoring.contract.service';
+import { MailService, MailServiceKey } from './lib/mail.service';
+import { EventLogService, EventLogServiceKey } from './lib/eventLog.service';
+import { ConfigService, ConfigServiceKey } from './lib/config.service';
+import {
+  AttachmentService,
+  AttachmentServiceKey,
+} from './lib/attachment.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -225,6 +232,26 @@ const factoringContractServiceProvider = {
   useClass: FactoringContractService,
 };
 
+const mailServiceProvider = {
+  provide: MailServiceKey,
+  useClass: MailService,
+};
+
+const eventLogServiceProvider = {
+  provide: EventLogServiceKey,
+  useClass: EventLogService,
+};
+
+const configServiceProvider = {
+  provide: ConfigServiceKey,
+  useClass: ConfigService,
+};
+
+const attachmentServiceProvider = {
+  provide: AttachmentServiceKey,
+  useClass: AttachmentService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -255,4 +282,8 @@ export const serviceProviders = [
   contactPersonCompanyRelationServiceProvider,
   factoringProviderServiceProvider,
   factoringContractServiceProvider,
+  mailServiceProvider,
+  eventLogServiceProvider,
+  configServiceProvider,
+  attachmentServiceProvider,
 ];

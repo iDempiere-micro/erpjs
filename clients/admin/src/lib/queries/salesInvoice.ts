@@ -10,6 +10,22 @@ export const CONFIRM_SALES_INVOICE = gql`
     }
 `;
 
+export const DUPLICATE_SALES_INVOICE = gql`
+    mutation DuplicateSalesInvoice($id: Int!) {
+        duplicateSalesInvoice(id: $id) {
+            id
+        }
+    }
+`;
+
+export const PUBLISH_SALES_INVOICE = gql`
+    mutation PublishSalesInvoice($id: Int!, $attachmentIds: [String!]!) {
+        publishSalesInvoice(args: { id: $id, attachmentIds: $attachmentIds }) {
+            id
+        }
+    }
+`;
+
 export const mock1 = {
     data: {
         salesInvoice: {

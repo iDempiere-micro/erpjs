@@ -7,3 +7,10 @@ fragment FactoringProviderDetailParts on FactoringProvider {
                 ...BankAccountListParts
             }
 }
+
+fragment FactoringProviderListParts on FactoringProvider {
+    contact
+    displayName
+    id
+    legalName
+}

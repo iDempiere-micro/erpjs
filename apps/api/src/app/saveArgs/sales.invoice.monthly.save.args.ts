@@ -1,5 +1,9 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { IdAndValue, SalesInvoiceMonthlySaveArgsModel } from '../../model';
+import {
+  IdAndValue,
+  SalesInvoiceMonthlySaveArgsModel,
+  SalesInvoicePublishArgsModel,
+} from '../../model';
 
 @InputType()
 export class IdAndNumber implements IdAndValue<number> {
@@ -35,4 +39,12 @@ export class SalesInvoiceMonthlySaveArgs
 
   @Field()
   narration: string;
+}
+
+@InputType()
+export class SalesInvoicePublishArgs implements SalesInvoicePublishArgsModel {
+  @Field(() => Int)
+  id: number;
+  @Field(() => [String])
+  attachmentIds: string[];
 }

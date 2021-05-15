@@ -28,6 +28,8 @@ import { SalesInvoice } from '../generated/entities/SalesInvoice';
 import { FactoringContractServiceKey } from './factoring.contract.service';
 import { FactoringProviderServiceKey } from './factoring.provider.service';
 import { FactoringContractModel } from './factoring.contract.model';
+import { MailServiceKey } from './mail.service';
+import { AttachmentServiceKey } from './attachment.service';
 
 const mockTaxService = {
   getZeroTax: () => ({}),
@@ -166,10 +168,45 @@ export const mockFactoringProviderServiceProvider = {
   provide: FactoringProviderServiceKey,
   useValue: mockFactoringProviderService,
 };
+const mockMailService = {};
+export const mockMailServiceProvider = {
+  provide: MailServiceKey,
+  useValue: mockMailService,
+};
+const mockAttachmentService = {};
+export const mockAttachmentServiceProvider = {
+  provide: AttachmentServiceKey,
+  useValue: mockAttachmentService,
+};
+
+const mockSalesInvoice = {
+  isDraft: true,
+  lines: [],
+  customer: {
+    legalAddress: {
+      country: {
+        isoCode: 'undefined',
+      },
+    },
+  },
+  organization: {
+    legalAddress: {
+      country: {
+        isoCode: 'undefined',
+      },
+    },
+    bankAccount: {
+      id: 18,
+    },
+  },
+  currency: {},
+  factoringProviderId: 2,
+} as any;
 
 const mockEntityManager = {
   getRepository: () => ({
     save: x => x,
+    findOne: () => mockSalesInvoice,
   }),
 } as any;
 
@@ -190,6 +227,8 @@ const providers = [
   saveArgsValidationServiceProvider,
   mockFactoringContractServiceProvider,
   mockFactoringProviderServiceProvider,
+  mockMailServiceProvider,
+  mockAttachmentServiceProvider,
 ];
 
 (global as any).moduleRef = {
@@ -362,59 +401,6 @@ describe('SalesInvoiceService', () => {
       expect(vatReport[0].vatTotalAccountingSchemeCurrency).toBe(229.54);
     });
 
-    it('monthly invoices are generated even for zero org divider', async () => {
-      const result = await service.createMonthlyInvoice(
-        mockEntityManager,
-        {
-          totalHours: 100,
-          dailyRate: 1000,
-          organizationDivider: [
-            {
-              id: 1,
-              value: 0,
-            },
-            {
-              id: 1,
-              value: 1,
-            },
-          ],
-          narration: 'test',
-          year: 2021,
-          month: 3 - 1,
-          day: 31,
-          eurToCzkRate: 25,
-        },
-        { id: 1 } as any,
-      );
-      expect(result.length).toBe(2);
-    });
-    it('monthly invoices are generated even for zero hours', async () => {
-      const result = await service.createMonthlyInvoice(
-        mockEntityManager,
-        {
-          totalHours: 0,
-          dailyRate: 1000,
-          organizationDivider: [
-            {
-              id: 1,
-              value: 0,
-            },
-            {
-              id: 1,
-              value: 1,
-            },
-          ],
-          narration: 'test',
-          year: 2021,
-          month: 3 - 1,
-          day: 31,
-          eurToCzkRate: 25,
-        },
-        { id: 1 } as any,
-      );
-      expect(result.length).toBe(1);
-    });
-
     it('bankAccount and printNote should be taken from the valid factoring provider and should not be taken from an invalid factoring provider', async () => {
       const result = await service.save(
         mockEntityManager,
@@ -471,6 +457,13 @@ describe('SalesInvoiceService', () => {
       } as any);
       expect(result.printNote).toBeNull();
       expect(result.bankAccount).toEqual(args.organization.bankAccount);
+    });
+
+    it('duplicate creates a draft', async () => {
+      const result = await service.duplicate(mockEntityManager, 1, {
+        id: 1,
+      } as any);
+      expect(result.isDraft).toBeTruthy();
     });
   });
 });

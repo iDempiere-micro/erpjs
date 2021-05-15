@@ -22,8 +22,6 @@ export class CustomerProductPriceService extends BaseEntityService<
   constructor(
     @Inject(ProductServiceKey)
     protected readonly productService: ProductService,
-    @Inject(CustomerPriceListServiceKey)
-    protected readonly customerPriceListService: CustomerPriceListService,
     @Inject(CurrencyServiceKey)
     protected readonly currencyService: CurrencyService,
   ) {
@@ -48,10 +46,6 @@ export class CustomerProductPriceService extends BaseEntityService<
     );
     entity.sellingPrice = args.sellingPrice;
     entity.customerPriceList = await customerPriceListService.loadEntityById(
-      transactionalEntityManager,
-      args.customerPriceListId,
-    );
-    entity.customerPriceList = await this.customerPriceListService.loadEntityById(
       transactionalEntityManager,
       args.customerPriceListId,
     );

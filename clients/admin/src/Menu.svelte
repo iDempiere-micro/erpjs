@@ -1,8 +1,8 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
     import { menuStore } from './lib/core';
-    import { getClient, query } from './absorb/svelte-apollo';
     import type { ReadableQuery } from './absorb/svelte-apollo';
+    import { getClient, query } from './absorb/svelte-apollo';
     import type { MenuQuery } from './generated/graphql';
     import { GET_MENU } from './lib/queries/menu';
     import { apollo, setClient } from './lib/support/apollo';

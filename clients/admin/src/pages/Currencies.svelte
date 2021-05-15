@@ -1,12 +1,8 @@
 <script lang="ts">
-    import type { CurrenciesQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
     import CurrencyList from '../components/currencies/CurrencyList.svelte';
     import { segments, urls } from './pathAndSegment';
-    import { CURRENCIES } from '../lib/queries/currencies';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
     import { currencyService } from '../lib/core';
 
     currencyService.loadList();

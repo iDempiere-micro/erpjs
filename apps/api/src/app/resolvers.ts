@@ -15,6 +15,8 @@ import { ContactPersonResolver } from './resolvers/contact.person.resolver';
 import { ContactPersonCompanyRelationResolver } from './resolvers/contact.person.company.relation.resolver';
 import { FactoringProviderResolver } from './resolvers/factoring.provider.resolver';
 import { FactoringContractResolver } from './resolvers/factoring.contract.resolver';
+import { AttachmentResolver } from './resolvers/attachment.resolver';
+import { MailResolver } from './resolvers/mail.resolver';
 
 export const resolvers = [
   AppResolver,
@@ -35,4 +37,6 @@ export const resolvers = [
   ContactPersonResolver,
   FactoringProviderResolver,
   FactoringContractResolver,
+  AttachmentResolver,
+  MailResolver,
 ];

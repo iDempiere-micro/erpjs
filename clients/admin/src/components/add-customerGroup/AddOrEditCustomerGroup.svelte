@@ -1,17 +1,10 @@
 <script lang="ts">
-    import type {
-        SaveCustomerGroupMutation,
-        SaveCustomerGroupMutationVariables,
-    } from '../../generated/graphql';
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
     import { form } from 'svelte-forms';
-
-    import { SAVE_CUSTOMER_GROUP } from '../../lib/queries/customerGroup';
     import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
-    import { mutation } from '../../absorb/svelte-apollo';
     import type { CustomerGroupDetail } from '../../lib/model/customerGroup';
     import { customerGroupService } from '../../lib/core';
 

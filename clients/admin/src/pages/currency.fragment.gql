@@ -1,5 +1,0 @@
-fragment CurrencyListParts on Currency {
-    id
-    isoCode
-    displayName
-}
