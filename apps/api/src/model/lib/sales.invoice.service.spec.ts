@@ -30,6 +30,7 @@ import { FactoringProviderServiceKey } from './factoring.provider.service';
 import { FactoringContractModel } from './factoring.contract.model';
 import { MailServiceKey } from './mail.service';
 import { AttachmentServiceKey } from './attachment.service';
+import { XmlService, XmlServiceKey } from './xml.service';
 
 const mockTaxService = {
   getZeroTax: () => ({}),
@@ -178,6 +179,10 @@ export const mockAttachmentServiceProvider = {
   provide: AttachmentServiceKey,
   useValue: mockAttachmentService,
 };
+export const xmlServiceProvider = {
+  provide: XmlServiceKey,
+  useValue: new XmlService(),
+};
 
 const mockSalesInvoice = {
   isDraft: true,
@@ -201,6 +206,15 @@ const mockSalesInvoice = {
   },
   currency: {},
   factoringProviderId: 2,
+  vatReport: [
+    {
+      vatRatePercent: 10,
+      vatTotalRaw: 100,
+      vatTotalAccountingSchemeCurrencyRaw: 100,
+      vatTotal: 100,
+      vatTotalAccountingSchemeCurrency: 100,
+    },
+  ],
 } as any;
 
 const mockEntityManager = {
@@ -229,6 +243,7 @@ const providers = [
   mockFactoringProviderServiceProvider,
   mockMailServiceProvider,
   mockAttachmentServiceProvider,
+  xmlServiceProvider,
 ];
 
 (global as any).moduleRef = {
@@ -464,6 +479,53 @@ describe('SalesInvoiceService', () => {
         id: 1,
       } as any);
       expect(result.isDraft).toBeTruthy();
+    });
+
+    it('export to XML should work', async () => {
+      const args = {
+        lines: [],
+        customer: {
+          legalAddress: {
+            country: {
+              isoCode: 'undefined',
+            },
+          },
+        },
+        organization: {
+          legalAddress: {
+            country: {
+              isoCode: 'undefined',
+            },
+          },
+          bankAccount: {
+            id: 18,
+          },
+        },
+        currency: {},
+        vatReport: [
+          {
+            vatRatePercent: 10,
+            vatTotalRaw: 100,
+            vatTotalAccountingSchemeCurrencyRaw: 100,
+            vatTotal: 100,
+            vatTotalAccountingSchemeCurrency: 100,
+          },
+        ],
+        factoringProviderId: 2,
+        totalLinesAccountingSchemeCurrency: 1000,
+      } as any;
+      const result = await service.save(mockEntityManager, args, {
+        id: 1,
+      } as any);
+      const xml = service.exportToXml({
+        ...result,
+        vatReport: args.vatReport,
+        totalLinesAccountingSchemeCurrency:
+          args.totalLinesAccountingSchemeCurrency,
+      });
+      console.log(xml);
+      expect(xml).toContain('<rsm:CrossIndustryInvoice');
+      expect(xml).toContain('rn:factur-x.eu:1p0:minimum');
     });
   });
 });

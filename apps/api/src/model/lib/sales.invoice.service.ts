@@ -35,7 +35,6 @@ import { SalesInvoiceLineModel } from './sales.invoice.line.model';
 import { SalesInvoiceLineSaveArgsModel } from './sales.invoice.line.save.args.model';
 import { ProductService, ProductServiceKey } from './product.service';
 import { OrganizationModel } from './organization.model';
-import moment = require('moment');
 import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
 import { SalesInvoice } from '../generated/entities/SalesInvoice';
 import { UserModel } from './user.model';
@@ -56,6 +55,30 @@ import {
 import { SalesInvoicePublishArgsModel } from './sales.invoice.vat.save.args.model';
 import { MailAttachment, MailService, MailServiceKey } from './mail.service';
 import { AttachmentService, AttachmentServiceKey } from './attachment.service';
+import { CrossIndustryInvoiceType } from '../../../../../libs/ZUGFeRD-Factur-X/generated';
+import {
+  DocumentContextParameterType,
+  ExchangedDocumentContextType,
+  ExchangedDocumentType,
+  HeaderTradeAgreementType,
+  HeaderTradeDeliveryType,
+  HeaderTradeSettlementType,
+  SupplyChainTradeTransactionType,
+  TradePartyType,
+  TradeSettlementHeaderMonetarySummationType,
+} from '../../../../../libs/ZUGFeRD-Factur-X/generated/ReusableAggregateBusinessInformationEntity_100';
+import moment = require('moment');
+import {
+  AmountType,
+  DateTimeType,
+  IDType,
+  TextType,
+} from '../../../../../libs/ZUGFeRD-Factur-X/generated/UnqualifiedDataType_100';
+import { XmlService, XmlServiceKey } from './xml.service';
+import {
+  CurrencyCodeType,
+  DocumentCodeType,
+} from '../../../../../libs/ZUGFeRD-Factur-X/generated/QualifiedDataType_100';
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 
@@ -185,6 +208,7 @@ export class SalesInvoiceService extends BaseEntityService<
   SalesInvoiceSaveArgsModel
 > {
   salesInvoiceLineService: SalesInvoiceLineService;
+  reportsService: ReportsService;
 
   constructor(
     @Inject(BankAccountServiceKey)
@@ -196,16 +220,12 @@ export class SalesInvoiceService extends BaseEntityService<
     @Inject(CurrencyServiceKey)
     protected readonly currencyService: CurrencyService,
     @Inject(TaxServiceKey) protected readonly taxService: TaxService,
-    @Inject(ReportsServiceKey)
-    protected readonly reportsServiceModel: ReportsService,
     @Inject(LanguagesServiceKey)
     protected readonly languagesService: LanguagesService,
     @Inject(CurrencyRateServiceKey)
     protected readonly currencyRateService: CurrencyRateService,
     @Inject(SalesInvoiceVatServiceKey)
     protected readonly salesInvoiceVatService: SalesInvoiceVatService,
-    @Inject(ReportsServiceKey)
-    protected readonly reportsService: ReportsService,
     @Inject(DocumentNumberingServiceKey)
     protected readonly documentNumberingServiceModel: DocumentNumberingService,
     @Inject(FactoringContractServiceKey)
@@ -215,11 +235,14 @@ export class SalesInvoiceService extends BaseEntityService<
     @Inject(MailServiceKey) public readonly mailService: MailService,
     @Inject(AttachmentServiceKey)
     public readonly attachmentService: AttachmentService,
+    @Inject(XmlServiceKey)
+    public readonly xmlService: XmlService,
   ) {
     super();
     this.salesInvoiceLineService = getService<SalesInvoiceLineService>(
       SalesInvoiceLineServiceKey,
     );
+    this.reportsService = getService<ReportsService>(ReportsServiceKey);
   }
 
   createEntity(): SalesInvoiceModel {
@@ -396,10 +419,7 @@ export class SalesInvoiceService extends BaseEntityService<
       currentUser,
     );
 
-    await this.reportsServiceModel.printSalesInvoice(
-      result,
-      result.printLanguage,
-    );
+    await this.reportsService.printSalesInvoice(result, result.printLanguage);
 
     return result;
   }
@@ -527,10 +547,7 @@ export class SalesInvoiceService extends BaseEntityService<
   ): Promise<SalesInvoiceModel> {
     invoice.isDraft = false;
     await this.assignDocumentNumbersToInvoices(manager, [invoice]);
-    await this.reportsServiceModel.printSalesInvoice(
-      invoice,
-      invoice.printLanguage,
-    );
+    await this.reportsService.printSalesInvoice(invoice, invoice.printLanguage);
     await this.persist(manager, invoice, currentUser);
     return invoice;
   }
@@ -783,5 +800,70 @@ export class SalesInvoiceService extends BaseEntityService<
     );
 
     return source;
+  };
+
+  exportToCrossIndustryInvoice = (
+    i: SalesInvoiceModel,
+  ): CrossIndustryInvoiceType => {
+    const ExchangedDocumentContext = new ExchangedDocumentContextType();
+    ExchangedDocumentContext.GuidelineSpecifiedDocumentContextParameter = new DocumentContextParameterType(
+      {
+        ID: new IDType('urn:factur-x.eu:1p0:minimum'),
+      },
+    );
+    const ExchangedDocument = new ExchangedDocumentType({
+      ID: new IDType(i.documentNo),
+      /*
+
+      Only the following code may be used for the BASIC WL and MINIMUM profiles:
+751: Booking aid - NO invoice
+       */
+      TypeCode: new DocumentCodeType('751'),
+      IssueDateTime: new DateTimeType(i.issuedOn),
+    });
+    const SupplyChainTradeTransaction = new SupplyChainTradeTransactionType({
+      ApplicableHeaderTradeAgreement: new HeaderTradeAgreementType({
+        SellerTradeParty: new TradePartyType({
+          Name: new TextType(i.organization.legalName),
+        }),
+        BuyerTradeParty: new TradePartyType({
+          Name: new TextType(i.customer.legalName),
+        }),
+      }),
+      ApplicableHeaderTradeDelivery: new HeaderTradeDeliveryType(),
+      ApplicableHeaderTradeSettlement: new HeaderTradeSettlementType({
+        InvoiceCurrencyCode: new CurrencyCodeType(i.currency.isoCode),
+        SpecifiedTradeSettlementHeaderMonetarySummation: new TradeSettlementHeaderMonetarySummationType(
+          {
+            TaxBasisTotalAmount: new AmountType(
+              i.totalLinesAccountingSchemeCurrency,
+            ),
+            TaxTotalAmount: new AmountType(
+              i.vatReport.reduce(
+                (a, b) =>
+                  ({
+                    vatTotalAccountingSchemeCurrency:
+                      a.vatTotalAccountingSchemeCurrency +
+                      b.vatTotalAccountingSchemeCurrency,
+                  } as any),
+              ).vatTotalAccountingSchemeCurrency,
+            ),
+            GrandTotalAmount: new AmountType(i.grandTotal),
+            DuePayableAmount: new AmountType(i.grandTotal),
+          },
+        ),
+      }),
+    });
+    return new CrossIndustryInvoiceType({
+      ExchangedDocumentContext,
+      ExchangedDocument,
+      SupplyChainTradeTransaction,
+    });
+  };
+
+  exportToXml = (i: SalesInvoiceModel): string => {
+    return this.xmlService.generateCrossIndustryDocument(
+      this.exportToCrossIndustryInvoice(i),
+    );
   };
 }

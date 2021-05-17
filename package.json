@@ -49,12 +49,13 @@
     "handlebars": "^4.7.7",
     "moment": "^2.29.1",
     "nodemailer": "^6.6.0",
-    "pdfkit": "^0.11.0",
+    "pdfkit": "^0.12.1",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
-    "typeorm": "^0.2.28"
+    "typeorm": "^0.2.28",
+    "xml-serializer-ts": "^1.0.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

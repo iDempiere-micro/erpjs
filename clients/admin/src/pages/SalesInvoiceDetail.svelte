@@ -59,7 +59,7 @@
             {$_('status.loading')}
         {/if}
 
-        {#if $salesInvoice.data.isDraft}
+        {#if $salesInvoice.loaded && $salesInvoice.data.isDraft}
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
                     type="submit"

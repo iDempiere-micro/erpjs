@@ -86,6 +86,7 @@ import {
   AttachmentService,
   AttachmentServiceKey,
 } from './lib/attachment.service';
+import { XmlService, XmlServiceKey } from './lib/xml.service';
 
 const accountingSchemeServiceProvider = {
   provide: AccountingSchemeServiceKey,
@@ -252,6 +253,11 @@ const attachmentServiceProvider = {
   useClass: AttachmentService,
 };
 
+const xmlServiceProvider = {
+  provide: XmlServiceKey,
+  useClass: XmlService,
+};
+
 export const serviceProviders = [
   accountingSchemeServiceProvider,
   addressServiceProvider,
@@ -286,4 +292,5 @@ export const serviceProviders = [
   eventLogServiceProvider,
   configServiceProvider,
   attachmentServiceProvider,
+  xmlServiceProvider,
 ];
