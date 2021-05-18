@@ -71,7 +71,6 @@ export class FileController {
     }
 
     const manager = getManager();
-    console.log('*** file upload', customerId, file);
     const { buffer } = file;
 
     const customer = await this.customerService.loadEntityById(
@@ -114,7 +113,6 @@ export class FileController {
     }
 
     const data = await this.attachmentService.getFileAsBase64(attachmentId);
-    console.log('****data', data);
     if (user && data) {
       return { data };
     }

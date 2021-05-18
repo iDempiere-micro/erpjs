@@ -415,8 +415,6 @@ export class ReportsService {
       metadata: salesInvoiceService.exportToXml(data),
     };
 
-    console.log('**** metadata', converted.metadata);
-
     data.content = await this.printInvoice(converted);
     data.printed = true;
     data.printDate = new Date();

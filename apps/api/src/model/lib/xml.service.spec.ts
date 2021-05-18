@@ -14,8 +14,7 @@ describe('XmlService', () => {
 
   describe('XmlService', () => {
     it('works for null', async () => {
-      const result = service.test();
-      console.log(result);
+      service.test();
     });
   });
 });

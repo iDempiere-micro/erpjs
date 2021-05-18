@@ -523,7 +523,6 @@ describe('SalesInvoiceService', () => {
         totalLinesAccountingSchemeCurrency:
           args.totalLinesAccountingSchemeCurrency,
       });
-      console.log(xml);
       expect(xml).toContain('<rsm:CrossIndustryInvoice');
       expect(xml).toContain('rn:factur-x.eu:1p0:minimum');
     });
