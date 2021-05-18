@@ -11,6 +11,11 @@ import {
 import { SalesInvoiceModel } from './sales.invoice.model';
 import { LanguageModel } from './language.model';
 import * as _ from 'lodash';
+import { getService } from './module.reference.service';
+import {
+  SalesInvoiceService,
+  SalesInvoiceServiceKey,
+} from './sales.invoice.service';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
@@ -20,7 +25,7 @@ const PDFDocument = require('pdfkit');
 export const ReportsServiceKey = 'ReportsServiceKey';
 
 async function createInvoice(path: string, invoice: PrintSalesInvoice) {
-  const doc = new PDFDocument({ margin: 50 });
+  const doc = new PDFDocument({ pdfVersion: '1.7', margin: 50 });
   const messages = invoice.messages;
 
   const fontPath = fs.existsSync('./assets/Cardo-Regular.ttf')
@@ -28,6 +33,12 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
     : fs.existsSync('./apps/api/assets/Cardo-Regular.ttf')
     ? './apps/api/assets/'
     : './apps/api/src/assets/';
+
+  // Metadata defines document type.
+  if (invoice.metadata) {
+    const metadata = invoice.metadata.trim();
+    doc.file(Buffer.from(metadata), { name: 'factur-x.xml' });
+  }
 
   doc.registerFont('Cardo', `${fontPath}Cardo-Regular.ttf`);
   doc.registerFont('Cardo-Bold', `${fontPath}Cardo-Bold.ttf`);
@@ -355,6 +366,10 @@ export class ReportsService {
     }
     const bankAccount = await data.bankAccount;
 
+    const salesInvoiceService = getService<SalesInvoiceService>(
+      SalesInvoiceServiceKey,
+    );
+
     const converted = {
       messages: this.translationService.getMessages(language),
       transactionDatePrintable: dateToString(data.transactionDate),
@@ -397,6 +412,7 @@ export class ReportsService {
       sellerContact: organization.contact,
       reverseCharge: data.reverseCharge,
       footer: data.printNote,
+      metadata: salesInvoiceService.exportToXml(data),
     };
 
     data.content = await this.printInvoice(converted);
