@@ -240,7 +240,7 @@
                                     id="countryId"
                                     label={$_('page.organizations.add.country')}
                                     {countryId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 

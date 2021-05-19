@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { bindClass } from 'svelte-forms';
     import { _ } from 'svelte-i18n';
+    import TextField from "smelte/src/components/TextField";
+    import DatePicker from "smelte/src/components/DatePicker";
 
     export let title: string;
     export let type: string | null = null;
@@ -9,110 +10,100 @@
     export let id: string;
     export let value: any;
     export let hideWrapper: boolean | null = null;
+
+    let error = false;
+
+    const onBlur = () => {
+        try {
+            form.validate();
+            error = false;
+            if ($form.fields[id].errors.includes('required')) {
+                error = $_('validator.required');
+            }
+            if ($form.fields[id].errors.includes('min')) {
+                error = $_('validator.minCharacters', { values: { min } });
+            }
+        } catch (e) {
+            console.log('waaah', e);
+        }
+    }
 </script>
 
 {#if hideWrapper}
-    <label for={id} class="block text-sm font-medium text-gray-700">{title}</label>
-
     {#if !type || type === 'text'}
-        <input
+        <TextField
             type="text"
             {id}
             class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
             autocomplete="disabled"
             bind:value
-            use:bindClass={{ form }}
             data-testid={id}
-            on:blur|preventDefault={() => form.validate()}
+            label={title}
+            on:blur={onBlur}
+            error={error}
         />
     {:else if type === 'date'}
-        <input
-            type="date"
+        <DatePicker
             {id}
-            class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
             autocomplete="disabled"
             bind:value
-            use:bindClass={{ form }}
             data-testid={id}
-            on:blur|preventDefault={() => form.validate()}
+            on:blur={onBlur}
+            error={error}
         />
     {:else if type === 'number'}
-        <input
+        <TextField
             type="number"
             {id}
             class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
             autocomplete="disabled"
             bind:value
-            use:bindClass={{ form }}
             data-testid={id}
-            on:blur|preventDefault={() => form.validate()}
+            label={title}
+            on:blur={onBlur}
+            error={error}
         />
     {:else}
         <p>unknown type</p>
     {/if}
-
-    {#if $form.fields[id].errors.includes('required')}
-        <label for={id} class="block text-sm font-small text-red-700"
-            >{$_('validator.required')}</label
-        >
-    {/if}
-
-    {#if $form.fields[id].errors.includes('min')}
-        <label for={id} class="block text-sm font-small text-red-700"
-            >{$_('validator.minCharacters', { values: { min } })}</label
-        >
-    {/if}
 {:else}
     <div class="grid grid-cols-6 gap-6">
         <div class="col-span-6 sm:col-span-4">
-            <label for={id} class="block text-sm font-medium text-gray-700">{title}</label>
-
             {#if !type || type === 'text'}
-                <input
+                <TextField
                     type="text"
                     {id}
                     class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
                     autocomplete="disabled"
                     bind:value
-                    use:bindClass={{ form }}
                     data-testid={id}
-                    on:blur|preventDefault={() => form.validate()}
+                    label={title}
+                    on:blur={onBlur}
+                    error={error}
                 />
             {:else if type === 'date'}
-                <input
-                    type="date"
+                <DatePicker
                     {id}
-                    class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
-                    autocomplete="disabled"
+                    autocomplete='disabled'
                     bind:value
-                    use:bindClass={{ form }}
                     data-testid={id}
-                    on:blur|preventDefault={() => form.validate()}
+                    on:blur={onBlur}
+                    error={error}
                 />
             {:else if type === 'number'}
-                <input
+                <TextField
                     type="number"
                     {id}
                     class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
                     autocomplete="disabled"
                     bind:value
-                    use:bindClass={{ form }}
                     data-testid={id}
-                    on:blur|preventDefault={() => form.validate()}
+                    label={title}
+                    on:blur={onBlur}
+                    error={error}
                 />
             {:else}
                 <p>unknown type</p>
-            {/if}
-            {#if $form.fields[id].errors.includes('required')}
-                <label for={id} class="block text-sm font-small text-red-700"
-                    >{$_('validator.required')}</label
-                >
-            {/if}
-
-            {#if $form.fields[id].errors.includes('min')}
-                <label for={id} class="block text-sm font-small text-red-700"
-                    >{$_('validator.minCharacters', { values: { min } })}</label
-                >
             {/if}
         </div>
     </div>

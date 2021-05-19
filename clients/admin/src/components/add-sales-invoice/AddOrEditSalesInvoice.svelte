@@ -250,6 +250,7 @@
 
                         <SimpleTextBox
                             form={myForm}
+                            type='number'
                             title="Payment Term in Days"
                             bind:value={paymentTermInDays}
                             id="paymentTermInDays"
