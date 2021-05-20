@@ -337,7 +337,7 @@
                                     id="legalAddressCountryId"
                                     label={$_('page.customers.add.country')}
                                     countryId={legalAddressCountryId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 

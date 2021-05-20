@@ -111,10 +111,10 @@ export function bindClass(
         dirty = 'dirty',
     }: {
         form: Form;
-        name: string | undefined;
-        valid: string;
-        invalid: string;
-        dirty: string;
+        name?: string;
+        valid?: string;
+        invalid?: string;
+        dirty?: string;
     },
 ) {
     const key = name || node.getAttribute('name');

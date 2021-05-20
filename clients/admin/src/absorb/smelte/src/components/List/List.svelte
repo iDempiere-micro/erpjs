@@ -1,5 +1,5 @@
 <script>
-    import { ClassBuilder } from '../../utils/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes.js';
 
     import ListItem from './ListItem.svelte';
 

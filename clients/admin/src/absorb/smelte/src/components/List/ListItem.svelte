@@ -1,8 +1,8 @@
 <script>
-    import { ClassBuilder } from '../../utils/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes.js';
     import { createEventDispatcher } from 'svelte';
     import Icon from '../Icon';
-    import createRipple from '../Ripple/ripple';
+    import createRipple from '../../../../../dsl/ripple';
 
     const classesDefault =
         'focus:bg-gray-50 dark-focus:bg-gray-700 hover:bg-gray-transDark relative overflow-hidden duration-100 p-4 cursor-pointer text-gray-700 dark:text-gray-100 flex items-center z-10';

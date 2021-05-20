@@ -1,5 +1,5 @@
 <script>
-    import utils, { ClassBuilder, filterProps } from '../../utils/classes.js';
+    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
     import { fly } from 'svelte/transition';
     import { quadOut } from 'svelte/easing';
 

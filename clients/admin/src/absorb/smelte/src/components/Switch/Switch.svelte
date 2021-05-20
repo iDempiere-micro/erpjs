@@ -1,7 +1,7 @@
 <script>
     import Ripple from '../Ripple';
 
-    import { ClassBuilder } from '../../utils/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes.js';
 
     const classesDefault = `inline-flex items-center mb-2 cursor-pointer z-10`;
     const trackClassesDefault =

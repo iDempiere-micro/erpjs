@@ -1,7 +1,7 @@
 <script>
     import Icon from '../Icon';
-    import createRipple from '../Ripple/ripple';
-    import utils, { ClassBuilder } from '../../utils/classes.js';
+    import createRipple from '../../../../../dsl/ripple';
+    import utils, { ClassBuilder } from '../../../../../dsl/classes.js';
 
     const classesDefault =
         'duration-100 relative overflow-hidden text-center w-full h-full p-4 cursor-pointer flex mx-auto items-center text-sm h-full';

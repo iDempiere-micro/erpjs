@@ -1,6 +1,6 @@
 <script>
     import { slide } from 'svelte/transition';
-    import utils from '../../utils/classes.js';
+    import utils from '../../../../../dsl/classes.js';
 
     export let width = 0;
     export let left = 0;

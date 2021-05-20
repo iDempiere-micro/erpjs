@@ -1,6 +1,6 @@
 <script>
     import { createEventDispatcher } from 'svelte';
-    import utils, { ClassBuilder, filterProps } from '../../utils/classes.js';
+    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
 
     import Icon from '../Icon';
     import Label from './Label.svelte';

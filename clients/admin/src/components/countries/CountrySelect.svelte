@@ -3,18 +3,18 @@
     import { countryService } from '../../lib/core';
     import { mapDisplayableToSelectItem } from '../../lib/support/util';
     import Select from '../../absorb/smelte/src/components/Select/Select.svelte';
+    import type { Form } from '../../absorb/svelte-forms/src/types';
 
     countryService.loadList();
     export let onSelect: (countryId: number) => void = (countryId) => {};
     export let id: string;
-    export let form: any;
+    export let form: Form;
     export let label: string;
     export let countryId: number | undefined;
     const store = countryService.stores.list;
-    let error = false;
+    let error: boolean | string = false;
 
     const onBlur = () => {
-        console.log('muhehe', form);
         try {
             form.validate();
             error = false;

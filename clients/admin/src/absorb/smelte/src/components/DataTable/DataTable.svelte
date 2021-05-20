@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     import { slide } from 'svelte/transition';
-    import { ClassBuilder } from '../../utils/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes.js';
     import Icon from '../Icon';
     import Button from '../Button';
     import TextField from '../TextField';

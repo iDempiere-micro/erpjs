@@ -1,8 +1,8 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     import { scale } from 'svelte/transition';
-    import createRipple from '../Ripple/ripple';
-    import utils, { ClassBuilder, filterProps } from '../../utils/classes.js';
+    import createRipple from '../../../../../dsl/ripple';
+    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
 
     import Icon from '../Icon';
 

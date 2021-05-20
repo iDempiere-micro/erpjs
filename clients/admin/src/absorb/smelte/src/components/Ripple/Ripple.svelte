@@ -1,5 +1,5 @@
 <script>
-    import createRipple from './ripple';
+    import createRipple from '../../../../../dsl/ripple';
 
     export let color = 'primary';
     export let noHover = false;

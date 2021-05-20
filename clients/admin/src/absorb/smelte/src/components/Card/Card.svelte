@@ -1,5 +1,5 @@
 <script>
-    import { ClassBuilder } from '../../utils/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes.js';
 
     const classesDefault = 'rounded inline-flex flex-col overflow-hidden duration-200 ease-in';
 

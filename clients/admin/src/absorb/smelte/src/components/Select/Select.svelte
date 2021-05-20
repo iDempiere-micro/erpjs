@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher, onMount } from 'svelte';
     import { quadOut, quadIn } from 'svelte/easing';
     import List from '../List/List.svelte';
     import TextField from '../TextField';
-    import { ClassBuilder } from '../../utils/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes.js';
     import { hideListAction } from '../../utils/hide-list-action';
 
     const optionsClassesDefault =
@@ -13,7 +13,7 @@
     const noop = (i) => i;
 
     export let items = [];
-    export let value = '';
+    export let value: string | number = '';
     export const text = '';
     export let label = '';
     let selectedLabelProp = undefined;
@@ -22,7 +22,7 @@
     export let outlined = false;
     export let placeholder = '';
     export let hint = '';
-    export let error = false;
+    export let error: boolean | string = false;
     export let append = 'arrow_drop_down';
     export let dense = false;
     export let persistentHint = false;

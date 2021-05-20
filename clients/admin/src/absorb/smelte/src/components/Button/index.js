@@ -1,3 +1,3 @@
-import Button from "./Button.svelte";
+import Button from "../../../../../dsl/Button.svelte";
 
 export default Button;
