@@ -1,6 +1,6 @@
 <script lang="ts">
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { form as svelteForm } from 'svelte-forms';
+    import { form as svelteForm } from '../../absorb/svelte-forms/src';
     import { bankService, organizationService } from '../../lib/core';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
@@ -240,7 +240,7 @@
                                     id="countryId"
                                     label={$_('page.organizations.add.country')}
                                     {countryId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 

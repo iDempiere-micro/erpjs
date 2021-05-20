@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import { _ } from 'svelte-i18n';
+    import Button from '../absorb/smelte/src/components/Button/Button.svelte';
 
     /**
      * Is the button the primary form button?
@@ -41,19 +42,6 @@
     }
 </script>
 
-{#if disabled}
-    <button
-        data-testid={dataTestId}
-        type="submit"
-        class={className}
-        on:click|preventDefault={onClick}
-        disabled>{label}</button
-    >
-{:else}
-    <button
-        data-testid={dataTestId}
-        type="submit"
-        class={className}
-        on:click|preventDefault={onClick}>{label}</button
-    >
-{/if}
+<Button data-testid={dataTestId} type="submit" class={className} {disabled} on:click={onClick}
+    >{label}</Button
+>

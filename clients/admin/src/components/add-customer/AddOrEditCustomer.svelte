@@ -1,7 +1,6 @@
 <script lang="ts">
     import Break from '../../molecules/form/Break.svelte';
 
-    import { bindClass, form } from 'svelte-forms';
     import { _ } from 'svelte-i18n';
     import type { SelectItem } from '../../lib/support/select';
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
@@ -12,6 +11,7 @@
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
     import type { CustomerDetail } from '../../lib/model/customer';
+    import { form, bindClass } from '../../absorb/svelte-forms/src';
 
     export let customer: CustomerDetail | undefined;
 
