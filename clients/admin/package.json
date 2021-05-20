@@ -6,7 +6,7 @@
     "generate": "graphql-codegen --config codegen.yml",
     "prettier": "prettier --write --plugin-search-dir=. \"src/**/*.svelte\" \"src/**/*.ts\"",
     "prettier:check": "prettier --check --plugin-search-dir=. \"src/**/*.svelte\" \"src/**/*.ts\"",
-    "svelte-check": "svelte-check --ignore src/stories",
+    "svelte-check": "svelte-check --ignore \"src/stories,src/absorb\"",
     "lint": "eslint \"./src/**/*.{js,ts}\" --resolve-plugins-relative-to . --quiet",
     "lint:fix": "eslint --fix \"./src/**/*.{js,ts}\" --resolve-plugins-relative-to .",
     "test": "cross-env MOCK=mock web-test-runner \"src/**/*.test.ts\"",
