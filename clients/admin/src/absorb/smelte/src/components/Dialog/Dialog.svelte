@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
     import { quadIn } from 'svelte/easing';
     import { Scrim } from '../Util';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const classesDefault = 'items-center z-50 rounded bg-white dark:bg-dark-400 p-4 shadow';
     const titleClassesDefault = 'text-lg font-bold pb-4';

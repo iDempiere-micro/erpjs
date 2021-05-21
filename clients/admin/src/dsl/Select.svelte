@@ -1,22 +1,21 @@
 <script lang="ts">
-    import { createEventDispatcher, onMount } from 'svelte';
-    import { quadOut, quadIn } from 'svelte/easing';
-    import List from '../List/List.svelte';
-    import TextField from '../TextField';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
-    import { hideListAction } from '../../utils/hide-list-action';
+    import { createEventDispatcher } from 'svelte';
+    import List from './List.svelte';
+    import { ClassBuilder, noop } from './classes';
+    import { hideListAction } from '../absorb/smelte/src/utils/hide-list-action';
+    import type { Form } from '../absorb/svelte-forms/src/types';
+    import TextField from './TextField.svelte';
+    import type { IdType, ListItemOnChangeType } from './types';
 
     const optionsClassesDefault =
         'absolute left-0 bg-white rounded shadow w-full z-20 dark:bg-dark-500';
     const classesDefault = 'cursor-pointer relative pb-4';
 
-    const noop = (i) => i;
-
-    export let items = [];
+    export let items: any[] = [];
     export let value: string | number = '';
     export const text = '';
     export let label = '';
-    let selectedLabelProp = undefined;
+    let selectedLabelProp: string | undefined = undefined;
     export { selectedLabelProp as selectedLabel };
     export let color = 'primary';
     export let outlined = false;
@@ -45,15 +44,16 @@
     export let remove = '';
     export let replace = '';
 
-    let itemsProcessed = [];
+    export let form: Form | undefined = undefined;
+    export let onSelect: (itemId: IdType) => void = () => {};
 
-    function process(it) {
-        return it.map((i) => (typeof i !== 'object' ? { value: i, text: i } : i));
+    let itemsProcessed: any[] = [];
+
+    function process(it: any[]) {
+        return it.map((i: any) => (typeof i !== 'object' ? { value: i, text: i } : i));
     }
 
     $: itemsProcessed = process(items);
-
-    const dispatch = createEventDispatcher();
 
     let selectedLabel = '';
     $: {
@@ -67,12 +67,12 @@
         }
     }
 
-    let filterText = null;
+    let filterText: string | null = null;
     $: filteredItems = itemsProcessed.filter(
         (i) => !filterText || i.text.toLowerCase().includes(filterText),
     );
 
-    function filterItems({ target }) {
+    function filterItems({ target }: any) {
         filterText = target.value.toLowerCase();
     }
 
@@ -99,6 +99,15 @@
     $: if (dense) {
         appendClasses = (i) => i.replace('pt-4', 'pt-3');
     }
+
+    const dispatch = createEventDispatcher();
+    const onChange = ({ detail }: { detail: ListItemOnChangeType }) => {
+        onSelect && onSelect(detail.id);
+        dispatch('change', detail);
+    };
+    const onBlur = () => {
+        form && form.validate();
+    };
 </script>
 
 <div class={c} use:hideListAction={onHideListPanel}>
@@ -126,11 +135,13 @@
             {labelClasses}
             {inputClasses}
             {prependClasses}
+            {form}
             on:click={handleInputClick}
             on:click-append={(e) => (showList = !showList)}
             on:click
             on:input={filterItems}
             appendReverse={showList}
+            on:blur={onBlur}
         />
     </slot>
 
@@ -145,9 +156,7 @@
                     select
                     {dense}
                     items={filteredItems}
-                    on:change={({ detail }) => {
-                        dispatch('change', detail);
-                    }}
+                    on:change={onChange}
                 />
             </div>
         </slot>

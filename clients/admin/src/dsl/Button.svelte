@@ -1,23 +1,26 @@
 <script lang="ts">
     import Icon from './Icon.svelte';
-    import utils, { ClassBuilder, filterProps } from './classes.js';
+    import utils, { ClassBuilder, filterProps, noop } from './classes';
+    import type { CssClassesType } from './classes';
     import createRipple from './ripple';
+    import { _ } from 'svelte-i18n';
+    import { createEventDispatcher } from 'svelte';
 
-    export let label = '';
+    export let label = $_('actions.save');
     export let dataTestId: string | undefined = undefined;
     export let value = false;
     export let outlined = false;
     export let text = false;
     export let block = false;
-    export let disabled : boolean = false;
-    export let icon = null;
+    export let disabled: boolean = false;
+    export let icon: string | null = null;
     export let small = false;
     export let light = false;
     export let dark = false;
     export let flat = false;
     export let iconClass = '';
     export let color = 'primary';
-    export let href = null;
+    export let href: string | null = null;
     export let fab = false;
     export let type = 'button';
 
@@ -47,12 +50,13 @@
     export let disabledClasses = disabledDefault;
     export let elevationClasses = elevationDefault;
 
-    fab = fab || (text && icon);
+    fab = fab || (text && icon !== null);
     const basic = !outlined && !text && !fab;
-    const elevation = (basic || icon) && !disabled && !flat && !text;
+    let elev = (basic || icon) && !disabled && !flat && !text;
+    const elevation: boolean | undefined = elev === null || elev === '' ? undefined : elev;
 
-    let Classes = (i) => i;
-    let iClasses = (i) => i;
+    let Classes: CssClassesType = noop;
+    let iClasses: CssClassesType = noop;
     let shade = 0;
 
     $: {
@@ -65,7 +69,7 @@
     const { bg, border, txt } = utils(color);
 
     const cb = new ClassBuilder(classes, classesDefault);
-    let iconCb;
+    let iconCb: ClassBuilder | undefined;
 
     if (icon) {
         iconCb = new ClassBuilder(iconClass);
@@ -83,17 +87,17 @@
         )
         .add(`${txt(lighter)}`, text)
         .add(textClasses, text, textDefault)
-        .add(iconClasses, icon, iconDefault)
-        .remove('py-2', icon)
+        .add(iconClasses, icon !== null, iconDefault)
+        .remove('py-2', icon !== null)
         .remove(txt(lighter), fab)
         .add(disabledClasses, disabled, disabledDefault)
         .add(smallClasses, small, smallDefault)
-        .add('flex items-center justify-center h-8 w-8', small && icon)
+        .add('flex items-center justify-center h-8 w-8', small && icon !== null)
         .add('border-solid', outlined)
-        .add('rounded-full', icon)
+        .add('rounded-full', icon !== null)
         .add('w-full', block)
         .add('rounded', basic || outlined || text)
-        .add('button', !icon)
+        .add('button', icon === null)
         .add(fabClasses, fab, fabDefault)
         .add(`hover:${bg('transLight')}`, fab)
         .add($$props.class)
@@ -109,7 +113,7 @@
             .get();
     }
 
-    const ripple = createRipple(text || fab || outlined ? color : 'white');
+    const ripple = createRipple<HTMLButtonElement>(text || fab || outlined ? color : 'white');
 
     const props = filterProps(
         [
@@ -139,7 +143,6 @@
             {...props}
             {type}
             {disabled}
-            on:click={() => (value = !value)}
             on:click
             on:mouseover
             data-testid={dataTestId}
@@ -157,7 +160,6 @@
         {...props}
         {type}
         {disabled}
-        on:click={() => (value = !value)}
         on:click
         on:mouseover
         data-testid={dataTestId}

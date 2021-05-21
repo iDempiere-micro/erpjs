@@ -2,7 +2,7 @@
     import { createEventDispatcher } from 'svelte';
     import { scale } from 'svelte/transition';
     import createRipple from '../../../../../dsl/ripple';
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
+    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes';
 
     import Icon from '../Icon';
 

@@ -1,18 +1,21 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
+    import utils, { ClassBuilder, filterProps } from './classes';
+    import type { CssClassesType } from './classes';
 
-    import Icon from '../Icon';
-    import Label from './Label.svelte';
-    import Hint from './Hint.svelte';
-    import Underline from './Underline.svelte';
+    import Icon from '../absorb/smelte/src/components/Icon';
+    import Label from '../absorb/smelte/src/components/TextField/Label.svelte';
+    import Hint from '../absorb/smelte/src/components/TextField/Hint.svelte';
+    import Underline from '../absorb/smelte/src/components/TextField/Underline.svelte';
+    import type { Form } from '../absorb/svelte-forms/src/types';
+    import { bindClass } from '../absorb/svelte-forms/src';
 
     export let outlined = false;
-    export let value = null;
+    export let value: string | null = null;
     export let label = '';
     export let placeholder = '';
     export let hint = '';
-    export let error = false;
+    export let error: boolean | string = false;
     export let append = '';
     export let prepend = '';
     export let persistentHint = false;
@@ -39,10 +42,10 @@
     export let remove = '';
     export let replace = '';
 
-    export let inputClasses = inputDefault;
-    export let classes = classesDefault;
-    export let appendClasses = appendDefault;
-    export let prependClasses = prependDefault;
+    export let inputClasses: CssClassesType = inputDefault;
+    export let classes: CssClassesType = classesDefault;
+    export let appendClasses: CssClassesType = appendDefault;
+    export let prependClasses: CssClassesType = prependDefault;
 
     const { bg, border, txt, caret } = utils(color);
 
@@ -61,6 +64,8 @@
     function toggleFocused() {
         focused = !focused;
     }
+
+    export let form: Form | undefined = undefined;
 
     $: showHint = error || (persistentHint ? hint : focused && hint);
     $: labelOnTop = placeholder || focused || value || value === 0;
@@ -166,6 +171,7 @@
             on:focus
             {...props}
             placeholder={!value ? placeholder : ''}
+            use:bindClass={{ form }}
         />
     {:else if textarea && !select}
         <textarea
@@ -186,6 +192,7 @@
             on:focus={toggleFocused}
             on:blur={toggleFocused}
             placeholder={!value ? placeholder : ''}
+            use:bindClass={{ form }}
         />
     {:else if select && !autocomplete}
         <input
@@ -201,6 +208,7 @@
             on:blur
             on:focus
             {value}
+            use:bindClass={{ form }}
         />
     {/if}
 

@@ -1,5 +1,5 @@
 <script>
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     export const hover = true;
     export let title = '';

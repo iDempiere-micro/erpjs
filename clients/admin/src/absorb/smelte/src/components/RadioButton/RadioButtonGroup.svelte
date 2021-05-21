@@ -1,6 +1,6 @@
 <script>
     import RadioButton from './RadioButton.svelte';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const classesDefault = 'flex flex-col mb-4 cursor-pointer';
 

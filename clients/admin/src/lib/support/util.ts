@@ -62,3 +62,11 @@ export const logInternal = (message?: any, ...optionalParams: any[]): void => {
     logs.push({ message, ...optionalParams });
     (window as any).logs = logs;
 };
+
+export type SvelteAction<U extends any[], El extends any> = (
+    node: El,
+    ...args: U
+) => {
+    update?: (...args: U) => void;
+    destroy?: () => void;
+} | void;

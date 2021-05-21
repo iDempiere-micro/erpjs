@@ -1,6 +1,6 @@
 <script lang="ts">
     import { _ } from 'svelte-i18n';
-    import TextField from '../../absorb/smelte/src/components/TextField/TextField.svelte';
+    import TextField from '../../dsl/TextField.svelte';
     import DatePicker from '../../absorb/smelte/src/components/DatePicker/DatePicker.svelte';
 
     export let title: string;
@@ -11,7 +11,7 @@
     export let value: any;
     export let hideWrapper: boolean | null = null;
 
-    let error = false;
+    let error: boolean | string = false;
 
     const onBlur = () => {
         try {

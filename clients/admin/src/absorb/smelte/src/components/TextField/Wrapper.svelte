@@ -1,5 +1,5 @@
 <script>
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
+    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes';
 
     let classesDefault = 'mt-2 mb-6 relative text-gray-600';
 

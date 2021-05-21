@@ -1,5 +1,5 @@
 <script>
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
     import { createEventDispatcher } from 'svelte';
     import Select from '../Select';
     import Button from '../Button';

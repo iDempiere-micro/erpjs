@@ -1,7 +1,7 @@
 <script>
     import Label from './Label.svelte';
     import { createEventDispatcher } from 'svelte';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const classesDefault = 'inline-flex items-center mb-2 cursor-pointer z-10';
 

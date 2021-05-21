@@ -1,5 +1,5 @@
 <script>
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes.js';
+    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes';
 
     export let noUnderline = false;
     export let outlined = false;

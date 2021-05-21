@@ -1,8 +1,9 @@
-<script>
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+<script lang="ts">
+    import { ClassBuilder } from './classes';
+    import type { CssClassesType } from './classes';
     import { createEventDispatcher } from 'svelte';
-    import Icon from '../Icon';
-    import createRipple from '../../../../../dsl/ripple';
+    import Icon from '../absorb/smelte/src/components/Icon';
+    import createRipple from './ripple';
 
     const classesDefault =
         'focus:bg-gray-50 dark-focus:bg-gray-700 hover:bg-gray-transDark relative overflow-hidden duration-100 p-4 cursor-pointer text-gray-700 dark:text-gray-100 flex items-center z-10';
@@ -12,20 +13,19 @@
 
     export let icon = '';
     export let id = '';
-    export let value = '';
+    export let value: string | number | undefined = '';
     export let text = '';
     export let subheading = '';
     export let disabled = false;
     export let dense = false;
     export let selected = false;
-    export let tabindex = null;
-    export let selectedClasses = selectedClassesDefault;
-    export let subheadingClasses = subheadingClassesDefault;
-    export let disabledClasses = disabledClassesDefault;
+    export let tabindex: number | null = null;
+    export let selectedClasses: CssClassesType = selectedClassesDefault;
+    export let subheadingClasses: CssClassesType = subheadingClassesDefault;
+    export let disabledClasses: CssClassesType = disabledClassesDefault;
 
     export let to = '';
     export const item = null;
-    export const items = [];
     export const level = null;
 
     const ripple = createRipple();
@@ -34,7 +34,7 @@
     function change() {
         if (disabled) return;
         value = id;
-        dispatch('change', id, to);
+        dispatch('change', { id, to });
     }
 
     export let classes = classesDefault;

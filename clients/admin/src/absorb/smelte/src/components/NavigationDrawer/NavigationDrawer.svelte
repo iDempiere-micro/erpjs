@@ -3,7 +3,7 @@
     import { quadIn } from 'svelte/easing';
     import { Scrim } from '../Util';
     import breakpoints from '../../breakpoints';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const bp = breakpoints();
 

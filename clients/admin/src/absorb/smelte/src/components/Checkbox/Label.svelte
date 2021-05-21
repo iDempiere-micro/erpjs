@@ -1,5 +1,5 @@
 <script>
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const classesDefault = "pl-2 cursor-pointer 'text-gray-700 dark:text-gray-300'";
 

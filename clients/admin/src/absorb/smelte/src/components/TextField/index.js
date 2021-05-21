@@ -1,4 +1,4 @@
-import TextField from "./TextField.svelte";
+import TextField from "../../../../../dsl/TextField.svelte";
 import Label from "./Label.svelte";
 import Underline from "./Underline.svelte";
 import Wrapper from "./Wrapper.svelte";

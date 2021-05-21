@@ -2,7 +2,7 @@
     import Icon from '../Icon';
     import Ripple from '../Ripple';
     import Label from '../Checkbox/Label.svelte';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const classesDefault = 'inline-flex block items-center mb-2 cursor-pointer z-0';
 

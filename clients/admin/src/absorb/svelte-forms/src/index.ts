@@ -117,6 +117,8 @@ export function bindClass(
         dirty?: string;
     },
 ) {
+    if (!form) return;
+
     const key = name || node.getAttribute('name');
 
     const unsubscribe = form.subscribe((context) => {

@@ -1,5 +1,5 @@
 <script>
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     let classesDefault =
         'fixed top-0 w-full items-center flex-wrap flex left-0 z-30 p-0 h-16 shadow bg-primary-300 dark:bg-dark-600';

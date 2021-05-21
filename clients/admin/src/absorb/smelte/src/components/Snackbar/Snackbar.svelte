@@ -12,7 +12,7 @@
     import { quadOut, quadIn } from 'svelte/easing';
     import Button from '../Button';
     import { Spacer } from '../Util';
-    import utils, { ClassBuilder } from '../../../../../dsl/classes.js';
+    import utils, { ClassBuilder } from '../../../../../dsl/classes';
 
     export let value = false;
     export let timeout = 2000;

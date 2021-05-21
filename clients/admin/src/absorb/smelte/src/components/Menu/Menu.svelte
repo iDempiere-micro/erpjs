@@ -4,7 +4,7 @@
     import { quadOut, quadIn } from 'svelte/easing';
     import List from '../List';
     import TextField from '../TextField';
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+    import { ClassBuilder } from '../../../../../dsl/classes';
 
     const classesDefault = 'cursor-pointer relative';
     const listClassesDefault =

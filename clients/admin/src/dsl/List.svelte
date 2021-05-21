@@ -1,10 +1,12 @@
-<script>
-    import { ClassBuilder } from '../../../../../dsl/classes.js';
+<script lang="ts">
+    import { ClassBuilder, noop } from './classes';
+    import type { CssClassesType } from './classes';
 
     import ListItem from './ListItem.svelte';
+    import type { ListItemType } from './types';
 
-    export let items = [];
-    export let value = '';
+    export let items: ListItemType[] = [];
+    export let value: string | number | undefined = '';
     export let dense = false;
     export let select = false;
 
@@ -12,23 +14,23 @@
     export const text = '';
     export const item = {};
     export const to = null;
-    export const selectedClasses = (i) => i;
-    export const itemClasses = (i) => i;
-    export const disabledClasses = (i) => i;
+    export const selectedClasses: CssClassesType = noop;
+    export const itemClasses: CssClassesType = noop;
+    export const disabledClasses: CssClassesType = noop;
 
     const classesDefault = 'py-2 rounded';
 
     export let classes = classesDefault;
 
-    function id(i) {
+    function id(i: ListItemType): string {
         if (i.id !== undefined) return i.id;
         if (i.value !== undefined) return i.value;
         if (i.to !== undefined) return i.to;
         if (i.text !== undefined) return i.text;
-        return i;
+        return `${i}`;
     }
 
-    function getText(i) {
+    function getText(i: ListItemType) {
         if (i.text !== undefined) return i.text;
         if (i.value !== undefined) return i.value;
         return i;

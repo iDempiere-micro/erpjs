@@ -1,5 +1,5 @@
-import List from "./List.svelte";
-import ListItem from "./ListItem.svelte";
+import List from "../../../../../dsl/List.svelte";
+import ListItem from "../../../../../dsl/ListItem.svelte";
 
 export { ListItem };
 

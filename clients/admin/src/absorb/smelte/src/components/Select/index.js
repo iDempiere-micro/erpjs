@@ -1,4 +1,4 @@
-import Select from "./Select.svelte";
+import Select from "../../../../../dsl/Select.svelte";
 
 export default Select;
 

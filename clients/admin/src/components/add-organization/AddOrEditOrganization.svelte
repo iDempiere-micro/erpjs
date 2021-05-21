@@ -460,7 +460,10 @@
                         />
 
                         <div class="px-4 py-3 bg-white text-right sm:px-6">
-                            <Button on:click={saveOrganization} disabled={!$myForm.valid} />
+                            <Button
+                                on:click={saveOrganization}
+                                disabled={false && !$myForm.valid}
+                            />
                         </div>
                     </div>
                 </div>
