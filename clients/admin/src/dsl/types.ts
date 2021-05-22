@@ -11,3 +11,5 @@ export interface ListItemOnChangeType {
 }
 
 export type IdType = string | number;
+
+export type ErrorType = boolean | string;

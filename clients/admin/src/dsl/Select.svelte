@@ -6,11 +6,14 @@
     import type { Form } from '../absorb/svelte-forms/src/types';
     import TextField from './TextField.svelte';
     import type { IdType, ListItemOnChangeType } from './types';
+    import { onBlurValidate } from './validation';
+    import { _ } from 'svelte-i18n';
 
     const optionsClassesDefault =
         'absolute left-0 bg-white rounded shadow w-full z-20 dark:bg-dark-500';
     const classesDefault = 'cursor-pointer relative pb-4';
 
+    export let id: string;
     export let items: any[] = [];
     export let value: string | number = '';
     export const text = '';
@@ -45,7 +48,7 @@
     export let replace = '';
 
     export let form: Form | undefined = undefined;
-    export let onSelect: (itemId: IdType) => void = () => {};
+    export let onSelected: (itemId: IdType) => void = () => {};
 
     let itemsProcessed: any[] = [];
 
@@ -99,14 +102,15 @@
     $: if (dense) {
         appendClasses = (i) => i.replace('pt-4', 'pt-3');
     }
+    const onBlur = () => {
+        error = onBlurValidate(form, id, $_);
+    };
 
     const dispatch = createEventDispatcher();
     const onChange = ({ detail }: { detail: ListItemOnChangeType }) => {
-        onSelect && onSelect(detail.id);
+        if (onSelected) { onSelected(detail.id) }
         dispatch('change', detail);
-    };
-    const onBlur = () => {
-        form && form.validate();
+        onBlur();
     };
 </script>
 
