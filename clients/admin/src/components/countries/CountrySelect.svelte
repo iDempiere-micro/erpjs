@@ -3,20 +3,25 @@
     import { mapDisplayableToSelectItem } from '../../lib/support/util';
     import Select from '../../dsl/Select.svelte';
     import type { Form } from '../../absorb/svelte-forms/src/types';
-    import type { IdType } from '../../dsl/types';
+    import type { OnSelectedIdType } from '../../dsl/types';
+    import type { ErrorType } from '../../dsl/types';
 
     countryService.loadList();
-    export let onSelect: (countryId: number) => void = (countryId) => {};
+    export let onSelect: (countryId: number | undefined) => void = () => {};
     export let id: string;
     export let form: Form;
     export let label: string;
     export let countryId: number | undefined;
     const store = countryService.stores.list;
-    let error: boolean | string = false;
+    let error: ErrorType = false;
 
-    const onSelected = (id: IdType) => {
-        onSelect(+id);
-    }
+    const onSelected = (id: OnSelectedIdType) => {
+        if (id) {
+            onSelect(+id);
+        } else {
+            onSelect(undefined);
+        }
+    };
 </script>
 
 <Select

@@ -41,7 +41,7 @@
         myForm.validate();
     };
 
-    const handleSelectLegalAddressCountry = (id: number) => {
+    const handleSelectLegalAddressCountry = (id: number | undefined) => {
         countryId = id;
         myForm.validate();
     };

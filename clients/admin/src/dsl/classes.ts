@@ -1,6 +1,6 @@
-const noDepth = ['white', 'black', 'transparent'];
+import type { CssClassesType, DepthType } from './types';
 
-type DepthType = string | number;
+const noDepth = ['white', 'black', 'transparent'];
 
 function getClass(prop: string, color: string, depth: DepthType, defaultDepth: DepthType): string {
     if (noDepth.includes(color)) {
@@ -18,9 +18,7 @@ export default function utils(color: string, defaultDepth: DepthType = 500) {
     };
 }
 
-export type CssClassesType = string | ((defaultClasses: string) => string);
-
-export const noop = (i: any) => i;
+export const noop: CssClassesType = (i: any) => i;
 
 export class ClassBuilder {
     classes: string;

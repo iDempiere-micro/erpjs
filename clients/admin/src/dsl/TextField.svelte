@@ -1,21 +1,24 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import utils, { ClassBuilder, filterProps } from './classes';
-    import type { CssClassesType } from './classes';
 
-    import Icon from '../absorb/smelte/src/components/Icon';
-    import Label from '../absorb/smelte/src/components/TextField/Label.svelte';
-    import Hint from '../absorb/smelte/src/components/TextField/Hint.svelte';
-    import Underline from '../absorb/smelte/src/components/TextField/Underline.svelte';
+    import Hint from './Hint.svelte';
+    import Underline from './Underline.svelte';
     import type { Form } from '../absorb/svelte-forms/src/types';
     import { bindClass } from '../absorb/svelte-forms/src';
+    import type { CssClassesType, IdType } from './types';
+    import { isTrue } from './validation';
+    import type { Opt } from '../lib/support/types';
+    import type { ErrorType } from './types';
+    import Label from './Label.svelte';
+    import Icon from './Icon.svelte';
 
     export let outlined = false;
-    export let value: string | null = null;
+    export let value: Opt<IdType> = undefined;
     export let label = '';
     export let placeholder = '';
     export let hint = '';
-    export let error: boolean | string = false;
+    export let error: ErrorType = false;
     export let append = '';
     export let prepend = '';
     export let persistentHint = false;
@@ -57,31 +60,35 @@
     export let extend = () => {};
 
     export let focused = false;
-    let wClasses = (i) => i;
-    let aClasses = (i) => i;
-    let pClasses = (i) => i;
+    let wClasses: string = '';
+    let aClasses: string = '';
+    let pClasses: string = '';
 
     function toggleFocused() {
         focused = !focused;
     }
 
     export let form: Form | undefined = undefined;
+    let showHint: boolean;
+    let labelOnTop: boolean;
 
-    $: showHint = error || (persistentHint ? hint : focused && hint);
-    $: labelOnTop = placeholder || focused || value || value === 0;
+    $: showHint = error !== false || (persistentHint ? isTrue(hint) : focused && isTrue(hint));
+    $: labelOnTop = isTrue(placeholder) || focused || isTrue(value) || value === 0;
+
+    let iClasses: string = '';
 
     $: iClasses = cb
         .flush()
         .remove('pt-6 pb-2', outlined)
         .add('border rounded bg-transparent py-4 duration-200 ease-in', outlined)
-        .add('border-error-500 caret-error-500', error)
-        .remove(caret(), error)
-        .add(caret(), !error)
-        .add(border(), outlined && focused && !error)
+        .add('border-error-500 caret-error-500', error !== false)
+        .remove(caret(), error !== false)
+        .add(caret(), error === false)
+        .add(border(), outlined && focused && error === false)
         .add('bg-gray-100 dark:bg-dark-600', !outlined)
         .add('bg-gray-300 dark:bg-dark-200', focused && !outlined)
-        .remove('px-4', prepend)
-        .add('pr-4 pl-10', prepend)
+        .remove('px-4', prepend !== '')
+        .add('pr-4 pl-10', prepend !== '')
         .add(add)
         .remove('pt-6 pb-2', dense && !outlined)
         .add('pt-4 pb-1', dense && !outlined)
@@ -100,7 +107,7 @@
         .add('dense', dense && !outlined)
         .remove('mb-6 mt-2', dense && !outlined)
         .add('mb-4 mt-1', dense)
-        .replace({ 'text-gray-600': 'text-error-500' }, error)
+        .replace({ 'text-gray-600': 'text-error-500' }, error !== false)
         .add('text-gray-200', disabled)
         .get();
 
@@ -145,7 +152,7 @@
                 {focused}
                 {error}
                 {outlined}
-                {prepend}
+                prepend={prepend !== ''}
                 {color}
                 {bgColor}
                 dense={dense && !outlined}>{label}</Label
@@ -172,6 +179,7 @@
             {...props}
             placeholder={!value ? placeholder : ''}
             use:bindClass={{ form }}
+            autocomplete="disabled"
         />
     {:else if textarea && !select}
         <textarea
@@ -209,6 +217,7 @@
             on:focus
             {value}
             use:bindClass={{ form }}
+            autocomplete="disabled"
         />
     {/if}
 

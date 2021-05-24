@@ -1,67 +1,76 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import Card from '../Card/Card.svelte';
-    import TextField from '../TextField';
-    import Button from '../Button';
-    import Ripple from '../Ripple';
-    import { getWeekDays, weekStart } from './util';
+    import Card from '../absorb/smelte/src/components/Card/Card.svelte';
+    import Button from './Button.svelte';
+    import Ripple from '../absorb/smelte/src/components/Ripple';
+    import { getWeekDays, weekStart } from '../absorb/smelte/src/components/DatePicker/util';
+    import type { Maybe } from '../generated/graphql';
+    import type { DatePickerValueType } from './types';
+    import type { Opt } from '../lib/support/types';
 
     const dispatch = createEventDispatcher();
 
     export let open = false;
-    export let value = null;
+    export let value: Maybe<DatePickerValueType> = null;
     export let locale = 'default';
     export let todayClasses = 'text-primary-600 rounded-full border border-primary-600';
     export let selectedClasses = 'bg-primary-600 text-white rounded-full';
     export let closeOnSelect = true;
-    export let dense;
+    export let dense: Opt<boolean>;
     export let paginatorProps = {
         color: 'gray',
         text: true,
         flat: true,
         dark: true,
         remove: 'px-4 px-3 m-4 p-4',
-        iconClasses: (c) => c.replace('p-4', ''),
-        disabledClasses: (c) =>
+        iconClasses: (c: string) => c.replace('p-4', ''),
+        disabledClasses: (c: string) =>
             c
                 .replace('text-white', 'text-gray-200')
                 .replace('bg-gray-300', 'bg-transparent')
                 .replace('text-gray-700', ''),
     };
 
-    let temp = value || new Date();
+    let tempDate: Date;
+    let temp: DatePickerValueType = value || new Date();
 
     $: temp = value || new Date();
 
     $: {
-        temp = new Date(temp.valueOf());
+        temp = new Date(temp.valueOf()); // number
     }
 
-    $: if (typeof temp === 'string') {
-        temp = new Date(temp);
+    let initialValue: Date;
+
+    $: {
+        if (typeof temp === 'string') {
+            // string
+            tempDate = new Date(temp);
+        } else tempDate = temp as Date;
+        initialValue = tempDate;
     }
 
     const today = new Date().getDate();
 
-    $: year = temp.toLocaleString(locale, { year: 'numeric' });
-    $: month = temp.toLocaleString(locale, { month: 'short' });
+    $: year = tempDate.toLocaleString(locale, { year: 'numeric' });
+    $: month = tempDate.toLocaleString(locale, { month: 'short' });
     $: firstDayOfWeek = weekStart(locale);
     $: weekdays = getWeekDays(locale, firstDayOfWeek);
 
     let selected;
 
-    $: lastDayOfMonth = new Date(temp.getFullYear(), temp.getMonth() + 1, 0);
-    $: firstDayOfMonth = new Date(temp.getFullYear(), temp.getMonth(), 1);
-    $: isCurrentMonth = new Date().getMonth() === temp.getMonth();
-    $: isCurrentYear = new Date().getYear() === temp.getYear();
+    $: lastDayOfMonth = new Date(tempDate.getFullYear(), tempDate.getMonth() + 1, 0);
+    $: firstDayOfMonth = new Date(tempDate.getFullYear(), tempDate.getMonth(), 1);
+    $: isCurrentMonth = new Date().getMonth() === tempDate.getMonth();
+    $: isCurrentYear = new Date().getFullYear() === tempDate.getFullYear();
 
-    function dayIsSelected(day) {
-        if (!value) return false;
+    function dayIsSelected(day: number) {
+        if (!initialValue) return false;
 
         return (
-            value.getDate() === day &&
-            temp.getYear() === value.getYear() &&
-            temp.getMonth() === value.getMonth()
+            initialValue.getDate() === day &&
+            tempDate.getFullYear() === initialValue.getFullYear() &&
+            tempDate.getMonth() === initialValue.getMonth()
         );
     }
 
@@ -71,12 +80,12 @@
         selected: dayIsSelected(j + 1),
     }));
 
-    function select(day) {
+    function select(day: number) {
         selected = day;
-        temp = new Date(temp.getFullYear(), temp.getMonth(), selected);
-        dispatch('change', temp);
+        tempDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), selected);
+        dispatch('change', tempDate);
 
-        value = temp;
+        value = tempDate;
 
         if (closeOnSelect) {
             open = false;
@@ -86,11 +95,11 @@
     $: dayOffset = Math.abs(firstDayOfMonth.getDay() - firstDayOfWeek);
 
     function next() {
-        temp = new Date(temp.setMonth(temp.getMonth() + 1));
+        tempDate = new Date(tempDate.setMonth(tempDate.getMonth() + 1));
     }
 
     function prev() {
-        temp = new Date(temp.setMonth(temp.getMonth() - 1));
+        tempDate = new Date(tempDate.setMonth(tempDate.getMonth() - 1));
     }
 </script>
 

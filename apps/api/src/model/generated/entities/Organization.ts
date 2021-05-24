@@ -77,7 +77,7 @@ export class Organization implements OrganizationModel {
   idNumber: string;
 
   @Column('character varying', { name: 'vatNumber', nullable: true })
-  @Field()
+  @Field({ nullable: true })
   vatNumber: string | null;
 
   @OneToMany(

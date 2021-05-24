@@ -1,10 +1,12 @@
-<script>
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes';
+<script lang="ts">
+    import utils, { ClassBuilder, filterProps } from './classes';
+    import type { ErrorType } from './types';
+    import { isTrue } from './validation';
 
     export let noUnderline = false;
     export let outlined = false;
     export let focused = false;
-    export let error = false;
+    export let error: ErrorType = false;
     export let color = 'primary';
 
     let defaultClasses = `mx-auto w-0`;
@@ -19,13 +21,11 @@
 
     const l = new ClassBuilder(lineClasses, defaultClasses);
 
-    let Classes = (i) => i;
-
     $: classes = l
         .flush()
         .add(txt(), focused && !error)
-        .add('bg-error-500', error)
-        .add('w-full', focused || error)
+        .add('bg-error-500', isTrue(error))
+        .add('w-full', focused || isTrue(error))
         .add(bg(), focused)
         .add(add)
         .remove(remove)

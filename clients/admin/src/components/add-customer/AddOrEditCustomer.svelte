@@ -12,6 +12,7 @@
     import Button from '../../dsl/Button.svelte';
     import type { CustomerDetail } from '../../lib/model/customer';
     import { form, bindClass } from '../../absorb/svelte-forms/src';
+    import type { Opt } from '../../lib/support/types';
 
     export let customer: CustomerDetail | undefined;
 
@@ -58,11 +59,11 @@
 
     let { country } = legalAddress || {};
     let legalAddressCity = (legalAddress || {}).city;
-    let legalAddressCountryId = (country || {}).id;
+    let legalAddressCountryId: Opt<number> = (country || {}).id;
     let legalAddressLine1 = (legalAddress || {}).line1;
     let legalAddressZipCode = (legalAddress || {}).zipCode;
 
-    const handleSelectLegalAddressCountry = (id: number) => {
+    const handleSelectLegalAddressCountry = (id: Opt<number>) => {
         legalAddressCountryId = id;
         myForm.validate();
     };

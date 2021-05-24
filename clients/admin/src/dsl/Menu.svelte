@@ -1,18 +1,19 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import { fly } from 'svelte/transition';
     import { quadOut, quadIn } from 'svelte/easing';
-    import List from '../List';
-    import TextField from '../TextField';
-    import { ClassBuilder } from '../../../../../dsl/classes';
+    import List from './List.svelte';
+    import { ClassBuilder } from './classes';
+    import type { ListItemType } from './types';
+    import type { OnSelectedIdType } from './types';
 
     const classesDefault = 'cursor-pointer relative';
     const listClassesDefault =
         'absolute w-auto top-10 bg-white left-0 bg-white rounded shadow z-20 dark:bg-dark-500';
 
-    export let items = [];
+    export let items: ListItemType[] = [];
     export let open = false;
-    export let value = null;
+    export let value: OnSelectedIdType = '';
     export let classes = classesDefault;
     export let listClasses = listClassesDefault;
     export let listProps = {};

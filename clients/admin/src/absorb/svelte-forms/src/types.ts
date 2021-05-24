@@ -1,4 +1,4 @@
-import type { Store } from '../../../lib/support/store';
+import type { Store } from '../../../lib/support/types';
 
 export interface ValidationResult {
     name: string;

@@ -1,9 +1,10 @@
 <script lang="ts">
     import TextField from '../../dsl/TextField.svelte';
-    import DatePicker from '../../absorb/smelte/src/components/DatePicker/DatePicker.svelte';
+    import DatePicker from '../../dsl/DatePicker.svelte';
     import type { Form } from '../../absorb/svelte-forms/src/types';
     import { onBlurValidate } from '../../dsl/validation';
     import { _ } from 'svelte-i18n';
+    import type { ErrorType } from '../../dsl/types';
 
     export let title: string;
     export let type: string | null = null;
@@ -13,7 +14,7 @@
     export let value: any;
     export let hideWrapper: boolean | null = null;
 
-    let error: boolean | string = false;
+    let error: ErrorType = false;
     const onBlur = () => {
         error = onBlurValidate(form, id, $_);
     };
@@ -25,7 +26,6 @@
             type="text"
             {id}
             class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
-            autocomplete="disabled"
             bind:value
             data-testid={id}
             label={title}
@@ -33,20 +33,12 @@
             {error}
         />
     {:else if type === 'date'}
-        <DatePicker
-            {id}
-            autocomplete="disabled"
-            bind:value
-            data-testid={id}
-            on:blur={onBlur}
-            {error}
-        />
+        <DatePicker {id} bind:value data-testid={id} on:blur={onBlur} {error} />
     {:else if type === 'number'}
         <TextField
             type="number"
             {id}
             class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
-            autocomplete="disabled"
             bind:value
             data-testid={id}
             label={title}
@@ -64,7 +56,6 @@
                     type="text"
                     {id}
                     class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
-                    autocomplete="disabled"
                     bind:value
                     data-testid={id}
                     label={title}
@@ -72,20 +63,12 @@
                     {error}
                 />
             {:else if type === 'date'}
-                <DatePicker
-                    {id}
-                    autocomplete="disabled"
-                    bind:value
-                    data-testid={id}
-                    on:blur={onBlur}
-                    {error}
-                />
+                <DatePicker {id} bind:value data-testid={id} on:blur={onBlur} {error} />
             {:else if type === 'number'}
                 <TextField
                     type="number"
                     {id}
                     class="mt-1 focus:ring-red-500 focus:border-red-500 block w-full shadow-sm sm:text-sm border-red-300 rounded-md"
-                    autocomplete="disabled"
                     bind:value
                     data-testid={id}
                     label={title}

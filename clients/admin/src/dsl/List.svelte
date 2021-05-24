@@ -1,12 +1,12 @@
 <script lang="ts">
     import { ClassBuilder, noop } from './classes';
-    import type { CssClassesType } from './classes';
 
     import ListItem from './ListItem.svelte';
-    import type { ListItemType } from './types';
+    import type { CssClassesType, ListItemType } from './types';
+    import type { OnSelectedIdType } from './types';
 
     export let items: ListItemType[] = [];
-    export let value: string | number | undefined = '';
+    export let value: OnSelectedIdType = '';
     export let dense = false;
     export let select = false;
 

@@ -10,7 +10,7 @@ import type {
     FieldContent,
 } from './types';
 import { store } from '../../../lib/support/store';
-import type { Store } from '../../../lib/support/store';
+import type { Opt, Store } from '../../../lib/support/types';
 
 function getValue(field: any): any {
     return field.value;
@@ -110,7 +110,7 @@ export function bindClass(
         invalid = 'invalid',
         dirty = 'dirty',
     }: {
-        form: Form;
+        form: Opt<Form>;
         name?: string;
         valid?: string;
         invalid?: string;

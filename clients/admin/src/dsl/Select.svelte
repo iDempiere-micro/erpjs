@@ -8,6 +8,8 @@
     import type { IdType, ListItemOnChangeType } from './types';
     import { onBlurValidate } from './validation';
     import { _ } from 'svelte-i18n';
+    import type { OnSelectedIdType } from './types';
+    import type { ErrorType } from './types';
 
     const optionsClassesDefault =
         'absolute left-0 bg-white rounded shadow w-full z-20 dark:bg-dark-500';
@@ -15,7 +17,7 @@
 
     export let id: string;
     export let items: any[] = [];
-    export let value: string | number = '';
+    export let value: IdType = '';
     export const text = '';
     export let label = '';
     let selectedLabelProp: string | undefined = undefined;
@@ -24,7 +26,7 @@
     export let outlined = false;
     export let placeholder = '';
     export let hint = '';
-    export let error: boolean | string = false;
+    export let error: ErrorType = false;
     export let append = 'arrow_drop_down';
     export let dense = false;
     export let persistentHint = false;
@@ -48,7 +50,7 @@
     export let replace = '';
 
     export let form: Form | undefined = undefined;
-    export let onSelected: (itemId: IdType) => void = () => {};
+    export let onSelected: (itemId: OnSelectedIdType) => void = () => {};
 
     let itemsProcessed: any[] = [];
 
@@ -108,7 +110,9 @@
 
     const dispatch = createEventDispatcher();
     const onChange = ({ detail }: { detail: ListItemOnChangeType }) => {
-        if (onSelected) { onSelected(detail.id) }
+        if (onSelected) {
+            onSelected(detail.id);
+        }
         dispatch('change', detail);
         onBlur();
     };

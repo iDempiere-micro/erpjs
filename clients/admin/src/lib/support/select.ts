@@ -1,5 +1,7 @@
+import type { IdType } from '../../dsl/types';
+
 export interface SelectItem {
-    value: string | number;
+    value: IdType;
     label: string;
 }
 

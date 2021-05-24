@@ -1,6 +1,5 @@
-import { Writable, writable } from 'svelte/store';
-
-export type Store<T> = Writable<T> & { get(): T };
+import { writable } from 'svelte/store';
+import type { Store } from './types';
 
 export function store<T>(value: T): Store<T> {
     const originalWritable = writable<T>(value);

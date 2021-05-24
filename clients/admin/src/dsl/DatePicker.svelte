@@ -1,45 +1,49 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { slide, fade, fly } from 'svelte/transition';
-    import Card from '../Card/Card.svelte';
-    import TextField from '../TextField';
     import Picker from './Picker.svelte';
-    import Menu from '../Menu';
-    import Button from '../Button';
-    import Ripple from '../Ripple';
-    import { getWeekDays, weekStart } from './util';
+    import { noop } from './classes';
+    import type { Maybe } from '../generated/graphql';
+    import type { DatePickerValueType, ErrorType, TextFieldEvent } from './types';
+    import { toEvent } from './validation';
+    import TextField from './TextField.svelte';
+    import Menu from './Menu.svelte';
 
     const dispatch = createEventDispatcher();
-    const noop = (i) => i;
 
     export let label = 'Date';
     export let open = false;
     export let defaultIcon = 'date_range';
-    export let value = null;
+    export let value: Maybe<DatePickerValueType> = null;
     export let locale = 'default';
     export let todayClasses = 'text-primary-600 rounded-full border border-primary-600';
     export let selectedClasses = 'bg-primary-600 text-white rounded-full';
     export let closeOnSelect = true;
     export let appendClasses = noop;
     export let dense = false;
+    export let id: string;
+    export let error: ErrorType = false;
 
-    let hasUserValue = Boolean(value);
-    if (hasUserValue) value = new Date(value);
+    let hasUserValue: boolean = Boolean(value);
+    if (hasUserValue) {
+        value = new Date(value!!);
+    }
 
     const today = new Date().getDate();
 
-    let selected;
-    let displayValue = value && value.toLocaleDateString ? value.toLocaleDateString() : '';
+    let displayValue: string =
+        value && (value as Date).toLocaleDateString ? (value as Date).toLocaleDateString() : '';
 
-    function valid(date) {
-        return new Date(date) !== 'Invalid Date' && !isNaN(new Date(date));
+    function valid(date: Date) {
+        return new Date(date).toString() !== 'Invalid Date' && !isNaN(new Date(date).getDate());
     }
 
-    function changeTextInput(e) {
+    function changeTextInput(event: Event) {
+        const e = toEvent<TextFieldEvent>(event);
         let date;
         const dateArray = e.target.value.split(/\D+/);
-        if (dateArray[2].length == 4) date = new Date(dateArray[2], dateArray[1] - 1, dateArray[0]);
-        else date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
+        if (dateArray[2].length == 4)
+            date = new Date(+dateArray[2], +dateArray[1] - 1, +dateArray[0]);
+        else date = new Date(+dateArray[0], +dateArray[1] - 1, +dateArray[2]);
         if (valid(date)) value = date;
 
         if (e.target.value === '') {
@@ -57,6 +61,7 @@
         <TextField
             classes={(i) => i.replace('mb-6', '')}
             value={displayValue}
+            {id}
             {label}
             {dense}
             append={defaultIcon}
@@ -64,6 +69,7 @@
             on:click={() => (open = !open)}
             on:click-append={() => (open = !open)}
             on:change={changeTextInput}
+            {error}
         />
     </div>
     <div slot="menu">
@@ -74,7 +80,6 @@
                 {dense}
                 {locale}
                 {todayClasses}
-                {selected}
                 {selectedClasses}
                 {closeOnSelect}
                 on:change

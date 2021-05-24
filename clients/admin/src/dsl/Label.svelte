@@ -1,8 +1,10 @@
-<script>
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes';
+<script lang="ts">
+    import utils, { ClassBuilder, filterProps, noop } from './classes';
+    import type { ErrorType } from './types';
+    import { isTrue } from './validation';
 
     export let focused = false;
-    export let error = false;
+    export let error: ErrorType = false;
     export let outlined = false;
     export let labelOnTop = false;
     export let prepend = false;
@@ -23,12 +25,12 @@
 
     const l = new ClassBuilder(labelClasses, labelDefault);
 
-    let lClasses = (i) => i;
+    let lClasses: string = '';
 
     $: lClasses = l
         .flush()
         .add(txt(), focused && !error)
-        .add('text-error-500', focused && error)
+        .add('text-error-500', focused && isTrue(error))
         .add('label-top text-xs', labelOnTop)
         .add('text-xs', focused)
         .remove('pt-4 pb-2 px-4 px-1 pt-0', labelOnTop && outlined)

@@ -1,9 +1,11 @@
-import type { ErrorType } from './types';
+import type { BaseSyntheticEvent, ErrorType, IdType } from './types';
 import type { Form } from '../absorb/svelte-forms/src/types';
 import type { MessageFormatter } from 'svelte-i18n/types/runtime/types';
+import type { Maybe } from '../generated/graphql';
+import type { Opt } from '../lib/support/types';
 
 export const onBlurValidate = (
-    form: Form,
+    form: Form | undefined,
     id: string,
     format: MessageFormatter,
     min = 0,
@@ -25,3 +27,9 @@ export const onBlurValidate = (
         throw new Error(`onBlurValidate failed ${e}`);
     }
 };
+
+export const isTrue = (i: Maybe<IdType> | Opt<IdType> | ErrorType): boolean => !!i;
+
+export function toEvent<T>(e: Event): BaseSyntheticEvent<T> {
+    return (e as any) as BaseSyntheticEvent<T>;
+}

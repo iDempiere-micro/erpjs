@@ -1,13 +1,12 @@
 <script lang="ts">
     import Icon from './Icon.svelte';
     import utils, { ClassBuilder, filterProps, noop } from './classes';
-    import type { CssClassesType } from './classes';
     import createRipple from './ripple';
     import { _ } from 'svelte-i18n';
     import { createEventDispatcher } from 'svelte';
+    import type { CssClassesType } from './types';
 
     export let label = $_('actions.save');
-    export let dataTestId: string | undefined = undefined;
     export let value = false;
     export let outlined = false;
     export let text = false;
@@ -40,15 +39,24 @@
         'bg-gray-300 text-gray-500 dark:bg-dark-400 pointer-events-none hover:bg-gray-300 cursor-default';
     const elevationDefault = 'hover:shadow shadow';
 
-    export let classes = classesDefault;
-    export let basicClasses = basicDefault;
-    export let outlinedClasses = outlinedDefault;
-    export let textClasses = textDefault;
-    export let iconClasses = iconDefault;
-    export let fabClasses = fabDefault;
-    export let smallClasses = smallDefault;
-    export let disabledClasses = disabledDefault;
-    export let elevationClasses = elevationDefault;
+    export let classes: string = classesDefault;
+    export let basicClasses: CssClassesType = basicDefault;
+    export let outlinedClasses: CssClassesType = outlinedDefault;
+    export let textClasses: CssClassesType = textDefault;
+    export let iconClasses: CssClassesType = iconDefault;
+    export let fabClasses: CssClassesType = fabDefault;
+    export let smallClasses: CssClassesType = smallDefault;
+    export let disabledClasses: CssClassesType = disabledDefault;
+    export let elevationClasses: CssClassesType = elevationDefault;
+
+    /**
+     * Is the button the primary form button?
+     */
+    export let primary: boolean = true;
+    /**
+     * The data-testid attribute
+     */
+    export let dataTestId: string | undefined = primary ? 'saveButton' : 'random';
 
     fab = fab || (text && icon !== null);
     const basic = !outlined && !text && !fab;

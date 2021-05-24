@@ -1,11 +1,13 @@
-<script>
-    import utils, { ClassBuilder, filterProps } from '../../../../../dsl/classes';
+<script lang="ts">
+    import utils, { ClassBuilder, filterProps } from './classes';
     import { fly } from 'svelte/transition';
     import { quadOut } from 'svelte/easing';
+    import type { ErrorType } from './types';
+    import { isTrue } from './validation';
 
     let classesDefault = 'text-xs py-1 pl-4 absolute left-0';
 
-    export let error = false;
+    export let error: ErrorType = false;
     export let hint = '';
 
     export let add = '';
@@ -16,12 +18,12 @@
 
     const l = new ClassBuilder($$props.class, classesDefault);
 
-    let Classes = (i) => i;
+    let classes: string = '';
 
     $: classes = l
         .flush()
-        .add('text-error-500', error)
-        .add('text-gray-600', hint)
+        .add('text-error-500', isTrue(error))
+        .add('text-gray-600', isTrue(hint))
         .add(add)
         .remove(remove)
         .replace(replace)
