@@ -1,12 +1,6 @@
-import { render, RenderOptions, RenderResult } from '@testing-library/svelte';
+import { render, RenderOptions } from '@testing-library/svelte';
 import type { SvelteComponent } from 'svelte';
-
-export interface GetFormElementsResult {
-    elements: any;
-    renderResult: RenderResult;
-}
-
-type SvelteComponentOptions = any;
+import type { GetFormElementsResult, SvelteComponentOptions } from './types';
 
 export const getFormElements = async (
     page: typeof SvelteComponent,

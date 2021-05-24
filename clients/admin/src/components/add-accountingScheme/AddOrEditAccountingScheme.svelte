@@ -1,6 +1,5 @@
 <script lang="ts">
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { form } from 'svelte-forms';
     import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
@@ -8,6 +7,7 @@
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
     import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
     import { accountingSchemeService } from '../../lib/core';
+    import { form } from '../../absorb/svelte-forms/src';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme

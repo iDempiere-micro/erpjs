@@ -1,54 +1,180 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
+    import Icon from './Icon.svelte';
+    import utils, { ClassBuilder, filterProps, noop } from './classes';
+    import createRipple from './ripple';
     import { _ } from 'svelte-i18n';
-    import Button from "smelte/src/components/Button";
+    import { createEventDispatcher } from 'svelte';
+    import type { CssClassesType } from './types';
+
+    export let label = $_('actions.save');
+    export let value = false;
+    export let outlined = false;
+    export let text = false;
+    export let block = false;
+    export let disabled: boolean = false;
+    export let icon: string | null = null;
+    export let small = false;
+    export let light = false;
+    export let dark = false;
+    export let flat = false;
+    export let iconClass = '';
+    export let color = 'primary';
+    export let href: string | null = null;
+    export let fab = false;
+    export let type = 'button';
+
+    export let remove = '';
+    export let add = '';
+    export let replace = {};
+
+    const classesDefault = 'z-10 py-2 px-4 uppercase text-sm font-medium relative overflow-hidden';
+    const basicDefault = 'text-white duration-200 ease-in';
+
+    const outlinedDefault = 'bg-transparent border border-solid';
+    const textDefault = 'bg-transparent border-none px-4 hover:bg-transparent';
+    const iconDefault = 'p-4 flex items-center select-none';
+    const fabDefault = 'hover:bg-transparent';
+    const smallDefault = 'pt-1 pb-1 pl-2 pr-2 text-xs';
+    const disabledDefault =
+        'bg-gray-300 text-gray-500 dark:bg-dark-400 pointer-events-none hover:bg-gray-300 cursor-default';
+    const elevationDefault = 'hover:shadow shadow';
+
+    export let classes: string = classesDefault;
+    export let basicClasses: CssClassesType = basicDefault;
+    export let outlinedClasses: CssClassesType = outlinedDefault;
+    export let textClasses: CssClassesType = textDefault;
+    export let iconClasses: CssClassesType = iconDefault;
+    export let fabClasses: CssClassesType = fabDefault;
+    export let smallClasses: CssClassesType = smallDefault;
+    export let disabledClasses: CssClassesType = disabledDefault;
+    export let elevationClasses: CssClassesType = elevationDefault;
 
     /**
      * Is the button the primary form button?
      */
     export let primary: boolean = true;
     /**
-     * Is the button disabled?
-     */
-    export let disabled: boolean = false;
-    /**
-     * The class names that are added at the end of the default class names (defined e.g. by primary attribute)
-     */
-    export let classNameAdd: string = '';
-    /**
-     * The class names for the button; this can be predefined by the primary and disabled attributes
-     */
-    export let className: string = primary
-        ? 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 ' +
-          classNameAdd
-        : 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ' +
-          classNameAdd;
-    /**
-     * The button label
-     */
-    export let label: string = primary ? $_('actions.save') : 'Label';
-    /**
      * The data-testid attribute
      */
-    export let dataTestId: string = primary ? 'saveButton' : 'random';
+    export let dataTestId: string | undefined = primary ? 'saveButton' : 'random';
 
-    const dispatch = createEventDispatcher();
+    fab = fab || (text && icon !== null);
+    const basic = !outlined && !text && !fab;
+    let elev = (basic || icon) && !disabled && !flat && !text;
+    const elevation: boolean | undefined = elev === null || elev === '' ? undefined : elev;
 
-    /**
-     * Optional click handler
-     */
-    function onClick(event: Event) {
-        dispatch('click', event);
+    let Classes: CssClassesType = noop;
+    let iClasses: CssClassesType = noop;
+    let shade = 0;
+
+    $: {
+        shade = light ? 200 : 0;
+        shade = dark ? -400 : shade;
     }
+    $: normal = 500 - shade;
+    $: lighter = 400 - shade;
+
+    const { bg, border, txt } = utils(color);
+
+    const cb = new ClassBuilder(classes, classesDefault);
+    let iconCb: ClassBuilder | undefined;
+
+    if (icon) {
+        iconCb = new ClassBuilder(iconClass);
+    }
+
+    $: classes = cb
+        .flush()
+        .add(basicClasses, basic, basicDefault)
+        .add(`${bg(normal)} hover:${bg(lighter)}`, basic)
+        .add(elevationClasses, elevation, elevationDefault)
+        .add(outlinedClasses, outlined, outlinedDefault)
+        .add(
+            `${border(lighter)} ${txt(normal)} hover:${bg('trans')} dark-hover:${bg('transDark')}`,
+            outlined,
+        )
+        .add(`${txt(lighter)}`, text)
+        .add(textClasses, text, textDefault)
+        .add(iconClasses, icon !== null, iconDefault)
+        .remove('py-2', icon !== null)
+        .remove(txt(lighter), fab)
+        .add(disabledClasses, disabled, disabledDefault)
+        .add(smallClasses, small, smallDefault)
+        .add('flex items-center justify-center h-8 w-8', small && icon !== null)
+        .add('border-solid', outlined)
+        .add('rounded-full', icon !== null)
+        .add('w-full', block)
+        .add('rounded', basic || outlined || text)
+        .add('button', icon === null)
+        .add(fabClasses, fab, fabDefault)
+        .add(`hover:${bg('transLight')}`, fab)
+        .add($$props.class)
+        .remove(remove)
+        .replace(replace)
+        .add(add)
+        .get();
+
+    $: if (iconCb) {
+        iClasses = iconCb
+            .flush()
+            .add(txt(), fab && !iconClass)
+            .get();
+    }
+
+    const ripple = createRipple<HTMLButtonElement>(text || fab || outlined ? color : 'white');
+
+    const props = filterProps(
+        [
+            'outlined',
+            'text',
+            'color',
+            'block',
+            'disabled',
+            'icon',
+            'small',
+            'light',
+            'dark',
+            'flat',
+            'add',
+            'remove',
+            'replace',
+        ],
+        $$props,
+    );
 </script>
 
-
-<Button
-    data-testid={dataTestId}
-    type="submit"
-    class={className}
-    disabled={disabled}
-    on:click={onClick}>{label}</Button
->
-
-
+{#if href}
+    <a {href} {...props}>
+        <button
+            use:ripple
+            class={classes}
+            {...props}
+            {type}
+            {disabled}
+            on:click
+            on:mouseover
+            data-testid={dataTestId}
+        >
+            {#if icon}
+                <Icon class={iClasses} {small}>{icon}</Icon>
+            {/if}
+            {label}
+        </button>
+    </a>
+{:else}
+    <button
+        use:ripple
+        class={classes}
+        {...props}
+        {type}
+        {disabled}
+        on:click
+        on:mouseover
+        data-testid={dataTestId}
+    >
+        {#if icon}
+            <Icon class={iClasses} {small}>{icon}</Icon>
+        {/if}
+        {label}
+    </button>
+{/if}

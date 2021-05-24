@@ -1,6 +1,6 @@
 <script lang="ts">
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { form as svelteForm } from 'svelte-forms';
+    import { form as svelteForm } from '../../absorb/svelte-forms/src';
     import { _ } from 'svelte-i18n';
     import Break from '../../molecules/form/Break.svelte';
     import { push, urls } from '../../pages/pathAndSegment';

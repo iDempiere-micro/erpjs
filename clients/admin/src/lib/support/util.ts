@@ -53,7 +53,7 @@ export const mapDisplayableToSelectItem = (data: EntityDetailDisplayable[]): Sel
         ? data.map(({ id, displayName }) => ({
               value: id,
               label: displayName, //TODO: remove later
-            text: displayName
+              text: displayName,
           }))
         : [];
 
