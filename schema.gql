@@ -365,7 +365,7 @@ type Organization {
   registration: String!
   updtOp: User!
   updtTs: UniversalDateTime!
-  vatNumber: String!
+  vatNumber: String
 }
 
 input OrganizationSaveArgs {

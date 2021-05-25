@@ -1,7 +1,6 @@
 <script lang="ts">
     import Break from '../../molecules/form/Break.svelte';
 
-    import { bindClass, form } from 'svelte-forms';
     import { _ } from 'svelte-i18n';
     import type { SelectItem } from '../../lib/support/select';
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
@@ -12,6 +11,8 @@
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
     import type { CustomerDetail } from '../../lib/model/customer';
+    import { form, bindClass } from '../../absorb/svelte-forms/src';
+    import type { Opt } from '../../lib/support/types';
 
     export let customer: CustomerDetail | undefined;
 
@@ -58,11 +59,11 @@
 
     let { country } = legalAddress || {};
     let legalAddressCity = (legalAddress || {}).city;
-    let legalAddressCountryId = (country || {}).id;
+    let legalAddressCountryId: Opt<number> = (country || {}).id;
     let legalAddressLine1 = (legalAddress || {}).line1;
     let legalAddressZipCode = (legalAddress || {}).zipCode;
 
-    const handleSelectLegalAddressCountry = (id: number) => {
+    const handleSelectLegalAddressCountry = (id: Opt<number>) => {
         legalAddressCountryId = id;
         myForm.validate();
     };
@@ -337,7 +338,7 @@
                                     id="legalAddressCountryId"
                                     label={$_('page.customers.add.country')}
                                     countryId={legalAddressCountryId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 

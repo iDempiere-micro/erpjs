@@ -1,6 +1,6 @@
 <script lang="ts">
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import { form } from 'svelte-forms';
+    import { form } from '../../absorb/svelte-forms/src';
     import type {
         FactoringProvidersForInvoiceQuery,
         SalesInvoiceLineSaveArgs,
@@ -250,6 +250,7 @@
 
                         <SimpleTextBox
                             form={myForm}
+                            type="number"
                             title="Payment Term in Days"
                             bind:value={paymentTermInDays}
                             id="paymentTermInDays"

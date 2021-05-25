@@ -1,4 +1,4 @@
-const smelteTailwind = require('smelte/tailwind.config');
+const smelteTailwind = require('./src/absorb/smelte/tailwind.config');
 module.exports = {
   ...smelteTailwind({
     //README config taken from https://smeltejs.com doc
@@ -18,7 +18,7 @@ module.exports = {
     content: ['./src/**/*.svelte'],
     options: {
       extractors: [{
-        extractor: require('smelte/src/utils/css-extractor.js'),
+        extractor: require('./src/absorb/smelte/src/utils/css-extractor.js'),
         extensions: ['svelte']
       },],
     },

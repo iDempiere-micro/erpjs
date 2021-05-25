@@ -476,7 +476,7 @@ export type Organization = {
     registration: Scalars['String'];
     updtOp: User;
     updtTs: Scalars['UniversalDateTime'];
-    vatNumber: Scalars['String'];
+    vatNumber?: Maybe<Scalars['String']>;
 };
 
 export type OrganizationSaveArgs = {
@@ -876,21 +876,6 @@ export type SaveFactoringProviderMutationVariables = Exact<{
 
 export type SaveFactoringProviderMutation = { __typename?: 'Mutation' } & {
     saveFactoringProvider: { __typename?: 'FactoringProvider' } & Pick<FactoringProvider, 'id'>;
-};
-
-export type CreateMonthlyInvoiceMutationVariables = Exact<{
-    totalHours: Scalars['Float'];
-    dailyRate: Scalars['Float'];
-    organizationDivider: Array<IdAndNumber> | IdAndNumber;
-    year: Scalars['Int'];
-    month: Scalars['Int'];
-    day: Scalars['Int'];
-    eurToCzkRate: Scalars['Float'];
-    narration: Scalars['String'];
-}>;
-
-export type CreateMonthlyInvoiceMutation = { __typename?: 'Mutation' } & {
-    createMonthlyInvoice: Array<{ __typename?: 'SalesInvoice' } & Pick<SalesInvoice, 'id'>>;
 };
 
 export type SaveOrganizationMutationVariables = Exact<{
