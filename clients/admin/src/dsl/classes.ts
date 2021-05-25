@@ -24,7 +24,7 @@ export class ClassBuilder {
     classes: string;
     defaults: string;
 
-    constructor(classes: CssClassesType, defaultClasses: string = '') {
+    constructor(classes: CssClassesType, defaultClasses = '') {
         this.defaults =
             (typeof classes === 'function' ? classes(defaultClasses) : classes) || defaultClasses;
 
@@ -66,7 +66,7 @@ export class ClassBuilder {
         return this;
     }
 
-    add(className: CssClassesType, cond = true, defaultValue: string = '') {
+    add(className: CssClassesType, cond = true, defaultValue = '') {
         if (!cond || !className) return this;
 
         switch (typeof className) {
