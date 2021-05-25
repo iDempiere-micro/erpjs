@@ -13,6 +13,7 @@ import {
     SAVE_FACTORING_CONTRACT,
 } from '../queries/factoringContract';
 import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
+import type { ListItemType } from '../../dsl/types';
 
 class FactoringContractService extends BaseEntityService<
     FactoringContractDetail,
@@ -50,11 +51,11 @@ class FactoringContractService extends BaseEntityService<
         return SAVE_FACTORING_CONTRACT;
     }
 
-    mapFactoringContracts = (data: FactoringContractRow[]): SelectItem[] =>
+    mapFactoringContracts = (data: FactoringContractRow[]): ListItemType[] =>
         data
             ? data.map(({ id, customer, organization, factoringProvider }) => ({
-                  value: id,
-                  label: `${customer.displayName} -> ${factoringProvider.displayName} -> ${organization.displayName}`,
+                  label: id.toString(),
+                  text: `${customer.displayName} -> ${factoringProvider.displayName} -> ${organization.displayName}`,
               }))
             : [];
 }

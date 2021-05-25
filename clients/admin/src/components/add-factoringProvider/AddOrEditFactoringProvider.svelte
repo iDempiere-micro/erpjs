@@ -8,6 +8,7 @@
     import BankSelect from '../banks/BankSelect.svelte';
     import { bankService, factoringProviderService } from '../../lib/core';
     import type { FactoringProviderDetail } from '../../lib/model/factoringProvider';
+    import type { Opt } from '../../lib/support/types';
 
     export let factoringProvider: FactoringProviderDetail | undefined;
     let { id, displayName, contact, legalName, bankAccount } = factoringProvider || {};
@@ -19,7 +20,7 @@
 
     bankService.loadList();
 
-    const handleSelectBank = (id: number) => {
+    const handleSelectBank = (id: Opt<number>) => {
         bankId = id;
         myForm.validate();
     };
@@ -189,7 +190,7 @@
                                     id="bankId"
                                     label={$_('page.factoringProviders.add.bank')}
                                     {bankId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                             <div class="col-span-6 sm:col-span-3">

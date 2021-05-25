@@ -1,4 +1,10 @@
-import type { BaseSyntheticEvent, ErrorType, IdType } from './types';
+import type {
+    BaseSyntheticEvent,
+    ErrorType,
+    IdType,
+    ListItemType,
+    OnSelectedIdType,
+} from './types';
 import type { Form } from '../absorb/svelte-forms/src/types';
 import type { MessageFormatter } from 'svelte-i18n/types/runtime/types';
 import type { Maybe } from '../generated/graphql';
@@ -33,3 +39,14 @@ export const isTrue = (i: Maybe<IdType> | Opt<IdType> | ErrorType): boolean => !
 export function toEvent<T>(e: Event): BaseSyntheticEvent<T> {
     return (e as any) as BaseSyntheticEvent<T>;
 }
+
+export function getListItemId(i: ListItemType): string {
+    if (i.id !== undefined) return i.id;
+    if (i.value !== undefined) return i.value;
+    if (i.to !== undefined) return i.to;
+    if (i.text !== undefined) return i.text;
+    return `${i}`;
+}
+
+export const isSelected = (value: OnSelectedIdType, i: ListItemType): boolean =>
+    value !== undefined && `${value}` === getListItemId(i);

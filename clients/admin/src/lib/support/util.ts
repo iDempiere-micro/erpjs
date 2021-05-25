@@ -1,6 +1,7 @@
 import type { ApolloError } from '@apollo/client/core';
-import type { SelectItem } from './select';
 import type { EntityDetailDisplayable } from '../model/model';
+import type { ListItemType } from '../../dsl/types';
+import type { SelectItem } from './select';
 
 const errorHandlers = [
     {
@@ -48,12 +49,19 @@ export const throwOnUndefined = (): string => {
 
 export const printableString = (s: string | null | undefined): string => s || '';
 
+export const mapDisplayableToListItem = (data: EntityDetailDisplayable[]): ListItemType[] =>
+    data
+        ? data.map(({ id, displayName }) => ({
+              value: id.toString(),
+              text: displayName,
+          }))
+        : [];
+
 export const mapDisplayableToSelectItem = (data: EntityDetailDisplayable[]): SelectItem[] =>
     data
         ? data.map(({ id, displayName }) => ({
               value: id,
-              label: displayName, //TODO: remove later
-              text: displayName,
+              label: displayName,
           }))
         : [];
 

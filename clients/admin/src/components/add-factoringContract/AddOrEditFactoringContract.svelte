@@ -9,6 +9,7 @@
     import CustomerSelect from '../customers/CustomerSelect.svelte';
     import type { FactoringContractDetail } from '../../lib/model/factoringContract';
     import { factoringContractService } from '../../lib/core';
+    import type { Opt } from '../../lib/support/types';
 
     /**
      * The factoring contract to be edit or `undefined` if adding a new factoring contract
@@ -50,15 +51,15 @@
         },
     );
 
-    const handleSelectFactoringProvider = (id: number) => {
+    const handleSelectFactoringProvider = (id: Opt<number>) => {
         factoringProviderId = id;
         myForm.validate();
     };
-    const handleSelectCustomer = (id: number) => {
+    const handleSelectCustomer = (id: Opt<number>) => {
         customerId = id;
         myForm.validate();
     };
-    const handleSelectOrganization = (id: number) => {
+    const handleSelectOrganization = (id: Opt<number>) => {
         organizationId = id;
         myForm.validate();
     };
@@ -111,7 +112,7 @@
                                     id="factoringProviderId"
                                     label={$_('page.factoringContracts.add.factoringProvider')}
                                     {factoringProviderId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 
@@ -121,7 +122,7 @@
                                     id="organizationId"
                                     label={$_('page.factoringContracts.add.organization')}
                                     {organizationId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 
@@ -131,7 +132,7 @@
                                     id="customerId"
                                     label={$_('page.factoringContracts.add.customer')}
                                     {customerId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
 

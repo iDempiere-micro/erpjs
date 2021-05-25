@@ -3,7 +3,7 @@
     import Select from 'svelte-select';
     import { attachmentService } from '../../lib/core';
     import type { OnSelectMultiParam, OnSelectParam, SelectItem } from '../../lib/support/select';
-    import { mapDisplayableToSelectItem } from '../../lib/support/util';
+    import { mapDisplayableToListItem, mapDisplayableToSelectItem } from '../../lib/support/util';
 
     attachmentService.loadList();
     let selectedAttachment: SelectItem | undefined;
@@ -51,7 +51,7 @@
 {/if}
 <Select
     inputAttributes={{ id, 'data-testid': id, autocomplete: 'disabled' }}
-    items={mapDisplayableToSelectItem($store.data)}
+    items={mapDisplayableToListItem($store.data)}
     selectedValue={isMulti ? selectedAttachments : selectedAttachment}
     {isMulti}
     on:select={handleSelectAttachment}

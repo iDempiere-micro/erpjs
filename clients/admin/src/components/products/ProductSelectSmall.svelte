@@ -1,36 +1,33 @@
 <script lang="ts">
-    import Select from 'svelte-select';
     import { productService } from '../../lib/core';
-    import type { OnSelectParam, SelectItem } from '../../lib/support/select';
-    import { mapDisplayableToSelectItem } from '../../lib/support/util';
+    import { mapDisplayableToListItem } from '../../lib/support/util';
+    import Select from '../../dsl/Select.svelte';
+    import type { ErrorType, OnSelectedIdType } from '../../dsl/types';
+    import type { Opt } from '../../lib/support/types';
+    import { noop } from '../../dsl/classes';
 
     productService.loadList();
-    let selectedProduct: SelectItem | undefined;
-    export let onSelect: (productId: number) => void = (productId) => {};
-    export let productId: number | undefined;
-    export let inputStyles: string | undefined = undefined;
+    export let onSelect: (productId: Opt<number>) => void = () => {};
+    export let productId: Opt<number>;
     const store = productService.stores.list;
+    let error: ErrorType = false;
+    export let inputClasses = noop;
 
-    const handleSelectProduct = (event: OnSelectParam) => {
-        productId = +event.detail.value;
-        onSelect(productId);
-    };
-
-    $: {
-        selectedProduct = undefined;
-        if (productId && $store.loaded) {
-            const found = $store.data.find((x) => x.id === productId);
-            if (found) {
-                selectedProduct = mapDisplayableToSelectItem([found])[0];
-            }
+    const onSelected = (id: OnSelectedIdType) => {
+        if (id) {
+            onSelect(+id);
+        } else {
+            onSelect(undefined);
         }
-    }
+    };
 </script>
 
 <Select
-    inputAttributes={{ autocomplete: 'disabled' }}
-    {inputStyles}
-    items={mapDisplayableToSelectItem($store.data)}
-    selectedValue={selectedProduct}
-    on:select={handleSelectProduct}
+    id={Date.now().toString()}
+    bind:value={productId}
+    outlined
+    autocomplete
+    {error}
+    items={mapDisplayableToListItem($store.data)}
+    {onSelected}
 />

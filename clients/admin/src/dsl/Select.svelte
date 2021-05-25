@@ -6,17 +6,18 @@
     import type { Form } from '../absorb/svelte-forms/src/types';
     import TextField from './TextField.svelte';
     import type { IdType, ListItemOnChangeType } from './types';
-    import { onBlurValidate } from './validation';
+    import { getListItemId, isSelected, onBlurValidate } from './validation';
     import { _ } from 'svelte-i18n';
     import type { OnSelectedIdType } from './types';
     import type { ErrorType } from './types';
+    import type { ListItemType } from './types';
 
     const optionsClassesDefault =
         'absolute left-0 bg-white rounded shadow w-full z-20 dark:bg-dark-500';
     const classesDefault = 'cursor-pointer relative pb-4';
 
     export let id: string;
-    export let items: any[] = [];
+    export let items: ListItemType[] = [];
     export let value: IdType = '';
     export const text = '';
     export let label = '';
@@ -52,7 +53,7 @@
     export let form: Form | undefined = undefined;
     export let onSelected: (itemId: OnSelectedIdType) => void = () => {};
 
-    let itemsProcessed: any[] = [];
+    let itemsProcessed: ListItemType[] = [];
 
     function process(it: any[]) {
         return it.map((i: any) => (typeof i !== 'object' ? { value: i, text: i } : i));
@@ -65,8 +66,8 @@
         if (selectedLabelProp !== undefined) {
             selectedLabel = selectedLabelProp;
         } else if (value !== undefined) {
-            let selectedItem = itemsProcessed.find((i) => i.value === value);
-            selectedLabel = selectedItem ? selectedItem.text : '';
+            let selectedItem = itemsProcessed.find((i) => isSelected(value, i));
+            selectedLabel = selectedItem ? selectedItem.text || '' : '';
         } else {
             selectedLabel = '';
         }
@@ -74,7 +75,7 @@
 
     let filterText: string | null = null;
     $: filteredItems = itemsProcessed.filter(
-        (i) => !filterText || i.text.toLowerCase().includes(filterText),
+        (i) => !filterText || (i.text || '').toLowerCase().includes(filterText),
     );
 
     function filterItems({ target }: any) {
@@ -144,6 +145,7 @@
             {inputClasses}
             {prependClasses}
             {form}
+            {id}
             on:click={handleInputClick}
             on:click-append={(e) => (showList = !showList)}
             on:click
