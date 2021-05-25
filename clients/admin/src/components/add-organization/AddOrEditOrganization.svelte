@@ -10,6 +10,7 @@
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
     import type { OrganizationDetail } from '../../lib/model/organization';
+    import type { Opt } from '../../lib/support/types';
 
     export let organization: OrganizationDetail | undefined;
     let {
@@ -36,19 +37,19 @@
     let { city, line1, zipCode, country } = legalAddress || {};
     let countryId = (country || {}).id;
 
-    const handleSelectAccountingScheme = (id: number) => {
+    const handleSelectAccountingScheme = (id: Opt<number>) => {
         accountingSchemeId = id;
         myForm.validate();
     };
 
-    const handleSelectLegalAddressCountry = (id: number | undefined) => {
+    const handleSelectLegalAddressCountry = (id: Opt<number>) => {
         countryId = id;
         myForm.validate();
     };
 
     bankService.loadList();
 
-    const handleSelectBank = (id: number) => {
+    const handleSelectBank = (id: Opt<number>) => {
         bankId = id;
         myForm.validate();
     };
@@ -343,7 +344,7 @@
                                     id="bankId"
                                     label={$_('page.organizations.add.bank')}
                                     {bankId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                             <div class="col-span-6 sm:col-span-3">
@@ -417,7 +418,7 @@
                                     id="accountingSchemeId"
                                     label={$_('page.organizations.add.accountingScheme')}
                                     {accountingSchemeId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                         </div>

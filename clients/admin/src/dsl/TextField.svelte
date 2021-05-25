@@ -13,6 +13,7 @@
     import Label from './Label.svelte';
     import Icon from './Icon.svelte';
 
+    export let id: string;
     export let outlined = false;
     export let value: Opt<IdType> = undefined;
     export let label = '';
@@ -180,6 +181,7 @@
             placeholder={!value ? placeholder : ''}
             use:bindClass={{ form }}
             autocomplete="disabled"
+            data-testid={id}
         />
     {:else if textarea && !select}
         <textarea
@@ -201,6 +203,7 @@
             on:blur={toggleFocused}
             placeholder={!value ? placeholder : ''}
             use:bindClass={{ form }}
+            data-testid={id}
         />
     {:else if select && !autocomplete}
         <input
@@ -218,6 +221,7 @@
             {value}
             use:bindClass={{ form }}
             autocomplete="disabled"
+            data-testid={id}
         />
     {/if}
 

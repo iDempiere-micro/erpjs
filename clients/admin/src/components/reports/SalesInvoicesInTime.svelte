@@ -11,14 +11,14 @@
 
     let data: ReadableQuery<SalesInvoicesInTimeQuery>;
     setTimeout(() => {
-        if ((window as any).token && !data) {
+        if (!process.env.MOCK && (window as any).token && !data) {
             data = query<SalesInvoicesInTimeQuery>(QUERY);
         }
     }, 1000);
 
     const reload = () =>
         setTimeout(() => {
-            if (!(window as any).token) location.reload();
+            if (!process.env.MOCK && !(window as any).token) location.reload();
         }, 1000);
 </script>
 

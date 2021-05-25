@@ -28,8 +28,10 @@ describe('<EditAccountingScheme>', function () {
             expect(document.body.contains(saveButton));
             expect(!saveButton.disabled);
             expect(displayName.value).to.equal(mock1.data.accountingScheme.displayName);
-            const { getByText } = result;
-            const currencyDisplayName = getByText(mock1.data.accountingScheme.currency.displayName);
+            const { getByDisplayValue } = result;
+            const currencyDisplayName = getByDisplayValue(
+                mock1.data.accountingScheme.currency.displayName,
+            );
             expect(document.body.contains(currencyDisplayName));
             done();
         }, 200);

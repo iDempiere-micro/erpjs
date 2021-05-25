@@ -231,7 +231,7 @@
                                 onSelect={(id) => {
                                     customerGroupId = id;
                                 }}
-                                form={$myForm}
+                                form={myForm}
                                 {customerGroupId}
                                 label={$_('page.customers.add.customerGroup')}
                             />

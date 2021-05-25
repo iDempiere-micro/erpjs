@@ -1,17 +1,17 @@
 <script lang="ts">
     import { countryService } from '../../lib/core';
-    import { mapDisplayableToSelectItem } from '../../lib/support/util';
+    import { mapDisplayableToListItem } from '../../lib/support/util';
     import Select from '../../dsl/Select.svelte';
     import type { Form } from '../../absorb/svelte-forms/src/types';
-    import type { OnSelectedIdType } from '../../dsl/types';
-    import type { ErrorType } from '../../dsl/types';
+    import type { ErrorType, OnSelectedIdType } from '../../dsl/types';
+    import type { Opt } from '../../lib/support/types';
 
     countryService.loadList();
-    export let onSelect: (countryId: number | undefined) => void = () => {};
+    export let onSelect: (countryId: Opt<number>) => void = () => {};
     export let id: string;
     export let form: Form;
     export let label: string;
-    export let countryId: number | undefined;
+    export let countryId: Opt<number>;
     const store = countryService.stores.list;
     let error: ErrorType = false;
 
@@ -30,7 +30,7 @@
     autocomplete
     {error}
     {label}
-    items={mapDisplayableToSelectItem($store.data)}
+    items={mapDisplayableToListItem($store.data)}
     {form}
     {onSelected}
     {id}

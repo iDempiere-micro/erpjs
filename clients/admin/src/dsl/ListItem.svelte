@@ -2,9 +2,9 @@
     import { ClassBuilder } from './classes';
     import { createEventDispatcher } from 'svelte';
     import createRipple from './ripple';
-    import type { CssClassesType } from './types';
-    import type { OnSelectedIdType } from './types';
+    import type { CssClassesType, OnSelectedIdType } from './types';
     import Icon from './Icon.svelte';
+    import type { Opt } from '../lib/support/types';
 
     const classesDefault =
         'focus:bg-gray-50 dark-focus:bg-gray-700 hover:bg-gray-transDark relative overflow-hidden duration-100 p-4 cursor-pointer text-gray-700 dark:text-gray-100 flex items-center z-10';
@@ -20,7 +20,7 @@
     export let disabled = false;
     export let dense = false;
     export let selected = false;
-    export let tabindex: number | undefined = undefined;
+    export let tabindex: Opt<number> = undefined;
     export let selectedClasses: CssClassesType = selectedClassesDefault;
     export let subheadingClasses: string = subheadingClassesDefault;
     export let disabledClasses: CssClassesType = disabledClassesDefault;

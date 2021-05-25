@@ -23,6 +23,7 @@
     import type { FactoringProviderRow } from '../../lib/model/factoringProvider';
     import { factoringProviderService, salesInvoiceService } from '../../lib/core';
     import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
+    import type { Opt } from '../../lib/support/types';
 
     export let salesInvoice: SalesInvoiceDetail | undefined;
     let {
@@ -124,21 +125,21 @@
             stopAtFirstFieldError: false,
         },
     );
-    const handleSelectCurrency = (id: number) => {
+    const handleSelectCurrency = (id: Opt<number>) => {
         currencyId = id;
         myForm.validate();
     };
-    const handleSelectCustomer = (id: number) => {
+    const handleSelectCustomer = (id: Opt<number>) => {
         customerId = id;
         reGetFactoringProvidersResult();
         myForm.validate();
     };
-    const handleSelectOrganization = (id: number) => {
+    const handleSelectOrganization = (id: Opt<number>) => {
         organizationId = id;
         reGetFactoringProvidersResult();
         myForm.validate();
     };
-    const handleSelectFactoringProvider = (id: number) => {
+    const handleSelectFactoringProvider = (id: Opt<number>) => {
         factoringProviderId = id;
         myForm.validate();
     };
@@ -203,7 +204,7 @@
                                     id="currencyId"
                                     label={$_('page.salesInvoices.add.currency')}
                                     {currencyId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                         </div>
@@ -215,7 +216,7 @@
                                     id="customerId"
                                     label={$_('page.salesInvoices.add.customer')}
                                     {customerId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                         </div>
@@ -227,7 +228,7 @@
                                     id="organizationId"
                                     label={$_('page.salesInvoices.add.organization')}
                                     {organizationId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                         </div>
@@ -261,7 +262,7 @@
                                 id="factoringProviderId"
                                 label={$_('page.factoringContracts.add.factoringProvider')}
                                 {factoringProviderId}
-                                form={$myForm}
+                                form={myForm}
                                 {factoringProviders}
                             />
                         </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
     import SimpleTextBox from '../../molecules/form/SimpleTextBox.svelte';
-    import type { SelectItem } from '../../lib/support/select';
     import { _ } from 'svelte-i18n';
     import Button from '../../dsl/Button.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
@@ -8,20 +7,19 @@
     import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
     import { accountingSchemeService } from '../../lib/core';
     import { form } from '../../absorb/svelte-forms/src';
+    import type { Opt } from '../../lib/support/types';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
      */
     export let accountingScheme: AccountingSchemeDetail | undefined;
     let { id, displayName, currency } = accountingScheme || {};
-    let currencyId = (currency || {}).id;
+    let currencyId: Opt<number> = (currency || {}).id;
 
     const navigateToTheDetail = () =>
         accountingScheme && push(urls.accountingSchemes.detail, accountingScheme.id);
 
-    let selectedCurrencyValue: SelectItem | undefined;
-
-    const handleSelectCurrency = (id: number) => {
+    const handleSelectCurrency = (id: Opt<number>) => {
         currencyId = id;
         myForm.validate();
     };
@@ -94,7 +92,7 @@
                                     id="currencyId"
                                     label={$_('page.accountingSchemes.add.currency')}
                                     {currencyId}
-                                    form={$myForm}
+                                    form={myForm}
                                 />
                             </div>
                             <div class="grid-cols-1">

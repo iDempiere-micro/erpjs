@@ -43,12 +43,14 @@ describe('<EditFactoringContract>', function () {
         expect(document.body.contains(saveButton));
         expect(!saveButton.disabled);
         expect(invoicePrintNote.value).to.equal(mock1.data.factoringContract.invoicePrintNote);
-        const { getByText } = renderResult;
-        const currencyDisplayName = getByText(MOCKED_CUSTOMER_DISPLAY_NAME);
+        const { getByDisplayValue } = renderResult;
+        const currencyDisplayName = getByDisplayValue(MOCKED_CUSTOMER_DISPLAY_NAME);
         expect(document.body.contains(currencyDisplayName));
-        const orgDisplayName = getByText(mockOrganizations.data.organizations[0].displayName);
+        const orgDisplayName = getByDisplayValue(
+            mockOrganizations.data.organizations[0].displayName,
+        );
         expect(document.body.contains(orgDisplayName));
-        const fpDisplayName = getByText(
+        const fpDisplayName = getByDisplayValue(
             mockFactoringProviders.data.factoringProviders[0].displayName,
         );
         expect(document.body.contains(fpDisplayName));

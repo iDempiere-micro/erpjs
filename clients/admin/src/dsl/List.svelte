@@ -1,9 +1,9 @@
 <script lang="ts">
     import { ClassBuilder, noop } from './classes';
+    import { getListItemId, isSelected } from './validation';
 
     import ListItem from './ListItem.svelte';
-    import type { CssClassesType, ListItemType } from './types';
-    import type { OnSelectedIdType } from './types';
+    import type { CssClassesType, ListItemType, OnSelectedIdType } from './types';
 
     export let items: ListItemType[] = [];
     export let value: OnSelectedIdType = '';
@@ -22,14 +22,6 @@
 
     export let classes = classesDefault;
 
-    function id(i: ListItemType): string {
-        if (i.id !== undefined) return i.id;
-        if (i.value !== undefined) return i.value;
-        if (i.to !== undefined) return i.to;
-        if (i.text !== undefined) return i.text;
-        return `${i}`;
-    }
-
     function getText(i: ListItemType) {
         if (i.text !== undefined) return i.text;
         if (i.value !== undefined) return i.value;
@@ -39,6 +31,9 @@
     const cb = new ClassBuilder($$props.class);
 
     $: c = cb.flush().add(classes, true, classesDefault).add($$props.class).get();
+
+    console.log('*** value', value);
+    console.log('*** items', item);
 </script>
 
 <ul class={c} class:rounded-t-none={select}>
@@ -46,7 +41,7 @@
         {#if item.to !== undefined}
             <slot name="item" {item} {dense} {value}>
                 <a tabindex={i + 1} href={item.to}>
-                    <ListItem bind:value {...item} id={id(item)} {dense} on:change>
+                    <ListItem bind:value {...item} id={getListItemId(item)} {dense} on:change>
                         {item.text}
                     </ListItem>
                 </a>
@@ -60,8 +55,8 @@
                     {disabledClasses}
                     {...item}
                     tabindex={i + 1}
-                    id={id(item)}
-                    selected={value === id(item)}
+                    id={getListItemId(item)}
+                    selected={isSelected(value, item)}
                     {dense}
                     on:change
                     on:click
