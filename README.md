@@ -13,6 +13,7 @@ so you can even get advanced features such as User Federation, Identity Brokerin
 
 ![image](https://user-images.githubusercontent.com/436605/119708755-c10c2780-be5c-11eb-8d2f-75419b2d2bf5.png)
 
+![image](https://user-images.githubusercontent.com/436605/119709498-9078bd80-be5d-11eb-9bbd-ef3b3b3d7e1b.png)
 
 ## I want to quickly test by myself
 Cool! You can either use or [Quick Setup Guide](https://github.com/iDempiere-micro/erpjs/wiki/Quick-setup) or see the demo (once it is ready).
