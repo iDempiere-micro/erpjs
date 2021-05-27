@@ -30,3 +30,6 @@ happening by having all your important data on your laptop or own server.
 
 ## Discuss, chat
 [EolERP Discord](https://discord.gg/EQdCxbHnXS).
+
+## Current status
+Currently we have the sales invoicing flow completed so you can add customers, products etc. and create and print the sales invoices (the invoices you are sending to your customers to get money). So something like an online invoice generator is already completed.
