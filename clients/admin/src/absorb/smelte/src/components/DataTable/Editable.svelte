@@ -1,8 +1,7 @@
 <script>
     import { ClassBuilder } from '../../../../../dsl/classes';
     import { createEventDispatcher } from 'svelte';
-    import TextField from '../TextField';
-    import Icon from '../Icon';
+    import TextField from '../../../../../dsl/TextField.svelte';
 
     const classesDefault =
         'absolute left-0 top-0 z-10 bg-white dark:bg-dark-400 p-2 shadow rounded';

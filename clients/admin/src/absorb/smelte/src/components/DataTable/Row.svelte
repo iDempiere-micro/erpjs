@@ -2,8 +2,6 @@
     import { ClassBuilder } from '../../../../../dsl/classes';
     import { createEventDispatcher } from 'svelte';
     import Editable from './Editable.svelte';
-    import { Spacer } from '../Util';
-    import Icon from '../Icon';
 
     const classesDefault =
         'hover:bg-gray-50 dark-hover:bg-dark-400 border-gray-200 dark:border-gray-400 border-t border-b px-3';

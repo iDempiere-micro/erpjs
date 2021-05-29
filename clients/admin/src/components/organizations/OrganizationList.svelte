@@ -8,10 +8,8 @@
     export let organizations: OrganizationRow[] | undefined;
 
     const columns = [
-        {
-            name: $_('page.organizations.list.column1.title'),
-            cellComponent: FirstColumn,
-        },
+        { label: "Display Name", field: "displayName", class: "md:w-10", },
+        { label: "Legal Name", field: "displayName", class: "md:w-10", },
     ];
 
     const rowActions: RowAction[] = [

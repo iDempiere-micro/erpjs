@@ -1,10 +1,9 @@
 <script>
     import { ClassBuilder } from '../../../../../dsl/classes';
     import { createEventDispatcher } from 'svelte';
-    import Select from '../Select';
-    import Button from '../Button';
     import { Spacer } from '../Util';
-    import Icon from '../Icon';
+    import Button from '../../../../../dsl/Button.svelte';
+    import Select from '../../../../../dsl/Select.svelte';
 
     const classesDefault = 'flex justify-between items-center text-gray-700 text-sm w-full h-16';
 

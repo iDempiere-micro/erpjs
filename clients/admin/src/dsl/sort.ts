@@ -1,9 +1,9 @@
-export default function sort(data, col, asc) {
+export function defaultSort(data :any, col:any, asc: boolean) {
   if (!col) return data;
 
   if (col.sort) return col.sort(data);
 
-  const sorted = data.sort((a, b) => {
+  return data.sort((a: any, b: any) => {
     const valA = col.value ? col.value(a) : a[col.field];
     const valB = col.value ? col.value(b) : b[col.field];
 
@@ -16,6 +16,4 @@ export default function sort(data, col, asc) {
 
     return ("" + first).localeCompare(second);
   });
-
-  return sorted;
 }

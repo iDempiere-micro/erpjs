@@ -1,7 +1,7 @@
 <script>
     import { ClassBuilder } from '../../../../../dsl/classes';
     import { createEventDispatcher } from 'svelte';
-    import Icon from '../Icon';
+    import Icon from '../../../../../dsl/Icon.svelte';
 
     const classesDefault =
         'capitalize duration-100 text-gray-600 text-xs hover:text-black dark-hover:text-white p-3 font-normal text-right';

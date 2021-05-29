@@ -1,17 +1,13 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     import { slide } from 'svelte/transition';
-    import { ClassBuilder } from '../../../../../dsl/classes';
-    import Icon from '../Icon';
-    import Button from '../Button';
-    import TextField from '../TextField';
-    import ProgressLinear from '../ProgressLinear';
+    import { ClassBuilder } from './classes';
+    import ProgressLinear from '../absorb/smelte/src/components/ProgressLinear';
 
-    import Header from './Header.svelte';
-    import Row from './Row.svelte';
-    import Pagination from './Pagination.svelte';
-
-    import defaultSort from './sort.d.ts';
+    import Header from '../absorb/smelte/src/components/DataTable/Header.svelte';
+    import Row from '../absorb/smelte/src/components/DataTable/Row.svelte';
+    import Pagination from '../absorb/smelte/src/components/DataTable/Pagination.svelte';
+    import { defaultSort } from './sort';
 
     const classesDefault = 'shadow relative text-sm overflow-x-auto dark:bg-dark-500';
 
