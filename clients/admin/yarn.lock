@@ -5283,6 +5283,15 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
+carbon-components-svelte@^0.33.0:
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/carbon-components-svelte/-/carbon-components-svelte-0.33.0.tgz#eb09cdfbb36daffb217f7c0dea92e36daa7c37f7"
+  integrity sha512-bVobGZsHc8/EqpzyJ8y/iL+SaLb1JkRsHSPaLiKfDtmF5m2Ft6d5iP5QfNmSCEiJNb7ZmvP54odsitZo0lWoGQ==
+  dependencies:
+    carbon-icons-svelte "^10.27.0"
+    clipboard-copy "3.2.0"
+    flatpickr "4.6.9"
+
 carbon-components@^10.30.0:
   version "10.30.0"
   resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.30.0.tgz#c572620361ffdc8f4f67ed84b19ca2e29a912330"
@@ -5292,6 +5301,11 @@ carbon-components@^10.30.0:
     flatpickr "4.6.1"
     lodash.debounce "^4.0.8"
     warning "^3.0.0"
+
+carbon-icons-svelte@^10.27.0:
+  version "10.28.0"
+  resolved "https://registry.yarnpkg.com/carbon-icons-svelte/-/carbon-icons-svelte-10.28.0.tgz#812a6eae858d0c9e043067c714910fcfb6249cd2"
+  integrity sha512-C3K+U2PRy63WHFZme1HQNju89rhVIQmUkfgBrZzcezdutkhXbSPOY+o/MI0B2mDcQ7G9gfhEpqsXET8gBTWfJQ==
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"
@@ -5552,6 +5566,11 @@ cli-width@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-3.0.0.tgz#a2f48437a2caa9a22436e794bf071ec9e61cedf6"
   integrity sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
+
+clipboard-copy@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/clipboard-copy/-/clipboard-copy-3.2.0.tgz#3c5b8651d3512dcfad295d77a9eb09e7fac8d5fb"
+  integrity sha512-vooFaGFL6ulEP1liiaWFBmmfuPm3cY3y7T9eB83ZTnYc/oFeAKsq3NcDrOkBC8XaauEE8zHQwI7k0+JSYiVQSQ==
 
 clipboard@^2.0.0:
   version "2.0.8"
@@ -7783,6 +7802,11 @@ flatpickr@4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.1.tgz#9eb498ab805dd27f5ae02e1ac6ac6c099ce45e94"
   integrity sha512-3ULSxbXmcMIRzer/2jLNweoqHpwDvsjEawO2FUd9UFR8uPwLM+LruZcPDpuZStcEgbQKhuFOfXo4nYdGladSNw==
+
+flatpickr@4.6.9:
+  version "4.6.9"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
+  integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
 
 flatted@^2.0.0:
   version "2.0.2"
