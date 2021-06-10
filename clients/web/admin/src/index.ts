@@ -1,7 +1,7 @@
 import App from './App.svelte';
 
 const app = new App({
-    target: document.querySelector( '#admin' )!,
+    target: document.querySelector('#admin')!,
 });
 
 export default app;
