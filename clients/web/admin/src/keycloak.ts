@@ -20,6 +20,7 @@ export const authenticate = (callback: () => void): void => {
                 } else {
                     const { token } = keycloak;
                     if (token) {
+                        // save the token
                         (window as any).token = token;
                         callback();
                     }

@@ -1,34 +1,42 @@
-const express = require("express");
+import express from "express";
+import Layout from "@podium/layout";
+
+require('dotenv').config();
 const app = express();
 
-const Index = require("@podium/layout");
-
 // registering the layout
-const layout = new Index({
+const layout = new Layout({
   name: "layout", // required
   pathname: "/", // required
 });
 
-for (let i = 1; i < +process.env.APPS; i++) {
-  const app = {
-    name : process.env[`APP_${i}_NAME`],
-    uri: process.env[`APP_${i}_URI`]
-  };
+interface AppRegistration {
+  name: string;
+  uri: string;
+  oldId?: string;
+  newId?: string;
 }
 
-// registering the Svelte micro frontends (podlets)
-const sveltemessagepod = layout.client.register({
-  name: "svelteMessagePod", // required
-  uri: "http://localhost:7100/manifest.json", // required
-});
-const sveltereceivepod = layout.client.register({
-  name: "svelteReceivePod", // required
-  uri: "http://localhost:7101/manifest.json", // required
-});
-const layoutpod = layout.client.register({
-  name: "layoutPod", // required
-  uri: "http://localhost:7102/manifest.json", // required
-});
+const appRegistrations : AppRegistration[] = [];
+
+for (let i = 1; i < +(process.env.APPS || '0') + 1; i++) {
+  const app = {
+    name : process.env[`APP_${i}_NAME`],
+    uri: process.env[`APP_${i}_URI`],
+    oldId: process.env[`APP_${i}_FROM_ID`],
+    newId: process.env[`APP_${i}_TO_ID`],
+  };
+  if (app.name && app.uri) appRegistrations.push({...app, name: app.name, uri: app.uri});
+}
+
+const apps : any[] = [];
+
+for (let {name, uri} of appRegistrations) {
+  apps.push(layout.client.register({
+    name,
+    uri
+  }));
+}
 
 app.use(layout.middleware());
 
@@ -37,30 +45,27 @@ app.get("/", async (req: any, res: any) => {
   const incoming = res.locals.podium;
 
   //fetching the podlet data
-  const content = await Promise.all([
-    sveltemessagepod.fetch(incoming),
-    sveltereceivepod.fetch(incoming),
-    layoutpod.fetch(incoming),
-  ]);
+  const content = await Promise.all(
+      apps.map((app)=>app.fetch(incoming))
+  );
 
   //binding the podlet data to the layout
   incoming.podlets = content;
   incoming.view.title = "Home Page";
 
   const result = `<div>
-    ${content[2]}
-    ${content[0]}
-    ${content[1]}
+    ${content.join()}
   </div>
   <script>
     console.log('*** main app loaded');
     
     const moveApplications = () => { 
         const applications = [
-          { oldId: 'svelte-message', newId: 'svelte-message2' }  ,
-          { oldId: 'svelte-receive', newId: 'svelte-receive2' }
-        ];
-        for ( const {oldId, newId} of applications ) {
+          ${appRegistrations.filter(({oldId, newId}) => oldId && newId).map(
+      ({oldId, newId}) => `{ oldId: '${oldId}', newId: '${newId}' },`
+  )}  
+        ].filter(Boolean);
+        for ( let {oldId, newId} of applications ) {
           const newParent = document.getElementById(newId);
           const oldParent = document.getElementById(oldId);
       
@@ -79,4 +84,4 @@ app.get("/", async (req: any, res: any) => {
 });
 
 
-app.listen(7000);
+app.listen(process.env.PORT || 5000);

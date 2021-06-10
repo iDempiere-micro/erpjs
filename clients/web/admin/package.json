@@ -16,7 +16,11 @@
   },
   "dependencies": {
     "sirv-cli": "^1.0.11",
-    "svelte": "^3.38.2"
+    "svelte": "^3.38.2",
+    "@podium/browser": "^1.0.0-beta.2",
+    "@podium/podlet": "^4.3.3",
+    "express": "^4.17.1",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "@apollo/client": "^3.3.7",

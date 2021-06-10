@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@podium/layout": "^4.5.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
     "@types/podium": "^1.0.0",
