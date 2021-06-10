@@ -9,7 +9,7 @@ const run = async (cmd, cwd) => {
 const myArgs = process.argv.slice(2);
 
 const doIt = async () => {
-    const apps = [ 'base-app', 'snowpack-typescript', 'svelte-message-pod', 'svelte-receive-pod' ];
+    const apps = [ 'admin', 'base-app'];
     for (const app of apps ) {
         await run(myArgs[0], app);
     }

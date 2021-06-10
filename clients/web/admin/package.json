@@ -2,6 +2,9 @@
   "scripts": {
     "start": "snowpack dev",
     "mock": "cross-env MOCK=mock snowpack dev",
+    "watch": "snowpack build --watch",
+    "podlet": "node podlet.js",
+    "dev": "npm-run-all -p watch podlet",
     "build": "cross-env NODE_ENV=production snowpack build",
     "generate": "graphql-codegen --config codegen.yml",
     "prettier": "prettier --write --plugin-search-dir=. \"src/**/*.svelte\" \"src/**/*.ts\"",
@@ -94,6 +97,7 @@
     "keycloak-js": "^12.0.4",
     "merge-deep": "^3.0.3",
     "mock-apollo-client": "^1.1.0",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8",
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.0",
