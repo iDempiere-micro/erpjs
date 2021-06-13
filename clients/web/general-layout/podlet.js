@@ -9,7 +9,7 @@ app.use(cors());
 
 // Basic definition of the podlet
 const podlet = new Podlet({
-  name: "layoutPod", // required
+  name: "generalLayout", // required
   version: "0.1.0", // required
   pathname: "/", // required
   manifest: "/manifest.json", // optional, defaults to '/manifest.json'
@@ -30,6 +30,7 @@ podlet.css({ value: "https://unpkg.com/carbon-components-svelte@0.14.0/css/all.c
 app.use("/build", express.static("build/"));
 app.use("/dist", express.static("build/dist"));
 app.use("/_snowpack", express.static("build/_snowpack"));
+app.use("/_snowpack/pkg", express.static("build/_snowpack/pkg"));
 
 // apply middleware
 app.use(podlet.middleware());

@@ -19,8 +19,8 @@ interface AppRegistration {
 
 const appRegistrations : AppRegistration[] = [
   {
-    name: process.env[`LAYOUT_APP_NAME`] || 'layoutPod',
-    uri: process.env[`LAYOUT_APP_URI`] || 'http://localhost:7100/manifest.json'
+    name: process.env[`LAYOUT_APP_NAME`] || 'generalLayout',
+    uri: process.env[`LAYOUT_APP_URI`] || 'http://localhost:7102/manifest.json',
   }
 ];
 
@@ -31,7 +31,7 @@ for (let i = 1; i < +(process.env.APPS || '0') + 1; i++) {
     oldId: process.env[`APP_${i}_FROM_ID`],
     newId: process.env[`APP_${i}_TO_ID`],
   };
-  if (app.name && app.uri) appRegistrations.push({...app, name: app.name, uri: app.uri});
+  if (app.name && app.uri && app.oldId && app.newId) appRegistrations.push({oldId: app.oldId, newId: app.newId, name: app.name, uri: app.uri});
 }
 
 const apps : any[] = [];
