@@ -2,6 +2,7 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
+    "clean": "rimraf node_modules/.cache/.snowpack",
     "dev": "npm-run-all -p watch podlet",
     "podlet": "node podlet.js",
     "test": "web-test-runner \"src/**/*.test.ts\"",

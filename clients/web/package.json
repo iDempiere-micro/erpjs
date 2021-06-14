@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "installAll": "node process.js \"yarn\"",
+    "cleanAll": "node process.js \"yarn clean\"",
     "admin": "(cd ./admin && yarn dev)",
     "base-app": "(cd ./base-app && yarn dev)",
     "general-layout": "(cd ./general-layout && yarn dev)",
