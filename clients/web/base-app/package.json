@@ -4,6 +4,7 @@
   "description": "The base application to run all the others",
   "main": "index.ts",
   "scripts": {
+    "clean": "rimraf node_modules/.cache/snowpack",
     "start": "node .",
     "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src",
     "start:dev": "nodemon dist/index.js",
@@ -20,6 +21,7 @@
     "@types/express": "^4.17.12",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "typescript": "^4.3.2"
   }
 }

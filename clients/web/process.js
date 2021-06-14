@@ -9,7 +9,7 @@ const run = async (cmd, cwd) => {
 const myArgs = process.argv.slice(2);
 
 const doIt = async () => {
-    const apps = [ 'admin', 'base-app'];
+    const apps = [ 'admin', 'base-app', 'general-layout' ];
     for (const app of apps ) {
         await run(myArgs[0], app);
     }
