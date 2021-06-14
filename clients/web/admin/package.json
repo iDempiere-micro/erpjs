@@ -2,7 +2,7 @@
   "scripts": {
     "start": "snowpack dev",
     "mock": "cross-env MOCK=mock snowpack dev",
-    "watch": "nodemon --watch src \"snowpack build\"",
+    "watch": "nodemon -e svelte,ts,js,json --watch src --exec \"yarn build\"",
     "podlet": "node podlet.js",
     "clean": "rimraf node_modules/.cache/snowpack",
     "dev": "npm-run-all -p watch podlet",

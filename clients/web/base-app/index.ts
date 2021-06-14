@@ -61,6 +61,7 @@ app.get("/", async (req: any, res: any) => {
   const result = `<div>
     ${content.join('')}
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/keycloak-js@13.0.1/dist/keycloak.min.js"></script>
   <script>
     console.log('*** main app loaded');
     
@@ -80,11 +81,11 @@ app.get("/", async (req: any, res: any) => {
         }
     };
     
-    export const authenticate = (callback) => {
-    if (!process.env.MOCK && !process.env.FAKE_TOKEN && !window.token) {
+    const authenticate = (callback) => {
+    if (!${process.env.MOCK} && !${process.env.FAKE_TOKEN} && !window.token) {
         const keycloak = Keycloak({
-            url: process.env.KEYCLOAK_BASE_URL,
-            realm: process.env.KEYCLOAK_REALM || 'erpjs',
+            url: ${process.env.KEYCLOAK_BASE_URL} || 'http://localhost:8080/auth',
+            realm: ${process.env.KEYCLOAK_REALM} || 'erpjs',
             clientId: 'erpjs',
             flow: 'implicit',
         });
@@ -93,7 +94,7 @@ app.get("/", async (req: any, res: any) => {
             .then(function (authenticated) {
                 if (!authenticated) {
                     keycloak.login({
-                        redirectUri: process.env.URL,
+                        redirectUri: ${process.env.URL} || 'http://localhost:5000',
                     });
                 } else {
                     const { token } = keycloak;

@@ -6,7 +6,7 @@
     "dev": "npm-run-all -p watch podlet",
     "podlet": "node podlet.js",
     "test": "web-test-runner \"src/**/*.test.ts\"",
-    "watch": "nodemon --watch src --exec \"yarn build\""
+    "watch": "nodemon -e svelte,ts,js --watch src --exec \"yarn build\""
   },
   "dependencies": {
     "svelte": "^3.37.0",

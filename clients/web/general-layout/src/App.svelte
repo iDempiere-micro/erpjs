@@ -23,15 +23,6 @@
 	<Content style="background: none; padding: 1rem">
 		<Grid>
 			<Row>
-				<Column lg="{16}">
-					<Breadcrumb noTrailingSlash aria-label="Page navigation">
-						<BreadcrumbItem href="/">Getting started</BreadcrumbItem>
-					</Breadcrumb>
-					<h1 style="margin-bottom: 1.5rem">Design &amp; build with Carbon and Snowpack!</h1>
-				</Column>
-			</Row>
-
-			<Row>
 				<Column noGutter>
 					<div id='content'></div>
 				</Column>

@@ -3,7 +3,6 @@
     import Router from 'svelte-spa-router';
     import './main.css';
     import { setupLocales } from './i18n';
-    import { authenticate } from './keycloak';
     import { apollo, setClient } from './lib/support/apollo';
     import './smelte.copy.css';
 
@@ -12,9 +11,7 @@
     setupLocales();
 
     $: {
-        authenticate(() => {
-            setClient(apollo());
-        });
+      setClient(apollo());
     }
 </script>
 
