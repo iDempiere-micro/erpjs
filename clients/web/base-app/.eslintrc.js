@@ -29,5 +29,5 @@ module.exports = {
         'svelte3/typescript': require('typescript'),
         'svelte3/ignore-styles': () => true
     },
-    ignorePatterns: ['node_modules']
+    ignorePatterns: ['node_modules','.eslintrc.js']
 };

@@ -1,7 +1,7 @@
 import App from './App.svelte';
 
-var app = new App({
-    target: document.querySelector('#svelte-layout')!,
+const app = new App({
+    target: document.querySelector('#svelte-layout') || document.body,
 });
 
 export default app;

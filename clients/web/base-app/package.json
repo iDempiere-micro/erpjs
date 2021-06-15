@@ -13,8 +13,8 @@
     "prettier": "prettier --write --plugin-search-dir=. \"*.ts\"",
     "prettier:check": "prettier --check --plugin-search-dir=. \"*.ts\"",
     "svelte-check": "svelte-check --ignore \"src/stories,src/absorb\"",
-    "lint": "eslint \"./src/**/*.{js,ts}\" --resolve-plugins-relative-to . --quiet",
-    "lint:fix": "eslint --fix \"./src/**/*.{js,ts}\" --resolve-plugins-relative-to ."
+    "lint": "eslint \"*.{js,ts}\" --resolve-plugins-relative-to . --quiet",
+    "lint:fix": "eslint --fix \"*.{js,ts}\" --resolve-plugins-relative-to ."
   },
   "dependencies": {
     "@podium/layout": "^4.5.1",
@@ -31,6 +31,10 @@
     "prettier-plugin-svelte": "^2.1.1",
     "rimraf": "^3.0.2",
     "svelte-check": "^1.1.28",
-    "typescript": "^4.3.2"
+    "typescript": "^4.3.2",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-svelte3": "^3.2.0"
   }
 }

@@ -1,7 +1,8 @@
 import express from 'express';
 import Layout from '@podium/layout';
+import {config} from 'dotenv';
 
-require('dotenv').config();
+config();
 const app = express();
 
 // registering the layout
@@ -35,9 +36,10 @@ for (let i = 1; i < +(process.env.APPS || '0') + 1; i++) {
         appRegistrations.push({ oldId: app.oldId, newId: app.newId, name: app.name, uri: app.uri });
 }
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const apps: any[] = [];
 
-for (let { name, uri } of appRegistrations) {
+for (const { name, uri } of appRegistrations) {
     apps.push(
         layout.client.register({
             name,
@@ -48,6 +50,7 @@ for (let { name, uri } of appRegistrations) {
 
 app.use(layout.middleware());
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const pageContent = async (req: any, res: any) => {
     const incoming = res.locals.podium;
 
