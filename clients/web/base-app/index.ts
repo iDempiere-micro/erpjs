@@ -1,6 +1,7 @@
 import express from 'express';
 import Layout from '@podium/layout';
 import {config} from 'dotenv';
+import {App, AppRegistration, Feature, FeatureRegistration} from "./types";
 
 config();
 const app = express();
@@ -11,17 +12,16 @@ const layout = new Layout({
     pathname: '/', // required
 });
 
-interface AppRegistration {
-    name: string;
-    uri: string;
-    oldId?: string;
-    newId?: string;
-}
+const features: Feature[] = [
+    { name : 'home', uriSegment: '/'},
+    { name : 'invoicing', uriSegment: '/invoicing'},
+]
 
 const appRegistrations: AppRegistration[] = [
     {
         name: process.env[`LAYOUT_APP_NAME`] || 'generalLayout',
         uri: process.env[`LAYOUT_APP_URI`] || 'http://localhost:7102/manifest.json',
+        featureName: '*'
     },
 ];
 
@@ -31,31 +31,40 @@ for (let i = 1; i < +(process.env.APPS || '0') + 1; i++) {
         uri: process.env[`APP_${i}_URI`],
         oldId: process.env[`APP_${i}_FROM_ID`],
         newId: process.env[`APP_${i}_TO_ID`],
+        featureName: process.env[`APP_${i}_FEATURE`],
     };
-    if (app.name && app.uri && app.oldId && app.newId)
-        appRegistrations.push({ oldId: app.oldId, newId: app.newId, name: app.name, uri: app.uri });
+    if (app.name && app.uri && app.oldId && app.newId && app.featureName)
+        appRegistrations.push({ oldId: app.oldId, newId: app.newId, name: app.name, uri: app.uri, featureName: app.featureName });
 }
 
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-const apps: any[] = [];
 
-for (const { name, uri } of appRegistrations) {
-    apps.push(
-        layout.client.register({
-            name,
-            uri,
-        }),
+const allApps: App[] = [];
+
+for (const registration of appRegistrations) {
+    const { name, uri } = registration;
+    allApps.push(
+        {
+            registration,
+            podiumRegisteredClient: layout.client.register({
+                name,
+                uri,
+            }),
+        }
     );
+}
+
+for (const feature of features) {
+    feature.apps = allApps.filter(({registration}) => registration.featureName === '*' || registration.featureName === feature.name );
 }
 
 app.use(layout.middleware());
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-const pageContent = async (req: any, res: any) => {
+const pageContent = (feature: Feature) => async (req: any, res: any) => {
     const incoming = res.locals.podium;
 
     //fetching the podlet data
-    const content = await Promise.all(apps.map((app) => app.fetch(incoming)));
+    const content = await Promise.all( (feature.apps || []).map(({podiumRegisteredClient}) => podiumRegisteredClient.fetch(incoming)));
 
     //binding the podlet data to the layout
     incoming.podlets = content;
@@ -78,9 +87,11 @@ const pageContent = async (req: any, res: any) => {
           const newParent = document.getElementById(newId);
           const oldParent = document.getElementById(oldId);
       
-          while (oldParent.childNodes.length > 0) {
-              newParent.appendChild(oldParent.childNodes[0]);
-          }            
+          if (oldParent && newParent) {
+              while (oldParent.childNodes.length > 0) {
+                  newParent.appendChild(oldParent.childNodes[0]);
+              }                          
+          }
         }
     };
     
@@ -121,7 +132,8 @@ const pageContent = async (req: any, res: any) => {
     res.podiumSend(result);
 };
 
-// what should be returned when someone goes to the root URL
-app.get('/', pageContent);
+for (const feature of features) {
+    app.get(feature.uriSegment, pageContent(feature));
+}
 
 app.listen(process.env.PORT || 5000);
