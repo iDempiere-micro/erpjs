@@ -11,7 +11,7 @@
     setupLocales();
 
     $: {
-      setClient(apollo());
+        setClient(apollo());
     }
 </script>
 

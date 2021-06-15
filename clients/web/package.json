@@ -4,12 +4,15 @@
   "description": "EolERP micro frontends web application",
   "main": "index.js",
   "scripts": {
-    "installAll": "node process.js \"yarn\"",
+    "installAll": "node process.js \"yarn install\"",
     "cleanAll": "node process.js \"yarn clean\"",
     "admin": "(cd ./admin && yarn dev)",
     "base-app": "(cd ./base-app && yarn dev)",
     "general-layout": "(cd ./general-layout && yarn dev)",
-    "start": "npm-run-all -p general-layout admin base-app"
+    "start": "npm-run-all -p general-layout admin base-app",
+    "prettierAll": "node process.js \"yarn prettier\"",
+    "lintFixAll": "node process.js \"yarn lint:fix\"",
+    "svelteCheckAll": "node process.js \"yarn svelte-check\""
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",
