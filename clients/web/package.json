@@ -9,7 +9,8 @@
     "admin": "(cd ./admin && yarn dev)",
     "base-app": "(cd ./base-app && yarn dev)",
     "general-layout": "(cd ./general-layout && yarn dev)",
-    "start": "npm-run-all -p general-layout admin base-app",
+    "homepage": "(cd ./homepage && yarn dev)",
+    "start": "npm-run-all -p general-layout admin base-app homepage",
     "prettierAll": "node process.js \"yarn prettier\"",
     "lintFixAll": "node process.js \"yarn lint:fix\"",
     "svelteCheckAll": "node process.js \"yarn svelte-check\""

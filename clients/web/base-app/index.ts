@@ -23,6 +23,14 @@ const appRegistrations: AppRegistration[] = [
         uri: process.env[`LAYOUT_APP_URI`] || 'http://localhost:7102/manifest.json',
         featureName: '*'
     },
+    {
+        name: process.env[`HOMEPAGE_APP_NAME`] || 'homepage',
+        uri: process.env[`HOMEPAGE_APP_URI`] || 'http://localhost:7103/manifest.json',
+        featureName: 'home',
+        oldId: 'homepage',
+        newId: 'content'
+    },
+
 ];
 
 for (let i = 1; i < +(process.env.APPS || '0') + 1; i++) {
