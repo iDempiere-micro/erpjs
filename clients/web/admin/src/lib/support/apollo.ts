@@ -25,10 +25,8 @@ const errorHandlers = [
     {
         error: 'Request failed with status code 401',
         handler: () => {
-            /* (window as any).token = null;
-            window.location.replace('/'); */
-
-            console.log('**** WAAAH');
+            (window as any).token = null;
+            window.location.reload();
         },
     },
 ];
