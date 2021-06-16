@@ -37,6 +37,8 @@
         });
         ctx.updateVar('--cds-productive-heading-06-font-size', '4rem');
     }
+
+    const features = (window as any).features;
 </script>
 
 <Header company="IBM" platformName="Carbon Svelte" bind:isSideNavOpen>
@@ -46,14 +48,10 @@
     <HeaderUtilities>
         <HeaderAction bind:isOpen>
             <HeaderPanelLinks>
-                <HeaderPanelDivider>Switcher subject 1</HeaderPanelDivider>
-                <HeaderPanelLink>Switcher item 1</HeaderPanelLink>
-                <HeaderPanelDivider>Switcher subject 2</HeaderPanelDivider>
-                <HeaderPanelLink>Switcher item 1</HeaderPanelLink>
-                <HeaderPanelLink>Switcher item 2</HeaderPanelLink>
-                <HeaderPanelLink>Switcher item 3</HeaderPanelLink>
-                <HeaderPanelLink>Switcher item 4</HeaderPanelLink>
-                <HeaderPanelLink>Switcher item 5</HeaderPanelLink>
+                <HeaderPanelDivider>Features</HeaderPanelDivider>
+                {#each features as feature}
+                    <HeaderPanelLink href={feature.uriSegment}>{feature.name}</HeaderPanelLink>
+                {/each}
             </HeaderPanelLinks>
         </HeaderAction>
     </HeaderUtilities>

@@ -14,7 +14,7 @@ const layout = new Layout({
 
 const features: Feature[] = [
     { name : 'home', uriSegment: '/'},
-    { name : 'invoicing', uriSegment: '/invoicing'},
+    { name : 'invoicing', uriSegment: '/invoicing'}
 ]
 
 const appRegistrations: AppRegistration[] = [
@@ -84,6 +84,11 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
   <script src="https://cdn.jsdelivr.net/npm/keycloak-js@13.0.1/dist/keycloak.min.js"></script>
   <script>
     console.log('*** main app loaded');
+
+    const features = [
+        ${features.map(({name, uriSegment}) => `{ name: '${name}', uriSegment: '${uriSegment}' }` )}
+    ];
+    window.features = features;
     
     const moveApplications = () => { 
         const applications = [
