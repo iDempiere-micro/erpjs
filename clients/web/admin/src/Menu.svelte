@@ -6,6 +6,7 @@
     import type { MenuQuery } from './generated/graphql';
     import { GET_MENU } from './lib/queries/menu';
     import { apollo, setClient } from './lib/support/apollo';
+    import { MessageBus } from '@podium/browser';
 
     export let segment: string;
     export let mobile: boolean | null;
@@ -24,28 +25,14 @@
     }, 1000);
     $: {
         if (menuResult && $menuResult.data) {
+            const menu = $menuResult?.data?.menu[0];
             $menuStore = $menuResult?.data?.menu[0];
+            if (menu) {
+                const menuItems = menu.items.map((x)=>({ href: `#/${x.to}`, text: $_(x.displayName) }))
+
+                const messageBus = new MessageBus();
+                messageBus.publish('menu', 'newMenu', menuItems);
+            }
         }
     }
 </script>
-
-<div class="ml-10 flex items-baseline space-x-4">
-    {#if $menuStore}
-        {#each ($menuStore || { items: [] }).items as menuItem}
-            <a
-                href={`#/${menuItem.to}`}
-                data-testid={`menu-${menuItem.id}-${mobile ? 'mobile' : 'desktop'}`}
-                class={mobile
-                    ? segment === menuItem.to
-                        ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-                    : segment === menuItem.to
-                    ? 'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'}
-                >{$_(menuItem.displayName)}</a
-            >
-        {/each}
-    {:else}
-        Loading menu...
-    {/if}
-</div>

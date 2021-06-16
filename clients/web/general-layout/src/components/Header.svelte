@@ -1,28 +1,22 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
+    import {getContext} from 'svelte';
     import {
         Header,
-        HeaderUtilities,
         HeaderAction,
-        HeaderPanelLinks,
         HeaderPanelDivider,
         HeaderPanelLink,
+        HeaderPanelLinks,
+        HeaderUtilities,
         SideNav,
         SideNavItems,
+        SideNavLink,
         SideNavMenu,
         SideNavMenuItem,
-        SideNavLink,
         SkipToContent,
-        Content,
-        Grid,
-        Row,
-        Column,
-        TileGroup,
-        RadioTile,
     } from 'carbon-components-svelte';
-    import { expoIn } from 'svelte/easing';
-    import { MessageBus } from '@podium/browser';
+    import {MessageBus} from '@podium/browser';
     import {writable} from "svelte/store";
+    import type {MenuItem} from "../types";
 
     let isOpen = false;
 
@@ -45,6 +39,12 @@
         features.set(event.payload as any[]);
     });
     const features = writable([]);
+
+    messageBus.subscribe('menu', 'newMenu', event => {
+        console.log('*** got menu', event.payload);
+        menu.set(event.payload as any[]);
+    });
+    const menu = writable<MenuItem[]>([]);
 </script>
 
 <Header company="IBM" platformName="Carbon Svelte" bind:isSideNavOpen>
@@ -65,13 +65,14 @@
 
 <SideNav bind:isOpen={isSideNavOpen}>
     <SideNavItems>
-        <SideNavLink text="Link 1" />
-        <SideNavLink text="Link 2" />
-        <SideNavLink text="Link 3" />
-        <SideNavMenu text="Menu">
-            <SideNavMenuItem href="/" text="Link 1" />
-            <SideNavMenuItem href="/" text="Link 2" />
-            <SideNavMenuItem href="/" text="Link 3" />
-        </SideNavMenu>
+        {#each $menu as menuItem}
+            <SideNavLink text={menuItem.text} href={'#'+menuItem.href}>
+                {#if menuItem.children}
+                    <SideNavMenuItem href="/" text="Link 1" />
+                    <SideNavMenuItem href="/" text="Link 2" />
+                    <SideNavMenuItem href="/" text="Link 3" />
+                {/if}
+            </SideNavLink>
+        {/each}
     </SideNavItems>
 </SideNav>

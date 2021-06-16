@@ -6,8 +6,8 @@
     export let theme: Theme = 'white';
     export const themes: Theme[] = ['white', 'g10', 'g90', 'g100'];
 
-    import { onMount, afterUpdate, setContext } from 'svelte';
-    import { writable, derived } from 'svelte/store';
+    import {afterUpdate, onMount, setContext} from 'svelte';
+    import {derived, writable} from 'svelte/store';
 
     const isValidTheme = (value) => themes.includes(value);
     const isDark = (value) => isValidTheme(value) && (value === 'g90' || value === 'g100');
