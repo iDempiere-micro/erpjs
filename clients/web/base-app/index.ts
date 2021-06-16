@@ -81,6 +81,7 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
     const result = `<div>
     ${content.join('')}
   </div>
+  <script type="module" src="/dist/index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/keycloak-js@13.0.1/dist/keycloak.min.js"></script>
   <script>
     console.log('*** main app loaded');
@@ -88,7 +89,6 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
     const features = [
         ${features.map(({name, uriSegment}) => `{ name: '${name}', uriSegment: '${uriSegment}' }` )}
     ];
-    window.features = features;
     
     const moveApplications = () => { 
         const applications = [
@@ -106,6 +106,8 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
               }                          
           }
         }
+        
+        window.publishFeatures(features);
     };
     
     const authenticate = (callback) => {
@@ -144,6 +146,8 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
 
     res.podiumSend(result);
 };
+
+app.use(express.static('client/build'))
 
 for (const feature of features) {
     app.get(feature.uriSegment, pageContent(feature));

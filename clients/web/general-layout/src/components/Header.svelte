@@ -21,6 +21,8 @@
         RadioTile,
     } from 'carbon-components-svelte';
     import { expoIn } from 'svelte/easing';
+    import { MessageBus } from '@podium/browser';
+    import {writable} from "svelte/store";
 
     let isOpen = false;
 
@@ -38,7 +40,11 @@
         ctx.updateVar('--cds-productive-heading-06-font-size', '4rem');
     }
 
-    const features = (window as any).features;
+    const messageBus = new MessageBus();
+    messageBus.subscribe('features', 'newFeatures', event => {
+        features.set(event.payload as any[]);
+    });
+    const features = writable([]);
 </script>
 
 <Header company="IBM" platformName="Carbon Svelte" bind:isSideNavOpen>
@@ -49,7 +55,7 @@
         <HeaderAction bind:isOpen>
             <HeaderPanelLinks>
                 <HeaderPanelDivider>Features</HeaderPanelDivider>
-                {#each features as feature}
+                {#each $features as feature}
                     <HeaderPanelLink href={feature.uriSegment}>{feature.name}</HeaderPanelLink>
                 {/each}
             </HeaderPanelLinks>

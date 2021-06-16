@@ -1,5 +1,5 @@
 {
-  "name": "base-app",
+  "name": "base-app-client",
   "version": "0.1.0",
   "description": "The base application to run all the others",
   "main": "index.ts",
@@ -9,8 +9,7 @@
     "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src",
     "start:dev": "nodemon dist/index.js",
     "build:dev": "tsc --watch --preserveWatchOutput",
-    "build:client": "cd client && yarn snowpack build",
-    "dev": "npm-run-all -p build:client build:dev start:dev",
+    "dev": "npm-run-all -p build:dev start:dev",
     "prettier": "prettier --write --plugin-search-dir=. \"*.ts\"",
     "prettier:check": "prettier --check --plugin-search-dir=. \"*.ts\"",
     "svelte-check": "svelte-check --ignore \"src/stories,src/absorb\"",
@@ -18,24 +17,23 @@
     "lint:fix": "eslint --fix \"*.{js,ts}\" --resolve-plugins-relative-to ."
   },
   "dependencies": {
+    "@podium/browser": "^1.0.0-beta.2",
     "@podium/layout": "^4.5.1",
-    "express": "^4.17.1",
-    "dotenv": "^10.0.0",
     "keycloak-js": "^12.0.4"
   },
   "devDependencies": {
+    "@snowpack/plugin-dotenv": "^2.1.0",
+    "@snowpack/plugin-typescript": "^1.2.1",
+    "@snowpack/web-test-runner-plugin": "^0.2.2",
     "@types/podium": "^1.0.0",
     "@types/express": "^4.17.12",
-    "nodemon": "^2.0.7",
-    "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.1.1",
     "rimraf": "^3.0.2",
-    "svelte-check": "^1.1.28",
+    "snowpack": "^3.3.7",
     "typescript": "^4.3.2",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
-    "eslint": "^7.25.0",
-    "eslint-plugin-svelte3": "^3.2.0"
+    "eslint": "^7.25.0"
   }
 }
