@@ -8,7 +8,7 @@ import { apollo, setClient } from '../lib/support/apollo';
 describe('<OrganizationDetail>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     it('renders accounting scheme detail', function (done) {

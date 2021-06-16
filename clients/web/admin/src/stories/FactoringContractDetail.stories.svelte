@@ -4,7 +4,7 @@
     import { setupLocales } from '../i18n';
     import FactoringContractDetail from '../components/factoringContract-detail/FactoringContractDetail.svelte';
 
-    const client = apollo(true);
+    const client = apollo({ forceMock: true });
 
     setupLocales();
 </script>

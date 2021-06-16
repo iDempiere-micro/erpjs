@@ -7,7 +7,7 @@ import { apollo, setClient } from '../lib/support/apollo';
 describe('<AddCustomerGroup>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     const getDisplayName = () => {

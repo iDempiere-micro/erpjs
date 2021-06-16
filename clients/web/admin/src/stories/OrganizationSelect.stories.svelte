@@ -5,7 +5,7 @@
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/organizations';
 
-    setClient(apollo(true));
+    setClient(apollo({ forceMock: true }));
     setupLocales();
 
     const defaultArgs = {

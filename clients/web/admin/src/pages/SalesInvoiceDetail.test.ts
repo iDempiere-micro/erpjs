@@ -9,7 +9,7 @@ import { apollo, setClient } from '../lib/support/apollo';
 describe('<SalesInvoiceDetail>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     it('renders sales invoice detail', function (done) {

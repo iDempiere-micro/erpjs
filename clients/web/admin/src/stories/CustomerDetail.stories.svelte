@@ -4,7 +4,7 @@
     import { setupLocales } from '../i18n';
     import CustomerDetail from '../components/customer-detail/CustomerDetail.svelte';
 
-    const client = apollo(true);
+    const client = apollo({ forceMock: true });
 
     setupLocales();
 </script>

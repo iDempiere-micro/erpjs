@@ -17,3 +17,8 @@ export type SvelteAction<U extends any[], El extends any> = (
     update?: (...args: U) => void;
     destroy?: () => void;
 } | void;
+
+export interface ApolloConfig {
+    forceMock?: boolean;
+    token?: string;
+}

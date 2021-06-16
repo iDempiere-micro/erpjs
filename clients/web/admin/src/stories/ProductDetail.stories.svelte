@@ -5,7 +5,7 @@
     import { setupLocales } from '../i18n';
     import { mock } from '../../build/dist/lib/queries/products';
 
-    const client = apollo(true);
+    const client = apollo({ forceMock: true });
 
     setupLocales();
 </script>

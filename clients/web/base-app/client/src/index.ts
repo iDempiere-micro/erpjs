@@ -1,9 +1,8 @@
 import { MessageBus } from '@podium/browser';
 
-const publishFeatures =  (features: any[]) => {
+const publish =  (channel: string, topic: string, payload?: unknown) => {
     const messageBus = new MessageBus();
-    console.log('*** going to publish', features);
-    messageBus.publish('features', 'newFeatures', features);
+    messageBus.publish(channel, topic, payload);
 }
 
-(window as any).publishFeatures = publishFeatures;
+(window as any).publish = publish;

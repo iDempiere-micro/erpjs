@@ -8,7 +8,7 @@ import { apollo, setClient } from '../lib/support/apollo';
 describe('<EditAccountingScheme>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     const getDisplayNameAndCurrency = (renderResult: RenderResult) => {

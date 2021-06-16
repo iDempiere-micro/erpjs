@@ -11,7 +11,7 @@ import { apollo, setClient } from '../lib/support/apollo';
 describe('<EditFactoringContract>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     const getElements = () =>

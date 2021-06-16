@@ -5,7 +5,7 @@
     import CustomerDetailPageHeader from '../components/customer-detail/CustomerDetailPageHeader.svelte';
     import { mock } from '../lib/queries/customer';
 
-    const client = apollo(true);
+    const client = apollo({ forceMock: true });
 
     setupLocales();
 </script>

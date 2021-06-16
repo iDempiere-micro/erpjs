@@ -8,7 +8,7 @@ import { apollo, setClient } from './lib/support/apollo';
 describe('<Nav>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     it('renders desktop menu on the homepage by default', function (done) {

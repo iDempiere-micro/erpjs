@@ -8,7 +8,7 @@ import { apollo, setClient } from '../lib/support/apollo';
 describe('<FactoringContracts>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo(true));
+        setClient(apollo({ forceMock: true }));
     });
 
     it('renders customers page', function (done) {

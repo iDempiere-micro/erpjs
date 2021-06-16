@@ -107,7 +107,7 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
           }
         }
         
-        window.publishFeatures(features);
+        window.publish('features', 'newFeatures', features);
     };
     
     const authenticate = (callback) => {
@@ -123,13 +123,14 @@ const pageContent = (feature: Feature) => async (req: any, res: any) => {
             .then(function (authenticated) {
                 if (!authenticated) {
                     keycloak.login({
-                        redirectUri: ${process.env.URL} || 'http://localhost:5000',
+                        redirectUri: (${process.env.URL} || 'http://localhost:5000') + '${feature.uriSegment}',
                     });
                 } else {
                     const { token } = keycloak;
                     if (token) {
                         // save the token
                         window.token = token;
+                        window.publish('tokens', 'newToken', token);
                         callback();
                     }
                 }

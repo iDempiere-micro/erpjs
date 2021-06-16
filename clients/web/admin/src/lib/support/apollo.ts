@@ -4,6 +4,7 @@ import { onError } from '@apollo/client/link/error';
 import { createMockClient } from 'mock-apollo-client';
 import { mocks } from './mocks';
 import { setClient as apolloSetClient } from '../../absorb/svelte-apollo';
+import type { ApolloConfig } from './types';
 
 const httpLink = (uri: string) =>
     createHttpLink({
@@ -24,8 +25,10 @@ const errorHandlers = [
     {
         error: 'Request failed with status code 401',
         handler: () => {
-            (window as any).token = null;
-            window.location.replace('/');
+            /* (window as any).token = null;
+            window.location.replace('/'); */
+
+            console.log('**** WAAAH');
         },
     },
 ];
@@ -43,16 +46,18 @@ const logoutLink = () =>
         });
     });
 
-export const apollo = (forceMock = false) => {
-    if (process.env.MOCK || forceMock) {
+export const apollo = (config?: ApolloConfig) => {
+    if (process.env.MOCK || (config || { forceMock: false }).forceMock) {
         const mockClient = createMockClient();
         mocks.forEach(({ query, handler }) => mockClient.setRequestHandler(query, handler));
         return mockClient;
     }
 
-    const token = process.env.FAKE_TOKEN || (window as any).token;
+    const token =
+        process.env.FAKE_TOKEN || (window as any).token || (config || { token: undefined }).token;
     const uri = process.env.API_BASE_URL;
     if (!uri) throw new Error('API_BASE_URL must be specified');
+    if (!token) throw new Error('token must be provided');
     const link = authLink(token!).concat(logoutLink().concat(httpLink(uri!)));
     return new ApolloClient({
         link,

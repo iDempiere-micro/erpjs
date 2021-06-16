@@ -5,14 +5,17 @@
     import { setupLocales } from './i18n';
     import { apollo, setClient } from './lib/support/apollo';
     import './smelte.copy.css';
+    import { MessageBus } from '@podium/browser';
+
+    const messageBus = new MessageBus();
+    messageBus.subscribe('tokens', 'newToken', (event) => {
+        const token = event.payload as string;
+        setClient(apollo({ token }));
+    });
 
     export let url = '';
 
     setupLocales();
-
-    $: {
-        setClient(apollo());
-    }
 </script>
 
 <Router {routes} />

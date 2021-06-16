@@ -5,7 +5,7 @@
     import OrganizationDetailPageHeader from '../components/organization-detail/OrganizationDetailPageHeader.svelte';
     import { mock } from '../lib/queries/organization';
 
-    const client = apollo(true);
+    const client = apollo({ forceMock: true });
 
     setupLocales();
 </script>
