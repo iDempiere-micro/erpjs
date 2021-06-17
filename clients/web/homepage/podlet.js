@@ -23,7 +23,7 @@ const podlet = new Podlet({
 
 // All css and js files in the build folder should be added to the podlet definition.
 podlet.js({ value: "http://localhost:7103/build/dist/index.js", defer: true, type: "module" });
-podlet.css({ value: "https://unpkg.com/carbon-components-svelte@0.14.0/css/all.css" });
+podlet.css([ { value: "https://unpkg.com/carbon-components-svelte@0.14.0/css/all.css" }, { value: "https://unpkg.com/@carbon/charts/styles.css" } ]);
 
 // create a static link to the files for demo purposes.
 // In production the localhost URL should be a URL going to a CDN or static file hosting.
