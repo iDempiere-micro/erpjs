@@ -3,7 +3,7 @@ import type { RequestHandler } from 'mock-apollo-client/dist/mockClient';
 
 export interface ApolloMockDef {
     query: DocumentNode;
-    mock: unknown;
+    mock: any;
 }
 
 export interface ApolloMock {
@@ -11,4 +11,5 @@ export interface ApolloMock {
     handler: RequestHandler;
 }
 
-export const mocks = (data) : ApolloMock[] => data.map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));
+export const translateMocks = (data: ApolloMockDef[]): ApolloMock[] =>
+    data.map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));

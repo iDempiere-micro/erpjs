@@ -1,5 +1,6 @@
 import type { Writable } from 'svelte/store';
 import type { RenderResult } from '@testing-library/svelte';
+import { ApolloMockDef } from './mocks';
 
 export type Opt<T> = T | undefined;
 export type Store<T> = Writable<T> & { get(): T };
@@ -19,7 +20,8 @@ export type SvelteAction<U extends any[], El extends any> = (
 } | void;
 
 export interface ApolloConfig {
-    forceMock?: boolean;
-    token?: string;
+    token: string;
     url: string;
+    forceMock: boolean;
+    mockDefs: ApolloMockDef[];
 }

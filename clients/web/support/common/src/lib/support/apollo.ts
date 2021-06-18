@@ -2,6 +2,8 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import type { ApolloConfig } from './types';
+import { createMockClient } from 'mock-apollo-client';
+import { translateMocks } from './mocks';
 
 const httpLink = (uri: string) =>
     createHttpLink({
@@ -42,12 +44,20 @@ const logoutLink = () =>
     });
 
 //
-export const apollo = (config?: ApolloConfig) => {
-    const token = (window as any).token || (config || { token: undefined }).token;
-    const uri = config?.url;
-    if (!uri) throw new Error('API_BASE_URL must be specified');
+export const apollo = (config: ApolloConfig) => {
+    const { token, url, mockDefs, forceMock } = config;
+
+    if (forceMock) {
+        const mockClient = createMockClient();
+        translateMocks(mockDefs).forEach(({ query, handler }) =>
+            mockClient.setRequestHandler(query, handler),
+        );
+        return mockClient;
+    }
+
+    if (!url) throw new Error('API_BASE_URL must be specified');
     if (!token) throw new Error('token must be provided');
-    const link = authLink(token!).concat(logoutLink().concat(httpLink(uri!)));
+    const link = authLink(token!).concat(logoutLink().concat(httpLink(url)));
     return new ApolloClient({
         link,
         cache: new InMemoryCache(),

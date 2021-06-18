@@ -1,6 +1,6 @@
 {
   "name": "@eolerp/common",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Common functionality for the web micro frontends",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,11 @@
   "scripts": {
     "build": "tsc",
     "prepare": "yarn build",
-    "publish:local": "yalc publish"
+    "publish:local": "yalc publish",
+    "prettier": "prettier --write --plugin-search-dir=. \"src/**/*.ts\"",
+    "prettier:check": "prettier --check --plugin-search-dir=. \"src/**/*.ts\"",
+    "lint": "eslint \"./src/**/*.{js,ts}\" --resolve-plugins-relative-to . --quiet",
+    "lint:fix": "eslint --fix \"./src/**/*.{js,ts}\" --resolve-plugins-relative-to ."
   },
   "keywords": [],
   "author": "davidpodhola",
@@ -24,6 +28,10 @@
   "devDependencies": {
     "@types/snowpack-env": "^2.3.3",
     "typescript": "^4.3.4",
-    "yalc": "^1.0.0-pre.53"
+    "yalc": "^1.0.0-pre.53",
+    "prettier": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0"
   }
 }

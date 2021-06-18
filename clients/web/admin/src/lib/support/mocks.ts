@@ -60,7 +60,7 @@ export interface ApolloMock {
     handler: RequestHandler;
 }
 
-export const mocks: ApolloMock[] = [
+export const mocks: ApolloMock[] = mocks([
     { query: CUSTOMERS, mock: mockCustomers },
     { query: GET_MENU, mock: mockMenu },
     { query: SALES_INVOICES_IN_TIME, mock: mockSalesInvoicesInTime },
@@ -91,4 +91,5 @@ export const mocks: ApolloMock[] = [
     { query: GET_PRODUCT_BY_ID, mock: mockProduct },
     { query: ATTACHMENTS, mock: mockAttachments },
     { query: GET_ATTACHMENT_BY_ID, mock: mockAttachment },
-].map(({ query, mock }) => ({ query, handler: () => Promise.resolve(mock) }));
+]);
+
