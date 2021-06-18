@@ -1,7 +1,13 @@
 import type { ApolloClient } from '@apollo/client';
 
+interface ApolloClientContainer<TCache = unknown> {
+    ___APOLLO_CLIENT___:  ApolloClient<TCache>;
+}
+
+declare let window: ApolloClientContainer;
+
 export function getClient<TCache = any>(): ApolloClient<TCache> {
-    const client = (window as any).___APOLLO_CLIENT___;
+    const client = window.___APOLLO_CLIENT___;
 
     if (!client) {
         throw new Error(
@@ -13,5 +19,5 @@ export function getClient<TCache = any>(): ApolloClient<TCache> {
 }
 
 export function setClient<TCache = any>(client: ApolloClient<TCache>): void {
-    (window as any).___APOLLO_CLIENT___ = client;
+    window.___APOLLO_CLIENT___ = client;
 }
