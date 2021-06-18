@@ -110,6 +110,7 @@ export function observableQueryToReadable<TData = unknown, TVariables = unknown>
     const store = observableToReadable(query, initialValue) as ReadableQuery<TData>;
 
     for (const extension of extensions) {
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         store[extension] = query[extension].bind(query) as any;
     }
 

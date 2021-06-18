@@ -1,8 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { createMockClient } from 'mock-apollo-client';
-import { mocks } from './mocks';
 import { setClient as apolloSetClient } from '../../absorb/svelte-apollo';
 import type { ApolloConfig } from './types';
 
@@ -43,8 +41,6 @@ const logoutLink = () =>
             }
         });
     });
-
-declare let __SNOWPACK_ENV__: any;
 
 //
 export const apollo = (config?: ApolloConfig) => {
