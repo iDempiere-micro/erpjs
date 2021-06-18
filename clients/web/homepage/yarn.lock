@@ -409,7 +409,7 @@
     dotenv "^8.2.0"
     dotenv-expand "^5.1.0"
 
-"@snowpack/plugin-svelte@^3.6.1":
+"@snowpack/plugin-svelte@^3.7.0":
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/@snowpack/plugin-svelte/-/plugin-svelte-3.7.0.tgz#3f604fe17d7a82cd64fbac0c89b087b64c0b31e5"
   integrity sha512-YR2t/aMswjUV0D/qFBjIGA7VIgl5IrNHIuJbNtj2YR2heRWaSm7LYLUJKbnho7iKUqCtc+ZcwpgGZO/VNYlLNg==
