@@ -10,7 +10,7 @@
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
     import type { OrganizationDetail } from '../../lib/model/organization';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt } from '@eolerp/common';
 
     export let organization: OrganizationDetail | undefined;
     let {

@@ -54,13 +54,9 @@ import { GET_ORGANIZATION_BY_ID, mock as mockOrganization } from '../queries/org
 import { GET_PRODUCT_BY_ID, mock1 as mockProduct } from '../queries/product';
 import { ATTACHMENTS, mock as mockAttachments } from '../queries/attachments';
 import { GET_ATTACHMENT_BY_ID, mock1 as mockAttachment } from '../queries/attachment';
+import type { ApolloMockDef } from '@eolerp/common';
 
-export interface ApolloMock {
-    query: DocumentNode;
-    handler: RequestHandler;
-}
-
-export const mocks: ApolloMock[] = mocks([
+export const mocks: ApolloMockDef[] = [
     { query: CUSTOMERS, mock: mockCustomers },
     { query: GET_MENU, mock: mockMenu },
     { query: SALES_INVOICES_IN_TIME, mock: mockSalesInvoicesInTime },
@@ -91,5 +87,4 @@ export const mocks: ApolloMock[] = mocks([
     { query: GET_PRODUCT_BY_ID, mock: mockProduct },
     { query: ATTACHMENTS, mock: mockAttachments },
     { query: GET_ATTACHMENT_BY_ID, mock: mockAttachment },
-]);
-
+];

@@ -3,12 +3,13 @@ import { expect } from 'chai';
 import Menu from './Menu.svelte';
 import { urls } from './pages/pathAndSegment';
 import { setupLocales } from './i18n';
-import { apollo, setClient } from './lib/support/apollo';
+import {apollo, setClient} from "@eolerp/common";
+import {mocks} from "./lib/support/mocks";
 
 describe('<Menu>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders menu on the homepage', function (done) {

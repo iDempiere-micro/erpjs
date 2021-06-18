@@ -4,7 +4,7 @@
     import Select from '../../dsl/Select.svelte';
     import type { Form } from '../../absorb/svelte-forms/src/types';
     import type { ErrorType, OnSelectedIdType } from '../../dsl/types';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt } from '@eolerp/common';
 
     countryService.loadList();
     export let onSelect: (countryId: Opt<number>) => void = () => {};

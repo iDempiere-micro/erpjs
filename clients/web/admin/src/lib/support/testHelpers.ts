@@ -1,6 +1,6 @@
 import { render, RenderOptions } from '@testing-library/svelte';
 import type { SvelteComponent } from 'svelte';
-import type { GetFormElementsResult, SvelteComponentOptions } from './types';
+import type {GetFormElementsResult, SvelteComponentOptions} from "@eolerp/common";
 
 export const getFormElements = async (
     page: typeof SvelteComponent,

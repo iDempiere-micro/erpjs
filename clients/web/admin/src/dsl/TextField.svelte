@@ -8,7 +8,7 @@
     import { bindClass } from '../absorb/svelte-forms/src';
     import type { CssClassesType, IdType } from './types';
     import { isTrue } from './validation';
-    import type { Opt } from '../lib/support/types';
+    import type { Opt } from '@eolerp/common';
     import type { ErrorType } from './types';
     import Label from './Label.svelte';
     import Icon from './Icon.svelte';

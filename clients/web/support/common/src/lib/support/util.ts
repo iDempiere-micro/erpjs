@@ -38,3 +38,16 @@ export const getError = (error: ApolloError | any): string => {
 
     return message;
 };
+
+
+export const throwOnUndefined = (): string => {
+    throw new Error('Value was supposed to be defined');
+};
+
+export const printableString = (s: string | null | undefined): string => s || '';
+
+export const logInternal = (message?: any, ...optionalParams: any[]): void => {
+    const logs = (window as any).logs || [];
+    logs.push({ message, ...optionalParams });
+    (window as any).logs = logs;
+};

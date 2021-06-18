@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import AttachmentDetail from './AttachmentDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/attachment';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<AttachmentDetail>', function () {
     before(() => {

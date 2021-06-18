@@ -1,11 +1,12 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import AccountingSchemeDetail from '../components/accountingScheme-detail/AccountingSchemeDetail.svelte';
-    import { apollo } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
-    import { mock1 } from '../../build/dist/lib/queries/accountingScheme';
+    import {apollo, setClient} from "@eolerp/common";
+    import {mocks} from "../lib/support/mocks";
+    import {mock1} from "../lib/queries/accountingScheme";
 
-    const client = apollo({ forceMock: true });
+    setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
 
     setupLocales();
 </script>

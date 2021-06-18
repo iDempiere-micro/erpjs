@@ -6,7 +6,7 @@
     import { getWeekDays, weekStart } from '../absorb/smelte/src/components/DatePicker/util';
     import type { Maybe } from '../generated/graphql';
     import type { DatePickerValueType } from './types';
-    import type { Opt } from '../lib/support/types';
+    import type { Opt } from '@eolerp/common';
 
     const dispatch = createEventDispatcher();
 

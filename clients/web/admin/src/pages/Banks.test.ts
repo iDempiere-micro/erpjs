@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import Banks from './Banks.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/banks';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<Banks>', function () {
     before(() => {

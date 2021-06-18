@@ -19,11 +19,10 @@
     import CurrencySelect from '../currencies/CurrencySelect.svelte';
     import OrganizationSelect from '../organizations/OrganizationSelect.svelte';
     import Button from '../../dsl/Button.svelte';
-    import type { ReadableQuery } from '../../absorb/svelte-apollo';
     import type { FactoringProviderRow } from '../../lib/model/factoringProvider';
     import { factoringProviderService, salesInvoiceService } from '../../lib/core';
     import type { SalesInvoiceDetail } from '../../lib/model/salesInvoice';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt, ReadableQuery } from '@eolerp/common';
 
     export let salesInvoice: SalesInvoiceDetail | undefined;
     let {

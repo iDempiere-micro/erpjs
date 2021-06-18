@@ -8,7 +8,7 @@
     import BankSelect from '../banks/BankSelect.svelte';
     import { bankService, factoringProviderService } from '../../lib/core';
     import type { FactoringProviderDetail } from '../../lib/model/factoringProvider';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt } from '@eolerp/common';
 
     export let factoringProvider: FactoringProviderDetail | undefined;
     let { id, displayName, contact, legalName, bankAccount } = factoringProvider || {};

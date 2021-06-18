@@ -1,10 +1,11 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-    import { apollo } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
     import OrganizationDetail from '../components/organization-detail/OrganizationDetail.svelte';
+    import {apollo, setClient} from "@eolerp/common";
+    import {mocks} from "../lib/support/mocks";
 
-    const client = apollo({ forceMock: true });
+    setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
 
     setupLocales();
 </script>

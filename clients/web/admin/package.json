@@ -19,12 +19,13 @@
     "localazy:upload": ""
   },
   "dependencies": {
-    "sirv-cli": "^1.0.11",
-    "svelte": "^3.38.2",
+    "@eolerp/common": "file:.yalc/@eolerp/common",
     "@podium/browser": "^1.0.0-beta.2",
     "@podium/podlet": "^4.3.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "cors": "^2.8.5"
+    "sirv-cli": "^1.0.11",
+    "svelte": "^3.38.2"
   },
   "devDependencies": {
     "@apollo/client": "^3.3.7",
@@ -120,6 +121,7 @@
     "tailwind-css-variables": "^2.0.3",
     "tailwindcss": "^2.0.3",
     "tinycolor2": "^1.4.2",
-    "typescript": "^4.0.0"
+    "typescript": "^4.0.0",
+    "yalc": "^1.0.0-pre.53"
   }
 }

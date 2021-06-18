@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import SalesInvoices from './SalesInvoices.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/salesInvoices';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<SalesInvoices>', function () {
     before(() => {

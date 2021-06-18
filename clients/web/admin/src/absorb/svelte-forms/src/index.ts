@@ -9,8 +9,8 @@ import type {
     FieldConfiguration,
     FieldContent,
 } from './types';
-import { store } from '../../../lib/support/store';
-import type { Opt, Store } from '../../../lib/support/types';
+import type { Opt, Store } from '@eolerp/common';
+import { store } from '@eolerp/common';
 
 function getValue(field: any): any {
     return field.value;
@@ -40,7 +40,7 @@ function validate(
         if (isPromise(resp)) {
             pending = true;
             resp.then(({ name, valid }: { name: string; valid: boolean }) => {
-                observable.update((n) => {
+                observable.update((n:Content) => {
                     n.fields[fieldName] = n.fields[fieldName] || { errors: [] };
 
                     n.fields[fieldName].pending = false;

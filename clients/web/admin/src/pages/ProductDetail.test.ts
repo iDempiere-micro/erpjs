@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import ProductDetail from './ProductDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/products';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<ProductDetail>', function () {
     before(() => {

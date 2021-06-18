@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/svelte';
 import { expect } from 'chai';
 import AddCustomerGroup from './AddCustomerGroup.svelte';
 import { setupLocales } from '../i18n';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<AddCustomerGroup>', function () {
     before(() => {

@@ -1,11 +1,12 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import CurrencyDetail from '../components/currency-detail/CurrencyDetail.svelte';
-    import { apollo } from '../lib/support/apollo';
     import { setupLocales } from '../i18n';
-    import { mock } from '../../build/dist/lib/queries/currencies';
+    import {apollo, setClient} from "@eolerp/common";
+    import {mock} from "../lib/queries/currencies";
+    import {mocks} from "../lib/support/mocks";
 
-    const client = apollo({ forceMock: true });
+    setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
 
     setupLocales();
 </script>

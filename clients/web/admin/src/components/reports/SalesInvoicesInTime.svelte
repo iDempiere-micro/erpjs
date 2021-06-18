@@ -1,13 +1,12 @@
 <script lang="ts">
     import { StackedAreaChart } from '@carbon/charts-svelte';
-
-    import { getError } from '../../lib/support/util';
+    import { getError } from '@eolerp/common';
     import type { SalesInvoicesInTimeQuery } from '../../generated/graphql';
     import { QUERY } from '../../lib/queries/salesInvoicesInTime';
     import { _ } from 'svelte-i18n';
     import { ScaleTypes } from '@carbon/charts/interfaces';
-    import type { ReadableQuery } from '../../absorb/svelte-apollo';
-    import { query } from '../../absorb/svelte-apollo';
+    import type { ReadableQuery } from '@eolerp/common';
+    import { query } from '@eolerp/common';
 
     let data: ReadableQuery<SalesInvoicesInTimeQuery>;
     setTimeout(() => {
@@ -26,7 +25,7 @@
     {$_('status.loading')}
 {:else if $data && $data.error}
     Error:
-    {getError($data.error)}
+        {getError($data.error)}
 {:else if $data && $data.data}
     <StackedAreaChart
         data={($data.data || {}).salesInvoicesReport}

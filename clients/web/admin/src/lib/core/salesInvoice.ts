@@ -14,11 +14,11 @@ import {
     PUBLISH_SALES_INVOICE,
     SAVE_SALES_INVOICE,
 } from '../queries/salesInvoice';
-import { mutation } from '../../absorb/svelte-apollo';
 import { BaseEntityService, initDetail, invalidate } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
 import type { SalesInvoiceDetail, SalesInvoiceRow } from '../model/salesInvoice';
 import { SALES_INVOICES } from '../queries/salesInvoices';
+import { mutation } from '@eolerp/common';
 
 class SalesInvoiceService extends BaseEntityService<
     SalesInvoiceDetail,

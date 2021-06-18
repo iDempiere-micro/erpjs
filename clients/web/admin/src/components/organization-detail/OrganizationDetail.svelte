@@ -2,7 +2,7 @@
     import { _ } from 'svelte-i18n';
     import { organizationService } from '../../lib/core';
     import type { OrganizationDetail } from '../../lib/model/organization';
-    import { printableString } from '../../lib/support/util';
+    import { printableString } from '@eolerp/common';
 
     export let organization: OrganizationDetail = organizationService.getDetailSafeEntity();
 </script>

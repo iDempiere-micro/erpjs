@@ -1,12 +1,11 @@
 <script lang="ts">
     import type { OrganizationsQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
+    import { getError, query } from '@eolerp/common';
     import OrganizationList from '../components/organizations/OrganizationList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { ORGANIZATIONS } from '../lib/queries/organizations';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
 
     const organizations = query<OrganizationsQuery, any>(ORGANIZATIONS);
 </script>

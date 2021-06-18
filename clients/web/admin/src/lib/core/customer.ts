@@ -5,13 +5,13 @@ import type {
     SaveCustomerMutationVariables,
 } from '../../generated/graphql';
 import { GET_CUSTOMER_BY_ID, SAVE_CUSTOMER } from '../queries/customer';
-import { throwOnUndefined } from '../support/util';
 import { BaseEntityService } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
 import type { CustomerDetail, CustomerRow } from '../model/customer';
 import { CUSTOMERS } from '../queries/customers';
 import { addressService } from './address';
 import { customerGroupService } from './customerGroup';
+import { throwOnUndefined } from '@eolerp/common';
 
 class CustomerService extends BaseEntityService<
     CustomerDetail,

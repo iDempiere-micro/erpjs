@@ -1,12 +1,11 @@
 <script lang="ts">
     import type { ProductsQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
+    import { getError, query } from '@eolerp/common';
     import ProductList from '../components/products/ProductList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { PRODUCTS } from '../lib/queries/products';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
 
     const products = query<ProductsQuery, any>(PRODUCTS);
 </script>

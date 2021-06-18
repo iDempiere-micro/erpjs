@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import AddAccountingScheme from './AddAccountingScheme.svelte';
 import { setupLocales } from '../i18n';
 import { mock as mockCurrencies } from '../lib/queries/currencies';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<AddAccountingScheme>', function () {
     before(() => {

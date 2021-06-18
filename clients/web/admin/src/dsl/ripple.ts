@@ -1,4 +1,4 @@
-import type { SvelteAction } from '../lib/support/types';
+import type { SvelteAction } from "@eolerp/common";
 
 // Thanks Lagden! https://svelte.dev/repl/61d9178d2b9944f2aa2bfe31612ab09f?version=3.6.7
 function ripple(color: string, centered: boolean) {

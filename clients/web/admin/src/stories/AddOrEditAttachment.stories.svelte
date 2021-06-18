@@ -1,7 +1,7 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import AddOrEditAttachment from '../components/add-attachment/AddOrEditAttachment.svelte';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import { apollo, setClient } from '@eolerp/common';
     import { setupLocales } from '../i18n';
     import { mock1 } from '../lib/queries/attachment';
 

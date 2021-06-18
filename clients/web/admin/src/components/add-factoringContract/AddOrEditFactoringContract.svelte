@@ -9,7 +9,7 @@
     import CustomerSelect from '../customers/CustomerSelect.svelte';
     import type { FactoringContractDetail } from '../../lib/model/factoringContract';
     import { factoringContractService } from '../../lib/core';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt } from '@eolerp/common';
 
     /**
      * The factoring contract to be edit or `undefined` if adding a new factoring contract

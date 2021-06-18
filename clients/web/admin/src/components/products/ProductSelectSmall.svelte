@@ -3,7 +3,7 @@
     import { mapDisplayableToListItem } from '../../lib/support/util';
     import Select from '../../dsl/Select.svelte';
     import type { ErrorType, OnSelectedIdType } from '../../dsl/types';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt } from '@eolerp/common';
     import { noop } from '../../dsl/classes';
 
     productService.loadList();

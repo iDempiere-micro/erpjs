@@ -1,10 +1,10 @@
 <script lang="ts">
     import { accountingSchemeService } from '../../lib/core';
-    import { mapDisplayableToListItem } from '../../lib/support/util';
     import Select from '../../dsl/Select.svelte';
     import type { Form } from '../../absorb/svelte-forms/src/types';
     import type { ErrorType, OnSelectedIdType } from '../../dsl/types';
-    import type { Opt } from '../../lib/support/types';
+    import type {Opt} from "@eolerp/common";
+    import { mapDisplayableToListItem } from '../../lib/support/util';
 
     accountingSchemeService.loadList();
     export let onSelect: (accountingSchemeId: Opt<number>) => void = () => {};

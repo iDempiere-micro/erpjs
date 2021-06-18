@@ -4,7 +4,7 @@ import SalesInvoiceDetail from './SalesInvoiceDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/salesInvoice';
 import { mock as customerMock } from '../lib/queries/customer';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<SalesInvoiceDetail>', function () {
     before(() => {

@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import Customers from './Customers.svelte';
 import { setupLocales } from '../i18n';
 import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<Customers>', function () {
     before(() => {

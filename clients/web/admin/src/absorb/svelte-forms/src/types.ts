@@ -1,4 +1,4 @@
-import type { Store } from '../../../lib/support/types';
+import type { Store } from '@eolerp/common';
 
 export interface ValidationResult {
     name: string;

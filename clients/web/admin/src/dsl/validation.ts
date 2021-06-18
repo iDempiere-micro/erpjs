@@ -8,7 +8,7 @@ import type {
 import type { Form } from '../absorb/svelte-forms/src/types';
 import type { MessageFormatter } from 'svelte-i18n/types/runtime/types';
 import type { Maybe } from '../generated/graphql';
-import type { Opt } from '../lib/support/types';
+import type { Opt } from '@eolerp/common';
 
 export const onBlurValidate = (
     form: Form | undefined,

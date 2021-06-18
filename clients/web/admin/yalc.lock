@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@eolerp/common": {
+      "signature": "2d35d9058b644d23b78965048a37bbe9",
+      "file": true
+    }
+  }
+}

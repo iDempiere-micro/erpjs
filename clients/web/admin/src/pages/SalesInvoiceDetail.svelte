@@ -1,6 +1,5 @@
 <script lang="ts">
     import { salesInvoiceService } from '../lib/core';
-    import { throwOnUndefined } from '../lib/support/util';
     import { segments } from './pathAndSegment';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
@@ -9,6 +8,7 @@
     import Break from '../molecules/form/Break.svelte';
     import OrganizationDetailPageHeader from '../components/organization-detail/OrganizationDetailPageHeader.svelte';
     import SalesInvoiceDetail from '../components/sales-invoice-detail/SalesInvoiceDetail.svelte';
+    import { throwOnUndefined } from '@eolerp/common';
 
     export let params: any = {};
     const id = parseInt('' + params.id);

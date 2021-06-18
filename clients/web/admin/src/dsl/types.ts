@@ -1,4 +1,4 @@
-import type { Opt } from '../lib/support/types';
+import type { Opt } from '@eolerp/common';
 
 export interface ListItemType {
     id?: string;

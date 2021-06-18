@@ -1,6 +1,4 @@
-import { store } from '../support/store';
 import type { DocumentNode } from '@apollo/client/core';
-import { mutation, query } from '../../absorb/svelte-apollo';
 import type {
     EntityDetail,
     EntityRow,
@@ -11,7 +9,8 @@ import type {
 import type { FetchResult } from '@apollo/client';
 import { onDestroy } from 'svelte';
 import type { RefetchQueryDescription } from '@apollo/client/core/watchQueryOptions';
-import type { Store } from '../support/types';
+import type { Store } from '@eolerp/common';
+import { mutation, query, store } from '@eolerp/common';
 
 /**
  * Content of the store for list of items

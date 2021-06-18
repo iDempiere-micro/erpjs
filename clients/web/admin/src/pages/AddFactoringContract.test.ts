@@ -6,7 +6,7 @@ import { mock as mockFactoringProviders } from '../lib/queries/factoringProvider
 import { mock as mockCustomers } from '../lib/queries/customers';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
 import { getFormElements } from '../lib/support/testHelpers';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<AddFactoringContract>', function () {
     before(() => {

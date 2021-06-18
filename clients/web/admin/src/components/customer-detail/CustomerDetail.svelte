@@ -3,7 +3,7 @@
     import { _ } from 'svelte-i18n';
     import { customerService } from '../../lib/core';
     import type { CustomerDetail } from '../../lib/model/customer';
-    import { printableString } from '../../lib/support/util';
+    import { printableString } from '@eolerp/common';
 
     export let customer: CustomerDetail = customerService.getDetailSafeEntity();
 </script>
@@ -24,7 +24,7 @@
                     {$_('page.customers.detail.note')}
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {printableString(customer.note)}
+                        {printableString(customer.note)}
                 </dd>
             </div>
         </dl>

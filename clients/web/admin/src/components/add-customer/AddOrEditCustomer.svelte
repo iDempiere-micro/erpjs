@@ -6,13 +6,12 @@
     import CustomerGroupSelect from '../customerGroups/CustomerGroupSelect.svelte';
     import { push, urls } from '../../pages/pathAndSegment';
     import { GET_CUSTOMERS_BY_ARGS } from '../../lib/queries/customers';
-    import { getClient } from '../../absorb/svelte-apollo';
     import { countryService, customerService } from '../../lib/core';
     import CountrySelect from '../countries/CountrySelect.svelte';
     import Button from '../../dsl/Button.svelte';
     import type { CustomerDetail } from '../../lib/model/customer';
     import { form, bindClass } from '../../absorb/svelte-forms/src';
-    import type { Opt } from '../../lib/support/types';
+    import {getClient, Opt} from "@eolerp/common";
 
     export let customer: CustomerDetail | undefined;
 

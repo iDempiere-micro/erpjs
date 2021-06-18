@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import FactoringContracts from './FactoringContracts.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/factoringContracts';
-import { apollo, setClient } from '../lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
 
 describe('<FactoringContracts>', function () {
     before(() => {

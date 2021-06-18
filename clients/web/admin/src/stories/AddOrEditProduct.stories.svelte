@@ -1,7 +1,7 @@
 <script>
     import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
     import AddOrEditProduct from '../components/add-product/AddOrEditProduct.svelte';
-    import { apollo, setClient } from '../lib/support/apollo';
+    import { apollo, setClient } from '@eolerp/common';
     import { setupLocales } from '../i18n';
     import { mock } from '../lib/queries/products';
 

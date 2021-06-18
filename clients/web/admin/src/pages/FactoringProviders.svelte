@@ -1,12 +1,11 @@
 <script lang="ts">
     import type { FactoringProvidersQuery } from '../generated/graphql';
-    import { getError } from '../lib/support/util';
+    import { getError, query } from '@eolerp/common';
     import FactoringProviderList from '../components/factoringProviders/FactoringProviderList.svelte';
     import { segments, urls } from './pathAndSegment';
     import { FACTORING_PROVIDERS } from '../lib/queries/factoringProviders';
     import { _ } from 'svelte-i18n';
     import Page from '../Page.svelte';
-    import { query } from '../absorb/svelte-apollo';
 
     const factoringProviders = query<FactoringProvidersQuery, any>(FACTORING_PROVIDERS);
 </script>

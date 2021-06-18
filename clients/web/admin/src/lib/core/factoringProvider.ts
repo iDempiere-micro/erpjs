@@ -13,9 +13,9 @@ import {
 import type { FactoringProviderDetail, FactoringProviderRow } from '../model/factoringProvider';
 import { BaseEntityService } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
-import type { ReadableQuery } from '../../absorb/svelte-apollo';
-import { query } from '../../absorb/svelte-apollo';
 import { FACTORING_PROVIDER_FOR_INVOICE } from '../queries/salesInvoice';
+import type { ReadableQuery } from '@eolerp/common';
+import { query } from '@eolerp/common';
 
 class FactoringProviderService extends BaseEntityService<
     FactoringProviderDetail,

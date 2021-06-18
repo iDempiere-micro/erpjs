@@ -7,7 +7,7 @@
     import type { AccountingSchemeDetail } from '../../lib/model/accountingScheme';
     import { accountingSchemeService } from '../../lib/core';
     import { form } from '../../absorb/svelte-forms/src';
-    import type { Opt } from '../../lib/support/types';
+    import type { Opt } from '@eolerp/common';
 
     /**
      * The accounting scheme to be edit or `undefined` if adding a new accounting scheme
