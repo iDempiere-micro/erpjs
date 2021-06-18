@@ -44,9 +44,13 @@ const logoutLink = () =>
         });
     });
 
+
+declare var __SNOWPACK_ENV__: any;
+
+//
 export const apollo = (config?: ApolloConfig) => {
     const token =  (window as any).token || (config || { token: undefined }).token;
-    const uri = 'http://localhost:3333/graphql';
+    const uri = import.meta.env.SNOWPACK_PUBLIC_API_BASE_URL;
     if (!uri) throw new Error('API_BASE_URL must be specified');
     if (!token) throw new Error('token must be provided');
     const link = authLink(token!).concat(logoutLink().concat(httpLink(uri!)));
