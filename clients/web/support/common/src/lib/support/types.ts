@@ -21,4 +21,5 @@ export type SvelteAction<U extends any[], El extends any> = (
 export interface ApolloConfig {
     forceMock?: boolean;
     token?: string;
+    url: string;
 }

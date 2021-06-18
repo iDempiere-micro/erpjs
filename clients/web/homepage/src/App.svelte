@@ -3,10 +3,8 @@
     import Theme from './components/Theme.svelte';
     import SalesInvoicesInTime from './reports/SalesInvoicesInTime.svelte';
     import { MessageBus } from '@podium/browser';
-    import { setClient } from './absorb/svelte-apollo';
-    import { apollo } from './lib/support/apollo';
-    import { store } from './lib/support/store';
     import { setupLocales } from './i18n';
+    import {apollo, setClient, store} from "@eolerp/common";
 
     let theme: 'g10' = 'g10';
     let ready = store(false);
@@ -15,16 +13,15 @@
 
     const messageBus = new MessageBus();
     messageBus.subscribe('tokens', 'newToken', (event) => {
-        console.log('*** waaah?', event);
-
         const token = event.payload as string;
-        setClient(apollo({ token }));
+        const url = import.meta.env.SNOWPACK_PUBLIC_API_BASE_URL;
+        setClient(apollo({ token, url }));
         ready.set(true);
     });
 </script>
 
 <Theme persist bind:theme>
-    <Content style="background: none; padding: 1rem">
+    <Content id="content">
         <Grid>
             <Row>
                 <Column noGutter>
@@ -36,3 +33,10 @@
         </Grid>
     </Content>
 </Theme>
+
+<style>
+    #content {
+        background: none;
+        padding: 1rem;
+    }
+</style>

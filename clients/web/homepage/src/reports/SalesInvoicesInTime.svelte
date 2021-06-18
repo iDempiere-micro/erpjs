@@ -3,11 +3,9 @@
 
     import { _ } from 'svelte-i18n';
     import { ScaleTypes } from '@carbon/charts/interfaces';
-    import { query } from '../absorb/svelte-apollo';
-    import type { ReadableQuery } from '../absorb/svelte-apollo';
     import type { SalesInvoicesInTimeQuery } from '../generated/graphql';
     import { QUERY } from '../lib/queries/salesInvoicesInTime';
-    import { getError } from '../lib/support/util';
+    import {query} from "@eolerp/common";
 
     const data = query<SalesInvoicesInTimeQuery>(QUERY);
 </script>
