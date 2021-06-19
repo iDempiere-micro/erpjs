@@ -3,11 +3,12 @@ import { expect } from 'chai';
 import AddCustomerGroup from './AddCustomerGroup.svelte';
 import { setupLocales } from '../i18n';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<AddCustomerGroup>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     const getDisplayName = () => {

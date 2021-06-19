@@ -4,11 +4,12 @@ import AttachmentDetail from './AttachmentDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/attachment';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<AttachmentDetail>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders accounting scheme detail', function (done) {

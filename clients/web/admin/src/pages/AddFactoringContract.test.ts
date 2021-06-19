@@ -7,11 +7,12 @@ import { mock as mockCustomers } from '../lib/queries/customers';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
 import { getFormElements } from '../lib/support/testHelpers';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<AddFactoringContract>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     const getElements = () =>

@@ -4,11 +4,12 @@ import Currencies from './Currencies.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/currencies';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<Currencies>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders customers page', function (done) {

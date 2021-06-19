@@ -3,11 +3,12 @@ import { expect } from 'chai';
 import AddAttachment from './AddAttachment.svelte';
 import { setupLocales } from '../i18n';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<AddAttachment>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     const getDisplayNameAndCurrency = () => {

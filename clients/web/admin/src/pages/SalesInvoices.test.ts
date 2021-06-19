@@ -4,11 +4,12 @@ import SalesInvoices from './SalesInvoices.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/salesInvoices';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<SalesInvoices>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders sales invoices page', function (done) {

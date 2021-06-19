@@ -11,7 +11,8 @@
     import Button from '../../dsl/Button.svelte';
     import type { CustomerDetail } from '../../lib/model/customer';
     import { form, bindClass } from '../../absorb/svelte-forms/src';
-    import {getClient, Opt} from "@eolerp/common";
+    import {getClient} from "@eolerp/common";
+    import type {Opt} from "@eolerp/common";
 
     export let customer: CustomerDetail | undefined;
 

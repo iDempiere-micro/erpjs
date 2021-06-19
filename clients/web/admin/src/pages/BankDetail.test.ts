@@ -4,11 +4,12 @@ import BankDetail from './BankDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/banks';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<BankDetail>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders accounting scheme detail', function (done) {

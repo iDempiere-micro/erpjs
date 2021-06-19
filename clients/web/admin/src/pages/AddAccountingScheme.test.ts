@@ -4,11 +4,12 @@ import AddAccountingScheme from './AddAccountingScheme.svelte';
 import { setupLocales } from '../i18n';
 import { mock as mockCurrencies } from '../lib/queries/currencies';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<AddAccountingScheme>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     const getDisplayNameAndCurrency = () => {

@@ -5,11 +5,12 @@ import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/salesInvoice';
 import { mock as customerMock } from '../lib/queries/customer';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<SalesInvoiceDetail>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders sales invoice detail', function (done) {

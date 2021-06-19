@@ -4,11 +4,12 @@ import FactoringProviders from './FactoringProviders.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/factoringProviders';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<FactoringProviders>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders customers page', function (done) {

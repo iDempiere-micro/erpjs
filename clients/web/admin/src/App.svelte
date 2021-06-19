@@ -5,7 +5,7 @@
     import { setupLocales } from './i18n';
     import './smelte.copy.css';
     import { MessageBus } from '@podium/browser';
-    import { apollo, ApolloMock, setClient } from '@eolerp/common';
+    import { apollo, setClient } from '@eolerp/common';
     import { mocks as mockDefs } from './lib/support/mocks';
 
     const messageBus = new MessageBus();

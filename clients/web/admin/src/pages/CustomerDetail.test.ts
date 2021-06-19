@@ -4,11 +4,12 @@ import CustomerDetail from './CustomerDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/customer';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<CustomerDetail>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders customer detail', function (done) {

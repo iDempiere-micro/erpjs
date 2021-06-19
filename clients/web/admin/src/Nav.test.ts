@@ -3,12 +3,13 @@ import { expect } from 'chai';
 import Nav from './Nav.svelte';
 import { setViewport } from '@web/test-runner-commands';
 import { setupLocales } from './i18n';
-import { apollo, setClient } from './lib/support/apollo';
+import { apollo, setClient } from '@eolerp/common';
+import { mocks } from './lib/support/mocks';
 
 describe('<Nav>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders desktop menu on the homepage by default', function (done) {

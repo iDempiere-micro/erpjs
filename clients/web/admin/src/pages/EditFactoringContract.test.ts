@@ -7,11 +7,12 @@ import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
 import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<EditFactoringContract>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     const getElements = () =>

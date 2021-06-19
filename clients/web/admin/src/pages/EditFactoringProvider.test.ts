@@ -4,11 +4,12 @@ import EditFactoringProvider from './EditFactoringProvider.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/factoringProvider';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<EditFactoringProvider>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     const getDisplayNameAndCurrency = (renderResult: RenderResult) => {

@@ -4,11 +4,12 @@ import Organizations from './Organizations.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/organizations';
 import { apollo, setClient } from '@eolerp/common';
+import { mocks } from '../lib/support/mocks';
 
 describe('<Organizations>', function () {
     before(() => {
         setupLocales();
-        setClient(apollo({ forceMock: true }));
+        setClient(apollo({ forceMock: true, url:'', token:'', mockDefs:mocks }));
     });
 
     it('renders customers page', function (done) {
