@@ -10,14 +10,6 @@ export const createMenuItems = async (
   items: any,
   technicalUser: UserModel,
 ) => {
-  for (const item of items) {
-    const menuItem = new MenuItem();
-    menuItem.menu = menu;
-    menuItem.to = item.to;
-    menuItem.displayName = item.displayName;
-    menuItem.updtOp = technicalUser;
-    await entityManager.save(menuItem);
-  }
 };
 
 export class MenuContent1612983991735 implements MigrationInterface {
@@ -27,8 +19,6 @@ export class MenuContent1612983991735 implements MigrationInterface {
     const menu = new Menu();
     menu.displayName = 'menu.ERPStandard';
     menu.updtOp = technicalUser;
-
-    await entityManager.save(menu);
 
     const items = [
       { to: '', displayName: 'menu.items.Dashboard' },

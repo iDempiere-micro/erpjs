@@ -11,10 +11,10 @@ export class Menu1612978737166 implements MigrationInterface {
       `CREATE UNIQUE INDEX "IDX_displayName_menuItem" ON "public"."menu_item" ("displayName") `,
     );
     await queryRunner.query(
-      `CREATE TABLE "public"."menu" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "displayName" character varying NOT NULL, "updtOpId" integer NOT NULL, CONSTRAINT "PK_e81673826c4a73969969211789e" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "public"."menu2" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "displayName" character varying NOT NULL, "updtOpId" integer NOT NULL, CONSTRAINT "PK_e81673826c4a73969969211789e" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE UNIQUE INDEX "IDX_displayName_menu" ON "public"."menu" ("displayName") `,
+      `CREATE UNIQUE INDEX "IDX_displayName_menu" ON "public"."menu2" ("displayName") `,
     );
     await queryRunner.query(
       `ALTER TABLE "public"."user_identity" ALTER COLUMN "updtOpId" DROP DEFAULT`,
@@ -215,16 +215,16 @@ export class Menu1612978737166 implements MigrationInterface {
       `ALTER TABLE "public"."menu_item" ADD CONSTRAINT "FK_6aa67e8642a83d87bdda69966e6" FOREIGN KEY ("updtOpId") REFERENCES "public"."user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `ALTER TABLE "public"."menu_item" ADD CONSTRAINT "FK_956a0060ab9c15477458e3925f2" FOREIGN KEY ("menuId") REFERENCES "public"."menu"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+      `ALTER TABLE "public"."menu_item" ADD CONSTRAINT "FK_956a0060ab9c15477458e3925f2" FOREIGN KEY ("menuId") REFERENCES "public"."menu2"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `ALTER TABLE "public"."menu" ADD CONSTRAINT "FK_93f7bfe23acd89729f08a37d57d" FOREIGN KEY ("updtOpId") REFERENCES "public"."user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+      `ALTER TABLE "public"."menu2" ADD CONSTRAINT "FK_93f7bfe23acd89729f08a37d57d" FOREIGN KEY ("updtOpId") REFERENCES "public"."user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE "public"."menu" DROP CONSTRAINT "FK_93f7bfe23acd89729f08a37d57d"`,
+      `ALTER TABLE "public"."menu2" DROP CONSTRAINT "FK_93f7bfe23acd89729f08a37d57d"`,
     );
     await queryRunner.query(
       `ALTER TABLE "public"."menu_item" DROP CONSTRAINT "FK_956a0060ab9c15477458e3925f2"`,
@@ -428,7 +428,7 @@ export class Menu1612978737166 implements MigrationInterface {
       `ALTER TABLE "public"."user_identity" ALTER COLUMN "updtOpId" SET DEFAULT 0`,
     );
     await queryRunner.query(`DROP INDEX "public"."IDX_displayName_menu"`);
-    await queryRunner.query(`DROP TABLE "public"."menu"`);
+    await queryRunner.query(`DROP TABLE "public"."menu2"`);
     await queryRunner.query(`DROP INDEX "public"."IDX_displayName_menuItem"`);
     await queryRunner.query(`DROP TABLE "public"."menu_item"`);
   }

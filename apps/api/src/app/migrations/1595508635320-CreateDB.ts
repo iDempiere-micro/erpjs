@@ -83,13 +83,13 @@ export class CreateDB1595508635320 implements MigrationInterface {
       `CREATE TABLE "public"."tax" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "updtOpId" integer NOT NULL DEFAULT 0, "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "displayName" character varying NOT NULL, "ratePercent" integer NOT NULL, "isStandard" boolean NOT NULL, CONSTRAINT "PK_5437f933e5996c78821d7b777a5" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "public"."product" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "updtOpId" integer NOT NULL DEFAULT 0, "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "displayName" character varying NOT NULL, "sku" character varying NOT NULL, "uomId" integer, CONSTRAINT "PK_da169ec9c2ae25fb86633d10f9f" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "public"."product2" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "updtOpId" integer NOT NULL DEFAULT 0, "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "displayName" character varying NOT NULL, "sku" character varying NOT NULL, "uomId" integer, CONSTRAINT "PK_da169ec9c2ae25fb86633d10f9f" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE UNIQUE INDEX "IDX_34f6ca1cd897cc926bdcca1ca3" ON "public"."product" ("sku") `,
+      `CREATE UNIQUE INDEX "IDX_34f6ca1cd897cc926bdcca1ca3" ON "public"."product2" ("sku") `,
     );
     await queryRunner.query(
-      `CREATE UNIQUE INDEX "IDX_826d69dcc65d9650be67af6d48" ON "public"."product" ("displayName") `,
+      `CREATE UNIQUE INDEX "IDX_826d69dcc65d9650be67af6d48" ON "public"."product2" ("displayName") `,
     );
     await queryRunner.query(
       `CREATE TABLE "public"."sales_invoice_line" ("id" SERIAL NOT NULL, "updtTs" TIMESTAMP NOT NULL DEFAULT now(), "updtOpId" integer NOT NULL DEFAULT 0, "isActive" boolean NOT NULL DEFAULT true, "isCurrent" boolean NOT NULL DEFAULT true, "lineOrder" integer NOT NULL, "linePrice" double precision NOT NULL, "quantity" double precision NOT NULL, "narration" character varying NOT NULL, "invoiceId" integer, "lineTaxId" integer, "productId" integer, CONSTRAINT "PK_ae0c4e44242436d0191b61f435c" PRIMARY KEY ("id"))`,
@@ -164,7 +164,7 @@ export class CreateDB1595508635320 implements MigrationInterface {
       `ALTER TABLE "public"."sales_invoice_line" ADD CONSTRAINT "FK_46e2135df8a294a44f6da9cfb24" FOREIGN KEY ("lineTaxId") REFERENCES "public"."tax"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `ALTER TABLE "public"."sales_invoice_line" ADD CONSTRAINT "FK_aa6a84182838c767209e1c4b5f2" FOREIGN KEY ("productId") REFERENCES "public"."product"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+      `ALTER TABLE "public"."sales_invoice_line" ADD CONSTRAINT "FK_aa6a84182838c767209e1c4b5f2" FOREIGN KEY ("productId") REFERENCES "public"."product2"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
       `ALTER TABLE "public"."sales_invoice_vat" ADD CONSTRAINT "FK_024f69ee6accf1a6c7aa6efa688" FOREIGN KEY ("invoiceId") REFERENCES "public"."sales_invoice"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
@@ -291,7 +291,7 @@ export class CreateDB1595508635320 implements MigrationInterface {
     await queryRunner.query(
       `DROP INDEX "public"."IDX_34f6ca1cd897cc926bdcca1ca3"`,
     );
-    await queryRunner.query(`DROP TABLE "public"."product"`);
+    await queryRunner.query(`DROP TABLE "public"."product2"`);
     await queryRunner.query(`DROP TABLE "public"."tax"`);
     await queryRunner.query(
       `DROP INDEX "public"."IDX_d13847b5db0cf66c1ea23615eb"`,
