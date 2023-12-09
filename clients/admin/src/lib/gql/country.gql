@@ -1,5 +1,0 @@
-query countryById($id: Int!) {
-            country(id: $id) {
-                ...CountryDetailParts
-            }
-        }

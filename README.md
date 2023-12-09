@@ -1,38 +1,73 @@
-# [EolERP  - the headless serverless ERP and CRM for the cloud](https://github.com/iDempiere-micro/erpjs/wiki)
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-## Introduction
-This is the source code of [EolERP](https://github.com/iDempiere-micro/erpjs/wiki), the headless serverless ERP and CRM for the cloud 
-written in TypeScript running on [Node.js](https://nodejs.org/en/) and 
-in a browser as an [Svelte](https://svelte.dev/) single page application. 
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-It can run on your local computer, in a containerized environment like Kubernetes (K8) 
-on Google Cloud, Microsoft Azure or IBM Cloud or even as a serverless function in AWS. 
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-![demo](https://user-images.githubusercontent.com/436605/140638912-fc86b905-dce0-4dde-bb00-5f3d90eb310d.PNG)
+## Description
 
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-[Keycloak](https://www.keycloak.org/), Open Source Identity and Access Management is used for the authentication 
-so you can even get advanced features such as User Federation, Identity Brokering and Social Login.
+## Installation
 
-![image](https://user-images.githubusercontent.com/436605/119708755-c10c2780-be5c-11eb-8d2f-75419b2d2bf5.png)
+```bash
+$ npm install
+```
 
-![image](https://user-images.githubusercontent.com/436605/119709498-9078bd80-be5d-11eb-9bbd-ef3b3b3d7e1b.png)
+## Running the app
 
-## I want to quickly test by myself
-Cool! You can either use or [Quick Setup Guide](https://github.com/iDempiere-micro/erpjs/wiki/Quick-setup) or see the demo (once it is ready).
+```bash
+# development
+$ npm run start
 
-## Benefits
-You can download the source code and own the ERP&CRM.
-You can explore the source code and find out how we used [NestJS](https://nestjs.com/), 
-[TypeORM](https://typeorm.io/#/), [GraphQL](https://www.apollographql.com/) and [Svelte](https://svelte.dev/) 
-to both build the backend that can run in [AWS Lambda](https://aws.amazon.com/lambda/) and 
-a sample frontend application that can be immediately used to run a business.
+# watch mode
+$ npm run start:dev
 
-You can run the ERP&CRM in your own cloud provided by AWS and both keep your data safe and prevent bad things 
-happening by having all your important data on your laptop or own server.
+# production mode
+$ npm run start:prod
+```
 
-## Discuss, chat
-[EolERP Discord](https://discord.gg/EQdCxbHnXS).
+## Test
 
-## Current status
-Currently we have the sales invoicing flow completed so you can add customers, products etc. and create and print the sales invoices (the invoices you are sending to your customers to get money). So something like an online invoice generator is already completed.
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](LICENSE).

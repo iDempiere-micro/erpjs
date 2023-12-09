@@ -1,4 +1,4 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   getService,
   getTechnicalUser,
@@ -7,6 +7,7 @@ import {
   UserServiceKey,
 } from '../../model';
 import { getManager } from 'typeorm';
+import { HttpService } from '@nestjs/axios';
 
 interface KeycloakUserInfoResponse {
   sub: string;

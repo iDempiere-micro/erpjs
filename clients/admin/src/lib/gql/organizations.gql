@@ -1,7 +1,0 @@
-query Organizations($dummy: Int)
-        {
-            organizations {
-                ...OrganizationListParts
-            }
-        }
-

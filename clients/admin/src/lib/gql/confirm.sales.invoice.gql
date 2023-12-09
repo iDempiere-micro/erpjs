@@ -1,5 +1,0 @@
-mutation ConfirmSalesInvoice($id: Int!) {
-    confirmSalesInvoice( args: {id: $id }){
-        ...SalesInvoiceDetailParts
-    }
-}

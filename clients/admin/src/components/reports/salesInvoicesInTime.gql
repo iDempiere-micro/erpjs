@@ -1,8 +1,0 @@
-query SalesInvoicesInTime($dummy: Int)
-{
-    salesInvoicesReport {
-        group
-        date
-        value
-    }
-}

@@ -29,7 +29,7 @@ export class CountryService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<CountryModel> {
-    return transactionalEntityManager.getRepository(Country);
+    return transactionalEntityManager.getRepository(Country) as Repository<CountryModel>;
   }
 
   getCountry = async (

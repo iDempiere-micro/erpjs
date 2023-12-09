@@ -1,8 +1,0 @@
-.snowpack
-build
-node_modules
-.idea
-coverage
-.env
-storybook-static
-localazy.keys.json

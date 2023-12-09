@@ -39,9 +39,12 @@ export const DateTimeScalarType = new GraphQLScalarType({
       return d.getTime();
     }
 
+    // @ts-expect-error
     if (value.getTime) {
+      // @ts-expect-error
       return toNumber(value); // value sent to the client
     } else {
+      // @ts-expect-error
       return toNumber(new Date(value));
     }
   },

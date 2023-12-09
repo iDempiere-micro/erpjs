@@ -1,7 +1,0 @@
-query AccountingSchemes($dummy: Int)
-        {
-            accountingSchemes {
-                ...AccountingSchemeListParts
-            }
-        }
-

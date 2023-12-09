@@ -1,7 +1,0 @@
-query Customers($dummy: Int)
-        {
-            customers {
-                ...CustomerListParts
-            }
-        }
-

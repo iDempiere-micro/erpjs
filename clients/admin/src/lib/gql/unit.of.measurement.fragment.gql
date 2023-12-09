@@ -1,4 +1,0 @@
-fragment UnitOfMeasurementDetailParts on UnitOfMeasurement {
-    id
-    displayName
-}

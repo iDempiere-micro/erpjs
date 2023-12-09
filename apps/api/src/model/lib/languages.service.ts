@@ -33,6 +33,6 @@ export class LanguagesService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<LanguageModel> {
-    return transactionalEntityManager.getRepository(Language);
+    return transactionalEntityManager.getRepository(Language) as Repository<LanguageModel>;
   }
 }

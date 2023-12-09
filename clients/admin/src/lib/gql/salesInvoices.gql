@@ -1,6 +1,0 @@
-query SalesInvoices($dummy: Int)
-        {
-            salesInvoices {
-                ...SalesInvoiceListParts
-            }
-        }

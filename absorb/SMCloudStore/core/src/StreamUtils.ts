@@ -55,6 +55,7 @@ export function StreamToBuffer(stream: Stream): Promise<Buffer> {
 export function StreamToString(stream: Stream, encoding?: string): Promise<string> {
     return StreamToBuffer(stream)
         .then((buffer) => {
+            // @ts-ignore
             return buffer.toString(encoding || 'utf8')
         })
 }

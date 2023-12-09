@@ -1,7 +1,0 @@
-query Products($dummy: Int)
-        {
-            products {
-                ...ProductListParts
-            }
-        }
-

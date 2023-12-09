@@ -1,5 +1,0 @@
-query CustomerById($id: Int!) {
-            customer(id: $id) {
-                ...CustomerDetailParts
-            }
-        }

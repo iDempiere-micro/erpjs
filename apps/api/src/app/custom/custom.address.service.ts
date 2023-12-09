@@ -28,6 +28,8 @@ export class CustomAddressService extends AddressService {
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<AddressModel> {
-    return transactionalEntityManager.getRepository(CustomAddress);
+    return transactionalEntityManager.getRepository(
+      CustomAddress,
+    ) as Repository<AddressModel>;
   }
 }

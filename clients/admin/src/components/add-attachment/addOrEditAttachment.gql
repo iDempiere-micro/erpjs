@@ -1,7 +1,0 @@
-mutation SaveAttachment($id: String, $displayName: String!) {
-    saveAttachment(
-        args: { id: $id, displayName: $displayName }
-    ) {
-        id
-    }
-}
