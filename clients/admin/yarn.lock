@@ -7177,6 +7177,11 @@ eslint-compat-utils@^0.1.2:
   resolved "https://registry.yarnpkg.com/eslint-compat-utils/-/eslint-compat-utils-0.1.2.tgz#f45e3b5ced4c746c127cf724fb074cd4e730d653"
   integrity sha512-Jia4JDldWnFNIru1Ehx1H5s9/yxiRHY/TimCuUc0jNexew3cF1gI6CYZil1ociakfWO3rRqFjl1mskBblB3RYg==
 
+eslint-plugin-svelte3@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-svelte3/-/eslint-plugin-svelte3-4.0.0.tgz#3d4f3dcaec5761dac8bc697f81de3613b485b4e3"
+  integrity sha512-OIx9lgaNzD02+MDFNLw0GEUbuovNcglg+wnd/UY0fbZmlQSz7GlQiQ1f+yX0XvC07XPcDOnFcichqI3xCwp71g==
+
 eslint-plugin-svelte@^2.35.1:
   version "2.35.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-svelte/-/eslint-plugin-svelte-2.35.1.tgz#7b1e3c263b09dbc9293c25fe02d03d309725d2b9"
