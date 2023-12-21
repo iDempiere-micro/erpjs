@@ -31,8 +31,10 @@ export const getTechnicalUser = (manager: EntityManager) =>
  * User service to handle possibly multiple user identities and automatic user creation on a successful login-
  */
 @Injectable()
-export class UserService extends BaseEntityService<UserModel, UserSaveArgsModel>
-  implements LoginHandler {
+export class UserService
+  extends BaseEntityService<UserModel, UserSaveArgsModel>
+  implements LoginHandler
+{
   createEntity(): UserModel {
     return new User();
   }

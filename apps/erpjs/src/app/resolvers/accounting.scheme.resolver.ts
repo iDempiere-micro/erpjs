@@ -7,9 +7,9 @@ import {
   AccountingSchemeService,
   AccountingSchemeServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { AccountingSchemeSaveArgs } from '../saveArgs/accounting.scheme.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => AccountingScheme)
 @UseGuards(GqlAuthGuard)
@@ -40,6 +40,10 @@ export class AccountingSchemeResolver {
     @Args('args') objData: AccountingSchemeSaveArgs,
     @CurrentUser() user,
   ): Promise<AccountingSchemeModel> {
-    return await this.accountingSchemeService.save(this.entityManager, objData, user);
+    return await this.accountingSchemeService.save(
+      this.entityManager,
+      objData,
+      user,
+    );
   }
 }

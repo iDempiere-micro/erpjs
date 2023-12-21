@@ -22,11 +22,10 @@ export class Tax {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -48,7 +47,7 @@ export class Tax {
 
   @OneToMany(
     () => SalesInvoiceLine,
-    salesInvoiceLine => salesInvoiceLine.lineTax,
+    (salesInvoiceLine) => salesInvoiceLine.lineTax,
   )
   salesInvoiceLines: SalesInvoiceLine[];
 }

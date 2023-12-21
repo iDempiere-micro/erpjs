@@ -32,7 +32,9 @@ export class CustomerGroupService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<CustomerGroupModel> {
-    return transactionalEntityManager.getRepository(CustomerGroup) as Repository<CustomerGroupModel>;
+    return transactionalEntityManager.getRepository(
+      CustomerGroup,
+    ) as Repository<CustomerGroupModel>;
   }
 
   typeName(): string {

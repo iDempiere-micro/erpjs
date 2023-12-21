@@ -17,7 +17,7 @@ import { FileController } from './controllers/file.controller';
 import { DateScalar } from './support/date.scalar';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({

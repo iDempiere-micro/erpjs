@@ -27,11 +27,10 @@ export class UnitOfMeasurement {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -48,21 +47,18 @@ export class UnitOfMeasurement {
 
   @OneToMany(
     () => UnitOfMeasurementConversion,
-    currencyRate => currencyRate.from,
+    (currencyRate) => currencyRate.from,
   )
   @Field(() => [UnitOfMeasurementConversion])
   conversionRates: UnitOfMeasurementConversionModel[]; // can convert to these
 
   @OneToMany(
     () => UnitOfMeasurementConversion,
-    currencyRate => currencyRate.to,
+    (currencyRate) => currencyRate.to,
   )
   @Field(() => [UnitOfMeasurementConversion])
   conversionRates2: UnitOfMeasurementConversionModel[]; // can be converted from those
 
-  @OneToMany(
-    () => Product,
-    accountingScheme => accountingScheme.defaultUoM,
-  )
+  @OneToMany(() => Product, (accountingScheme) => accountingScheme.defaultUoM)
   products: ProductModel[];
 }

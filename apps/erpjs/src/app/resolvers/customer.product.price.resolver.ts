@@ -7,9 +7,9 @@ import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { CustomerProductPriceSaveArgs } from '../saveArgs/customer.product.price.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => CustomerProductPrice)
 @UseGuards(GqlAuthGuard)
@@ -23,7 +23,9 @@ export class CustomerProductPriceResolver {
 
   @Query(() => [CustomerProductPrice])
   async customerProductPrices() {
-    return await this.customerProductPriceService.loadEntities(this.entityManager);
+    return await this.customerProductPriceService.loadEntities(
+      this.entityManager,
+    );
   }
 
   @Query(() => CustomerProductPrice)

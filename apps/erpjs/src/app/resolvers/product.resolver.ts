@@ -3,9 +3,9 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Product } from '../../model/generated/entities/Product';
 import { ProductModel, ProductService, ProductServiceKey } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { ProductSaveArgs } from '../saveArgs/product.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Product)
 @UseGuards(GqlAuthGuard)
@@ -24,7 +24,10 @@ export class ProductResolver {
 
   @Query(() => Product)
   async product(@Args('id', { type: () => Int }) id: number) {
-    const result = await this.productService.loadEntityById(this.entityManager, id);
+    const result = await this.productService.loadEntityById(
+      this.entityManager,
+      id,
+    );
     return result;
   }
 

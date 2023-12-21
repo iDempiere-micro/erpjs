@@ -13,7 +13,7 @@ import { FactoringProviderService } from './factoring.provider.service';
 let mockBankAccountServiceCalled = false;
 
 const mockBankAccountService = {
-  save: x => {
+  save: (x) => {
     mockBankAccountServiceCalled = true;
     return x;
   },
@@ -23,7 +23,7 @@ export const mockBankAccountServiceProvider = {
   useValue: mockBankAccountService,
 };
 const mockAddressService = {
-  save: x => x,
+  save: (x) => x,
 };
 export const mockAddressServiceProvider = {
   provide: AddressServiceKey,
@@ -37,7 +37,7 @@ export const mockAccountingSchemeServiceProvider = {
 
 const mockEntityManager = {
   getRepository: () => ({
-    save: x => x,
+    save: (x) => x,
   }),
 } as any;
 

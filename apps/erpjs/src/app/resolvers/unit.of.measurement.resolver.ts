@@ -6,8 +6,8 @@ import {
   UnitOfMeasurementService,
   UnitOfMeasurementServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { EntityManager, getManager } from 'typeorm';
+import { InjectEntityManager } from '@nestjs/typeorm';
 // import { UnitOfMeasurementSaveArgs } from '../saveArgs/unitOfMeasurement.save.args';
 
 @Resolver(() => UnitOfMeasurement)

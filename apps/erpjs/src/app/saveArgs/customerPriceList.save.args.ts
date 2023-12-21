@@ -13,8 +13,10 @@ export class ProductPriceSaveArgs implements ProductPrice {
 }
 
 @InputType()
-export class CustomerPriceListSaveArgs extends BaseSaveArgs
-  implements CustomerPriceListSaveArgsModel {
+export class CustomerPriceListSaveArgs
+  extends BaseSaveArgs
+  implements CustomerPriceListSaveArgsModel
+{
   @Field()
   customerGroupDisplayName: string;
   @Field()

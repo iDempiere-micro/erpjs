@@ -24,7 +24,7 @@ export class CustomSalesInvoiceService extends SalesInvoiceService {
         )
         .getMany();
       const total = _.sum(
-        invoices.map(x => x.totalLinesAccountingSchemeCurrency),
+        invoices.map((x) => x.totalLinesAccountingSchemeCurrency),
       );
 
       if (total > 1000000) throw new Error('Cannot invoice more than 1M CZK');

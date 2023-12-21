@@ -3,9 +3,9 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Country } from '../../model/generated/entities/Country';
 import { CountryModel, CountryService, CountryServiceKey } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { CountrySaveArgs } from '../saveArgs/country.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Country)
 @UseGuards(GqlAuthGuard)
@@ -24,7 +24,10 @@ export class CountryResolver {
 
   @Query(() => Country)
   async country(@Args('id', { type: () => Int }) id: number) {
-    const result = await this.countryService.loadEntityById(this.entityManager, id);
+    const result = await this.countryService.loadEntityById(
+      this.entityManager,
+      id,
+    );
     return result;
   }
 

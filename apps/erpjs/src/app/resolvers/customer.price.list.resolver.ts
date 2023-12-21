@@ -7,9 +7,9 @@ import {
   CustomerPriceListService,
   CustomerPriceListServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { CustomerPriceListSaveArgs } from '../saveArgs/customerPriceList.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => CustomerPriceList)
 @UseGuards(GqlAuthGuard)
@@ -28,7 +28,10 @@ export class CustomerPriceListResolver {
 
   @Query(() => CustomerPriceList)
   async customerPriceList(@Args('id', { type: () => Int }) id: number) {
-    return await this.customerPriceListService.loadEntityById(this.entityManager, id);
+    return await this.customerPriceListService.loadEntityById(
+      this.entityManager,
+      id,
+    );
   }
 
   @Mutation(() => CustomerPriceList)

@@ -7,9 +7,9 @@ import {
   CurrencyService,
   CurrencyServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { CurrencySaveArgs } from '../saveArgs/currency.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Currency)
 @UseGuards(GqlAuthGuard)
@@ -36,7 +36,10 @@ export class CurrencyResolver {
 
   @Query(() => Currency)
   async currency(@Args('id', { type: () => Int }) id: number) {
-    const result = await this.currencyService.loadEntityById(this.entityManager, id);
+    const result = await this.currencyService.loadEntityById(
+      this.entityManager,
+      id,
+    );
     return result;
   }
 }

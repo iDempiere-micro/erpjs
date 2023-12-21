@@ -2,14 +2,14 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Attachment } from '../../model/generated/entities/Attachment';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import {
   AttachmentService,
   AttachmentServiceKey,
 } from '../../model/lib/attachment.service';
 import { AttachmentSaveArgs } from '../saveArgs/attachment.save.args';
 import { AttachmentModel } from '../../model/lib/attachment.model';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Attachment)
 @UseGuards(GqlAuthGuard)
@@ -26,8 +26,12 @@ export class AttachmentResolver {
     const { files, folders } = await this.attachmentService.listCloudContent();
     // const links = await this.attachmentService.loadEntities(this.entityManager);
     return [
-      ...files.map(x => ({ id: x.path, isFolder: false, displayName: x.path })),
-      ...folders.map(x => ({
+      ...files.map((x) => ({
+        id: x.path,
+        isFolder: false,
+        displayName: x.path,
+      })),
+      ...folders.map((x) => ({
         id: x.prefix,
         isFolder: true,
         displayName: x.prefix,

@@ -4,8 +4,10 @@ import { Field, InputType } from '@nestjs/graphql';
 import { CustomerPriceList } from '../../model/generated/entities/CustomerPriceList';
 
 @InputType()
-export class CustomerProductPriceSaveArgs extends BaseSaveArgs
-  implements CustomerProductPriceSaveArgsModel {
+export class CustomerProductPriceSaveArgs
+  extends BaseSaveArgs
+  implements CustomerProductPriceSaveArgsModel
+{
   @Field()
   productId: number;
   @Field()

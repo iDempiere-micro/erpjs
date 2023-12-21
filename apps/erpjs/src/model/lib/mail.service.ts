@@ -1,12 +1,12 @@
-import {Inject, Injectable} from '@nestjs/common';
-import {MailerService} from '@nestjs-modules/mailer';
-import {EventLogService, EventLogServiceKey} from './eventLog.service';
-import {EntityManager} from 'typeorm';
-import {getTechnicalUser} from './user.service';
-import {Address} from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
-import {ConfigService, ConfigServiceKey} from './config.service';
-import {ConfigData} from './config.model';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { Inject, Injectable } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
+import { EventLogService, EventLogServiceKey } from './eventLog.service';
+import { EntityManager } from 'typeorm';
+import { getTechnicalUser } from './user.service';
+import { Address } from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
+import { ConfigService, ConfigServiceKey } from './config.service';
+import { ConfigData } from './config.model';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 export const MailServiceKey = 'MailServiceKey';
 

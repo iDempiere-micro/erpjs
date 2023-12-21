@@ -16,10 +16,10 @@ import {
 } from '../../model';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 import { Customer } from '../../model/generated/entities/Customer';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Customer)
 @UseGuards(GqlAuthGuard)
@@ -58,7 +58,9 @@ export class CustomerResolver {
       where.legalName = legalName;
     }
 
-    return await this.customerService.loadEntities(this.entityManager, { where });
+    return await this.customerService.loadEntities(this.entityManager, {
+      where,
+    });
   }
 
   @ResolveField()

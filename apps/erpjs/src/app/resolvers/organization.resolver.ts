@@ -7,9 +7,9 @@ import {
   OrganizationService,
   OrganizationServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { OrganizationSaveArgs } from '../saveArgs/organization.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Organization)
 @UseGuards(GqlAuthGuard)
@@ -40,6 +40,10 @@ export class OrganizationResolver {
     @Args('args') objData: OrganizationSaveArgs,
     @CurrentUser() user,
   ): Promise<OrganizationModel> {
-    return await this.organizationService.save(this.entityManager, objData, user);
+    return await this.organizationService.save(
+      this.entityManager,
+      objData,
+      user,
+    );
   }
 }

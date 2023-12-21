@@ -3,8 +3,10 @@ import { BaseSaveArgs } from './base.save.args';
 import { BankAccountSaveArgsModel } from '../../model';
 
 @InputType()
-export class BankAccountSaveArgs extends BaseSaveArgs
-  implements BankAccountSaveArgsModel {
+export class BankAccountSaveArgs
+  extends BaseSaveArgs
+  implements BankAccountSaveArgsModel
+{
   @Field()
   bankAccountCustomerPrintableNumber: string;
   @Field()

@@ -15,13 +15,13 @@ import {
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   AttachmentService,
   AttachmentServiceKey,
 } from '../../model/lib/attachment.service';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 type DownloadedFile = {
   data?: string;
@@ -54,7 +54,7 @@ export class FileController {
       this.entityManager,
       invoiceId,
     );
-    const buffer = (invoice.content as any) as Buffer;
+    const buffer = invoice.content as any as Buffer;
     if (user && buffer) {
       const data = buffer.toString('base64');
       return { data };
@@ -98,7 +98,7 @@ export class FileController {
       this.entityManager,
       customerId,
     );
-    const buffer = (invoice.photo as any) as Buffer;
+    const buffer = invoice.photo as any as Buffer;
     if (user && buffer) {
       const data = buffer.toString('base64');
       return { data };

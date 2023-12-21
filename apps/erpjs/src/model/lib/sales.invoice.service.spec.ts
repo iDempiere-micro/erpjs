@@ -45,7 +45,7 @@ export const mockProductServiceProvider = {
   useValue: mockProductService,
 };
 const mockSalesInvoiceLineService = {
-  save: x => x,
+  save: (x) => x,
 };
 export const mockSalesInvoiceLineServiceProvider = {
   provide: SalesInvoiceLineServiceKey,
@@ -219,7 +219,7 @@ const mockSalesInvoice = {
 
 const mockEntityManager = {
   getRepository: () => ({
-    save: x => x,
+    save: (x) => x,
     findOne: () => mockSalesInvoice,
   }),
 } as any;
@@ -248,7 +248,7 @@ const providers = [
 
 (global as any).moduleRef = {
   get: (typeOrToken: string) => {
-    const found = providers.find(x => (x as any).provide === typeOrToken);
+    const found = providers.find((x) => (x as any).provide === typeOrToken);
     if (found) {
       const val = (found as any).useValue;
       if (val) return val;
@@ -318,7 +318,7 @@ describe('SalesInvoiceService', () => {
       const invoice = new SalesInvoice();
       invoice.lines = lines;
       invoice.organization = { vatNumber: 'ABC' } as any;
-      invoice.lines.forEach(x => (x.invoice = invoice));
+      invoice.lines.forEach((x) => (x.invoice = invoice));
       mockCurrencyRateService.rate = 1;
       const result = await service.calculatePrices(null, invoice, null);
       expect(result).not.toBeUndefined();
@@ -334,7 +334,7 @@ describe('SalesInvoiceService', () => {
       expect(vatReport.length).toBe(2);
       expect(
         _.round(
-          _.sum(vatReport.map(x => x.vatTotalAccountingSchemeCurrency)),
+          _.sum(vatReport.map((x) => x.vatTotalAccountingSchemeCurrency)),
           2,
         ),
       ).toBe(_.round(1111.85 - 1010, 2));
@@ -365,7 +365,7 @@ describe('SalesInvoiceService', () => {
       const invoice = new SalesInvoice();
       invoice.lines = lines;
       invoice.organization = { vatNumber: 'ABC' } as any;
-      invoice.lines.forEach(x => (x.invoice = invoice));
+      invoice.lines.forEach((x) => (x.invoice = invoice));
       mockCurrencyRateService.rate = 1;
       const result = await service.calculatePrices(null, invoice, null);
       expect(result).not.toBeUndefined();
@@ -379,7 +379,7 @@ describe('SalesInvoiceService', () => {
       expect(vatReport.length).toBe(2);
       expect(
         _.round(
-          _.sum(vatReport.map(x => x.vatTotalAccountingSchemeCurrency)),
+          _.sum(vatReport.map((x) => x.vatTotalAccountingSchemeCurrency)),
           2,
         ),
       ).toBe(_.round(0.67 - 0.6, 2));
@@ -400,7 +400,7 @@ describe('SalesInvoiceService', () => {
       const invoice = new SalesInvoice();
       invoice.lines = lines;
       invoice.organization = { vatNumber: 'ABC' } as any;
-      invoice.lines.forEach(x => (x.invoice = invoice));
+      invoice.lines.forEach((x) => (x.invoice = invoice));
       mockCurrencyRateService.rate = 24.29;
       const result = await service.calculatePrices(null, invoice, null);
       expect(result).not.toBeUndefined();

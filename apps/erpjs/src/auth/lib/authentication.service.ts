@@ -6,9 +6,9 @@ import {
   UserService,
   UserServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { HttpService } from '@nestjs/axios';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 interface KeycloakUserInfoResponse {
   sub: string;
@@ -28,9 +28,9 @@ export class AuthenticationService {
   private readonly realm: string;
 
   constructor(
-      private httpService: HttpService,
-      @InjectEntityManager()
-      private readonly entityManager: EntityManager,
+    private httpService: HttpService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {
     this.baseURL = process.env.KEYCLOAK_BASE_URL;
     this.realm = process.env.KEYCLOAK_REALM;

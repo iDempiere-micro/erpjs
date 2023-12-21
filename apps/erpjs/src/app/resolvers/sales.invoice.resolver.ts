@@ -8,7 +8,7 @@ import {
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import {
   SalesInvoiceMonthlySaveArgs,
   SalesInvoicePublishArgs,
@@ -17,7 +17,7 @@ import { SalesInvoiceSaveArgs } from '../saveArgs/sales.invoice.save.args';
 import { SalesInvoicesInTime } from '../dto/SalesInvoicesInTime';
 import * as moment from 'moment';
 import { BaseSaveArgs } from '../saveArgs/base.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => SalesInvoice)
 @UseGuards(GqlAuthGuard)
@@ -38,7 +38,10 @@ export class SalesInvoiceResolver {
 
   @Query(() => SalesInvoice)
   async salesInvoice(@Args('id', { type: () => Int }) id: number) {
-    return await this.salesInvoiceService.loadEntityById(this.entityManager, id);
+    return await this.salesInvoiceService.loadEntityById(
+      this.entityManager,
+      id,
+    );
   }
 
   @Mutation(() => SalesInvoice)
@@ -46,7 +49,11 @@ export class SalesInvoiceResolver {
     @Args('id', { type: () => Int }) id: number,
     @CurrentUser() user,
   ) {
-    return await this.salesInvoiceService.duplicate(this.entityManager, id, user);
+    return await this.salesInvoiceService.duplicate(
+      this.entityManager,
+      id,
+      user,
+    );
   }
 
   @Query(() => [SalesInvoicesInTime])
@@ -57,11 +64,7 @@ export class SalesInvoiceResolver {
 
     return result.map(({ year, month, organization_displayName, sum }) => ({
       group: organization_displayName,
-      date: moment()
-        .year(year)
-        .month(month)
-        .date(1)
-        .format('YYYY-MM-DD'),
+      date: moment().year(year).month(month).date(1).format('YYYY-MM-DD'),
       value: sum,
     }));
   }
@@ -83,7 +86,11 @@ export class SalesInvoiceResolver {
     @Args('args') objData: SalesInvoiceSaveArgs,
     @CurrentUser() user,
   ): Promise<SalesInvoiceModel> {
-    return await this.salesInvoiceService.save(this.entityManager, objData, user);
+    return await this.salesInvoiceService.save(
+      this.entityManager,
+      objData,
+      user,
+    );
   }
 
   @Mutation(() => SalesInvoice)
@@ -96,7 +103,11 @@ export class SalesInvoiceResolver {
       this.entityManager,
       id,
     );
-    return await this.salesInvoiceService.confirm(this.entityManager, invoice, user);
+    return await this.salesInvoiceService.confirm(
+      this.entityManager,
+      invoice,
+      user,
+    );
   }
 
   @Mutation(() => SalesInvoice)
@@ -104,6 +115,10 @@ export class SalesInvoiceResolver {
     @Args('args') objData: SalesInvoicePublishArgs,
     @CurrentUser() user,
   ): Promise<SalesInvoiceModel> {
-    return await this.salesInvoiceService.publish(this.entityManager, objData, user);
+    return await this.salesInvoiceService.publish(
+      this.entityManager,
+      objData,
+      user,
+    );
   }
 }

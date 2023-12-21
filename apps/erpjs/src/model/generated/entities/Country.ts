@@ -31,11 +31,10 @@ export class Country implements CountryModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -56,10 +55,7 @@ export class Country implements CountryModel {
   @Field()
   isoCode: string;
 
-  @OneToMany(
-    () => Address,
-    address => address.country,
-  )
+  @OneToMany(() => Address, (address) => address.country)
   addresses: Address[];
 
   get isEUMember(): boolean {

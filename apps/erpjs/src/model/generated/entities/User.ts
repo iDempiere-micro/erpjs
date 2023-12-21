@@ -58,27 +58,21 @@ export class User implements UserModel {
   @Field({ nullable: true })
   name: string | null;
 
-  @OneToMany(
-    () => UserIdentity,
-    userIdentity => userIdentity.user,
-  )
+  @OneToMany(() => UserIdentity, (userIdentity) => userIdentity.user)
   identities: UserIdentityModel[];
 
   @OneToMany(
     () => UserToOrganization,
-    userToOrganization => userToOrganization.user,
+    (userToOrganization) => userToOrganization.user,
   )
   organizations: UserToOrganizationModel[];
 
-  @OneToMany(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.updtOp,
-  )
+  @OneToMany(() => SalesInvoice, (salesInvoice) => salesInvoice.updtOp)
   updSalesInvoices: SalesInvoiceModel[];
 
   @OneToMany(
     () => AccountingScheme,
-    accountingScheme => accountingScheme.updtOp,
+    (accountingScheme) => accountingScheme.updtOp,
   )
   updAccountingSchemes: AccountingSchemeModel[];
 }

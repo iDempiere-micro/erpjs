@@ -22,11 +22,9 @@ export class CustomerProductPrice implements CustomerProductPriceModel {
   id: number;
 
   @Field(() => Product)
-  @ManyToOne(
-    () => Product,
-    product => product.customerProductPrices,
-    { nullable: false },
-  )
+  @ManyToOne(() => Product, (product) => product.customerProductPrices, {
+    nullable: false,
+  })
   product: ProductModel;
 
   @Column({ type: 'numeric', scale: 2, precision: 12 })
@@ -35,15 +33,12 @@ export class CustomerProductPrice implements CustomerProductPriceModel {
 
   @ManyToOne(
     () => CustomerPriceList,
-    customerPriceList => customerPriceList.productPrices,
+    (customerPriceList) => customerPriceList.productPrices,
     { nullable: false },
   )
   customerPriceList: CustomerPriceListModel;
 
-  @ManyToOne(
-    () => Currency,
-    currency => currency.accountingSchemes,
-  )
+  @ManyToOne(() => Currency, (currency) => currency.accountingSchemes)
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
   @Field(() => Currency)
   currency: CurrencyModel;

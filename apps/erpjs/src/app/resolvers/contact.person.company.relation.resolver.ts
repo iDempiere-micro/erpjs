@@ -7,9 +7,9 @@ import {
   ContactPersonCompanyRelationService,
   ContactPersonCompanyRelationServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { ContactPersonCompanyRelationSaveArgs } from '../saveArgs/contact.person.company.relation.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => ContactPersonCompanyRelation)
 @UseGuards(GqlAuthGuard)

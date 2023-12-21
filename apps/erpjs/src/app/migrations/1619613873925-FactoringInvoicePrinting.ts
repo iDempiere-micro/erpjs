@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class FactoringInvoicePrinting1619613873925
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'FactoringInvoicePrinting1619613873925';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

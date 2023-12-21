@@ -51,10 +51,11 @@ export class FactoringContractService extends BaseEntityService<
       transactionalEntityManager,
       args.customerId,
     );
-    entity.factoringProvider = await this.factoringProviderService.loadEntityById(
-      transactionalEntityManager,
-      args.factoringProviderId,
-    );
+    entity.factoringProvider =
+      await this.factoringProviderService.loadEntityById(
+        transactionalEntityManager,
+        args.factoringProviderId,
+      );
     entity.organization = await this.organizationService.loadEntityById(
       transactionalEntityManager,
       args.organizationId,
@@ -66,7 +67,9 @@ export class FactoringContractService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<FactoringContractModel> {
-    return transactionalEntityManager.getRepository(FactoringContract) as Repository<FactoringContractModel>;
+    return transactionalEntityManager.getRepository(
+      FactoringContract,
+    ) as Repository<FactoringContractModel>;
   }
 
   typeName(): string {

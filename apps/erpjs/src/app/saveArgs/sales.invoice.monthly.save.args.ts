@@ -15,7 +15,8 @@ export class IdAndNumber implements IdAndValue<number> {
 
 @InputType()
 export class SalesInvoiceMonthlySaveArgs
-  implements SalesInvoiceMonthlySaveArgsModel {
+  implements SalesInvoiceMonthlySaveArgsModel
+{
   @Field()
   totalHours: number;
 

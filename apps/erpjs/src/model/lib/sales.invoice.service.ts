@@ -164,7 +164,7 @@ export class SalesInvoiceLineService extends BaseEntityService<
             line.product,
           )
         )?.filter(
-          x =>
+          (x) =>
             (!x.validFrom || x.validFrom < now) &&
             (!x.validTo || x.validTo > now),
         )
@@ -184,7 +184,7 @@ export class SalesInvoiceLineService extends BaseEntityService<
     const customerProductPriceModel: CustomerProductPriceModel =
       customerPriceListModels && customerPriceListModels.length > 0
         ? customerPriceListModels[0].productPrices.find(
-            x => x.product.id === line.product.id,
+            (x) => x.product.id === line.product.id,
           )
         : null;
 
@@ -332,9 +332,7 @@ export class SalesInvoiceService extends BaseEntityService<
       factoringContract && factoringContract.isActive
         ? factoringContract.invoicePrintNote
         : null;
-    invoice.issuedOn = moment(args.issuedOn)
-      .startOf('day')
-      .toDate();
+    invoice.issuedOn = moment(args.issuedOn).startOf('day').toDate();
     invoice.dueDate = moment(
       new Date(+invoice.issuedOn + args.paymentTermInDays * 86400000),
     )
@@ -373,11 +371,11 @@ export class SalesInvoiceService extends BaseEntityService<
     const language =
       customerCountry.isoCode === supplierCountry.isoCode
         ? languages.find(
-            x =>
+            (x) =>
               x.isoCode.toLowerCase() === customerCountry.isoCode.toLowerCase(),
           )
         : languages.find(
-            x =>
+            (x) =>
               x.isoCode.toLowerCase() ===
               `${supplierCountry.isoCode}-${customerCountry.isoCode}`.toLowerCase(),
           );
@@ -435,12 +433,13 @@ export class SalesInvoiceService extends BaseEntityService<
   ): Promise<SalesInvoiceModel> {
     if (!invoiceWithLines) return invoiceWithLines;
 
-    const currencyRate = await this.currencyRateService.getAccountingForDateAndOrg(
-      transactionalEntityManager,
-      invoiceWithLines.transactionDate,
-      invoiceWithLines.currency,
-      invoiceWithLines.organization,
-    );
+    const currencyRate =
+      await this.currencyRateService.getAccountingForDateAndOrg(
+        transactionalEntityManager,
+        invoiceWithLines.transactionDate,
+        invoiceWithLines.currency,
+        invoiceWithLines.organization,
+      );
     if (!currencyRate)
       throw new Error(
         `No currency rate for ${invoiceWithLines.currency.displayName} at ${invoiceWithLines.transactionDate}`,
@@ -481,7 +480,7 @@ export class SalesInvoiceService extends BaseEntityService<
           lineCalculatedTax.vatTotal;
       }
     }
-    const taxes = _.groupBy(lineCalculatedTaxes, x => x.vatRatePercent);
+    const taxes = _.groupBy(lineCalculatedTaxes, (x) => x.vatRatePercent);
     const vatReport: SalesInvoiceVatModel[] = [];
 
     // remove the old invoiceWithLines.vatReport
@@ -497,9 +496,9 @@ export class SalesInvoiceService extends BaseEntityService<
 
     for (const [vatRatePercent, _toBeSummed] of Object.entries(taxes)) {
       const toBeSummed = _toBeSummed as LineCalculatedTax[];
-      const vatTotal = _.sum(toBeSummed.map(x => x.vatTotal));
+      const vatTotal = _.sum(toBeSummed.map((x) => x.vatTotal));
       const vatTotalAccountingSchemeCurrency = _.sum(
-        toBeSummed.map(x => x.vatTotalAccountingSchemeCurrency),
+        toBeSummed.map((x) => x.vatTotalAccountingSchemeCurrency),
       );
       vatReport.push(
         await this.salesInvoiceVatService.save(
@@ -508,7 +507,8 @@ export class SalesInvoiceService extends BaseEntityService<
             vatRatePercent: +vatRatePercent,
             vatTotalRaw: vatTotal,
             vatTotal: _.round(vatTotal, 2),
-            vatTotalAccountingSchemeCurrencyRaw: vatTotalAccountingSchemeCurrency,
+            vatTotalAccountingSchemeCurrencyRaw:
+              vatTotalAccountingSchemeCurrency,
             vatTotalAccountingSchemeCurrency: _.round(
               vatTotalAccountingSchemeCurrency,
               2,
@@ -534,7 +534,8 @@ export class SalesInvoiceService extends BaseEntityService<
     );
     invoiceWithLines.grandTotal = _.round(invoiceWithLines.grandTotal, 2);
 
-    invoiceWithLines.currencyMultiplyingRateToAccountingSchemeCurrency = currencyMultiplyingRateToAccountingSchemeCurrency;
+    invoiceWithLines.currencyMultiplyingRateToAccountingSchemeCurrency =
+      currencyMultiplyingRateToAccountingSchemeCurrency;
     invoiceWithLines.isCalculated = true;
 
     return invoiceWithLines;
@@ -585,11 +586,12 @@ export class SalesInvoiceService extends BaseEntityService<
           'Call with non draft invoices without document number only!',
         );
       }
-      invoice.documentNo = await this.documentNumberingServiceModel.getNextDocumentNumber(
-        manager,
-        invoice.constructor,
-        await invoice.organization,
-      );
+      invoice.documentNo =
+        await this.documentNumberingServiceModel.getNextDocumentNumber(
+          manager,
+          invoice.constructor,
+          await invoice.organization,
+        );
     }
   }
 
@@ -606,10 +608,10 @@ export class SalesInvoiceService extends BaseEntityService<
       OrganizationServiceKey,
     );
     const nucz = (await organizationService.loadEntities(entityManager)).find(
-      x => x.displayName === `NUCZ`,
+      (x) => x.displayName === `NUCZ`,
     );
     const NUCZPercentage = objData.organizationDivider.find(
-      x => x.id === nucz.id,
+      (x) => x.id === nucz.id,
     ).value;
     const hours = objData.totalHours;
     const dailyRate = objData.dailyRate;
@@ -686,12 +688,8 @@ export class SalesInvoiceService extends BaseEntityService<
       );
 
       const issuedOn = new Date(objData.year, objData.month - 1, objData.day);
-      const start = moment(issuedOn)
-        .startOf('day')
-        .toDate();
-      const end = moment(issuedOn)
-        .endOf('day')
-        .toDate();
+      const start = moment(issuedOn).startOf('day').toDate();
+      const end = moment(issuedOn).endOf('day').toDate();
       await currencyRateService.save(
         entityManager,
         {
@@ -806,11 +804,10 @@ export class SalesInvoiceService extends BaseEntityService<
     i: SalesInvoiceModel,
   ): CrossIndustryInvoiceType => {
     const ExchangedDocumentContext = new ExchangedDocumentContextType();
-    ExchangedDocumentContext.GuidelineSpecifiedDocumentContextParameter = new DocumentContextParameterType(
-      {
+    ExchangedDocumentContext.GuidelineSpecifiedDocumentContextParameter =
+      new DocumentContextParameterType({
         ID: new IDType('urn:factur-x.eu:1p0:minimum'),
-      },
-    );
+      });
     const ExchangedDocument = new ExchangedDocumentType({
       ID: new IDType(i.documentNo),
       /*
@@ -833,8 +830,8 @@ export class SalesInvoiceService extends BaseEntityService<
       ApplicableHeaderTradeDelivery: new HeaderTradeDeliveryType(),
       ApplicableHeaderTradeSettlement: new HeaderTradeSettlementType({
         InvoiceCurrencyCode: new CurrencyCodeType(i.currency.isoCode),
-        SpecifiedTradeSettlementHeaderMonetarySummation: new TradeSettlementHeaderMonetarySummationType(
-          {
+        SpecifiedTradeSettlementHeaderMonetarySummation:
+          new TradeSettlementHeaderMonetarySummationType({
             TaxBasisTotalAmount: new AmountType(
               i.totalLinesAccountingSchemeCurrency,
             ),
@@ -845,13 +842,12 @@ export class SalesInvoiceService extends BaseEntityService<
                     vatTotalAccountingSchemeCurrency:
                       a.vatTotalAccountingSchemeCurrency +
                       b.vatTotalAccountingSchemeCurrency,
-                  } as any),
+                  }) as any,
               ).vatTotalAccountingSchemeCurrency,
             ),
             GrandTotalAmount: new AmountType(i.grandTotal),
             DuePayableAmount: new AmountType(i.grandTotal),
-          },
-        ),
+          }),
       }),
     });
     return new CrossIndustryInvoiceType({

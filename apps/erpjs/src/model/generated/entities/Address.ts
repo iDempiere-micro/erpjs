@@ -32,11 +32,10 @@ export class Address implements AddressModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -61,30 +60,20 @@ export class Address implements AddressModel {
   @Field()
   zipCode: string;
 
-  @ManyToOne(
-    () => Country,
-    country => country.addresses,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Country, (country) => country.addresses, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'countryId', referencedColumnName: 'id' }])
   @Field(() => Country)
   country: CountryModel;
 
-  @OneToMany(
-    () => Customer,
-    customer => customer.legalAddress,
-  )
+  @OneToMany(() => Customer, (customer) => customer.legalAddress)
   customers: CustomerModel[];
 
-  @OneToMany(
-    () => Customer,
-    customer => customer.address,
-  )
+  @OneToMany(() => Customer, (customer) => customer.address)
   customers1: CustomerModel[];
 
-  @OneToMany(
-    () => Organization,
-    organization => organization.legalAddress,
-  )
+  @OneToMany(() => Organization, (organization) => organization.legalAddress)
   organizations: OrganizationModel[];
 }

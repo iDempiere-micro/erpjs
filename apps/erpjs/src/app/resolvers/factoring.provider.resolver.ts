@@ -7,10 +7,10 @@ import {
   FactoringProviderService,
   FactoringProviderServiceKey,
 } from '../../model';
-import {EntityManager, getManager} from 'typeorm';
+import { EntityManager, getManager } from 'typeorm';
 import { FactoringProviderSaveArgs } from '../saveArgs/factoring.provider.save.args';
 import { FactoringContractSaveArgs } from '../saveArgs/factoring.contract.save.args';
-import {InjectEntityManager} from "@nestjs/typeorm";
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => FactoringProvider)
 @UseGuards(GqlAuthGuard)
@@ -43,7 +43,10 @@ export class FactoringProviderResolver {
 
   @Query(() => FactoringProvider)
   async factoringProvider(@Args('id', { type: () => Int }) id: number) {
-    return await this.factoringProviderService.loadEntityById(this.entityManager, id);
+    return await this.factoringProviderService.loadEntityById(
+      this.entityManager,
+      id,
+    );
   }
 
   @Mutation(() => FactoringProvider)

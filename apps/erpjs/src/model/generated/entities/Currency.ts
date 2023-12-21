@@ -30,11 +30,10 @@ export class Currency {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -57,25 +56,16 @@ export class Currency {
 
   @OneToMany(
     () => AccountingScheme,
-    accountingScheme => accountingScheme.currency,
+    (accountingScheme) => accountingScheme.currency,
   )
   accountingSchemes: AccountingScheme[];
 
-  @OneToMany(
-    () => CurrencyRate,
-    currencyRate => currencyRate.from,
-  )
+  @OneToMany(() => CurrencyRate, (currencyRate) => currencyRate.from)
   currencyRates: CurrencyRate[];
 
-  @OneToMany(
-    () => CurrencyRate,
-    currencyRate => currencyRate.to,
-  )
+  @OneToMany(() => CurrencyRate, (currencyRate) => currencyRate.to)
   currencyRates2: CurrencyRate[];
 
-  @OneToMany(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.currency,
-  )
+  @OneToMany(() => SalesInvoice, (salesInvoice) => salesInvoice.currency)
   salesInvoices: SalesInvoice[];
 }

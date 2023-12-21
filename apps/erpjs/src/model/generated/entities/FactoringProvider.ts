@@ -32,11 +32,10 @@ export class FactoringProvider implements FactoringProviderModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -63,7 +62,7 @@ export class FactoringProvider implements FactoringProviderModel {
 
   @ManyToOne(
     () => BankAccount,
-    bankAccount => bankAccount.factoringProviders,
+    (bankAccount) => bankAccount.factoringProviders,
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
@@ -72,13 +71,13 @@ export class FactoringProvider implements FactoringProviderModel {
 
   @OneToMany(
     () => SalesInvoice,
-    salesInvoice => salesInvoice.factoringProvider,
+    (salesInvoice) => salesInvoice.factoringProvider,
   )
   salesInvoices: SalesInvoice[];
 
   @OneToMany(
     () => FactoringContract,
-    factoringContract => factoringContract.factoringProvider,
+    (factoringContract) => factoringContract.factoringProvider,
   )
   factoringContracts: FactoringContract[];
 }
