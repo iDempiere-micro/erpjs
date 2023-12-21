@@ -1,0 +1,10 @@
+fragment CustomerProductPriceListParts on CustomerProductPrice {
+    id
+    sellingPrice
+    product {
+        ...ProductListParts
+    }
+    currency {
+        ...CurrencyListParts
+    }
+}

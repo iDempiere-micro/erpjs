@@ -1,0 +1,31 @@
+fragment OrganizationDetailParts on Organization {
+            id
+            displayName
+            legalAddress {
+                ...AddressListParts
+            }
+            legalName
+            registration
+            contact
+            idNumber
+            vatNumber
+            bankAccount {
+                ...BankAccountListParts
+            }
+            accountingScheme {
+                ...AccountingSchemeDetailParts
+            }
+            documentNumberSequences {
+                current
+            }
+}
+
+fragment OrganizationListParts on Organization {
+    contact
+    displayName
+    id
+    idNumber
+    legalName
+    registration
+    vatNumber
+}

@@ -1,0 +1,10 @@
+fragment CurrencyDetailParts on Currency {
+    id
+    displayName
+    isoCode
+}
+fragment CurrencyListParts on Currency {
+    id
+    isoCode
+    displayName
+}

@@ -1,18 +1,20 @@
-import adapter from '@sveltejs/adapter-auto';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+// inject the content of the .env file into 'process.env
+// ONLY IF not defined as an environment variable
+if (!process.env.API_BASE_URL) require('dotenv').config()
+const autoPreprocess = require('svelte-preprocess');
 
-/** @type {import('@sveltejs/kit').Config} */
-const config = {
-	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
-	// for more information about preprocessors
-	preprocess: vitePreprocess(),
-
-	kit: {
-		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
-		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
-		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
-		adapter: adapter()
-	}
+module.exports = {
+  preprocess: autoPreprocess({
+    defaults: {
+      script: 'typescript',
+    },
+    replace: [
+      ["process.env.API_BASE_URL", JSON.stringify(process.env.API_BASE_URL)],
+      ["process.env.KEYCLOAK_BASE_URL", JSON.stringify(process.env.KEYCLOAK_BASE_URL)],
+      ["process.env.KEYCLOAK_REALM", JSON.stringify(process.env.KEYCLOAK_REALM)],
+      ["process.env.URL", JSON.stringify(process.env.URL)],
+      ["process.env.FAKE_TOKEN", JSON.stringify(process.env.FAKE_TOKEN)],
+      ["process.env.MOCK", JSON.stringify(process.env.MOCK)],
+    ]
+  }),
 };
-
-export default config;

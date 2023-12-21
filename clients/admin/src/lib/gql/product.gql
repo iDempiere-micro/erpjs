@@ -1,0 +1,5 @@
+query productById($id: Int!) {
+            product(id: $id) {
+                ...ProductDetailParts
+            }
+        }

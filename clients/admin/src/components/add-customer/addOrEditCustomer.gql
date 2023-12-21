@@ -1,0 +1,35 @@
+mutation SaveCustomer(
+    $id: Int
+    $displayName: String!
+    $legalName: String!
+    $legalAddressCity: String!
+    $note: String
+    $idNumber: String!
+    $legalAddressCountryId: Int!
+    $legalAddressLine1: String!
+    $legalAddressZipCode: String!
+    $invoicingEmail: String!
+    $vatNumber: String
+    $customerGroupId: Int
+) {
+    saveCustomer(
+        args: {
+            id: $id
+            displayName: $displayName
+            legalName: $legalName
+            invoicingEmail: $invoicingEmail
+            idNumber: $idNumber
+            legalAddress: {
+                city: $legalAddressCity
+                countryId: $legalAddressCountryId
+                line1: $legalAddressLine1
+                zipCode: $legalAddressZipCode
+            }
+            note: $note
+            vatNumber: $vatNumber
+            customerGroupId: $customerGroupId
+        }
+    ) {
+        id
+    }
+}

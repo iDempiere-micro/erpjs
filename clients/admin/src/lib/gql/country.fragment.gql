@@ -1,0 +1,11 @@
+fragment CountryDetailParts on Country {
+    id
+    displayName
+    isoCode
+}
+
+fragment CountryListParts on Country {
+    id
+    displayName
+    isoCode
+}

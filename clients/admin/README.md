@@ -1,38 +1,29 @@
-# create-svelte
+# New Project
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+> ✨ Bootstrapped with Create Snowpack App (CSA).
 
-## Creating a project
+## Available Scripts
 
-If you're seeing this, you've probably already done this step. Congrats!
+### npm start
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Runs the app in the development mode.
+Open http://localhost:8080 to view it in the browser.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+The page will reload if you make edits.
+You will also see any lint errors in the console.
 
-## Developing
+### npm test
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Launches the test runner in the interactive watch mode.
+See the section about running tests for more information.
 
-```bash
-npm run dev
+### npm run build
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+Builds a static copy of your site to the `build/` folder.
+Your app is ready to be deployed!
 
-## Building
+**For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/snowpackjs/snowpack/tree/main/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.json` config file.
 
-To create a production version of your app:
+### Q: What about Eject?
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.

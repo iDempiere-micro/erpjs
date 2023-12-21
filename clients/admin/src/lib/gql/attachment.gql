@@ -1,0 +1,6 @@
+query AttachmentById($id: String!)
+{
+    attachment(id: $id) {
+        ...AttachmentListParts
+    }
+}

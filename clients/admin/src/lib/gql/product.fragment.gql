@@ -1,0 +1,14 @@
+fragment ProductDetailParts on Product {
+    id
+    displayName
+    sku
+    defaultUoM {
+        ...UnitOfMeasurementDetailParts
+    }
+}
+
+fragment ProductListParts on Product {
+    id
+    sku
+    displayName
+}

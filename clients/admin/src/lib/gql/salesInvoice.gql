@@ -1,0 +1,25 @@
+query SalesInvoiceById($id: Int!) {
+    salesInvoice(id: $id) {
+        ...SalesInvoiceDetailParts
+    }
+}
+
+mutation DuplicateSalesInvoice($id: Int!) {
+    duplicateSalesInvoice(id: $id) {
+        id
+    }
+}
+
+mutation PublishSalesInvoice(
+    $id: Int!
+    $attachmentIds: [String!]!
+) {
+    publishSalesInvoice(
+        args: {
+            id: $id
+            attachmentIds: $attachmentIds
+        }
+    ) {
+        id
+    }
+}

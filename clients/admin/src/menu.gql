@@ -1,0 +1,7 @@
+query Menu($dummy: Int)
+{
+    menu {
+        ...MenuListParts
+    }
+}
+

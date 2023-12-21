@@ -1,0 +1,6 @@
+query Attachments($dummy: Int)
+{
+    attachments {
+        ...AttachmentListParts
+    }
+}
