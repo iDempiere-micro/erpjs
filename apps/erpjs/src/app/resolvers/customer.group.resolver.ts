@@ -7,7 +7,7 @@ import {
   CustomerGroupService,
   CustomerGroupServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CustomerGroupSaveArgs } from '../saveArgs/customerGroup.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

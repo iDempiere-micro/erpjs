@@ -16,7 +16,7 @@ import {
 } from '../../model';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 import { Customer } from '../../model/generated/entities/Customer';
 import { InjectEntityManager } from '@nestjs/typeorm';

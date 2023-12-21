@@ -7,7 +7,7 @@ import {
   AccountingSchemeService,
   AccountingSchemeServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { AccountingSchemeSaveArgs } from '../saveArgs/accounting.scheme.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

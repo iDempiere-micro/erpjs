@@ -6,7 +6,7 @@ import {
   UserService,
   UserServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { HttpService } from '@nestjs/axios';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

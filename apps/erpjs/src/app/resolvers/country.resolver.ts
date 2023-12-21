@@ -3,7 +3,7 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Country } from '../../model/generated/entities/Country';
 import { CountryModel, CountryService, CountryServiceKey } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CountrySaveArgs } from '../saveArgs/country.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

@@ -7,7 +7,7 @@ import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CustomerProductPriceSaveArgs } from '../saveArgs/customer.product.price.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

@@ -1,8 +1,7 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { EntityManager, MigrationInterface, QueryRunner } from 'typeorm';
 import { getTechnicalUser, UserModel } from '../../model';
 import { Menu } from '../../model/generated/entities/Menu';
 import { MenuItem } from '../../model/generated/entities/MenuItem';
-import { EntityManager } from 'typeorm';
 
 export const createMenuItems = async (
   menu: Menu,

@@ -1,9 +1,9 @@
 import {
   CanActivate,
   ExecutionContext,
-  Injectable,
   HttpException,
   HttpStatus,
+  Injectable,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthenticationService } from './authentication.service';

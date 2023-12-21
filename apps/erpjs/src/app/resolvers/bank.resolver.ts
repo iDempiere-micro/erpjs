@@ -3,7 +3,7 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Bank } from '../../model/generated/entities/Bank';
 import { BankModel, BankService, BankServiceKey } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { BankSaveArgs } from '../saveArgs/bank.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

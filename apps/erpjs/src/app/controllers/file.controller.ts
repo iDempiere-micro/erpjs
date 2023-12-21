@@ -15,7 +15,7 @@ import {
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   AttachmentService,

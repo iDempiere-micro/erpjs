@@ -7,7 +7,7 @@ import {
   OrganizationService,
   OrganizationServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { OrganizationSaveArgs } from '../saveArgs/organization.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

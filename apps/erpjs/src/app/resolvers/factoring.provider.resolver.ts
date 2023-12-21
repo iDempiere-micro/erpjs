@@ -7,7 +7,7 @@ import {
   FactoringProviderService,
   FactoringProviderServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { FactoringProviderSaveArgs } from '../saveArgs/factoring.provider.save.args';
 import { FactoringContractSaveArgs } from '../saveArgs/factoring.contract.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';

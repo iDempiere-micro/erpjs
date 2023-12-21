@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Attachment } from '../../model/generated/entities/Attachment';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import {
   AttachmentService,
   AttachmentServiceKey,

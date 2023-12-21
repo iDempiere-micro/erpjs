@@ -7,7 +7,7 @@ import {
   CurrencyService,
   CurrencyServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrencySaveArgs } from '../saveArgs/currency.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

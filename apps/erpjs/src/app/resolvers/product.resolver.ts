@@ -3,7 +3,7 @@ import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Product } from '../../model/generated/entities/Product';
 import { ProductModel, ProductService, ProductServiceKey } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { ProductSaveArgs } from '../saveArgs/product.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 

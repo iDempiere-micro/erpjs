@@ -7,7 +7,7 @@ import {
   ContactPersonService,
   ContactPersonServiceKey,
 } from '../../model';
-import { EntityManager, getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { ContactPersonSaveArgs } from '../saveArgs/contact.person.save.args';
 import { InjectEntityManager } from '@nestjs/typeorm';
 
