@@ -36,6 +36,7 @@
     "graphql": "^16.8.1",
     "moment": "^2.29.4",
     "pdfkit": "^0.14.0",
+    "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17",
