@@ -7,8 +7,9 @@ import {
   CustomerGroupService,
   CustomerGroupServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import {EntityManager, getManager} from 'typeorm';
 import { CustomerGroupSaveArgs } from '../saveArgs/customerGroup.save.args';
+import {InjectEntityManager} from "@nestjs/typeorm";
 
 @Resolver(() => CustomerGroup)
 @UseGuards(GqlAuthGuard)
@@ -16,16 +17,18 @@ export class CustomerGroupResolver {
   constructor(
     @Inject(CustomerGroupServiceKey)
     protected readonly customerGroupService: CustomerGroupService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Query(() => [CustomerGroup])
   async customerGroups() {
-    return await this.customerGroupService.loadEntities(getManager());
+    return await this.customerGroupService.loadEntities(this.entityManager);
   }
 
   @Query(() => CustomerGroup)
   async customerGroup(@Args('id', { type: () => Int }) id: number) {
-    return await this.customerGroupService.loadEntityById(getManager(), id);
+    return await this.customerGroupService.loadEntityById(this.entityManager, id);
   }
 
   @Mutation(() => CustomerGroup)
@@ -33,6 +36,6 @@ export class CustomerGroupResolver {
     @Args('args') objData: CustomerGroupSaveArgs,
     @CurrentUser() user,
   ): Promise<CustomerGroupModel> {
-    return await this.customerGroupService.save(getManager(), objData, user);
+    return await this.customerGroupService.save(this.entityManager, objData, user);
   }
 }
