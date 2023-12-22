@@ -35,11 +35,10 @@ export class BankAccount {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -68,30 +67,20 @@ export class BankAccount {
   @Field()
   bankAccountCustomerPrintableNumber: string;
 
-  @ManyToOne(
-    () => Bank,
-    bank => bank.bankAccounts,
-    { eager: true },
-  )
+  @ManyToOne(() => Bank, (bank) => bank.bankAccounts, { eager: true })
   @JoinColumn([{ name: 'bankId', referencedColumnName: 'id' }])
   @Field(() => Bank)
   bank: BankModel;
 
-  @OneToMany(
-    () => Organization,
-    organization => organization.bankAccount,
-  )
+  @OneToMany(() => Organization, (organization) => organization.bankAccount)
   organizations: OrganizationModel[];
 
   @OneToMany(
     () => FactoringProvider,
-    factoringProvider => factoringProvider.bankAccount,
+    (factoringProvider) => factoringProvider.bankAccount,
   )
   factoringProviders: FactoringProviderModel[];
 
-  @OneToMany(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.bankAccount,
-  )
+  @OneToMany(() => SalesInvoice, (salesInvoice) => salesInvoice.bankAccount)
   salesInvoices: SalesInvoiceModel[];
 }

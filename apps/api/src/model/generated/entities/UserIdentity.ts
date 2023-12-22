@@ -23,11 +23,10 @@ export class UserIdentity {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -44,11 +43,7 @@ export class UserIdentity {
   @Column('character varying', { name: 'provider' })
   provider: string;
 
-  @ManyToOne(
-    () => User,
-    user => user.identities,
-    { eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.identities, { eager: true })
   @JoinColumn([{ name: 'userId', referencedColumnName: 'id' }])
   user: UserModel;
 }

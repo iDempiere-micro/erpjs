@@ -17,7 +17,7 @@ let mockBankAccountServiceCalled = false;
 let mockDocumentNumberingServiceCalled = false;
 
 const mockDocumentNumberingService = {
-  save: x => {
+  save: (x) => {
     mockDocumentNumberingServiceCalled = true;
     return x;
   },
@@ -28,7 +28,7 @@ export const mockDocumentNumberingServiceProvider = {
 };
 
 const mockBankAccountService = {
-  save: x => {
+  save: (x) => {
     mockBankAccountServiceCalled = true;
     return x;
   },
@@ -38,7 +38,7 @@ export const mockBankAccountServiceProvider = {
   useValue: mockBankAccountService,
 };
 const mockAddressService = {
-  save: x => x,
+  save: (x) => x,
 };
 export const mockAddressServiceProvider = {
   provide: AddressServiceKey,
@@ -52,7 +52,7 @@ export const mockAccountingSchemeServiceProvider = {
 
 const mockEntityManager = {
   getRepository: () => ({
-    save: x => x,
+    save: (x) => x,
   }),
 } as any;
 

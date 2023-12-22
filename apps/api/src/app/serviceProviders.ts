@@ -26,7 +26,7 @@ export const serviceProviders = [
   salesInvoiceServiceProvider,
   saveArgsValidationServiceProvider,
   ...modelServiceProviders.filter(
-    x =>
+    (x) =>
       ![
         AddressServiceKey,
         SaveArgsValidationServiceKey,

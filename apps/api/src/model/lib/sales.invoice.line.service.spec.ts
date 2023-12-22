@@ -119,12 +119,12 @@ const mockCustomerPriceListServiceProvider = {
 
 const mockEntityManager = {
   getRepository: () => ({
-    save: x => x,
+    save: (x) => x,
   }),
 } as any;
 
 (global as any).moduleRef = {
-  get: token => {
+  get: (token) => {
     switch (token) {
       case SalesInvoiceServiceKey:
         return mockSalesInvoiceService;
@@ -195,9 +195,7 @@ describe('SalesInvoiceLineService', () => {
 
   it('line price is taken from the customer group price list if that exists and is valid', async () => {
     customerPriceListModel.validTo = null;
-    customerPriceListModel.validFrom = moment()
-      .add(1, 'days')
-      .toDate();
+    customerPriceListModel.validFrom = moment().add(1, 'days').toDate();
     const line = await service.save(
       mockEntityManager,
       {
@@ -220,9 +218,7 @@ describe('SalesInvoiceLineService', () => {
     const customerPriceListModel2: CustomerPriceListModel = _.cloneDeep(
       customerPriceListModel,
     );
-    customerPriceListModel2.validFrom = moment()
-      .add(-1, 'days')
-      .toDate();
+    customerPriceListModel2.validFrom = moment().add(-1, 'days').toDate();
     customerPriceListModel2.productPrices[0].sellingPrice =
       PRODUCT_GROUP_PRICE / 2;
     const remember =
@@ -251,7 +247,8 @@ describe('SalesInvoiceLineService', () => {
       );
       expect(line.linePrice).toBe((PRODUCT_GROUP_PRICE / 2) * QUANTITY);
     } finally {
-      mockCustomerPriceListService.loadDateValidByCustomerGroupAndProduct = remember;
+      mockCustomerPriceListService.loadDateValidByCustomerGroupAndProduct =
+        remember;
     }
   });
 });

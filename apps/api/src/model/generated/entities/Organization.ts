@@ -39,11 +39,10 @@ export class Organization implements OrganizationModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -82,53 +81,48 @@ export class Organization implements OrganizationModel {
 
   @OneToMany(
     () => DocumentNumberSequence,
-    documentNumberSequence => documentNumberSequence.organization,
+    (documentNumberSequence) => documentNumberSequence.organization,
   )
   @Field(() => DocumentNumberSequence)
   documentNumberSequences: DocumentNumberSequence[];
 
   @ManyToOne(
     () => AccountingScheme,
-    accountingScheme => accountingScheme.organizations,
+    (accountingScheme) => accountingScheme.organizations,
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'accountingSchemeId', referencedColumnName: 'id' }])
   @Field(() => AccountingScheme)
   accountingScheme: AccountingSchemeModel;
 
-  @ManyToOne(
-    () => BankAccount,
-    bankAccount => bankAccount.organizations,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.organizations, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
   @Field(() => BankAccount)
   bankAccount: BankAccountModel;
 
-  @ManyToOne(
-    () => Address,
-    address => address.organizations,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Address, (address) => address.organizations, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'legalAddressId', referencedColumnName: 'id' }])
   @Field(() => Address)
   legalAddress: AddressModel;
 
-  @OneToMany(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.organization,
-  )
+  @OneToMany(() => SalesInvoice, (salesInvoice) => salesInvoice.organization)
   salesInvoices: SalesInvoice[];
 
   @OneToMany(
     () => UserToOrganization,
-    userToOrganization => userToOrganization.organization,
+    (userToOrganization) => userToOrganization.organization,
   )
   userToOrganizations: UserToOrganization[];
 
   @OneToMany(
     () => FactoringContract,
-    factoringContract => factoringContract.organization,
+    (factoringContract) => factoringContract.organization,
   )
   factoringContracts: FactoringContract[];
 }

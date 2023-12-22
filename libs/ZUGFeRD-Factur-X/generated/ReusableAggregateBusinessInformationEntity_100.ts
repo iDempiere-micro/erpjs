@@ -55,16 +55,18 @@ export class ExchangedDocumentContextType {
     this['@class'] = '.ExchangedDocumentContextType';
 
     if (props) {
-      this.BusinessProcessSpecifiedDocumentContextParameter = props.BusinessProcessSpecifiedDocumentContextParameter
-        ? new DocumentContextParameterType(
-            props.BusinessProcessSpecifiedDocumentContextParameter,
-          )
-        : undefined;
-      this.GuidelineSpecifiedDocumentContextParameter = props.GuidelineSpecifiedDocumentContextParameter
-        ? new DocumentContextParameterType(
-            props.GuidelineSpecifiedDocumentContextParameter,
-          )
-        : undefined;
+      this.BusinessProcessSpecifiedDocumentContextParameter =
+        props.BusinessProcessSpecifiedDocumentContextParameter
+          ? new DocumentContextParameterType(
+              props.BusinessProcessSpecifiedDocumentContextParameter,
+            )
+          : undefined;
+      this.GuidelineSpecifiedDocumentContextParameter =
+        props.GuidelineSpecifiedDocumentContextParameter
+          ? new DocumentContextParameterType(
+              props.GuidelineSpecifiedDocumentContextParameter,
+            )
+          : undefined;
     }
   }
 }
@@ -124,11 +126,12 @@ export class HeaderTradeSettlementType {
 
     if (props) {
       this.InvoiceCurrencyCode = props.InvoiceCurrencyCode;
-      this.SpecifiedTradeSettlementHeaderMonetarySummation = props.SpecifiedTradeSettlementHeaderMonetarySummation
-        ? new TradeSettlementHeaderMonetarySummationType(
-            props.SpecifiedTradeSettlementHeaderMonetarySummation,
-          )
-        : undefined;
+      this.SpecifiedTradeSettlementHeaderMonetarySummation =
+        props.SpecifiedTradeSettlementHeaderMonetarySummation
+          ? new TradeSettlementHeaderMonetarySummationType(
+              props.SpecifiedTradeSettlementHeaderMonetarySummation,
+            )
+          : undefined;
     }
   }
 }
@@ -172,9 +175,10 @@ export class SupplyChainTradeTransactionType {
       this.ApplicableHeaderTradeDelivery = props.ApplicableHeaderTradeDelivery
         ? new HeaderTradeDeliveryType(props.ApplicableHeaderTradeDelivery)
         : undefined;
-      this.ApplicableHeaderTradeSettlement = props.ApplicableHeaderTradeSettlement
-        ? new HeaderTradeSettlementType(props.ApplicableHeaderTradeSettlement)
-        : undefined;
+      this.ApplicableHeaderTradeSettlement =
+        props.ApplicableHeaderTradeSettlement
+          ? new HeaderTradeSettlementType(props.ApplicableHeaderTradeSettlement)
+          : undefined;
     }
   }
 }
@@ -233,7 +237,7 @@ export class TradePartyType {
         ? new TradeAddressType(props.PostalTradeAddress)
         : undefined;
       this.SpecifiedTaxRegistration = props.SpecifiedTaxRegistration?.map(
-        o => new TaxRegistrationType(o),
+        (o) => new TaxRegistrationType(o),
       );
     }
   }

@@ -31,8 +31,8 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
   const fontPath = fs.existsSync('./assets/Cardo-Regular.ttf')
     ? './assets/'
     : fs.existsSync('./apps/api/assets/Cardo-Regular.ttf')
-    ? './apps/api/assets/'
-    : './apps/api/src/assets/';
+      ? './apps/api/assets/'
+      : './apps/api/src/assets/';
 
   // Metadata defines document type.
   if (invoice.metadata) {
@@ -282,7 +282,7 @@ async function createInvoice(path: string, invoice: PrintSalesInvoice) {
 }
 
 function savePdfToFile(pdf, fileName: string): Promise<void> {
-  return new Promise<void>(resolve => {
+  return new Promise<void>((resolve) => {
     // To determine when the PDF has finished being written successfully
     // we need to confirm the following 2 conditions:
     //
@@ -385,24 +385,20 @@ export class ReportsService {
       totalLines: (+data.totalLines).toFixed(2),
       grandTotal: (+data.grandTotal).toFixed(2),
       currency: data.currency.displayName,
-      currencyMultiplyingRateToAccountingSchemeCurrency: (+data.currencyMultiplyingRateToAccountingSchemeCurrency).toFixed(
-        3,
-      ),
+      currencyMultiplyingRateToAccountingSchemeCurrency:
+        (+data.currencyMultiplyingRateToAccountingSchemeCurrency).toFixed(3),
       accountingSchemeCurrency: accountingScheme
         ? accountingScheme.currency.displayName
         : '###',
-      totalLinesAccountingSchemeCurrency: (+data.totalLinesAccountingSchemeCurrency).toFixed(
-        2,
-      ),
-      grandTotalAccountingSchemeCurrency: (+data.grandTotalAccountingSchemeCurrency).toFixed(
-        2,
-      ),
-      vatReport: data.vatReport.map(x => ({
+      totalLinesAccountingSchemeCurrency:
+        (+data.totalLinesAccountingSchemeCurrency).toFixed(2),
+      grandTotalAccountingSchemeCurrency:
+        (+data.grandTotalAccountingSchemeCurrency).toFixed(2),
+      vatReport: data.vatReport.map((x) => ({
         vatRatePercent: (+x.vatRatePercent).toFixed(0),
         vatTotal: (+x.vatTotal).toFixed(2),
-        vatTotalAccountingSchemeCurrency: (+x.vatTotalAccountingSchemeCurrencyRaw).toFixed(
-          2,
-        ),
+        vatTotalAccountingSchemeCurrency:
+          (+x.vatTotalAccountingSchemeCurrencyRaw).toFixed(2),
       })),
       printRate:
         data.currency.displayName !==

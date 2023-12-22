@@ -29,11 +29,10 @@ export class ContactPerson implements ContactPersonModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -50,7 +49,8 @@ export class ContactPerson implements ContactPersonModel {
 
   @OneToMany(
     () => ContactPersonCompanyRelation,
-    contactPersonCompanyRelation => contactPersonCompanyRelation.contactPerson,
+    (contactPersonCompanyRelation) =>
+      contactPersonCompanyRelation.contactPerson,
     { eager: false },
   )
   @Field(() => [ContactPersonCompanyRelation], { nullable: true })

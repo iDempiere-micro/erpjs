@@ -24,7 +24,7 @@ export class CustomerPriceList implements CustomerPriceListModel {
   @Field(() => CustomerGroup)
   @ManyToOne(
     () => CustomerGroup,
-    customerGroupModel => customerGroupModel.customerPriceLists,
+    (customerGroupModel) => customerGroupModel.customerPriceLists,
     { nullable: false },
   )
   customerGroup: CustomerGroupModel;
@@ -36,7 +36,7 @@ export class CustomerPriceList implements CustomerPriceListModel {
   @Field(() => [CustomerProductPrice], { nullable: true })
   @OneToMany(
     () => CustomerProductPrice,
-    customerProductPrice => customerProductPrice.customerPriceList,
+    (customerProductPrice) => customerProductPrice.customerPriceList,
   )
   productPrices: Array<CustomerProductPriceModel>;
 

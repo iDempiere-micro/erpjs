@@ -23,11 +23,10 @@ export class UserToOrganization implements UserToOrganizationModel {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -40,15 +39,12 @@ export class UserToOrganization implements UserToOrganizationModel {
 
   @ManyToOne(
     () => Organization,
-    organization => organization.userToOrganizations,
+    (organization) => organization.userToOrganizations,
   )
   @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
   organization: OrganizationModel;
 
-  @ManyToOne(
-    () => User,
-    user => user.organizations,
-  )
+  @ManyToOne(() => User, (user) => user.organizations)
   @JoinColumn([{ name: 'userId', referencedColumnName: 'id' }])
   user: UserModel;
 }

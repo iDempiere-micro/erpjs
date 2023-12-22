@@ -27,11 +27,10 @@ export class MenuItem {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -52,11 +51,10 @@ export class MenuItem {
   @Field()
   to: string;
 
-  @ManyToOne(
-    () => Menu,
-    menu => menu.items,
-    { nullable: false, eager: false },
-  )
+  @ManyToOne(() => Menu, (menu) => menu.items, {
+    nullable: false,
+    eager: false,
+  })
   @JoinColumn([{ name: 'menuId', referencedColumnName: 'id' }])
   @Field(() => Menu)
   menu: Menu;

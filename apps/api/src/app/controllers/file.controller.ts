@@ -51,7 +51,7 @@ export class FileController {
       getManager(),
       invoiceId,
     );
-    const buffer = (invoice.content as any) as Buffer;
+    const buffer = invoice.content as any as Buffer;
     if (user && buffer) {
       const data = buffer.toString('base64');
       return { data };
@@ -95,7 +95,7 @@ export class FileController {
       getManager(),
       customerId,
     );
-    const buffer = (invoice.photo as any) as Buffer;
+    const buffer = invoice.photo as any as Buffer;
     if (user && buffer) {
       const data = buffer.toString('base64');
       return { data };

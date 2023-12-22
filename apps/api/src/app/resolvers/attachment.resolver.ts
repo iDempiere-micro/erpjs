@@ -23,8 +23,12 @@ export class AttachmentResolver {
     const { files, folders } = await this.attachmentService.listCloudContent();
     // const links = await this.attachmentService.loadEntities(getManager());
     return [
-      ...files.map(x => ({ id: x.path, isFolder: false, displayName: x.path })),
-      ...folders.map(x => ({
+      ...files.map((x) => ({
+        id: x.path,
+        isFolder: false,
+        displayName: x.path,
+      })),
+      ...folders.map((x) => ({
         id: x.prefix,
         isFolder: true,
         displayName: x.prefix,

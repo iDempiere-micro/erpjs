@@ -24,11 +24,10 @@ export class DocumentNumberSequence {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -49,7 +48,7 @@ export class DocumentNumberSequence {
 
   @ManyToOne(
     () => Organization,
-    organization => organization.documentNumberSequences,
+    (organization) => organization.documentNumberSequences,
   )
   @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
   organization: OrganizationModel;

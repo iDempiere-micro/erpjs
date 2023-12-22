@@ -3,8 +3,10 @@ import { BaseSaveArgs } from './base.save.args';
 import { FactoringContractSaveArgsModel } from '../../model';
 
 @InputType()
-export class FactoringContractSaveArgs extends BaseSaveArgs
-  implements FactoringContractSaveArgsModel {
+export class FactoringContractSaveArgs
+  extends BaseSaveArgs
+  implements FactoringContractSaveArgsModel
+{
   @Field(() => Int)
   factoringProviderId: number;
   @Field(() => Int)

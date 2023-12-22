@@ -4,8 +4,10 @@ import { BaseSaveArgs } from './base.save.args';
 import { SalesInvoiceLineSaveArgs } from './sales.invoice.line.save.args';
 
 @InputType()
-export class SalesInvoiceSaveArgs extends BaseSaveArgs
-  implements SalesInvoiceSaveArgsModel {
+export class SalesInvoiceSaveArgs
+  extends BaseSaveArgs
+  implements SalesInvoiceSaveArgsModel
+{
   @Field(() => Int)
   currencyId: number;
 

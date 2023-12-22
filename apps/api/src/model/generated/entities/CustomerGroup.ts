@@ -32,11 +32,10 @@ export class CustomerGroup implements CustomerGroupModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -54,15 +53,12 @@ export class CustomerGroup implements CustomerGroupModel {
   displayName: string;
 
   @Field(() => [Customer], { nullable: true })
-  @OneToMany(
-    () => Customer,
-    customer => customer.customerGroup,
-  )
+  @OneToMany(() => Customer, (customer) => customer.customerGroup)
   customers: Array<CustomerModel>;
 
   @OneToMany(
     () => CustomerPriceList,
-    customerPriceList => customerPriceList.customerGroup,
+    (customerPriceList) => customerPriceList.customerGroup,
   )
   @Field(() => [CustomerPriceList], { nullable: true })
   customerPriceLists: Array<CustomerPriceListModel>;

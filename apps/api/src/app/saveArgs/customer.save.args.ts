@@ -5,8 +5,10 @@ import { CustomerSaveArgsModel } from '../../model';
 import { AddressSaveArgsType } from '../saveArgs';
 
 @InputType()
-export class CustomerSaveArgs extends BaseSaveArgs
-  implements CustomerSaveArgsModel {
+export class CustomerSaveArgs
+  extends BaseSaveArgs
+  implements CustomerSaveArgsModel
+{
   @Field(AddressSaveArgsType)
   legalAddress: AddressSaveArgs;
   @Field(AddressSaveArgsType, { nullable: true })

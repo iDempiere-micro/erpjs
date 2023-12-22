@@ -51,10 +51,11 @@ export class FactoringContractService extends BaseEntityService<
       transactionalEntityManager,
       args.customerId,
     );
-    entity.factoringProvider = await this.factoringProviderService.loadEntityById(
-      transactionalEntityManager,
-      args.factoringProviderId,
-    );
+    entity.factoringProvider =
+      await this.factoringProviderService.loadEntityById(
+        transactionalEntityManager,
+        args.factoringProviderId,
+      );
     entity.organization = await this.organizationService.loadEntityById(
       transactionalEntityManager,
       args.organizationId,

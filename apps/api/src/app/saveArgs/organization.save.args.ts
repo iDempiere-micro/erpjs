@@ -9,8 +9,10 @@ import { AddressSaveArgsType } from '../saveArgs';
 import { BankAccountSaveArgs } from './bank.account.save.args';
 
 @InputType()
-export class OrganizationSaveArgs extends BaseSaveArgs
-  implements OrganizationSaveArgsModel {
+export class OrganizationSaveArgs
+  extends BaseSaveArgs
+  implements OrganizationSaveArgsModel
+{
   @Field(() => Int)
   accountingSchemeId: number;
   @Field(() => BankAccountSaveArgs)
