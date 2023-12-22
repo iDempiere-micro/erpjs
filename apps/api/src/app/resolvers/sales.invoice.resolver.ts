@@ -4,7 +4,6 @@ import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { SalesInvoice } from '../../model/generated/entities/SalesInvoice';
 import {
   SalesInvoiceModel,
-  SalesInvoicePublishArgsModel,
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
