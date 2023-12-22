@@ -10,15 +10,6 @@
   "monorepo": true,
   "root": "apps/erpjs",
   "projects": {
-    "erpjs": {
-      "type": "application",
-      "root": "apps/erpjs",
-      "entryFile": "main",
-      "sourceRoot": "apps/erpjs/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/erpjs/tsconfig.app.json"
-      }
-    },
     "api": {
       "type": "application",
       "root": "apps/api",
