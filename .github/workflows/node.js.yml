@@ -28,9 +28,9 @@ jobs:
 
       - run: npm ci
       - run: npm run format:check
-      - run: npm run build erpjs
+      - run: npm run build api
       - run: ( mv clients/admin/.eslintrc.js  clients/admin/.eslintrc__.js && yarn lint:check && mv clients/admin/.eslintrc__.js clients/admin/.eslintrc.js )
-      - run: npm run test erpjs
+      - run: npm run test api
       - run: (cd clients/admin && yarn)
       - run: (cd clients/admin && yarn build)
       - run: (cd clients/admin && yarn lint)
