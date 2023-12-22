@@ -1,28 +1,60 @@
-FROM node:current-alpine3.19 As development
+# Install dependencies only when needed
+FROM node:16-alpine AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 
-WORKDIR /usr/src/app
+# Install BASH to make our lives easier for entrypoint.sh...
+RUN apk add bash
 
-COPY package*.json ./
+WORKDIR /app
 
-RUN npm ci
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
+
+# Rebuild the source code only when needed
+FROM node:16-alpine AS builder
+
+# Install BASH to make our lives easier for entrypoint.sh...
+RUN apk add bash
+
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 RUN npm run build api
 
-FROM node:current-alpine3.19 as production
+# Production image, copy all the files and run next
+FROM node:16-alpine AS runner
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+# Install BASH to make our lives easier for entrypoint.sh...
+RUN apk add bash
 
-WORKDIR /usr/src/app
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 
-COPY package*.json ./
+ENV NODE_ENV production
 
-RUN npm ci
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-COPY . .
+############
+# Permissions to write files when executing entrypoint
+RUN chown -R nextjs:nodejs /app
 
-COPY --from=development /usr/src/app/dist/apps/api ./dist
+# Automatically leverage output traces to reduce image size
+COPY --from=builder --chown=nextjs:nodejs /app/dist/apps/api ./
 
-CMD ["node", "dist/main"]
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT 3000
+
+CMD ["node", "main"]
