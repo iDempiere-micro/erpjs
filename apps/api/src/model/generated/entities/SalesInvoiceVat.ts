@@ -27,11 +27,10 @@ export class SalesInvoiceVat implements SalesInvoiceVatModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -70,10 +69,7 @@ export class SalesInvoiceVat implements SalesInvoiceVatModel {
   @Field()
   vatTotal: number;
 
-  @ManyToOne(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.vatReport,
-  )
+  @ManyToOne(() => SalesInvoice, (salesInvoice) => salesInvoice.vatReport)
   @JoinColumn([{ name: 'invoiceId', referencedColumnName: 'id' }])
   invoice: SalesInvoiceModel;
 }

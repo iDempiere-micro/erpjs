@@ -41,11 +41,10 @@ export class SalesInvoice implements SalesInvoiceModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updSalesInvoices,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updSalesInvoices, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -137,58 +136,54 @@ export class SalesInvoice implements SalesInvoiceModel {
   @Field()
   reverseCharge: boolean;
 
-  @ManyToOne(
-    () => BankAccount,
-    bankAccount => bankAccount.salesInvoices,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => BankAccount, (bankAccount) => bankAccount.salesInvoices, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'bankAccountId', referencedColumnName: 'id' }])
   @Field(() => BankAccount)
   bankAccount: BankAccountModel;
 
-  @ManyToOne(
-    () => Currency,
-    currency => currency.salesInvoices,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Currency, (currency) => currency.salesInvoices, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
   @Field(() => Currency)
   currency: CurrencyModel;
 
-  @ManyToOne(
-    () => Customer,
-    customer => customer.salesInvoices,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Customer, (customer) => customer.salesInvoices, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'customerId', referencedColumnName: 'id' }])
   @Field(() => Customer)
   customer: CustomerModel;
 
-  @ManyToOne(
-    () => Organization,
-    organization => organization.salesInvoices,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Organization, (organization) => organization.salesInvoices, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'organizationId', referencedColumnName: 'id' }])
   @Field(() => Organization)
   organization: OrganizationModel;
 
   @OneToMany(
     () => SalesInvoiceLine,
-    salesInvoiceLine => salesInvoiceLine.invoice,
+    (salesInvoiceLine) => salesInvoiceLine.invoice,
   )
   @Field(() => [SalesInvoiceLine])
   lines: SalesInvoiceLineModel[];
 
   @OneToMany(
     () => SalesInvoiceVat,
-    salesInvoiceVat => salesInvoiceVat.invoice,
+    (salesInvoiceVat) => salesInvoiceVat.invoice,
   )
   @Field(() => [SalesInvoiceVat])
   vatReport: SalesInvoiceVatModel[];
 
   get printLanguage(): LanguageModel {
-    return languages.find(x => x.isoCode === this.printLanguageIsoCode);
+    return languages.find((x) => x.isoCode === this.printLanguageIsoCode);
   }
 
   set printLanguage(value: LanguageModel) {
@@ -197,7 +192,7 @@ export class SalesInvoice implements SalesInvoiceModel {
 
   @ManyToOne(
     () => FactoringProvider,
-    factoringProvider => factoringProvider.salesInvoices,
+    (factoringProvider) => factoringProvider.salesInvoices,
     { nullable: true },
   )
   @JoinColumn([{ name: 'factoringProviderId', referencedColumnName: 'id' }])

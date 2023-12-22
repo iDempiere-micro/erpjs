@@ -27,11 +27,10 @@ export class Bank implements BankModel {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -50,9 +49,6 @@ export class Bank implements BankModel {
   @Field()
   bankIdentifierCode: string;
 
-  @OneToMany(
-    () => BankAccount,
-    bankAccount => bankAccount.bank,
-  )
+  @OneToMany(() => BankAccount, (bankAccount) => bankAccount.bank)
   bankAccounts: BankAccount[];
 }

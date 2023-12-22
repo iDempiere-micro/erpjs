@@ -12,7 +12,7 @@ import { UserModel } from './user.model';
 
 export abstract class BaseEntityService<
   T extends BaseModel,
-  S extends BaseSaveArgsModel
+  S extends BaseSaveArgsModel,
 > {
   abstract createEntity(): T;
   protected abstract getRepository(

@@ -3,8 +3,10 @@ import { SalesInvoiceLineSaveArgsModel } from '../../model';
 import { BaseSaveArgs } from './base.save.args';
 
 @InputType()
-export class SalesInvoiceLineSaveArgs extends BaseSaveArgs
-  implements SalesInvoiceLineSaveArgsModel {
+export class SalesInvoiceLineSaveArgs
+  extends BaseSaveArgs
+  implements SalesInvoiceLineSaveArgsModel
+{
   @Field()
   lineOrder: number;
   @Field()

@@ -48,17 +48,12 @@ export class SalesInvoiceResolver {
 
   @Query(() => [SalesInvoicesInTime])
   async salesInvoicesReport() {
-    const result = await this.salesInvoiceService.salesInvoicesReport(
-      getManager(),
-    );
+    const result =
+      await this.salesInvoiceService.salesInvoicesReport(getManager());
 
     return result.map(({ year, month, organization_displayName, sum }) => ({
       group: organization_displayName,
-      date: moment()
-        .year(year)
-        .month(month)
-        .date(1)
-        .format('YYYY-MM-DD'),
+      date: moment().year(year).month(month).date(1).format('YYYY-MM-DD'),
       value: sum,
     }));
   }

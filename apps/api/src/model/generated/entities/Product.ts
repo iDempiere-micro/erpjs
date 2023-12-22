@@ -31,11 +31,10 @@ export class Product {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -56,15 +55,11 @@ export class Product {
 
   @OneToMany(
     () => SalesInvoiceLine,
-    salesInvoiceLine => salesInvoiceLine.product,
+    (salesInvoiceLine) => salesInvoiceLine.product,
   )
   salesInvoiceLines: SalesInvoiceLine[];
 
-  @ManyToOne(
-    () => UnitOfMeasurement,
-    uom => uom.products,
-    { nullable: true },
-  )
+  @ManyToOne(() => UnitOfMeasurement, (uom) => uom.products, { nullable: true })
   @JoinColumn([{ name: 'uomId', referencedColumnName: 'id' }])
   @Field(() => UnitOfMeasurement, { nullable: true })
   defaultUoM: UnitOfMeasurementModel;
@@ -72,7 +67,7 @@ export class Product {
   @Field(() => [CustomerProductPrice], { nullable: true })
   @OneToMany(
     () => CustomerProductPrice,
-    customerProductPrice => customerProductPrice.product,
+    (customerProductPrice) => customerProductPrice.product,
   )
   customerProductPrices: Array<CustomerProductPriceModel>;
 }

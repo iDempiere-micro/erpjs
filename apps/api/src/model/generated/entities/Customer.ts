@@ -39,11 +39,10 @@ export class Customer implements CustomerModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -76,19 +75,15 @@ export class Customer implements CustomerModel {
   @Field()
   idNumber: string;
 
-  @ManyToOne(
-    () => Address,
-    address => address.customers,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Address, (address) => address.customers, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'legalAddressId', referencedColumnName: 'id' }])
   @Field(() => Address)
   legalAddress: AddressModel;
 
-  @OneToMany(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.customer,
-  )
+  @OneToMany(() => SalesInvoice, (salesInvoice) => salesInvoice.customer)
   @Field(() => [SalesInvoice])
   salesInvoices: SalesInvoiceModel[];
 
@@ -96,26 +91,23 @@ export class Customer implements CustomerModel {
   @Field({ nullable: true })
   note: string | null;
 
-  @ManyToOne(
-    () => Address,
-    address => address.customers1,
-    { nullable: true, eager: true },
-  )
+  @ManyToOne(() => Address, (address) => address.customers1, {
+    nullable: true,
+    eager: true,
+  })
   @JoinColumn([{ name: 'addressId', referencedColumnName: 'id' }])
   @Field(() => Address, { nullable: true })
   address: AddressModel;
 
   @Field(() => CustomerGroup, { nullable: true })
-  @ManyToOne(
-    () => CustomerGroup,
-    customerGroup => customerGroup.customers,
-    { nullable: true },
-  )
+  @ManyToOne(() => CustomerGroup, (customerGroup) => customerGroup.customers, {
+    nullable: true,
+  })
   customerGroup?: CustomerGroupModel;
 
   @OneToMany(
     () => ContactPersonCompanyRelation,
-    contactPersonCompanyRelation => contactPersonCompanyRelation.customer,
+    (contactPersonCompanyRelation) => contactPersonCompanyRelation.customer,
     { eager: false },
   )
   @Field(() => [ContactPersonCompanyRelation], { nullable: true })
@@ -134,7 +126,7 @@ export class Customer implements CustomerModel {
 
   @OneToMany(
     () => FactoringContract,
-    factoringContract => factoringContract.customer,
+    (factoringContract) => factoringContract.customer,
   )
   factoringContracts: FactoringContract[];
 }

@@ -3,8 +3,10 @@ import { ContactPersonCompanyRelationSaveArgsModel } from '../../model';
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class ContactPersonCompanyRelationSaveArgs extends BaseSaveArgs
-  implements ContactPersonCompanyRelationSaveArgsModel {
+export class ContactPersonCompanyRelationSaveArgs
+  extends BaseSaveArgs
+  implements ContactPersonCompanyRelationSaveArgsModel
+{
   @Field()
   contactPersonId: number;
   @Field()

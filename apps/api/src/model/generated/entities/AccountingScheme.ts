@@ -30,11 +30,10 @@ export class AccountingScheme implements AccountingSchemeModel {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -49,18 +48,16 @@ export class AccountingScheme implements AccountingSchemeModel {
   @Field()
   displayName: string;
 
-  @ManyToOne(
-    () => Currency,
-    currency => currency.accountingSchemes,
-    { eager: true },
-  )
+  @ManyToOne(() => Currency, (currency) => currency.accountingSchemes, {
+    eager: true,
+  })
   @JoinColumn([{ name: 'currencyId', referencedColumnName: 'id' }])
   @Field(() => Currency)
   currency: CurrencyModel;
 
   @OneToMany(
     () => Organization,
-    organization => organization.accountingScheme,
+    (organization) => organization.accountingScheme,
   )
   organizations: OrganizationModel[];
 }

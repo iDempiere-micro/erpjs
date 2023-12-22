@@ -22,11 +22,10 @@ export class CurrencyRate implements CurrencyRateModel {
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -48,17 +47,11 @@ export class CurrencyRate implements CurrencyRateModel {
   @Column('date', { name: 'start' })
   start: Date;
 
-  @ManyToOne(
-    () => Currency,
-    currency => currency.currencyRates,
-  )
+  @ManyToOne(() => Currency, (currency) => currency.currencyRates)
   @JoinColumn([{ name: 'fromId', referencedColumnName: 'id' }])
   from: Currency;
 
-  @ManyToOne(
-    () => Currency,
-    currency => currency.currencyRates2,
-  )
+  @ManyToOne(() => Currency, (currency) => currency.currencyRates2)
   @JoinColumn([{ name: 'toId', referencedColumnName: 'id' }])
   to: Currency;
 }

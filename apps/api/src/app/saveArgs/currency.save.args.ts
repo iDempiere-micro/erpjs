@@ -3,8 +3,10 @@ import { BaseSaveArgs } from './base.save.args';
 import { CurrencySaveArgsModel } from '../../model';
 
 @InputType()
-export class CurrencySaveArgs extends BaseSaveArgs
-  implements CurrencySaveArgsModel {
+export class CurrencySaveArgs
+  extends BaseSaveArgs
+  implements CurrencySaveArgsModel
+{
   @Field()
   displayName: string;
   @Field()

@@ -3,8 +3,10 @@ import { AccountingSchemeSaveArgsModel } from '../../model';
 import { BaseSaveArgs } from './base.save.args';
 
 @InputType()
-export class AccountingSchemeSaveArgs extends BaseSaveArgs
-  implements AccountingSchemeSaveArgsModel {
+export class AccountingSchemeSaveArgs
+  extends BaseSaveArgs
+  implements AccountingSchemeSaveArgsModel
+{
   @Field()
   displayName: string;
   @Field(() => Int)

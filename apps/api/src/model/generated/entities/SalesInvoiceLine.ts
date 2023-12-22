@@ -31,11 +31,10 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -64,26 +63,21 @@ export class SalesInvoiceLine implements SalesInvoiceLineModel {
   @Field()
   narration: string;
 
-  @ManyToOne(
-    () => SalesInvoice,
-    salesInvoice => salesInvoice.lines,
-  )
+  @ManyToOne(() => SalesInvoice, (salesInvoice) => salesInvoice.lines)
   @JoinColumn([{ name: 'invoiceId', referencedColumnName: 'id' }])
   invoice: SalesInvoiceModel;
 
-  @ManyToOne(
-    () => Tax,
-    tax => tax.salesInvoiceLines,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Tax, (tax) => tax.salesInvoiceLines, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'lineTaxId', referencedColumnName: 'id' }])
   lineTax: TaxModel;
 
-  @ManyToOne(
-    () => Product,
-    product => product.salesInvoiceLines,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => Product, (product) => product.salesInvoiceLines, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'productId', referencedColumnName: 'id' }])
   @Field(() => Product)
   product: ProductModel;

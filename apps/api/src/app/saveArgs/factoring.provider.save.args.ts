@@ -7,8 +7,10 @@ import {
 import { BankAccountSaveArgs } from './bank.account.save.args';
 
 @InputType()
-export class FactoringProviderSaveArgs extends BaseSaveArgs
-  implements FactoringProviderSaveArgsModel {
+export class FactoringProviderSaveArgs
+  extends BaseSaveArgs
+  implements FactoringProviderSaveArgsModel
+{
   @Field(() => BankAccountSaveArgs)
   newBankAccount: BankAccountSaveArgsModel;
   @Field()

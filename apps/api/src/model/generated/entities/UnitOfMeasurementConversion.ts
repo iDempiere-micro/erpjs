@@ -15,7 +15,8 @@ import { UnitOfMeasurement } from './UnitOfMeasurement';
 @Entity('unit_of_measurement_conversion', { schema: 'public' })
 @ObjectType()
 export class UnitOfMeasurementConversion
-  implements UnitOfMeasurementConversionModel {
+  implements UnitOfMeasurementConversionModel
+{
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   @Field()
   id: number;
@@ -26,11 +27,10 @@ export class UnitOfMeasurementConversion
   })
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
@@ -47,18 +47,12 @@ export class UnitOfMeasurementConversion
   @Field()
   unitMultiplyingRate: number; // 1000
 
-  @ManyToOne(
-    () => UnitOfMeasurement,
-    currency => currency.conversionRates,
-  )
+  @ManyToOne(() => UnitOfMeasurement, (currency) => currency.conversionRates)
   @JoinColumn([{ name: 'fromId', referencedColumnName: 'id' }])
   @Field(() => UnitOfMeasurement)
   from: UnitOfMeasurementModel; // m
 
-  @ManyToOne(
-    () => UnitOfMeasurement,
-    currency => currency.conversionRates2,
-  )
+  @ManyToOne(() => UnitOfMeasurement, (currency) => currency.conversionRates2)
   @JoinColumn([{ name: 'toId', referencedColumnName: 'id' }])
   @Field(() => UnitOfMeasurement)
   to: UnitOfMeasurementModel; // mm

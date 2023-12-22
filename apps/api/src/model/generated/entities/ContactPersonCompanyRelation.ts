@@ -18,7 +18,8 @@ import { Customer } from './Customer';
 @Entity('contactPersonCompanyRelation', { schema: 'public' })
 @ObjectType()
 export class ContactPersonCompanyRelation
-  implements ContactPersonCompanyRelationModel {
+  implements ContactPersonCompanyRelationModel
+{
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   @Field(() => Int)
   id: number;
@@ -30,18 +31,17 @@ export class ContactPersonCompanyRelation
   @Field(() => DateTimeScalarType)
   updtTs: Date;
 
-  @ManyToOne(
-    () => User,
-    user => user.updAccountingSchemes,
-    { nullable: false, eager: true },
-  )
+  @ManyToOne(() => User, (user) => user.updAccountingSchemes, {
+    nullable: false,
+    eager: true,
+  })
   @JoinColumn([{ name: 'updtOpId', referencedColumnName: 'id' }])
   @Field(() => User)
   updtOp: UserModel;
 
   @ManyToOne(
     () => ContactPerson,
-    contactPerson => contactPerson.contactPersonCompanyRelations,
+    (contactPerson) => contactPerson.contactPersonCompanyRelations,
     { nullable: false, eager: true },
   )
   @JoinColumn([{ name: 'contactPersonId', referencedColumnName: 'id' }])
@@ -50,7 +50,7 @@ export class ContactPersonCompanyRelation
 
   @ManyToOne(
     () => Customer,
-    customer => customer.contactPersonCompanyRelations,
+    (customer) => customer.contactPersonCompanyRelations,
     { nullable: false, eager: false },
   )
   @JoinColumn([{ name: 'customerId', referencedColumnName: 'id' }])
