@@ -4,9 +4,9 @@ import {
   AddressServiceKey,
   CountryService,
   CountryServiceKey,
+  getService,
   getTechnicalUser,
 } from '../../model';
-import { getService } from '../../model';
 
 export class CreateAnAddress1595508635328 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
