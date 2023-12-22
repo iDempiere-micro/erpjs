@@ -38,6 +38,7 @@
     "@nestjs/typeorm": "^10.0.1",
     "aws-sdk": "^2.1515.0",
     "axios": "^1.6.2",
+    "azure-storage": "^2.10.7",
     "deep-equal": "^2.2.3",
     "graphql": "^16.8.1",
     "moment": "^2.29.4",
