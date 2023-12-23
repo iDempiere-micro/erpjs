@@ -18,7 +18,7 @@ export abstract class BaseEntityService<
   protected abstract getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<T>;
-  protected abstract async doSave(
+  protected abstract doSave(
     transactionalEntityManager: EntityManager,
     args: S,
     entity: T,
@@ -37,6 +37,8 @@ export abstract class BaseEntityService<
     relations?: string[],
   ): Promise<T> =>
     await this.getRepository(transactionalEntityManager).findOne({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       where: { id },
       relations: relations || this.loadEntityByIdRelations(),
     });

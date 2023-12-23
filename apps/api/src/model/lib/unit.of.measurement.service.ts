@@ -30,7 +30,9 @@ export class UnitOfMeasurementService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<UnitOfMeasurementModel> {
-    return transactionalEntityManager.getRepository(UnitOfMeasurement);
+    return transactionalEntityManager.getRepository(
+      UnitOfMeasurement,
+    ) as Repository<UnitOfMeasurementModel>;
   }
 
   typeName(): string {

@@ -5,7 +5,8 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        'plugin:svelte/recommended'
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -15,12 +16,6 @@ module.exports = {
     "plugins": [
         "@typescript-eslint",
         'svelte3'
-    ],
-    overrides: [
-        {
-            files: ['*.svelte'],
-            processor: 'svelte3/svelte3'
-        }
     ],
     "rules": {
         "no-console": 2

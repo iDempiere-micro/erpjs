@@ -4,6 +4,7 @@ generated template classes for ./FACTUR-X_MINIMUM_urn_un_unece_uncefact_data_sta
 
 export class FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_QualifiedDataType_100 {
   public constructor(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     props?: FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_QualifiedDataType_100,
   ) {
     this['@class'] =
@@ -12,6 +13,7 @@ export class FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_QualifiedDataT
 }
 
 export class CountryIDType {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public constructor(props?: CountryIDType) {
     this['@class'] = '.CountryIDType';
   }

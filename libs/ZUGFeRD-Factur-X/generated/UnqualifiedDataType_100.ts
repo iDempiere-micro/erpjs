@@ -4,6 +4,7 @@ generated template classes for ./FACTUR-X_MINIMUM_urn_un_unece_uncefact_data_sta
 
 export class FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100 {
   public constructor(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     props?: FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_UnqualifiedDataType_100,
   ) {
     this['@class'] =
@@ -21,6 +22,7 @@ export class AmountType {
 }
 
 export class CodeType {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public constructor(props?: CodeType) {
     this['@class'] = '.CodeType';
   }

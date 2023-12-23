@@ -37,3 +37,6 @@ lerna-debug.log*
 /clients/mobile/.env
 
 backup
+
+schema.gql
+

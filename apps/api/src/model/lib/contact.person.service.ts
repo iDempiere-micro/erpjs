@@ -28,7 +28,9 @@ export class ContactPersonService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<ContactPersonModel> {
-    return transactionalEntityManager.getRepository(ContactPerson);
+    return transactionalEntityManager.getRepository(
+      ContactPerson,
+    ) as Repository<ContactPersonModel>;
   }
 
   typeName(): string {

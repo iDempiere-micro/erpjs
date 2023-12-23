@@ -53,7 +53,7 @@ export class ContactPersonCompanyRelationService extends BaseEntityService<
   ): Repository<ContactPersonCompanyRelationModel> {
     return transactionalEntityManager.getRepository(
       ContactPersonCompanyRelation,
-    );
+    ) as Repository<ContactPersonCompanyRelationModel>;
   }
 
   typeName(): string {

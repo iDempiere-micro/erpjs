@@ -7,8 +7,9 @@ import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CustomerProductPriceSaveArgs } from '../saveArgs/customer.product.price.save.args';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => CustomerProductPrice)
 @UseGuards(GqlAuthGuard)
@@ -16,17 +17,21 @@ export class CustomerProductPriceResolver {
   constructor(
     @Inject(CustomerProductPriceServiceKey)
     protected readonly customerProductPriceService: CustomerProductPriceService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Query(() => [CustomerProductPrice])
   async customerProductPrices() {
-    return await this.customerProductPriceService.loadEntities(getManager());
+    return await this.customerProductPriceService.loadEntities(
+      this.entityManager,
+    );
   }
 
   @Query(() => CustomerProductPrice)
   async customerProductPrice(@Args('id', { type: () => Int }) id: number) {
     return await this.customerProductPriceService.loadEntityById(
-      getManager(),
+      this.entityManager,
       id,
     );
   }
@@ -37,7 +42,7 @@ export class CustomerProductPriceResolver {
     @CurrentUser() user,
   ): Promise<CustomerProductPriceModel> {
     return await this.customerProductPriceService.save(
-      getManager(),
+      this.entityManager,
       objData,
       user,
     );

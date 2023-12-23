@@ -1,4 +1,5 @@
 import { AwsS3Provider } from '../../aws-s3/src/AwsS3Provider';
+import { AzureStorageProvider } from '../../azure-storage/src/AzureStorageProvider';
 import { ListItemObject, ListItemPrefix, StorageProvider } from '../../core/src/StorageProvider';
 
 export interface SMCloudStoreFactories {
@@ -32,6 +33,7 @@ export const SMCloudStore = {
 
         switch(provider) {
             case 'aws-s3': return new AwsS3Provider(connection,factories);
+            case 'azure-storage': return new AzureStorageProvider(connection);
         }
 
         throw new Error(`Provider '${provider}' not supported, check SMCloudStore.ts`);
@@ -45,7 +47,8 @@ export const SMCloudStore = {
     providers: (): string[] => {
         return [
             'aws-s3',
-            /* 'azure-storage', not yet
+            'azure-storage',
+            /* not yet
             'backblaze-b2',
             'generic-s3',
             'google-cloud-storage',

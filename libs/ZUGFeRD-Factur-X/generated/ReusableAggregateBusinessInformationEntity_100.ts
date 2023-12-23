@@ -16,6 +16,7 @@ import {
 
 export class FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100 {
   public constructor(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     props?: FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100,
   ) {
     this['@class'] =
@@ -112,6 +113,7 @@ export class HeaderTradeAgreementType {
 }
 
 export class HeaderTradeDeliveryType {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public constructor(props?: HeaderTradeDeliveryType) {
     this['@class'] = '.HeaderTradeDeliveryType';
   }

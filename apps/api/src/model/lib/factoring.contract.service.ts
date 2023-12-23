@@ -67,7 +67,9 @@ export class FactoringContractService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<FactoringContractModel> {
-    return transactionalEntityManager.getRepository(FactoringContract);
+    return transactionalEntityManager.getRepository(
+      FactoringContract,
+    ) as Repository<FactoringContractModel>;
   }
 
   typeName(): string {

@@ -1,8 +1,9 @@
 'use strict'
 
-import {ListItemObject, ListItemPrefix, ListResults, PutObjectOptions, StorageProvider} from '@smcloudstore/core/dist/StorageProvider'
+import {ListItemObject, ListItemPrefix, ListResults, PutObjectOptions, StorageProvider} from '../../core/src/StorageProvider';
 import * as Azure from 'azure-storage'
 import {Stream, Transform} from 'stream'
+import {text} from "node:stream/consumers";
 
 /**
  * Connection options for an Azure Blob Storage provider.
@@ -88,7 +89,7 @@ function PutObjectRequestOptions(options: PutObjectOptions): Azure.BlobService.C
 /**
  * Client to interact with Azure Blob Storage.
  */
-class AzureStorageProvider extends StorageProvider {
+export class AzureStorageProvider extends StorageProvider {
     protected _client: Azure.BlobService
 
     /**
@@ -308,6 +309,11 @@ class AzureStorageProvider extends StorageProvider {
         return Promise.resolve(duplexStream)
     }
 
+    async getObjectBase64(container: string, path: string): Promise<string> {
+        // @ts-expect-error stream conversion
+        return Promise.resolve((await text(await this.getObject(container, path))).toString('base64'));
+    }
+
     /**
      * Returns a list of objects with a given prefix (folder). The list is not recursive, so prefixes (folders) are returned as such.
      * 
@@ -371,12 +377,14 @@ class AzureStorageProvider extends StorageProvider {
                     }
                     else {
                         // No token, so return the list of what we've collected
+                        // @ts-ignore
                         resolve(resultList)
                     }
                 })
             })
         }
 
+        // @ts-ignore
         return Promise.all([
             requestPromise('blob', null),
             requestPromise('prefix', null)
@@ -524,4 +532,3 @@ class AzureStorageProvider extends StorageProvider {
     }
 }
 
-export = AzureStorageProvider

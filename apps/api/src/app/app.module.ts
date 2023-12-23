@@ -17,6 +17,7 @@ import { FileController } from './controllers/file.controller';
 import { DateScalar } from './support/date.scalar';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({
@@ -62,19 +63,12 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
               },
             },
     }),
-    GraphQLModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        const aws = configService.get<string>('AWS') === 'true';
-        return {
-          installSubscriptionHandlers: true,
-          autoSchemaFile: aws ? '/tmp/schema.gql' : 'schema.gql',
-          debug: true,
-          context: ({ req }) => ({ req }),
-          sortSchema: true,
-        };
-      },
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      installSubscriptionHandlers: true,
+      autoSchemaFile: 'schema.gql', // aws ? '/tmp/schema.gql' :
+      context: ({ req }) => ({ req }),
+      sortSchema: true,
+      driver: ApolloDriver,
     }),
     MailerModule.forRoot({
       transport: {

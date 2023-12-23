@@ -1,4 +1,4 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   getService,
   getTechnicalUser,
@@ -6,7 +6,9 @@ import {
   UserService,
   UserServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
+import { HttpService } from '@nestjs/axios';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 interface KeycloakUserInfoResponse {
   sub: string;
@@ -25,7 +27,11 @@ export class AuthenticationService {
   private readonly baseURL: string;
   private readonly realm: string;
 
-  constructor(private httpService: HttpService) {
+  constructor(
+    private httpService: HttpService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
+  ) {
     this.baseURL = process.env.KEYCLOAK_BASE_URL;
     this.realm = process.env.KEYCLOAK_REALM;
   }
@@ -37,8 +43,7 @@ export class AuthenticationService {
    * If it fails, the token is invalid or expired
    */
   async authenticate(accessToken: string): Promise<UserModel> {
-    const manager = getManager();
-    const technicalUser = await getTechnicalUser(manager);
+    const technicalUser = await getTechnicalUser(this.entityManager);
     if (accessToken === process.env.FAKE_TOKEN) {
       return technicalUser;
     }
@@ -66,7 +71,7 @@ export class AuthenticationService {
         ],
       };
 
-      return await userService.handleLogin(manager, profile);
+      return await userService.handleLogin(this.entityManager, profile);
     } catch (e) {
       console.log('*** auth failed', accessToken, e);
       throw new AuthenticationError(e.message);

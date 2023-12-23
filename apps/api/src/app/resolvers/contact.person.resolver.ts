@@ -7,8 +7,9 @@ import {
   ContactPersonService,
   ContactPersonServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { ContactPersonSaveArgs } from '../saveArgs/contact.person.save.args';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => ContactPerson)
 @UseGuards(GqlAuthGuard)
@@ -16,16 +17,21 @@ export class ContactPersonResolver {
   constructor(
     @Inject(ContactPersonServiceKey)
     protected readonly contactPersonService: ContactPersonService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Query(() => [ContactPerson])
   async contactPersons() {
-    return await this.contactPersonService.loadEntities(getManager());
+    return await this.contactPersonService.loadEntities(this.entityManager);
   }
 
   @Query(() => ContactPerson)
   async contactPerson(@Args('id', { type: () => Int }) id: number) {
-    return await this.contactPersonService.loadEntityById(getManager(), id);
+    return await this.contactPersonService.loadEntityById(
+      this.entityManager,
+      id,
+    );
   }
 
   @Mutation(() => ContactPerson)
@@ -33,6 +39,10 @@ export class ContactPersonResolver {
     @Args('args') objData: ContactPersonSaveArgs,
     @CurrentUser() user,
   ): Promise<ContactPersonModel> {
-    return await this.contactPersonService.save(getManager(), objData, user);
+    return await this.contactPersonService.save(
+      this.entityManager,
+      objData,
+      user,
+    );
   }
 }

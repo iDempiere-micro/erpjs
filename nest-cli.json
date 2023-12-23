@@ -1,15 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/api/src",
-  "monorepo": true,
-  "root": "apps/api",
+  "sourceRoot": "apps/erpjs/src",
   "compilerOptions": {
+    "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/api/tsconfig.app.json",
-    "assets": [
-      "**/assets/*.ttf"
-    ]
+    "tsConfigPath": "apps/erpjs/tsconfig.app.json"
   },
+  "monorepo": true,
+  "root": "apps/erpjs",
   "projects": {
     "api": {
       "type": "application",

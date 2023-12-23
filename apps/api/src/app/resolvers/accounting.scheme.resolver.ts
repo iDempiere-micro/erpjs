@@ -7,8 +7,9 @@ import {
   AccountingSchemeService,
   AccountingSchemeServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { AccountingSchemeSaveArgs } from '../saveArgs/accounting.scheme.save.args';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => AccountingScheme)
 @UseGuards(GqlAuthGuard)
@@ -16,17 +17,19 @@ export class AccountingSchemeResolver {
   constructor(
     @Inject(AccountingSchemeServiceKey)
     protected readonly accountingSchemeService: AccountingSchemeService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Query(() => [AccountingScheme])
   async accountingSchemes() {
-    return await this.accountingSchemeService.loadEntities(getManager());
+    return await this.accountingSchemeService.loadEntities(this.entityManager);
   }
 
   @Query(() => AccountingScheme)
   async accountingScheme(@Args('id', { type: () => Int }) id: number) {
     const result = await this.accountingSchemeService.loadEntityById(
-      getManager(),
+      this.entityManager,
       id,
     );
     return result;
@@ -37,6 +40,10 @@ export class AccountingSchemeResolver {
     @Args('args') objData: AccountingSchemeSaveArgs,
     @CurrentUser() user,
   ): Promise<AccountingSchemeModel> {
-    return await this.accountingSchemeService.save(getManager(), objData, user);
+    return await this.accountingSchemeService.save(
+      this.entityManager,
+      objData,
+      user,
+    );
   }
 }

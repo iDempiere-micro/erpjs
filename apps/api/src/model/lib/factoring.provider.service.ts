@@ -65,7 +65,9 @@ export class FactoringProviderService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<FactoringProviderModel> {
-    return transactionalEntityManager.getRepository(FactoringProvider);
+    return transactionalEntityManager.getRepository(
+      FactoringProvider,
+    ) as Repository<FactoringProviderModel>;
   }
 
   getFactoringProvider = (

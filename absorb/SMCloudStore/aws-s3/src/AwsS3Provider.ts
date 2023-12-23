@@ -8,8 +8,6 @@ import {
     StorageProvider,
 } from '../../core/src/StorageProvider';
 import { SMCloudStoreFactories } from '../../smcloudstore/src/SMCloudStore';
-import { PromiseResult } from 'aws-sdk/lib/request';
-import { AWSError } from 'aws-sdk';
 
 // Note: when using the AWS SDK, do not use arrow functions as callbacks, as many methods need access to the "this" context the callbacks provide
 

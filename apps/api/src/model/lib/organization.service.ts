@@ -106,7 +106,9 @@ export class OrganizationService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<OrganizationModel> {
-    return transactionalEntityManager.getRepository(Organization);
+    return transactionalEntityManager.getRepository(
+      Organization,
+    ) as Repository<OrganizationModel>;
   }
 
   getOrg = (

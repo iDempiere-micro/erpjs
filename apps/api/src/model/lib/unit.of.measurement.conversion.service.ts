@@ -52,7 +52,7 @@ export class UnitOfMeasurementConversionService extends BaseEntityService<
   ): Repository<UnitOfMeasurementConversionModel> {
     return transactionalEntityManager.getRepository(
       UnitOfMeasurementConversion,
-    );
+    ) as Repository<UnitOfMeasurementConversionModel>;
   }
 
   typeName(): string {

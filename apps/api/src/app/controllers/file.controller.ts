@@ -15,12 +15,13 @@ import {
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   AttachmentService,
   AttachmentServiceKey,
 } from '../../model/lib/attachment.service';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 type DownloadedFile = {
   data?: string;
@@ -36,6 +37,8 @@ export class FileController {
     protected readonly customerService: CustomerService,
     @Inject(AttachmentServiceKey)
     protected readonly attachmentService: AttachmentService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Get('sales-invoice/:invoiceId')
@@ -48,7 +51,7 @@ export class FileController {
     }
 
     const invoice = await this.salesInvoiceService.loadEntityById(
-      getManager(),
+      this.entityManager,
       invoiceId,
     );
     const buffer = invoice.content as any as Buffer;
@@ -70,7 +73,7 @@ export class FileController {
       return { success: false };
     }
 
-    const manager = getManager();
+    const manager = this.entityManager;
     const { buffer } = file;
 
     const customer = await this.customerService.loadEntityById(
@@ -92,7 +95,7 @@ export class FileController {
       return { data: null };
     }
     const invoice = await this.customerService.loadEntityById(
-      getManager(),
+      this.entityManager,
       customerId,
     );
     const buffer = invoice.photo as any as Buffer;

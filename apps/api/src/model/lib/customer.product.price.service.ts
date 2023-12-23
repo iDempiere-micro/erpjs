@@ -2,8 +2,7 @@ import { BaseEntityService } from './base.entity.service';
 import { CustomerProductPriceModel } from './customer.product.price.model';
 import { CustomerProductPriceSaveArgsModel } from './customer.product.price.save.args.model';
 import { CustomerProductPrice } from '../generated/entities/CustomerProductPrice';
-import { EntityManager } from 'typeorm';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { getService } from './module.reference.service';
 import {
   CustomerPriceListService,

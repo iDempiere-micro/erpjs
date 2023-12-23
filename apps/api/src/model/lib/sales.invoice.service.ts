@@ -764,6 +764,7 @@ export class SalesInvoiceService extends BaseEntityService<
   publish = async (
     transactionalEntityManager: EntityManager,
     args: SalesInvoicePublishArgsModel,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     currentUser: UserModel,
   ): Promise<SalesInvoiceModel> => {
     const source = await this.loadEntityById(

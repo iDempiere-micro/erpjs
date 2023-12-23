@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { EventLogService, EventLogServiceKey } from './eventLog.service';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { getTechnicalUser } from './user.service';
 import { Address } from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
 import { ConfigService, ConfigServiceKey } from './config.service';
 import { ConfigData } from './config.model';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 export const MailServiceKey = 'MailServiceKey';
 
@@ -32,13 +33,14 @@ export class MailService {
     private readonly eventLogService: EventLogService,
     @Inject(ConfigServiceKey)
     private readonly configService: ConfigService<MailConfiguration>,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   async senderEmail() {
-    const manager = getManager();
     return (
       (
-        await this.configService.loadEntity(manager, {
+        await this.configService.loadEntity(this.entityManager, {
           where: { displayName: 'MailConfiguration' },
         })
       )?.content?.from || process.env.MAIL_USER
@@ -54,7 +56,7 @@ export class MailService {
     replyTo: string,
     attachments: MailAttachment[] | undefined,
   ) {
-    const manager = getManager();
+    const manager = this.entityManager;
     try {
       await this.mailerService.sendMail({
         // list of receivers

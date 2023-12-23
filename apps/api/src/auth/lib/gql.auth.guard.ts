@@ -39,6 +39,7 @@ export class GqlAuthGuard implements CanActivate {
       request['user'] = await this.authenticationService.authenticate(token);
       return true;
     } catch (e) {
+      console.error('**** Auth failed', e);
       throw new HttpException(e.message, HttpStatus.UNAUTHORIZED);
     }
   }

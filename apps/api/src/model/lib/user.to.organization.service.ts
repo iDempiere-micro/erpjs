@@ -17,7 +17,9 @@ export class UserToOrganizationService extends BaseEntityService<
   protected getRepository(
     transactionalEntityManager: EntityManager,
   ): Repository<UserToOrganizationModel> {
-    return transactionalEntityManager.getRepository(UserToOrganization);
+    return transactionalEntityManager.getRepository(
+      UserToOrganization,
+    ) as Repository<UserToOrganizationModel>;
   }
   protected async doSave(
     transactionalEntityManager: EntityManager,

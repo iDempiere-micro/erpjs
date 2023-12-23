@@ -16,9 +16,10 @@ import {
 } from '../../model';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { CustomerSaveArgs } from '../saveArgs/customer.save.args';
 import { Customer } from '../../model/generated/entities/Customer';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Customer)
 @UseGuards(GqlAuthGuard)
@@ -28,16 +29,18 @@ export class CustomerResolver {
     protected readonly customerService: CustomerService,
     @Inject(AddressServiceKey)
     protected readonly addressService: AddressService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Query(() => [Customer])
   async customers() {
-    return await this.customerService.loadEntities(getManager());
+    return await this.customerService.loadEntities(this.entityManager);
   }
 
   @Query(() => Customer)
   async customer(@Args('id', { type: () => Int }) id: number) {
-    return await this.customerService.loadEntityById(getManager(), id);
+    return await this.customerService.loadEntityById(this.entityManager, id);
   }
 
   @Query(() => [Customer])
@@ -55,12 +58,14 @@ export class CustomerResolver {
       where.legalName = legalName;
     }
 
-    return await this.customerService.loadEntities(getManager(), { where });
+    return await this.customerService.loadEntities(this.entityManager, {
+      where,
+    });
   }
 
   @ResolveField()
   async legalAddress(@Parent() customer: Customer) {
-    const entityManager = getManager();
+    const entityManager = this.entityManager;
     const { id } = customer;
     const { customer_legalAddressId } = await this.customerService
       .createQueryBuilder(entityManager, `customer`)
@@ -77,6 +82,6 @@ export class CustomerResolver {
     @Args('args') objData: CustomerSaveArgs,
     @CurrentUser() user,
   ): Promise<CustomerModel> {
-    return await this.customerService.save(getManager(), objData, user);
+    return await this.customerService.save(this.entityManager, objData, user);
   }
 }

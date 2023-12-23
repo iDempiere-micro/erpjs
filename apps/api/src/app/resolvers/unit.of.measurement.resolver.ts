@@ -6,7 +6,8 @@ import {
   UnitOfMeasurementService,
   UnitOfMeasurementServiceKey,
 } from '../../model';
-import { getManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
+import { InjectEntityManager } from '@nestjs/typeorm';
 
 // import { UnitOfMeasurementSaveArgs } from '../saveArgs/unitOfMeasurement.save.args';
 
@@ -16,11 +17,13 @@ export class UnitOfMeasurementResolver {
   constructor(
     @Inject(UnitOfMeasurementServiceKey)
     protected readonly unitOfMeasurementService: UnitOfMeasurementService,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager,
   ) {}
 
   @Query(() => [UnitOfMeasurement])
   async currencies() {
-    return await this.unitOfMeasurementService.loadEntities(getManager());
+    return await this.unitOfMeasurementService.loadEntities(this.entityManager);
   }
 
   /*@Mutation(() => UnitOfMeasurement)
@@ -29,7 +32,7 @@ export class UnitOfMeasurementResolver {
     @CurrentUser() user,
   ): Promise<UnitOfMeasurementModel> {
     return await this.unitOfMeasurementService.save(
-      getManager(),
+      this.entityManager,
       objData,
       user,
     );
