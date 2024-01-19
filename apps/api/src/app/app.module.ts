@@ -64,7 +64,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
             },
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      installSubscriptionHandlers: true,
+      subscriptions: {
+        'graphql-ws': true
+      },
       autoSchemaFile: 'schema.gql', // aws ? '/tmp/schema.gql' :
       context: ({ req }) => ({ req }),
       sortSchema: true,

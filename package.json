@@ -44,6 +44,7 @@
     "azure-storage": "^2.10.7",
     "deep-equal": "^2.2.3",
     "graphql": "^16.8.1",
+    "graphql-ws": "^5.14.3",
     "moment": "^2.29.4",
     "pdfkit": "^0.14.0",
     "pg": "^8.11.3",

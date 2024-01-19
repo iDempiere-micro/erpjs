@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {Args, Int, Mutation, Query, Resolver, Subscription} from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { SalesInvoice } from '../../model/generated/entities/SalesInvoice';
@@ -29,6 +29,7 @@ export class SalesInvoiceResolver {
   ) {}
 
   @Query(() => [SalesInvoice])
+  @Subscription(() => [SalesInvoice])
   async salesInvoices() {
     return await this.salesInvoiceService.loadEntities(this.entityManager, {
       order: { id: 'DESC' },
