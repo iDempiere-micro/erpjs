@@ -8,6 +8,10 @@ import { User } from '../generated/entities/User';
 import { UserIdentity } from '../generated/entities/UserIdentity';
 import { Injectable } from '@nestjs/common';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const AsyncLock = require('async-lock');
+const lock = new AsyncLock();
+
 export const UserServiceKey = 'UserService';
 
 export interface LoginHandler {
@@ -50,6 +54,13 @@ export class UserService
       .findOne({ where: { email } });
     return found || null;
   }
+  async findUserByName(manager: EntityManager, name: string): Promise<User> {
+    if (!name) return null;
+    const found = await manager
+      .getRepository(User)
+      .findOne({ where: { name } });
+    return found || null;
+  }
 
   async findUserIdentity(
     manager: EntityManager,
@@ -68,7 +79,11 @@ export class UserService
     userProfileModel: UserProfileModel,
   ): Promise<UserModel> {
     const email = userProfileModel.email;
-    return await this.findUserByEmail(manager, email);
+    const name = userProfileModel.name;
+    return (
+      (email && (await this.findUserByEmail(manager, email))) ||
+      (name && (await this.findUserByName(manager, name)))
+    );
   }
   async convertProfileIdentities(
     manager: EntityManager,
@@ -99,15 +114,20 @@ export class UserService
   ): Promise<User> {
     const result = new User();
     result.email = userProfileModel.email;
-    result.name = userProfileModel.name;
+    result.name = userProfileModel.name || userProfileModel.email;
     result.updtOpId = technicalUser.id;
-    await manager.save(result);
+    try {
+      await manager.save(result);
+    } catch (e) {
+      console.log('Saving ' + result + ' failed', e);
+    }
+    const user = await this.findUser(manager, userProfileModel);
     const ident = userProfileModel.identities[0];
     const userIdentity = new UserIdentity();
     userIdentity.externalUser = ident.user_id;
     userIdentity.provider = ident.provider;
-    userIdentity.user = result;
-    userIdentity.updtOp = result;
+    userIdentity.user = user;
+    userIdentity.updtOp = user;
     await manager.save(userIdentity);
     result.identities = [userIdentity];
     return result;
@@ -155,7 +175,10 @@ export class UserService
         return existingUser;
       } else {
         // this is a completely new user
-        return await this.createNewUser(manager, login, technicalUser);
+        const key = JSON.stringify(login);
+        return await lock.acquire(key, () => {
+          return this.createNewUser(manager, login, technicalUser);
+        });
       }
     }
   }
