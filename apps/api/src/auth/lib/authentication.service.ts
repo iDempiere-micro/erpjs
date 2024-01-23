@@ -61,11 +61,12 @@ export class AuthenticationService {
 
       const userService = getService<UserService>(UserServiceKey);
       const profile = {
-        user_id: response.data.email,
+        user_id: response.data.sub,
         name: response.data.preferred_username,
+        email: response.data.email,
         identities: [
           {
-            user_id: response.data.email,
+            user_id: response.data.sub,
             provider: 'keycloak',
           },
         ],
