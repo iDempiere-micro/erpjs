@@ -8,6 +8,7 @@ import { User } from '../generated/entities/User';
 import { UserIdentity } from '../generated/entities/UserIdentity';
 import { Injectable } from '@nestjs/common';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const AsyncLock = require('async-lock');
 const lock = new AsyncLock();
 
@@ -79,7 +80,10 @@ export class UserService
   ): Promise<UserModel> {
     const email = userProfileModel.email;
     const name = userProfileModel.name;
-    return (email && await this.findUserByEmail(manager, email)) || (name && await this.findUserByName(manager, name));
+    return (
+      (email && (await this.findUserByEmail(manager, email))) ||
+      (name && (await this.findUserByName(manager, name)))
+    );
   }
   async convertProfileIdentities(
     manager: EntityManager,
@@ -115,7 +119,7 @@ export class UserService
     try {
       await manager.save(result);
     } catch (e) {
-      console.log("Saving " + result + " failed", e);
+      console.log('Saving ' + result + ' failed', e);
     }
     const user = await this.findUser(manager, userProfileModel);
     const ident = userProfileModel.identities[0];
@@ -171,12 +175,9 @@ export class UserService
         return existingUser;
       } else {
         // this is a completely new user
-        const key= JSON.stringify(login);
+        const key = JSON.stringify(login);
         return await lock.acquire(key, () => {
           return this.createNewUser(manager, login, technicalUser);
-        }, function(err, ret) {
-          // timed out error will be returned here if lock not acquired in given time
-          console.error(err);
         });
       }
     }
