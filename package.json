@@ -51,6 +51,7 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "ts-loader": "^9.4.3",
     "typeorm": "^0.3.17",
     "xml-serializer-ts": "^1.0.2"
   },
@@ -74,7 +75,6 @@
     "source-map-support": "^0.5.21",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.0",
-    "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.3"
