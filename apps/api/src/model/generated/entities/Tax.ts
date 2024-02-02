@@ -8,12 +8,14 @@ import {
 } from 'typeorm';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { User } from './User';
-import { Field } from '@nestjs/graphql';
+import {Field, ObjectType} from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
 
 @Entity('tax', { schema: 'public' })
+@ObjectType()
 export class Tax {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field()
   id: number;
 
   @Column('timestamp without time zone', {
@@ -40,9 +42,11 @@ export class Tax {
   displayName: string;
 
   @Column('integer', { name: 'ratePercent' })
+  @Field()
   ratePercent: number;
 
   @Column('boolean', { name: 'isStandard' })
+  @Field()
   isStandard: boolean;
 
   @OneToMany(
