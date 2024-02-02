@@ -33,6 +33,7 @@
     "@nestjs-modules/mailer": "^1.9.1",
     "@nestjs/apollo": "^12.0.11",
     "@nestjs/axios": "^3.0.1",
+    "@nestjs/cli": "^10.3.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
@@ -54,7 +55,6 @@
     "xml-serializer-ts": "^1.0.2"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.3.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/async-lock": "^1.4.2",
