@@ -39,6 +39,7 @@ export class Tax {
   isCurrent: boolean;
 
   @Column('character varying', { name: 'displayName' })
+  @Field()
   displayName: string;
 
   @Column('integer', { name: 'ratePercent' })
