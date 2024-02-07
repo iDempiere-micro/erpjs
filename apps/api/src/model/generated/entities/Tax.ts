@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { User } from './User';
-import {Field, ObjectType} from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
 
 @Entity('tax', { schema: 'public' })

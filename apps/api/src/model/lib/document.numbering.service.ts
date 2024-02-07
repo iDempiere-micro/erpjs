@@ -17,7 +17,7 @@ export class DocumentNumberingService {
     organization: OrganizationModel,
   ): Promise<string> {
     const model = await manager.getRepository(DocumentNumberSequence).findOne({
-      where: { forType: modelCtor.name, organization: {id: organization.id} },
+      where: { forType: modelCtor.name, organization: { id: organization.id } },
       order: { id: 'DESC' },
     });
     const result = model.current;

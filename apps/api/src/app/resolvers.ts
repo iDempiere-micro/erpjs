@@ -17,7 +17,7 @@ import { FactoringProviderResolver } from './resolvers/factoring.provider.resolv
 import { FactoringContractResolver } from './resolvers/factoring.contract.resolver';
 import { AttachmentResolver } from './resolvers/attachment.resolver';
 import { MailResolver } from './resolvers/mail.resolver';
-import {TaxResolver} from "./resolvers/tax.resolver";
+import { TaxResolver } from './resolvers/tax.resolver';
 
 export const resolvers = [
   AppResolver,
