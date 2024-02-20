@@ -3,7 +3,7 @@ import type {
     OrganizationByIdQuery,
     OrganizationsQuery,
     SaveOrganizationMutation,
-    SaveOrganizationMutationVariables
+    SaveOrganizationMutationVariables,
 } from '../../generated/graphql';
 import type { OrganizationDetail, OrganizationRow } from '../model/organization';
 import { GET_ORGANIZATION_BY_ID, SAVE_ORGANIZATION } from '../queries/organization';

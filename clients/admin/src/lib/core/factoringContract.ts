@@ -4,12 +4,12 @@ import type {
     FactoringContractByIdQuery,
     FactoringContractsQuery,
     SaveFactoringContractMutation,
-    SaveFactoringContractMutationVariables
+    SaveFactoringContractMutationVariables,
 } from '../../generated/graphql';
 import type { FactoringContractDetail, FactoringContractRow } from '../model/factoringContract';
 import {
     GET_FACTORING_CONTRACT_BY_ID,
-    SAVE_FACTORING_CONTRACT
+    SAVE_FACTORING_CONTRACT,
 } from '../queries/factoringContract';
 import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
 import { BaseEntityService } from './entityStore';

@@ -3,7 +3,7 @@ import type {
     BankByIdQuery,
     BanksQuery,
     SaveBankMutation,
-    SaveBankMutationVariables
+    SaveBankMutationVariables,
 } from '../../generated/graphql';
 import type { BankDetail, BankRow } from '../model/bank';
 import { GET_BANK_BY_ID, SAVE_BANK } from '../queries/bank';

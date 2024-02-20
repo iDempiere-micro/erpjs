@@ -1,6 +1,6 @@
 import type {
     CustomerDetailPartsFragment,
-    CustomerListPartsFragment
+    CustomerListPartsFragment,
 } from '../../generated/graphql';
 import type { AddressRow } from './address';
 import type { CustomerGroupDetail } from './customerGroup';

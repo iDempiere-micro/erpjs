@@ -3,7 +3,7 @@ import type {
     CurrenciesQuery,
     CurrencyByIdQuery,
     SaveCurrencyMutation,
-    SaveCurrencyMutationVariables
+    SaveCurrencyMutationVariables,
 } from '../../generated/graphql';
 import type { CurrencyDetail, CurrencyRow } from '../model/currency';
 import { CURRENCIES } from '../queries/currencies';

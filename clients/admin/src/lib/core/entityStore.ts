@@ -8,7 +8,7 @@ import type {
     EntityRow,
     EntitySaveArgs,
     Service,
-    ServiceStores
+    ServiceStores,
 } from '../model/model';
 import { store } from '../support/store';
 import type { Store } from '../support/types';

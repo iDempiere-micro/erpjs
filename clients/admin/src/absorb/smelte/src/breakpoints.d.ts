@@ -9,4 +9,4 @@ export default function breakpoint(
               invalidate?: (value?: string) => void,
           ) => () => void;
       };
-export { };
+export {};

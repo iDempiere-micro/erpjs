@@ -3,7 +3,7 @@ import type {
     CustomerByIdQuery,
     CustomersQuery,
     SaveCustomerMutation,
-    SaveCustomerMutationVariables
+    SaveCustomerMutationVariables,
 } from '../../generated/graphql';
 import type { CustomerDetail, CustomerRow } from '../model/customer';
 import { GET_CUSTOMER_BY_ID, SAVE_CUSTOMER } from '../queries/customer';

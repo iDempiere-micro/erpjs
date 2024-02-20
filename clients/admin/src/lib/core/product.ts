@@ -3,7 +3,7 @@ import type {
     ProductByIdQuery,
     ProductsQuery,
     SaveProductMutation,
-    SaveProductMutationVariables
+    SaveProductMutationVariables,
 } from '../../generated/graphql';
 import type { ProductDetail, ProductRow } from '../model/product';
 import { GET_PRODUCT_BY_ID, SAVE_PRODUCT } from '../queries/product';

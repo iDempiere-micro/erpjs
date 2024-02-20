@@ -3,8 +3,13 @@ import { store } from '../../../lib/support/store';
 import type { Opt, Store } from '../../../lib/support/types';
 import * as rules from './rules';
 import type {
-    Config, Content, FieldConfiguration, FieldConfigurationType, FieldContent, FieldContentType,
-    Form
+    Config,
+    Content,
+    FieldConfiguration,
+    FieldConfigurationType,
+    FieldContent,
+    FieldContentType,
+    Form,
 } from './types';
 
 function getValue(field: any): any {
