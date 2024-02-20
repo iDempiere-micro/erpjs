@@ -5,7 +5,7 @@ import type {
     AttachmentListPartsFragment,
     AttachmentsQuery,
     SaveAttachmentMutation,
-    SaveAttachmentMutationVariables
+    SaveAttachmentMutationVariables,
 } from '../../generated/graphql';
 import { GET_ATTACHMENT_BY_ID, SAVE_ATTACHMENT } from '../queries/attachment';
 import { ATTACHMENTS } from '../queries/attachments';

@@ -7,7 +7,7 @@ import type {
     ErrorType,
     IdType,
     ListItemType,
-    OnSelectedIdType
+    OnSelectedIdType,
 } from './types';
 
 export const onBlurValidate = (

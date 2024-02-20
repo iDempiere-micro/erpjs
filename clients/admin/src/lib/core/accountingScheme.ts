@@ -3,7 +3,7 @@ import type {
     AccountingSchemeByIdQuery,
     AccountingSchemesQuery,
     SaveAccountingSchemeMutation,
-    SaveAccountingSchemeMutationVariables
+    SaveAccountingSchemeMutationVariables,
 } from '../../generated/graphql';
 import type { AccountingSchemeDetail, AccountingSchemeRow } from '../model/accountingScheme';
 import { GET_ACCOUNTING_SCHEME_BY_ID, SAVE_ACCOUNTING_SCHEME } from '../queries/accountingScheme';

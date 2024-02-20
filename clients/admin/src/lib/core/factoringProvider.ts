@@ -6,12 +6,12 @@ import type {
     FactoringProvidersForInvoiceQuery,
     FactoringProvidersQuery,
     SaveFactoringProviderMutation,
-    SaveFactoringProviderMutationVariables
+    SaveFactoringProviderMutationVariables,
 } from '../../generated/graphql';
 import type { FactoringProviderDetail, FactoringProviderRow } from '../model/factoringProvider';
 import {
     GET_FACTORING_PROVIDER_BY_ID,
-    SAVE_FACTORING_PROVIDER
+    SAVE_FACTORING_PROVIDER,
 } from '../queries/factoringProvider';
 import { FACTORING_PROVIDERS } from '../queries/factoringProviders';
 import { FACTORING_PROVIDER_FOR_INVOICE } from '../queries/salesInvoice';

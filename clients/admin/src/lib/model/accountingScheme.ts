@@ -1,6 +1,6 @@
 import type {
     AccountingSchemeDetailPartsFragment,
-    AccountingSchemeListPartsFragment
+    AccountingSchemeListPartsFragment,
 } from '../../generated/graphql';
 
 export type AccountingSchemeDetail = AccountingSchemeDetailPartsFragment;

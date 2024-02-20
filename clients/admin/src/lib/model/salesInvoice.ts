@@ -1,6 +1,6 @@
 import type {
     SalesInvoiceDetailPartsFragment,
-    SalesInvoiceListPartsFragment
+    SalesInvoiceListPartsFragment,
 } from '../../generated/graphql';
 
 export type SalesInvoiceDetail = SalesInvoiceDetailPartsFragment;

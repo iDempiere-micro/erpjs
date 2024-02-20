@@ -3,7 +3,7 @@ import type {
     CountriesQuery,
     CountryByIdQuery,
     SaveCountryMutation,
-    SaveCountryMutationVariables
+    SaveCountryMutationVariables,
 } from '../../generated/graphql';
 import type { CountryDetail, CountryRow } from '../model/country';
 import { COUNTRIES } from '../queries/countries';

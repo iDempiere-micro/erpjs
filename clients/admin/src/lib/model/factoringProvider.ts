@@ -1,6 +1,6 @@
 import type {
     FactoringProviderDetailPartsFragment,
-    FactoringProviderListPartsFragment
+    FactoringProviderListPartsFragment,
 } from '../../generated/graphql';
 
 export type FactoringProviderDetail = FactoringProviderDetailPartsFragment;

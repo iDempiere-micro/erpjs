@@ -3,7 +3,7 @@ import type {
     CustomerGroupByIdQuery,
     CustomerGroupsQuery,
     SaveCustomerGroupMutation,
-    SaveCustomerGroupMutationVariables
+    SaveCustomerGroupMutationVariables,
 } from '../../generated/graphql';
 import type { CustomerGroupDetail, CustomerGroupRow } from '../model/customerGroup';
 import { GET_CUSTOMER_GROUP_BY_ID, SAVE_CUSTOMER_GROUP } from '../queries/customerGroup';

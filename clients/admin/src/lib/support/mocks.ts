@@ -4,7 +4,7 @@ import {
     GET_ACCOUNTING_SCHEME_BY_ID,
     mock as mockSaveAccountingScheme,
     mock1 as mockGetAccountingSchemeById,
-    SAVE_ACCOUNTING_SCHEME
+    SAVE_ACCOUNTING_SCHEME,
 } from '../queries/accountingScheme';
 import { ACCOUNTING_SCHEMES, mock as mockAccountingSchemes } from '../queries/accountingSchemes';
 import { GET_ATTACHMENT_BY_ID, mock1 as mockAttachment } from '../queries/attachment';
@@ -20,23 +20,23 @@ import {
     GET_CUSTOMER_GROUP_BY_ID,
     mock as mockSaveCustomerGroup,
     mock1 as mockCustomerGroup,
-    SAVE_CUSTOMER_GROUP
+    SAVE_CUSTOMER_GROUP,
 } from '../queries/customerGroup';
 import { CUSTOMER_GROUPS, mock as mockCustomerGroups } from '../queries/customerGroups';
 import {
     CUSTOMERS,
     GET_CUSTOMERS_BY_ARGS,
     mock as mockCustomers,
-    mock2 as mockCustomersByArgs
+    mock2 as mockCustomersByArgs,
 } from '../queries/customers';
 import {
     GET_FACTORING_CONTRACT_BY_ID,
-    mock1 as mockFactoringContract
+    mock1 as mockFactoringContract,
 } from '../queries/factoringContract';
 import { FACTORING_CONTRACTS, mock as mockFactoringContracts } from '../queries/factoringContracts';
 import {
     GET_FACTORING_PROVIDER_BY_ID,
-    mock1 as mockFactoringProvider
+    mock1 as mockFactoringProvider,
 } from '../queries/factoringProvider';
 import { FACTORING_PROVIDERS, mock as mockFactoringProviders } from '../queries/factoringProviders';
 import { GET_MENU, mock as mockMenu } from '../queries/menu';
@@ -44,7 +44,7 @@ import { GET_ORGANIZATION_BY_ID, mock as mockOrganization } from '../queries/org
 import {
     mock as mockOrganizations,
     ORGANIZATIONS,
-    ORGANIZATIONS_SIMPLE
+    ORGANIZATIONS_SIMPLE,
 } from '../queries/organizations';
 import { GET_PRODUCT_BY_ID, mock1 as mockProduct } from '../queries/product';
 import { mock as mockProducts, PRODUCTS } from '../queries/products';
@@ -52,7 +52,7 @@ import { GET_SALES_INVOICE_BY_ID, mock1 as mockGetSalesInvoiceById } from '../qu
 import { mock as mockSalesInvoices, SALES_INVOICES } from '../queries/salesInvoices';
 import {
     mock as mockSalesInvoicesInTime,
-    QUERY as SALES_INVOICES_IN_TIME
+    QUERY as SALES_INVOICES_IN_TIME,
 } from '../queries/salesInvoicesInTime';
 
 export interface ApolloMock {

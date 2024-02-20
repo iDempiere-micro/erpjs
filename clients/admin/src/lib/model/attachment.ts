@@ -1,6 +1,6 @@
 import type {
     AttachmentDetailPartsFragment,
-    AttachmentListPartsFragment
+    AttachmentListPartsFragment,
 } from '../../generated/graphql';
 
 export type AttachmentDetail = AttachmentDetailPartsFragment;
