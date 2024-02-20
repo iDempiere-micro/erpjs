@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
-import { mock as mockCountries } from './countries';
-import { mock as mockBanks } from './banks';
 import { ADDRESS_LIST_PARTS_RAW } from '../fragments/address';
 import { BANK_ACCOUNT_LIST_PARTS_RAW } from '../fragments/bankAccount';
+import { mock as mockBanks } from './banks';
+import { mock as mockCountries } from './countries';
 
 export const ORGANIZATIONS = gql`
     {

@@ -1,12 +1,12 @@
-import { UserModel } from './user.model';
-import { UserProfileModel } from './user.profile.model';
-import { UserSaveArgsModel } from './user.save.args.model';
-import { BaseEntityService } from './base.entity.service';
+import { Injectable } from '@nestjs/common';
 import { EntityManager, Repository } from 'typeorm';
-import { UserProfileModelIdentity } from './user.profile.model.identity';
 import { User } from '../generated/entities/User';
 import { UserIdentity } from '../generated/entities/UserIdentity';
-import { Injectable } from '@nestjs/common';
+import { BaseEntityService } from './base.entity.service';
+import { UserModel } from './user.model';
+import { UserProfileModel } from './user.profile.model';
+import { UserProfileModelIdentity } from './user.profile.model.identity';
+import { UserSaveArgsModel } from './user.save.args.model';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const AsyncLock = require('async-lock');

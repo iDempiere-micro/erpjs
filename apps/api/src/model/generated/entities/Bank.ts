@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,11 +8,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BankAccount } from './BankAccount';
 import { BankModel } from '../../lib/bank.model';
-import { User } from './User';
-import { Field, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
+import { BankAccount } from './BankAccount';
+import { User } from './User';
 
 @Index('IDX_1930777e62854add6a64f50d42', ['displayName'], { unique: true })
 @Entity('bank', { schema: 'public' })

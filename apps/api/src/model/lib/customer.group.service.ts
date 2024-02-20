@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { CustomerGroup } from '../generated/entities/CustomerGroup';
 import { BaseEntityService } from './base.entity.service';
 import { CustomerGroupModel } from './customer.group.model';
 import { CustomerGroupSaveArgsModel } from './customer.group.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { CustomerGroup } from '../generated/entities/CustomerGroup';
 
 export const CustomerGroupServiceKey = 'CustomerGroupService';
 

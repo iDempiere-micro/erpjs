@@ -1,14 +1,14 @@
+import type { DocumentNode } from '@apollo/client/core';
 import type {
     ProductByIdQuery,
     ProductsQuery,
     SaveProductMutation,
-    SaveProductMutationVariables,
+    SaveProductMutationVariables
 } from '../../generated/graphql';
-import { PRODUCTS } from '../queries/products';
-import { GET_PRODUCT_BY_ID, SAVE_PRODUCT } from '../queries/product';
 import type { ProductDetail, ProductRow } from '../model/product';
+import { GET_PRODUCT_BY_ID, SAVE_PRODUCT } from '../queries/product';
+import { PRODUCTS } from '../queries/products';
 import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
 
 class ProductService extends BaseEntityService<
     ProductDetail,

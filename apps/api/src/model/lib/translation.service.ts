@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common';
 import { LanguageModel } from './language.model';
 import { LocalizedMessages } from './localized.messages';
-import { Injectable } from '@nestjs/common';
 import { PrintSalesInvoice } from './print.sales.invoice';
 
 export const TranslationServiceKey = 'TranslationService';

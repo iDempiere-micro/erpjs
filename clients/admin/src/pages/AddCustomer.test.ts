@@ -1,8 +1,8 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import AddCustomer from './AddCustomer.svelte';
 import { setupLocales } from '../i18n';
 import { apollo, setClient } from '../lib/support/apollo';
+import AddCustomer from './AddCustomer.svelte';
 
 describe('<AddCustomer>', function () {
     before(() => {

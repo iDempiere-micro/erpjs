@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,9 +7,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './User';
 import { UserModel } from '../../lib/user.model';
-import { Field } from '@nestjs/graphql';
+import { User } from './User';
 
 @Index('IDX_c555c4388d24da3c6fa22d85bd', ['externalUser'], { unique: true })
 @Index('IDX_1c243d6d65f07e169d53a69ea0', ['provider'], {})

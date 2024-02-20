@@ -1,12 +1,12 @@
 import { expect } from 'chai';
-import EditFactoringContract from './EditFactoringContract.svelte';
 import { setupLocales } from '../i18n';
-import { mock1 } from '../lib/queries/factoringContract';
-import { getFormElements } from '../lib/support/testHelpers';
 import { MOCKED_CUSTOMER_DISPLAY_NAME } from '../lib/queries/customers';
-import { mock as mockOrganizations } from '../lib/queries/organizations';
+import { mock1 } from '../lib/queries/factoringContract';
 import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
+import { mock as mockOrganizations } from '../lib/queries/organizations';
 import { apollo, setClient } from '../lib/support/apollo';
+import { getFormElements } from '../lib/support/testHelpers';
+import EditFactoringContract from './EditFactoringContract.svelte';
 
 describe('<EditFactoringContract>', function () {
     before(() => {

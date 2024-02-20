@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -5,12 +6,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './User';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { UserModel } from '../../lib/user.model';
 import { UnitOfMeasurementConversionModel } from '../../lib/unit.of.measurement.conversion.model';
 import { UnitOfMeasurementModel } from '../../lib/unit.of.measurement.model';
+import { UserModel } from '../../lib/user.model';
 import { UnitOfMeasurement } from './UnitOfMeasurement';
+import { User } from './User';
 
 @Entity('unit_of_measurement_conversion', { schema: 'public' })
 @ObjectType()

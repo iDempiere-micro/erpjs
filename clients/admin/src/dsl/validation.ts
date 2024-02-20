@@ -1,14 +1,14 @@
+import type { MessageFormatter } from 'svelte-i18n/types/runtime/types';
+import type { Form } from '../absorb/svelte-forms/src/types';
+import type { Maybe } from '../generated/graphql';
+import type { Opt } from '../lib/support/types';
 import type {
     BaseSyntheticEvent,
     ErrorType,
     IdType,
     ListItemType,
-    OnSelectedIdType,
+    OnSelectedIdType
 } from './types';
-import type { Form } from '../absorb/svelte-forms/src/types';
-import type { MessageFormatter } from 'svelte-i18n/types/runtime/types';
-import type { Maybe } from '../generated/graphql';
-import type { Opt } from '../lib/support/types';
 
 export const onBlurValidate = (
     form: Form | undefined,

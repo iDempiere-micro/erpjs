@@ -1,21 +1,21 @@
+import { Inject } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { FactoringContract } from '../generated/entities/FactoringContract';
 import { BaseEntityService } from './base.entity.service';
+import { CustomerModel } from './customer.model';
+import { CustomerService, CustomerServiceKey } from './customer.service';
 import { FactoringContractModel } from './factoring.contract.model';
 import { FactoringContractSaveArgsModel } from './factoring.contract.save.args.model';
-import { FactoringContract } from '../generated/entities/FactoringContract';
-import { EntityManager, Repository } from 'typeorm';
-import { Inject } from '@nestjs/common';
+import { FactoringProviderModel } from './factoring.provider.model';
 import {
   FactoringProviderService,
   FactoringProviderServiceKey,
 } from './factoring.provider.service';
-import { CustomerService, CustomerServiceKey } from './customer.service';
+import { OrganizationModel } from './organization.model';
 import {
   OrganizationService,
   OrganizationServiceKey,
 } from './organization.service';
-import { OrganizationModel } from './organization.model';
-import { FactoringProviderModel } from './factoring.provider.model';
-import { CustomerModel } from './customer.model';
 
 export const FactoringContractServiceKey = 'FactoringContractService';
 

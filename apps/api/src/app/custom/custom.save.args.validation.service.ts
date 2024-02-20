@@ -1,5 +1,5 @@
-import { EntityManager } from 'typeorm/index';
 import { Injectable } from '@nestjs/common';
+import { EntityManager } from 'typeorm/index';
 import { BaseSaveArgsModel, getService } from '../../model';
 
 /**

@@ -1,23 +1,23 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { entities } from './entities';
-import { migrations } from './migrations';
-import { MigrationService } from './migration.service';
-import { serviceProviders } from './serviceProviders';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { resolvers } from './resolvers';
-import { ModuleRef } from '@nestjs/core';
-import { ModelModule, ModuleReferenceService } from '../model';
-import { AuthModule } from '../auth';
-import { FileController } from './controllers/file.controller';
-import { DateScalar } from './support/date.scalar';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ModuleRef } from '@nestjs/core';
+import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '../auth';
+import { ModelModule, ModuleReferenceService } from '../model';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { FileController } from './controllers/file.controller';
+import { entities } from './entities';
+import { MigrationService } from './migration.service';
+import { migrations } from './migrations';
+import { resolvers } from './resolvers';
+import { serviceProviders } from './serviceProviders';
+import { DateScalar } from './support/date.scalar';
 
 // typeOrm + list of entities from THIS application + try to enhance e.g. Organization
 @Module({

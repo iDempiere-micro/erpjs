@@ -1,16 +1,16 @@
-import { store } from '../support/store';
+import type { FetchResult } from '@apollo/client';
 import type { DocumentNode } from '@apollo/client/core';
+import type { RefetchQueryDescription } from '@apollo/client/core/watchQueryOptions';
+import { onDestroy } from 'svelte';
 import { mutation, query } from '../../absorb/svelte-apollo';
 import type {
     EntityDetail,
     EntityRow,
     EntitySaveArgs,
     Service,
-    ServiceStores,
+    ServiceStores
 } from '../model/model';
-import type { FetchResult } from '@apollo/client';
-import { onDestroy } from 'svelte';
-import type { RefetchQueryDescription } from '@apollo/client/core/watchQueryOptions';
+import { store } from '../support/store';
 import type { Store } from '../support/types';
 
 /**

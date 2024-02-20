@@ -1,16 +1,16 @@
-import { BaseEntityService } from './base.entity.service';
-import { CustomerProductPriceModel } from './customer.product.price.model';
-import { CustomerProductPriceSaveArgsModel } from './customer.product.price.save.args.model';
-import { CustomerProductPrice } from '../generated/entities/CustomerProductPrice';
+import { Inject } from '@nestjs/common';
 import { EntityManager, Repository } from 'typeorm';
-import { getService } from './module.reference.service';
+import { CustomerProductPrice } from '../generated/entities/CustomerProductPrice';
+import { BaseEntityService } from './base.entity.service';
+import { CurrencyService, CurrencyServiceKey } from './currency.service';
 import {
   CustomerPriceListService,
   CustomerPriceListServiceKey,
 } from './customer.price.list.service';
+import { CustomerProductPriceModel } from './customer.product.price.model';
+import { CustomerProductPriceSaveArgsModel } from './customer.product.price.save.args.model';
+import { getService } from './module.reference.service';
 import { ProductService, ProductServiceKey } from './product.service';
-import { Inject } from '@nestjs/common';
-import { CurrencyService, CurrencyServiceKey } from './currency.service';
 
 export const CustomerProductPriceServiceKey = 'CustomerProductPriceServiceKey';
 

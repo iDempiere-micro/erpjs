@@ -1,14 +1,14 @@
+import { Inject } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { ContactPersonCompanyRelation } from '../generated/entities/ContactPersonCompanyRelation';
 import { BaseEntityService } from './base.entity.service';
 import { ContactPersonCompanyRelationModel } from './contact.person.company.relation.model';
 import { ContactPersonCompanyRelationSaveArgsModel } from './contact.person.company.relation.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { ContactPersonCompanyRelation } from '../generated/entities/ContactPersonCompanyRelation';
-import { Inject } from '@nestjs/common';
-import { CustomerService, CustomerServiceKey } from './customer.service';
 import {
   ContactPersonService,
   ContactPersonServiceKey,
 } from './contact.person.service';
+import { CustomerService, CustomerServiceKey } from './customer.service';
 
 export const ContactPersonCompanyRelationServiceKey =
   'ContactPersonCompanyRelationService';

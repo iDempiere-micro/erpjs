@@ -1,25 +1,61 @@
-import { CountryService, CountryServiceKey } from './lib/country.service';
 import {
   AccountingSchemeService,
   AccountingSchemeServiceKey,
 } from './lib/accounting.scheme.service';
 import { AddressService, AddressServiceKey } from './lib/address.service';
 import {
+  AttachmentService,
+  AttachmentServiceKey,
+} from './lib/attachment.service';
+import {
   BankAccountService,
   BankAccountServiceKey,
 } from './lib/bank.account.service';
 import { BankService, BankServiceKey } from './lib/bank.service';
-import { CurrencyService, CurrencyServiceKey } from './lib/currency.service';
+import { ConfigService, ConfigServiceKey } from './lib/config.service';
+import {
+  ContactPersonCompanyRelationService,
+  ContactPersonCompanyRelationServiceKey,
+} from './lib/contact.person.company.relation.service';
+import {
+  ContactPersonService,
+  ContactPersonServiceKey,
+} from './lib/contact.person.service';
+import { CountryService, CountryServiceKey } from './lib/country.service';
 import {
   CurrencyRateService,
   CurrencyRateServiceKey,
 } from './lib/currency.rate.service';
+import { CurrencyService, CurrencyServiceKey } from './lib/currency.service';
+import {
+  CustomerGroupService,
+  CustomerGroupServiceKey,
+} from './lib/customer.group.service';
+import {
+  CustomerPriceListService,
+  CustomerPriceListServiceKey,
+} from './lib/customer.price.list.service';
+import {
+  CustomerProductPriceService,
+  CustomerProductPriceServiceKey,
+} from './lib/customer.product.price.service';
 import { CustomerService, CustomerServiceKey } from './lib/customer.service';
+import { DateService, DateServiceKey } from './lib/date.service';
 import {
   DocumentNumberingService,
   DocumentNumberingServiceKey,
 } from './lib/document.numbering.service';
+import { EventLogService, EventLogServiceKey } from './lib/eventLog.service';
+import {
+  FactoringContractService,
+  FactoringContractServiceKey,
+} from './lib/factoring.contract.service';
+import {
+  FactoringProviderService,
+  FactoringProviderServiceKey,
+} from './lib/factoring.provider.service';
 import { LanguagesService, LanguagesServiceKey } from './lib/languages.service';
+import { MailService, MailServiceKey } from './lib/mail.service';
 import {
   OrganizationService,
   OrganizationServiceKey,
@@ -36,56 +72,20 @@ import {
   SalesInvoiceVatService,
   SalesInvoiceVatServiceKey,
 } from './lib/sales.invoice.vat.service';
+import {
+  SaveArgsValidationService,
+  SaveArgsValidationServiceKey,
+} from './lib/save.args.validation.service';
 import { TaxService, TaxServiceKey } from './lib/tax.service';
 import {
   TranslationService,
   TranslationServiceKey,
 } from './lib/translation.service';
-import { DateService, DateServiceKey } from './lib/date.service';
-import { UserService, UserServiceKey } from './lib/user.service';
-import {
-  SaveArgsValidationService,
-  SaveArgsValidationServiceKey,
-} from './lib/save.args.validation.service';
 import {
   UnitOfMeasurementService,
   UnitOfMeasurementServiceKey,
 } from './lib/unit.of.measurement.service';
-import {
-  CustomerGroupService,
-  CustomerGroupServiceKey,
-} from './lib/customer.group.service';
-import {
-  CustomerPriceListService,
-  CustomerPriceListServiceKey,
-} from './lib/customer.price.list.service';
-import {
-  CustomerProductPriceService,
-  CustomerProductPriceServiceKey,
-} from './lib/customer.product.price.service';
-import {
-  ContactPersonService,
-  ContactPersonServiceKey,
-} from './lib/contact.person.service';
-import {
-  ContactPersonCompanyRelationService,
-  ContactPersonCompanyRelationServiceKey,
-} from './lib/contact.person.company.relation.service';
-import {
-  FactoringProviderService,
-  FactoringProviderServiceKey,
-} from './lib/factoring.provider.service';
-import {
-  FactoringContractService,
-  FactoringContractServiceKey,
-} from './lib/factoring.contract.service';
-import { MailService, MailServiceKey } from './lib/mail.service';
-import { EventLogService, EventLogServiceKey } from './lib/eventLog.service';
-import { ConfigService, ConfigServiceKey } from './lib/config.service';
-import {
-  AttachmentService,
-  AttachmentServiceKey,
-} from './lib/attachment.service';
+import { UserService, UserServiceKey } from './lib/user.service';
 import { XmlService, XmlServiceKey } from './lib/xml.service';
 
 const accountingSchemeServiceProvider = {

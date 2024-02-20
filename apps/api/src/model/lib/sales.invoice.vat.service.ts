@@ -1,8 +1,8 @@
+import { EntityManager, Repository } from 'typeorm';
+import { SalesInvoiceVat } from '../generated/entities/SalesInvoiceVat';
+import { BaseEntityService } from './base.entity.service';
 import { SalesInvoiceVatModel } from './sales.invoice.vat.model';
 import { SalesInvoiceVatSaveArgsModel } from './sales.invoice.vat.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { BaseEntityService } from './base.entity.service';
-import { SalesInvoiceVat } from '../generated/entities/SalesInvoiceVat';
 
 export const SalesInvoiceVatServiceKey = 'SalesInvoiceVatService';
 

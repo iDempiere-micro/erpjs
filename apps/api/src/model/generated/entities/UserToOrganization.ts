@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -5,12 +6,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { OrganizationModel } from '../../lib/organization.model';
+import { UserModel } from '../../lib/user.model';
+import { UserToOrganizationModel } from '../../lib/user.to.organization.model';
 import { Organization } from './Organization';
 import { User } from './User';
-import { UserToOrganizationModel } from '../../lib/user.to.organization.model';
-import { UserModel } from '../../lib/user.model';
-import { OrganizationModel } from '../../lib/organization.model';
-import { Field } from '@nestjs/graphql';
 
 @Entity('user_to_organization', { schema: 'public' })
 export class UserToOrganization implements UserToOrganizationModel {

@@ -1,8 +1,8 @@
 import { fireEvent, render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import AddAttachment from './AddAttachment.svelte';
 import { setupLocales } from '../i18n';
 import { apollo, setClient } from '../lib/support/apollo';
+import AddAttachment from './AddAttachment.svelte';
 
 describe('<AddAttachment>', function () {
     before(() => {

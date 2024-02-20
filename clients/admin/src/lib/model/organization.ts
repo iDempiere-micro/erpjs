@@ -1,6 +1,6 @@
 import type {
     OrganizationDetailPartsFragment,
-    OrganizationListPartsFragment,
+    OrganizationListPartsFragment
 } from '../../generated/graphql';
 
 export type OrganizationDetail = OrganizationDetailPartsFragment;

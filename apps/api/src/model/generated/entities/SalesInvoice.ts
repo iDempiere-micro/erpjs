@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,26 +7,25 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BankAccount } from './BankAccount';
-import { Currency } from './Currency';
-import { Customer } from './Customer';
-import { Organization } from './Organization';
-import { SalesInvoiceLine } from './SalesInvoiceLine';
-import { SalesInvoiceVat } from './SalesInvoiceVat';
-import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
-import { SalesInvoiceLineModel } from '../../lib/sales.invoice.line.model';
-import { SalesInvoiceVatModel } from '../../lib/sales.invoice.vat.model';
-import { LanguageModel, languages } from '../../lib/language.model';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { BankAccountModel } from '../../lib/bank.account.model';
 import { CurrencyModel } from '../../lib/currency.model';
 import { CustomerModel } from '../../lib/customer.model';
-import { OrganizationModel } from '../../lib/organization.model';
-import { User } from './User';
-import { UserModel } from '../../lib/user.model';
-import { DateTimeScalarType } from '../../../app/support/date.scalar';
-import { FactoringProvider } from './FactoringProvider';
 import { FactoringProviderModel } from '../../lib/factoring.provider.model';
+import { LanguageModel, languages } from '../../lib/language.model';
+import { OrganizationModel } from '../../lib/organization.model';
+import { SalesInvoiceLineModel } from '../../lib/sales.invoice.line.model';
+import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
+import { SalesInvoiceVatModel } from '../../lib/sales.invoice.vat.model';
+import { UserModel } from '../../lib/user.model';
+import { BankAccount } from './BankAccount';
+import { Currency } from './Currency';
+import { Customer } from './Customer';
+import { FactoringProvider } from './FactoringProvider';
+import { Organization } from './Organization';
+import { SalesInvoiceLine } from './SalesInvoiceLine';
+import { SalesInvoiceVat } from './SalesInvoiceVat';
+import { User } from './User';
 
 @Entity('sales_invoice', { schema: 'public' })
 @ObjectType()

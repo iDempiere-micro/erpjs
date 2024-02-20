@@ -6,8 +6,8 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthenticationService } from './authentication.service';
 import { Request } from 'express';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class GqlAuthGuard implements CanActivate {

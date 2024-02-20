@@ -1,4 +1,6 @@
+import * as moment from 'moment';
 import { XMLAttribute, XMLChild, XMLElement } from 'xml-serializer-ts';
+import { XMLText } from 'xml-serializer-ts/lib/annotations/XMLText';
 import { CrossIndustryInvoiceType } from '../../../../../libs/ZUGFeRD-Factur-X/generated';
 import {
   ExchangedDocumentContextType,
@@ -6,8 +8,6 @@ import {
   SupplyChainTradeTransactionType,
   TradePartyType,
 } from '../../../../../libs/ZUGFeRD-Factur-X/generated/ReusableAggregateBusinessInformationEntity_100';
-import * as moment from 'moment';
-import { XMLText } from 'xml-serializer-ts/lib/annotations/XMLText';
 
 const XMLNS = 'xmlns';
 const RSMNS = 'rsm';

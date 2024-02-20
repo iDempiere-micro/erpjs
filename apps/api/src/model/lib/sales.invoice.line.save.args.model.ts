@@ -1,6 +1,6 @@
 import { BaseSaveArgsModel } from './base.save.args.model';
-import { SalesInvoiceModel } from './sales.invoice.model';
 import { ProductModel } from './product.model';
+import { SalesInvoiceModel } from './sales.invoice.model';
 import { TaxModel } from './tax.model';
 
 export interface SalesInvoiceLineSaveArgsModel extends BaseSaveArgsModel {

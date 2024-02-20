@@ -1,10 +1,9 @@
-import { LanguageModel } from './language.model';
 import { Injectable } from '@nestjs/common';
-import { BaseEntityService } from './base.entity.service';
-import { LanguageSaveArgsModel } from './language.save.args.model';
+import { EntityManager, Repository } from 'typeorm';
 import { Language } from '../generated/entities/Language';
-import { EntityManager } from 'typeorm';
-import { Repository } from 'typeorm';
+import { BaseEntityService } from './base.entity.service';
+import { LanguageModel } from './language.model';
+import { LanguageSaveArgsModel } from './language.save.args.model';
 
 export const LanguagesServiceKey = 'LanguagesService';
 

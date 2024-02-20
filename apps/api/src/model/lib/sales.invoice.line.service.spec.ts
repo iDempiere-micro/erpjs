@@ -1,9 +1,14 @@
 import { Test } from '@nestjs/testing';
-import { ProductModel } from './product.model';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+import { CustomerGroupModel } from './customer.group.model';
 import { CustomerModel } from './customer.model';
-import { SalesInvoiceModel } from './sales.invoice.model';
-import { TaxServiceKey } from './tax.service';
+import { CustomerPriceListModel } from './customer.price.list.model';
+import { CustomerPriceListServiceKey } from './customer.price.list.service';
+import { CustomerProductPriceModel } from './customer.product.price.model';
+import { ProductModel } from './product.model';
 import { ProductServiceKey } from './product.service';
+import { SalesInvoiceModel } from './sales.invoice.model';
 import {
   SalesInvoiceLineService,
   SalesInvoiceServiceKey,
@@ -12,13 +17,8 @@ import {
   SaveArgsValidationService,
   SaveArgsValidationServiceKey,
 } from './save.args.validation.service';
+import { TaxServiceKey } from './tax.service';
 import { UserModel } from './user.model';
-import { CustomerGroupModel } from './customer.group.model';
-import { CustomerPriceListServiceKey } from './customer.price.list.service';
-import { CustomerPriceListModel } from './customer.price.list.model';
-import { CustomerProductPriceModel } from './customer.product.price.model';
-import * as moment from 'moment';
-import * as _ from 'lodash';
 
 const customerGroup1: CustomerGroupModel = {
   id: 0,

@@ -1,14 +1,14 @@
+import type { DocumentNode } from '@apollo/client/core';
 import type {
     AccountingSchemeByIdQuery,
     AccountingSchemesQuery,
     SaveAccountingSchemeMutation,
-    SaveAccountingSchemeMutationVariables,
+    SaveAccountingSchemeMutationVariables
 } from '../../generated/graphql';
-import { ACCOUNTING_SCHEMES } from '../queries/accountingSchemes';
-import { GET_ACCOUNTING_SCHEME_BY_ID, SAVE_ACCOUNTING_SCHEME } from '../queries/accountingScheme';
 import type { AccountingSchemeDetail, AccountingSchemeRow } from '../model/accountingScheme';
+import { GET_ACCOUNTING_SCHEME_BY_ID, SAVE_ACCOUNTING_SCHEME } from '../queries/accountingScheme';
+import { ACCOUNTING_SCHEMES } from '../queries/accountingSchemes';
 import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
 
 class AccountingSchemeService extends BaseEntityService<
     AccountingSchemeDetail,

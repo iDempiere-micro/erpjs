@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -5,11 +6,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Currency } from './Currency';
 import { CurrencyRateModel } from '../../lib/currency.rate.model';
-import { User } from './User';
-import { Field } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
+import { Currency } from './Currency';
+import { User } from './User';
 
 @Entity('currency_rate', { schema: 'public' })
 export class CurrencyRate implements CurrencyRateModel {

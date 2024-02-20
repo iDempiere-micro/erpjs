@@ -1,8 +1,8 @@
+import { EntityManager, Repository } from 'typeorm';
+import { UserToOrganization } from '../generated/entities/UserToOrganization';
 import { BaseEntityService } from './base.entity.service';
 import { UserToOrganizationModel } from './user.to.organization.model';
 import { UserToOrganizationSaveArgsModel } from './user.to.organization.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { UserToOrganization } from '../generated/entities/UserToOrganization';
 
 export const UserToOrganizationServiceKey = 'UserToOrganizationService';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { xml } from 'xml-serializer-ts';
-import { Hobby, Person } from './xml.service.mock';
 import { CrossIndustryInvoiceType } from '../../../../../libs/ZUGFeRD-Factur-X/generated';
+import { Hobby, Person } from './xml.service.mock';
 import { CrossIndustryInvoiceTypeRoot } from './xml.service.types';
 
 export const XmlServiceKey = 'XmlService';

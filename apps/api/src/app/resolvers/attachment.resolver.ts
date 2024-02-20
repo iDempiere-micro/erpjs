@@ -1,15 +1,15 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import { Attachment } from '../../model/generated/entities/Attachment';
-import { EntityManager } from 'typeorm';
+import { AttachmentModel } from '../../model/lib/attachment.model';
 import {
   AttachmentService,
   AttachmentServiceKey,
 } from '../../model/lib/attachment.service';
 import { AttachmentSaveArgs } from '../saveArgs/attachment.save.args';
-import { AttachmentModel } from '../../model/lib/attachment.model';
-import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Attachment)
 @UseGuards(GqlAuthGuard)

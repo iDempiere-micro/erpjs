@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,18 +8,17 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Bank } from './Bank';
-import { Organization } from './Organization';
-import { SalesInvoice } from './SalesInvoice';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from './User';
-import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { BankModel } from '../../lib/bank.model';
 import { FactoringProviderModel } from '../../lib/factoring.provider.model';
 import { OrganizationModel } from '../../lib/organization.model';
 import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
+import { UserModel } from '../../lib/user.model';
+import { Bank } from './Bank';
 import { FactoringProvider } from './FactoringProvider';
+import { Organization } from './Organization';
+import { SalesInvoice } from './SalesInvoice';
+import { User } from './User';
 
 @Index('IDX_d13847b5db0cf66c1ea23615eb', ['displayName'], { unique: true })
 @Entity('bank_account', { schema: 'public' })

@@ -1,7 +1,7 @@
-import { BaseModel } from './base.model';
 import { AddressModel } from './address.model';
-import { CustomerGroupModel } from './customer.group.model';
+import { BaseModel } from './base.model';
 import { ContactPersonCompanyRelationModel } from './contact.person.company.relation.model';
+import { CustomerGroupModel } from './customer.group.model';
 
 export interface CustomerModel extends BaseModel {
   legalAddress: AddressModel;

@@ -1,13 +1,13 @@
 import { EntityManager, Repository } from 'typeorm';
-import { AttachmentModel } from './attachment.model';
-import { AttachmentSaveArgsModel } from './attachment.save.args.model';
-import { BaseEntityService } from './base.entity.service';
+import { SMCloudStore } from '../../../../../absorb/SMCloudStore/smcloudstore/src/SMCloudStore';
 import {
   Attachment,
   CloudFile,
   CloudFolder,
 } from '../generated/entities/Attachment';
-import { SMCloudStore } from '../../../../../absorb/SMCloudStore/smcloudstore/src/SMCloudStore';
+import { AttachmentModel } from './attachment.model';
+import { AttachmentSaveArgsModel } from './attachment.save.args.model';
+import { BaseEntityService } from './base.entity.service';
 
 export const AttachmentServiceKey = 'AttachmentService';
 

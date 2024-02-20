@@ -1,9 +1,9 @@
+import { ITnsOAuthTokenResult } from 'nativescript-oauth2';
 import {
     TnsOaProvider,
     TnsOaProviderType,
-    TnsOaUnsafeProviderOptions,
+    TnsOaUnsafeProviderOptions
 } from 'nativescript-oauth2/providers';
-import { ITnsOAuthTokenResult } from 'nativescript-oauth2';
 
 export interface KeycloakProviderOptions extends TnsOaUnsafeProviderOptions {
     realm: string;

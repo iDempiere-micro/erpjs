@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
-import { mock as mockCustomer } from './customer';
-import { mock as mockOrganization } from './organizations';
-import { mock1 as mockFactoringProvider } from './factoringProvider';
 import { FACTORING_CONTRACT_DETAIL_PARTS_RAW } from '../fragments/factoringContract';
+import { mock as mockCustomer } from './customer';
+import { mock1 as mockFactoringProvider } from './factoringProvider';
+import { mock as mockOrganization } from './organizations';
 
 export const FACTORING_CONTRACTS = gql`
     {

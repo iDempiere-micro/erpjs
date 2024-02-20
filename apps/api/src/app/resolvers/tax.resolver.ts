@@ -1,10 +1,10 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
-import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { Tax } from '../../model/generated/entities/Tax';
-import { TaxModel, TaxService, TaxServiceKey } from '../../model';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
+import { CurrentUser, GqlAuthGuard } from '../../auth';
+import { TaxModel, TaxService, TaxServiceKey } from '../../model';
+import { Tax } from '../../model/generated/entities/Tax';
 import { TaxSaveArgs } from '../saveArgs/tax.save.args';
 
 @Resolver(() => Tax)

@@ -1,6 +1,6 @@
 import type { ApolloError } from '@apollo/client/core';
-import type { EntityDetailDisplayable } from '../model/model';
 import type { ListItemType } from '../../dsl/types';
+import type { EntityDetailDisplayable } from '../model/model';
 import type { SelectItem } from './select';
 
 const errorHandlers = [

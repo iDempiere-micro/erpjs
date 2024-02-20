@@ -2,17 +2,17 @@
 generated template classes for ./FACTUR-X_MINIMUM_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100.xsd 5/15/2021, 14:41:45
 ***********/
 import {
+  CountryIDType,
+  CurrencyCodeType,
+  DocumentCodeType,
+} from './QualifiedDataType_100';
+import {
   AmountType,
   CodeType,
   DateTimeType,
   IDType,
   TextType,
 } from './UnqualifiedDataType_100';
-import {
-  CountryIDType,
-  CurrencyCodeType,
-  DocumentCodeType,
-} from './QualifiedDataType_100';
 
 export class FACTUR_X_MINIMUM_urn_un_unece_uncefact_data_standard_ReusableAggregateBusinessInformationEntity_100 {
   public constructor(

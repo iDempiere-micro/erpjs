@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import CountryDetail from './CountryDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/countries';
 import { apollo, setClient } from '../lib/support/apollo';
+import CountryDetail from './CountryDetail.svelte';
 
 describe('<CountryDetail>', function () {
     before(() => {

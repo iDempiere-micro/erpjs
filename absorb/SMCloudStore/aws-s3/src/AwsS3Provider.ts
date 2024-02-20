@@ -1,11 +1,11 @@
 'use strict'
 
 import S3 = require('aws-sdk/clients/s3')
-import {Stream} from 'stream'
+import { Stream } from 'stream';
 import {
     ListResults,
     PutObjectOptions,
-    StorageProvider,
+    StorageProvider
 } from '../../core/src/StorageProvider';
 import { SMCloudStoreFactories } from '../../smcloudstore/src/SMCloudStore';
 

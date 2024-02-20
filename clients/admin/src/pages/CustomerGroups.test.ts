@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import CustomerGroups from './CustomerGroups.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/customerGroups';
 import { apollo, setClient } from '../lib/support/apollo';
+import CustomerGroups from './CustomerGroups.svelte';
 
 describe('<CustomerGroups>', function () {
     before(() => {

@@ -1,6 +1,6 @@
 import { BaseModel } from './base.model';
-import { FactoringProviderModel } from './factoring.provider.model';
 import { CustomerModel } from './customer.model';
+import { FactoringProviderModel } from './factoring.provider.model';
 import { OrganizationModel } from './organization.model';
 
 export interface FactoringContractModel extends BaseModel {

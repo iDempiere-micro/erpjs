@@ -1,10 +1,10 @@
-import { BaseEntityService } from './base.entity.service';
-import { UnitOfMeasurementSaveArgsModel } from './unit.of.measurement.save.args.model';
-import { UnitOfMeasurementModel } from './unit.of.measurement.model';
-import { UnitOfMeasurement } from '../generated/entities/UnitOfMeasurement';
-import { EntityManager, Repository } from 'typeorm';
-import { UserModel } from './user.model';
 import { Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { UnitOfMeasurement } from '../generated/entities/UnitOfMeasurement';
+import { BaseEntityService } from './base.entity.service';
+import { UnitOfMeasurementModel } from './unit.of.measurement.model';
+import { UnitOfMeasurementSaveArgsModel } from './unit.of.measurement.save.args.model';
+import { UserModel } from './user.model';
 
 export const UnitOfMeasurementServiceKey = 'UnitOfMeasurementService';
 

@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -5,17 +6,16 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
+import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
+import { UserIdentityModel } from '../../lib/user.identity.model';
+import { UserModel } from '../../lib/user.model';
+import { UserToOrganizationModel } from '../../lib/user.to.organization.model';
+import { AccountingScheme } from './AccountingScheme';
+import { SalesInvoice } from './SalesInvoice';
 import { UserIdentity } from './UserIdentity';
 import { UserToOrganization } from './UserToOrganization';
-import { UserModel } from '../../lib/user.model';
-import { UserIdentityModel } from '../../lib/user.identity.model';
-import { UserToOrganizationModel } from '../../lib/user.to.organization.model';
-import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
-import { SalesInvoice } from './SalesInvoice';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { AccountingScheme } from './AccountingScheme';
-import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
-import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_e12875dfb3b1d92d7d7c5377e2', ['email'], { unique: true })
 @Index('IDX_065d4d8f3b5adb4a08841eae3c', ['name'], { unique: true })

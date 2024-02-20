@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import Banks from './Banks.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/banks';
 import { apollo, setClient } from '../lib/support/apollo';
+import Banks from './Banks.svelte';
 
 describe('<Banks>', function () {
     before(() => {

@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import Menu from './Menu.svelte';
-import { urls } from './pages/pathAndSegment';
 import { setupLocales } from './i18n';
 import { apollo, setClient } from './lib/support/apollo';
+import Menu from './Menu.svelte';
+import { urls } from './pages/pathAndSegment';
 
 describe('<Menu>', function () {
     before(() => {

@@ -1,9 +1,9 @@
+import { Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { Tax } from '../generated/entities/Tax';
+import { BaseEntityService } from './base.entity.service';
 import { TaxModel } from './tax.model';
 import { TaxSaveArgsModel } from './tax.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
-import { BaseEntityService } from './base.entity.service';
-import { Tax } from '../generated/entities/Tax';
 
 export const TaxServiceKey = 'TaxService';
 

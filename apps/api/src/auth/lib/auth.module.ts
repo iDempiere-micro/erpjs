@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 
-import { GqlAuthGuard } from './gql.auth.guard';
+import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 import { AuthenticationService } from './authentication.service';
-import { HttpModule } from '@nestjs/axios';
+import { GqlAuthGuard } from './gql.auth.guard';
 
 @Module({
   imports: [ConfigModule, HttpModule],

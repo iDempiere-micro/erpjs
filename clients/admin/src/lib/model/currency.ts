@@ -1,6 +1,6 @@
 import type {
     CurrencyDetailPartsFragment,
-    CurrencyListPartsFragment,
+    CurrencyListPartsFragment
 } from '../../generated/graphql';
 
 export type CurrencyDetail = CurrencyDetailPartsFragment;

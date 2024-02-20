@@ -1,16 +1,16 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { CurrencyRate } from '../generated/entities/CurrencyRate';
+import { BaseEntityService } from './base.entity.service';
+import { CurrencyModel } from './currency.model';
 import { CurrencyRateModel } from './currency.rate.model';
 import { CurrencyRateSaveArgsModel } from './currency.rate.save.args.model';
-import { CurrencyModel } from './currency.model';
-import { EntityManager, Repository } from 'typeorm';
-import { Inject, Injectable } from '@nestjs/common';
 import { CurrencyService, CurrencyServiceKey } from './currency.service';
-import { BaseEntityService } from './base.entity.service';
 import { OrganizationModel } from './organization.model';
 import {
   OrganizationService,
   OrganizationServiceKey,
 } from './organization.service';
-import { CurrencyRate } from '../generated/entities/CurrencyRate';
 
 export const CurrencyRateServiceKey = 'CurrencyRateService';
 

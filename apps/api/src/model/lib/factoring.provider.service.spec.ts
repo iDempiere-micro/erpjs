@@ -1,14 +1,14 @@
 import { Test } from '@nestjs/testing';
+import { AccountingSchemeServiceKey } from './accounting.scheme.service';
+import { AddressServiceKey } from './address.service';
+import { BankAccountServiceKey } from './bank.account.service';
+import { BankModel } from './bank.model';
+import { FactoringProviderService } from './factoring.provider.service';
 import {
   SaveArgsValidationService,
   SaveArgsValidationServiceKey,
 } from './save.args.validation.service';
 import { UserModel } from './user.model';
-import { BankModel } from './bank.model';
-import { AddressServiceKey } from './address.service';
-import { BankAccountServiceKey } from './bank.account.service';
-import { AccountingSchemeServiceKey } from './accounting.scheme.service';
-import { FactoringProviderService } from './factoring.provider.service';
 
 let mockBankAccountServiceCalled = false;
 

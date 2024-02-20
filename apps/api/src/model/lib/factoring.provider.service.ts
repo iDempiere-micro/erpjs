@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { BaseEntityService } from './base.entity.service';
-import { FactoringProviderModel } from './factoring.provider.model';
-import { FactoringProviderSaveArgsModel } from './factoring.provider.save.args.model';
 import { EntityManager, Repository } from 'typeorm';
+import { FactoringProvider } from '../generated/entities/FactoringProvider';
 import {
   BankAccountService,
   BankAccountServiceKey,
 } from './bank.account.service';
-import { FactoringProvider } from '../generated/entities/FactoringProvider';
+import { BaseEntityService } from './base.entity.service';
+import { FactoringProviderModel } from './factoring.provider.model';
+import { FactoringProviderSaveArgsModel } from './factoring.provider.save.args.model';
 import { UserModel } from './user.model';
 
 export const FactoringProviderServiceKey = 'FactoringProviderService';

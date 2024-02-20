@@ -1,5 +1,5 @@
-import { BaseModel } from './base.model';
 import { BankModel } from './bank.model';
+import { BaseModel } from './base.model';
 
 export interface BankAccountModel extends BaseModel {
   bank: BankModel;

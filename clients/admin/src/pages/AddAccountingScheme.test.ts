@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import AddAccountingScheme from './AddAccountingScheme.svelte';
 import { setupLocales } from '../i18n';
 import { mock as mockCurrencies } from '../lib/queries/currencies';
 import { apollo, setClient } from '../lib/support/apollo';
+import AddAccountingScheme from './AddAccountingScheme.svelte';
 
 describe('<AddAccountingScheme>', function () {
     before(() => {

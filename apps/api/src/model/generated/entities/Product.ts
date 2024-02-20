@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,14 +8,13 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SalesInvoiceLine } from './SalesInvoiceLine';
-import { User } from './User';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { UserModel } from '../../lib/user.model';
-import { UnitOfMeasurementModel } from '../../lib/unit.of.measurement.model';
-import { UnitOfMeasurement } from './UnitOfMeasurement';
-import { CustomerProductPrice } from './CustomerProductPrice';
 import { CustomerProductPriceModel } from '../../lib/customer.product.price.model';
+import { UnitOfMeasurementModel } from '../../lib/unit.of.measurement.model';
+import { UserModel } from '../../lib/user.model';
+import { CustomerProductPrice } from './CustomerProductPrice';
+import { SalesInvoiceLine } from './SalesInvoiceLine';
+import { UnitOfMeasurement } from './UnitOfMeasurement';
+import { User } from './User';
 
 @Index('IDX_826d69dcc65d9650be67af6d48', ['displayName'], { unique: true })
 @Index('IDX_34f6ca1cd897cc926bdcca1ca3', ['sku'], { unique: true })

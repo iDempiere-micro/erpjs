@@ -1,3 +1,4 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,20 +8,19 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Address } from './Address';
-import { SalesInvoice } from './SalesInvoice';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { AddressModel } from '../../lib/address.model';
-import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
-import { User } from './User';
-import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
-import { CustomerGroup } from './CustomerGroup';
+import { AddressModel } from '../../lib/address.model';
+import { ContactPersonCompanyRelationModel } from '../../lib/contact.person.company.relation.model';
 import { CustomerGroupModel } from '../../lib/customer.group.model';
 import { CustomerModel } from '../../lib/customer.model';
-import { ContactPersonCompanyRelationModel } from '../../lib/contact.person.company.relation.model';
+import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
+import { UserModel } from '../../lib/user.model';
+import { Address } from './Address';
 import { ContactPersonCompanyRelation } from './ContactPersonCompanyRelation';
+import { CustomerGroup } from './CustomerGroup';
 import { FactoringContract } from './FactoringContract';
+import { SalesInvoice } from './SalesInvoice';
+import { User } from './User';
 
 @Index('IDX_df529c45726940beb548906481', ['displayName'], { unique: true })
 @Index('IDX_71b54ec7502c83c7f503f57c64', ['legalName'], { unique: true })

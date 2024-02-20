@@ -1,15 +1,15 @@
+import type { DocumentNode } from '@apollo/client/core';
 import type {
     OrganizationByIdQuery,
     OrganizationsQuery,
     SaveOrganizationMutation,
-    SaveOrganizationMutationVariables,
+    SaveOrganizationMutationVariables
 } from '../../generated/graphql';
-import { ORGANIZATIONS } from '../queries/organizations';
-import { GET_ORGANIZATION_BY_ID, SAVE_ORGANIZATION } from '../queries/organization';
 import type { OrganizationDetail, OrganizationRow } from '../model/organization';
-import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
+import { GET_ORGANIZATION_BY_ID, SAVE_ORGANIZATION } from '../queries/organization';
+import { ORGANIZATIONS } from '../queries/organizations';
 import { addressService } from './address';
+import { BaseEntityService } from './entityStore';
 
 class OrganizationService extends BaseEntityService<
     OrganizationDetail,

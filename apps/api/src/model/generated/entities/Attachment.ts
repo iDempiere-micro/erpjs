@@ -1,10 +1,10 @@
-import { AttachmentModel } from '../../lib/attachment.model';
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import {
   ListItemObject,
   ListItemPrefix,
 } from '../../../../../../absorb/SMCloudStore/core/src/StorageProvider';
+import { AttachmentModel } from '../../lib/attachment.model';
 
 @ObjectType()
 export class CloudFile implements ListItemObject {

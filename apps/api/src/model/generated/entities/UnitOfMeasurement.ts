@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,13 +7,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './User';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { UserModel } from '../../lib/user.model';
-import { UnitOfMeasurementConversion } from './UnitOfMeasurementConversion';
-import { UnitOfMeasurementConversionModel } from '../../lib/unit.of.measurement.conversion.model';
-import { Product } from './Product';
 import { ProductModel } from '../../lib/product.model';
+import { UnitOfMeasurementConversionModel } from '../../lib/unit.of.measurement.conversion.model';
+import { UserModel } from '../../lib/user.model';
+import { Product } from './Product';
+import { UnitOfMeasurementConversion } from './UnitOfMeasurementConversion';
+import { User } from './User';
 
 @Entity('unit_of_measurement', { schema: 'public' })
 @ObjectType()

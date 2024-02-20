@@ -1,3 +1,4 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,15 +8,14 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
-import { User } from './User';
-import { UserModel } from '../../lib/user.model';
 import { CustomerGroupModel } from '../../lib/customer.group.model';
-import { CustomerPriceListModel } from '../../lib/customer.price.list.model';
 import { CustomerModel } from '../../lib/customer.model';
+import { CustomerPriceListModel } from '../../lib/customer.price.list.model';
+import { UserModel } from '../../lib/user.model';
 import { Customer } from './Customer';
 import { CustomerPriceList } from './CustomerPriceList';
+import { User } from './User';
 
 @Index('IDX_customerGroup_displayName', ['displayName'], { unique: true })
 @Entity('customerGroup', { schema: 'public' })

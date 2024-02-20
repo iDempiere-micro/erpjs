@@ -1,7 +1,7 @@
-import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHttpLink } from 'apollo-link-http';
+import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
+import { createHttpLink } from 'apollo-link-http';
 
 export const apollo = (token, uri = process.env.API_BASE_URL) =>
     new ApolloClient({
