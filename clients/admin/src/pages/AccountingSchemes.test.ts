@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import AccountingSchemes from './AccountingSchemes.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/accountingSchemes';
 import { apollo, setClient } from '../lib/support/apollo';
+import AccountingSchemes from './AccountingSchemes.svelte';
 
 describe('<AccountingSchemes>', function () {
     before(() => {

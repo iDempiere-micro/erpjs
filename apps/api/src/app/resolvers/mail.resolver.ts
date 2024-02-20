@@ -1,5 +1,5 @@
-import { Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Query, Resolver } from '@nestjs/graphql';
 import { GqlAuthGuard } from '../../auth';
 import { MailService, MailServiceKey } from '../../model/lib/mail.service';
 

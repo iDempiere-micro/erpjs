@@ -1,5 +1,5 @@
-import { Column, Entity } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Column, Entity } from 'typeorm';
 import { Address } from '../../model/generated/entities/Address';
 
 export interface HasNote {

@@ -1,5 +1,5 @@
-import { User } from '../../model/generated/entities/User';
 import { EntityManager } from 'typeorm';
+import { User } from '../../model/generated/entities/User';
 
 export class EverythingSubscriber {
   static createTechnicalUser = async (manager: EntityManager) => {

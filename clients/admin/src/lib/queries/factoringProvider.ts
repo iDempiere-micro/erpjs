@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { mock } from './factoringProviders';
 import { FACTORING_PROVIDER_DETAIL_PARTS_RAW } from '../fragments/factoringProvider';
+import { mock } from './factoringProviders';
 
 export const SAVE_FACTORING_PROVIDER = gql`
     mutation SaveFactoringProvider(

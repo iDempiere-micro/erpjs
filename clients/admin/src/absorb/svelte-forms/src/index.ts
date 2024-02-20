@@ -1,16 +1,11 @@
 import { afterUpdate } from 'svelte';
-import * as rules from './rules';
-import type {
-    Content,
-    Config,
-    FieldConfigurationType,
-    FieldContentType,
-    Form,
-    FieldConfiguration,
-    FieldContent,
-} from './types';
 import { store } from '../../../lib/support/store';
 import type { Opt, Store } from '../../../lib/support/types';
+import * as rules from './rules';
+import type {
+    Config, Content, FieldConfiguration, FieldConfigurationType, FieldContent, FieldContentType,
+    Form
+} from './types';
 
 function getValue(field: any): any {
     return field.value;

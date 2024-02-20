@@ -1,9 +1,9 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { BankAccount } from '../generated/entities/BankAccount';
 import { BankAccountModel } from './bank.account.model';
 import { BankAccountSaveArgsModel } from './bank.account.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
 import { BankService, BankServiceKey } from './bank.service';
-import { Inject, Injectable } from '@nestjs/common';
-import { BankAccount } from '../generated/entities/BankAccount';
 import { BaseEntityService } from './base.entity.service';
 
 export const BankAccountServiceKey = 'BankAccountService';

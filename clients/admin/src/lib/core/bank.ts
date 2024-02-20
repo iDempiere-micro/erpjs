@@ -1,14 +1,14 @@
+import type { DocumentNode } from '@apollo/client/core';
 import type {
     BankByIdQuery,
     BanksQuery,
     SaveBankMutation,
-    SaveBankMutationVariables,
+    SaveBankMutationVariables
 } from '../../generated/graphql';
-import { BANKS } from '../queries/banks';
-import { GET_BANK_BY_ID, SAVE_BANK } from '../queries/bank';
 import type { BankDetail, BankRow } from '../model/bank';
+import { GET_BANK_BY_ID, SAVE_BANK } from '../queries/bank';
+import { BANKS } from '../queries/banks';
 import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
 
 class BankService extends BaseEntityService<
     BankDetail,

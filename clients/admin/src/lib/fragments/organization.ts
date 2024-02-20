@@ -1,5 +1,5 @@
-import { ADDRESS_LIST_PARTS_RAW } from './address';
 import { ACCOUNTING_SCHEME_DETAIL_PARTS_RAW } from './accountingScheme';
+import { ADDRESS_LIST_PARTS_RAW } from './address';
 import { BANK_ACCOUNT_LIST_PARTS_RAW } from './bankAccount';
 
 export const ORGANIZATION_LIST_PARTS_RAW = `

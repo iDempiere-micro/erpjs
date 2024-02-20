@@ -1,4 +1,4 @@
-import { CustomerProductPriceModel } from '../../lib/customer.product.price.model';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,13 +6,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { Product } from './Product';
-import { ProductModel } from '../../lib/product.model';
-import { CustomerPriceList } from './CustomerPriceList';
-import { CustomerPriceListModel } from '../../lib/customer.price.list.model';
-import { Currency } from './Currency';
 import { CurrencyModel } from '../../lib/currency.model';
+import { CustomerPriceListModel } from '../../lib/customer.price.list.model';
+import { CustomerProductPriceModel } from '../../lib/customer.product.price.model';
+import { ProductModel } from '../../lib/product.model';
+import { Currency } from './Currency';
+import { CustomerPriceList } from './CustomerPriceList';
+import { Product } from './Product';
 
 @Entity('customerProductPrice', { schema: 'public' })
 @ObjectType()

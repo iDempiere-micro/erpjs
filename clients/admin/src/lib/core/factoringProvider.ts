@@ -1,21 +1,21 @@
+import type { DocumentNode } from '@apollo/client/core';
+import type { ReadableQuery } from '../../absorb/svelte-apollo';
+import { query } from '../../absorb/svelte-apollo';
 import type {
     FactoringProviderByIdQuery,
     FactoringProvidersForInvoiceQuery,
     FactoringProvidersQuery,
     SaveFactoringProviderMutation,
-    SaveFactoringProviderMutationVariables,
+    SaveFactoringProviderMutationVariables
 } from '../../generated/graphql';
-import { FACTORING_PROVIDERS } from '../queries/factoringProviders';
+import type { FactoringProviderDetail, FactoringProviderRow } from '../model/factoringProvider';
 import {
     GET_FACTORING_PROVIDER_BY_ID,
-    SAVE_FACTORING_PROVIDER,
+    SAVE_FACTORING_PROVIDER
 } from '../queries/factoringProvider';
-import type { FactoringProviderDetail, FactoringProviderRow } from '../model/factoringProvider';
-import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
-import type { ReadableQuery } from '../../absorb/svelte-apollo';
-import { query } from '../../absorb/svelte-apollo';
+import { FACTORING_PROVIDERS } from '../queries/factoringProviders';
 import { FACTORING_PROVIDER_FOR_INVOICE } from '../queries/salesInvoice';
+import { BaseEntityService } from './entityStore';
 
 class FactoringProviderService extends BaseEntityService<
     FactoringProviderDetail,

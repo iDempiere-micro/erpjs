@@ -8,6 +8,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import {
   CustomerService,
@@ -15,13 +18,10 @@ import {
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from '../../model';
-import { EntityManager } from 'typeorm';
-import { FileInterceptor } from '@nestjs/platform-express';
 import {
   AttachmentService,
   AttachmentServiceKey,
 } from '../../model/lib/attachment.service';
-import { InjectEntityManager } from '@nestjs/typeorm';
 
 type DownloadedFile = {
   data?: string;

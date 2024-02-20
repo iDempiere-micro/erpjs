@@ -1,14 +1,14 @@
-import { GET_COUNTRY_BY_ID, SAVE_COUNTRY } from '../queries/country';
-import type { CountryDetail, CountryRow } from '../model/country';
-import { BaseEntityService } from './entityStore';
 import type { DocumentNode } from '@apollo/client/core';
-import { COUNTRIES } from '../queries/countries';
 import type {
     CountriesQuery,
     CountryByIdQuery,
     SaveCountryMutation,
-    SaveCountryMutationVariables,
+    SaveCountryMutationVariables
 } from '../../generated/graphql';
+import type { CountryDetail, CountryRow } from '../model/country';
+import { COUNTRIES } from '../queries/countries';
+import { GET_COUNTRY_BY_ID, SAVE_COUNTRY } from '../queries/country';
+import { BaseEntityService } from './entityStore';
 
 class CountryService extends BaseEntityService<
     CountryDetail,

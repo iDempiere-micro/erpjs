@@ -1,8 +1,8 @@
-import { BaseEntityService } from './base.entity.service';
-import { ContactPersonSaveArgsModel } from './contact.person.save.args.model';
-import { ContactPersonModel } from './contact.person.model';
 import { EntityManager, Repository } from 'typeorm';
 import { ContactPerson } from '../generated/entities/ContactPerson';
+import { BaseEntityService } from './base.entity.service';
+import { ContactPersonModel } from './contact.person.model';
+import { ContactPersonSaveArgsModel } from './contact.person.save.args.model';
 
 export const ContactPersonServiceKey = 'ContactPersonService';
 

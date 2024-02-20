@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import FactoringProviders from './FactoringProviders.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/factoringProviders';
 import { apollo, setClient } from '../lib/support/apollo';
+import FactoringProviders from './FactoringProviders.svelte';
 
 describe('<FactoringProviders>', function () {
     before(() => {

@@ -1,11 +1,11 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
-import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { Bank } from '../../model/generated/entities/Bank';
-import { BankModel, BankService, BankServiceKey } from '../../model';
-import { EntityManager } from 'typeorm';
-import { BankSaveArgs } from '../saveArgs/bank.save.args';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
+import { CurrentUser, GqlAuthGuard } from '../../auth';
+import { BankModel, BankService, BankServiceKey } from '../../model';
+import { Bank } from '../../model/generated/entities/Bank';
+import { BankSaveArgs } from '../saveArgs/bank.save.args';
 
 @Resolver(() => Bank)
 @UseGuards(GqlAuthGuard)

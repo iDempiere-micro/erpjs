@@ -1,6 +1,6 @@
 'use strict'
 
-import {Readable, Stream} from 'stream'
+import { Readable, Stream } from 'stream'
 
 /**
  * Returns a boolean indicating whether a value is a Stream 

@@ -1,4 +1,4 @@
-import { ContactPersonCompanyRelationModel } from '../../lib/contact.person.company.relation.model';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,14 +6,14 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { ContactPersonCompanyRelationModel } from '../../lib/contact.person.company.relation.model';
 import { ContactPersonModel } from '../../lib/contact.person.model';
 import { CustomerModel } from '../../lib/customer.model';
-import { DateTimeScalarType } from '../../../app/support/date.scalar';
-import { User } from './User';
 import { UserModel } from '../../lib/user.model';
 import { ContactPerson } from './ContactPerson';
 import { Customer } from './Customer';
+import { User } from './User';
 
 @Entity('contactPersonCompanyRelation', { schema: 'public' })
 @ObjectType()

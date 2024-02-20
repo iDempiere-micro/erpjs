@@ -1,8 +1,8 @@
 import { BaseSaveArgsModel } from './base.save.args.model';
-import { SalesInvoiceLineSaveArgsModel } from './sales.invoice.line.save.args.model';
-import { CustomerModel } from './customer.model';
 import { CurrencyModel } from './currency.model';
+import { CustomerModel } from './customer.model';
 import { OrganizationModel } from './organization.model';
+import { SalesInvoiceLineSaveArgsModel } from './sales.invoice.line.save.args.model';
 
 export interface SalesInvoiceSaveArgsModel extends BaseSaveArgsModel {
   customer?: CustomerModel;

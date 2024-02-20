@@ -1,21 +1,21 @@
-import { BaseEntityService } from './base.entity.service';
-import { CustomerPriceListModel } from './customer.price.list.model';
-import { CustomerPriceListSaveArgsModel } from './customer.price.list.save.args.model';
-import { CustomerPriceList } from '../generated/entities/CustomerPriceList';
-import { EntityManager, Repository } from 'typeorm';
-import { UserModel } from './user.model';
 import { Injectable } from '@nestjs/common';
-import { getService } from './module.reference.service';
+import { EntityManager, Repository } from 'typeorm';
+import { CustomerPriceList } from '../generated/entities/CustomerPriceList';
+import { BaseEntityService } from './base.entity.service';
+import { CustomerGroupModel } from './customer.group.model';
 import {
   CustomerGroupService,
   CustomerGroupServiceKey,
 } from './customer.group.service';
+import { CustomerPriceListModel } from './customer.price.list.model';
+import { CustomerPriceListSaveArgsModel } from './customer.price.list.save.args.model';
 import {
   CustomerProductPriceService,
   CustomerProductPriceServiceKey,
 } from './customer.product.price.service';
+import { getService } from './module.reference.service';
 import { ProductModel } from './product.model';
-import { CustomerGroupModel } from './customer.group.model';
+import { UserModel } from './user.model';
 
 export const CustomerPriceListServiceKey = 'CustomerPriceListService';
 

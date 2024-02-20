@@ -1,7 +1,7 @@
 'use strict'
 
-import {Stream} from 'stream'
-import {StreamToBuffer, StreamToString} from './StreamUtils'
+import { Stream } from 'stream'
+import { StreamToBuffer, StreamToString } from './StreamUtils'
 
 /** Dictionary of objects returned when listing a container. */
 export interface ListItemObject {

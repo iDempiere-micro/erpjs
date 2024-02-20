@@ -1,9 +1,9 @@
 import { render, RenderResult } from '@testing-library/svelte';
 import { expect } from 'chai';
-import EditAttachment from './EditAttachment.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/attachment';
 import { apollo, setClient } from '../lib/support/apollo';
+import EditAttachment from './EditAttachment.svelte';
 
 describe('<EditAttachment>', function () {
     before(() => {

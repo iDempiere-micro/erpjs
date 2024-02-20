@@ -1,6 +1,6 @@
-import { BaseSaveArgs } from './base.save.args';
-import { ContactPersonCompanyRelationSaveArgsModel } from '../../model';
 import { Field, InputType } from '@nestjs/graphql';
+import { ContactPersonCompanyRelationSaveArgsModel } from '../../model';
+import { BaseSaveArgs } from './base.save.args';
 
 @InputType()
 export class ContactPersonCompanyRelationSaveArgs

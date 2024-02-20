@@ -1,6 +1,6 @@
-import { ConfigData, ConfigModel } from '../../lib/config.model';
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { ConfigData, ConfigModel } from '../../lib/config.model';
 
 @Entity('config', { schema: 'public' })
 @ObjectType()

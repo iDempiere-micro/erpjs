@@ -1,15 +1,15 @@
+import type { DocumentNode } from '@apollo/client/core';
 import type {
     AttachmentByIdQuery,
     AttachmentDetailPartsFragment,
     AttachmentListPartsFragment,
     AttachmentsQuery,
     SaveAttachmentMutation,
-    SaveAttachmentMutationVariables,
+    SaveAttachmentMutationVariables
 } from '../../generated/graphql';
-import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
-import { ATTACHMENTS } from '../queries/attachments';
 import { GET_ATTACHMENT_BY_ID, SAVE_ATTACHMENT } from '../queries/attachment';
+import { ATTACHMENTS } from '../queries/attachments';
+import { BaseEntityService } from './entityStore';
 
 class AttachmentService extends BaseEntityService<
     AttachmentDetailPartsFragment,

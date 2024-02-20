@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,9 +8,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { LanguageModel } from '../../lib/language.model';
-import { User } from './User';
-import { Field } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
+import { User } from './User';
 
 @Index('IDX_language_displayName', ['displayName'], { unique: true })
 @Index('IDX_language_isoCode', ['isoCode'], { unique: true })

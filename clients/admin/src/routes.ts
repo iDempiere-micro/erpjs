@@ -1,60 +1,60 @@
-import Home from './pages/Home.svelte';
-import Customers from './pages/Customers.svelte';
-import AddCustomer from './pages/AddCustomer.svelte';
-import EditCustomer from './pages/EditCustomer.svelte';
-import CustomerDetail from './pages/CustomerDetail.svelte';
-import SalesInvoices from './pages/SalesInvoices.svelte';
-import EditSalesInvoice from './pages/EditSalesInvoice.svelte';
-import SalesInvoiceDetail from './pages/SalesInvoiceDetail.svelte';
-import SalesInvoicePublish from './pages/SalesInvoicePublish.svelte';
-import Products from './pages/Products.svelte';
-import AddProduct from './pages/AddProduct.svelte';
-import EditProduct from './pages/EditProduct.svelte';
-import ProductDetail from './pages/ProductDetail.svelte';
-import Lists from './pages/Lists.svelte';
-import AddSalesInvoice from './pages/AddSalesInvoice.svelte';
-import { segments, urls } from './pages/pathAndSegment';
-import Countries from './pages/Countries.svelte';
+import AddBank from './pages/AddBank.svelte';
 import AddCountry from './pages/AddCountry.svelte';
-import EditCountry from './pages/EditCountry.svelte';
+import AddCurrency from './pages/AddCurrency.svelte';
+import AddCustomer from './pages/AddCustomer.svelte';
+import AddProduct from './pages/AddProduct.svelte';
+import AddSalesInvoice from './pages/AddSalesInvoice.svelte';
+import BankDetail from './pages/BankDetail.svelte';
+import Banks from './pages/Banks.svelte';
+import Countries from './pages/Countries.svelte';
 import CountryDetail from './pages/CountryDetail.svelte';
 import Currencies from './pages/Currencies.svelte';
-import AddCurrency from './pages/AddCurrency.svelte';
-import EditCurrency from './pages/EditCurrency.svelte';
 import CurrencyDetail from './pages/CurrencyDetail.svelte';
-import Banks from './pages/Banks.svelte';
-import AddBank from './pages/AddBank.svelte';
+import CustomerDetail from './pages/CustomerDetail.svelte';
+import Customers from './pages/Customers.svelte';
 import EditBank from './pages/EditBank.svelte';
-import BankDetail from './pages/BankDetail.svelte';
+import EditCountry from './pages/EditCountry.svelte';
+import EditCurrency from './pages/EditCurrency.svelte';
+import EditCustomer from './pages/EditCustomer.svelte';
+import EditProduct from './pages/EditProduct.svelte';
+import EditSalesInvoice from './pages/EditSalesInvoice.svelte';
+import Home from './pages/Home.svelte';
+import Lists from './pages/Lists.svelte';
+import { segments, urls } from './pages/pathAndSegment';
+import ProductDetail from './pages/ProductDetail.svelte';
+import Products from './pages/Products.svelte';
+import SalesInvoiceDetail from './pages/SalesInvoiceDetail.svelte';
+import SalesInvoicePublish from './pages/SalesInvoicePublish.svelte';
+import SalesInvoices from './pages/SalesInvoices.svelte';
 
-import Organizations from './pages/Organizations.svelte';
 import AddOrganization from './pages/AddOrganization.svelte';
 import EditOrganization from './pages/EditOrganization.svelte';
 import OrganizationDetail from './pages/OrganizationDetail.svelte';
+import Organizations from './pages/Organizations.svelte';
 
+import AccountingSchemeDetail from './pages/AccountingSchemeDetail.svelte';
 import AccountingSchemes from './pages/AccountingSchemes.svelte';
 import AddAccountingScheme from './pages/AddAccountingScheme.svelte';
-import EditAccountingScheme from './pages/EditAccountingScheme.svelte';
-import AccountingSchemeDetail from './pages/AccountingSchemeDetail.svelte';
-import CustomerGroups from './pages/CustomerGroups.svelte';
 import AddCustomerGroup from './pages/AddCustomerGroup.svelte';
-import EditCustomerGroup from './pages/EditCustomerGroup.svelte';
 import CustomerGroupDetail from './pages/CustomerGroupDetail.svelte';
+import CustomerGroups from './pages/CustomerGroups.svelte';
+import EditAccountingScheme from './pages/EditAccountingScheme.svelte';
+import EditCustomerGroup from './pages/EditCustomerGroup.svelte';
 
-import FactoringProviders from './pages/FactoringProviders.svelte';
 import AddFactoringProvider from './pages/AddFactoringProvider.svelte';
 import EditFactoringProvider from './pages/EditFactoringProvider.svelte';
 import FactoringProviderDetail from './pages/FactoringProviderDetail.svelte';
+import FactoringProviders from './pages/FactoringProviders.svelte';
 
-import FactoringContracts from './pages/FactoringContracts.svelte';
 import AddFactoringContract from './pages/AddFactoringContract.svelte';
 import EditFactoringContract from './pages/EditFactoringContract.svelte';
 import FactoringContractDetail from './pages/FactoringContractDetail.svelte';
+import FactoringContracts from './pages/FactoringContracts.svelte';
 
-import Attachments from './pages/Attachments.svelte';
 import AddAttachment from './pages/AddAttachment.svelte';
-import EditAttachment from './pages/EditAttachment.svelte';
 import AttachmentDetail from './pages/AttachmentDetail.svelte';
+import Attachments from './pages/Attachments.svelte';
+import EditAttachment from './pages/EditAttachment.svelte';
 
 export const routes = {
     // Exact path

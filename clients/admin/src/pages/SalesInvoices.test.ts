@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import SalesInvoices from './SalesInvoices.svelte';
 import { setupLocales } from '../i18n';
 import { mock } from '../lib/queries/salesInvoices';
 import { apollo, setClient } from '../lib/support/apollo';
+import SalesInvoices from './SalesInvoices.svelte';
 
 describe('<SalesInvoices>', function () {
     before(() => {

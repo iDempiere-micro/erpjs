@@ -1,8 +1,8 @@
 import { EntityManager, Repository } from 'typeorm';
+import { Config } from '../generated/entities/Config';
+import { BaseEntityService } from './base.entity.service';
 import { ConfigData, ConfigModel } from './config.model';
 import { ConfigSaveArgsModel } from './config.save.args.model';
-import { BaseEntityService } from './base.entity.service';
-import { Config } from '../generated/entities/Config';
 
 export const ConfigServiceKey = 'ConfigService';
 

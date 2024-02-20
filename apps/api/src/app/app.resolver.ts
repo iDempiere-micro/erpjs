@@ -1,8 +1,8 @@
-import { Mutation, Query, Resolver } from '@nestjs/graphql';
-import { DateTimeScalarType } from './support/date.scalar';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser, GqlAuthGuard } from '../auth';
 import { DateService, DateServiceKey, UserModel } from '../model';
+import { DateTimeScalarType } from './support/date.scalar';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)

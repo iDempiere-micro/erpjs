@@ -1,8 +1,8 @@
 import { EntityManager, Repository } from 'typeorm';
+import { EventLog } from '../generated/entities/EventLog';
+import { BaseEntityService } from './base.entity.service';
 import { EventLogModel } from './eventLog.model';
 import { EventLogSaveArgsModel } from './eventLog.save.args.model';
-import { BaseEntityService } from './base.entity.service';
-import { EventLog } from '../generated/entities/EventLog';
 
 export const EventLogServiceKey = 'EventLogService';
 

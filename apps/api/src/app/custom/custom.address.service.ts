@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CustomAddress, HasNote } from './custom.address';
 import { EntityManager, Repository } from 'typeorm';
 import {
   AddressModel,
   AddressSaveArgsModel,
   AddressService,
 } from '../../model';
+import { CustomAddress, HasNote } from './custom.address';
 
 @Injectable()
 export class CustomAddressService extends AddressService {

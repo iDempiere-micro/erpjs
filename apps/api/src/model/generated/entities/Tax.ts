@@ -1,3 +1,4 @@
+import { Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,10 +7,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { UserModel } from '../../lib/user.model';
 import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { User } from './User';
-import { Field } from '@nestjs/graphql';
-import { UserModel } from '../../lib/user.model';
 
 @Entity('tax', { schema: 'public' })
 export class Tax {

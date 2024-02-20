@@ -1,6 +1,6 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { BaseSaveArgs } from './base.save.args';
 import { FactoringContractSaveArgsModel } from '../../model';
+import { BaseSaveArgs } from './base.save.args';
 
 @InputType()
 export class FactoringContractSaveArgs

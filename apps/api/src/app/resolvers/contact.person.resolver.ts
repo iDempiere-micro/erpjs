@@ -1,15 +1,15 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { ContactPerson } from '../../model/generated/entities/ContactPerson';
 import {
   ContactPersonModel,
   ContactPersonService,
   ContactPersonServiceKey,
 } from '../../model';
-import { EntityManager } from 'typeorm';
+import { ContactPerson } from '../../model/generated/entities/ContactPerson';
 import { ContactPersonSaveArgs } from '../saveArgs/contact.person.save.args';
-import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => ContactPerson)
 @UseGuards(GqlAuthGuard)

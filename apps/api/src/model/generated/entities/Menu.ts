@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,11 +8,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from './User';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { UserModel } from '../../lib/user.model';
 import { MenuItem } from './MenuItem';
-import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { User } from './User';
 
 @Index('IDX_displayName_menu', ['displayName'], { unique: true })
 @Entity('menu', { schema: 'public' })

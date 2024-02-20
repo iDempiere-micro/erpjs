@@ -1,9 +1,9 @@
 'use strict'
 
-import {ListItemObject, ListItemPrefix, ListResults, PutObjectOptions, StorageProvider} from '../../core/src/StorageProvider';
-import * as Azure from 'azure-storage'
-import {Stream, Transform} from 'stream'
-import {text} from "node:stream/consumers";
+import * as Azure from 'azure-storage';
+import { text } from "node:stream/consumers";
+import { Stream, Transform } from 'stream';
+import { ListItemObject, ListItemPrefix, ListResults, PutObjectOptions, StorageProvider } from '../../core/src/StorageProvider';
 
 /**
  * Connection options for an Azure Blob Storage provider.

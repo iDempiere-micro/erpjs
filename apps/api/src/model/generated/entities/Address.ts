@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,17 +7,16 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Country } from './Country';
-import { Customer } from './Customer';
-import { Organization } from './Organization';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { AddressModel } from '../../lib/address.model';
-import { Field, ObjectType } from '@nestjs/graphql';
 import { CountryModel } from '../../lib/country.model';
 import { CustomerModel } from '../../lib/customer.model';
 import { OrganizationModel } from '../../lib/organization.model';
-import { User } from './User';
 import { UserModel } from '../../lib/user.model';
-import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { Country } from './Country';
+import { Customer } from './Customer';
+import { Organization } from './Organization';
+import { User } from './User';
 
 @Entity('address', { schema: 'public' })
 @ObjectType()

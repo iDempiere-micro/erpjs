@@ -1,8 +1,8 @@
-import { PRODUCT_LIST_PARTS_RAW } from './product';
 import { CURRENCY_LIST_PARTS_RAW } from './currency';
 import { CUSTOMER_LIST_PARTS_RAW } from './customer';
 import { FACTORING_PROVIDER_LIST_PARTS_RAW } from './factoringProvider';
 import { ORGANIZATION_DETAIL_PARTS_RAW } from './organization';
+import { PRODUCT_LIST_PARTS_RAW } from './product';
 
 export const SALES_INVOICE_LINE_DETAIL_PARTS_RAW = `
     id

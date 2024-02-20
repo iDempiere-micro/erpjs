@@ -1,3 +1,4 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -5,11 +6,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Organization } from './Organization';
 import { OrganizationModel } from '../../lib/organization.model';
-import { User } from './User';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { UserModel } from '../../lib/user.model';
+import { Organization } from './Organization';
+import { User } from './User';
 
 @Entity('document_number_sequence', { schema: 'public' })
 @ObjectType()

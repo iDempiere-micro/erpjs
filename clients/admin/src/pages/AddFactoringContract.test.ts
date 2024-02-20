@@ -1,12 +1,12 @@
 import { fireEvent } from '@testing-library/svelte';
 import { expect } from 'chai';
-import AddFactoringContract from './AddFactoringContract.svelte';
 import { setupLocales } from '../i18n';
-import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
 import { mock as mockCustomers } from '../lib/queries/customers';
+import { mock as mockFactoringProviders } from '../lib/queries/factoringProviders';
 import { mock as mockOrganizations } from '../lib/queries/organizations';
-import { getFormElements } from '../lib/support/testHelpers';
 import { apollo, setClient } from '../lib/support/apollo';
+import { getFormElements } from '../lib/support/testHelpers';
+import AddFactoringContract from './AddFactoringContract.svelte';
 
 describe('<AddFactoringContract>', function () {
     before(() => {

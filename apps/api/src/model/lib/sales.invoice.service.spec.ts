@@ -2,34 +2,34 @@ import { Test } from '@nestjs/testing';
 
 import * as _ from 'lodash';
 import { EntityManager } from 'typeorm';
-import { TaxServiceKey } from './tax.service';
+import { SalesInvoice } from '../generated/entities/SalesInvoice';
+import { AttachmentServiceKey } from './attachment.service';
+import { BankAccountServiceKey } from './bank.account.service';
+import { CurrencyModel } from './currency.model';
+import { CurrencyRateServiceKey } from './currency.rate.service';
+import { CurrencyServiceKey } from './currency.service';
+import { CustomerServiceKey } from './customer.service';
+import { DocumentNumberingServiceKey } from './document.numbering.service';
+import { FactoringContractModel } from './factoring.contract.model';
+import { FactoringContractServiceKey } from './factoring.contract.service';
+import { FactoringProviderServiceKey } from './factoring.provider.service';
+import { LanguagesServiceKey } from './languages.service';
+import { MailServiceKey } from './mail.service';
+import { OrganizationServiceKey } from './organization.service';
 import { ProductServiceKey } from './product.service';
+import { ReportsServiceKey } from './reports.service';
+import { SalesInvoiceLineModel } from './sales.invoice.line.model';
 import {
   SalesInvoiceLineServiceKey,
   SalesInvoiceService,
 } from './sales.invoice.service';
-import { BankAccountServiceKey } from './bank.account.service';
-import { CustomerServiceKey } from './customer.service';
-import { OrganizationServiceKey } from './organization.service';
-import { CurrencyServiceKey } from './currency.service';
-import { ReportsServiceKey } from './reports.service';
-import { LanguagesServiceKey } from './languages.service';
-import { CurrencyModel } from './currency.model';
-import { CurrencyRateServiceKey } from './currency.rate.service';
 import { SalesInvoiceVatServiceKey } from './sales.invoice.vat.service';
-import { DocumentNumberingServiceKey } from './document.numbering.service';
 import {
   SaveArgsValidationService,
   SaveArgsValidationServiceKey,
 } from './save.args.validation.service';
 import { TaxModel } from './tax.model';
-import { SalesInvoiceLineModel } from './sales.invoice.line.model';
-import { SalesInvoice } from '../generated/entities/SalesInvoice';
-import { FactoringContractServiceKey } from './factoring.contract.service';
-import { FactoringProviderServiceKey } from './factoring.provider.service';
-import { FactoringContractModel } from './factoring.contract.model';
-import { MailServiceKey } from './mail.service';
-import { AttachmentServiceKey } from './attachment.service';
+import { TaxServiceKey } from './tax.service';
 import { XmlService, XmlServiceKey } from './xml.service';
 
 const mockTaxService = {

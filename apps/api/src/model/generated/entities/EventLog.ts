@@ -1,6 +1,6 @@
-import { EventLogModel } from '../../lib/eventLog.model';
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { EventLogModel } from '../../lib/eventLog.model';
 
 @Entity('eventLog', { schema: 'public' })
 @ObjectType()

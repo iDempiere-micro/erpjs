@@ -1,21 +1,21 @@
 import { Inject, Injectable } from '@nestjs/common';
+import * as _ from 'lodash';
 import * as moment from 'moment';
-import {
-  TranslationService,
-  TranslationServiceKey,
-} from './translation.service';
+import { LanguageModel } from './language.model';
+import { getService } from './module.reference.service';
 import {
   PrintSalesInvoice,
   PrintSalesInvoiceParty,
 } from './print.sales.invoice';
 import { SalesInvoiceModel } from './sales.invoice.model';
-import { LanguageModel } from './language.model';
-import * as _ from 'lodash';
-import { getService } from './module.reference.service';
 import {
   SalesInvoiceService,
   SalesInvoiceServiceKey,
 } from './sales.invoice.service';
+import {
+  TranslationService,
+  TranslationServiceKey,
+} from './translation.service';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');

@@ -1,4 +1,4 @@
-import { FactoringContractModel } from '../../lib/factoring.contract.model';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -6,16 +6,16 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { FactoringProvider } from './FactoringProvider';
-import { Customer } from './Customer';
-import { FactoringProviderModel } from '../../lib/factoring.provider.model';
-import { CustomerModel } from '../../lib/customer.model';
-import { Organization } from './Organization';
-import { OrganizationModel } from '../../lib/organization.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
-import { User } from './User';
+import { CustomerModel } from '../../lib/customer.model';
+import { FactoringContractModel } from '../../lib/factoring.contract.model';
+import { FactoringProviderModel } from '../../lib/factoring.provider.model';
+import { OrganizationModel } from '../../lib/organization.model';
 import { UserModel } from '../../lib/user.model';
+import { Customer } from './Customer';
+import { FactoringProvider } from './FactoringProvider';
+import { Organization } from './Organization';
+import { User } from './User';
 
 @Entity('factoringContract', { schema: 'public' })
 @ObjectType()

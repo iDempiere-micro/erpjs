@@ -1,10 +1,10 @@
-import { getAllByText, render } from '@testing-library/svelte';
+import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import SalesInvoiceDetail from './SalesInvoiceDetail.svelte';
 import { setupLocales } from '../i18n';
-import { mock1 } from '../lib/queries/salesInvoice';
 import { mock as customerMock } from '../lib/queries/customer';
+import { mock1 } from '../lib/queries/salesInvoice';
 import { apollo, setClient } from '../lib/support/apollo';
+import SalesInvoiceDetail from './SalesInvoiceDetail.svelte';
 
 describe('<SalesInvoiceDetail>', function () {
     before(() => {

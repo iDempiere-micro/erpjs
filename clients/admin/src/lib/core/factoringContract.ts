@@ -1,19 +1,18 @@
+import type { DocumentNode } from '@apollo/client/core';
+import type { ListItemType } from '../../dsl/types';
 import type {
     FactoringContractByIdQuery,
     FactoringContractsQuery,
     SaveFactoringContractMutation,
-    SaveFactoringContractMutationVariables,
+    SaveFactoringContractMutationVariables
 } from '../../generated/graphql';
-import type { SelectItem } from '../support/select';
 import type { FactoringContractDetail, FactoringContractRow } from '../model/factoringContract';
-import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
 import {
     GET_FACTORING_CONTRACT_BY_ID,
-    SAVE_FACTORING_CONTRACT,
+    SAVE_FACTORING_CONTRACT
 } from '../queries/factoringContract';
 import { FACTORING_CONTRACTS } from '../queries/factoringContracts';
-import type { ListItemType } from '../../dsl/types';
+import { BaseEntityService } from './entityStore';
 
 class FactoringContractService extends BaseEntityService<
     FactoringContractDetail,

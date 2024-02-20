@@ -1,15 +1,15 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { FactoringContract } from '../../model/generated/entities/FactoringContract';
 import {
   FactoringContractModel,
   FactoringContractService,
   FactoringContractServiceKey,
 } from '../../model';
-import { EntityManager } from 'typeorm';
+import { FactoringContract } from '../../model/generated/entities/FactoringContract';
 import { FactoringContractSaveArgs } from '../saveArgs/factoring.contract.save.args';
-import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => FactoringContract)
 @UseGuards(GqlAuthGuard)

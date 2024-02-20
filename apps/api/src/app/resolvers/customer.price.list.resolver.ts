@@ -1,15 +1,15 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { CustomerPriceList } from '../../model/generated/entities/CustomerPriceList';
 import {
   CustomerPriceListModel,
   CustomerPriceListService,
   CustomerPriceListServiceKey,
 } from '../../model';
-import { EntityManager } from 'typeorm';
+import { CustomerPriceList } from '../../model/generated/entities/CustomerPriceList';
 import { CustomerPriceListSaveArgs } from '../saveArgs/customerPriceList.save.args';
-import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => CustomerPriceList)
 @UseGuards(GqlAuthGuard)

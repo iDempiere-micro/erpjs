@@ -1,6 +1,6 @@
 import { query, ReadableQuery } from '../../absorb/svelte-apollo';
-import { MAIL_SENT_FROM } from '../queries/mail';
 import type { MailSentFromQuery } from '../../generated/graphql';
+import { MAIL_SENT_FROM } from '../queries/mail';
 
 class MailService {
     getSentFrom(): ReadableQuery<MailSentFromQuery> {

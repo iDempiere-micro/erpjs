@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -5,17 +6,16 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { SalesInvoice } from './SalesInvoice';
-import { Tax } from './Tax';
-import { Product } from './Product';
-import { SalesInvoiceLineModel } from '../../lib/sales.invoice.line.model';
-import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
-import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from './User';
-import { UserModel } from '../../lib/user.model';
 import { DateTimeScalarType } from '../../../app/support/date.scalar';
 import { ProductModel } from '../../lib/product.model';
+import { SalesInvoiceLineModel } from '../../lib/sales.invoice.line.model';
+import { SalesInvoiceModel } from '../../lib/sales.invoice.model';
 import { TaxModel } from '../../lib/tax.model';
+import { UserModel } from '../../lib/user.model';
+import { Product } from './Product';
+import { SalesInvoice } from './SalesInvoice';
+import { Tax } from './Tax';
+import { User } from './User';
 
 @Entity('sales_invoice_line', { schema: 'public' })
 @ObjectType()

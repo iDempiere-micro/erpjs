@@ -1,61 +1,11 @@
-import { SalesInvoiceModel } from './sales.invoice.model';
-import { SalesInvoiceSaveArgsModel } from './sales.invoice.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import {
-  BankAccountService,
-  BankAccountServiceKey,
-} from './bank.account.service';
-import { CustomerService, CustomerServiceKey } from './customer.service';
 import { Inject, Injectable } from '@nestjs/common';
-import { CurrencyService, CurrencyServiceKey } from './currency.service';
-import { TaxService, TaxServiceKey } from './tax.service';
-import { ReportsService, ReportsServiceKey } from './reports.service';
-import { LanguagesService, LanguagesServiceKey } from './languages.service';
-import {
-  CurrencyRateService,
-  CurrencyRateServiceKey,
-} from './currency.rate.service';
 import * as _ from 'lodash';
-import { SalesInvoiceVatModel } from './sales.invoice.vat.model';
-import {
-  SalesInvoiceVatService,
-  SalesInvoiceVatServiceKey,
-} from './sales.invoice.vat.service';
-import {
-  DocumentNumberingService,
-  DocumentNumberingServiceKey,
-} from './document.numbering.service';
-import { BaseEntityService } from './base.entity.service';
-import {
-  OrganizationService,
-  OrganizationServiceKey,
-} from './organization.service';
-import { getService } from './module.reference.service';
-import { SalesInvoiceLineModel } from './sales.invoice.line.model';
-import { SalesInvoiceLineSaveArgsModel } from './sales.invoice.line.save.args.model';
-import { ProductService, ProductServiceKey } from './product.service';
-import { OrganizationModel } from './organization.model';
-import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
-import { SalesInvoice } from '../generated/entities/SalesInvoice';
-import { UserModel } from './user.model';
-import { SalesInvoiceMonthlySaveArgsModel } from './sales.invoice.monthly.save.args.model';
-import {
-  CustomerPriceListService,
-  CustomerPriceListServiceKey,
-} from './customer.price.list.service';
-import { CustomerProductPriceModel } from './customer.product.price.model';
-import {
-  FactoringContractService,
-  FactoringContractServiceKey,
-} from './factoring.contract.service';
-import {
-  FactoringProviderService,
-  FactoringProviderServiceKey,
-} from './factoring.provider.service';
-import { SalesInvoicePublishArgsModel } from './sales.invoice.vat.save.args.model';
-import { MailAttachment, MailService, MailServiceKey } from './mail.service';
-import { AttachmentService, AttachmentServiceKey } from './attachment.service';
+import { EntityManager, Repository } from 'typeorm';
 import { CrossIndustryInvoiceType } from '../../../../../libs/ZUGFeRD-Factur-X/generated';
+import {
+  CurrencyCodeType,
+  DocumentCodeType,
+} from '../../../../../libs/ZUGFeRD-Factur-X/generated/QualifiedDataType_100';
 import {
   DocumentContextParameterType,
   ExchangedDocumentContextType,
@@ -67,18 +17,68 @@ import {
   TradePartyType,
   TradeSettlementHeaderMonetarySummationType,
 } from '../../../../../libs/ZUGFeRD-Factur-X/generated/ReusableAggregateBusinessInformationEntity_100';
-import moment = require('moment');
 import {
   AmountType,
   DateTimeType,
   IDType,
   TextType,
 } from '../../../../../libs/ZUGFeRD-Factur-X/generated/UnqualifiedDataType_100';
-import { XmlService, XmlServiceKey } from './xml.service';
+import { SalesInvoice } from '../generated/entities/SalesInvoice';
+import { SalesInvoiceLine } from '../generated/entities/SalesInvoiceLine';
+import { AttachmentService, AttachmentServiceKey } from './attachment.service';
 import {
-  CurrencyCodeType,
-  DocumentCodeType,
-} from '../../../../../libs/ZUGFeRD-Factur-X/generated/QualifiedDataType_100';
+  BankAccountService,
+  BankAccountServiceKey,
+} from './bank.account.service';
+import { BaseEntityService } from './base.entity.service';
+import {
+  CurrencyRateService,
+  CurrencyRateServiceKey,
+} from './currency.rate.service';
+import { CurrencyService, CurrencyServiceKey } from './currency.service';
+import {
+  CustomerPriceListService,
+  CustomerPriceListServiceKey,
+} from './customer.price.list.service';
+import { CustomerProductPriceModel } from './customer.product.price.model';
+import { CustomerService, CustomerServiceKey } from './customer.service';
+import {
+  DocumentNumberingService,
+  DocumentNumberingServiceKey,
+} from './document.numbering.service';
+import {
+  FactoringContractService,
+  FactoringContractServiceKey,
+} from './factoring.contract.service';
+import {
+  FactoringProviderService,
+  FactoringProviderServiceKey,
+} from './factoring.provider.service';
+import { LanguagesService, LanguagesServiceKey } from './languages.service';
+import { MailAttachment, MailService, MailServiceKey } from './mail.service';
+import { getService } from './module.reference.service';
+import { OrganizationModel } from './organization.model';
+import {
+  OrganizationService,
+  OrganizationServiceKey,
+} from './organization.service';
+import { ProductService, ProductServiceKey } from './product.service';
+import { ReportsService, ReportsServiceKey } from './reports.service';
+import { SalesInvoiceLineModel } from './sales.invoice.line.model';
+import { SalesInvoiceLineSaveArgsModel } from './sales.invoice.line.save.args.model';
+import { SalesInvoiceModel } from './sales.invoice.model';
+import { SalesInvoiceMonthlySaveArgsModel } from './sales.invoice.monthly.save.args.model';
+import { SalesInvoiceSaveArgsModel } from './sales.invoice.save.args.model';
+import { SalesInvoiceVatModel } from './sales.invoice.vat.model';
+import { SalesInvoicePublishArgsModel } from './sales.invoice.vat.save.args.model';
+import {
+  SalesInvoiceVatService,
+  SalesInvoiceVatServiceKey,
+} from './sales.invoice.vat.service';
+import { TaxService, TaxServiceKey } from './tax.service';
+import { UserModel } from './user.model';
+import { XmlService, XmlServiceKey } from './xml.service';
+import moment = require('moment');
 
 export const SalesInvoiceServiceKey = 'SalesInvoiceService';
 

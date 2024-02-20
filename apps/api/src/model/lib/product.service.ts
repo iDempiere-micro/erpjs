@@ -1,9 +1,9 @@
+import { Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { Product } from '../generated/entities/Product';
 import { BaseEntityService } from './base.entity.service';
 import { ProductModel } from './product.model';
 import { ProductSaveArgsModel } from './product.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
-import { Product } from '../generated/entities/Product';
 
 export const ProductServiceKey = 'ProductService';
 

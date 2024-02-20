@@ -1,14 +1,14 @@
+import type { DocumentNode } from '@apollo/client/core';
 import type {
     CurrenciesQuery,
     CurrencyByIdQuery,
     SaveCurrencyMutation,
-    SaveCurrencyMutationVariables,
+    SaveCurrencyMutationVariables
 } from '../../generated/graphql';
+import type { CurrencyDetail, CurrencyRow } from '../model/currency';
 import { CURRENCIES } from '../queries/currencies';
 import { GET_CURRENCY_BY_ID, SAVE_CURRENCY } from '../queries/currency';
-import type { CurrencyDetail, CurrencyRow } from '../model/currency';
 import { BaseEntityService } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
 
 class CurrencyService extends BaseEntityService<
     CurrencyDetail,

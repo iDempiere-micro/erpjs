@@ -1,7 +1,7 @@
-import { CreateAnAddress1595508635328 } from './migrations/1595508635328-CreateAnAddress';
-import { CreateUser1595508635324 } from './migrations/1595508635324-CreateUser';
 import { CreateDB1595508635320 } from './migrations/1595508635320-CreateDB';
+import { CreateUser1595508635324 } from './migrations/1595508635324-CreateUser';
 import { Language1595508635326 } from './migrations/1595508635326-Language';
+import { CreateAnAddress1595508635328 } from './migrations/1595508635328-CreateAnAddress';
 import { Menu1612978737166 } from './migrations/1612978737166-Menu';
 import { MenuContent1612983991735 } from './migrations/1612983991735-MenuContent';
 import { EnhanceCustomer1615749063579 } from './migrations/1615749063579-EnhanceCustomer';

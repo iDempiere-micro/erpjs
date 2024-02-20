@@ -1,3 +1,4 @@
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,13 +8,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { DateTimeScalarType } from '../../../app/support/date.scalar';
+import { UserModel } from '../../lib/user.model';
 import { AccountingScheme } from './AccountingScheme';
 import { CurrencyRate } from './CurrencyRate';
 import { SalesInvoice } from './SalesInvoice';
-import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
-import { UserModel } from '../../lib/user.model';
-import { DateTimeScalarType } from '../../../app/support/date.scalar';
 
 @Index('IDX_215b85e32bfbe1cf9f1c47e14d', ['displayName'], { unique: true })
 @Entity('currency', { schema: 'public' })

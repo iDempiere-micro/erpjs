@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
-import { expect } from 'chai';
-import Nav from './Nav.svelte';
 import { setViewport } from '@web/test-runner-commands';
+import { expect } from 'chai';
 import { setupLocales } from './i18n';
 import { apollo, setClient } from './lib/support/apollo';
+import Nav from './Nav.svelte';
 
 describe('<Nav>', function () {
     before(() => {

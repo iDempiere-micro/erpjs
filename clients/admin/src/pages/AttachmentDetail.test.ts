@@ -1,9 +1,9 @@
 import { render } from '@testing-library/svelte';
 import { expect } from 'chai';
-import AttachmentDetail from './AttachmentDetail.svelte';
 import { setupLocales } from '../i18n';
 import { mock1 } from '../lib/queries/attachment';
 import { apollo, setClient } from '../lib/support/apollo';
+import AttachmentDetail from './AttachmentDetail.svelte';
 
 describe('<AttachmentDetail>', function () {
     before(() => {

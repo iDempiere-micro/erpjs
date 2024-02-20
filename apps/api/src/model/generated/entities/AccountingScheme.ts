@@ -1,3 +1,4 @@
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -7,14 +8,13 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Currency } from './Currency';
-import { Organization } from './Organization';
 import { AccountingSchemeModel } from '../../lib/accounting.scheme.model';
-import { User } from './User';
-import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { UserModel } from '../../lib/user.model';
 import { CurrencyModel } from '../../lib/currency.model';
 import { OrganizationModel } from '../../lib/organization.model';
+import { UserModel } from '../../lib/user.model';
+import { Currency } from './Currency';
+import { Organization } from './Organization';
+import { User } from './User';
 
 @Index('IDX_7f415d9c097ba5ef53afe8c39f', ['displayName'], { unique: true })
 @Entity('accounting_scheme', { schema: 'public' })

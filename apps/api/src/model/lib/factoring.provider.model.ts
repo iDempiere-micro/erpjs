@@ -1,5 +1,5 @@
-import { BaseModel } from './base.model';
 import { BankAccountModel } from './bank.account.model';
+import { BaseModel } from './base.model';
 
 export interface FactoringProviderModel extends BaseModel {
   displayName: string;

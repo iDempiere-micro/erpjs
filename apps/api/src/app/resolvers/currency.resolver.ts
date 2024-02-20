@@ -1,15 +1,15 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
-import { Currency } from '../../model/generated/entities/Currency';
 import {
   CurrencyModel,
   CurrencyService,
   CurrencyServiceKey,
 } from '../../model';
-import { EntityManager } from 'typeorm';
+import { Currency } from '../../model/generated/entities/Currency';
 import { CurrencySaveArgs } from '../saveArgs/currency.save.args';
-import { InjectEntityManager } from '@nestjs/typeorm';
 
 @Resolver(() => Currency)
 @UseGuards(GqlAuthGuard)

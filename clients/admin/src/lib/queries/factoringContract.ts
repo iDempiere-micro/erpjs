@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { mock as mockFactoringContracts } from './factoringContracts';
 import { FACTORING_CONTRACT_DETAIL_PARTS_RAW } from '../fragments/factoringContract';
+import { mock as mockFactoringContracts } from './factoringContracts';
 
 export const SAVE_FACTORING_CONTRACT = gql`
     mutation SaveFactoringContract(

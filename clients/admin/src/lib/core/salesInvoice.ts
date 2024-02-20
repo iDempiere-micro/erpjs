@@ -1,3 +1,5 @@
+import type { DocumentNode } from '@apollo/client/core';
+import { mutation } from '../../absorb/svelte-apollo';
 import type {
     ConfirmSalesInvoiceMutation,
     PublishSalesInvoiceMutation,
@@ -5,20 +7,18 @@ import type {
     SalesInvoiceByIdQuery,
     SalesInvoicesQuery,
     SaveSalesInvoiceMutation,
-    SaveSalesInvoiceMutationVariables,
+    SaveSalesInvoiceMutationVariables
 } from '../../generated/graphql';
+import type { SalesInvoiceDetail, SalesInvoiceRow } from '../model/salesInvoice';
 import {
     CONFIRM_SALES_INVOICE,
     DUPLICATE_SALES_INVOICE,
     GET_SALES_INVOICE_BY_ID,
     PUBLISH_SALES_INVOICE,
-    SAVE_SALES_INVOICE,
+    SAVE_SALES_INVOICE
 } from '../queries/salesInvoice';
-import { mutation } from '../../absorb/svelte-apollo';
-import { BaseEntityService, initDetail, invalidate } from './entityStore';
-import type { DocumentNode } from '@apollo/client/core';
-import type { SalesInvoiceDetail, SalesInvoiceRow } from '../model/salesInvoice';
 import { SALES_INVOICES } from '../queries/salesInvoices';
+import { BaseEntityService, initDetail, invalidate } from './entityStore';
 
 class SalesInvoiceService extends BaseEntityService<
     SalesInvoiceDetail,

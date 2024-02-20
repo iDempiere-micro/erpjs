@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { EntityManager } from 'typeorm';
 import * as _ from 'lodash';
+import { EntityManager } from 'typeorm';
 import { SalesInvoiceSaveArgsModel, SalesInvoiceService } from '../../model';
 
 @Injectable()

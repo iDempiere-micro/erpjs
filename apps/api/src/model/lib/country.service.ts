@@ -1,9 +1,9 @@
+import { Injectable } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
+import { Country } from '../generated/entities/Country';
 import { BaseEntityService } from './base.entity.service';
 import { CountryModel } from './country.model';
 import { CountrySaveArgsModel } from './country.save.args.model';
-import { EntityManager, Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
-import { Country } from '../generated/entities/Country';
 
 export const CountryServiceKey = 'CountryService';
 

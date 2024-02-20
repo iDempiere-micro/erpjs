@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import { mock as mockAttachments } from './attachments';
 import { ATTACHMENT_DETAIL_PARTS_RAW } from '../fragments/attachment';
+import { mock as mockAttachments } from './attachments';
 
 export const SAVE_ATTACHMENT = gql`
     mutation SaveAttachment($id: String, $displayName: String!) {

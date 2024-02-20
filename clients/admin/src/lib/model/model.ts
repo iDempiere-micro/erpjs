@@ -1,6 +1,6 @@
-import type { WithEntity, WithEntityRow } from '../core/entityStore';
 import type { FetchResult } from '@apollo/client';
 import type { Maybe, Scalars } from '../../generated/graphql';
+import type { WithEntity, WithEntityRow } from '../core/entityStore';
 import type { Store } from '../support/types';
 
 /**

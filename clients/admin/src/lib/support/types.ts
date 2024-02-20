@@ -1,5 +1,5 @@
-import type { Writable } from 'svelte/store';
 import type { RenderResult } from '@testing-library/svelte';
+import type { Writable } from 'svelte/store';
 
 export type Opt<T> = T | undefined;
 export type Store<T> = Writable<T> & { get(): T };
