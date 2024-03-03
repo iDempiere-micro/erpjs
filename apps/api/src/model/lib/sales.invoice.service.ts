@@ -757,8 +757,8 @@ export class SalesInvoiceService extends BaseEntityService<
     currentUser: UserModel,
   ): Promise<SalesInvoiceModel> => {
     const source = await this.loadEntityById(transactionalEntityManager, id);
-    source.isDraft = true;
-    return this.save(transactionalEntityManager, source, currentUser);
+    const copy = { ...source, id: null, isDraft: true, documentNo: null, printed: false, isCalculated: false }
+    return this.save(transactionalEntityManager, copy, currentUser);
   };
 
   publish = async (
