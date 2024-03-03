@@ -17,6 +17,7 @@ import { MenuResolver } from './resolvers/menu.resolver';
 import { OrganizationResolver } from './resolvers/organization.resolver';
 import { ProductResolver } from './resolvers/product.resolver';
 import { SalesInvoiceResolver } from './resolvers/sales.invoice.resolver';
+import { TaxResolver } from './resolvers/tax.resolver';
 
 export const resolvers = [
   AppResolver,
@@ -39,4 +40,5 @@ export const resolvers = [
   FactoringContractResolver,
   AttachmentResolver,
   MailResolver,
+  TaxResolver,
 ];
