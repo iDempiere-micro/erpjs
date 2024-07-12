@@ -110,6 +110,22 @@ export class SalesInvoiceResolver {
   }
 
   @Mutation(() => SalesInvoice)
+  async revertSalesInvoice(
+    @Args('id', { type: () => Int }) id: number,
+    @CurrentUser() user,
+  ): Promise<SalesInvoiceModel> {
+    const invoice = await this.salesInvoiceService.loadEntityById(
+      this.entityManager,
+      id,
+    );
+    return await this.salesInvoiceService.revert(
+      this.entityManager,
+      invoice,
+      user,
+    );
+  }
+
+  @Mutation(() => SalesInvoice)
   async publishSalesInvoice(
     @Args('args') objData: SalesInvoicePublishArgs,
     @CurrentUser() user,
