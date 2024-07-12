@@ -1,4 +1,4 @@
-import { Field } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -12,8 +12,10 @@ import { SalesInvoiceLine } from './SalesInvoiceLine';
 import { User } from './User';
 
 @Entity('tax', { schema: 'public' })
+@ObjectType()
 export class Tax {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
+  @Field()
   id: number;
 
   @Column('timestamp without time zone', {
@@ -37,12 +39,15 @@ export class Tax {
   isCurrent: boolean;
 
   @Column('character varying', { name: 'displayName' })
+  @Field()
   displayName: string;
 
   @Column('integer', { name: 'ratePercent' })
+  @Field()
   ratePercent: number;
 
   @Column('boolean', { name: 'isStandard' })
+  @Field()
   isStandard: boolean;
 
   @OneToMany(
