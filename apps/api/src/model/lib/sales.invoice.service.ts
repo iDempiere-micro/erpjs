@@ -563,7 +563,6 @@ export class SalesInvoiceService extends BaseEntityService<
     return invoice;
   }
 
-
   async fixPrint(manager: EntityManager) {
     console.log('Fix print started');
     const invoices = await manager
