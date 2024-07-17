@@ -553,6 +553,16 @@ export class SalesInvoiceService extends BaseEntityService<
     return invoice;
   }
 
+  async revert(
+    manager: EntityManager,
+    invoice: SalesInvoiceModel,
+    currentUser: UserModel,
+  ): Promise<SalesInvoiceModel> {
+    invoice.isDraft = true;
+    await this.persist(manager, invoice, currentUser);
+    return invoice;
+  }
+
   async fixPrint(manager: EntityManager) {
     console.log('Fix print started');
     const invoices = await manager
@@ -581,17 +591,19 @@ export class SalesInvoiceService extends BaseEntityService<
     notDraftInvoicesWithoutDocumentNumber: Array<SalesInvoiceModel>,
   ) {
     for (const invoice of notDraftInvoicesWithoutDocumentNumber) {
-      if (invoice.documentNo || invoice.isDraft) {
+      if (invoice.isDraft) {
         throw new Error(
           'Call with non draft invoices without document number only!',
         );
       }
-      invoice.documentNo =
-        await this.documentNumberingServiceModel.getNextDocumentNumber(
-          manager,
-          invoice.constructor,
-          await invoice.organization,
-        );
+      if (!invoice.documentNo) {
+        invoice.documentNo =
+          await this.documentNumberingServiceModel.getNextDocumentNumber(
+            manager,
+            invoice.constructor,
+            await invoice.organization,
+          );
+      }
     }
   }
 
