@@ -5,8 +5,6 @@ import * as moment from 'moment';
 import { EntityManager } from 'typeorm';
 import { CurrentUser, GqlAuthGuard } from '../../auth';
 import {
-  CustomerService,
-  CustomerServiceKey,
   SalesInvoiceModel,
   SalesInvoiceService,
   SalesInvoiceServiceKey,
@@ -28,8 +26,6 @@ export class SalesInvoiceResolver {
     protected readonly salesInvoiceService: SalesInvoiceService,
     @InjectEntityManager()
     private readonly entityManager: EntityManager,
-    @Inject(CustomerServiceKey)
-    protected readonly customerService: CustomerService,
   ) {}
 
   @Query(() => [SalesInvoice])
@@ -41,10 +37,11 @@ export class SalesInvoiceResolver {
 
   @Query(() => [SalesInvoice])
   async salesInvoicesByCustomer(@Args('customerId', { type: () => Int }) customerId: number) {
-    const customer = await this.customerService.loadEntityById(this.entityManager, customerId);
     return await this.salesInvoiceService.loadEntities(this.entityManager, {
       where: {
-        customer
+        customer : {
+          id: customerId,
+        }
       },
       order: { id: 'DESC' },
     });
