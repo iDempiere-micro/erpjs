@@ -36,7 +36,7 @@
     "apollo-link": "1.2.14",
     "apollo-link-http": "1.5.17",
     "env-cmd": "10.1.0",
-    "svelte": "~3.35.0",
+    "svelte": "~3.49.0",
     "svelte-loader-hot": "~0.3.1",
     "svelte-native-preprocessor": "^0.2.0",
     "svelte-preprocess": "^4.7.0",
